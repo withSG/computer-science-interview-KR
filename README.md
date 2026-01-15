@@ -247,23 +247,7 @@
 
 ---
 
-### 11. Practical Interview (실전 면접)
-
-- [ ] STAR 기법 이해
-- [ ] 행동 면접 질문 준비
-- [ ] 자기소개/지원동기 준비
-- [ ] QnA 복습 완료
-
----
-
-### 12. Cheatsheets (치트시트)
-
-- [ ] Backend Cheatsheet 정리
-- [ ] Frontend Cheatsheet 정리
-
----
-
-### 13. Cloud Engineering (클라우드 엔지니어링)
+### 11. Cloud Engineering (클라우드 엔지니어링)
 
 - [ ] **Cloud Fundamentals (클라우드 기초)**
   - [ ] IaaS/PaaS/SaaS
@@ -325,6 +309,15 @@
   - [ ] 시스템 설계 면접 준비
   - [ ] 행동 면접 (STAR) 답변 준비
   - [ ] QnA 복습 완료
+
+---
+
+### 99. Practical Interview (실전 면접)
+
+- [ ] STAR 기법 이해
+- [ ] 행동 면접 질문 준비
+- [ ] 자기소개/지원동기 준비
+- [ ] QnA 복습 완료
 
 ---
 
