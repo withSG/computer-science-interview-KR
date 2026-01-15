@@ -249,6 +249,309 @@ return queryFactory.selectFrom(user)
 
 ---
 
+## Q7. 관계형 데이터베이스의 구성요소를 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| 구성요소 | 설명 |
+|---------|------|
+| 테이블 (Table) | 행과 열로 구성된 데이터 집합 |
+| 행 (Row/Tuple) | 하나의 레코드, 데이터 단위 |
+| 열 (Column/Attribute) | 데이터의 속성 |
+| 스키마 (Schema) | 테이블 구조 정의 |
+| 도메인 (Domain) | 속성이 가질 수 있는 값의 범위 |
+
+### 관계형 데이터베이스 특징
+- **정형 데이터**: 스키마에 맞는 구조화된 데이터
+- **ACID 보장**: 트랜잭션 안정성
+- **SQL 사용**: 표준 질의 언어
+- **관계 표현**: 외래키로 테이블 간 관계 정의
+
+### 면접관이 주목하는 포인트
+- 릴레이션, 튜플, 속성 등 용어 이해
+- 관계형 DB vs NoSQL 비교
+
+</details>
+
+---
+
+## Q8. 데이터베이스 Key의 종류를 설명해주세요. ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| Key 종류 | 설명 |
+|---------|------|
+| 슈퍼키 (Super Key) | 유일성을 만족하는 속성 집합 |
+| 후보키 (Candidate Key) | 유일성 + 최소성을 만족 |
+| 기본키 (Primary Key) | 후보키 중 선택된 대표 키 |
+| 대체키 (Alternate Key) | 기본키가 아닌 후보키 |
+| 외래키 (Foreign Key) | 다른 테이블의 기본키 참조 |
+
+### 예시
+```sql
+-- users 테이블
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY,           -- 기본키
+    email VARCHAR(100) UNIQUE,       -- 후보키 (대체키)
+    phone VARCHAR(20) UNIQUE,        -- 후보키 (대체키)
+    department_id BIGINT REFERENCES departments(id)  -- 외래키
+);
+```
+
+### Key 특성
+
+| 특성 | 설명 |
+|------|------|
+| 유일성 | 튜플을 유일하게 식별 |
+| 최소성 | 꼭 필요한 속성만 포함 |
+| NOT NULL | 기본키는 NULL 불가 |
+
+### 면접관이 주목하는 포인트
+- 후보키와 기본키의 관계
+- 복합키 사용 시 주의점
+
+</details>
+
+---
+
+## Q9. ACID란 무엇인가요? ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+ACID는 트랜잭션이 안전하게 수행되기 위한 4가지 속성입니다.
+
+| 속성 | 의미 | 설명 |
+|------|------|------|
+| Atomicity | 원자성 | 전부 실행 또는 전부 취소 |
+| Consistency | 일관성 | 실행 전후 DB 일관성 유지 |
+| Isolation | 격리성 | 동시 트랜잭션 간 간섭 방지 |
+| Durability | 지속성 | 커밋된 결과는 영구 보존 |
+
+### 상세 설명
+
+**Atomicity (원자성)**
+```sql
+-- 계좌 이체: 둘 다 성공 OR 둘 다 취소
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;  -- 또는 ROLLBACK
+```
+
+**Isolation (격리성)**
+- 격리 수준으로 조절 (READ_COMMITTED, REPEATABLE_READ 등)
+- 높은 격리 → 안전하지만 성능 저하
+
+### 면접관이 주목하는 포인트
+- 각 속성의 실제 의미
+- 격리성과 성능의 Trade-off
+
+</details>
+
+---
+
+## Q10. NoSQL이란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+NoSQL(Not Only SQL)은 비관계형 데이터베이스로, 유연한 스키마와 수평적 확장성을 제공합니다.
+
+### NoSQL 유형
+
+| 유형 | 설명 | 예시 |
+|------|------|------|
+| Key-Value | 키-값 쌍 저장 | Redis, DynamoDB |
+| Document | JSON 문서 저장 | MongoDB, CouchDB |
+| Column-Family | 열 기반 저장 | Cassandra, HBase |
+| Graph | 노드-관계 저장 | Neo4j |
+
+### RDBMS vs NoSQL
+
+| 구분 | RDBMS | NoSQL |
+|------|-------|-------|
+| 스키마 | 고정 | 유연 |
+| 확장 | 수직 (Scale-Up) | 수평 (Scale-Out) |
+| 일관성 | 강한 일관성 | 최종 일관성 |
+| 트랜잭션 | ACID | BASE |
+| 사용 사례 | 금융, 회계 | 빅데이터, 실시간 |
+
+### BASE 속성
+- **Basically Available**: 기본적 가용성
+- **Soft-state**: 시간에 따라 상태 변경 가능
+- **Eventually consistent**: 최종적 일관성
+
+### 면접관이 주목하는 포인트
+- 언제 NoSQL을 선택하는지
+- CAP 정리와의 관계
+
+</details>
+
+---
+
+## Q11. DDL, DML, DCL에 대해 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| 분류 | 의미 | 명령어 |
+|------|------|--------|
+| DDL | Data Definition Language | CREATE, ALTER, DROP, TRUNCATE |
+| DML | Data Manipulation Language | SELECT, INSERT, UPDATE, DELETE |
+| DCL | Data Control Language | GRANT, REVOKE |
+| TCL | Transaction Control Language | COMMIT, ROLLBACK, SAVEPOINT |
+
+### DDL (데이터 정의어)
+```sql
+CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(50));
+ALTER TABLE users ADD email VARCHAR(100);
+DROP TABLE users;
+TRUNCATE TABLE users;  -- 데이터만 삭제 (구조 유지)
+```
+
+### DML (데이터 조작어)
+```sql
+INSERT INTO users VALUES (1, 'Kim');
+SELECT * FROM users WHERE id = 1;
+UPDATE users SET name = 'Lee' WHERE id = 1;
+DELETE FROM users WHERE id = 1;
+```
+
+### DCL (데이터 제어어)
+```sql
+GRANT SELECT ON users TO developer;
+REVOKE SELECT ON users FROM developer;
+```
+
+### 면접관이 주목하는 포인트
+- DELETE vs TRUNCATE 차이
+- DDL은 Auto Commit
+
+</details>
+
+---
+
+## Q12. 정규화(1NF, 2NF, 3NF)에 대해 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+정규화는 데이터 중복을 최소화하고 무결성을 보장하기 위해 테이블을 분해하는 과정입니다.
+
+### 정규화 단계
+
+| 단계 | 조건 |
+|------|------|
+| 1NF | 원자값만 포함 (다중 값 X) |
+| 2NF | 1NF + 부분 함수 종속 제거 |
+| 3NF | 2NF + 이행 함수 종속 제거 |
+| BCNF | 모든 결정자가 후보키 |
+
+### 1NF 예시
+```
+[비정규형]
+학생 | 수강과목
+홍길동 | 수학, 영어, 과학  ← 다중 값
+
+[1NF]
+학생 | 수강과목
+홍길동 | 수학
+홍길동 | 영어
+홍길동 | 과학
+```
+
+### 2NF 예시
+```
+[1NF - 부분 함수 종속]
+(학생ID, 과목코드) → 성적, 학생이름
+  └─ 학생ID → 학생이름 (부분 종속)
+
+[2NF]
+학생(학생ID, 학생이름)
+성적(학생ID, 과목코드, 성적)
+```
+
+### 3NF 예시
+```
+[2NF - 이행 함수 종속]
+학생ID → 학과코드 → 학과명
+
+[3NF]
+학생(학생ID, 학과코드)
+학과(학과코드, 학과명)
+```
+
+### 면접관이 주목하는 포인트
+- 정규화의 장단점 (중복 감소 vs JOIN 증가)
+- 실무에서의 비정규화 사례
+
+</details>
+
+---
+
+## Q13. ORM이란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+ORM(Object-Relational Mapping)은 객체와 관계형 데이터베이스 테이블을 매핑하여 SQL 없이 데이터를 다룰 수 있게 하는 기술입니다.
+
+### ORM 예시
+
+| 언어 | ORM |
+|------|-----|
+| Java | JPA (Hibernate) |
+| Python | SQLAlchemy, Django ORM |
+| Node.js | TypeORM, Prisma |
+| Ruby | ActiveRecord |
+
+### 장단점
+
+| 장점 | 단점 |
+|------|------|
+| SQL 작성 감소 | 학습 곡선 |
+| 객체 중심 개발 | 복잡한 쿼리 한계 |
+| DB 독립성 | 성능 튜닝 어려움 |
+| 보안 (SQL Injection 방지) | N+1 문제 발생 가능 |
+
+### 매핑 예시 (JPA)
+```java
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
+}
+```
+
+### 면접관이 주목하는 포인트
+- ORM 사용 시 주의할 점 (N+1, Lazy Loading)
+- Native Query 필요한 경우
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] 영속성 컨텍스트 4가지 이점 설명 가능
@@ -256,3 +559,9 @@ return queryFactory.selectFrom(user)
 - [ ] 트랜잭션 격리 수준 4가지와 발생 가능 문제 암기
 - [ ] 인덱스 B-Tree 구조와 사용 주의사항 이해
 - [ ] Lazy/Eager 로딩 차이와 권장 설정 알기
+- [ ] 관계형 DB 구성요소와 Key 종류 설명 가능
+- [ ] ACID 속성 설명 가능
+- [ ] NoSQL 유형과 사용 사례 이해
+- [ ] DDL, DML, DCL 구분 가능
+- [ ] 정규화 1NF, 2NF, 3NF 설명 가능
+- [ ] ORM 장단점 이해

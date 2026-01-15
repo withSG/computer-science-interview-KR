@@ -228,6 +228,113 @@ PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder())
 
 ---
 
+## Q8. Set이란 무엇이며 어떤 종류가 있나요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+Set은 **중복을 허용하지 않는** 데이터 집합입니다. 순서가 없으며 하나의 null만 허용합니다.
+
+### Set 종류 비교
+
+| 구분 | HashSet | LinkedHashSet | TreeSet |
+|------|---------|---------------|---------|
+| 순서 | 없음 | 삽입 순서 유지 | 정렬 순서 |
+| 내부 구조 | HashMap | LinkedHashMap | Red-Black Tree |
+| 성능 | O(1) | O(1) | O(log n) |
+| null | 1개 허용 | 1개 허용 | 허용 안됨 |
+
+### 코드 예시
+```java
+// HashSet - 순서 없음
+Set<String> hashSet = new HashSet<>();
+hashSet.add("B");
+hashSet.add("A");
+hashSet.add("C");
+// 출력: [A, B, C] 또는 [C, A, B] (순서 보장 X)
+
+// LinkedHashSet - 삽입 순서 유지
+Set<String> linkedSet = new LinkedHashSet<>();
+linkedSet.add("B");
+linkedSet.add("A");
+linkedSet.add("C");
+// 출력: [B, A, C]
+
+// TreeSet - 정렬됨
+Set<String> treeSet = new TreeSet<>();
+treeSet.add("B");
+treeSet.add("A");
+treeSet.add("C");
+// 출력: [A, B, C] (알파벳 순)
+```
+
+### 사용 사례
+- **HashSet**: 빠른 검색, 중복 제거
+- **LinkedHashSet**: 순서가 중요한 중복 제거
+- **TreeSet**: 정렬된 데이터 필요
+
+### 면접관이 주목하는 포인트
+- hashCode()와 equals()의 역할
+- TreeSet에서 Comparable/Comparator 필요성
+
+</details>
+
+---
+
+## Q9. HashTable의 동작 원리와 충돌 해결 방법은? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+HashTable은 키를 **해시 함수**로 변환하여 버킷(배열)의 인덱스로 사용하는 자료구조입니다.
+
+### 동작 원리
+```
+1. key.hashCode() 계산 → 해시값
+2. 해시값 % 버킷 크기 = 인덱스
+3. 해당 인덱스에 저장/조회
+```
+
+### 해시 충돌 (Collision)
+서로 다른 키가 같은 인덱스로 매핑되는 현상
+
+### 충돌 해결 방법
+
+**1. Separate Chaining (분리 연결법)**
+```
+버킷[0] → [K1:V1] → [K2:V2] → null
+버킷[1] → [K3:V3] → null
+버킷[2] → null
+```
+- 같은 인덱스에 LinkedList로 연결
+- Java HashMap은 8개 초과 시 Red-Black Tree로 변환
+
+**2. Open Addressing (개방 주소법)**
+```
+충돌 발생 시 다른 빈 버킷 탐색
+- Linear Probing: 순차적 탐색 (+1, +2, +3...)
+- Quadratic Probing: 제곱 탐색 (+1, +4, +9...)
+- Double Hashing: 두 번째 해시 함수 사용
+```
+
+### 시간 복잡도
+
+| 연산 | 평균 | 최악 |
+|------|------|------|
+| 검색 | O(1) | O(n) |
+| 삽입 | O(1) | O(n) |
+| 삭제 | O(1) | O(n) |
+
+### 면접관이 주목하는 포인트
+- Load Factor와 리사이징
+- Java 8에서 HashMap 개선 (Tree 변환)
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] Array vs LinkedList 차이 설명 가능
@@ -236,3 +343,5 @@ PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder())
 - [ ] 이진 탐색 트리 특징 이해
 - [ ] Heap의 활용 사례 알기
 - [ ] 주요 자료구조의 시간 복잡도 암기
+- [ ] Set 종류와 차이점 설명 가능
+- [ ] HashTable 충돌 해결 방법 이해

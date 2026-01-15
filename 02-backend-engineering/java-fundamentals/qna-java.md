@@ -269,6 +269,213 @@ set.contains(user2); // false! (hashCode가 다름)
 
 ---
 
+## Q9. 동기(Synchronous)와 비동기(Asynchronous)의 차이는? ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| 구분 | 동기 (Synchronous) | 비동기 (Asynchronous) |
+|------|-------------------|----------------------|
+| 실행 방식 | 순차적, 블로킹 | 병렬적, 논블로킹 |
+| 대기 | 결과까지 대기 | 대기 없이 다음 작업 |
+| 구현 | 간단 | 복잡 (콜백, Promise) |
+
+### 동기 방식
+```java
+// 순차 실행 - 결과를 기다림
+String result1 = api.call("/users");    // 2초 대기
+String result2 = api.call("/orders");   // 3초 대기
+// 총 5초 소요
+```
+
+### 비동기 방식
+```java
+// 병렬 실행 - 대기하지 않음
+CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> api.call("/users"));
+CompletableFuture<String> future2 = CompletableFuture.supplyAsync(() -> api.call("/orders"));
+
+CompletableFuture.allOf(future1, future2).join();
+// 총 3초 소요 (더 긴 작업 기준)
+```
+
+### 블로킹 vs 논블로킹
+
+| 구분 | 블로킹 | 논블로킹 |
+|------|--------|---------|
+| 제어권 | 호출된 함수가 보유 | 호출한 함수가 보유 |
+| 대기 | 대기함 | 즉시 반환 |
+
+### 면접관이 주목하는 포인트
+- 동기/비동기와 블로킹/논블로킹 구분
+- 비동기 사용 시 에러 처리 방법
+
+</details>
+
+---
+
+## Q10. Java에서 Exception과 Error의 차이는? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+```
+Throwable
+├── Error (심각, 복구 불가)
+│   ├── OutOfMemoryError
+│   ├── StackOverflowError
+│   └── VirtualMachineError
+│
+└── Exception (복구 가능)
+    ├── Checked Exception (컴파일 타임)
+    │   ├── IOException
+    │   ├── SQLException
+    │   └── FileNotFoundException
+    │
+    └── Unchecked Exception (런타임)
+        ├── NullPointerException
+        ├── ArrayIndexOutOfBoundsException
+        └── IllegalArgumentException
+```
+
+### Checked vs Unchecked Exception
+
+| 구분 | Checked | Unchecked |
+|------|---------|-----------|
+| 확인 시점 | 컴파일 타임 | 런타임 |
+| 처리 강제 | try-catch 필수 | 선택적 |
+| 예시 | IOException | NullPointerException |
+| 부모 클래스 | Exception | RuntimeException |
+
+### 처리 예시
+```java
+// Checked - 반드시 처리
+try {
+    FileReader reader = new FileReader("file.txt");
+} catch (FileNotFoundException e) {
+    // 처리 필수
+}
+
+// Unchecked - 선택적 처리
+String str = null;
+str.length(); // NullPointerException (런타임)
+```
+
+### 면접관이 주목하는 포인트
+- Error는 try-catch로 잡으면 안 되는 이유
+- Checked Exception의 단점과 대안
+
+</details>
+
+---
+
+## Q11. HashTable과 HashMap의 차이는? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| 구분 | HashTable | HashMap |
+|------|-----------|---------|
+| 동기화 | O (Thread-safe) | X |
+| null 허용 | X (키, 값 모두) | O (키 1개, 값 N개) |
+| 성능 | 느림 | 빠름 |
+| 도입 시기 | Java 1.0 | Java 1.2 |
+
+### 코드 비교
+```java
+// HashTable - 동기화, null 불가
+Hashtable<String, String> table = new Hashtable<>();
+table.put(null, "value");  // NullPointerException!
+
+// HashMap - 비동기화, null 허용
+HashMap<String, String> map = new HashMap<>();
+map.put(null, "value");    // OK
+```
+
+### Thread-safe가 필요할 때
+```java
+// 방법 1: Collections.synchronizedMap
+Map<String, String> syncMap = Collections.synchronizedMap(new HashMap<>());
+
+// 방법 2: ConcurrentHashMap (권장)
+ConcurrentHashMap<String, String> concurrentMap = new ConcurrentHashMap<>();
+```
+
+### ConcurrentHashMap이 더 좋은 이유
+- HashTable: 전체 락 → 성능 저하
+- ConcurrentHashMap: 버킷별 락 → 높은 동시성
+
+### 면접관이 주목하는 포인트
+- 왜 HashTable 대신 ConcurrentHashMap을 사용하는지
+- HashMap의 null 키 처리 방법
+
+</details>
+
+---
+
+## Q12. Thread-safe(쓰레드 세이프)란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+Thread-safe는 여러 스레드가 동시에 접근해도 **정합성이 보장**되는 상태입니다.
+
+### Thread-safe 보장 방법
+
+| 방법 | 설명 | 예시 |
+|------|------|------|
+| synchronized | 암묵적 락 | synchronized 메서드/블록 |
+| Lock | 명시적 락 | ReentrantLock |
+| Atomic | CAS 연산 | AtomicInteger, AtomicReference |
+| 불변 객체 | 상태 변경 불가 | String, final 필드 |
+| ThreadLocal | 스레드별 복사본 | ThreadLocal<T> |
+
+### 코드 예시
+```java
+// 1. synchronized
+public synchronized void increment() {
+    count++;
+}
+
+// 2. ReentrantLock
+private Lock lock = new ReentrantLock();
+public void increment() {
+    lock.lock();
+    try {
+        count++;
+    } finally {
+        lock.unlock();
+    }
+}
+
+// 3. Atomic
+private AtomicInteger count = new AtomicInteger();
+public void increment() {
+    count.incrementAndGet();
+}
+```
+
+### Thread-safe한 클래스들
+- StringBuffer (StringBuilder는 X)
+- Vector (ArrayList는 X)
+- Hashtable (HashMap은 X)
+- ConcurrentHashMap
+- AtomicInteger, AtomicLong
+
+### 면접관이 주목하는 포인트
+- synchronized의 단점과 대안
+- CAS(Compare-And-Swap) 원리
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] OOP 4가지 특성 설명 가능
@@ -277,3 +484,7 @@ set.contains(user2); // false! (hashCode가 다름)
 - [ ] Call By Value 개념 명확히 이해
 - [ ] Virtual Threads 동작 원리 설명 가능
 - [ ] equals/hashCode 관계 이해
+- [ ] 동기/비동기 차이 설명 가능
+- [ ] Exception과 Error 구분 가능
+- [ ] HashTable vs HashMap 차이 설명 가능
+- [ ] Thread-safe 보장 방법 알기

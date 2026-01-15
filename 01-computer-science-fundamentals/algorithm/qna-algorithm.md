@@ -238,6 +238,213 @@ int fibDP(int n) {
 
 ---
 
+## Q7. 배열에서 빠진 수 찾기 ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 문제
+[0, n] 범위의 n개의 양의 정수가 담긴 배열에서 빠진 수 하나를 찾으세요.
+
+### 핵심 답변
+**XOR 연산** 또는 **수학 공식**을 사용하면 O(n) 시간, O(1) 공간으로 해결할 수 있습니다.
+
+### 방법 1: 수학 공식 (권장)
+```java
+public int missingNumber(int[] nums) {
+    int n = nums.length;
+    int expectedSum = n * (n + 1) / 2;
+    int actualSum = 0;
+    for (int num : nums) {
+        actualSum += num;
+    }
+    return expectedSum - actualSum;
+}
+```
+
+### 방법 2: XOR 연산
+```java
+public int missingNumber(int[] nums) {
+    int xor = nums.length;
+    for (int i = 0; i < nums.length; i++) {
+        xor ^= i ^ nums[i];
+    }
+    return xor;
+}
+```
+
+### 시간/공간 복잡도
+- 시간: O(n)
+- 공간: O(1)
+
+### 면접관이 주목하는 포인트
+- 정렬 없이 O(n)으로 해결하는 아이디어
+- 오버플로우 고려 (큰 n에서 sum 방식은 주의)
+
+</details>
+
+---
+
+## Q8. 배열로 가장 큰 숫자 만들기 ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 문제
+정수 배열이 주어졌을 때, 배열의 숫자들을 이어붙여 만들 수 있는 가장 큰 숫자를 반환하세요.
+
+### 핵심 답변
+**커스텀 비교 함수**로 정렬합니다. 두 숫자 a, b를 비교할 때 "ab" vs "ba"를 비교하여 더 큰 조합이 앞에 오도록 합니다.
+
+### 구현 (Java)
+```java
+public String largestNumber(int[] nums) {
+    String[] strs = new String[nums.length];
+    for (int i = 0; i < nums.length; i++) {
+        strs[i] = String.valueOf(nums[i]);
+    }
+
+    Arrays.sort(strs, (a, b) -> (b + a).compareTo(a + b));
+
+    // 모두 0인 경우
+    if (strs[0].equals("0")) return "0";
+
+    StringBuilder sb = new StringBuilder();
+    for (String s : strs) {
+        sb.append(s);
+    }
+    return sb.toString();
+}
+```
+
+### 예시
+```
+입력: [3, 30, 34, 5, 9]
+비교: "330" vs "303" → 3이 30보다 앞
+정렬: [9, 5, 34, 3, 30]
+출력: "9534330"
+```
+
+### 시간/공간 복잡도
+- 시간: O(n log n) - 정렬
+- 공간: O(n) - 문자열 배열
+
+### 면접관이 주목하는 포인트
+- 비교 함수의 아이디어
+- 엣지 케이스 (모두 0인 경우)
+
+</details>
+
+---
+
+## Q9. 배열에서 중복 원소 찾기 ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 문제
+n+1 크기의 배열에 1~n 범위의 정수가 들어있을 때, 중복되는 숫자를 찾으세요.
+
+### 핵심 답변
+**Floyd의 순환 탐지 알고리즘** (토끼와 거북이)을 사용하면 O(n) 시간, O(1) 공간으로 해결 가능합니다.
+
+### 방법 1: HashSet (간단)
+```java
+public int findDuplicate(int[] nums) {
+    Set<Integer> seen = new HashSet<>();
+    for (int num : nums) {
+        if (!seen.add(num)) {
+            return num;
+        }
+    }
+    return -1;
+}
+// 시간 O(n), 공간 O(n)
+```
+
+### 방법 2: Floyd's Cycle Detection (최적)
+```java
+public int findDuplicate(int[] nums) {
+    int slow = nums[0];
+    int fast = nums[0];
+
+    // 순환 탐지
+    do {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    } while (slow != fast);
+
+    // 순환 시작점 찾기
+    slow = nums[0];
+    while (slow != fast) {
+        slow = nums[slow];
+        fast = nums[fast];
+    }
+    return slow;
+}
+// 시간 O(n), 공간 O(1)
+```
+
+### 면접관이 주목하는 포인트
+- 배열을 수정하지 않고 O(1) 공간으로 해결
+- 순환 탐지 알고리즘 이해
+
+</details>
+
+---
+
+## Q10. 유전 알고리즘(Genetic Algorithm)이란? ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+유전 알고리즘은 **생물의 진화 과정**을 모방한 최적화 알고리즘입니다. 자연 선택, 교차, 돌연변이를 통해 해를 점진적으로 개선합니다.
+
+### 주요 개념
+
+| 용어 | 설명 |
+|------|------|
+| 염색체 (Chromosome) | 하나의 해 후보 |
+| 유전자 (Gene) | 해를 구성하는 개별 요소 |
+| 적합도 (Fitness) | 해의 품질 평가 함수 |
+| 선택 (Selection) | 적합도가 높은 개체 선택 |
+| 교차 (Crossover) | 두 부모의 유전자를 조합 |
+| 돌연변이 (Mutation) | 무작위로 유전자 변경 |
+
+### 동작 과정
+```
+1. 초기 집단 생성 (랜덤)
+2. 적합도 평가
+3. 선택 (룰렛 휠, 토너먼트 등)
+4. 교차 (부모 조합)
+5. 돌연변이 (다양성 유지)
+6. 새로운 세대 생성
+7. 종료 조건까지 반복
+```
+
+### 사용 사례
+- 외판원 문제 (TSP)
+- 스케줄링
+- 신경망 하이퍼파라미터 튜닝
+- 게임 AI
+
+### 장단점
+
+| 장점 | 단점 |
+|------|------|
+| 복잡한 문제에 적용 가능 | 최적해 보장 X |
+| 전역 최적해 탐색 | 수렴 느림 |
+| 도메인 지식 적게 필요 | 파라미터 튜닝 필요 |
+
+### 면접관이 주목하는 포인트
+- 언제 사용하는지 이해
+- 다른 최적화 알고리즘과 비교 (시뮬레이티드 어닐링 등)
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] Big-O 표기법 이해 및 주요 복잡도 암기
@@ -246,3 +453,5 @@ int fibDP(int n) {
 - [ ] DFS vs BFS 차이 및 사용 사례 이해
 - [ ] DP 개념 및 간단한 문제 풀이 가능
 - [ ] 정렬 알고리즘 복잡도 비교표 암기
+- [ ] 배열 관련 코딩 문제 패턴 이해
+- [ ] 유전 알고리즘 개념 이해

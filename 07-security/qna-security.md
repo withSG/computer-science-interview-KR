@@ -219,6 +219,219 @@ Access-Control-Allow-Credentials: true
 
 ---
 
+## Q6. CSRF(Cross-Site Request Forgery) 공격이란? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+CSRF는 인증된 사용자를 이용해 **의도하지 않은 요청을 서버에 전송**하게 하는 공격입니다.
+
+### 공격 시나리오
+```
+1. 사용자가 은행 사이트에 로그인 (쿠키 발급)
+2. 공격자가 만든 악성 페이지 방문
+3. 악성 페이지에서 은행에 송금 요청
+   <img src="https://bank.com/transfer?to=attacker&amount=1000000">
+4. 브라우저가 자동으로 쿠키 포함하여 요청
+5. 은행 서버는 정상 요청으로 처리
+```
+
+### 방어 방법
+
+**1. CSRF Token**
+```html
+<!-- 서버에서 발급한 토큰을 폼에 포함 -->
+<form action="/transfer" method="POST">
+    <input type="hidden" name="_csrf" value="abc123xyz">
+    <button>송금</button>
+</form>
+```
+
+**2. SameSite Cookie**
+```http
+Set-Cookie: session=abc; SameSite=Strict
+```
+- Strict: 다른 사이트에서 쿠키 전송 X
+- Lax: GET만 허용
+- None: 항상 전송 (HTTPS 필수)
+
+**3. Referer/Origin 검증**
+```java
+String origin = request.getHeader("Origin");
+if (!allowedOrigins.contains(origin)) {
+    throw new SecurityException("Invalid origin");
+}
+```
+
+### CSRF vs XSS
+
+| 구분 | CSRF | XSS |
+|------|------|-----|
+| 공격 대상 | 서버 | 사용자 |
+| 이용 대상 | 사용자 인증 정보 | 브라우저 |
+| 목적 | 의도하지 않은 요청 | 스크립트 실행 |
+
+### 면접관이 주목하는 포인트
+- CSRF Token 동작 원리
+- SameSite 쿠키 설정
+
+</details>
+
+---
+
+## Q7. 해시 함수의 특징을 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+해시 함수는 임의 길이의 데이터를 **고정 길이의 해시값**으로 변환하는 함수입니다.
+
+### 해시 함수의 특성
+
+| 특성 | 설명 |
+|------|------|
+| 결정성 | 같은 입력 → 항상 같은 출력 |
+| 단방향성 | 해시값 → 원본 복원 불가 |
+| 충돌 저항성 | 같은 해시를 만드는 두 입력 찾기 어려움 |
+| 눈사태 효과 | 입력 조금만 바뀌어도 결과 완전히 다름 |
+
+### 해시 알고리즘 비교
+
+| 알고리즘 | 출력 크기 | 보안성 | 용도 |
+|---------|----------|--------|------|
+| MD5 | 128bit | 취약 | 비권장 |
+| SHA-1 | 160bit | 취약 | 비권장 |
+| SHA-256 | 256bit | 안전 | 파일 검증 |
+| bcrypt | 가변 | 안전 | 비밀번호 |
+
+### 사용 사례
+- **비밀번호 저장**: bcrypt, argon2
+- **파일 무결성 검증**: SHA-256
+- **데이터 구조**: HashMap
+
+### 비밀번호 저장 모범 사례
+```java
+// 나쁜 예
+String hash = sha256(password);  // 레인보우 테이블 공격 가능
+
+// 좋은 예
+String hash = BCrypt.hashpw(password, BCrypt.gensalt());
+// Salt + 느린 해시 = 안전
+```
+
+### 면접관이 주목하는 포인트
+- Salt의 역할
+- 왜 bcrypt가 권장되는지 (느린 연산)
+
+</details>
+
+---
+
+## Q8. 대칭키와 비대칭키 암호화의 차이는? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| 구분 | 대칭키 | 비대칭키 |
+|------|--------|---------|
+| 키 개수 | 1개 (공유) | 2개 (공개키, 개인키) |
+| 속도 | 빠름 | 느림 |
+| 키 교환 | 어려움 | 쉬움 |
+| 예시 | AES, DES | RSA, ECDSA |
+| 용도 | 데이터 암호화 | 키 교환, 서명 |
+
+### 대칭키 암호화
+```
+송신자          수신자
+  │               │
+  │──── 암호화 ───►│ (같은 키 사용)
+  │     데이터      │
+  │◄─── 복호화 ────│
+```
+- 장점: 빠름
+- 단점: 키 공유 문제
+
+### 비대칭키 암호화
+```
+송신자                 수신자
+  │                     │
+  │◄── 공개키 전달 ─────│
+  │                     │
+  │── 공개키로 암호화 ──►│
+  │                     │
+  │     개인키로 복호화   │
+```
+- 공개키: 암호화용 (공개)
+- 개인키: 복호화용 (비밀)
+
+### HTTPS에서의 활용
+```
+1. 서버가 공개키 전송
+2. 클라이언트가 대칭키 생성
+3. 공개키로 대칭키 암호화하여 전송
+4. 이후 대칭키로 통신 (빠름)
+```
+
+### 면접관이 주목하는 포인트
+- 왜 둘을 함께 사용하는지 (하이브리드)
+- RSA의 원리 (소인수분해 어려움)
+
+</details>
+
+---
+
+## Q9. 암호화 알고리즘의 종류를 설명해주세요. ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 대칭키 알고리즘
+
+| 알고리즘 | 블록 크기 | 키 길이 | 상태 |
+|---------|----------|---------|------|
+| DES | 64bit | 56bit | 취약 |
+| 3DES | 64bit | 168bit | 레거시 |
+| AES | 128bit | 128/192/256bit | 권장 |
+
+### 비대칭키 알고리즘
+
+| 알고리즘 | 기반 | 용도 |
+|---------|------|------|
+| RSA | 소인수분해 | 암호화, 서명 |
+| DSA | 이산 로그 | 서명 전용 |
+| ECDSA | 타원 곡선 | 서명 (작은 키) |
+| Diffie-Hellman | 이산 로그 | 키 교환 |
+
+### AES 예시 (Java)
+```java
+// 암호화
+Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivSpec);
+byte[] encrypted = cipher.doFinal(plainText.getBytes());
+
+// 복호화
+cipher.init(Cipher.DECRYPT_MODE, secretKey, ivSpec);
+byte[] decrypted = cipher.doFinal(encrypted);
+```
+
+### 선택 가이드
+- **데이터 암호화**: AES-256-GCM
+- **비밀번호 저장**: bcrypt, Argon2
+- **디지털 서명**: ECDSA, RSA
+- **키 교환**: ECDH, RSA
+
+### 면접관이 주목하는 포인트
+- AES의 모드 (ECB, CBC, GCM)
+- IV(Initialization Vector)의 역할
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] SQL Injection 방어 방법 알기
@@ -226,3 +439,7 @@ Access-Control-Allow-Credentials: true
 - [ ] HTTPS/TLS 동작 원리 이해
 - [ ] 암호화와 해싱 차이 설명 가능
 - [ ] CORS 동작 원리 이해
+- [ ] CSRF 공격과 방어 방법 이해
+- [ ] 해시 함수 특성 설명 가능
+- [ ] 대칭키/비대칭키 암호화 차이 설명 가능
+- [ ] 주요 암호화 알고리즘 종류 알기

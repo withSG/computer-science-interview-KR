@@ -230,6 +230,86 @@ Coffee coffee = new MilkDecorator(new BasicCoffee());
 
 ---
 
+## Q6. MVC 패턴이란? ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+MVC는 애플리케이션을 **Model, View, Controller** 세 부분으로 분리하여 관심사를 분리하는 아키텍처 패턴입니다.
+
+### 구성 요소
+
+| 구성 요소 | 역할 | 예시 |
+|---------|------|------|
+| Model | 데이터, 비즈니스 로직 | Entity, Service |
+| View | 사용자 인터페이스 | JSP, Thymeleaf, HTML |
+| Controller | 요청 처리, 흐름 제어 | @Controller |
+
+### 동작 흐름
+```
+1. 사용자 요청
+       ↓
+2. Controller (요청 분석)
+       ↓
+3. Model (비즈니스 로직)
+       ↓
+4. Controller (결과 전달)
+       ↓
+5. View (화면 렌더링)
+       ↓
+6. 사용자 응답
+```
+
+### Spring MVC 예시
+```java
+// Controller
+@Controller
+public class UserController {
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/users/{id}")
+    public String getUser(@PathVariable Long id, Model model) {
+        User user = userService.findById(id);  // Model 조회
+        model.addAttribute("user", user);       // View에 전달
+        return "user/detail";                   // View 이름
+    }
+}
+
+// Model (Service)
+@Service
+public class UserService {
+    public User findById(Long id) {
+        return userRepository.findById(id);
+    }
+}
+
+// View (Thymeleaf)
+<div th:text="${user.name}">사용자 이름</div>
+```
+
+### MVC 패턴의 장점
+- **관심사 분리**: 각 부분이 독립적으로 개발/테스트 가능
+- **유지보수성**: 코드 수정이 다른 부분에 영향 최소화
+- **재사용성**: Model을 여러 View에서 사용 가능
+
+### 변형 패턴
+
+| 패턴 | 특징 |
+|------|------|
+| MVP | View와 Model 분리 (Presenter 중재) |
+| MVVM | 데이터 바인딩 (ViewModel) |
+
+### 면접관이 주목하는 포인트
+- MVC 패턴을 사용하는 이유
+- 실제 프로젝트에서의 적용 경험
+- Spring MVC의 동작 흐름
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] 싱글톤 패턴과 주의사항 알기
@@ -237,3 +317,4 @@ Coffee coffee = new MilkDecorator(new BasicCoffee());
 - [ ] 전략 패턴 사용 사례 설명 가능
 - [ ] 옵저버 패턴 동작 이해
 - [ ] 데코레이터 패턴 예시 설명 가능
+- [ ] MVC 패턴의 구성 요소와 역할 설명 가능
