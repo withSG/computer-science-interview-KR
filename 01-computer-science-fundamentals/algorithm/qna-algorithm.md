@@ -445,6 +445,127 @@ public int findDuplicate(int[] nums) {
 
 ---
 
+---
+
+## Q11. 피보나치 수열의 구현 방법들을 비교해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+피보나치 수열은 **재귀, 메모이제이션, 타뷸레이션, 행렬 거듭제곱** 등의 방법으로 구현할 수 있으며, 각각 시간 복잡도가 다릅니다.
+
+### 구현 방법 비교
+
+| 방법 | 시간 복잡도 | 공간 복잡도 | 특징 |
+|------|------------|------------|------|
+| 단순 재귀 | O(2ⁿ) | O(n) | 가장 비효율 |
+| 메모이제이션 | O(n) | O(n) | Top-down DP |
+| 타뷸레이션 | O(n) | O(n) 또는 O(1) | Bottom-up DP |
+| 행렬 거듭제곱 | O(log n) | O(1) | 가장 효율적 |
+
+### 1. 단순 재귀 (비효율)
+
+```java
+// O(2^n) - 중복 계산 많음
+int fib(int n) {
+    if (n <= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+
+// fib(5) 호출 트리
+//              fib(5)
+//            /       \
+//       fib(4)       fib(3)
+//       /    \       /    \
+//   fib(3) fib(2) fib(2) fib(1)
+//   ...   중복 계산 많음!
+```
+
+### 2. 메모이제이션 (Top-down)
+
+```java
+// O(n), O(n)
+int[] memo;
+
+int fib(int n) {
+    if (n <= 1) return n;
+    if (memo[n] != 0) return memo[n];
+    memo[n] = fib(n - 1) + fib(n - 2);
+    return memo[n];
+}
+```
+
+### 3. 타뷸레이션 (Bottom-up)
+
+```java
+// O(n), O(n)
+int fib(int n) {
+    if (n <= 1) return n;
+    int[] dp = new int[n + 1];
+    dp[0] = 0;
+    dp[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+
+// 공간 최적화: O(1)
+int fib(int n) {
+    if (n <= 1) return n;
+    int prev2 = 0, prev1 = 1;
+    for (int i = 2; i <= n; i++) {
+        int curr = prev1 + prev2;
+        prev2 = prev1;
+        prev1 = curr;
+    }
+    return prev1;
+}
+```
+
+### 4. 행렬 거듭제곱 (가장 효율적)
+
+```java
+// O(log n) - 분할 정복
+// [F(n+1), F(n)]   = [1 1]^n  * [F(1)]
+// [F(n), F(n-1)]     [1 0]      [F(0)]
+
+long[][] multiply(long[][] A, long[][] B) {
+    return new long[][] {
+        {A[0][0] * B[0][0] + A[0][1] * B[1][0],
+         A[0][0] * B[0][1] + A[0][1] * B[1][1]},
+        {A[1][0] * B[0][0] + A[1][1] * B[1][0],
+         A[1][0] * B[0][1] + A[1][1] * B[1][1]}
+    };
+}
+
+long fib(int n) {
+    if (n <= 1) return n;
+    long[][] result = {{1, 0}, {0, 1}};  // 단위 행렬
+    long[][] base = {{1, 1}, {1, 0}};
+
+    while (n > 0) {
+        if (n % 2 == 1) result = multiply(result, base);
+        base = multiply(base, base);
+        n /= 2;
+    }
+    return result[0][1];
+}
+```
+
+### 면접관이 주목하는 포인트
+- 각 방법의 시간/공간 복잡도 비교
+- 메모이제이션 vs 타뷸레이션 차이
+
+### 꼬리 질문 대비
+- "n이 매우 클 때(10⁹) 어떻게 구하나요?"
+  → 행렬 거듭제곱 O(log n) + 모듈러 연산
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] Big-O 표기법 이해 및 주요 복잡도 암기
@@ -455,3 +576,4 @@ public int findDuplicate(int[] nums) {
 - [ ] 정렬 알고리즘 복잡도 비교표 암기
 - [ ] 배열 관련 코딩 문제 패턴 이해
 - [ ] 유전 알고리즘 개념 이해
+- [ ] 피보나치 수열 구현 방법들 비교 가능

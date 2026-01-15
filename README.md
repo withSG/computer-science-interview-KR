@@ -43,6 +43,8 @@
   - [ ] 트리와 그래프
   - [ ] 해시 테이블과 충돌 해결
   - [ ] Set 종류 (HashSet, TreeSet, LinkedHashSet)
+  - [ ] AVL 트리
+  - [ ] DFS vs BFS
   - [ ] QnA 복습 완료
 
 - [ ] **Algorithm (알고리즘)**
@@ -50,6 +52,7 @@
   - [ ] 정렬 알고리즘
   - [ ] 탐색 알고리즘
   - [ ] 코딩 문제 (배열 조작, 유전 알고리즘)
+  - [ ] 피보나치 구현 방법 비교
   - [ ] QnA 복습 완료
 
 ---
@@ -65,6 +68,14 @@
   - [ ] 동기/비동기와 Thread-safe
   - [ ] Exception vs Error
   - [ ] HashTable vs HashMap
+  - [ ] JVM 구조와 클래스 로더
+  - [ ] 제네릭(Generics)
+  - [ ] 오버라이딩 vs 오버로딩
+  - [ ] static 키워드
+  - [ ] 접근 제어자
+  - [ ] Java 8 주요 기능
+  - [ ] try-with-resource
+  - [ ] 직렬화(Serialization)
   - [ ] QnA 복습 완료
 
 - [ ] **Spring Framework**
@@ -74,6 +85,11 @@
   - [ ] Bean 생명주기
   - [ ] Spring Boot 자동 설정
   - [ ] @Transactional 주의사항
+  - [ ] Bean Scope
+  - [ ] @Autowired 동작 원리
+  - [ ] DispatcherServlet
+  - [ ] Filter vs Interceptor
+  - [ ] 생성자 주입
   - [ ] QnA 복습 완료
 
 - [ ] **Database**
@@ -82,6 +98,8 @@
   - [ ] 영속성 컨텍스트
   - [ ] N+1 문제
   - [ ] 트랜잭션 격리 수준과 ACID
+  - [ ] 트랜잭션 전파(Propagation)
+  - [ ] JPA 프록시와 지연 로딩
   - [ ] 인덱싱과 B-Tree
   - [ ] 정규화 (1NF, 2NF, 3NF)
   - [ ] DDL/DML/DCL
@@ -149,6 +167,12 @@
   - [ ] 병목 지점 분석
   - [ ] QnA 복습 완료
 
+- [ ] **Infrastructure (인프라)**
+  - [ ] 로드 밸런서 (L4/L7)
+  - [ ] 무중단 배포 (Rolling, Blue/Green, Canary)
+  - [ ] 대용량 트래픽 대응
+  - [ ] QnA 복습 완료
+
 ---
 
 ### 05. AI Engineering (AI 엔지니어링)
@@ -174,7 +198,7 @@
 ### 06. Design Patterns (디자인 패턴)
 
 - [ ] 생성 패턴 (Singleton, Factory, Builder)
-- [ ] 구조 패턴 (Adapter, Decorator, Proxy)
+- [ ] 구조 패턴 (Adapter, Decorator, Proxy, Facade, Bridge)
 - [ ] 행동 패턴 (Observer, Strategy, Template Method)
 - [ ] 아키텍처 패턴 (MVC, MVP, MVVM)
 - [ ] QnA 복습 완료
@@ -206,6 +230,8 @@
 - [ ] 애자일/스크럼
 - [ ] 코드 리뷰
 - [ ] 테스트 전략 (단위/통합/시스템/인수)
+- [ ] 테스트 코드 작성 이유
+- [ ] 테스트 커버리지
 - [ ] KISS, YAGNI, DRY 원칙
 - [ ] 브룩스의 법칙
 - [ ] QnA 복습 완료
@@ -369,3 +395,4 @@
 - 백엔드 CS, Spring, AI 면접 질문 정리.pdf
 - 프론트엔드 개발자 면접 질문 정리.pdf
 - [brave-tech-interview](https://github.com/brave-people/brave-tech-interview) - 용감한 사람들의 기술 면접 질문 모음
+- [backend-interview-question](https://github.com/ksundong/backend-interview-question) - 백엔드 개발자 면접 질문 모음

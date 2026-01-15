@@ -552,6 +552,164 @@ public class User {
 
 ---
 
+---
+
+## Q14. 트랜잭션 전파(Propagation) 속성을 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+트랜잭션 전파는 **트랜잭션이 이미 존재할 때 새 트랜잭션을 어떻게 처리할지** 결정하는 속성입니다.
+
+### 전파 속성 종류
+
+| 속성 | 부모 트랜잭션 있음 | 부모 트랜잭션 없음 |
+|------|-----------------|-----------------|
+| REQUIRED (기본) | 참여 | 새로 생성 |
+| REQUIRES_NEW | 새로 생성 (부모 일시 중단) | 새로 생성 |
+| NESTED | 중첩 트랜잭션 | 새로 생성 |
+| SUPPORTS | 참여 | 없이 진행 |
+| NOT_SUPPORTED | 없이 진행 (부모 일시 중단) | 없이 진행 |
+| MANDATORY | 참여 | 예외 발생 |
+| NEVER | 예외 발생 | 없이 진행 |
+
+### 주요 속성 비교
+
+```java
+// REQUIRED (기본): 부모 트랜잭션에 참여
+@Transactional(propagation = Propagation.REQUIRED)
+public void methodA() {
+    // 부모 있으면 같은 트랜잭션
+    // 부모 롤백 시 함께 롤백
+}
+
+// REQUIRES_NEW: 항상 새 트랜잭션
+@Transactional(propagation = Propagation.REQUIRES_NEW)
+public void saveLog() {
+    // 부모와 독립적
+    // 로그는 실패해도 메인 로직에 영향 X
+}
+
+// NESTED: 중첩 트랜잭션 (Savepoint)
+@Transactional(propagation = Propagation.NESTED)
+public void methodB() {
+    // 자식 롤백 → 자식만 롤백
+    // 부모 롤백 → 자식도 롤백
+}
+```
+
+### 실무 활용 예시
+
+```java
+@Service
+public class OrderService {
+    @Transactional
+    public void createOrder(Order order) {
+        orderRepository.save(order);
+        paymentService.processPayment(order);  // REQUIRED
+        logService.saveLog(order);  // REQUIRES_NEW (실패해도 주문 유지)
+    }
+}
+```
+
+### 면접관이 주목하는 포인트
+- REQUIRED vs REQUIRES_NEW 차이
+- NESTED와 REQUIRES_NEW 차이
+
+### 꼬리 질문 대비
+- "로그 저장 실패 시 메인 트랜잭션은?"
+  → REQUIRES_NEW면 메인 영향 없음, REQUIRED면 함께 롤백
+
+</details>
+
+---
+
+## Q15. JPA의 프록시와 지연 로딩 동작 원리는? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+JPA는 **지연 로딩 시 프록시 객체를 먼저 생성**하고, 실제 데이터가 필요할 때 DB를 조회합니다. 프록시는 원본 엔티티를 상속한 가짜 객체입니다.
+
+### 프록시 동작 원리
+
+```
+em.getReference(User.class, 1L)
+         │
+         ▼
+   ┌──────────────┐
+   │ User$Proxy   │  ← 프록시 객체 (DB 조회 X)
+   │ - target: null
+   │ - id: 1
+   └──────┬───────┘
+          │
+    user.getName() 호출
+          │
+          ▼
+   ┌──────────────┐
+   │ DB 조회 발생  │
+   │ SELECT * ... │
+   └──────┬───────┘
+          │
+          ▼
+   ┌──────────────┐
+   │ User$Proxy   │
+   │ - target: User(실제)
+   │ - id: 1
+   └──────────────┘
+```
+
+### 프록시 특징
+
+```java
+// 프록시 객체 생성 (DB 조회 X)
+User proxy = em.getReference(User.class, 1L);
+
+// 프록시 확인
+System.out.println(proxy.getClass());  // User$HibernateProxy
+
+// 초기화 전: target = null
+// getName() 호출 시 DB 조회 → target 설정
+
+// 주의: 프록시 비교
+proxy.getClass() == User.class  // false
+proxy instanceof User           // true
+```
+
+### 프록시 초기화 조건
+- 프록시 메서드 호출 (getId() 제외)
+- 영속성 컨텍스트 내에서만 초기화 가능
+
+### LazyInitializationException
+
+```java
+// 트랜잭션 종료 후 프록시 접근
+@Transactional
+public User getUser(Long id) {
+    return userRepository.findById(id).get();
+}
+
+// 서비스 외부
+User user = userService.getUser(1L);
+user.getOrders().size();  // LazyInitializationException!
+```
+
+### 해결 방법
+1. **Fetch Join**: 한 번에 조회
+2. **@EntityGraph**: 어노테이션으로 Fetch 지정
+3. **@Transactional**: 트랜잭션 범위 확장
+4. **DTO 변환**: 영속성 컨텍스트 내에서 DTO로 변환
+
+### 면접관이 주목하는 포인트
+- 프록시 초기화 시점
+- LazyInitializationException 해결 경험
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] 영속성 컨텍스트 4가지 이점 설명 가능
@@ -565,3 +723,5 @@ public class User {
 - [ ] DDL, DML, DCL 구분 가능
 - [ ] 정규화 1NF, 2NF, 3NF 설명 가능
 - [ ] ORM 장단점 이해
+- [ ] 트랜잭션 전파 속성 종류와 차이 이해
+- [ ] JPA 프록시와 지연 로딩 동작 원리 설명 가능

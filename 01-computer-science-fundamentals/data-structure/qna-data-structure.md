@@ -335,6 +335,168 @@ HashTable은 키를 **해시 함수**로 변환하여 버킷(배열)의 인덱�
 
 ---
 
+---
+
+## Q10. AVL 트리란 무엇인가요? ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+AVL 트리는 **자가 균형 이진 탐색 트리**로, 모든 노드에서 왼쪽과 오른쪽 서브트리의 높이 차이(Balance Factor)가 최대 1입니다.
+
+### BST의 문제점
+
+```
+// 정렬된 순서로 삽입 시 편향
+1 → 2 → 3 → 4 → 5
+
+    1
+     \
+      2
+       \
+        3
+         \
+          4
+           \
+            5
+
+// 검색: O(n) - 연결 리스트와 동일
+```
+
+### AVL 트리의 균형 유지
+
+```
+Balance Factor (BF) = 왼쪽 높이 - 오른쪽 높이
+허용 범위: -1, 0, 1
+
+      3 (BF=0)
+     / \
+    2   4 (BF=0)
+   /     \
+  1       5
+```
+
+### 회전 연산
+
+| 상황 | BF | 회전 |
+|------|-----|------|
+| LL (Left-Left) | +2, +1 | 우회전 |
+| RR (Right-Right) | -2, -1 | 좌회전 |
+| LR (Left-Right) | +2, -1 | 좌회전 → 우회전 |
+| RL (Right-Left) | -2, +1 | 우회전 → 좌회전 |
+
+### 시간 복잡도
+
+| 연산 | BST (최악) | AVL |
+|------|-----------|-----|
+| 검색 | O(n) | O(log n) |
+| 삽입 | O(n) | O(log n) |
+| 삭제 | O(n) | O(log n) |
+
+### AVL vs Red-Black Tree
+
+| 구분 | AVL | Red-Black |
+|------|-----|-----------|
+| 균형 | 더 엄격 | 덜 엄격 |
+| 검색 | 빠름 | 약간 느림 |
+| 삽입/삭제 | 느림 (회전 많음) | 빠름 |
+| 사용처 | 검색 위주 | 삽입/삭제 위주 (Java TreeMap) |
+
+### 면접관이 주목하는 포인트
+- 균형 유지 원리 (회전)
+- Red-Black Tree와의 비교
+
+</details>
+
+---
+
+## Q11. DFS와 BFS의 차이점과 사용 사례는? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| 구분 | DFS (깊이 우선) | BFS (너비 우선) |
+|------|----------------|-----------------|
+| 탐색 방식 | 깊이 먼저 | 너비 먼저 |
+| 자료구조 | Stack (재귀) | Queue |
+| 메모리 | 경로만 저장 | 모든 인접 노드 저장 |
+| 최단 경로 | 보장 X | 보장 O (가중치 없을 때) |
+
+### 탐색 순서 비교
+
+```
+       1
+      /|\
+     2 3 4
+    /|   |
+   5 6   7
+
+DFS: 1 → 2 → 5 → 6 → 3 → 4 → 7 (깊이 먼저)
+BFS: 1 → 2 → 3 → 4 → 5 → 6 → 7 (레벨 순서)
+```
+
+### 구현 (Java)
+
+```java
+// DFS - 재귀
+void dfs(int node, boolean[] visited) {
+    visited[node] = true;
+    System.out.print(node + " ");
+
+    for (int next : graph[node]) {
+        if (!visited[next]) {
+            dfs(next, visited);
+        }
+    }
+}
+
+// BFS - Queue
+void bfs(int start) {
+    Queue<Integer> queue = new LinkedList<>();
+    boolean[] visited = new boolean[n];
+
+    queue.offer(start);
+    visited[start] = true;
+
+    while (!queue.isEmpty()) {
+        int node = queue.poll();
+        System.out.print(node + " ");
+
+        for (int next : graph[node]) {
+            if (!visited[next]) {
+                visited[next] = true;
+                queue.offer(next);
+            }
+        }
+    }
+}
+```
+
+### 사용 사례
+
+| DFS | BFS |
+|-----|-----|
+| 백트래킹 (N-Queen) | 최단 경로 |
+| 미로 탐색 (모든 경로) | 미로 탐색 (최단 경로) |
+| 사이클 탐지 | 레벨 순회 |
+| 위상 정렬 | 네트워크 방송 |
+| 연결 요소 찾기 | 소셜 네트워크 친구 추천 |
+
+### 면접관이 주목하는 포인트
+- 시간/공간 복잡도
+- 문제에 따른 선택 기준
+
+### 꼬리 질문 대비
+- "DFS에서 스택 오버플로우 방지 방법은?"
+  → 명시적 스택 사용, 꼬리 재귀 최적화
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] Array vs LinkedList 차이 설명 가능
@@ -345,3 +507,5 @@ HashTable은 키를 **해시 함수**로 변환하여 버킷(배열)의 인덱�
 - [ ] 주요 자료구조의 시간 복잡도 암기
 - [ ] Set 종류와 차이점 설명 가능
 - [ ] HashTable 충돌 해결 방법 이해
+- [ ] AVL 트리와 균형 유지 원리 이해
+- [ ] DFS/BFS 차이와 사용 사례 설명 가능

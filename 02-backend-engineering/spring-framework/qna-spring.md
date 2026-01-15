@@ -337,6 +337,524 @@ public class AppConfig {
 
 ---
 
+---
+
+## Q8. Bean Scope의 종류와 차이점을 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| Scope | 설명 | 생명주기 |
+|-------|------|---------|
+| singleton | 하나의 인스턴스 공유 (기본값) | 컨테이너와 동일 |
+| prototype | 요청마다 새 인스턴스 | 컨테이너가 관리 X |
+| request | HTTP 요청마다 | 요청 시작~종료 |
+| session | HTTP 세션마다 | 세션 시작~종료 |
+| application | ServletContext마다 | 애플리케이션 생명주기 |
+
+### Singleton vs Prototype
+
+```java
+@Component
+@Scope("singleton")  // 기본값, 생략 가능
+public class SingletonBean {}
+
+@Component
+@Scope("prototype")
+public class PrototypeBean {}
+```
+
+```java
+// Singleton: 항상 같은 인스턴스
+singletonBean1 == singletonBean2  // true
+
+// Prototype: 매번 새 인스턴스
+prototypeBean1 == prototypeBean2  // false
+```
+
+### Prototype 주의사항
+
+```java
+@Component
+public class SingletonService {
+    @Autowired
+    private PrototypeBean prototypeBean;  // 주입 시점에 1번만 생성!
+
+    // 해결: ObjectProvider 사용
+    @Autowired
+    private ObjectProvider<PrototypeBean> provider;
+
+    public void logic() {
+        PrototypeBean bean = provider.getObject();  // 매번 새로 생성
+    }
+}
+```
+
+### 면접관이 주목하는 포인트
+- Singleton에서 상태를 가지면 안 되는 이유
+- Prototype Bean의 생명주기 관리 문제
+
+</details>
+
+---
+
+## Q9. @Autowired의 동작 원리를 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+@Autowired는 **타입을 기준으로 빈을 자동 주입**합니다. 같은 타입이 여러 개면 이름으로 구분합니다.
+
+### 주입 순서
+
+```
+1. 타입 매칭 → 하나면 주입
+2. 타입이 여러 개 → 필드/파라미터 이름으로 매칭
+3. @Qualifier로 명시적 지정
+4. @Primary로 우선순위 지정
+```
+
+### 동일 타입 여러 빈 처리
+
+```java
+// 방법 1: @Qualifier
+@Autowired
+@Qualifier("mainDataSource")
+private DataSource dataSource;
+
+// 방법 2: @Primary
+@Bean
+@Primary
+public DataSource mainDataSource() { ... }
+
+// 방법 3: 필드명 매칭
+@Autowired
+private DataSource mainDataSource;  // 빈 이름과 동일
+```
+
+### 필수 여부 설정
+
+```java
+@Autowired(required = false)  // 빈이 없어도 에러 X
+private Optional<SomeBean> optionalBean;  // 또는 Optional 사용
+```
+
+### 면접관이 주목하는 포인트
+- 생성자 주입에서 @Autowired 생략 가능 (단일 생성자)
+- 순환 참조 발생 시 동작
+
+</details>
+
+---
+
+## Q10. DispatcherServlet의 역할은 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+DispatcherServlet은 **Spring MVC의 프론트 컨트롤러**로, 모든 요청을 받아 적절한 컨트롤러에 위임합니다.
+
+### 프론트 컨트롤러 패턴
+
+```
+       ┌──────────────────────┐
+       │   DispatcherServlet   │  ← 모든 요청의 진입점
+       └──────────┬───────────┘
+                  │
+    ┌─────────────┼─────────────┐
+    ▼             ▼             ▼
+Controller1  Controller2  Controller3
+```
+
+### 처리 흐름
+
+```
+1. 클라이언트 요청
+       ↓
+2. DispatcherServlet 수신
+       ↓
+3. HandlerMapping: 어떤 컨트롤러?
+       ↓
+4. HandlerAdapter: 컨트롤러 실행
+       ↓
+5. Controller: 비즈니스 로직 + ModelAndView 반환
+       ↓
+6. ViewResolver: View 객체 조회
+       ↓
+7. View: 렌더링
+       ↓
+8. 클라이언트 응답
+```
+
+### 주요 구성요소
+
+| 구성요소 | 역할 |
+|---------|------|
+| HandlerMapping | URL → Controller 매핑 |
+| HandlerAdapter | Controller 실행 |
+| ViewResolver | View 이름 → View 객체 |
+| HandlerExceptionResolver | 예외 처리 |
+
+### 면접관이 주목하는 포인트
+- 프론트 컨트롤러 패턴의 장점
+- @RestController의 동작 (ViewResolver 생략)
+
+</details>
+
+---
+
+## Q11. Filter와 Interceptor의 차이점은? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+
+| 구분 | Filter | Interceptor |
+|------|--------|-------------|
+| 소속 | 서블릿 컨테이너 | 스프링 컨테이너 |
+| 실행 시점 | DispatcherServlet 전/후 | Controller 전/후 |
+| Spring Bean | 접근 어려움 | 접근 용이 |
+| 용도 | 인코딩, 보안, 로깅 | 인증/인가, 로깅, 공통 로직 |
+
+### 실행 순서
+
+```
+요청 → Filter → DispatcherServlet → Interceptor → Controller
+                                               ↓
+응답 ← Filter ← DispatcherServlet ← Interceptor ←
+```
+
+### 구현 예시
+
+```java
+// Filter
+@Component
+public class LogFilter implements Filter {
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res,
+                         FilterChain chain) throws IOException, ServletException {
+        log.info("Filter 시작");
+        chain.doFilter(req, res);
+        log.info("Filter 종료");
+    }
+}
+
+// Interceptor
+@Component
+public class LogInterceptor implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest req, HttpServletResponse res,
+                             Object handler) {
+        log.info("Interceptor preHandle");
+        return true;  // true: 진행, false: 중단
+    }
+
+    @Override
+    public void postHandle(...) { }
+
+    @Override
+    public void afterCompletion(...) { }
+}
+```
+
+### 선택 기준
+- **Filter**: 모든 요청에 적용, Spring 무관한 처리
+- **Interceptor**: Spring 빈 활용, 컨트롤러 전후 처리
+
+### 면접관이 주목하는 포인트
+- 예외 발생 시 동작 차이
+- 실무에서의 선택 기준
+
+</details>
+
+---
+
+## Q12. POJO란 무엇인가요? ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+POJO(Plain Old Java Object)는 **특정 기술에 종속되지 않는 순수 자바 객체**입니다.
+
+### POJO vs Non-POJO
+
+```java
+// POJO - 순수 자바 객체
+public class User {
+    private String name;
+    private int age;
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+}
+
+// Non-POJO - 특정 기술 종속
+public class UserServlet extends HttpServlet {
+    // HttpServlet 상속 → 서블릿 컨테이너에 종속
+}
+
+public class UserEJB extends EJBObject {
+    // EJB 상속 → EJB 컨테이너에 종속
+}
+```
+
+### POJO의 장점
+1. **테스트 용이**: 컨테이너 없이 테스트 가능
+2. **유연성**: 기술 변경에 유연
+3. **재사용성**: 다른 환경에서도 사용 가능
+
+### Spring과 POJO
+- Spring은 POJO 기반 개발 지향
+- 어노테이션으로 설정 → 코드 자체는 POJO 유지
+
+```java
+@Service  // Spring 어노테이션이지만
+public class UserService {  // 클래스 자체는 POJO
+    public User findUser(Long id) { ... }
+}
+```
+
+### 면접관이 주목하는 포인트
+- POJO 기반 개발의 이점
+- Spring이 POJO를 유지하면서 기능을 제공하는 방법 (AOP, DI)
+
+</details>
+
+---
+
+## Q13. Spring에서 CORS 에러를 해결하는 방법은? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+Spring에서 CORS를 해결하는 방법은 **@CrossOrigin, WebMvcConfigurer, Filter** 세 가지가 있습니다.
+
+### 방법 1: @CrossOrigin 어노테이션
+
+```java
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+public class UserController {
+
+    @CrossOrigin(origins = "*", maxAge = 3600)
+    @GetMapping("/users")
+    public List<User> getUsers() { ... }
+}
+```
+
+### 방법 2: WebMvcConfigurer (전역 설정)
+
+```java
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3600);
+    }
+}
+```
+
+### 방법 3: CorsFilter
+
+```java
+@Bean
+public CorsFilter corsFilter() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.addAllowedOrigin("http://localhost:3000");
+    config.addAllowedMethod("*");
+    config.addAllowedHeader("*");
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return new CorsFilter(source);
+}
+```
+
+### 선택 기준
+
+| 방법 | 사용 시점 |
+|------|---------|
+| @CrossOrigin | 특정 컨트롤러/메서드만 |
+| WebMvcConfigurer | 전역 설정, Spring MVC |
+| CorsFilter | Spring Security와 함께 |
+
+### 면접관이 주목하는 포인트
+- Preflight 요청 처리
+- Spring Security와 CORS 설정
+
+</details>
+
+---
+
+## Q14. 애플리케이션 구동 시 특정 메서드를 실행하는 방법은? ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+Spring Boot에서 구동 시 코드를 실행하는 방법은 **@PostConstruct, ApplicationRunner, CommandLineRunner, EventListener** 등이 있습니다.
+
+### 방법 비교
+
+| 방법 | 실행 시점 | 특징 |
+|------|----------|------|
+| @PostConstruct | 빈 초기화 후 | 의존성 주입 완료 후 |
+| CommandLineRunner | 애플리케이션 시작 후 | args 전달받음 |
+| ApplicationRunner | 애플리케이션 시작 후 | ApplicationArguments |
+| @EventListener | 이벤트 발생 시 | 다양한 이벤트 처리 |
+
+### 구현 예시
+
+```java
+// 1. @PostConstruct
+@Component
+public class InitService {
+    @PostConstruct
+    public void init() {
+        log.info("빈 초기화 완료 후 실행");
+    }
+}
+
+// 2. CommandLineRunner
+@Component
+public class DataInitRunner implements CommandLineRunner {
+    @Override
+    public void run(String... args) {
+        log.info("애플리케이션 시작 후 실행");
+    }
+}
+
+// 3. ApplicationRunner
+@Component
+public class AppRunner implements ApplicationRunner {
+    @Override
+    public void run(ApplicationArguments args) {
+        log.info("옵션: " + args.getOptionNames());
+    }
+}
+
+// 4. EventListener
+@Component
+public class StartupListener {
+    @EventListener(ApplicationReadyEvent.class)
+    public void onReady() {
+        log.info("애플리케이션 준비 완료");
+    }
+}
+```
+
+### 실행 순서
+```
+@PostConstruct → CommandLineRunner/ApplicationRunner → ApplicationReadyEvent
+```
+
+### 면접관이 주목하는 포인트
+- 초기 데이터 로딩, 캐시 워밍 사례
+- 실패 시 애플리케이션 시작 중단 여부
+
+</details>
+
+---
+
+## Q15. 생성자 주입을 권장하는 이유는? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+생성자 주입은 **불변성, 테스트 용이성, 순환 참조 방지** 때문에 권장됩니다.
+
+### 주입 방식 비교
+
+```java
+// 1. 생성자 주입 (권장)
+@Service
+public class UserService {
+    private final UserRepository userRepository;  // final 가능
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+}
+
+// 2. 필드 주입 (비권장)
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;  // final 불가
+}
+
+// 3. Setter 주입
+@Service
+public class UserService {
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository repo) {
+        this.userRepository = repo;
+    }
+}
+```
+
+### 생성자 주입의 장점
+
+| 장점 | 설명 |
+|------|------|
+| 불변성 | final 선언으로 변경 방지 |
+| 테스트 용이 | Mock 객체 주입 쉬움 |
+| 순환 참조 방지 | 컴파일 타임에 발견 |
+| NPE 방지 | 주입 누락 시 컴파일 에러 |
+
+### 순환 참조 예시
+
+```java
+// 생성자 주입: 애플리케이션 시작 시 에러
+@Service
+public class AService {
+    public AService(BService bService) {}  // B 필요
+}
+
+@Service
+public class BService {
+    public BService(AService aService) {}  // A 필요
+}
+// → BeanCurrentlyInCreationException (시작 시 발견)
+
+// 필드 주입: 런타임에 발견
+// → StackOverflowError (호출 시 발견)
+```
+
+### Lombok 활용
+
+```java
+@Service
+@RequiredArgsConstructor  // final 필드 생성자 자동 생성
+public class UserService {
+    private final UserRepository userRepository;
+    private final EmailService emailService;
+}
+```
+
+### 면접관이 주목하는 포인트
+- 순환 참조 해결 방법
+- @RequiredArgsConstructor 활용
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] IoC/DI 개념과 생성자 주입 권장 이유 설명 가능
@@ -345,3 +863,10 @@ public class AppConfig {
 - [ ] Spring MVC 요청 흐름 그릴 수 있음
 - [ ] Spring vs Spring Boot 차이 설명 가능
 - [ ] Bean 생명주기와 Scope 이해
+- [ ] Bean Scope 종류와 Prototype 주의사항 알기
+- [ ] @Autowired 동작 원리와 우선순위 이해
+- [ ] DispatcherServlet 역할 설명 가능
+- [ ] Filter와 Interceptor 차이 설명 가능
+- [ ] POJO 개념 이해
+- [ ] CORS 해결 방법 알기
+- [ ] 애플리케이션 구동 시 초기화 방법 알기

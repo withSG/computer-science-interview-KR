@@ -432,6 +432,249 @@ byte[] decrypted = cipher.doFinal(encrypted);
 
 ---
 
+## Q10. JWT(JSON Web Token)란 무엇인가요? ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+JWT는 **JSON 형식의 자가 포함(Self-contained) 토큰**으로, 당사자 간 정보를 안전하게 전송하기 위한 표준(RFC 7519)입니다.
+
+### JWT 구조
+
+```
+xxxxx.yyyyy.zzzzz
+  │      │     │
+Header.Payload.Signature
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.    ← Header (Base64)
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik...  ← Payload (Base64)
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c ← Signature
+```
+
+### 각 부분의 역할
+
+| 부분 | 내용 | 예시 |
+|------|------|------|
+| Header | 토큰 타입, 서명 알고리즘 | `{"alg": "HS256", "typ": "JWT"}` |
+| Payload | 클레임(사용자 정보) | `{"sub": "1234", "name": "John"}` |
+| Signature | 위변조 검증용 서명 | HMAC-SHA256(header + payload, secret) |
+
+### JWT 인증 흐름
+
+```
+1. 로그인 → 서버가 JWT 발급
+2. 클라이언트가 토큰 저장 (localStorage, Cookie)
+3. 요청마다 Authorization: Bearer {token} 헤더로 전송
+4. 서버가 서명 검증 후 요청 처리
+```
+
+### JWT 장점
+
+```
+✓ 무상태(Stateless): 서버에 세션 저장 불필요
+✓ 확장성: 여러 서버에서 검증 가능
+✓ 자가 포함: 필요한 정보를 토큰에 포함
+```
+
+### JWT 단점 및 주의점
+
+```
+✗ 토큰 크기가 세션 ID보다 큼
+✗ 발급 후 취소(Revoke) 어려움
+✗ Payload는 암호화가 아닌 인코딩 → 민감정보 저장 금지!
+```
+
+### Access Token vs Refresh Token
+
+| 구분 | Access Token | Refresh Token |
+|------|--------------|---------------|
+| 목적 | API 인증 | Access Token 재발급 |
+| 유효기간 | 짧음 (15분~1시간) | 긺 (1주~1달) |
+| 저장 | 메모리/localStorage | HttpOnly Cookie |
+
+### 면접관이 주목하는 포인트
+- JWT가 무상태인 이유
+- 토큰 탈취 시 대응 방안 (짧은 만료시간 + Refresh Token)
+
+### 꼬리 질문 대비
+- "JWT를 어디에 저장해야 하나요?"
+  → XSS 취약: localStorage / CSRF 취약: Cookie → HttpOnly + SameSite Cookie 권장
+
+</details>
+
+---
+
+## Q11. OAuth 인증 방식을 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+OAuth는 **제3자 애플리케이션이 사용자의 리소스에 접근할 수 있도록 권한을 위임**하는 개방형 표준 프로토콜입니다.
+
+### OAuth 2.0 역할
+
+| 역할 | 설명 | 예시 |
+|------|------|------|
+| Resource Owner | 리소스 소유자(사용자) | 일반 사용자 |
+| Client | 리소스 접근 애플리케이션 | 우리 서비스 |
+| Authorization Server | 인증/권한 부여 서버 | Google OAuth |
+| Resource Server | 보호된 리소스 서버 | Google API |
+
+### Authorization Code Grant 흐름 (가장 일반적)
+
+```
+┌──────────┐                              ┌───────────────┐
+│  사용자   │                              │  Authorization │
+│ (브라우저)│                              │    Server      │
+└────┬─────┘                              └───────┬───────┘
+     │  1. 로그인 버튼 클릭                        │
+     │───────────────────────────────────────────►│
+     │                                            │
+     │  2. 로그인 페이지 (Google)                  │
+     │◄───────────────────────────────────────────│
+     │                                            │
+     │  3. 로그인 + 권한 동의                      │
+     │───────────────────────────────────────────►│
+     │                                            │
+     │  4. Authorization Code + redirect          │
+     │◄───────────────────────────────────────────│
+     │                                            │
+┌────▼─────┐                              ┌───────┴───────┐
+│  Client  │  5. Code → Access Token 교환  │               │
+│  Server  │──────────────────────────────►│               │
+│          │◄──────────────────────────────│               │
+│          │  6. Access Token 발급         │               │
+└──────────┘                              └───────────────┘
+```
+
+### OAuth Grant Types
+
+| Grant Type | 용도 | 보안 수준 |
+|------------|------|----------|
+| Authorization Code | 서버 사이드 앱 | 높음 |
+| Authorization Code + PKCE | SPA, 모바일 앱 | 높음 |
+| Client Credentials | 서버 간 통신 | - |
+| ~~Implicit~~ | SPA (비권장) | 낮음 |
+| ~~Password~~ | 레거시 (비권장) | 낮음 |
+
+### 주요 용어
+
+```
+- Scope: 요청하는 권한 범위 (email, profile 등)
+- Consent: 사용자 권한 동의 화면
+- State: CSRF 방지용 랜덤 값
+- PKCE: Authorization Code 탈취 방지 (SPA/모바일)
+```
+
+### 소셜 로그인 구현 예시 (Spring Security)
+
+```java
+// application.yml
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: email, profile
+```
+
+### 면접관이 주목하는 포인트
+- Authorization Code 방식의 동작 원리
+- OAuth와 인증(Authentication)의 차이 (OAuth는 인가 프로토콜)
+
+### 꼬리 질문 대비
+- "OAuth만으로 로그인을 구현할 수 있나요?"
+  → OAuth는 인가(Authorization) 프로토콜. 인증을 위해서는 OpenID Connect(OIDC)를 함께 사용
+
+</details>
+
+---
+
+## Q12. JWT와 OAuth의 차이점은? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+JWT는 **토큰 형식(Format)**이고, OAuth는 **권한 위임 프로토콜(Protocol)**입니다. 서로 다른 개념이며, OAuth에서 JWT를 토큰 형식으로 사용할 수 있습니다.
+
+### 개념적 차이
+
+| 구분 | JWT | OAuth |
+|------|-----|-------|
+| 정의 | 토큰 형식/표준 | 권한 위임 프로토콜 |
+| 역할 | 정보를 담는 "그릇" | 권한 부여 "절차" |
+| 목적 | 정보의 안전한 전송 | 제3자 리소스 접근 권한 |
+| 단독 사용 | 가능 (자체 인증) | 불가 (토큰 형식 필요) |
+
+### 비유로 이해하기
+
+```
+JWT = 신분증 (형식)
+OAuth = 신분증 발급 절차 (프로토콜)
+
+→ OAuth 프로토콜로 JWT 형식의 토큰을 발급받을 수 있음
+```
+
+### 관계
+
+```
+┌─────────────────────────────────────┐
+│           OAuth 2.0                 │
+│   (권한 위임 프로토콜/프레임워크)       │
+│                                     │
+│  ┌─────────────┐  ┌─────────────┐  │
+│  │  JWT 토큰   │  │ Opaque 토큰  │  │
+│  │  (형식 A)   │  │  (형식 B)    │  │
+│  └─────────────┘  └─────────────┘  │
+│                                     │
+└─────────────────────────────────────┘
+```
+
+### 사용 시나리오 비교
+
+| 시나리오 | 선택 |
+|---------|------|
+| 자체 회원가입/로그인 | JWT 단독 사용 가능 |
+| 소셜 로그인 (Google, Kakao) | OAuth + JWT |
+| MSA 서비스 간 통신 | JWT |
+| 제3자 API 권한 (타 서비스 데이터 접근) | OAuth |
+
+### JWT 단독 인증 vs OAuth 인증
+
+**JWT 단독 (자체 서비스)**
+```
+1. 사용자 → 우리 서버: 로그인 요청
+2. 우리 서버: 비밀번호 검증 후 JWT 발급
+3. 사용자: JWT로 API 요청
+```
+
+**OAuth + JWT (소셜 로그인)**
+```
+1. 사용자 → Google: 로그인
+2. Google → 우리 서버: Authorization Code
+3. 우리 서버 → Google: Code → Access Token 교환
+4. 우리 서버: 사용자 정보 확인 후 자체 JWT 발급
+5. 사용자: 우리 JWT로 API 요청
+```
+
+### 면접관이 주목하는 포인트
+- JWT와 OAuth가 다른 레벨의 개념임을 이해
+- 실제 서비스에서 어떻게 조합하여 사용하는지
+
+### 꼬리 질문 대비
+- "왜 소셜 로그인에서 Google의 Access Token을 직접 사용하지 않나요?"
+  → Google 토큰은 Google API 호출용. 우리 서비스 인증에는 자체 JWT를 발급하여 사용
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] SQL Injection 방어 방법 알기
@@ -443,3 +686,6 @@ byte[] decrypted = cipher.doFinal(encrypted);
 - [ ] 해시 함수 특성 설명 가능
 - [ ] 대칭키/비대칭키 암호화 차이 설명 가능
 - [ ] 주요 암호화 알고리즘 종류 알기
+- [ ] JWT 구조와 인증 흐름 설명 가능
+- [ ] OAuth 인증 방식 이해
+- [ ] JWT와 OAuth의 차이점 설명 가능

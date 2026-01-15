@@ -310,6 +310,277 @@ public class UserService {
 
 ---
 
+---
+
+## Q7. 빌더(Builder) 패턴이란? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+빌더 패턴은 **복잡한 객체를 단계별로 생성**할 수 있게 하는 패턴입니다. 생성자에 많은 파라미터가 필요할 때 가독성을 높입니다.
+
+### 빌더 패턴이 필요한 경우
+
+```java
+// 문제: 생성자 파라미터가 많음
+User user = new User("Kim", 25, "kim@email.com", "Seoul", "010-1234-5678", true, false);
+// 어떤 값이 뭔지 알기 어려움
+
+// 해결: 빌더 패턴
+User user = User.builder()
+    .name("Kim")
+    .age(25)
+    .email("kim@email.com")
+    .address("Seoul")
+    .phone("010-1234-5678")
+    .verified(true)
+    .premium(false)
+    .build();
+```
+
+### 빌더 패턴 구현
+
+```java
+public class User {
+    private final String name;
+    private final int age;
+    private final String email;
+
+    private User(Builder builder) {
+        this.name = builder.name;
+        this.age = builder.age;
+        this.email = builder.email;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String name;
+        private int age;
+        private String email;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder age(int age) {
+            this.age = age;
+            return this;
+        }
+
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public User build() {
+            return new User(this);
+        }
+    }
+}
+```
+
+### Lombok @Builder
+
+```java
+@Builder
+@Getter
+public class User {
+    private String name;
+    private int age;
+    private String email;
+}
+
+// 사용
+User user = User.builder()
+    .name("Kim")
+    .age(25)
+    .build();
+```
+
+### 빌더 패턴의 장점
+1. **가독성**: 어떤 값인지 명확
+2. **유연성**: 선택적 파라미터 처리 쉬움
+3. **불변성**: final 필드 + private 생성자
+
+### 면접관이 주목하는 포인트
+- 점층적 생성자 패턴과의 비교
+- @Builder 사용 시 주의사항
+
+</details>
+
+---
+
+## Q8. 퍼사드(Facade) 패턴이란? ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+퍼사드 패턴은 **복잡한 서브시스템에 단순한 인터페이스를 제공**하는 패턴입니다. 클라이언트가 여러 클래스를 직접 다루지 않아도 됩니다.
+
+### 구조
+
+```
+클라이언트
+    │
+    ▼
+┌─────────────┐
+│   Facade    │  ← 단순한 인터페이스
+└──────┬──────┘
+       │
+  ┌────┼────┐
+  ▼    ▼    ▼
+┌───┐ ┌───┐ ┌───┐
+│ A │ │ B │ │ C │  ← 복잡한 서브시스템
+└───┘ └───┘ └───┘
+```
+
+### 예시: 주문 처리
+
+```java
+// 복잡한 서브시스템들
+class InventoryService { void checkStock(Item item) { } }
+class PaymentService { void processPayment(Payment payment) { } }
+class ShippingService { void arrangeDelivery(Order order) { } }
+class NotificationService { void sendConfirmation(Order order) { } }
+
+// 클라이언트가 직접 호출하면 복잡
+inventoryService.checkStock(item);
+paymentService.processPayment(payment);
+shippingService.arrangeDelivery(order);
+notificationService.sendConfirmation(order);
+
+// Facade로 단순화
+public class OrderFacade {
+    private InventoryService inventoryService;
+    private PaymentService paymentService;
+    private ShippingService shippingService;
+    private NotificationService notificationService;
+
+    public void placeOrder(Order order) {
+        inventoryService.checkStock(order.getItem());
+        paymentService.processPayment(order.getPayment());
+        shippingService.arrangeDelivery(order);
+        notificationService.sendConfirmation(order);
+    }
+}
+
+// 클라이언트
+orderFacade.placeOrder(order);  // 한 줄로 끝
+```
+
+### 퍼사드 패턴의 장점
+1. **단순화**: 복잡한 시스템을 쉽게 사용
+2. **결합도 감소**: 클라이언트와 서브시스템 분리
+3. **유지보수**: 내부 변경이 클라이언트에 영향 없음
+
+### 실무 활용
+- **SDK/라이브러리 래핑**: 복잡한 API 단순화
+- **레거시 시스템 통합**: 구 시스템에 새 인터페이스
+- **서비스 통합**: 여러 마이크로서비스 조합
+
+### 면접관이 주목하는 포인트
+- 어댑터 패턴과의 차이
+- 실무 적용 사례
+
+</details>
+
+---
+
+## Q9. 브릿지(Bridge) 패턴이란? ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+브릿지 패턴은 **추상화와 구현을 분리**하여 독립적으로 확장할 수 있게 하는 패턴입니다.
+
+### 문제 상황
+
+```
+Shape
+├── RedCircle
+├── BlueCircle
+├── RedSquare
+├── BlueSquare
+└── ... (조합 폭발!)
+```
+
+### 브릿지 패턴 적용
+
+```
+Shape (추상화)           Color (구현)
+├── Circle    ─────────►  ├── Red
+├── Square                └── Blue
+└── Triangle
+```
+
+### 구현 예시
+
+```java
+// 구현 인터페이스
+interface Color {
+    void applyColor();
+}
+
+class Red implements Color {
+    public void applyColor() { System.out.println("빨강"); }
+}
+
+class Blue implements Color {
+    public void applyColor() { System.out.println("파랑"); }
+}
+
+// 추상화
+abstract class Shape {
+    protected Color color;  // 브릿지: 구현체 참조
+
+    public Shape(Color color) {
+        this.color = color;
+    }
+
+    abstract void draw();
+}
+
+class Circle extends Shape {
+    public Circle(Color color) { super(color); }
+
+    void draw() {
+        System.out.print("원을 ");
+        color.applyColor();  // 색상은 위임
+    }
+}
+
+// 사용
+Shape redCircle = new Circle(new Red());
+Shape blueCircle = new Circle(new Blue());
+redCircle.draw();   // "원을 빨강"
+blueCircle.draw();  // "원을 파랑"
+```
+
+### 브릿지 패턴의 장점
+1. **독립적 확장**: 추상화와 구현을 각각 확장
+2. **조합 폭발 방지**: n*m → n+m
+3. **런타임 변경**: 구현체를 동적으로 교체
+
+### 활용 사례
+- **JDBC 드라이버**: Driver(추상화) + 각 DB별 구현
+- **원격 제어**: RemoteControl + Device
+- **플랫폼 독립적 GUI**: Window + WindowImpl(각 OS별)
+
+### 면접관이 주목하는 포인트
+- 전략 패턴과의 차이 (전략: 행위 교체, 브릿지: 구조 분리)
+- 실무 적용 사례
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] 싱글톤 패턴과 주의사항 알기
@@ -318,3 +589,6 @@ public class UserService {
 - [ ] 옵저버 패턴 동작 이해
 - [ ] 데코레이터 패턴 예시 설명 가능
 - [ ] MVC 패턴의 구성 요소와 역할 설명 가능
+- [ ] 빌더 패턴 사용 이유와 구현 방법 알기
+- [ ] 퍼사드 패턴 개념과 장점 이해
+- [ ] 브릿지 패턴 구조 설명 가능
