@@ -18,30 +18,38 @@
 
 - [ ] **Operating System (운영체제)**
   - [ ] 프로세스와 스레드
+  - [ ] 프로세스 vs 프로그램
   - [ ] 메모리 관리
   - [ ] 컨텍스트 스위칭
   - [ ] 데드락과 레이스 컨디션
   - [ ] 가상 메모리
+  - [ ] 인터럽트와 시스템 콜
+  - [ ] 이중 모드 (User/Kernel Mode)
+  - [ ] DMA
   - [ ] QnA 복습 완료
 
 - [ ] **Network (네트워크)**
   - [ ] OSI 7계층
   - [ ] TCP/IP
   - [ ] HTTP/HTTPS
-  - [ ] DNS
+  - [ ] HTTP 메소드와 HTTP/2
+  - [ ] 흐름제어와 혼잡제어
+  - [ ] DNS 동작 원리
   - [ ] QnA 복습 완료
 
 - [ ] **Data Structure (자료구조)**
   - [ ] 배열과 링크드 리스트
   - [ ] 스택과 큐
   - [ ] 트리와 그래프
-  - [ ] 해시 테이블
+  - [ ] 해시 테이블과 충돌 해결
+  - [ ] Set 종류 (HashSet, TreeSet, LinkedHashSet)
   - [ ] QnA 복습 완료
 
 - [ ] **Algorithm (알고리즘)**
   - [ ] 시간/공간 복잡도
   - [ ] 정렬 알고리즘
   - [ ] 탐색 알고리즘
+  - [ ] 코딩 문제 (배열 조작, 유전 알고리즘)
   - [ ] QnA 복습 완료
 
 ---
@@ -54,6 +62,9 @@
   - [ ] Garbage Collection
   - [ ] Call by Value/Reference
   - [ ] Java 21 Virtual Threads
+  - [ ] 동기/비동기와 Thread-safe
+  - [ ] Exception vs Error
+  - [ ] HashTable vs HashMap
   - [ ] QnA 복습 완료
 
 - [ ] **Spring Framework**
@@ -66,11 +77,15 @@
   - [ ] QnA 복습 완료
 
 - [ ] **Database**
+  - [ ] 관계형 DB 구성요소와 Key 종류
   - [ ] JPA/ORM 개념
   - [ ] 영속성 컨텍스트
   - [ ] N+1 문제
-  - [ ] 트랜잭션 격리 수준
+  - [ ] 트랜잭션 격리 수준과 ACID
   - [ ] 인덱싱과 B-Tree
+  - [ ] 정규화 (1NF, 2NF, 3NF)
+  - [ ] DDL/DML/DCL
+  - [ ] NoSQL
   - [ ] QnA 복습 완료
 
 - [ ] **Authentication (인증/인가)**
@@ -161,6 +176,7 @@
 - [ ] 생성 패턴 (Singleton, Factory, Builder)
 - [ ] 구조 패턴 (Adapter, Decorator, Proxy)
 - [ ] 행동 패턴 (Observer, Strategy, Template Method)
+- [ ] 아키텍처 패턴 (MVC, MVP, MVVM)
 - [ ] QnA 복습 완료
 
 ---
@@ -170,6 +186,8 @@
 - [ ] OWASP Top 10
 - [ ] XSS, CSRF, SQL Injection
 - [ ] HTTPS/TLS
+- [ ] 암호화 (대칭키/비대칭키)
+- [ ] 해시 함수와 비밀번호 저장
 - [ ] QnA 복습 완료
 
 ---
@@ -187,7 +205,9 @@
 
 - [ ] 애자일/스크럼
 - [ ] 코드 리뷰
-- [ ] 테스트 전략
+- [ ] 테스트 전략 (단위/통합/시스템/인수)
+- [ ] KISS, YAGNI, DRY 원칙
+- [ ] 브룩스의 법칙
 - [ ] QnA 복습 완료
 
 ---
@@ -328,10 +348,14 @@
 
 | 카테고리 | 대상 | 핵심 키워드 |
 |---------|------|-----------|
-| OS | 공통 | 프로세스, 스레드, 메모리, 데드락 |
-| Network | 공통 | OSI, TCP/IP, HTTP, DNS |
-| Java | 백엔드 | OOP, GC, Virtual Threads |
+| OS | 공통 | 프로세스, 스레드, 메모리, 데드락, 시스템콜 |
+| Network | 공통 | OSI, TCP/IP, HTTP/2, DNS, 흐름/혼잡제어 |
+| Data Structure | 공통 | Array, LinkedList, HashMap, Set, Tree |
+| Algorithm | 공통 | 시간복잡도, 정렬, 탐색, DP |
+| Java | 백엔드 | OOP, GC, Thread-safe, Exception |
 | Spring | 백엔드 | IoC/DI, AOP, MVC, JPA |
+| Database | 백엔드 | ACID, 정규화, 인덱스, NoSQL |
+| Security | 공통 | XSS, CSRF, 암호화, 해시 |
 | Browser | 프론트엔드 | CRP, DOM, 리플로우 |
 | JavaScript | 프론트엔드 | 클로저, 이벤트 루프, 호이스팅 |
 | React | 프론트엔드 | Virtual DOM, Fiber, Hooks |
@@ -344,3 +368,4 @@
 
 - 백엔드 CS, Spring, AI 면접 질문 정리.pdf
 - 프론트엔드 개발자 면접 질문 정리.pdf
+- [brave-tech-interview](https://github.com/brave-people/brave-tech-interview) - 용감한 사람들의 기술 면접 질문 모음
