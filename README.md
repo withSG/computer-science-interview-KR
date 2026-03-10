@@ -122,6 +122,9 @@
   - [ ] DOM/CSSOM
   - [ ] Reflow/Repaint
   - [ ] 합성과 GPU
+  - [ ] 브라우저 저장소 (Cookie/LocalStorage/SessionStorage)
+  - [ ] JWT 저장 보안 고려사항
+  - [ ] CORS 동작 원리
   - [ ] QnA 복습 완료
 
 - [ ] **JavaScript Deep Dive**
@@ -131,6 +134,16 @@
   - [ ] 이벤트 루프
   - [ ] Microtask/Macrotask
   - [ ] Promise/async-await
+  - [ ] var/let/const 차이와 스코프
+  - [ ] 데이터 타입 (원시/참조)
+  - [ ] 프로토타입과 프로토타입 체인
+  - [ ] ES6 클래스
+  - [ ] 이벤트 전파 (버블링/캡처링/위임)
+  - [ ] 디바운스와 쓰로틀
+  - [ ] 가비지 컬렉션
+  - [ ] 고차 함수와 함수형 프로그래밍
+  - [ ] Map/Set
+  - [ ] ES Modules vs CommonJS
   - [ ] QnA 복습 완료
 
 - [ ] **React Architecture**
@@ -139,12 +152,54 @@
   - [ ] Fiber 아키텍처
   - [ ] Hooks 내부 동작
   - [ ] useEffect vs useLayoutEffect
+  - [ ] 함수 컴포넌트 vs 클래스 컴포넌트
+  - [ ] 상태 관리 (Redux, Zustand, React Query)
+  - [ ] FLUX 패턴
+  - [ ] 컴포넌트 라이프사이클
+  - [ ] 리렌더링 조건
+  - [ ] SPA / SSR / SEO
+  - [ ] Suspense
   - [ ] QnA 복습 완료
 
 - [ ] **Next.js Rendering**
   - [ ] CSR/SSR/SSG/ISR
   - [ ] Hydration
   - [ ] React Server Components
+  - [ ] QnA 복습 완료
+
+- [ ] **HTML/CSS**
+  - [ ] DOCTYPE, meta 태그
+  - [ ] 웹 표준 및 웹 접근성
+  - [ ] 시멘틱 태그와 SEO
+  - [ ] CSS display, position, float
+  - [ ] Flexbox vs Grid
+  - [ ] 반응형 웹 (미디어 쿼리, em/rem)
+  - [ ] CSS 명시도
+  - [ ] CSS-in-JS, CSS 전처리기
+  - [ ] 박스 모델
+  - [ ] QnA 복습 완료
+
+- [ ] **TypeScript**
+  - [ ] TypeScript 사용 이유
+  - [ ] Type vs Interface
+  - [ ] Utility Types
+  - [ ] 제네릭
+  - [ ] 타입 가드
+  - [ ] QnA 복습 완료
+
+- [ ] **Build Tools**
+  - [ ] 모듈 번들링
+  - [ ] Webpack (entry/output/loader/plugin)
+  - [ ] Babel 트랜스파일링
+  - [ ] 트리 쉐이킹
+  - [ ] QnA 복습 완료
+
+- [ ] **Frontend Architecture**
+  - [ ] Monolithic vs MSA vs BFF
+  - [ ] 상태 관리 전략 (서버/클라이언트/로컬)
+  - [ ] 폴더 구조 설계
+  - [ ] 컴포넌트 설계 원칙
+  - [ ] 의존성 방향과 관심사 분리
   - [ ] QnA 복습 완료
 
 ---
@@ -379,6 +434,10 @@
 | JavaScript | 프론트엔드 | 클로저, 이벤트 루프, 호이스팅 |
 | React | 프론트엔드 | Virtual DOM, Fiber, Hooks |
 | Next.js | 프론트엔드 | SSR, SSG, RSC |
+| HTML/CSS | 프론트엔드 | DOCTYPE, 시멘틱, Flexbox, Grid, 반응형, 명시도 |
+| TypeScript | 프론트엔드 | Type, Interface, Generic, Utility Types |
+| Build Tools | 프론트엔드 | Webpack, Babel, 번들링, 트리쉐이킹 |
+| Frontend Architecture | 프론트엔드 | BFF, 상태관리, 의존성방향, 관심사분리 |
 | Cloud | DevOps | Docker, K8s, CI/CD, AWS |
 
 ---

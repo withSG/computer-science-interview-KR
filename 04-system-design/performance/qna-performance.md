@@ -374,6 +374,157 @@ Eager Loading:
 
 ---
 
+## Q7. Core Web Vitals란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+Core Web Vitals는 Google이 정의한 사용자 경험 핵심 지표로, LCP(로딩), CLS(안정성), INP(반응성)을 중심으로 측정합니다.
+
+### 주요 지표
+
+| 지표 | 이름 | 의미 | 좋음 | 개선 필요 |
+|------|------|------|------|---------|
+| LCP | Largest Contentful Paint | 최대 콘텐츠 렌더링 | <2.5s | >4s |
+| FCP | First Contentful Paint | 첫 콘텐츠 렌더링 | <1.8s | >3s |
+| CLS | Cumulative Layout Shift | 레이아웃 이동 | <0.1 | >0.25 |
+| INP | Interaction to Next Paint | 상호작용 반응성 | <200ms | >500ms |
+| TTFB | Time to First Byte | 서버 응답 시간 | <800ms | >1.8s |
+
+### 면접관이 주목하는 포인트
+- 각 지표가 측정하는 사용자 경험 요소
+- 검색 엔진 순위와의 연관성
+
+### 꼬리 질문 대비
+- "LCP를 개선하는 방법은?" → 이미지 최적화, preload, CDN 활용, 서버 응답 시간 단축
+
+</details>
+
+---
+
+## Q8. 프론트엔드 성능 최적화 기법에는 어떤 것들이 있나요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+프론트엔드 성능 최적화는 번들, 이미지, 캐싱, 렌더링, 리소스 로딩, 네트워크 등 6가지 영역에서 접근합니다.
+
+### 최적화 영역별 방법
+
+| 최적화 영역 | 방법 | 효과 |
+|-----------|------|------|
+| 번들 최적화 | 코드 스플리팅, 트리 쉐이킹 | 초기 로드 감소 |
+| 이미지 | WebP/AVIF, lazy loading, srcset | 전송량 감소 |
+| 캐싱 | Cache-Control, Service Worker | 재요청 감소 |
+| 렌더링 | React.memo, useMemo, 가상화 | 리렌더링 감소 |
+| 리소스 로딩 | preload, prefetch, defer | 우선순위 최적화 |
+| 네트워크 | HTTP/2, CDN, GZIP 압축 | 전송 속도 향상 |
+
+### 면접관이 주목하는 포인트
+- 각 기법이 어떤 병목을 해결하는지 이해
+- 측정 기반의 최적화 접근 (Lighthouse, DevTools)
+
+### 꼬리 질문 대비
+- "코드 스플리팅이란?" → 하나의 큰 번들을 여러 청크로 분리해 필요한 시점에만 로드하는 기법
+
+</details>
+
+---
+
+## Q9. CDN의 동작 원리를 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+CDN은 전 세계 엣지 서버에 콘텐츠를 분산 저장하여 사용자와 가장 가까운 서버에서 응답함으로써 지연 시간을 줄입니다.
+
+### 동작 흐름
+
+```
+사용자(한국) → 가장 가까운 엣지 서버(서울) → 캐시 HIT → 즉시 응답
+                                           → 캐시 MISS → 오리진 서버 요청 → 캐시 저장 → 응답
+```
+
+### 장점과 캐시 무효화
+- 장점: 지연 시간 감소, 오리진 서버 부하 감소, 가용성 향상
+- 캐시 무효화: URL 버전닝, CDN purge API
+
+### 면접관이 주목하는 포인트
+- 캐시 HIT/MISS 동작 이해
+- 정적 리소스와 동적 콘텐츠의 CDN 활용 차이
+
+### 꼬리 질문 대비
+- "CDN 캐시를 어떻게 무효화하나요?" → URL에 버전/해시를 포함하거나 CDN purge API를 호출
+
+</details>
+
+---
+
+## Q10. 캐싱 전략(Cache-Control, ETag)을 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+HTTP 캐싱으로 서버 요청을 감소시킵니다. Cache-Control 헤더로 캐시 정책을, ETag로 조건부 요청을 구현합니다.
+
+### Cache-Control 헤더
+
+| 헤더 | 값 | 의미 |
+|------|-----|------|
+| Cache-Control | max-age=3600 | 3600초 캐시 |
+| Cache-Control | no-cache | 매번 서버 검증 |
+| Cache-Control | no-store | 캐시 금지 |
+| Cache-Control | public | 공유 캐시 허용 |
+| ETag | "abc123" | 리소스 식별자 |
+
+### ETag 동작
+1. 서버가 ETag 응답 헤더 전송
+2. 클라이언트가 `If-None-Match: "abc123"` 요청
+3. 변경 없으면 304 Not Modified (본문 없음)
+
+### 면접관이 주목하는 포인트
+- Cache-Control의 no-cache vs no-store 차이
+- ETag를 통한 조건부 요청으로 대역폭 절약
+
+### 꼬리 질문 대비
+- "no-cache와 no-store의 차이?" → no-cache는 서버 검증 후 캐시 사용 가능, no-store는 캐시 자체를 금지
+
+</details>
+
+---
+
+## Q11. 소프트웨어 개발 방법론(Waterfall vs Agile)에 대해 설명해주세요. ⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+폭포수 방법론은 순차적·문서 중심으로 진행되고, 애자일은 반복적 스프린트와 빠른 피드백을 중심으로 진행됩니다.
+
+### 비교
+
+| 구분 | 폭포수(Waterfall) | 애자일(Agile) |
+|------|----------------|-------------|
+| 진행 방식 | 순차적 단계 | 반복 스프린트 |
+| 요구사항 | 초기 확정 | 유연하게 변경 |
+| 피드백 | 늦음 (완료 후) | 빠름 (스프린트마다) |
+| 적합 | 명확한 요구사항 | 변화 많은 프로젝트 |
+
+### 면접관이 주목하는 포인트
+- 각 방법론의 적합한 프로젝트 유형
+- 실무 경험과 연결
+
+### 꼬리 질문 대비
+- "스크럼과 칸반의 차이?" → 스크럼은 정해진 스프린트 단위 반복, 칸반은 지속적 흐름 기반의 작업 관리
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] 주요 성능 지표 (Latency, Throughput, P99) 설명 가능
@@ -381,3 +532,8 @@ Eager Loading:
 - [ ] 커넥션 풀의 원리와 설정 이해
 - [ ] 비동기 처리 사용 시점 판단
 - [ ] Lazy/Eager Loading 차이 알기
+- [ ] Core Web Vitals 5가지 지표 설명 가능
+- [ ] 프론트엔드 성능 최적화 6가지 영역 이해
+- [ ] CDN 동작 원리 설명 가능
+- [ ] Cache-Control과 ETag 차이 이해
+- [ ] Waterfall vs Agile 비교 가능

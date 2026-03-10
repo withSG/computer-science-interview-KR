@@ -384,6 +384,79 @@ sessionStorage.setItem('formData', JSON.stringify(data));
 
 ---
 
+## Q7. 웹 스토리지에 JWT 저장 시 고려사항은? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+LocalStorage는 XSS 공격에 취약하고, HttpOnly Cookie는 XSS를 방어하지만 CSRF를 고려해야 합니다. 저장소별 보안 트레이드오프를 이해하고 적합한 전략을 선택해야 합니다.
+
+### 저장소별 보안 비교
+
+| 저장소 | XSS 위험 | CSRF 위험 | 서버 접근 |
+|--------|---------|----------|---------|
+| LocalStorage | 높음 (JS 접근 가능) | 없음 | 수동 헤더 추가 |
+| Cookie(일반) | 낮음 | 높음 | 자동 전송 |
+| Cookie(HttpOnly) | 없음 | 높음 (SameSite로 완화) | 자동 전송 |
+| Cookie(HttpOnly+SameSite) | 없음 | 낮음 | 자동 전송 |
+
+### 권장 전략
+- Access Token: 메모리에 저장 (매우 짧은 유효기간)
+- Refresh Token: HttpOnly Cookie
+
+### 면접관이 주목하는 포인트
+- XSS와 CSRF 각각의 위협 이해
+- 보안 트레이드오프에 따른 저장소 선택 근거
+
+### 꼬리 질문 대비
+- "Refresh Token Rotation이란?" → Refresh Token 사용 시마다 새 토큰을 발급하여 탈취 여부를 감지하는 기법
+
+</details>
+
+---
+
+## Q8. CORS의 동작 원리를 설명해주세요. ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+Same-Origin Policy 보안 정책으로 인해 다른 출처의 요청이 차단됩니다. CORS 헤더를 통해 허용할 출처를 명시적으로 설정하여 이를 완화합니다.
+
+```
+출처(Origin) = 프로토콜 + 도메인 + 포트
+예: https://example.com:443
+```
+
+### 동작 과정
+1. **Simple Request**: GET/POST + 안전한 헤더 → 직접 요청, 서버에서 Access-Control-Allow-Origin 반환
+2. **Preflight Request**: PUT/DELETE, 커스텀 헤더 → OPTIONS 메서드로 사전 확인 후 실제 요청
+
+```
+Client                    Server
+  │ OPTIONS /api ──────►  │
+  │ ◄─ 200 + CORS 헤더 ─  │
+  │ POST /api ──────────► │
+  │ ◄─ 200 response ────  │
+```
+
+### 해결 방법
+- 서버에서 `Access-Control-Allow-Origin` 헤더 설정
+- 프록시 서버 사용 (개발 환경)
+- JSONP (레거시)
+
+### 면접관이 주목하는 포인트
+- Same-Origin Policy가 왜 필요한지 (보안)
+- Simple Request와 Preflight Request의 차이
+
+### 꼬리 질문 대비
+- "Preflight가 발생하는 조건은?" → PUT/DELETE/PATCH 메서드, 커스텀 헤더(Authorization 등), Content-Type: application/json
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] URL 입력 후 렌더링까지 전체 과정 설명 가능
@@ -391,3 +464,5 @@ sessionStorage.setItem('formData', JSON.stringify(data));
 - [ ] Reflow/Repaint 차이와 최적화 방법 알기
 - [ ] GPU 합성의 이점과 활용법 이해
 - [ ] 브라우저 저장소 차이 설명 가능
+- [ ] JWT 저장 방식별 보안 트레이드오프 이해
+- [ ] CORS Preflight 동작 원리 설명 가능

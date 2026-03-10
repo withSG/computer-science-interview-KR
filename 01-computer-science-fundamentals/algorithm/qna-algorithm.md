@@ -566,6 +566,186 @@ long fib(int n) {
 
 ---
 
+## Q12. 빈도수 카운터(Frequency Counter) 패턴이란? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+객체나 Map을 사용해 값의 빈도를 세어 O(n²) 중첩 반복을 O(n)으로 줄이는 패턴입니다.
+
+### 문제 예시: 두 배열이 서로 각 원소의 제곱 관계인지 확인
+
+```javascript
+// O(n²) 방식
+function same(arr1, arr2) {
+  for (let val of arr1) {
+    if (!arr2.includes(val ** 2)) return false;  // O(n) 안에 O(n)
+  }
+  return true;
+}
+
+// O(n) 빈도수 카운터
+function same(arr1, arr2) {
+  const counter1 = {};
+  const counter2 = {};
+  for (let val of arr1) counter1[val] = (counter1[val] || 0) + 1;
+  for (let val of arr2) counter2[val] = (counter2[val] || 0) + 1;
+  for (let key in counter1) {
+    if (!(key ** 2 in counter2)) return false;
+    if (counter2[key ** 2] !== counter1[key]) return false;
+  }
+  return true;
+}
+```
+
+시간복잡도: O(n), 공간복잡도: O(n)
+
+### 면접관이 주목하는 포인트
+- 중첩 반복문 없이 O(n)으로 해결하는 아이디어
+- 해시 자료구조의 O(1) 조회 활용
+
+### 꼬리 질문 대비
+- "애너그램 확인에도 이 패턴을 쓸 수 있나요?" → 네, 두 문자열의 문자 빈도수 객체를 비교하면 됩니다
+
+</details>
+
+---
+
+## Q13. 투 포인터(Two Pointer) 패턴이란? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+정렬된 배열에서 두 포인터를 양쪽 끝(또는 같은 위치)에서 이동시켜 O(n²)을 O(n)으로 줄이는 패턴입니다.
+
+### 문제 예시: 정렬된 배열에서 합이 0이 되는 쌍 찾기
+
+```javascript
+function sumZero(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+  while (left < right) {
+    const sum = arr[left] + arr[right];
+    if (sum === 0) return [arr[left], arr[right]];
+    else if (sum > 0) right--;
+    else left++;
+  }
+}
+```
+
+시간복잡도: O(n), 공간복잡도: O(1)
+
+### 면접관이 주목하는 포인트
+- 정렬된 배열이라는 전제 조건
+- 포인터 이동 방향과 조건 설계
+
+### 꼬리 질문 대비
+- "투 포인터의 활용 사례는?" → 중복 제거, 특정 합 찾기, 회문 확인 등
+
+</details>
+
+---
+
+## Q14. 슬라이딩 윈도우(Sliding Window) 패턴이란? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+연속된 부분 배열이나 문자열 문제에서 윈도우를 이동시켜 중복 계산을 제거하는 패턴입니다.
+
+### 문제 예시: n 크기 부분 배열의 최대 합
+
+```javascript
+function maxSubarraySum(arr, n) {
+  if (arr.length < n) return null;
+  let maxSum = arr.slice(0, n).reduce((a, b) => a + b, 0);
+  let temp = maxSum;
+  for (let i = n; i < arr.length; i++) {
+    temp = temp - arr[i - n] + arr[i];  // 윈도우 이동
+    maxSum = Math.max(maxSum, temp);
+  }
+  return maxSum;
+}
+```
+
+시간복잡도: O(n), 공간복잡도: O(1)
+
+### 고정 윈도우 vs 가변 윈도우
+- 고정 윈도우: 크기가 n으로 고정 (위 예시)
+- 가변 윈도우: 조건에 따라 크기가 변동 (최소 길이 부분 배열 등)
+
+### 면접관이 주목하는 포인트
+- 중복 계산 제거로 O(n²)을 O(n)으로 개선하는 원리
+- 고정 윈도우와 가변 윈도우의 차이
+
+### 꼬리 질문 대비
+- "가변 윈도우는 언제 쓰나요?" → 합이 특정 값 이상인 최소 부분 배열 찾기처럼 조건 만족 여부에 따라 크기가 달라지는 문제
+
+</details>
+
+---
+
+## Q15. 다익스트라(Dijkstra) 알고리즘을 설명해주세요. ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+가중치가 있는 그래프에서 단일 출발점으로부터 모든 정점까지 최단 경로를 구하는 그리디 알고리즘입니다.
+
+### 동작 방식
+
+```
+동작 방식:
+1. 시작 노드 거리 0, 나머지 무한대로 초기화
+2. 방문하지 않은 노드 중 거리 최솟값 선택 (우선순위 큐)
+3. 선택 노드의 인접 노드 거리 업데이트
+4. 모든 노드 방문할 때까지 반복
+```
+
+### 의사코드
+
+```javascript
+function dijkstra(graph, start) {
+  const distances = {};
+  const pq = new PriorityQueue(); // [거리, 노드]
+  // 초기화
+  for (let node in graph) distances[node] = Infinity;
+  distances[start] = 0;
+  pq.enqueue([0, start]);
+
+  while (!pq.isEmpty()) {
+    const [dist, node] = pq.dequeue();
+    if (dist > distances[node]) continue;
+    for (let [neighbor, weight] of graph[node]) {
+      const newDist = dist + weight;
+      if (newDist < distances[neighbor]) {
+        distances[neighbor] = newDist;
+        pq.enqueue([newDist, neighbor]);
+      }
+    }
+  }
+  return distances;
+}
+```
+
+시간복잡도: O((V + E) log V) - 우선순위 큐 사용 시
+제약: 음수 가중치 처리 불가 (벨만-포드 사용)
+
+### 면접관이 주목하는 포인트
+- 우선순위 큐를 사용하는 이유
+- 음수 가중치 처리 불가 제약
+
+### 꼬리 질문 대비
+- "A* 알고리즘과의 차이?" → A*는 휴리스틱 함수로 목표 방향 탐색을 최적화하여 다익스트라보다 빠를 수 있음
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] Big-O 표기법 이해 및 주요 복잡도 암기
@@ -577,3 +757,7 @@ long fib(int n) {
 - [ ] 배열 관련 코딩 문제 패턴 이해
 - [ ] 유전 알고리즘 개념 이해
 - [ ] 피보나치 수열 구현 방법들 비교 가능
+- [ ] 빈도수 카운터 패턴 구현 가능
+- [ ] 투 포인터 패턴 구현 가능
+- [ ] 슬라이딩 윈도우 패턴 구현 가능
+- [ ] 다익스트라 알고리즘 동작 원리 설명 가능
