@@ -16,6 +16,15 @@
 
 ### 01. Computer Science 기초 (공통)
 
+- [ ] **Computer Architecture (컴퓨터 구조)**
+  - [ ] CPU 구성요소 (ALU, 제어장치, 레지스터)
+  - [ ] 명령어 사이클 (Fetch-Decode-Execute)
+  - [ ] 캐시 메모리 (L1/L2/L3, 지역성 원리, 캐시 미스)
+  - [ ] 고정 소수점 vs 부동 소수점
+  - [ ] 패리티 비트와 해밍 코드 (ECC)
+  - [ ] ARM vs x86 (RISC vs CISC)
+  - [ ] QnA 복습 완료
+
 - [ ] **Operating System (운영체제)**
   - [ ] 프로세스와 스레드
   - [ ] 프로세스 vs 프로그램
@@ -26,6 +35,10 @@
   - [ ] 인터럽트와 시스템 콜
   - [ ] 이중 모드 (User/Kernel Mode)
   - [ ] DMA
+  - [ ] CPU 스케줄링 알고리즘 (FCFS, SJF, RR, MLFQ)
+  - [ ] IPC (Pipe, Message Queue, Shared Memory, Socket)
+  - [ ] 파일 시스템 (접근 방식, 디렉토리 구조)
+  - [ ] 페이징 vs 세그멘테이션
   - [ ] QnA 복습 완료
 
 - [ ] **Network (네트워크)**
@@ -35,6 +48,7 @@
   - [ ] HTTP 메소드와 HTTP/2
   - [ ] 흐름제어와 혼잡제어
   - [ ] DNS 동작 원리
+  - [ ] I/O 모델 (Blocking/Non-blocking/Multiplexing/Async)
   - [ ] QnA 복습 완료
 
 - [ ] **Data Structure (자료구조)**
@@ -45,6 +59,8 @@
   - [ ] Set 종류 (HashSet, TreeSet, LinkedHashSet)
   - [ ] AVL 트리
   - [ ] DFS vs BFS
+  - [ ] Trie (트라이)
+  - [ ] B-Tree
   - [ ] QnA 복습 완료
 
 - [ ] **Algorithm (알고리즘)**
@@ -53,6 +69,8 @@
   - [ ] 탐색 알고리즘
   - [ ] 코딩 문제 (배열 조작, 유전 알고리즘)
   - [ ] 피보나치 구현 방법 비교
+  - [ ] 비트마스크 (BitMask)
+  - [ ] 기수 정렬 (Radix Sort)
   - [ ] QnA 복습 완료
 
 ---
@@ -104,6 +122,8 @@
   - [ ] 정규화 (1NF, 2NF, 3NF)
   - [ ] DDL/DML/DCL
   - [ ] NoSQL
+  - [ ] SQL JOIN 종류 (INNER, LEFT, RIGHT, FULL OUTER, CROSS, SELF)
+  - [ ] 이상현상 (삽입/삭제/갱신 Anomaly)
   - [ ] QnA 복습 완료
 
 - [ ] **Authentication (인증/인가)**
@@ -289,6 +309,9 @@
 - [ ] 테스트 커버리지
 - [ ] KISS, YAGNI, DRY 원칙
 - [ ] 브룩스의 법칙
+- [ ] 클린 코드 & 리팩토링
+- [ ] 함수형 프로그래밍 (순수 함수, 불변성, 고차 함수)
+- [ ] MSA vs 모놀리식 아키텍처
 - [ ] QnA 복습 완료
 
 ---
@@ -422,10 +445,11 @@
 
 | 카테고리 | 대상 | 핵심 키워드 |
 |---------|------|-----------|
-| OS | 공통 | 프로세스, 스레드, 메모리, 데드락, 시스템콜 |
-| Network | 공통 | OSI, TCP/IP, HTTP/2, DNS, 흐름/혼잡제어 |
-| Data Structure | 공통 | Array, LinkedList, HashMap, Set, Tree |
-| Algorithm | 공통 | 시간복잡도, 정렬, 탐색, DP |
+| Computer Architecture | 공통 | CPU, 캐시, 고정/부동소수점, 패리티, ARM |
+| OS | 공통 | 프로세스, 스레드, 메모리, 데드락, CPU 스케줄링, IPC |
+| Network | 공통 | OSI, TCP/IP, HTTP/2, DNS, I/O 모델 |
+| Data Structure | 공통 | Array, LinkedList, HashMap, Trie, B-Tree |
+| Algorithm | 공통 | 시간복잡도, 정렬, 탐색, DP, 비트마스크 |
 | Java | 백엔드 | OOP, GC, Thread-safe, Exception |
 | Spring | 백엔드 | IoC/DI, AOP, MVC, JPA |
 | Database | 백엔드 | ACID, 정규화, 인덱스, NoSQL |
@@ -448,3 +472,4 @@
 - 프론트엔드 개발자 면접 질문 정리.pdf
 - [brave-tech-interview](https://github.com/brave-people/brave-tech-interview) - 용감한 사람들의 기술 면접 질문 모음
 - [backend-interview-question](https://github.com/ksundong/backend-interview-question) - 백엔드 개발자 면접 질문 모음
+- [tech-interview-for-developer](https://github.com/gyoogle/tech-interview-for-developer) - 신입 개발자 전공 지식 & 기술 면접 백과사전 (컴퓨터 구조, CPU 스케줄링, IPC, 파일 시스템, 페이징/세그멘테이션, SQL JOIN, 이상현상, I/O 모델, 비트마스크, Radix Sort, Trie, B-Tree, 클린 코드, 함수형 프로그래밍, MSA 내용 참고)

@@ -710,6 +710,192 @@ user.getOrders().size();  // LazyInitializationException!
 
 ---
 
+## Q16. SQL JOIN의 종류와 차이점을 설명해주세요. ⭐⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+JOIN은 **두 개 이상의 테이블을 연결하여 데이터를 조회**하는 SQL 연산입니다. 결합 기준(ON 절)과 일치하지 않는 행을 포함하는 방식에 따라 종류가 나뉩니다.
+
+### JOIN 종류
+
+| JOIN | 설명 | 결과 |
+|------|------|------|
+| INNER JOIN | 양쪽 테이블 모두 일치하는 행만 | 교집합 |
+| LEFT (OUTER) JOIN | 왼쪽 테이블 전체 + 오른쪽 일치 행 | 왼쪽 기준 |
+| RIGHT (OUTER) JOIN | 오른쪽 테이블 전체 + 왼쪽 일치 행 | 오른쪽 기준 |
+| FULL OUTER JOIN | 양쪽 테이블 전체 (일치 없으면 NULL) | 합집합 |
+| CROSS JOIN | 모든 조합 (카티전 곱) | m × n 행 |
+| SELF JOIN | 자기 자신과 JOIN | 계층 구조 표현 |
+
+### 예시 데이터
+
+```sql
+-- employees 테이블
+id | name      | dept_id
+1  | Alice     | 1
+2  | Bob       | 2
+3  | Charlie   | NULL
+
+-- departments 테이블
+id | dept_name
+1  | Engineering
+3  | Marketing
+```
+
+### INNER JOIN
+
+```sql
+SELECT e.name, d.dept_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.id;
+
+-- 결과: Alice-Engineering (dept_id=2, id=3은 매칭 없어 제외)
+-- name  | dept_name
+-- Alice | Engineering
+```
+
+### LEFT JOIN
+
+```sql
+SELECT e.name, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.id;
+
+-- 결과: 왼쪽(employees) 전체 포함, 매칭 없으면 NULL
+-- name    | dept_name
+-- Alice   | Engineering
+-- Bob     | NULL          ← dept_id=2 없음
+-- Charlie | NULL          ← dept_id=NULL
+```
+
+### FULL OUTER JOIN
+
+```sql
+SELECT e.name, d.dept_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.dept_id = d.id;
+
+-- name    | dept_name
+-- Alice   | Engineering
+-- Bob     | NULL
+-- Charlie | NULL
+-- NULL    | Marketing    ← departments에만 있는 행
+```
+
+### SELF JOIN (계층 구조)
+
+```sql
+-- 직원-매니저 관계
+SELECT e.name AS employee, m.name AS manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.id;
+```
+
+### MySQL에서 FULL OUTER JOIN 구현 (미지원 시)
+
+```sql
+SELECT * FROM a LEFT JOIN b ON a.id = b.id
+UNION
+SELECT * FROM a RIGHT JOIN b ON a.id = b.id;
+```
+
+### 면접관이 주목하는 포인트
+- INNER JOIN vs LEFT JOIN 결과 차이 정확히 이해
+- NULL 처리: LEFT JOIN 후 IS NULL로 미매칭 행 찾기
+
+### 꼬리 질문 대비
+- "JOIN 성능 최적화 방법은?" → 조인 컬럼에 인덱스 생성, 작은 테이블을 드라이빙 테이블로, 불필요한 컬럼 SELECT 제거
+
+</details>
+
+---
+
+## Q17. 이상현상(Anomaly)이란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+이상현상은 **정규화되지 않은 테이블에서 데이터 삽입, 삭제, 수정 시 의도치 않은 문제가 발생**하는 현상입니다. 삽입 이상, 삭제 이상, 갱신 이상 3가지로 구분됩니다.
+
+### 문제 테이블 예시
+
+```
+학생_수강 테이블 (정규화 전)
+학생ID | 학생명 | 학과코드 | 학과명   | 과목코드 | 과목명
+1001   | 김철수 | CS       | 컴퓨터공학 | C001   | 자료구조
+1001   | 김철수 | CS       | 컴퓨터공학 | C002   | 알고리즘
+1002   | 이영희 | EE       | 전자공학   | E001   | 회로이론
+```
+
+### 삽입 이상 (Insertion Anomaly)
+
+```
+문제: 수강 과목 없이 학생 정보만 등록할 수 없음
+
+학생 1003 박민준(BA, 경영학) 등록하려면?
+→ 과목코드, 과목명에 NULL을 넣어야 함
+→ 기본키(학생ID + 과목코드)에 NULL 불가 → 삽입 불가!
+```
+
+### 삭제 이상 (Deletion Anomaly)
+
+```
+문제: 특정 데이터 삭제 시 관련 없는 데이터까지 삭제됨
+
+이영희(1002) 학생이 E001 과목 수강 취소 시
+→ 행 삭제 → 이영희의 학생 정보(학과 등)도 함께 사라짐!
+```
+
+### 갱신 이상 (Update Anomaly)
+
+```
+문제: 일부 행만 수정하면 데이터 불일치 발생
+
+CS 학과명을 "컴퓨터공학" → "소프트웨어공학"으로 변경 시
+→ 김철수의 첫 번째 행만 수정하면 두 번째 행과 불일치
+
+학생ID | 학생명 | 학과코드 | 학과명        | 과목코드
+1001   | 김철수 | CS       | 소프트웨어공학 | C001  ← 수정됨
+1001   | 김철수 | CS       | 컴퓨터공학     | C002  ← 수정 안됨 → 불일치!
+```
+
+### 해결: 정규화 (Normalization)
+
+```sql
+-- 테이블 분리 (3NF)
+학생(학생ID, 학생명, 학과코드)
+학과(학과코드, 학과명)
+수강(학생ID, 과목코드)
+과목(과목코드, 과목명)
+
+-- 이상현상 해소:
+-- 삽입: 학생 테이블에 과목 없이 학생 등록 가능
+-- 삭제: 수강 삭제가 학생 정보에 영향 안 줌
+-- 갱신: 학과명은 학과 테이블 한 행만 수정
+```
+
+### 정규화와 이상현상의 관계
+
+| 원인 | 이상현상 | 해결 정규화 |
+|------|---------|-----------|
+| 부분 함수 종속 | 삽입/삭제/갱신 이상 | 2NF |
+| 이행 함수 종속 | 갱신 이상 | 3NF |
+| 다치 종속 | 삽입/삭제 이상 | 4NF |
+
+### 면접관이 주목하는 포인트
+- 3가지 이상현상을 각각 예시로 설명할 수 있는지
+- 이상현상이 발생하는 근본 원인 (불필요한 함수 종속)
+
+### 꼬리 질문 대비
+- "정규화의 단점은?" → 테이블 수 증가로 JOIN 쿼리 복잡해지고 성능 저하 가능. 필요 시 비정규화(역정규화)로 읽기 성능 최적화
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] 영속성 컨텍스트 4가지 이점 설명 가능
@@ -725,3 +911,5 @@ user.getOrders().size();  // LazyInitializationException!
 - [ ] ORM 장단점 이해
 - [ ] 트랜잭션 전파 속성 종류와 차이 이해
 - [ ] JPA 프록시와 지연 로딩 동작 원리 설명 가능
+- [ ] SQL JOIN 6가지 종류와 차이 설명 가능
+- [ ] 삽입/삭제/갱신 이상현상을 예시로 설명 가능

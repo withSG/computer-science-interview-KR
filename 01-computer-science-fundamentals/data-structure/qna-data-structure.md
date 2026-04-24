@@ -497,6 +497,182 @@ void bfs(int start) {
 
 ---
 
+## Q12. Trie(트라이) 자료구조란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+Trie는 **문자열 검색에 특화된 트리 자료구조**입니다. 문자열의 각 문자를 노드로 저장하며, 길이가 M인 문자열 검색을 O(M)에 수행합니다.
+
+### 구조
+
+```
+단어: "apple", "app", "apply", "bat" 저장 시
+
+          root
+         /    \
+        a      b
+        |      |
+        p      a
+        |      |
+        p(*)   t(*)
+       / \
+      l   y
+      |   |
+      e(*)y(*)
+
+(*): 단어의 끝(end flag)
+```
+
+### 노드 구조
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}   # 자식 노드 (문자 → 노드)
+        self.is_end = False  # 단어 끝 여부
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):       # O(M)
+        node = self.root
+        for ch in word:
+            if ch not in node.children:
+                node.children[ch] = TrieNode()
+            node = node.children[ch]
+        node.is_end = True
+
+    def search(self, word):       # O(M)
+        node = self.root
+        for ch in word:
+            if ch not in node.children:
+                return False
+            node = node.children[ch]
+        return node.is_end
+
+    def starts_with(self, prefix): # O(M) - 자동완성 기반
+        node = self.root
+        for ch in prefix:
+            if ch not in node.children:
+                return False
+            node = node.children[ch]
+        return True
+```
+
+### 시간/공간 복잡도
+
+| 연산 | 복잡도 |
+|------|--------|
+| 삽입 | O(M) - M: 문자열 길이 |
+| 검색 | O(M) |
+| 접두사 검색 | O(M) |
+| 공간 복잡도 | O(알파벳 수 × 전체 문자 수) |
+
+### BST vs Trie 비교
+
+| 구분 | BST | Trie |
+|------|-----|------|
+| 검색 | O(M log N) | O(M) |
+| 접두사 검색 | 어려움 | 매우 쉬움 |
+| 공간 | 적음 | 많음 |
+
+### 활용 사례
+- **자동완성**: 검색창 자동완성
+- **맞춤법 검사**: 사전 단어 확인
+- **IP 라우팅**: 가장 긴 접두사 매칭
+- **전화번호 검색**: 번호 접두사 확인
+
+### 면접관이 주목하는 포인트
+- BST 대비 문자열 검색이 빠른 이유 (O(M log N) → O(M))
+- 공간 효율이 낮은 이유와 개선 방법 (Compressed Trie)
+
+### 꼬리 질문 대비
+- "Trie의 공간 복잡도를 줄이는 방법은?" → Compressed Trie(Patricia Trie): 단일 자식 체인을 하나의 엣지로 압축
+
+</details>
+
+---
+
+## Q13. B-Tree란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+B-Tree는 **자가 균형을 유지하는 다원 탐색 트리**로, 하나의 노드에 여러 키를 저장합니다. 디스크 I/O 최소화를 위해 설계되어 데이터베이스 인덱스와 파일 시스템에 주로 사용됩니다.
+
+### B-Tree의 특성 (차수 M인 B-Tree)
+
+```
+1. 모든 노드는 최대 M개의 자식을 가짐
+2. 루트를 제외한 모든 노드는 최소 ⌈M/2⌉개의 자식
+3. 모든 리프 노드는 같은 레벨 (완전 균형)
+4. 하나의 노드에 최대 M-1개의 키 저장
+5. 노드 내 키는 오름차순 정렬
+```
+
+### 구조 예시 (차수 3, 즉 2-3 B-Tree)
+
+```
+              [30 | 70]
+             /    |    \
+      [10|20]  [40|60]  [80|90]
+```
+
+### BST vs B-Tree 비교
+
+| 구분 | BST (편향 시) | B-Tree |
+|------|-------------|--------|
+| 검색 | O(n) 최악 | O(log n) 보장 |
+| 노드당 키 | 1개 | 여러 개 |
+| 디스크 I/O | 노드 수만큼 | 적음 (높은 팬아웃) |
+| 주요 용도 | 메모리 내 검색 | 디스크 기반 DB |
+
+### 왜 DB 인덱스에 B-Tree를 사용하나?
+
+```
+디스크 읽기 단위 = 블록 (4KB~16KB)
+
+BST: 노드 1개 = 1번 디스크 I/O
+     → 깊이가 깊으면 I/O 횟수 많음
+
+B-Tree: 노드 1개 = 수십~수백 개 키
+         → 디스크 1번 읽기로 더 많은 키 검색
+         → 트리 높이 낮아져 I/O 횟수 최소화
+
+n=1,000,000 레코드:
+  BST 높이: ~20
+  B-Tree 높이 (차수 1000): ~2~3
+```
+
+### B+ Tree (B-Tree의 변형 - 실제 DB에서 주로 사용)
+
+```
+B-Tree 와의 차이:
+  - 내부 노드: 키만 저장 (데이터 없음)
+  - 리프 노드: 키 + 데이터 저장 + 다음 리프 포인터
+
+장점:
+  - 범위 검색 효율적 (리프 노드 링크드 리스트로 연결)
+  - 내부 노드에 더 많은 키 저장 → 팬아웃 증가
+
+예: MySQL InnoDB 인덱스 = B+ Tree
+```
+
+### 면접관이 주목하는 포인트
+- B-Tree가 디스크 기반 시스템에 유리한 이유 (높은 팬아웃, 낮은 트리 높이)
+- B-Tree와 B+ Tree의 차이 및 B+ Tree가 더 자주 쓰이는 이유
+
+### 꼬리 질문 대비
+- "B+ Tree에서 범위 검색이 빠른 이유는?" → 리프 노드들이 링크드 리스트로 연결되어 순차 스캔 가능
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] Array vs LinkedList 차이 설명 가능
@@ -509,3 +685,5 @@ void bfs(int start) {
 - [ ] HashTable 충돌 해결 방법 이해
 - [ ] AVL 트리와 균형 유지 원리 이해
 - [ ] DFS/BFS 차이와 사용 사례 설명 가능
+- [ ] Trie 구조와 O(M) 검색 원리 설명 가능
+- [ ] B-Tree의 특성과 DB 인덱스에 쓰이는 이유 설명 가능

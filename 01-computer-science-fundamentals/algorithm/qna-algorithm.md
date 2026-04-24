@@ -746,6 +746,215 @@ function dijkstra(graph, start) {
 
 ---
 
+## Q16. 비트마스크(BitMask) 알고리즘이란 무엇인가요? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+비트마스크는 **정수의 이진수 표현을 이용해 집합이나 상태를 표현하는 기법**입니다. 비트 연산(AND, OR, XOR, NOT, Shift)을 사용해 O(1)에 집합 연산을 수행합니다.
+
+### 핵심 비트 연산
+
+| 연산 | 기호 | 설명 | 예시 |
+|------|------|------|------|
+| AND | `&` | 둘 다 1이면 1 | 특정 비트 확인 |
+| OR | `\|` | 하나라도 1이면 1 | 비트 추가 |
+| XOR | `^` | 다르면 1 | 비트 토글 |
+| NOT | `~` | 반전 | 보수 |
+| Left Shift | `<<` | 왼쪽으로 이동 | 2배 곱셈 |
+| Right Shift | `>>` | 오른쪽으로 이동 | 2로 나누기 |
+
+### 집합 표현 (n개 원소를 n비트로 표현)
+
+```python
+# 원소 {0, 1, 2, 3, 4}를 비트로 표현
+# 인덱스: 4 3 2 1 0
+# 비트:   0 0 1 0 1  → 10진수 5 → {0, 2} 집합
+
+# 원소 i 추가
+def add(set_val, i):
+    return set_val | (1 << i)
+
+# 원소 i 제거
+def remove(set_val, i):
+    return set_val & ~(1 << i)
+
+# 원소 i 포함 여부 확인
+def contains(set_val, i):
+    return bool(set_val & (1 << i))
+
+# 원소 i 토글 (있으면 제거, 없으면 추가)
+def toggle(set_val, i):
+    return set_val ^ (1 << i)
+
+# 공집합 확인
+def is_empty(set_val):
+    return set_val == 0
+```
+
+### 부분집합 열거 (백트래킹 대신 비트마스크 사용)
+
+```python
+n = 4  # 원소 {0, 1, 2, 3}
+
+# 모든 부분집합 열거: 2^n가지
+for mask in range(1 << n):  # 0부터 2^n - 1까지
+    subset = []
+    for i in range(n):
+        if mask & (1 << i):
+            subset.append(i)
+    print(f"마스크={bin(mask)}: {subset}")
+```
+
+### 활용 예시: 방문 상태 관리 (TSP, DP)
+
+```python
+# n개 도시 방문 여부를 비트로 관리
+# 0101 → 도시 0, 2 방문
+visited = 0
+
+# 도시 2 방문
+visited |= (1 << 2)
+
+# 도시 2 방문 여부 확인
+if visited & (1 << 2):
+    print("도시 2 방문함")
+
+# 모든 도시 방문 완료 확인
+all_visited = (1 << n) - 1
+if visited == all_visited:
+    print("모두 방문")
+```
+
+### 시간/공간 복잡도
+
+| 집합 크기 n | 일반 배열 | 비트마스크 |
+|------------|---------|-----------|
+| 원소 추가/삭제 | O(n) | O(1) |
+| 원소 포함 확인 | O(n) | O(1) |
+| 부분집합 개수 | - | 2^n |
+| 메모리 | O(n) | O(1) - 정수 1개 |
+
+### 주의사항
+- 정수 크기 제한: int(32비트)는 최대 32개 원소, long(64비트)는 64개
+- 원소 수가 많으면 비트마스크 대신 HashSet 사용
+
+### 면접관이 주목하는 포인트
+- 비트 연산으로 집합 연산을 O(1)에 처리하는 원리
+- 완전 탐색 + DP 문제에서 상태 표현에 활용 (외판원 문제 등)
+
+### 꼬리 질문 대비
+- "비트마스크 DP란?" → 방문 상태를 비트마스크로 표현해 DP 메모이제이션에 활용 (예: 외판원 순회 문제)
+
+</details>
+
+---
+
+## Q17. Radix Sort(기수 정렬)를 설명해주세요. ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+기수 정렬은 **비교 없이** 각 자리수(1의 자리 → 10의 자리 → ...)를 기준으로 안정 정렬을 반복하는 알고리즘입니다. 시간 복잡도 O(d×n)으로 비교 기반 정렬의 하한인 O(n log n)을 넘어설 수 있습니다.
+
+### 동작 원리 (LSD - Least Significant Digit)
+
+```
+정렬 대상: [170, 45, 75, 90, 802, 24, 2, 66]
+
+1단계: 1의 자리 기준 정렬
+  [170, 90, 802, 2, 24, 45, 75, 66]
+   0    0    2   2   4   5   5   6
+
+2단계: 10의 자리 기준 정렬
+  [802, 2, 24, 45, 66, 170, 75, 90]
+    0   0   2   4   6    7   7   9
+
+3단계: 100의 자리 기준 정렬
+  [2, 24, 45, 66, 75, 90, 170, 802]
+   0   0   0   0   0   0    1    8
+
+결과: [2, 24, 45, 66, 75, 90, 170, 802]
+```
+
+### 구현 (Python)
+
+```python
+def counting_sort_by_digit(arr, exp):
+    n = len(arr)
+    output = [0] * n
+    count = [0] * 10  # 0~9 자리수
+
+    # 자리수별 빈도 계산
+    for i in range(n):
+        index = (arr[i] // exp) % 10
+        count[index] += 1
+
+    # 누적 합 (각 자리가 몇 번째 위치에 들어갈지)
+    for i in range(1, 10):
+        count[i] += count[i - 1]
+
+    # 뒤에서부터 배치 (안정 정렬 유지)
+    for i in range(n - 1, -1, -1):
+        index = (arr[i] // exp) % 10
+        output[count[index] - 1] = arr[i]
+        count[index] -= 1
+
+    for i in range(n):
+        arr[i] = output[i]
+
+def radix_sort(arr):
+    max_val = max(arr)
+    exp = 1
+    while max_val // exp > 0:
+        counting_sort_by_digit(arr, exp)
+        exp *= 10
+```
+
+### 시간/공간 복잡도
+
+| 항목 | 복잡도 |
+|------|--------|
+| 시간 | O(d × (n + k)) — d: 최대 자리수, k: 기수(10) |
+| 공간 | O(n + k) |
+| 안정성 | 안정 정렬 |
+
+### Q6 정렬 비교표와의 연계
+
+```
+비교 기반 정렬 (하한: O(n log n))
+  Quick, Merge, Heap Sort
+
+비교 비기반 정렬 (O(n) 가능)
+  Counting Sort: O(n + k) — k: 값의 범위
+  Radix Sort:   O(d × n) — d: 자리수
+  Bucket Sort:  O(n)     — 균등 분포 시
+```
+
+### 언제 사용하는가?
+
+```
+✓ 정수 또는 고정 길이 문자열 정렬
+✓ 값의 범위가 크지만 자리수(d)가 작을 때
+✓ 안정 정렬이 필요할 때
+
+✗ 부동 소수점, 비교 연산이 복잡한 경우
+✗ 자리수(d)가 log n보다 클 때는 비효율
+```
+
+### 면접관이 주목하는 포인트
+- 비교 기반 정렬의 하한(O(n log n))을 어떻게 극복하는지
+- Counting Sort와의 관계 (기수 정렬의 각 단계에서 Counting Sort 사용)
+
+### 꼬리 질문 대비
+- "Counting Sort와 Radix Sort의 차이?" → Counting Sort는 값 범위(k)에 의존, Radix Sort는 자리수(d)에 의존. Radix Sort는 Counting Sort를 여러 번 적용한 것
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] Big-O 표기법 이해 및 주요 복잡도 암기
@@ -761,3 +970,5 @@ function dijkstra(graph, start) {
 - [ ] 투 포인터 패턴 구현 가능
 - [ ] 슬라이딩 윈도우 패턴 구현 가능
 - [ ] 다익스트라 알고리즘 동작 원리 설명 가능
+- [ ] 비트마스크 기본 연산(추가/삭제/확인) 구현 가능
+- [ ] 기수 정렬 동작 원리 및 시간 복잡도 설명 가능
