@@ -196,12 +196,13 @@ def semantic_chunk(text, threshold=0.5):
 | sentence-transformers | 384~768 | 오픈소스, 로컬 |
 | Cohere embed | 1024 | 다국어 지원 |
 | BGE (BAAI) | 1024 | 오픈소스, 한국어 좋음 |
+| ko-sbert | 768 | 한국어 특화 SBERT (로컬, 무료) |
 
 ### 임베딩 모델 선택 기준
 
 ```
 1. 언어 지원
-   - 한국어: BGE, multilingual-e5
+   - 한국어: ko-sbert, BGE, multilingual-e5
    - 영어: OpenAI, Cohere
 
 2. 성능 vs 비용

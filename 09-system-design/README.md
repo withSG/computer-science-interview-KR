@@ -33,9 +33,24 @@
 
 ---
 
+## QnA 파일
+
+- [qna-infrastructure.md](./qna-infrastructure.md) - 로드밸런서(L4/L7), 무중단 배포, 대용량 트래픽 등 인프라 면접 질문 모음
+
+> 캐싱·확장성·성능 QnA는 각 하위 폴더(caching/scalability/performance) 내 qna 파일을 참고하세요.
+
+---
+
 ## 핵심 키워드
 
 `Cache` `Redis` `CDN` `Cache Invalidation`
 `Horizontal Scaling` `Vertical Scaling` `Load Balancer`
 `Sharding` `Partitioning` `Replication`
 `Latency` `Throughput` `Bottleneck`
+
+---
+
+## 관련 학습 자료
+
+- [Cloud Engineering - DevOps & CI/CD](../10-cloud-engineering/devops-cicd/) - 무중단 배포 (Rolling, Blue-Green, Canary)
+- [Cloud Engineering](../10-cloud-engineering/) - 로드밸런서(L4/L7), 대용량 트래픽 대응 등 인프라 주제

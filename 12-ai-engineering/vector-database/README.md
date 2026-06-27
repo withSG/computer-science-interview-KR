@@ -19,6 +19,6 @@
 ## 핵심 키워드
 
 `Vector Database` `Embedding` `Similarity Search`
-`ANN` `HNSW` `IVF` `PQ`
+`ANN` `HNSW` `IVF` `PQ` `FAISS`
 `Cosine Similarity` `Euclidean Distance`
 `Pinecone` `Weaviate` `Milvus` `Qdrant` `Chroma`

@@ -352,6 +352,59 @@ results = index.query(
 
 ---
 
+## Q6. FAISS란 무엇이며, 주요 인덱스 종류는? ⭐⭐
+
+<details>
+<summary>답변 보기</summary>
+
+### 핵심 답변
+FAISS(Facebook AI Similarity Search)는 **고차원 벡터의 유사도 검색을 빠르게 수행하는 라이브러리**입니다. 별도 DB 서버가 아니라 코드에 내장해 쓰는 라이브러리로, 인메모리에서 대량 벡터 검색을 처리합니다. 다양한 인덱스 종류를 선택해 속도·정확도·메모리를 조절합니다.
+
+### 주요 인덱스 종류
+
+| 인덱스 | 방식 | 특징 |
+|--------|------|------|
+| IndexFlatL2 | 전수 비교(L2 거리) | 정확 100%, 느림, 소규모용 |
+| IndexFlatIP | 전수 비교(내적) | 정규화 벡터에서 코사인과 동일 |
+| IndexIVFFlat | 클러스터(IVF)로 후보 축소 | 빠름, 약간의 정확도 손실 |
+| IndexIVFPQ | IVF + 곱 양자화(PQ) 압축 | 대용량, 메모리 절감, 정확도↓ |
+| IndexHNSWFlat | HNSW 그래프 탐색 | 빠르고 정확, 메모리 사용 큼 |
+
+> IVF/PQ/HNSW의 알고리즘 원리는 [Q2. ANN](#q2-annapproximate-nearest-neighbor-알고리즘을-설명해주세요-) 참고.
+
+### 사용 예시
+
+```python
+import faiss
+import numpy as np
+
+d = 768                              # 임베딩 차원
+index = faiss.IndexFlatL2(d)         # L2 거리 기반 전수 검색
+index.add(doc_vectors)               # 문서 벡터 추가 (N x d)
+
+D, I = index.search(query_vector, k=5)  # 상위 5개 (거리 D, 인덱스 I)
+```
+
+### 인덱스 선택 가이드
+
+```
+소규모(~수만):       IndexFlatL2 (정확, 단순)
+중규모(수십만~백만):  IndexIVFFlat (속도/정확 균형)
+대용량(수천만+):      IndexIVFPQ (메모리 절감)
+정확도 중시:         IndexHNSWFlat
+```
+
+### FAISS vs 벡터 DB
+FAISS는 라이브러리(검색 엔진)일 뿐, 영속성·메타데이터 필터링·분산·운영 기능은 직접 구현해야 합니다. 프로덕션에서 운영 편의가 필요하면 Pinecone/Qdrant/Milvus 같은 벡터 DB(내부적으로 유사한 ANN 알고리즘 사용)를 고려합니다.
+
+### 면접관이 주목하는 포인트
+- 라이브러리(FAISS) vs 관리형 벡터 DB의 차이
+- 인덱스별 속도/정확도/메모리 트레이드오프
+
+</details>
+
+---
+
 ## 학습 체크리스트
 
 - [ ] 벡터 DB의 필요성 설명 가능
@@ -359,3 +412,4 @@ results = index.query(
 - [ ] 유사도 측정 방법 3가지 비교 가능
 - [ ] 주요 벡터 DB 특징 알기
 - [ ] 메타데이터 필터링 이해
+- [ ] FAISS 인덱스 종류와 선택 기준 이해

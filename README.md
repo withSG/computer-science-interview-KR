@@ -224,7 +224,62 @@
 
 ---
 
-### 04. System Design (시스템 설계)
+### 04. Design Patterns (디자인 패턴)
+
+- [ ] 생성 패턴 (Singleton, Factory, Builder)
+- [ ] 구조 패턴 (Adapter, Decorator, Proxy, Facade, Bridge)
+- [ ] 행동 패턴 (Observer, Strategy, Template Method)
+- [ ] 아키텍처 패턴 (MVC, MVP, MVVM)
+- [ ] QnA 복습 완료
+
+---
+
+### 05. API Design (API 설계)
+
+- [ ] REST API 설계 원칙
+- [ ] GraphQL 기초
+- [ ] API 버저닝
+- [ ] QnA 복습 완료
+
+---
+
+### 06. Software Engineering (소프트웨어 공학)
+
+- [ ] 애자일/스크럼
+- [ ] 코드 리뷰
+- [ ] 테스트 전략 (단위/통합/시스템/인수)
+- [ ] 테스트 코드 작성 이유
+- [ ] 테스트 커버리지
+- [ ] KISS, YAGNI, DRY 원칙
+- [ ] 브룩스의 법칙
+- [ ] 클린 코드 & 리팩토링
+- [ ] 함수형 프로그래밍 (순수 함수, 불변성, 고차 함수)
+- [ ] MSA vs 모놀리식 아키텍처
+- [ ] QnA 복습 완료
+
+---
+
+### 07. Version Control (버전 관리)
+
+- [ ] Git 기본 명령어
+- [ ] 브랜칭 전략
+- [ ] Git Flow vs GitHub Flow
+- [ ] QnA 복습 완료
+
+---
+
+### 08. Security (보안)
+
+- [ ] OWASP Top 10
+- [ ] XSS, CSRF, SQL Injection
+- [ ] HTTPS/TLS
+- [ ] 암호화 (대칭키/비대칭키)
+- [ ] 해시 함수와 비밀번호 저장
+- [ ] QnA 복습 완료
+
+---
+
+### 09. System Design (시스템 설계)
 
 - [ ] **Caching (캐싱)**
   - [ ] 캐싱 전략
@@ -242,90 +297,11 @@
   - [ ] 병목 지점 분석
   - [ ] QnA 복습 완료
 
-- [ ] **Infrastructure (인프라)**
-  - [ ] 로드 밸런서 (L4/L7)
-  - [ ] 무중단 배포 (Rolling, Blue/Green, Canary)
-  - [ ] 대용량 트래픽 대응
-  - [ ] QnA 복습 완료
+> 로드밸런서(L4/L7), 무중단 배포(Rolling·Blue-Green·Canary), 대용량 트래픽 대응 등 인프라 주제는 [10. Cloud Engineering](./10-cloud-engineering/devops-cicd/)(배포 전략)와 위 Scalability(로드밸런싱)를 참고하세요.
 
 ---
 
-### 05. AI Engineering (AI 엔지니어링)
-
-- [ ] **RAG Pipeline**
-  - [ ] 청킹 전략
-  - [ ] 임베딩
-  - [ ] 검색 최적화
-  - [ ] QnA 복습 완료
-
-- [ ] **Vector Database**
-  - [ ] HNSW, IVF 알고리즘
-  - [ ] 벡터 DB 선택
-  - [ ] QnA 복습 완료
-
-- [ ] **LLM Integration**
-  - [ ] 프롬프트 엔지니어링
-  - [ ] 환각 완화 기법
-  - [ ] QnA 복습 완료
-
----
-
-### 06. Design Patterns (디자인 패턴)
-
-- [ ] 생성 패턴 (Singleton, Factory, Builder)
-- [ ] 구조 패턴 (Adapter, Decorator, Proxy, Facade, Bridge)
-- [ ] 행동 패턴 (Observer, Strategy, Template Method)
-- [ ] 아키텍처 패턴 (MVC, MVP, MVVM)
-- [ ] QnA 복습 완료
-
----
-
-### 07. Security (보안)
-
-- [ ] OWASP Top 10
-- [ ] XSS, CSRF, SQL Injection
-- [ ] HTTPS/TLS
-- [ ] 암호화 (대칭키/비대칭키)
-- [ ] 해시 함수와 비밀번호 저장
-- [ ] QnA 복습 완료
-
----
-
-### 08. API Design (API 설계)
-
-- [ ] REST API 설계 원칙
-- [ ] GraphQL 기초
-- [ ] API 버저닝
-- [ ] QnA 복습 완료
-
----
-
-### 09. Software Engineering (소프트웨어 공학)
-
-- [ ] 애자일/스크럼
-- [ ] 코드 리뷰
-- [ ] 테스트 전략 (단위/통합/시스템/인수)
-- [ ] 테스트 코드 작성 이유
-- [ ] 테스트 커버리지
-- [ ] KISS, YAGNI, DRY 원칙
-- [ ] 브룩스의 법칙
-- [ ] 클린 코드 & 리팩토링
-- [ ] 함수형 프로그래밍 (순수 함수, 불변성, 고차 함수)
-- [ ] MSA vs 모놀리식 아키텍처
-- [ ] QnA 복습 완료
-
----
-
-### 10. Version Control (버전 관리)
-
-- [ ] Git 기본 명령어
-- [ ] 브랜칭 전략
-- [ ] Git Flow vs GitHub Flow
-- [ ] QnA 복습 완료
-
----
-
-### 11. Cloud Engineering (클라우드 엔지니어링)
+### 10. Cloud Engineering (클라우드 엔지니어링)
 
 - [ ] **Cloud Fundamentals (클라우드 기초)**
   - [ ] IaaS/PaaS/SaaS
@@ -390,6 +366,69 @@
 
 ---
 
+### 11. Data Engineering (데이터 엔지니어링)
+
+- [ ] **데이터 파이프라인**
+  - [ ] ETL vs ELT
+  - [ ] 파이프라인 구성 요소
+- [ ] **Apache Airflow**
+  - [ ] DAG, Operator, 스케줄링
+  - [ ] 멱등성과 백필(Backfill)
+- [ ] **Apache Kafka**
+  - [ ] Topic/Partition/Consumer Group
+  - [ ] 스트리밍, 전달 보장 (at-least-once 등)
+- [ ] **Apache Spark**
+  - [ ] RDD/DataFrame, 분산 처리
+  - [ ] 지연 실행(Lazy Evaluation), Spark vs MapReduce
+- [ ] **배치 vs 스트리밍**
+  - [ ] Lambda / Kappa 아키텍처
+  - [ ] 데이터 레이크 vs 웨어하우스
+- [ ] QnA 복습 완료
+
+---
+
+### 12. AI Engineering (AI 엔지니어링)
+
+- [ ] **ML Fundamentals**
+  - [ ] 과적합/과소적합과 완화
+  - [ ] 정규화 (L1/L2, Dropout)
+  - [ ] 전이학습 (ResNet18)
+  - [ ] 평가지표 (정밀도/재현율/F1/ROC-AUC)
+  - [ ] 편향-분산 트레이드오프
+  - [ ] 설명가능 AI (SHAP/XAI)
+  - [ ] QnA 복습 완료
+
+- [ ] **LLM Integration**
+  - [ ] 프롬프트 엔지니어링
+  - [ ] 환각 완화 기법
+  - [ ] QnA 복습 완료
+
+- [ ] **Vector Database**
+  - [ ] HNSW, IVF 알고리즘
+  - [ ] FAISS 인덱스 (IndexFlatL2 등)
+  - [ ] 유사도 측정 (코사인/L2/내적)
+  - [ ] 벡터 DB 선택
+  - [ ] QnA 복습 완료
+
+- [ ] **RAG Pipeline**
+  - [ ] 청킹 전략
+  - [ ] 임베딩
+  - [ ] 검색 최적화
+  - [ ] QnA 복습 완료
+
+- [ ] **AI Agent / LangGraph**
+  - [ ] AI Agent와 ReAct 루프
+  - [ ] LangGraph State/Node/Edge
+  - [ ] 조건부 분기 (add_conditional_edges)
+  - [ ] Human-in-the-Loop (interrupt)
+  - [ ] 무한 루프 방지 (recursion_limit)
+  - [ ] 프롬프트 → 플로우 엔지니어링
+  - [ ] AI 하네스 (Agent Harness)
+  - [ ] BMAD Method
+  - [ ] QnA 복습 완료
+
+---
+
 ### 99. Practical Interview (실전 면접)
 
 - [ ] STAR 기법 이해
@@ -422,7 +461,8 @@
 **심화 학습:**
 - 디자인 패턴 전체
 - MSA, Event-Driven Architecture
-- AI 통합 (RAG, Vector DB)
+- AI 통합 (RAG, Vector DB, AI Agent/LangGraph)
+- 데이터 엔지니어링 (ETL, Airflow, Kafka, Spark)
 - 클라우드 아키텍처 설계
 - 모니터링/Observability
 
@@ -453,7 +493,6 @@
 | Java | 백엔드 | OOP, GC, Thread-safe, Exception |
 | Spring | 백엔드 | IoC/DI, AOP, MVC, JPA |
 | Database | 백엔드 | ACID, 정규화, 인덱스, NoSQL |
-| Security | 공통 | XSS, CSRF, 암호화, 해시 |
 | Browser | 프론트엔드 | CRP, DOM, 리플로우 |
 | JavaScript | 프론트엔드 | 클로저, 이벤트 루프, 호이스팅 |
 | React | 프론트엔드 | Virtual DOM, Fiber, Hooks |
@@ -462,7 +501,17 @@
 | TypeScript | 프론트엔드 | Type, Interface, Generic, Utility Types |
 | Build Tools | 프론트엔드 | Webpack, Babel, 번들링, 트리쉐이킹 |
 | Frontend Architecture | 프론트엔드 | BFF, 상태관리, 의존성방향, 관심사분리 |
+| Design Patterns | 공통 | 싱글톤, 팩토리, 옵저버, 전략, MVC/MVVM |
+| API Design | 공통 | REST, GraphQL, 버저닝, 페이지네이션 |
+| Software Engineering | 공통 | 애자일, 테스트/TDD, 클린코드, MSA |
+| Version Control | 공통 | Git, 브랜칭, Git Flow, GitHub Flow |
+| Security | 공통 | XSS, CSRF, 암호화, 해시 |
+| System Design | 공통 | 캐싱, 확장성, 로드밸런싱, 샤딩, 성능 |
 | Cloud | DevOps | Docker, K8s, CI/CD, AWS |
+| Data Engineering | AI/데이터 | ETL, Airflow, Kafka, Spark |
+| ML Fundamentals | AI/데이터 | 과적합, 정규화, 평가지표, XAI |
+| AI Engineering | AI/데이터 | RAG, 임베딩, 벡터DB, FAISS, 환각완화 |
+| AI Agent | AI/데이터 | LangGraph, ReAct, 하네스, BMAD, 플로우엔지니어링 |
 
 ---
 

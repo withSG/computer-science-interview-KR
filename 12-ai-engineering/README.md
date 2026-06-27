@@ -8,6 +8,8 @@
 - [ ] 벡터 데이터베이스의 원리를 안다
 - [ ] LLM 통합과 프롬프트 엔지니어링을 할 수 있다
 - [ ] 환각(Hallucination) 완화 기법을 안다
+- [ ] AI Agent와 LangGraph 워크플로우를 이해한다
+- [ ] ML 기초(과적합, 정규화, 평가지표, XAI)를 안다
 
 ---
 
@@ -15,20 +17,26 @@
 
 | 폴더 | 주제 | 난이도 |
 |------|------|--------|
-| [rag-pipeline](./rag-pipeline/) | RAG 파이프라인 | ⭐⭐⭐ |
-| [vector-database](./vector-database/) | 벡터 데이터베이스 | ⭐⭐ |
+| [ml-fundamentals](./ml-fundamentals/) | ML 기초 | ⭐⭐ |
 | [llm-integration](./llm-integration/) | LLM 통합 | ⭐⭐ |
+| [vector-database](./vector-database/) | 벡터 데이터베이스 | ⭐⭐ |
+| [rag-pipeline](./rag-pipeline/) | RAG 파이프라인 | ⭐⭐⭐ |
+| [ai-agent](./ai-agent/) | AI Agent / LangGraph | ⭐⭐⭐ |
 
 ---
 
 ## 학습 순서 권장
 
 ```
+0. ML 기초 (과적합, 정규화, 평가지표) — 선택
+       ↓
 1. LLM 기초 (모델 이해, 프롬프트 엔지니어링)
        ↓
 2. 임베딩과 벡터 DB (유사도 검색)
        ↓
 3. RAG 파이프라인 (청킹, 검색, 생성)
+       ↓
+4. AI Agent (LangGraph, 도구 사용, 플로우 엔지니어링)
 ```
 
 ---
@@ -36,6 +44,8 @@
 ## 핵심 키워드
 
 `RAG` `Retrieval` `Augmented` `Generation`
-`Embedding` `Vector Database` `HNSW` `IVF`
+`Embedding` `Vector Database` `HNSW` `IVF` `FAISS`
 `Chunking` `Semantic Search` `Hybrid Search`
 `Prompt Engineering` `Hallucination` `Grounding`
+`AI Agent` `LangGraph` `Flow Engineering`
+`Overfitting` `Regularization` `XAI` `SHAP`
