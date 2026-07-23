@@ -13,6 +13,7 @@
 ## QnA 파일
 
 - [qna-behavioral.md](./qna-behavioral.md) - 인성/경험 면접 질문 모음
+- [qna-frontend-companies.md](./qna-frontend-companies.md) - 프론트엔드 기업별 실전 면접 질문 모음
 
 ---
 
@@ -21,3 +22,4 @@
 `STAR 기법` `기술 면접` `인성 면접`
 `자기소개` `지원동기` `강점/약점`
 `협업 경험` `문제 해결` `실패 경험`
+`기업별 실전 질문` `프론트엔드 면접`
