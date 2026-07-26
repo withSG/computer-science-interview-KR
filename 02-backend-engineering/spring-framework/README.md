@@ -15,12 +15,12 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-ioc-di.md | IoC와 DI | ⭐⭐ |
-| 02-aop-proxy.md | AOP와 프록시 | ⭐⭐ |
-| 03-spring-mvc-flow.md | Spring MVC 흐름 | ⭐⭐ |
-| 04-bean-lifecycle.md | Bean 생명주기 | ⭐⭐ |
-| 05-spring-boot-auto-config.md | Auto Configuration | ⭐⭐ |
-| 06-transactional-pitfalls.md | @Transactional 함정 | ⭐⭐⭐ |
+| [01-ioc-di.md](./01-ioc-di.md) | IoC와 DI | ⭐⭐ |
+| [02-aop-proxy.md](./02-aop-proxy.md) | AOP와 프록시 | ⭐⭐ |
+| [03-spring-mvc-flow.md](./03-spring-mvc-flow.md) | Spring MVC 흐름 | ⭐⭐ |
+| [04-bean-lifecycle.md](./04-bean-lifecycle.md) | Bean 생명주기와 스코프 | ⭐⭐ |
+| [05-spring-boot-auto-config.md](./05-spring-boot-auto-config.md) | Auto Configuration | ⭐⭐ |
+| [06-transactional-pitfalls.md](./06-transactional-pitfalls.md) | @Transactional 함정 | ⭐⭐⭐ |
 
 ---
 
