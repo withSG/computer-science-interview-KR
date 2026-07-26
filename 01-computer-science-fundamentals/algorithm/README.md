@@ -14,9 +14,9 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-time-complexity.md | 시간 복잡도 | ⭐ |
-| 02-sorting.md | 정렬 알고리즘 | ⭐⭐ |
-| 03-searching.md | 탐색 알고리즘 | ⭐ |
+| [01-time-complexity.md](./01-time-complexity.md) | 시간 복잡도와 점근 표기법 | ⭐ |
+| [02-sorting.md](./02-sorting.md) | 정렬 알고리즘 | ⭐⭐ |
+| [03-searching.md](./03-searching.md) | 탐색 알고리즘 (이진 탐색·DFS/BFS·최단 경로) | ⭐⭐ |
 
 ---
 

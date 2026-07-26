@@ -7,6 +7,19 @@
 - [ ] CPU의 구성요소와 명령어 실행 과정을 이해한다
 - [ ] 캐시 메모리의 필요성과 동작 방식을 안다
 - [ ] 수 표현 방식(고정/부동 소수점)의 차이를 이해한다
+- [ ] 패리티·해밍 코드로 오류를 검출하고 정정하는 원리를 안다
+- [ ] RISC와 CISC의 설계 철학 차이와 현대 CPU에서의 수렴을 설명한다
+
+---
+
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-cpu-instruction-cycle.md](./01-cpu-instruction-cycle.md) | CPU 구성요소와 명령어 사이클, 파이프라인 | ⭐⭐ |
+| [02-cache-memory.md](./02-cache-memory.md) | 캐시 메모리와 메모리 계층 구조 | ⭐⭐ |
+| [03-number-representation.md](./03-number-representation.md) | 수 표현 방식 (2의 보수, IEEE 754) | ⭐ |
+| [04-error-detection-risc-cisc.md](./04-error-detection-risc-cisc.md) | 오류 검출·정정과 RISC vs CISC | ⭐⭐⭐ |
 
 ---
 

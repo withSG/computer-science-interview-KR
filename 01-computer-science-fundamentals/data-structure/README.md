@@ -14,10 +14,10 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-array-list.md | 배열과 리스트 | ⭐ |
-| 02-stack-queue.md | 스택과 큐 | ⭐ |
-| 03-tree-graph.md | 트리와 그래프 | ⭐⭐ |
-| 04-hash-table.md | 해시 테이블 | ⭐⭐ |
+| [01-array-list.md](./01-array-list.md) | 배열과 리스트 | ⭐ |
+| [02-stack-queue.md](./02-stack-queue.md) | 스택과 큐 (덱, 힙 포함) | ⭐ |
+| [03-tree-graph.md](./03-tree-graph.md) | 트리와 그래프 | ⭐⭐ |
+| [04-hash-table.md](./04-hash-table.md) | 해시 테이블 | ⭐⭐ |
 
 ---
 
