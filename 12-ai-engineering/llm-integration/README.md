@@ -8,6 +8,16 @@
 - [ ] 프롬프트 엔지니어링 기법을 적용할 수 있다
 - [ ] API 통합 패턴을 안다
 - [ ] 비용 최적화 방법을 설명할 수 있다
+- [ ] 환각이 구조적 특성인 이유와 완화 기법을 설명할 수 있다
+
+---
+
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-llm-basics-prompting.md](./01-llm-basics-prompting.md) | LLM 기초와 프롬프트 엔지니어링 | ⭐ |
+| [02-hallucination-integration.md](./02-hallucination-integration.md) | 환각과 프로덕션 통합 | ⭐⭐ |
 
 ---
 

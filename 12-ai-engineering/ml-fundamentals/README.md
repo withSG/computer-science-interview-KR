@@ -13,6 +13,16 @@
 
 ---
 
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-overfitting-regularization.md](./01-overfitting-regularization.md) | 과적합과 정규화 (편향-분산, L1/L2, Dropout, 데이터 누수) | ⭐⭐ |
+| [02-evaluation-metrics.md](./02-evaluation-metrics.md) | 평가 지표와 교차 검증 (정밀도/재현율, ROC-AUC vs PR-AUC) | ⭐⭐ |
+| [03-transfer-learning-xai.md](./03-transfer-learning-xai.md) | 전이학습과 설명 가능한 AI (파인튜닝 전략, SHAP/LIME) | ⭐⭐⭐ |
+
+---
+
 ## QnA 파일
 
 - [qna-ml-fundamentals.md](./qna-ml-fundamentals.md) - ML 기초 면접 질문 모음

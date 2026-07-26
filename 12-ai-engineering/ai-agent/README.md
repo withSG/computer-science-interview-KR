@@ -14,6 +14,14 @@
 
 ---
 
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-agent-langgraph.md](./01-agent-langgraph.md) | AI 에이전트와 LangGraph (ReAct, State/Node/Edge, 루프 제어) | ⭐⭐⭐ |
+
+---
+
 ## QnA 파일
 
 - [qna-ai-agent.md](./qna-ai-agent.md) - AI Agent / LangGraph 면접 질문 모음

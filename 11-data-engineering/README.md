@@ -12,6 +12,18 @@
 
 ---
 
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-etl-pipeline.md](./01-etl-pipeline.md) | 데이터 파이프라인과 ETL/ELT | ⭐ |
+| [02-airflow.md](./02-airflow.md) | Airflow와 워크플로우 오케스트레이션 | ⭐⭐ |
+| [03-kafka.md](./03-kafka.md) | Kafka와 이벤트 스트리밍 | ⭐⭐⭐ |
+| [04-spark.md](./04-spark.md) | Spark와 분산 데이터 처리 | ⭐⭐⭐ |
+| [05-batch-vs-streaming.md](./05-batch-vs-streaming.md) | 배치 처리와 스트리밍 처리 | ⭐⭐ |
+
+---
+
 ## QnA 파일
 
 - [qna-data-engineering.md](./qna-data-engineering.md) - 데이터 엔지니어링 면접 질문 모음
