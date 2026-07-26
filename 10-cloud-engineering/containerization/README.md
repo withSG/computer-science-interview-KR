@@ -15,8 +15,10 @@
 
 | 폴더 | 주제 | 난이도 |
 |------|------|--------|
-| [docker](./docker/) | Docker 기초 | ⭐⭐ |
-| [registry](./registry/) | 이미지 레지스트리 | ⭐ |
+| [docker](./docker/) | Docker 기초, Compose, 컨테이너 vs VM | ⭐⭐ |
+
+> 이미지 레지스트리(DockerHub, ECR)는 [docker/01-docker-basics.md](./docker/01-docker-basics.md)의
+> 이미지·레이어 절에서 함께 다룹니다.
 
 ---
 

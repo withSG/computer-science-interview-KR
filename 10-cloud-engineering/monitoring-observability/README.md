@@ -15,11 +15,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-observability-concepts.md | Logs, Metrics, Traces | ⭐ |
-| 02-prometheus-grafana.md | 메트릭 수집, 시각화, 알림 | ⭐⭐ |
-| 03-logging-stack.md | ELK, Loki, Fluentd | ⭐⭐ |
-| 04-distributed-tracing.md | Jaeger, Zipkin, OpenTelemetry | ⭐⭐ |
-| 05-alerting-oncall.md | 알림 설계, On-call 문화 | ⭐⭐ |
+| 01-observability-concepts.md | Logs/Metrics/Traces, 카디널리티, USE·RED, SLI/SLO/에러 버짓 | ⭐ |
+| 02-prometheus-grafana.md | Pull 수집, 메트릭 타입, PromQL, Exporter, 대시보드 설계 | ⭐⭐ |
+| 03-logging-stack.md | 구조화 로깅, ELK vs Loki, 수집 파이프라인, 상관관계 ID | ⭐⭐ |
+| 04-distributed-tracing.md | Trace/Span, W3C Trace Context, 샘플링, OpenTelemetry | ⭐⭐ |
+| 05-alerting-oncall.md | 알림 계층, 증상 기반 알림, On-call, 포스트모템 | ⭐⭐ |
 
 ---
 
@@ -31,7 +31,8 @@
 
 ## 핵심 키워드
 
-`Observability` `Logs` `Metrics` `Traces`
-`Prometheus` `Grafana` `AlertManager`
-`ELK` `Loki` `Fluentd` `Jaeger`
-`SLI` `SLO` `SLA` `On-call`
+`Observability` `Logs` `Metrics` `Traces` `Cardinality` `USE` `RED`
+`Prometheus` `PromQL` `Grafana` `Alertmanager` `Exporter` `Histogram`
+`ELK` `Loki` `Fluent Bit` `구조화 로깅` `상관관계 ID`
+`Jaeger` `Tempo` `OpenTelemetry` `W3C Trace Context` `Sampling`
+`SLI` `SLO` `SLA` `Error Budget` `Burn Rate` `On-call` `Postmortem`

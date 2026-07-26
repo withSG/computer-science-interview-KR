@@ -14,10 +14,10 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-cicd-concepts.md | CI vs CD, 배포 전략 개념 | ⭐ |
-| 02-pipeline-tools.md | Jenkins, GitHub Actions, GitLab CI | ⭐⭐ |
-| 03-deployment-strategies.md | Blue-Green, Canary, Rolling | ⭐⭐ |
-| 04-gitops.md | ArgoCD, Flux | ⭐⭐ |
+| 01-cicd-concepts.md | CI vs CD, 통합 지옥, 파이프라인 단계 설계 | ⭐ |
+| 02-pipeline-tools.md | GitHub Actions, Jenkins, 캐싱과 시크릿 | ⭐⭐ |
+| 03-deployment-strategies.md | Blue-Green, Canary, Rolling, 스키마 호환 | ⭐⭐ |
+| 04-gitops.md | GitOps, ArgoCD, Terraform과 IaC | ⭐⭐⭐ |
 
 ---
 
@@ -29,7 +29,7 @@
 
 ## 핵심 키워드
 
-`CI` `CD` `Pipeline` `Build` `Deploy`
-`Jenkins` `GitHub Actions` `GitLab CI`
-`Blue-Green` `Canary` `Rolling Update`
-`GitOps` `ArgoCD` `Flux`
+`CI` `CD` `Pipeline` `Build` `Deploy` `Artifact`
+`Jenkins` `GitHub Actions` `Runner` `Cache` `OIDC`
+`Blue-Green` `Canary` `Rolling Update` `Feature Flag` `Rollback`
+`GitOps` `ArgoCD` `Drift` `Terraform` `IaC`

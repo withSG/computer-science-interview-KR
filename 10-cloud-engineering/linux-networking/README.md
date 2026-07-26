@@ -15,11 +15,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-linux-essentials.md | 파일시스템, 권한, 프로세스 | ⭐ |
-| 02-networking-commands.md | netstat, ss, tcpdump, curl | ⭐⭐ |
-| 03-troubleshooting.md | 성능 분석, 디버깅 | ⭐⭐ |
-| 04-shell-scripting.md | Bash 스크립팅 기초 | ⭐⭐ |
-| 05-security-basics.md | SSH, 방화벽, SELinux | ⭐⭐ |
+| [01-linux-essentials.md](./01-linux-essentials.md) | 파일시스템 계층, 권한 모델, 특수 권한, 프로세스와 시그널, 표준 스트림 | ⭐ |
+| [02-networking-commands.md](./02-networking-commands.md) | 계층별 진단 순서, ip/ss/dig/nc/curl/tcpdump | ⭐⭐ |
+| [03-troubleshooting.md](./03-troubleshooting.md) | Load Average 해석, 병목 자원 판별, 디스크·OOM·로그 분석 | ⭐⭐ |
+| [04-shell-scripting.md](./04-shell-scripting.md) | `set -euo pipefail`, trap, 인자 처리, cron, 멱등성 | ⭐⭐ |
+| [05-security-basics.md](./05-security-basics.md) | SSH 키 인증, sshd 하드닝, 방화벽, 최소 권한, SELinux | ⭐⭐ |
 
 ---
 

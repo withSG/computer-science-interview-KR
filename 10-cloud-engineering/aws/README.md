@@ -8,6 +8,7 @@
 - [ ] VPC 네트워킹을 설계할 수 있다
 - [ ] Lambda 서버리스를 활용할 수 있다
 - [ ] IAM 권한 관리를 설명할 수 있다
+- [ ] 과금 모델을 이해하고 비용을 최적화할 수 있다
 
 ---
 
@@ -15,11 +16,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-core-services.md | EC2, S3, RDS | ⭐⭐ |
-| 02-networking.md | VPC, Subnet, Security Group, ALB | ⭐⭐ |
-| 03-serverless.md | Lambda, API Gateway | ⭐⭐ |
-| 04-iam-security.md | IAM 역할, 정책, 권한 관리 | ⭐⭐ |
-| 05-cost-optimization.md | 비용 최적화 실전 | ⭐ |
+| [01-core-services.md](./01-core-services.md) | Region/AZ, EC2, S3·EBS, RDS, Route 53·CloudFront·ELB | ⭐⭐ |
+| [02-networking.md](./02-networking.md) | VPC, 서브넷과 라우팅 테이블, IGW·NAT, Security Group vs NACL, VPC Endpoint | ⭐⭐ |
+| [03-serverless.md](./03-serverless.md) | Lambda 실행 모델과 과금, 콜드 스타트, API Gateway·SQS·EventBridge 조합 | ⭐⭐ |
+| [04-iam-security.md](./04-iam-security.md) | User·Group·Role·Policy, 정책 평가 순서, STS 임시 자격 증명, 최소 권한 | ⭐⭐ |
+| [05-cost-optimization.md](./05-cost-optimization.md) | 과금 모델(On-Demand·SP·RI·Spot), S3 수명 주기, 데이터 전송비, 태깅 | ⭐ |
 
 ---
 
@@ -31,6 +32,9 @@
 
 ## 핵심 키워드
 
-`EC2` `S3` `RDS` `VPC` `Subnet` `Security Group`
-`ALB` `Lambda` `API Gateway` `IAM`
-`Auto Scaling` `CloudWatch` `Route 53`
+`EC2` `S3` `EBS` `RDS` `VPC` `Subnet` `Route Table`
+`Security Group` `NACL` `NAT Gateway` `VPC Endpoint`
+`ALB` `NLB` `Lambda` `API Gateway` `SQS` `EventBridge`
+`IAM` `Role` `STS` `Policy`
+`Auto Scaling` `CloudWatch` `Route 53` `CloudFront`
+`Savings Plans` `Reserved Instance` `Spot` `Cost Explorer`
