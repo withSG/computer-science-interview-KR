@@ -21,6 +21,18 @@
 
 ---
 
+## 개념 설명 파일 (인프라 공통)
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-load-balancer.md](./01-load-balancer.md) | 로드 밸런서 (L4/L7, 헬스체크, 이중화) | ⭐⭐ |
+| [02-zero-downtime-deployment.md](./02-zero-downtime-deployment.md) | 무중단 배포 (롤링/블루-그린/카나리) | ⭐⭐⭐ |
+| [03-high-traffic.md](./03-high-traffic.md) | 대용량 트래픽 대응 | ⭐⭐⭐ |
+
+> 하위 폴더의 개념 설명 파일은 각 폴더 README를 참고하세요.
+
+---
+
 ## 학습 순서 권장
 
 ```

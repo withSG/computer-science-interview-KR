@@ -10,6 +10,15 @@
 
 ---
 
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-performance-optimization.md](./01-performance-optimization.md) | 성능 병목 분석과 최적화 | ⭐⭐ |
+| [02-web-performance.md](./02-web-performance.md) | 웹 성능 최적화 (Core Web Vitals) | ⭐⭐ |
+
+---
+
 ## QnA 파일
 
 - [qna-performance.md](./qna-performance.md) - 성능 최적화 면접 질문 모음

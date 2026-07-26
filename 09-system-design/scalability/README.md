@@ -11,6 +11,15 @@
 
 ---
 
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-cap-consistency.md](./01-cap-consistency.md) | CAP 정리와 일관성 모델 | ⭐⭐⭐ |
+| [02-load-balancing-sharding.md](./02-load-balancing-sharding.md) | 로드 밸런싱과 샤딩 | ⭐⭐⭐ |
+
+---
+
 ## QnA 파일
 
 - [qna-scalability.md](./qna-scalability.md) - 확장성 면접 질문 모음
