@@ -10,6 +10,42 @@
 
 ---
 
+## 이 저장소를 읽는 법
+
+각 주제 폴더는 **세 겹**으로 되어 있습니다. 처음 배우는 주제라면 위에서 아래 순서로 읽으세요.
+
+```
+01-computer-science-fundamentals/operating-system/
+├── README.md                ← ① 이 주제의 지도. 무엇을 어떤 순서로 볼지
+├── 01-process-thread.md     ← ② 개념 설명. "왜 필요한가"부터 코드·그림까지
+├── 02-memory-management.md
+├── ...
+└── qna-os.md                ← ③ 면접 질문 & 모범 답변
+```
+
+| 파일 | 역할 | 이럴 때 본다 |
+|------|------|------------|
+| `README.md` | 주제 지도, 학습 순서, 난이도 | 무엇부터 봐야 할지 모를 때 |
+| `NN-*.md` | 개념 설명 (핵심) | 개념을 처음 배울 때, 알던 걸 다시 정리할 때 |
+| `qna-*.md` | 면접 질문과 답변 | 학습 후 점검할 때, 면접 직전 복습할 때 |
+
+**개념을 모르는 상태에서 QnA부터 보면 답을 외우게 됩니다.** 개념 설명 파일을 먼저 읽고,
+QnA는 "내가 설명할 수 있는지" 확인하는 용도로 쓰세요.
+
+### 개념 설명 파일의 구성
+
+모든 개념 설명 파일은 같은 흐름을 따릅니다. 시간이 없다면 **1 → 5 → 6**만 봐도 됩니다.
+
+1. **학습 목표 / 선행 지식** — 읽고 나면 무엇을 설명할 수 있는지, 먼저 알아야 할 것은 무엇인지
+2. **왜 필요한가** — 이 기술이 없던 시절의 문제부터 출발
+3. **동작 원리** — 코드 예제, ASCII 다이어그램, 비교표
+4. **실무에서는** — 실제 서비스·프레임워크에서 어떻게 쓰이는지
+5. **면접 포인트** — 예상 질문, 모범 답변, 꼬리 질문 대비
+6. **자주 하는 실수** — 흔한 오해와 올바른 이해를 표로 대조
+7. **한 줄 정리 / 연관 개념** — 다음에 읽을 문서로 연결
+
+---
+
 ## 학습 진행 체크리스트
 
 > 학습이 완료된 항목에 체크(`[x]`)하여 진행 상황을 관리하세요.
@@ -549,9 +585,10 @@
 
 ## QnA 파일 사용 방법
 
-1. 질문을 먼저 읽고 스스로 답변해보세요
+1. 질문을 먼저 읽고 **소리 내어** 스스로 답변해보세요 (면접은 말로 하는 시험입니다)
 2. `<details>` 태그를 클릭하여 답변을 확인하세요
-3. 부족한 부분은 개념 설명 파일(있는 경우)을 참고하세요
+3. 막히거나 어렴풋한 부분은 같은 폴더의 개념 설명 파일(`NN-*.md`)로 돌아가세요
+4. 각 QnA에는 **꼬리 질문**이 함께 있습니다. 꼬리 질문까지 답할 수 있어야 그 주제를 안다고 할 수 있습니다
 
 ### 난이도 표시
 - ⭐ (기본): 전공자 1-2학년 수준
@@ -596,6 +633,103 @@
 
 ---
 
+## 개념 문서 색인
+
+주제별 개념 설명 파일 전체 목록입니다. 각 폴더의 `README.md`에는 난이도와 권장 학습 순서가 함께 있습니다.
+
+### 01. Computer Science 기초
+
+| 폴더 | 개념 문서 |
+|------|----------|
+| `algorithm` | [시간 복잡도와 점근 표기법](./01-computer-science-fundamentals/algorithm/01-time-complexity.md) · [정렬 알고리즘](./01-computer-science-fundamentals/algorithm/02-sorting.md) · [탐색 알고리즘](./01-computer-science-fundamentals/algorithm/03-searching.md) |
+| `computer-architecture` | [CPU와 명령어 사이클](./01-computer-science-fundamentals/computer-architecture/01-cpu-instruction-cycle.md) · [캐시 메모리와 메모리 계층](./01-computer-science-fundamentals/computer-architecture/02-cache-memory.md) · [수 표현 방식](./01-computer-science-fundamentals/computer-architecture/03-number-representation.md) · [오류 검출·정정과 프로세서 설계 철학](./01-computer-science-fundamentals/computer-architecture/04-error-detection-risc-cisc.md) |
+| `data-structure` | [배열과 리스트](./01-computer-science-fundamentals/data-structure/01-array-list.md) · [스택과 큐](./01-computer-science-fundamentals/data-structure/02-stack-queue.md) · [트리와 그래프](./01-computer-science-fundamentals/data-structure/03-tree-graph.md) · [해시 테이블](./01-computer-science-fundamentals/data-structure/04-hash-table.md) |
+| `network` | [OSI 7계층과 TCP/IP 4계층](./01-computer-science-fundamentals/network/01-osi-tcp-ip.md) · [HTTP와 HTTPS](./01-computer-science-fundamentals/network/02-http-https.md) · [TCP와 UDP](./01-computer-science-fundamentals/network/03-tcp-udp.md) · [DNS 이름 해석](./01-computer-science-fundamentals/network/04-dns-resolution.md) · [SSL/TLS 핸드셰이크](./01-computer-science-fundamentals/network/05-ssl-tls-handshake.md) |
+| `operating-system` | [프로세스와 스레드](./01-computer-science-fundamentals/operating-system/01-process-thread.md) · [메모리 관리 전략: Stack vs Heap](./01-computer-science-fundamentals/operating-system/02-memory-management.md) · [컨텍스트 스위칭](./01-computer-science-fundamentals/operating-system/03-context-switching.md) · [교착 상태(Deadlock)와 경쟁 상태](./01-computer-science-fundamentals/operating-system/04-deadlock-race-condition.md) · [가상 메모리](./01-computer-science-fundamentals/operating-system/05-virtual-memory.md) · [CPU 스케줄링](./01-computer-science-fundamentals/operating-system/06-cpu-scheduling.md) · [프로세스 간 통신과 동기화](./01-computer-science-fundamentals/operating-system/07-ipc-synchronization.md) · [시스템 콜과 인터럽트](./01-computer-science-fundamentals/operating-system/08-system-call-interrupt.md) |
+
+### 02. Backend Engineering
+
+| 폴더 | 개념 문서 |
+|------|----------|
+| `authentication` | [세션 기반 인증](./02-backend-engineering/authentication/01-session-based.md) · [JWT 토큰](./02-backend-engineering/authentication/02-jwt-token.md) · [OAuth 2.0](./02-backend-engineering/authentication/03-oauth2.md) |
+| `database` | [JPA와 ORM](./02-backend-engineering/database/01-jpa-orm.md) · [영속성 컨텍스트](./02-backend-engineering/database/02-persistence-context.md) · [N+1 문제](./02-backend-engineering/database/03-n-plus-one-problem.md) · [트랜잭션과 격리 수준](./02-backend-engineering/database/04-transaction-isolation.md) · [인덱싱과 B-Tree](./02-backend-engineering/database/05-indexing-btree.md) |
+| `java-fundamentals` | [객체지향과 SOLID](./02-backend-engineering/java-fundamentals/01-oop-solid.md) · [Java 메모리 모델](./02-backend-engineering/java-fundamentals/02-memory-model.md) · [가비지 컬렉션](./02-backend-engineering/java-fundamentals/03-garbage-collection.md) · [Call by Value와 참조의 착시](./02-backend-engineering/java-fundamentals/04-call-by-value-reference.md) · [가상 스레드](./02-backend-engineering/java-fundamentals/05-java21-virtual-threads.md) |
+| `spring-framework` | [IoC와 DI](./02-backend-engineering/spring-framework/01-ioc-di.md) · [AOP와 프록시](./02-backend-engineering/spring-framework/02-aop-proxy.md) · [Spring MVC 요청 처리 흐름](./02-backend-engineering/spring-framework/03-spring-mvc-flow.md) · [Bean 생명주기와 스코프](./02-backend-engineering/spring-framework/04-bean-lifecycle.md) · [Spring Boot 자동 설정](./02-backend-engineering/spring-framework/05-spring-boot-auto-config.md) · [@Transactional의 함정](./02-backend-engineering/spring-framework/06-transactional-pitfalls.md) |
+
+### 03. Frontend Engineering
+
+| 폴더 | 개념 문서 |
+|------|----------|
+| `browser-fundamentals` | [URL 입력부터 화면 렌더링까지](./03-frontend-engineering/browser-fundamentals/01-url-to-render.md) · [크리티컬 렌더링 패스](./03-frontend-engineering/browser-fundamentals/02-critical-rendering-path.md) · [DOM과 CSSOM](./03-frontend-engineering/browser-fundamentals/03-dom-cssom.md) · [리플로우와 리페인트](./03-frontend-engineering/browser-fundamentals/04-reflow-repaint.md) · [합성과 GPU 가속](./03-frontend-engineering/browser-fundamentals/05-compositing-gpu.md) |
+| `build-tools` | [모듈 시스템과 번들링](./03-frontend-engineering/build-tools/01-module-bundling.md) · [Webpack과 Babel](./03-frontend-engineering/build-tools/02-webpack-babel.md) · [트리 쉐이킹과 번들 최적화](./03-frontend-engineering/build-tools/03-tree-shaking-optimization.md) |
+| `frontend-architecture` | [상태 관리 전략](./03-frontend-engineering/frontend-architecture/01-state-management.md) · [컴포넌트 설계](./03-frontend-engineering/frontend-architecture/02-component-design.md) · [프로젝트 구조와 경계](./03-frontend-engineering/frontend-architecture/03-project-structure.md) |
+| `html-css` | [시멘틱 HTML과 웹 접근성](./03-frontend-engineering/html-css/01-semantic-html-a11y.md) · [CSS 레이아웃](./03-frontend-engineering/html-css/02-css-layout.md) · [반응형 웹과 CSS 캐스케이드](./03-frontend-engineering/html-css/03-responsive-specificity.md) |
+| `javascript-deep-dive` | [실행 컨텍스트](./03-frontend-engineering/javascript-deep-dive/01-execution-context.md) · [호이스팅과 TDZ](./03-frontend-engineering/javascript-deep-dive/02-hoisting-tdz.md) · [클로저](./03-frontend-engineering/javascript-deep-dive/03-closure.md) · [이벤트 루프](./03-frontend-engineering/javascript-deep-dive/04-event-loop.md) · [마이크로태스크와 매크로태스크](./03-frontend-engineering/javascript-deep-dive/05-microtask-macrotask.md) · [Promise와 async/await](./03-frontend-engineering/javascript-deep-dive/06-promise-async-await.md) |
+| `nextjs-rendering` | [렌더링 전략](./03-frontend-engineering/nextjs-rendering/01-csr-ssr-ssg-isr.md) · [하이드레이션](./03-frontend-engineering/nextjs-rendering/02-hydration.md) · [React Server Components](./03-frontend-engineering/nextjs-rendering/03-server-components.md) |
+| `react-architecture` | [가상 DOM](./03-frontend-engineering/react-architecture/01-virtual-dom.md) · [재조정](./03-frontend-engineering/react-architecture/02-reconciliation.md) · [Fiber 아키텍처](./03-frontend-engineering/react-architecture/03-fiber-architecture.md) · [Hooks 내부 동작](./03-frontend-engineering/react-architecture/04-hooks-internals.md) · [useEffect와 useLayoutEffect](./03-frontend-engineering/react-architecture/05-useEffect-vs-useLayoutEffect.md) |
+| `typescript` | [왜 타입인가 — TypeScript 타입 시스템의 출발점](./03-frontend-engineering/typescript/01-why-typescript-types.md) · [제네릭과 유틸리티 타입](./03-frontend-engineering/typescript/02-generics-utility-types.md) · [타입 가드와 좁히기](./03-frontend-engineering/typescript/03-type-guards-narrowing.md) |
+
+### 04. Design Patterns
+
+[생성 패턴](./04-design-patterns/01-creational-patterns.md) · [구조 패턴](./04-design-patterns/02-structural-patterns.md) · [행위 패턴](./04-design-patterns/03-behavioral-patterns.md) · [아키텍처 패턴](./04-design-patterns/04-architecture-patterns.md)
+
+### 05. API Design
+
+[REST API 설계](./05-api-design/01-rest-api-design.md) · [GraphQL 기초](./05-api-design/02-graphql-basics.md) · [API 버저닝과 페이지네이션](./05-api-design/03-versioning-pagination.md) · [Rate Limiting](./05-api-design/04-rate-limiting.md)
+
+### 06. Software Engineering
+
+[애자일 프로세스와 협업](./06-software-engineering/01-agile-process.md) · [테스트와 TDD](./06-software-engineering/02-testing-tdd.md) · [클린 코드와 리팩토링](./06-software-engineering/03-clean-code-refactoring.md) · [모놀리식과 마이크로서비스](./06-software-engineering/04-architecture-monolith-msa.md)
+
+### 07. Version Control
+
+[Git 내부 구조](./07-version-control/01-git-internals.md) · [병합, 리베이스, 충돌 해결](./07-version-control/02-merge-rebase-conflict.md) · [브랜치 전략과 협업 규칙](./07-version-control/03-branching-strategy.md)
+
+### 08. Security
+
+[웹 취약점과 방어](./08-security/01-web-vulnerabilities.md) · [동일 출처 정책과 CORS](./08-security/02-cors-same-origin.md) · [HTTPS와 TLS](./08-security/03-https-tls.md) · [암호화와 해싱](./08-security/04-cryptography-hashing.md)
+
+### 09. System Design
+
+| 폴더 | 개념 문서 |
+|------|----------|
+| `(공통)` | [로드 밸런서](./09-system-design/01-load-balancer.md) · [무중단 배포](./09-system-design/02-zero-downtime-deployment.md) · [대용량 트래픽 대응](./09-system-design/03-high-traffic.md) |
+| `caching` | [캐싱 전략](./09-system-design/caching/01-caching-strategies.md) · [Redis와 CDN](./09-system-design/caching/02-redis-cdn.md) |
+| `performance` | [성능 병목 분석과 최적화](./09-system-design/performance/01-performance-optimization.md) · [웹 성능 최적화](./09-system-design/performance/02-web-performance.md) |
+| `scalability` | [CAP 정리와 일관성 모델](./09-system-design/scalability/01-cap-consistency.md) · [로드 밸런싱과 샤딩](./09-system-design/scalability/02-load-balancing-sharding.md) |
+
+### 10. Cloud Engineering
+
+| 폴더 | 개념 문서 |
+|------|----------|
+| `aws` | [AWS 핵심 서비스 지도](./10-cloud-engineering/aws/01-core-services.md) · [AWS 네트워킹](./10-cloud-engineering/aws/02-networking.md) · [서버리스와 AWS Lambda](./10-cloud-engineering/aws/03-serverless.md) · [IAM과 접근 제어](./10-cloud-engineering/aws/04-iam-security.md) · [AWS 비용 최적화](./10-cloud-engineering/aws/05-cost-optimization.md) |
+| `cloud-fundamentals` | [클라우드 컴퓨팅 기초](./10-cloud-engineering/cloud-fundamentals/01-cloud-computing-basics.md) · [가상화와 하이퍼바이저](./10-cloud-engineering/cloud-fundamentals/02-virtualization-hypervisor.md) · [클라우드 배포 모델](./10-cloud-engineering/cloud-fundamentals/03-public-private-hybrid.md) · [확장성과 고가용성](./10-cloud-engineering/cloud-fundamentals/04-scalability-availability.md) |
+| `containerization/docker` | [Docker 기초](./10-cloud-engineering/containerization/docker/01-docker-basics.md) · [Docker Compose](./10-cloud-engineering/containerization/docker/02-docker-compose.md) · [컨테이너 vs 가상 머신](./10-cloud-engineering/containerization/docker/03-container-vs-vm.md) |
+| `devops-cicd` | [CI/CD 개념](./10-cloud-engineering/devops-cicd/01-cicd-concepts.md) · [파이프라인 도구](./10-cloud-engineering/devops-cicd/02-pipeline-tools.md) · [배포 전략](./10-cloud-engineering/devops-cicd/03-deployment-strategies.md) · [GitOps와 IaC](./10-cloud-engineering/devops-cicd/04-gitops.md) |
+| `kubernetes` | [쿠버네티스 아키텍처와 핵심 개념](./10-cloud-engineering/kubernetes/01-architecture-concepts.md) · [워크로드 리소스와 배포 관리](./10-cloud-engineering/kubernetes/02-deployment-management.md) · [서비스와 네트워킹](./10-cloud-engineering/kubernetes/03-networking-service.md) · [설정과 스토리지](./10-cloud-engineering/kubernetes/04-config-storage.md) · [실전 트러블슈팅](./10-cloud-engineering/kubernetes/05-troubleshooting.md) |
+| `linux-networking` | [리눅스 기본기](./10-cloud-engineering/linux-networking/01-linux-essentials.md) · [네트워크 진단 명령어](./10-cloud-engineering/linux-networking/02-networking-commands.md) · [서버 장애 트러블슈팅](./10-cloud-engineering/linux-networking/03-troubleshooting.md) · [셸 스크립팅](./10-cloud-engineering/linux-networking/04-shell-scripting.md) · [서버 보안 기초](./10-cloud-engineering/linux-networking/05-security-basics.md) |
+| `monitoring-observability` | [관측성 개념](./10-cloud-engineering/monitoring-observability/01-observability-concepts.md) · [Prometheus와 Grafana](./10-cloud-engineering/monitoring-observability/02-prometheus-grafana.md) · [로깅 스택](./10-cloud-engineering/monitoring-observability/03-logging-stack.md) · [분산 트레이싱](./10-cloud-engineering/monitoring-observability/04-distributed-tracing.md) · [알림 설계와 On-call](./10-cloud-engineering/monitoring-observability/05-alerting-oncall.md) |
+| `practical-scenarios` | [장애 대응 방법론](./10-cloud-engineering/practical-scenarios/01-troubleshooting-method.md) · [시스템 설계 면접](./10-cloud-engineering/practical-scenarios/02-system-design-interview.md) · [행동 면접과 STAR](./10-cloud-engineering/practical-scenarios/03-behavioral-star.md) |
+
+### 11. Data Engineering
+
+[데이터 파이프라인과 ETL/ELT](./11-data-engineering/01-etl-pipeline.md) · [Airflow와 워크플로우 오케스트레이션](./11-data-engineering/02-airflow.md) · [Kafka와 이벤트 스트리밍](./11-data-engineering/03-kafka.md) · [Spark와 분산 데이터 처리](./11-data-engineering/04-spark.md) · [배치 처리와 스트리밍 처리](./11-data-engineering/05-batch-vs-streaming.md)
+
+### 12. AI Engineering
+
+| 폴더 | 개념 문서 |
+|------|----------|
+| `ai-agent` | [AI 에이전트와 LangGraph](./12-ai-engineering/ai-agent/01-agent-langgraph.md) |
+| `llm-integration` | [LLM 기초와 프롬프트 엔지니어링](./12-ai-engineering/llm-integration/01-llm-basics-prompting.md) · [환각과 프로덕션 통합](./12-ai-engineering/llm-integration/02-hallucination-integration.md) |
+| `ml-fundamentals` | [과적합과 정규화](./12-ai-engineering/ml-fundamentals/01-overfitting-regularization.md) · [평가 지표와 교차 검증](./12-ai-engineering/ml-fundamentals/02-evaluation-metrics.md) · [전이학습과 설명 가능한 AI](./12-ai-engineering/ml-fundamentals/03-transfer-learning-xai.md) |
+| `rag-pipeline` | [RAG 파이프라인](./12-ai-engineering/rag-pipeline/01-rag-pipeline.md) |
+| `vector-database` | [벡터 검색](./12-ai-engineering/vector-database/01-vector-search.md) |
+
+### 99. Practical Interview
+
+[기술 면접 전략](./99-practical-interview/01-interview-strategy.md) · [자기소개와 지원 동기](./99-practical-interview/02-self-introduction.md) · [포트폴리오와 프로젝트 설명](./99-practical-interview/03-portfolio-project.md)
+
+---
 ## 참고 자료
 
 - 백엔드 CS, Spring, AI 면접 질문 정리.pdf (외부 자료, 저장소 미포함)
