@@ -290,7 +290,7 @@ for (var i = 0; i < 3; i++) {
 │                                                      │
 │  ┌─────────────────────────────────────────────┐    │
 │  │          Macrotask Queue (Task Queue)        │    │
-│  │   setTimeout, setInterval, I/O, UI 렌더링    │    │
+│  │   setTimeout, setInterval, I/O, UI 이벤트    │    │
 │  └─────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────┘
 ```
@@ -347,7 +347,7 @@ console.log('end');
 |------|---------------|--------------|
 | 우선순위 | 높음 | 낮음 |
 | 실행 | 큐 전체 실행 | 하나씩 실행 |
-| 예시 | Promise.then, async/await, queueMicrotask | setTimeout, setInterval, requestAnimationFrame |
+| 예시 | Promise.then, async/await, queueMicrotask, MutationObserver | setTimeout, setInterval, I/O 완료, DOM 이벤트 콜백 |
 
 ### 면접관이 주목하는 포인트
 - 실행 순서 정확히 예측
@@ -357,7 +357,7 @@ console.log('end');
 - "setTimeout(fn, 0)이 즉시 실행되지 않는 이유?"
   → 콜 스택이 비고 마이크로태스크가 모두 처리된 후 실행
 - "requestAnimationFrame은 어디에 속하나요?"
-  → 매크로태스크, 렌더링 전에 실행
+  → 어느 태스크 큐에도 속하지 않는다. 마이크로태스크를 모두 비운 뒤 진행되는 렌더링 단계의 첫 순서로 실행된다 (→ [05-microtask-macrotask.md](./05-microtask-macrotask.md))
 
 </details>
 
