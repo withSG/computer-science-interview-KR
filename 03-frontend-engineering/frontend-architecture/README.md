@@ -11,6 +11,16 @@
 
 ---
 
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-state-management.md](./01-state-management.md) | 상태 관리 전략 (서버/전역/로컬/URL 상태) | ⭐⭐ |
+| [02-component-design.md](./02-component-design.md) | 컴포넌트 설계 (추상화, 합성, 제어/비제어) | ⭐⭐ |
+| [03-project-structure.md](./03-project-structure.md) | 프로젝트 구조와 경계 (feature 구조, 의존성 방향, MSA/BFF) | ⭐⭐⭐ |
+
+---
+
 ## QnA 파일
 
 | 파일 | 내용 | 질문 수 |

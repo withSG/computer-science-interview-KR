@@ -8,6 +8,8 @@
 - [ ] 호이스팅과 TDZ를 설명할 수 있다
 - [ ] 클로저의 원리와 활용법을 안다
 - [ ] 이벤트 루프와 비동기 처리를 이해한다
+- [ ] 마이크로태스크와 매크로태스크의 실행 순서를 예측할 수 있다
+- [ ] Promise 조합기와 `async/await`를 상황에 맞게 고를 수 있다
 
 ---
 
@@ -15,12 +17,12 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-execution-context.md | 실행 컨텍스트 | ⭐⭐⭐ |
-| 02-hoisting-tdz.md | 호이스팅과 TDZ | ⭐⭐ |
-| 03-closure.md | 클로저 | ⭐⭐⭐ |
-| 04-event-loop.md | 이벤트 루프 | ⭐⭐⭐ |
-| 05-microtask-macrotask.md | 마이크로/매크로 태스크 | ⭐⭐ |
-| 06-promise-async-await.md | Promise와 async/await | ⭐⭐ |
+| [01-execution-context.md](./01-execution-context.md) | 실행 컨텍스트 | ⭐⭐⭐ |
+| [02-hoisting-tdz.md](./02-hoisting-tdz.md) | 호이스팅과 TDZ | ⭐⭐ |
+| [03-closure.md](./03-closure.md) | 클로저 | ⭐⭐⭐ |
+| [04-event-loop.md](./04-event-loop.md) | 이벤트 루프 | ⭐⭐⭐ |
+| [05-microtask-macrotask.md](./05-microtask-macrotask.md) | 마이크로/매크로 태스크 | ⭐⭐ |
+| [06-promise-async-await.md](./06-promise-async-await.md) | Promise와 async/await | ⭐⭐ |
 
 ---
 

@@ -11,6 +11,16 @@
 
 ---
 
+## 개념 설명 파일
+
+| 파일 | 주제 | 난이도 |
+|------|------|--------|
+| [01-semantic-html-a11y.md](./01-semantic-html-a11y.md) | 시멘틱 HTML과 웹 접근성 | ⭐ |
+| [02-css-layout.md](./02-css-layout.md) | CSS 레이아웃 (박스 모델·position·Flexbox·Grid) | ⭐⭐ |
+| [03-responsive-specificity.md](./03-responsive-specificity.md) | 반응형 웹과 CSS 캐스케이드 | ⭐⭐ |
+
+---
+
 ## QnA 파일
 
 | 파일 | 내용 | 질문 수 |
