@@ -135,6 +135,11 @@ public @interface SpringBootApplication { }
 
 ### 전체 흐름
 
+<!-- diagram:be-spring-boot-auto-config-1 -->
+![전체 흐름](../../assets/diagrams/be-spring-boot-auto-config-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 SpringApplication.run()
        │
@@ -168,6 +173,7 @@ SpringApplication.run()
 │   이 단계는 사용자 정의 Bean 등록이 끝난 뒤에 수행된다       │
 └────────────────────────────────────────────────────────────┘
 ```
+-->
 
 ### [1] 후보 목록 파일
 
@@ -210,6 +216,11 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 
 ### 실제 사례: H2를 의존성에 넣으면 인메모리 DB가 뜨는 이유
 
+<!-- diagram:be-spring-boot-auto-config-2 -->
+![실제 사례: H2를 의존성에 넣으면 인메모리 DB가 뜨는 이유](../../assets/diagrams/be-spring-boot-auto-config-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. build.gradle 에 h2 추가
         ↓
@@ -226,6 +237,7 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
         └─ 없다 → spring.datasource.url 이 있으면 그 값으로,
                   없으면 내장 DB(H2)로 DataSource 를 구성한다
 ```
+-->
 
 `@ConditionalOnClass`가 신기해 보이지만 원리는 단순하다. 클래스를 실제로 로드해서 확인하는 게 아니라 **바이트코드 메타데이터만 읽어서** 존재를 판단한다. 그래서 조건에 적힌 클래스가 없어도 `ClassNotFoundException`이 나지 않는다.
 
@@ -237,6 +249,11 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 
 핵심은 **[4]번 단계의 순서**다. `AutoConfigurationImportSelector`는 `DeferredImportSelector`라서, **사용자가 정의한 `@Configuration`과 컴포넌트 스캔이 전부 끝난 뒤에** 처리된다.
 
+<!-- diagram:be-spring-boot-auto-config-3 -->
+![왜 덮어쓰기가 항상 이기나](../../assets/diagrams/be-spring-boot-auto-config-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 시간 축 ─────────────────────────────────────────────>
 
@@ -247,6 +264,7 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
                                                  → @ConditionalOnMissingBean 이
                                                    정확히 판단할 수 있다
 ```
+-->
 
 즉 자동 설정은 **"개발자가 안 만든 것만 채워 넣는 보조자"** 로 설계되어 있다. 우선권은 언제나 개발자에게 있다.
 
@@ -358,6 +376,11 @@ java -jar shop.jar --debug
 
 출력은 이런 구조다.
 
+<!-- diagram:be-spring-boot-auto-config-4 -->
+![5. 디버깅](../../assets/diagrams/be-spring-boot-auto-config-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ============================
 CONDITIONS EVALUATION REPORT
@@ -378,6 +401,7 @@ Negative matches:            ← 조건을 만족하지 못해 빠진 것 (여�
 Exclusions:                  ← exclude 로 명시적으로 뺀 것
 Unconditional classes:       ← 조건 없이 항상 적용되는 것
 ```
+-->
 
 `--debug`는 로그 레벨 전체를 DEBUG로 바꾸는 것이 아니라 **이 리포트를 켜는 스위치**다. 문제 해결 순서는 이렇다.
 

@@ -226,6 +226,11 @@ public class LoginPresenter {
 
 MVC가 "화면과 로직"을 갈랐다면, 레이어드는 **서버 내부를 수평으로 다시 자른다.**
 
+<!-- diagram:dp-architecture-patterns-1 -->
+![4. 레이어드 아키텍처](../assets/diagrams/dp-architecture-patterns-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────┐
 │ Presentation  Controller, DTO       │  HTTP를 안다
@@ -239,6 +244,7 @@ MVC가 "화면과 로직"을 갈랐다면, 레이어드는 **서버 내부를 �
 
 규칙: 의존은 항상 아래로만 향한다. 위로 부르지 않는다.
 ```
+-->
 
 **비유**: 식당의 홀·주방·창고다. 홀 직원은 주문을 받아 주방에 넘기고, 주방은 필요한 재료를 창고에서 꺼낸다. 창고 담당이 손님에게 직접 말을 걸지는 않는다.
 > **비유의 한계**: 식당은 층이 물리적으로 나뉘지만 코드의 계층은 규칙일 뿐이다. Repository에서 Service를 부르는 코드를 컴파일러가 막아주지 않으므로, 계층 위반은 사람이 리뷰로 잡아야 한다.
@@ -323,6 +329,11 @@ public class JpaOrderRepository implements OrderRepository {
 
 의존 화살표가 어떻게 바뀌었는지가 전부다.
 
+<!-- diagram:dp-architecture-patterns-2 -->
+![무엇을 뒤집는가](../assets/diagrams/dp-architecture-patterns-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [레이어드]  의존이 아래로 흐른다        [헥사고날]  의존이 안쪽으로만 향한다
 
@@ -340,6 +351,7 @@ public class JpaOrderRepository implements OrderRepository {
 
                                     모든 화살표가 안쪽을 향한다
 ```
+-->
 
 ### 클린 아키텍처와의 관계
 

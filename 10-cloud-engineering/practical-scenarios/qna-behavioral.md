@@ -46,6 +46,11 @@ R - Result (결과)
 ```
 
 **Action (행동)**
+<!-- diagram:cloud-qna-behavioral-1 -->
+![STAR 답변 구조](../../assets/diagrams/cloud-qna-behavioral-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "1. 부하 테스트로 병목 구간 파악
    - 상품 조회 API: DB 쿼리 지연
@@ -61,6 +66,7 @@ R - Result (결과)
    - K8s HPA 설정 (CPU 70% → 스케일아웃)
    - Auto Scaling 최대치 상향"
 ```
+-->
 
 **Result (결과)**
 ```
@@ -164,6 +170,11 @@ ACID가 중요했기 때문입니다.
 ```
 
 **Action (행동)**
+<!-- diagram:cloud-qna-behavioral-2 -->
+![STAR 답변 구조](../../assets/diagrams/cloud-qna-behavioral-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "1. 처음 3개월
    - 도메인 분석 후 8개 서비스로 분리 설계
@@ -179,8 +190,14 @@ ACID가 중요했기 때문입니다.
    - 스터디 세션 진행
    - 일정 재협상 시도"
 ```
+-->
 
 **Result (결과)**
+<!-- diagram:cloud-qna-behavioral-3 -->
+![STAR 답변 구조](../../assets/diagrams/cloud-qna-behavioral-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "결국 프로젝트는 6개월 → 10개월로 지연되었고,
 4개 서비스 중 2개만 분리 완료되었습니다.
@@ -195,6 +212,7 @@ ACID가 중요했기 때문입니다.
 - 팀 교육에 충분한 시간 투자
 - 기술 도입 전 PoC 필수"
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 실패를 인정하는 태도
@@ -307,6 +325,11 @@ ACID가 중요했기 때문입니다.
 ```
 
 **Result (결과)**
+<!-- diagram:cloud-qna-behavioral-4 -->
+![STAR 답변 구조](../../assets/diagrams/cloud-qna-behavioral-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "6개월 후:
 - 테스트 커버리지: 20% → 65%
@@ -317,6 +340,7 @@ ACID가 중요했기 때문입니다.
 기술 부채는 '나중에 한번에' 가 아니라
 '지속적으로 조금씩' 해결하는 것이 효과적임을 배웠습니다."
 ```
+-->
 
 </details>
 

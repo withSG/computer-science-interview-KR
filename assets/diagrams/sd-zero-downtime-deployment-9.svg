@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">시간 예산 계산 다이어그램</title>
+  <desc id="d">terminationGracePeriodSeconds 및 preStop 대기 시간 계산 공식과 상세 예시를 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="490" fill="#ffffff"/>
+
+  <!-- 구역 1: terminationGracePeriodSeconds 계산 -->
+  <rect x="30" y="30" width="820" height="220" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 구역 1 공식 박스 -->
+  <rect x="50" y="50" width="780" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="79" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">terminationGracePeriodSeconds ≥ preStop 대기 + 최장 요청 처리 시간 + 정리 시간</text>
+
+  <!-- 구역 1 예시 카드 -->
+  <rect x="50" y="110" width="780" height="125" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 예시 항목들 -->
+  <text x="80" y="137" font-size="13" fill="#1f2933">예시) preStop 15초</text>
+  <text x="80" y="157" font-size="13" fill="#1f2933">+ 가장 오래 걸리는 API 20초</text>
+  <text x="80" y="177" font-size="13" fill="#1f2933">+ 커넥션 풀·컨슈머 정리 5초</text>
+
+  <!-- 구분선 -->
+  <line x1="80" y1="187" x2="320" y2="187" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 결과 수식 -->
+  <text x="80" y="211" font-size="13.5" font-weight="bold" fill="#059669">= 40초</text>
+
+  <!-- 화살표 및 최종 결과 -->
+  <path d="M140,206 L175,206" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="185" y="211" font-size="13" font-weight="bold" fill="#1f2933">terminationGracePeriodSeconds는 최소 40초, 여유 두고 60초</text>
+
+  <!-- 구역 2: preStop 대기 계산 -->
+  <rect x="30" y="270" width="820" height="190" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 구역 2 공식 박스 -->
+  <rect x="50" y="290" width="780" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="319" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">preStop 대기 ≥ 헬스체크 주기 × 실패 임계값 (+ 전파 지연)</text>
+
+  <!-- 구역 2 예시 카드 -->
+  <rect x="50" y="350" width="780" height="90" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 구역 2 예시 내용 -->
+  <text x="80" y="402" font-size="13.5" font-weight="bold" fill="#d97706">= 5초 × 2회 = 10초</text>
+
+  <!-- 화살표 및 최종 결과 -->
+  <path d="M225,397 L260,397" stroke="#a-ink" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="270" y="380" width="130" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="335" y="402" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">여유 두고 15초</text>
+</svg>

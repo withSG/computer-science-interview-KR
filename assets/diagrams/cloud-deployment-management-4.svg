@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">전제 조건과 함정</title>
+  <desc id="d">트래픽 증가부터 HPA 작동, 스케줄러 판단 및 Cluster Autoscaler에 의한 Pod 배치까지의 흐름도</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- 1. 트래픽 증가 -->
+  <rect x="360" y="30" width="160" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="54" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">트래픽 증가</text>
+
+  <!-- 화살표 1 -->
+  <path d="M440,70 L440,100" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+
+  <!-- 2. HPA: replicas 4 → 8 -->
+  <rect x="330" y="100" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="124" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">HPA: replicas 4 → 8</text>
+
+  <!-- 화살표 2 -->
+  <path d="M440,140 L440,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 3. 스케줄러: 노드에 자리 있나? -->
+  <rect x="310" y="170" width="260" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="194" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">스케줄러: 노드에 자리 있나?</text>
+
+  <!-- 분기 선 (있음) -->
+  <path d="M440,210 L440,240 L600,240 L600,270" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="500" y="230" width="40" height="20" fill="#ffffff"/>
+  <text x="520" y="244" font-size="11.5" font-weight="bold" fill="#059669" text-anchor="middle">있음</text>
+
+  <!-- 분기 선 (없음) -->
+  <path d="M440,210 L440,240 L280,240 L280,270" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="340" y="230" width="40" height="20" fill="#ffffff"/>
+  <text x="360" y="244" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">없음</text>
+
+  <!-- 4-1. Pod 배치 완료 (있음 경로) -->
+  <rect x="510" y="270" width="180" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="600" y="294" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Pod 배치 완료</text>
+
+  <!-- 4-2. Pod Pending (없음 경로) -->
+  <rect x="190" y="270" width="180" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="280" y="294" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Pod Pending</text>
+
+  <!-- 화살표 3 -->
+  <path d="M280,310 L280,340" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+
+  <!-- 5. Cluster Autoscaler: 노드 추가 -->
+  <rect x="160" y="340" width="240" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="280" y="364" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Cluster Autoscaler: 노드 추가</text>
+
+  <!-- 화살표 4 -->
+  <path d="M280,380 L280,410" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 6. Pod 배치 완료 (Autoscaling 후) -->
+  <rect x="190" y="410" width="180" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="280" y="434" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Pod 배치 완료</text>
+</svg>

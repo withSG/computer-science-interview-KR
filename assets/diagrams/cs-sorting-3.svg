@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">병합 정렬 (Merge Sort)</title>
+  <desc id="d">배열 [ 38  27  43  3  9  82  10 ]이 분할 과정을 통해 단일 요소로 쪼개진 후, 병합 과정을 거쳐 정렬되는 흐름을 보여주는 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- 문서 헤딩 -->
+  <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">## 4. 병합 정렬 (Merge Sort)</text>
+
+  <!-- Level 1: [ 38  27  43  3  9  82  10 ] -->
+  <rect x="290" y="65" width="300" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="87" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[ 38  27  43  3  9  82  10 ]</text>
+
+  <!-- 분할 화살표 & 설명 -->
+  <path d="M440,99 L440,123" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="390" y="104" width="45" height="18" fill="#ffffff"/>
+  <text x="412" y="117" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">분할 ↓</text>
+  <text x="452" y="117" font-size="11.5" fill="#52606d" text-anchor="start">(조건 없이 무조건 반으로)</text>
+
+  <!-- Level 2: [ 38 27 43 3 ] & [ 9 82 10 ] -->
+  <rect x="180" y="130" width="220" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="290" y="152" font-size="13" fill="#1f2933" text-anchor="middle">[ 38 27 43 3 ]</text>
+
+  <rect x="480" y="130" width="220" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="590" y="152" font-size="13" fill="#1f2933" text-anchor="middle">[ 9 82 10 ]</text>
+
+  <!-- Level 3: [38 27] [43 3] & [9 82] [10] -->
+  <rect x="180" y="185" width="100" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="230" y="206" font-size="13" fill="#1f2933" text-anchor="middle">[38 27]</text>
+
+  <rect x="300" y="185" width="100" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="350" y="206" font-size="13" fill="#1f2933" text-anchor="middle">[43 3]</text>
+
+  <rect x="480" y="185" width="100" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="530" y="206" font-size="13" fill="#1f2933" text-anchor="middle">[9 82]</text>
+
+  <rect x="600" y="185" width="100" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="650" y="206" font-size="13" fill="#1f2933" text-anchor="middle">[10]</text>
+
+  <!-- Level 4 (Base Level): [38] [27] [43] [3] & [9] [82] [10] -->
+  <rect x="180" y="235" width="45" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="202" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[38]</text>
+
+  <rect x="235" y="235" width="45" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="257" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[27]</text>
+
+  <rect x="300" y="235" width="45" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="322" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[43]</text>
+
+  <rect x="355" y="235" width="45" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="377" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[3]</text>
+
+  <rect x="480" y="235" width="45" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="502" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[9]</text>
+
+  <rect x="535" y="235" width="45" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="557" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[82]</text>
+
+  <rect x="600" y="235" width="100" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="650" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[10]</text>
+
+  <!-- 병합 화살표 & 설명 -->
+  <path d="M440,306 L440,282" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="390" y="286" width="45" height="18" fill="#ffffff"/>
+  <text x="412" y="299" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">병합 ↑</text>
+  <text x="452" y="299" font-size="11.5" fill="#52606d" text-anchor="start">(정렬된 두 조각을 앞에서부터 비교하며 합침)</text>
+
+  <!-- Level 5: [27 38] [3 43] & [9 82] [10] -->
+  <rect x="180" y="315" width="100" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="230" y="336" font-size="13" fill="#1f2933" text-anchor="middle">[27 38]</text>
+
+  <rect x="300" y="315" width="100" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="350" y="336" font-size="13" fill="#1f2933" text-anchor="middle">[3 43]</text>
+
+  <rect x="480" y="315" width="100" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="530" y="336" font-size="13" fill="#1f2933" text-anchor="middle">[9 82]</text>
+
+  <rect x="600" y="315" width="100" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="336" font-size="13" fill="#1f2933" text-anchor="middle">[10]</text>
+
+  <!-- Level 6: [ 3 27 38 43 ] & [ 9 10 82 ] -->
+  <rect x="180" y="370" width="220" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="290" y="392" font-size="13" fill="#1f2933" text-anchor="middle">[ 3 27 38 43 ]</text>
+
+  <rect x="480" y="370" width="220" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="590" y="392" font-size="13" fill="#1f2933" text-anchor="middle">[ 9 10 82 ]</text>
+
+  <!-- Level 7: [ 3  9  10  27  38  43  82 ] -->
+  <rect x="290" y="435" width="300" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="457" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[ 3  9  10  27  38  43  82 ]</text>
+</svg>

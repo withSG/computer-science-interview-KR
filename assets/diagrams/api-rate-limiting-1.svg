@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Fixed Window — 가장 단순하고 가장 많이 새는</title>
+  <desc id="d">분당 5개 한도 환경에서 시간에 따른 요청 처리, 카운터 변화, 거절 및 창 전환 리셋 과정을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="880" height="440" fill="#ffffff"/>
+
+  <!-- 메인 컨테이너 영역 -->
+  <rect x="24" y="24" width="832" height="392" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 상단 설정 정보 / 헤더 -->
+  <rect x="44" y="44" width="160" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="124" y="66.2" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">한도: 분당 5개</text>
+
+  <!-- 범례 (Legend) -->
+  <rect x="520" y="44" width="316" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="540" cy="62" r="6" fill="#059669"/>
+  <text x="552" y="66.0" font-size="12" fill="#1f2933">허용 (성공)</text>
+  <circle cx="640" cy="62" r="6" fill="#dc2626"/>
+  <text x="652" y="66.0" font-size="12" fill="#1f2933">거절 (한도 초과)</text>
+  <circle cx="750" cy="62" r="6" fill="#7c3aed"/>
+  <text x="762" y="66.0" font-size="12" fill="#1f2933">창 리셋</text>
+
+  <!-- 타임라인 이벤트 항목들 -->
+
+  <!-- 항목 1: 12:00:10 ~ 12:00:50 -->
+  <g>
+    <!-- 타임스탬프 -->
+    <rect x="44" y="106" width="190" height="48" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="139" y="134.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">12:00:10 ~ 12:00:50</text>
+    
+    <!-- 화살표 -->
+    <path d="M234,130 L274,130" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- 이벤트 내용 -->
+    <rect x="284" y="106" width="360" height="48" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="300" y="134.55" font-size="13" fill="#1f2933">요청 5개</text>
+    <text x="365" y="134.55" font-size="13" fill="#52606d">→</text>
+    <text x="385" y="134.55" font-size="13" fill="#1f2933">카운터 1,2,3,4,5</text>
+
+    <!-- 결과 라벨 -->
+    <rect x="660" y="106" width="176" height="48" rx="6" fill="#059669"/>
+    <text x="748" y="134.55" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">전부 허용</text>
+  </g>
+
+  <!-- 항목 2: 12:00:55 -->
+  <g>
+    <!-- 타임스탬프 -->
+    <rect x="44" y="174" width="190" height="48" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="139" y="202.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">12:00:55</text>
+
+    <!-- 화살표 -->
+    <path d="M234,198 L274,198" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- 이벤트 내용 -->
+    <rect x="284" y="174" width="360" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="300" y="202.55" font-size="13" fill="#1f2933">요청 1개</text>
+    <text x="365" y="202.55" font-size="13" fill="#52606d">→</text>
+    <text x="385" y="202.55" font-size="13" fill="#dc2626" font-weight="bold">카운터 6</text>
+
+    <!-- 결과 라벨 -->
+    <rect x="660" y="174" width="176" height="48" rx="6" fill="#dc2626"/>
+    <text x="748" y="202.55" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">거절</text>
+  </g>
+
+  <!-- 항목 3: 12:01:00 -->
+  <g>
+    <!-- 타임스탬프 -->
+    <rect x="44" y="242" width="190" height="48" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="139" y="270.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">12:01:00</text>
+
+    <!-- 화살표 -->
+    <path d="M234,266 L274,266" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- 이벤트 내용 -->
+    <rect x="284" y="242" width="552" height="48" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="300" y="270.55" font-size="13" fill="#1f2933">새 창 시작</text>
+    <text x="375" y="270.55" font-size="13" fill="#52606d">→</text>
+    <text x="395" y="270.55" font-size="13" font-weight="bold" fill="#7c3aed">카운터 0으로 리셋</text>
+  </g>
+
+  <!-- 항목 4: 12:01:01 -->
+  <g>
+    <!-- 타임스탬프 -->
+    <rect x="44" y="310" width="190" height="48" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="139" y="338.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">12:01:01</text>
+
+    <!-- 화살표 -->
+    <path d="M234,334 L274,334" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- 이벤트 내용 -->
+    <rect x="284" y="310" width="360" height="48" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="300" y="338.55" font-size="13" fill="#1f2933">요청 1개</text>
+    <text x="365" y="338.55" font-size="13" fill="#52606d">→</text>
+    <text x="385" y="338.55" font-size="13" fill="#1f2933">카운터 1</text>
+
+    <!-- 결과 라벨 -->
+    <rect x="660" y="310" width="176" height="48" rx="6" fill="#059669"/>
+    <text x="748" y="338.55" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">다시 허용</text>
+  </g>
+</svg>

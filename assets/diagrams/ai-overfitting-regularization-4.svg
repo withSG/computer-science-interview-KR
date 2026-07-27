@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">편향-분산 트레이드오프</title>
+  <desc id="d">모델 복잡도에 따른 편향, 분산, 그리고 총 오차의 변화를 나타낸 편향-분산 트레이드오프 그래프</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Background guide areas for 과소적합 / 과적합 -->
+  <rect x="110" y="50" width="310" height="420" fill="#fffbeb" opacity="0.4"/>
+  <rect x="420" y="50" width="330" height="420" fill="#fef2f2" opacity="0.4"/>
+
+  <!-- Main Axes -->
+  <!-- Y axis (오차) -->
+  <path d="M110,470 L110,50" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <!-- X axis (모델 복잡도) -->
+  <path d="M110,470 L750,470" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Axis Labels -->
+  <text x="110" y="38" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">오차</text>
+  <text x="760" y="474" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="start">모델 복잡도</text>
+
+  <!-- Optimal Point Center Line (Dashed) -->
+  <path d="M420,70 L420,470" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Curves -->
+  <!-- 1. Total Error Curve (총 오차) - Red -->
+  <path d="M130,120 Q220,220 320,240 T420,245 Q520,240 620,180 T730,80" stroke="#dc2626" stroke-width="3" fill="none"/>
+
+  <!-- 2. Bias Squared Curve (편향²) - Blue -->
+  <path d="M130,220 Q250,330 420,410 T730,445" stroke="#2563eb" stroke-width="2.5" fill="none"/>
+
+  <!-- 3. Variance Curve (분산) - Green -->
+  <path d="M130,445 Q350,440 420,410 T730,210" stroke="#059669" stroke-width="2.5" fill="none"/>
+
+  <!-- Curve Labels -->
+  <!-- Bias^2 Label -->
+  <rect x="255" y="300" width="56" height="24" fill="#ffffff" rx="4"/>
+  <text x="283" y="316" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">편향²</text>
+
+  <!-- Variance Label -->
+  <rect x="585" y="300" width="48" height="24" fill="#ffffff" rx="4"/>
+  <text x="609" y="316" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">분산</text>
+
+  <!-- Annotations & Notes from Original -->
+
+  <!-- Top Right Note: 총 오차 Formula -->
+  <rect x="525" y="60" width="220" height="28" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="635" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">총 오차 = 편향² + 분산 + 노이즈</text>
+
+  <!-- Point Indicator Line at Minimum Point (-┼-) -->
+  <path d="M405,245 L435,245" stroke="#1f2933" stroke-width="2"/>
+  <path d="M420,235 L420,255" stroke="#1f2933" stroke-width="2"/>
+
+  <!-- Downward Arrow pointing to Minimum Point (▼) -->
+  <path d="M420,170 L420,225" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Text: 총 오차가 최소가 되는 지점 -->
+  <rect x="445" y="185" width="180" height="24" fill="#ffffff" rx="4"/>
+  <text x="450" y="201" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="start">▼ 총 오차가 최소가 되는 지점</text>
+
+  <!-- Bottom Region Labels (과소적합 / 과적합) -->
+  <!-- Cross marker on X axis -->
+  <path d="M420,463 L420,477" stroke="#1f2933" stroke-width="2"/>
+
+  <!-- Underfitting (과소적합) -->
+  <rect x="235" y="482" width="76" height="26" fill="#fffbeb" rx="4" stroke="#d97706" stroke-width="1"/>
+  <text x="273" y="499" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">과소적합</text>
+
+  <!-- Vertical Divider Indicator at Bottom -->
+  <text x="420" y="499" font-size="14" fill="#52606d" text-anchor="middle">│</text>
+
+  <!-- Overfitting (과적합) -->
+  <rect x="525" y="482" width="64" height="26" fill="#fef2f2" rx="4" stroke="#dc2626" stroke-width="1"/>
+  <text x="557" y="499" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">과적합</text>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">대용량 파일 업로드 다이어그램</title>
+  <desc id="d">Multipart Upload의 절차, 청크 업로드 구조, 장점을 설명하는 다이어그램</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 1. Multipart Upload 절차 텍스트 영역 -->
+  <text x="30" y="32" font-size="16" font-weight="bold" fill="#1f2933">Multipart Upload:</text>
+  <text x="30" y="56" font-size="13" fill="#1f2933">1. 클라이언트가 업로드 시작 요청</text>
+  <text x="30" y="78" font-size="13" fill="#1f2933">2. 서버가 upload_id 발급</text>
+  <text x="30" y="100" font-size="13" fill="#1f2933">3. 파일을 청크로 분할 (5MB 단위)</text>
+  <text x="30" y="122" font-size="13" fill="#1f2933">4. 각 청크 병렬 업로드</text>
+  <text x="30" y="144" font-size="13" fill="#1f2933">5. 모든 청크 완료 후 병합 요청</text>
+
+  <!-- 구분선 -->
+  <line x1="30" y1="165" x2="850" y2="165" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 2. 다이어그램 박스 영역 -->
+  <!-- Chunk 1, Chunk 2, Chunk 3 Group -->
+  <rect x="50" y="195" width="160" height="150" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <line x1="50" y1="245" x2="210" y2="245" stroke="#059669" stroke-width="1.5"/>
+  <line x1="50" y1="295" x2="210" y2="295" stroke="#059669" stroke-width="1.5"/>
+  
+  <text x="130" y="225" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Chunk 1</text>
+  <text x="130" y="275" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Chunk 2</text>
+  <text x="130" y="325" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Chunk 3</text>
+
+  <!-- Upload Service Box -->
+  <rect x="350" y="195" width="160" height="150" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="430" y="263" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Upload</text>
+  <text x="430" y="283" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Service</text>
+
+  <!-- S3 Final File Box -->
+  <rect x="650" y="195" width="160" height="150" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="730" y="253" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">S3</text>
+  <text x="730" y="273" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Final</text>
+  <text x="730" y="293" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">File</text>
+
+  <!-- Arrows: Chunks -> Upload Service -->
+  <path d="M210,220 L350,220" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M210,270 L350,270" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M210,320 L350,320" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Arrow: Upload Service -> S3 Final File -->
+  <path d="M510,270 L650,270" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 구분선 -->
+  <line x1="30" y1="375" x2="850" y2="375" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 3. 장점 텍스트 영역 -->
+  <text x="30" y="405" font-size="16" font-weight="bold" fill="#1f2933">장점:</text>
+  <text x="30" y="429" font-size="13" fill="#1f2933">- 네트워크 실패 시 해당 청크만 재전송</text>
+  <text x="30" y="451" font-size="13" fill="#1f2933">- 병렬 업로드로 속도 향상</text>
+  <text x="30" y="473" font-size="13" fill="#1f2933">- 중간 상태 저장 가능</text>
+</svg>

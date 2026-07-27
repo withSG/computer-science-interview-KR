@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">다섯 덩어리와 각각의 타이밍</title>
+  <desc id="d">Webpack 빌드 파이프라인의 5단계 과정과 plugin의 개입 시점을 보여주는 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="880" height="770" fill="#ffffff"/>
+
+  <!-- 메인 그룹: Webpack 빌드 파이프라인 -->
+  <rect x="40" y="30" width="800" height="545" rx="12" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="440" y="61" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Webpack 빌드 파이프라인</text>
+
+  <!-- ① entry -->
+  <g transform="translate(70, 80)">
+    <rect x="0" y="0" width="740" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="20" y="27" font-size="14" font-weight="bold" fill="#2563eb">① entry</text>
+    <text x="100" y="27" font-size="13" font-weight="bold" fill="#1f2933">"․/src/index.js 부터 시작해"</text>
+    <text x="20" y="49" font-size="12" fill="#52606d">그래프의 루트. 여기가 없으면 아무것도 시작 안 된다</text>
+  </g>
+
+  <!-- 화살표 ① -> ② -->
+  <path d="M440,144 L440,164" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- ② loader -->
+  <g transform="translate(70, 165)">
+    <rect x="0" y="0" width="740" height="96" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="20" y="27" font-size="14" font-weight="bold" fill="#059669">② loader</text>
+    <text x="100" y="27" font-size="13" font-weight="bold" fill="#1f2933">"확장자가 .scss네 → sass-loader → css-loader → style-loader 순으로 통과시켜 JS로 바꿔"</text>
+    <text x="20" y="52" font-size="12" fill="#52606d">변환 결과에서 다시 import를 찾아 그래프를 확장한다</text>
+    <text x="20" y="76" font-size="12" fill="#d97706" font-weight="bold">← 파일을 하나 읽을 때마다 반복</text>
+  </g>
+
+  <!-- ② loader 내부 반복 루프 점선 -->
+  <path d="M 235 241 L 780 241 L 780 213 L 725 213" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 화살표 ② -> ③ -->
+  <path d="M440,261 L440,281" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- ③ 그래프 완성 -->
+  <g transform="translate(70, 282)">
+    <rect x="0" y="0" width="740" height="52" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="20" y="31" font-size="14" font-weight="bold" fill="#d97706">③ 그래프 완성</text>
+    <text x="135" y="31" font-size="13" fill="#1f2933">— 모든 모듈이 JS로 변환되어 노드로 연결됨</text>
+  </g>
+
+  <!-- 화살표 ③ -> ④ -->
+  <path d="M440,334 L440,354" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- ④ mode -->
+  <g transform="translate(70, 355)">
+    <rect x="0" y="0" width="740" height="84" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="20" y="27" font-size="14" font-weight="bold" fill="#7c3aed">④ mode</text>
+    <text x="100" y="27" font-size="13" font-weight="bold" fill="#1f2933">production이면 트리 쉐이킹·미니파이·청크 분할</text>
+    <text x="100" y="52" font-size="13" fill="#52606d">development면 거의 건드리지 않고 빠르게 통과</text>
+  </g>
+
+  <!-- 화살표 ④ -> ⑤ -->
+  <path d="M440,439 L440,459" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- ⑤ output -->
+  <g transform="translate(70, 460)">
+    <rect x="0" y="0" width="740" height="64" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="20" y="37" font-size="14" font-weight="bold" fill="#dc2626">⑤ output</text>
+    <text x="100" y="37" font-size="13" font-weight="bold" fill="#1f2933">"dist/ 아래 [name].[contenthash].js 로 파일을 써"</text>
+  </g>
+
+  <!-- 하단 plugin 설명 영역 -->
+  <g transform="translate(40, 595)">
+    <rect x="0" y="0" width="800" height="145" rx="10" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="24" y="31" font-size="14" font-weight="bold" fill="#7c3aed">★ plugin은 ①~⑤ 전 구간의 "훅"에 붙는다.</text>
+    
+    <text x="40" y="59" font-size="12.5" fill="#1f2933">
+      <tspan font-weight="bold" fill="#2563eb">HtmlWebpackPlugin</tspan>은 <tspan font-weight="bold">⑤ 직전</tspan>에,
+    </text>
+    
+    <text x="40" y="85" font-size="12.5" fill="#1f2933">
+      <tspan font-weight="bold" fill="#2563eb">DefinePlugin</tspan>은 <tspan font-weight="bold">②와 ③ 사이</tspan>(모듈을 파싱하며 식별자를 치환하는 시점)에,
+    </text>
+    
+    <text x="40" y="111" font-size="12.5" fill="#1f2933">
+      <tspan font-weight="bold" fill="#2563eb">MiniCssExtractPlugin</tspan>은 <tspan font-weight="bold">②와 ⑤ 양쪽</tspan>에 관여한다.
+    </text>
+  </g>
+</svg>

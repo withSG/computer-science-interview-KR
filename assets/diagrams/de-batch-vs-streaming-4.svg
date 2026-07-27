@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">배경 - Lambda 아키텍처</title>
+  <desc id="d">원본 데이터에서 배치 레이어와 스피드 레이어로 갈라져 서빙 레이어로 모이고 조회가 이루어지는 Lambda 아키텍처 구조도</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 1. 원본 데이터 (불변 로그) -->
+  <rect x="30" y="110" width="140" height="70" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="100" y="139.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">원본 데이터</text>
+  <text x="100" y="161.025" font-size="11.5" fill="#52606d" text-anchor="middle">(불변 로그)</text>
+
+  <!-- 2. 배치 레이어 -->
+  <rect x="250" y="30" width="340" height="90" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="270" y="58.55" font-size="13" font-weight="bold" fill="#2563eb">배치 레이어</text>
+  <text x="270" y="81.025" font-size="11.5" fill="#1f2933">전체 원본을 주기적으로 재계산</text>
+  <text x="270" y="101.025" font-size="11.5" fill="#52606d">느리지만 정확하고 확정적</text>
+
+  <!-- 3. 스피드 레이어 -->
+  <rect x="250" y="160" width="340" height="90" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="270" y="188.55" font-size="13" font-weight="bold" fill="#7c3aed">스피드 레이어</text>
+  <text x="270" y="211.025" font-size="11.5" fill="#1f2933">최근 데이터만 실시간 근사 계산</text>
+  <text x="270" y="231.025" font-size="11.5" fill="#52606d">배치 결과가 나오면 폐기</text>
+
+  <!-- 4. 서빙 레이어 -->
+  <rect x="650" y="100" width="120" height="80" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="710" y="134.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">서빙</text>
+  <text x="710" y="154.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">레이어</text>
+
+  <!-- 화살표: 원본 데이터 -> 배치 레이어 -->
+  <path d="M 170,145 L 210,145 L 210,75 L 250,75" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- 화살표: 원본 데이터 -> 스피드 레이어 -->
+  <path d="M 170,145 L 210,145 L 210,205 L 250,205" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+
+  <!-- 화살표: 배치 레이어 -> 서빙 레이어 -->
+  <path d="M 590,75 L 620,75 L 620,140 L 650,140" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- 화살표: 스피드 레이어 -> 서빙 레이어 -->
+  <path d="M 590,205 L 620,205 L 620,140 L 650,140" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+
+  <!-- 화살표: 서빙 레이어 -> 조회 -->
+  <path d="M 770,140 L 805,140" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <text x="815" y="144.55" font-size="13" fill="#1f2933">조회</text>
+
+  <!-- 각주: 하단 설명 -->
+  <text x="440" y="298.85" font-size="11" fill="#52606d" text-anchor="middle">조회 시점: 배치 결과(어제까지 확정) + 스피드 결과(오늘분 근사)를 합쳐서 응답</text>
+</svg>

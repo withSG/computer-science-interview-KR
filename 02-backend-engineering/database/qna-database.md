@@ -462,6 +462,11 @@ REVOKE SELECT ON users FROM developer;
 | BCNF | 모든 결정자가 후보키 |
 
 ### 1NF 예시
+<!-- diagram:be-qna-database-1 -->
+![1NF 예시](../../assets/diagrams/be-qna-database-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [비정규형]
 학생 | 수강과목
@@ -473,8 +478,14 @@ REVOKE SELECT ON users FROM developer;
 홍길동 | 영어
 홍길동 | 과학
 ```
+-->
 
 ### 2NF 예시
+<!-- diagram:be-qna-database-2 -->
+![2NF 예시](../../assets/diagrams/be-qna-database-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [1NF - 부분 함수 종속]
 (학생ID, 과목코드) → 성적, 학생이름
@@ -484,8 +495,14 @@ REVOKE SELECT ON users FROM developer;
 학생(학생ID, 학생이름)
 성적(학생ID, 과목코드, 성적)
 ```
+-->
 
 ### 3NF 예시
+<!-- diagram:be-qna-database-3 -->
+![3NF 예시](../../assets/diagrams/be-qna-database-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [2NF - 이행 함수 종속]
 학생ID → 학과코드 → 학과명
@@ -494,6 +511,7 @@ REVOKE SELECT ON users FROM developer;
 학생(학생ID, 학과코드)
 학과(학과코드, 학과명)
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 정규화의 장단점 (중복 감소 vs JOIN 증가)
@@ -637,6 +655,11 @@ JPA는 **지연 로딩 시 프록시 객체를 먼저 생성**하고, 실제 데
 
 ### 프록시 동작 원리
 
+<!-- diagram:be-qna-database-4 -->
+![프록시 동작 원리](../../assets/diagrams/be-qna-database-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 em.getReference(User.class, 1L)
          │
@@ -662,6 +685,7 @@ em.getReference(User.class, 1L)
    │ - id: 1
    └──────────────┘
 ```
+-->
 
 ### 프록시 특징
 
@@ -834,6 +858,11 @@ SELECT * FROM a RIGHT JOIN b ON a.id = b.id;
 
 ### 삽입 이상 (Insertion Anomaly)
 
+<!-- diagram:be-qna-database-5 -->
+![삽입 이상](../../assets/diagrams/be-qna-database-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 문제: 수강 과목 없이 학생 정보만 등록할 수 없음
 
@@ -841,6 +870,7 @@ SELECT * FROM a RIGHT JOIN b ON a.id = b.id;
 → 과목코드, 과목명에 NULL을 넣어야 함
 → 기본키(학생ID + 과목코드)에 NULL 불가 → 삽입 불가!
 ```
+-->
 
 ### 삭제 이상 (Deletion Anomaly)
 
@@ -853,6 +883,11 @@ SELECT * FROM a RIGHT JOIN b ON a.id = b.id;
 
 ### 갱신 이상 (Update Anomaly)
 
+<!-- diagram:be-qna-database-6 -->
+![갱신 이상](../../assets/diagrams/be-qna-database-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 문제: 일부 행만 수정하면 데이터 불일치 발생
 
@@ -863,6 +898,7 @@ CS 학과명을 "컴퓨터공학" → "소프트웨어공학"으로 변경 시
 1001   | 김철수 | CS       | 소프트웨어공학 | C001  ← 수정됨
 1001   | 김철수 | CS       | 컴퓨터공학     | C002  ← 수정 안됨 → 불일치!
 ```
+-->
 
 ### 해결: 정규화 (Normalization)
 

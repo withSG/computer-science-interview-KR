@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">2.4 B-Tree와 B+Tree의 차이</title>
+  <desc id="d">B-Tree와 B+Tree의 구조적 차이를 나타낸 다이어그램입니다. B-Tree는 모든 노드에 데이터가 존재하는 반면, B+Tree는 내부 노드에 길잡이 키만 존재하고 리프 노드에만 데이터가 존재하며 리프 노드끼리 양방향 연결 리스트로 이어져 있습니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green-end" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-green-start" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- ==================== SECTION 1: B-Tree ==================== -->
+  <rect x="24" y="20" width="832" height="195" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <!-- Section Title -->
+  <text x="40" y="48" font-size="16" font-weight="bold" fill="#1f2933">B-Tree : 모든 노드에 데이터가 있다</text>
+
+  <!-- B-Tree Root Node -->
+  <rect x="220" y="65" width="200" height="42" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="320" y="91" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">50(데이터) ...</text>
+
+  <!-- B-Tree Arrows to Children -->
+  <path d="M280,107 L200,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M360,107 L440,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- B-Tree Child Nodes -->
+  <rect x="140" y="142" width="120" height="38" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="200" y="166" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">20(D)</text>
+
+  <rect x="380" y="142" width="120" height="38" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="166" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">70(D)</text>
+
+  <!-- B-Tree Description Note -->
+  <text x="530" y="166" font-size="13" fill="#52606d">범위 검색을 하려면 트리를 오르내려야 한다</text>
+
+
+  <!-- ==================== SECTION 2: B+Tree ==================== -->
+  <rect x="24" y="235" width="832" height="245" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Section Title -->
+  <text x="40" y="263" font-size="16" font-weight="bold" fill="#1f2933">B+Tree : 데이터는 리프에만, 리프끼리 연결 리스트로 이어져 있다</text>
+
+  <!-- B+Tree Internal (Root) Node -->
+  <rect x="220" y="280" width="200" height="42" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="320" y="306" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[50] [120]</text>
+
+  <!-- B+Tree Internal Node Note -->
+  <path d="M420,301 L490,301" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="500" y="305" font-size="13" fill="#52606d">← 내부 노드에는 "길잡이 키"만 있다</text>
+
+  <!-- B+Tree Arrows to Children -->
+  <path d="M270,322 L170,360" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M370,322 L470,360" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- B+Tree Leaf Nodes -->
+  <rect x="110" y="362" width="120" height="38" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="170" y="386" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">20 30</text>
+
+  <rect x="290" y="362" width="120" height="38" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="350" y="386" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">50 70</text>
+
+  <rect x="470" y="362" width="120" height="38" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="530" y="386" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">120...</text>
+
+  <!-- Bidirectional Linked List Arrows between Leaf Nodes -->
+  <path d="M239,381 L281,381" stroke="#059669" stroke-width="1.5" fill="none" marker-start="url(#a-green-start)" marker-end="url(#a-green-end)"/>
+  <path d="M419,381 L461,381" stroke="#059669" stroke-width="1.5" fill="none" marker-start="url(#a-green-start)" marker-end="url(#a-green-end)"/>
+
+  <!-- B+Tree Leaf Note Right -->
+  <path d="M590,381 L600,381" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="610" y="385" font-size="13" fill="#52606d">← 리프끼리 양방향 연결</text>
+
+  <!-- B+Tree Leaf Note Bottom -->
+  <text x="350" y="440" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">실제 데이터(또는 데이터 위치)는 여기에만 있다</text>
+</svg>

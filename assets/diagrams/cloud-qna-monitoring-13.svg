@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Postmortem 템플릿</title>
+  <desc id="d">장애 보고서의 개요, 타임라인, 근본 원인, Action Items 표를 포함한 사후 분석 문서 템플릿</desc>
+  <rect width="880" height="770" fill="#ffffff"/>
+
+  <!-- 메인 장애 보고서 문서 컨테이너 -->
+  <rect x="24" y="24" width="832" height="722" rx="8" ry="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 문서 제목 -->
+  <text x="50" y="70" font-size="16" font-weight="bold" fill="#1f2933">## 장애 보고서</text>
+  <line x1="50" y1="82" x2="830" y2="82" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 1. 개요 섹션 -->
+  <text x="50" y="112" font-size="14" font-weight="bold" fill="#2563eb">### 개요</text>
+  <rect x="50" y="124" width="780" height="100" rx="6" ry="6" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="70" y="154" font-size="13" fill="#1f2933">- 일시: 2024-01-15 14:30 ~ 15:45 (1시간 15분)</text>
+  <text x="70" y="180" font-size="13" fill="#1f2933">- 영향: 결제 서비스 전체 장애</text>
+  <text x="70" y="206" font-size="13" fill="#1f2933">- 영향 범위: 전체 사용자의 결제 기능</text>
+
+  <!-- 2. 타임라인 섹션 -->
+  <text x="50" y="254" font-size="14" font-weight="bold" fill="#7c3aed">### 타임라인</text>
+  <rect x="50" y="266" width="780" height="152" rx="6" ry="6" fill="#f5f3ff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="70" y="296" font-size="13" fill="#1f2933">- 14:30 - 알림 발생 (에러율 50% 초과)</text>
+  <text x="70" y="322" font-size="13" fill="#1f2933">- 14:35 - On-call 담당자 확인</text>
+  <text x="70" y="348" font-size="13" fill="#1f2933">- 14:40 - DB 연결 풀 고갈 확인</text>
+  <text x="70" y="374" font-size="13" fill="#1f2933">- 15:00 - 연결 풀 사이즈 증가 배포</text>
+  <text x="70" y="400" font-size="13" fill="#1f2933">- 15:45 - 정상화 확인</text>
+
+  <!-- 3. 근본 원인 섹션 -->
+  <text x="50" y="448" font-size="14" font-weight="bold" fill="#dc2626">### 근본 원인</text>
+  <rect x="50" y="460" width="780" height="50" rx="6" ry="6" fill="#fef2f2" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="70" y="490" font-size="13" fill="#1f2933">슬로우 쿼리로 인한 DB 연결 반환 지연</text>
+
+  <!-- 4. Action Items 섹션 -->
+  <text x="50" y="540" font-size="14" font-weight="bold" fill="#059669">### Action Items</text>
+  
+  <!-- 표 (Table) -->
+  <g id="action-items-table">
+    <!-- 헤더 배경 -->
+    <rect x="50" y="552" width="780" height="36" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1"/>
+    <!-- 행 배경 (줄무늬/경계) -->
+    <rect x="50" y="588" width="780" height="36" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <rect x="50" y="624" width="780" height="36" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <rect x="50" y="660" width="780" height="36" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    
+    <!-- 외곽 및 열 구분선 -->
+    <rect x="50" y="552" width="780" height="144" fill="none" stroke="#9aa5b1" stroke-width="1"/>
+    <line x1="450" y1="552" x2="450" y2="696" stroke="#9aa5b1" stroke-width="1"/>
+    <line x1="640" y1="552" x2="640" y2="696" stroke="#9aa5b1" stroke-width="1"/>
+
+    <!-- 표 헤더 텍스트 -->
+    <text x="250" y="575" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">항목</text>
+    <text x="545" y="575" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">담당자</text>
+    <text x="735" y="575" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">기한</text>
+
+    <!-- 표 내용 텍스트 (1행) -->
+    <text x="70" y="611" font-size="13" fill="#1f2933">슬로우 쿼리 최적화</text>
+    <text x="545" y="611" font-size="13" fill="#1f2933" text-anchor="middle">김개발</text>
+    <text x="735" y="611" font-size="13" fill="#1f2933" text-anchor="middle">1/20</text>
+
+    <!-- 표 내용 텍스트 (2행) -->
+    <text x="70" y="647" font-size="13" fill="#1f2933">연결 풀 모니터링 추가</text>
+    <text x="545" y="647" font-size="13" fill="#1f2933" text-anchor="middle">박운영</text>
+    <text x="735" y="647" font-size="13" fill="#1f2933" text-anchor="middle">1/22</text>
+
+    <!-- 표 내용 텍스트 (3행) -->
+    <text x="70" y="683" font-size="13" fill="#1f2933">DB 타임아웃 설정 리뷰</text>
+    <text x="545" y="683" font-size="13" fill="#1f2933" text-anchor="middle">이DBA</text>
+    <text x="735" y="683" font-size="13" fill="#1f2933" text-anchor="middle">1/25</text>
+  </g>
+</svg>

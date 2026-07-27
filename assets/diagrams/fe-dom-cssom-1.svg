@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DOM 트리는 어떻게 만들어지나</title>
+  <desc id="d">바이트에서 DOM 트리까지 변환되는 5단계 프로세스를 보여주는 순서도입니다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Step 1: [바이트] -->
+  <g transform="translate(140, 40)">
+    <rect x="0" y="0" width="120" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="60" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[바이트]</text>
+    <text x="140" y="27" font-size="13" font-family="monospace" fill="#52606d">3C 68 74 6D 6C 3E ...</text>
+  </g>
+
+  <!-- Flow Arrow 1 -->
+  <path d="M200,84 L200,132" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="212" y="99" width="310" height="20" fill="#ffffff"/>
+  <text x="212" y="113" font-size="13" fill="#52606d">인코딩 해석 (Content-Type / &lt;meta charset&gt;)</text>
+
+  <!-- Step 2: [문자] -->
+  <g transform="translate(140, 134)">
+    <rect x="0" y="0" width="120" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="60" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[문자]</text>
+    <text x="140" y="27" font-size="13" font-family="monospace" fill="#52606d">&lt; h t m l &gt; &lt; b o d y &gt; ...</text>
+  </g>
+
+  <!-- Flow Arrow 2 -->
+  <path d="M200,178 L200,226" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="212" y="193" width="140" height="20" fill="#ffffff"/>
+  <text x="212" y="207" font-size="13" fill="#52606d">토큰화 (HTML 파서)</text>
+
+  <!-- Step 3: [토큰] -->
+  <g transform="translate(140, 228)">
+    <rect x="0" y="0" width="120" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="60" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[토큰]</text>
+    <text x="140" y="27" font-size="13" fill="#52606d">StartTag:html, StartTag:body, Character:"안녕", EndTag:body ...</text>
+  </g>
+
+  <!-- Flow Arrow 3 -->
+  <path d="M200,272 L200,320" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="212" y="287" width="100" height="20" fill="#ffffff"/>
+  <text x="212" y="301" font-size="13" fill="#52606d">노드 객체 생성</text>
+
+  <!-- Step 4: [노드] -->
+  <g transform="translate(140, 322)">
+    <rect x="0" y="0" width="120" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="60" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[노드]</text>
+    <text x="140" y="27" font-size="13" fill="#52606d">HTMLHtmlElement, HTMLBodyElement, Text ...</text>
+  </g>
+
+  <!-- Flow Arrow 4 -->
+  <path d="M200,366 L200,414" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="212" y="381" width="160" height="20" fill="#ffffff"/>
+  <text x="212" y="395" font-size="13" fill="#52606d">부모-자식 관계로 연결</text>
+
+  <!-- Step 5: [DOM 트리] -->
+  <g transform="translate(140, 416)">
+    <rect x="0" y="0" width="120" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+    <text x="60" y="27" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[DOM 트리]</text>
+  </g>
+</svg>

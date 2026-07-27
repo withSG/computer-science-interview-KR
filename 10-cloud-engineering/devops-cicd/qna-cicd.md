@@ -22,6 +22,11 @@
 
 ### CI/CD 파이프라인 흐름
 
+<!-- diagram:cloud-qna-cicd-1 -->
+![CI/CD 파이프라인 흐름](../../assets/diagrams/cloud-qna-cicd-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
 │  Code   │───▶│  Build  │───▶│  Test   │───▶│ Deploy  │───▶│ Monitor │
@@ -33,6 +38,7 @@
                                             │Production│
                                             └─────────┘
 ```
+-->
 
 ### CI의 핵심 원칙
 
@@ -85,6 +91,11 @@ main 브랜치 머지 시 스테이징 환경에 자동 배포됩니다.
 
 ### Blue-Green 배포
 
+<!-- diagram:cloud-qna-cicd-2 -->
+![Blue-Green 배포](../../assets/diagrams/cloud-qna-cicd-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 단계 1: Blue(현재)에 100% 트래픽
 ┌─────────────────────────────────┐
@@ -107,9 +118,15 @@ main 브랜치 머지 시 스테이징 환경에 자동 배포됩니다.
       │  (Standby)   │     │  (Active)    │
       └──────────────┘     └──────────────┘
 ```
+-->
 
 ### Canary 배포
 
+<!-- diagram:cloud-qna-cicd-3 -->
+![Canary 배포](../../assets/diagrams/cloud-qna-cicd-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 단계 1: 5% 트래픽으로 시작
          Load Balancer
@@ -130,9 +147,15 @@ main 브랜치 머지 시 스테이징 환경에 자동 배포됩니다.
     │  v1.0   │ │v2.0 │
     └─────────┘ └─────┘
 ```
+-->
 
 ### Rolling 배포
 
+<!-- diagram:cloud-qna-cicd-4 -->
+![Rolling 배포](../../assets/diagrams/cloud-qna-cicd-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────┐ ┌─────┐ ┌─────┐ ┌─────┐
 │v1.0 │ │v1.0 │ │v1.0 │ │v1.0 │
@@ -148,6 +171,7 @@ main 브랜치 머지 시 스테이징 환경에 자동 배포됩니다.
 │v2.0 │ │v2.0 │ │v1.0 │ │v1.0 │
 └─────┘ └─────┘ └─────┘ └─────┘
 ```
+-->
 
 ### 선택 기준
 
@@ -285,6 +309,11 @@ GitOps는 **Git을 Single Source of Truth로 사용**하여 인프라와 애플�
 
 ### GitOps 원칙
 
+<!-- diagram:cloud-qna-cicd-5 -->
+![GitOps 원칙](../../assets/diagrams/cloud-qna-cicd-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 선언적 (Declarative)
    - 원하는 상태를 코드로 정의
@@ -302,9 +331,15 @@ GitOps는 **Git을 Single Source of Truth로 사용**하여 인프라와 애플�
    - 실제 상태와 선언 상태 비교
    - 차이 발생 시 자동 복구
 ```
+-->
 
 ### Push vs Pull 기반
 
+<!-- diagram:cloud-qna-cicd-6 -->
+![Push vs Pull 기반](../../assets/diagrams/cloud-qna-cicd-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Push 기반 (전통적):
 ┌────────┐    ┌────────┐    ┌────────┐
@@ -320,6 +355,7 @@ Pull 기반 (GitOps):
 └────────┘    └────────┘    └────────┘
               (클러스터 내부)
 ```
+-->
 
 ### ArgoCD 예시
 
@@ -367,6 +403,11 @@ spec:
 
 ### 테스트 피라미드
 
+<!-- diagram:cloud-qna-cicd-7 -->
+![테스트 피라미드](../../assets/diagrams/cloud-qna-cicd-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                  ▲
                 /│\
@@ -381,6 +422,7 @@ spec:
        ────────────────────
          많음 ←─────→ 적음
 ```
+-->
 
 ### 파이프라인 테스트 단계
 
@@ -424,6 +466,11 @@ jobs:
 
 ### 테스트 최적화 전략
 
+<!-- diagram:cloud-qna-cicd-8 -->
+![테스트 최적화 전략](../../assets/diagrams/cloud-qna-cicd-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 캐싱
    - node_modules 캐시
@@ -442,6 +489,7 @@ jobs:
    - 린트 → 유닛 → 통합 순서
    - 실패 시 즉시 중단
 ```
+-->
 
 </details>
 
@@ -581,6 +629,11 @@ resource "aws_instance" "web" {
 
 ### IaC 워크플로우
 
+<!-- diagram:cloud-qna-cicd-9 -->
+![IaC 워크플로우](../../assets/diagrams/cloud-qna-cicd-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────┐
 │   Write     │  인프라 코드 작성
@@ -602,6 +655,7 @@ resource "aws_instance" "web" {
 │   State     │  상태 파일 관리
 └─────────────┘
 ```
+-->
 
 ### IaC 장점
 

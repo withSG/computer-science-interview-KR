@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">5. Alertmanager로 소음 줄이기</title>
+  <desc id="d">Prometheus에서 발생한 알림이 Alertmanager의 그룹핑, 억제, 무음, 라우팅 과정을 거쳐 PagerDuty, Slack, 이메일 등의 수신자로 전달되는 흐름도</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="260" fill="#ffffff"/>
+
+  <!-- Column Headers -->
+  <text x="100" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Prometheus</text>
+  <text x="380" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Alertmanager</text>
+  <text x="710" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">수신자</text>
+
+  <!-- Prometheus Box -->
+  <rect x="30" y="70" width="140" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="100" y="122.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">규칙 평가</text>
+  <text x="100" y="152.5" font-size="13" fill="#52606d" text-anchor="middle">for: 10m</text>
+
+  <!-- Alertmanager Box -->
+  <rect x="260" y="70" width="240" height="130" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="380" y="122.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">그룹핑 → 억제 →</text>
+  <text x="380" y="152.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">무음 → 라우팅</text>
+
+  <!-- Flow Arrow: Prometheus -> Alertmanager -->
+  <path d="M 170,135 L 260,135" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="193" y="121" width="44" height="20" fill="#ffffff" rx="2"/>
+  <text x="215" y="135.5" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">발화</text>
+
+  <!-- Flow Arrows: Alertmanager -> Receivers -->
+  <!-- Upper: PagerDuty -->
+  <path d="M 500,120 L 590,90" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="600" y="94.5" font-size="13" font-weight="bold" fill="#1f2933">PagerDuty <tspan fill="#dc2626">(critical)</tspan></text>
+
+  <!-- Middle: Slack -->
+  <path d="M 500,135 L 590,135" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <text x="600" y="139.5" font-size="13" font-weight="bold" fill="#1f2933">Slack <tspan fill="#d97706" font-weight="normal">(warning)</tspan></text>
+
+  <!-- Lower: 이메일 -->
+  <path d="M 500,150 L 590,180" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="600" y="184.5" font-size="13" font-weight="bold" fill="#1f2933">이메일 <tspan fill="#52606d" font-weight="normal">(info)</tspan></text>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">공간적 지역성 (Spatial Locality)</title>
+  <desc id="d">arr[0] 접근 시 64바이트 캐시 라인이 통째로 캐시에 적재되어 이후 접근이 캐시 히트가 되는 공간적 지역성을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="370" fill="#ffffff"/>
+
+  <!-- 상단 상황 설명 라벨 -->
+  <text x="40" y="38" font-size="14" fill="#52606d" font-weight="bold">arr[0]을 읽으려고 했을 뿐인데...</text>
+
+  <!-- 메인 블록: 메모리 영역 -->
+  <g transform="translate(40, 60)">
+    <!-- 메모리 섹션 카드 -->
+    <rect x="0" y="0" width="800" height="135" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="20" y="65" font-size="14" font-weight="bold" fill="#1f2933">메모리:</text>
+
+    <!-- 캐시 라인 1 (arr[0] ~ arr[15]) - 강조 그룹 -->
+    <rect x="90" y="30" width="530" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    
+    <!-- 각 요소 개별 박스 -->
+    <!-- arr[0] (타겟 요소) -->
+    <rect x="100" y="40" width="65" height="40" rx="3" fill="#2563eb"/>
+    <text x="132" y="65" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">arr[0]</text>
+
+    <!-- arr[1] -->
+    <rect x="172" y="40" width="65" height="40" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="204" y="65" font-size="13" fill="#1f2933" text-anchor="middle">arr[1]</text>
+
+    <!-- arr[2] -->
+    <rect x="244" y="40" width="65" height="40" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="276" y="65" font-size="13" fill="#1f2933" text-anchor="middle">arr[2]</text>
+
+    <!-- ... (생략 표시) -->
+    <text x="332" y="65" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">...</text>
+
+    <!-- arr[15] -->
+    <rect x="355" y="40" width="70" height="40" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="390" y="65" font-size="13" fill="#1f2933" text-anchor="middle">arr[15]</text>
+
+    <!-- 브래킷 안내선 및 라벨 (64바이트 = 캐시 라인 1개) -->
+    <path d="M 100 98 L 100 106 L 610 106 L 610 98" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="355" y="122" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">64바이트 = 캐시 라인 1개</text>
+
+    <!-- 다음 캐시 라인 영역 [ arr[16] ... ] -->
+    <rect x="630" y="30" width="150" height="60" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="668" y="65" font-size="13" fill="#52606d" text-anchor="middle">arr[16]</text>
+    <text x="730" y="65" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">...</text>
+  </g>
+
+  <!-- 적재 화살표 및 라벨 (통째로 적재) -->
+  <path d="M 395, 195 L 395, 235" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="410" y="203" width="90" height="24" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="455" y="219" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">통째로 적재</text>
+
+  <!-- 메인 블록: 캐시 영역 -->
+  <g transform="translate(40, 242)">
+    <rect x="0" y="0" width="800" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="20" y="40" font-size="14" font-weight="bold" fill="#1f2933">캐시:</text>
+
+    <!-- 적재된 캐시 라인 데이터 [ arr[0] ~ arr[15] ] -->
+    <rect x="90" y="15" width="530" height="40" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+    <text x="355" y="40" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">arr[0] ~ arr[15]</text>
+  </g>
+
+  <!-- 하단 화살표 및 캐시 히트 안내 라벨 -->
+  <g transform="translate(40, 335)">
+    <text x="0" y="12" font-size="14" font-weight="bold" fill="#059669">→ arr[1]~arr[15]에 대한 다음 15번의 접근은 전부 캐시 히트</text>
+  </g>
+</svg>

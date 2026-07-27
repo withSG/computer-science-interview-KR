@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">컬렉션 fetch join과 페이징 문제점</title>
+  <desc id="d">데이터 상태인 team과 member 테이블, 그리고 JOIN 결과에서 LIMIT 2 적용 시 데이터가 잘리는 문제를 나타낸 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 데이터 상태 그룹 -->
+  <rect x="24" y="24" width="832" height="230" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="44" y="52" font-size="14" font-weight="bold" fill="#1f2933">데이터 상태</text>
+
+  <!-- team 테이블 -->
+  <text x="44" y="78" font-size="13" font-weight="bold" fill="#52606d">team</text>
+  <rect x="44" y="90" width="160" height="144" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="44" y="90" width="160" height="28" fill="#eff6ff"/>
+  <line x1="44" y1="118" x2="204" y2="118" stroke="#9aa5b1" stroke-width="1.5"/>
+  <line x1="110" y1="90" x2="110" y2="234" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <text x="77" y="108" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">id</text>
+  <text x="157" y="108" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">name</text>
+  
+  <line x1="44" y1="156" x2="204" y2="156" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="77" y="142" font-size="12" fill="#1f2933" text-anchor="middle">1</text>
+  <text x="157" y="142" font-size="12" fill="#1f2933" text-anchor="middle">A팀</text>
+  
+  <line x1="44" y1="195" x2="204" y2="195" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="77" y="180" font-size="12" fill="#1f2933" text-anchor="middle">2</text>
+  <text x="157" y="180" font-size="12" fill="#1f2933" text-anchor="middle">B팀</text>
+  
+  <text x="77" y="219" font-size="12" fill="#1f2933" text-anchor="middle">3</text>
+  <text x="157" y="219" font-size="12" fill="#1f2933" text-anchor="middle">C팀</text>
+
+  <!-- member 테이블 -->
+  <text x="244" y="78" font-size="13" font-weight="bold" fill="#52606d">member</text>
+  <rect x="244" y="90" width="250" height="150" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="244" y="90" width="250" height="28" fill="#eff6ff"/>
+  <line x1="244" y1="118" x2="494" y2="118" stroke="#9aa5b1" stroke-width="1.5"/>
+  <line x1="314" y1="90" x2="314" y2="240" stroke="#cbd2d9" stroke-width="1"/>
+  <line x1="404" y1="90" x2="404" y2="240" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <text x="279" y="108" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">id</text>
+  <text x="359" y="108" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">name</text>
+  <text x="449" y="108" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">team_id</text>
+  
+  <line x1="244" y1="142" x2="494" y2="142" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="279" y="134" font-size="12" fill="#1f2933" text-anchor="middle">11</text>
+  <text x="359" y="134" font-size="12" fill="#1f2933" text-anchor="middle">김</text>
+  <text x="449" y="134" font-size="12" fill="#1f2933" text-anchor="middle">1</text>
+  
+  <line x1="244" y1="166" x2="494" y2="166" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="279" y="158" font-size="12" fill="#1f2933" text-anchor="middle">12</text>
+  <text x="359" y="158" font-size="12" fill="#1f2933" text-anchor="middle">이</text>
+  <text x="449" y="158" font-size="12" fill="#1f2933" text-anchor="middle">1</text>
+  
+  <line x1="244" y1="190" x2="494" y2="190" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="279" y="182" font-size="12" fill="#1f2933" text-anchor="middle">13</text>
+  <text x="359" y="182" font-size="12" fill="#1f2933" text-anchor="middle">박</text>
+  <text x="449" y="182" font-size="12" fill="#1f2933" text-anchor="middle">1</text>
+  
+  <line x1="244" y1="214" x2="494" y2="214" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="279" y="206" font-size="12" fill="#1f2933" text-anchor="middle">14</text>
+  <text x="359" y="206" font-size="12" fill="#1f2933" text-anchor="middle">최</text>
+  <text x="449" y="206" font-size="12" fill="#1f2933" text-anchor="middle">2</text>
+  
+  <text x="279" y="230" font-size="12" fill="#1f2933" text-anchor="middle">15</text>
+  <text x="359" y="230" font-size="12" fill="#1f2933" text-anchor="middle">정</text>
+  <text x="449" y="230" font-size="12" fill="#1f2933" text-anchor="middle">3</text>
+
+  <!-- JOIN 결과 그룹 -->
+  <rect x="24" y="274" width="832" height="242" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="44" y="302" font-size="14" font-weight="bold" fill="#1f2933">JOIN 결과 (5행)</text>
+
+  <!-- JOIN 결과 테이블 -->
+  <rect x="44" y="314" width="220" height="180" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  
+  <!-- LIMIT 2 하이라이트 영역 -->
+  <rect x="45" y="343" width="218" height="52" fill="#ecfdf5" opacity="0.7"/>
+
+  <!-- 헤더 -->
+  <rect x="44" y="314" width="220" height="28" fill="#eff6ff"/>
+  <line x1="44" y1="342" x2="264" y2="342" stroke="#9aa5b1" stroke-width="1.5"/>
+  <line x1="154" y1="314" x2="154" y2="494" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="99" y="332" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">team</text>
+  <text x="209" y="332" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">member</text>
+
+  <!-- 행 1 -->
+  <line x1="44" y1="368" x2="264" y2="368" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="99" y="360" font-size="12" fill="#1f2933" text-anchor="middle">A팀</text>
+  <text x="209" y="360" font-size="12" fill="#1f2933" text-anchor="middle">김</text>
+
+  <!-- 행 2 -->
+  <text x="99" y="386" font-size="12" fill="#1f2933" text-anchor="middle">A팀</text>
+  <text x="209" y="386" font-size="12" fill="#1f2933" text-anchor="middle">이</text>
+
+  <!-- 절단선 (LIMIT 2 구분선) -->
+  <line x1="40" y1="395" x2="268" y2="395" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- 행 3 -->
+  <line x1="44" y1="422" x2="264" y2="422" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="99" y="413" font-size="12" fill="#1f2933" text-anchor="middle">A팀</text>
+  <text x="209" y="413" font-size="12" fill="#1f2933" text-anchor="middle">박</text>
+
+  <!-- 행 4 -->
+  <line x1="44" y1="448" x2="264" y2="448" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="99" y="439" font-size="12" fill="#1f2933" text-anchor="middle">B팀</text>
+  <text x="209" y="439" font-size="12" fill="#1f2933" text-anchor="middle">최</text>
+
+  <!-- 행 5 -->
+  <text x="99" y="475" font-size="12" fill="#1f2933" text-anchor="middle">C팀</text>
+  <text x="209" y="475" font-size="12" fill="#1f2933" text-anchor="middle">정</text>
+
+  <!-- 화살표 및 설명 문구 -->
+  <path d="M280,368 L330,368" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="340" y="372" font-size="13" font-weight="bold" fill="#dc2626">LIMIT 2 를 걸면</text>
+
+  <path d="M280,395 L330,395" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="340" y="399" font-size="13" font-weight="bold" fill="#dc2626">여기까지만 잘린다</text>
+
+  <text x="340" y="436" font-size="13" font-weight="bold" fill="#dc2626">A팀의 멤버 한 명이 통째로 사라진다</text>
+  <text x="340" y="462" font-size="13" font-weight="bold" fill="#dc2626">"팀 2개"를 원했는데 "A팀 하나(멤버 2명)"만 나온다</text>
+</svg>

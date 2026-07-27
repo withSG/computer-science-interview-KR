@@ -44,6 +44,11 @@ try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
 객체지향과 관계형 모델은 각자 다른 목적으로 설계됐다. 그래서 구조적으로 어긋나는 지점이 있다. 이걸 **패러다임 불일치(Paradigm Mismatch)** 라고 부른다.
 
+<!-- diagram:be-jpa-orm-1 -->
+![1.2 진짜 문제는 반복이 아니라 "패러다임 불일치"](../../assets/diagrams/be-jpa-orm-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    객체 세계                          테이블 세계
 ┌──────────────────┐              ┌──────────────────┐
@@ -53,6 +58,7 @@ try (PreparedStatement ps = conn.prepareStatement(sql)) {
 │ == 로 동일성     │  ← 불일치 →  │ PK 값으로 동일성 │
 └──────────────────┘              └──────────────────┘
 ```
+-->
 
 **상속** — 자바에서는 `Item`을 상속한 `Book`, `Album`을 자연스럽게 만든다. 테이블에는 상속이 없어서 개발자가 직접 "부모/자식 테이블로 쪼갤지, 한 테이블에 다 넣고 구분 컬럼을 둘지"를 정하고 그에 맞는 SQL을 손으로 짜야 했다.
 
@@ -76,6 +82,11 @@ ORM(Object-Relational Mapping)은 이 불일치를 프레임워크가 대신 처
 
 이름이 비슷해서 헷갈리지만 세 개는 층이 다르다.
 
+<!-- diagram:be-jpa-orm-2 -->
+![2. JPA, Hibernate, Spring Data JPA는 각각 무엇인가](../../assets/diagrams/be-jpa-orm-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────────────────────────────────────────┐
 │  내 애플리케이션 코드                          │
@@ -102,6 +113,7 @@ ORM(Object-Relational Mapping)은 이 불일치를 프레임워크가 대신 처
                     ↓
                   JDBC → DB
 ```
+-->
 
 | 이름 | 정체 | 없으면 어떻게 되나 |
 |------|------|-------------------|
@@ -193,6 +205,11 @@ public class Team {
 
 여기서 초심자가 반드시 걸리는 지점이 나온다. **왜 한쪽에만 `mappedBy`를 붙여야 하나?**
 
+<!-- diagram:be-jpa-orm-3 -->
+![4.2 양방향과 연관관계 주인](../../assets/diagrams/be-jpa-orm-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 객체 세계 (참조 2개)                  DB 세계 (외래키 1개)
 
@@ -206,6 +223,7 @@ public class Team {
                                       team 테이블에는 member를 가리키는
                                       컬럼이 아예 없다. 수정 지점은 1개.
 ```
+-->
 
 객체에서는 `member.setTeam(team)`으로도, `team.getMembers().add(member)`로도 관계를 바꿀 수 있다. 그런데 DB에 반영해야 할 값은 `member.team_id` 딱 하나다. **둘 중 어느 쪽을 보고 `team_id`를 정할 것인가?** JPA는 이 모호함을 규칙으로 잘라냈다. **외래키를 실제로 가진 쪽(= `@JoinColumn`이 있는 쪽)만 주인이고, 주인만 DB에 반영된다.** `mappedBy`는 "나는 주인이 아니고, 저쪽의 이 필드가 주인이다"라는 선언이다.
 

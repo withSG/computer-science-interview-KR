@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">2단 캐시와 무효화 전파</title>
+  <desc id="d">요청이 L1 로컬 캐시, L2 Redis, DB로 이동하며 미스 시 전달되고, Redis에서 L1으로 Pub/Sub 무효화가 전달되는 2단 캐시 구조 다이어그램</desc>
+  <rect width="880" height="260" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- L1 로컬 캐시 Box -->
+  <rect x="200" y="50" width="160" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="280" y="80" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">L1 로컬 캐시</text>
+  <text x="280" y="130" font-size="11.5" fill="#52606d" text-anchor="middle">(수 초 TTL)</text>
+
+  <!-- L2 Redis Box -->
+  <rect x="470" y="50" width="140" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="540" y="85" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">L2 Redis</text>
+  <text x="540" y="130" font-size="11.5" fill="#52606d" text-anchor="middle">(수 분 TTL)</text>
+
+  <!-- DB Box -->
+  <rect x="710" y="50" width="100" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <text x="760" y="85" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">DB</text>
+
+  <!-- 요청 -> L1 로컬 캐시 -->
+  <path d="M80,80 L200,80" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="110" y="68" width="40" height="22" fill="#ffffff"/>
+  <text x="130" y="84" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">요청</text>
+
+  <!-- L1 -> L2 miss -->
+  <path d="M360,80 L470,80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="388" y="69" width="54" height="20" fill="#ffffff"/>
+  <text x="415" y="84" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">miss</text>
+
+  <!-- L2 -> DB miss -->
+  <path d="M610,80 L710,80" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="633" y="69" width="54" height="20" fill="#ffffff"/>
+  <text x="660" y="84" font-size="13" fill="#7c3aed" font-weight="bold" text-anchor="middle">miss</text>
+
+  <!-- Pub/Sub 무효화 (L2 Redis -> L1 로컬 캐시) -->
+  <path d="M540,110 L540,200 L280,200 L280,110" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="355" y="189" width="110" height="22" fill="#ffffff"/>
+  <text x="410" y="205" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">Pub/Sub 무효화</text>
+</svg>

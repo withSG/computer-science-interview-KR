@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">해밍 코드 (Hamming Code / ECC)</title>
+  <desc id="d">해밍 코드의 원리, 패리티 비트 위치, 4비트 데이터 예시 및 패리티 계산과 오류 수정 과정을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="580" fill="#ffffff"/>
+
+  <!-- Title Section -->
+  <rect x="24" y="20" width="832" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">해밍 코드 (Hamming Code / ECC)</text>
+
+  <!-- Principles Section -->
+  <g transform="translate(24, 75)">
+    <rect x="0" y="0" width="832" height="70" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="20" y="28" font-size="13" font-weight="bold" fill="#1f2933">원리: <tspan font-weight="normal" fill="#52606d">여러 패리티 비트를 전략적으로 배치하여 오류 위치 특정</tspan></text>
+    <text x="20" y="52" font-size="13" font-weight="bold" fill="#1f2933">패리티 비트 위치: <tspan font-weight="normal" fill="#52606d">2의 거듭제곱 위치 (1, 2, 4, 8, ...)</tspan></text>
+  </g>
+
+  <!-- Example Section Box -->
+  <g transform="translate(24, 160)">
+    <rect x="0" y="0" width="832" height="210" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="20" y="32" font-size="14" font-weight="bold" fill="#2563eb">예시: 4비트 데이터 1011 전송 시</text>
+
+    <!-- Row Labels -->
+    <text x="35" y="71" font-size="13" font-weight="bold" fill="#52606d">위치:</text>
+    <text x="35" y="118" font-size="13" font-weight="bold" fill="#52606d">내용:</text>
+
+    <!-- Cells 1 to 7 -->
+    <!-- Position 1 (P1) -->
+    <g transform="translate(100, 50)">
+      <rect x="0" y="0" width="92" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="46" y="20" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">1</text>
+      <rect x="0" y="36" width="92" height="58" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+      <text x="46" y="58" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P1</text>
+      <text x="46" y="80" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P1</text>
+    </g>
+
+    <!-- Position 2 (P2) -->
+    <g transform="translate(202, 50)">
+      <rect x="0" y="0" width="92" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="46" y="20" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">2</text>
+      <rect x="0" y="36" width="92" height="58" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+      <text x="46" y="58" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P2</text>
+      <text x="46" y="80" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P2</text>
+    </g>
+
+    <!-- Position 3 (d1) -->
+    <g transform="translate(304, 50)">
+      <rect x="0" y="0" width="92" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="20" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+      <rect x="0" y="36" width="92" height="58" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="58" font-size="13" fill="#1f2933" text-anchor="middle">d1</text>
+      <text x="46" y="80" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+    </g>
+
+    <!-- Position 4 (P4) -->
+    <g transform="translate(406, 50)">
+      <rect x="0" y="0" width="92" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+      <text x="46" y="20" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">4</text>
+      <rect x="0" y="36" width="92" height="58" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+      <text x="46" y="58" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P4</text>
+      <text x="46" y="80" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P4</text>
+    </g>
+
+    <!-- Position 5 (d2) -->
+    <g transform="translate(508, 50)">
+      <rect x="0" y="0" width="92" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="20" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
+      <rect x="0" y="36" width="92" height="58" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="58" font-size="13" fill="#1f2933" text-anchor="middle">d2</text>
+      <text x="46" y="80" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">0</text>
+    </g>
+
+    <!-- Position 6 (d3) -->
+    <g transform="translate(610, 50)">
+      <rect x="0" y="0" width="92" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="20" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">6</text>
+      <rect x="0" y="36" width="92" height="58" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="58" font-size="13" fill="#1f2933" text-anchor="middle">d3</text>
+      <text x="46" y="80" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+    </g>
+
+    <!-- Position 7 (d4) -->
+    <g transform="translate(712, 50)">
+      <rect x="0" y="0" width="92" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="20" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">7</text>
+      <rect x="0" y="36" width="92" height="58" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="46" y="58" font-size="13" fill="#1f2933" text-anchor="middle">d4</text>
+      <text x="46" y="80" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+    </g>
+  </g>
+
+  <!-- Parity Calculation Section -->
+  <g transform="translate(24, 385)">
+    <rect x="0" y="0" width="832" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+    <text x="20" y="30" font-size="13" font-weight="bold" fill="#7c3aed">P1 = 위치 1,3,5,7의 XOR = 1⊕0⊕1 = 0</text>
+    <text x="20" y="58" font-size="13" font-weight="bold" fill="#7c3aed">P2 = 위치 2,3,6,7의 XOR = 1⊕1⊕1 = 1</text>
+    <text x="20" y="86" font-size="13" font-weight="bold" fill="#7c3aed">P4 = 위치 4,5,6,7의 XOR = 0⊕1⊕1 = 0</text>
+  </g>
+
+  <!-- Error Detection and Correction Section -->
+  <g transform="translate(24, 500)">
+    <rect x="0" y="0" width="832" height="60" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="20" y="26" font-size="13" font-weight="bold" fill="#dc2626">수신 측에서 패리티 검사 결과가 P4=1, P2=1, P1=0이면</text>
+    <text x="20" y="48" font-size="13" font-weight="bold" fill="#1f2933">오류 위치 = 4×1 + 2×1 + 1×0 = 6번 위치 <tspan fill="#dc2626">→ 수정</tspan></text>
+  </g>
+</svg>

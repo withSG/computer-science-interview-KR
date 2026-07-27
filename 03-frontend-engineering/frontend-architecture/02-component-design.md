@@ -104,6 +104,11 @@ function PublicUserCard({ user }) {                        // 사용자 화면
 
 단일 책임 원칙(SRP, Single Responsibility Principle)은 흔히 "하나의 일만 한다"로 옮겨지지만 원문에 더 가까운 표현은 **"변경할 이유가 하나뿐이어야 한다"**다. 컴포넌트에 적용하면 이렇게 된다.
 
+<!-- diagram:fe-component-design-1 -->
+![기준은 줄 수가 아니라 "변경 이유"다](../../assets/diagrams/fe-component-design-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [나쁜 분리]  줄 수로 자름          [좋은 분리]  변경 이유로 자름
 
@@ -116,6 +121,7 @@ function PublicUserCard({ user }) {                        // 사용자 화면
  하나를 고치면 나머지를 확인       └────────────────────────────┘
                                    쿠폰 정책이 바뀌면 한 파일만
 ```
+-->
 
 오른쪽 구조에서 각 컴포넌트는 서로 다른 담당자가, 서로 다른 이유로 고친다. 이것이 좋은 경계의 신호다.
 
@@ -204,6 +210,11 @@ Modal.Header = ({ children }) => <header className="modal__header">{children}</h
 
 `Modal`은 이제 "배경을 덮고, 바깥을 누르면 닫는다"만 안다. 아이콘도 부제목도 모른다. 새 요구사항이 와도 `Modal`은 그대로다.
 
+<!-- diagram:fe-component-design-2 -->
+![개선 1](../../assets/diagrams/fe-component-design-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [props 폭발]                       [합성]
  사용처 A ─┐                        사용처 A ─┐
@@ -213,6 +224,7 @@ Modal.Header = ({ children }) => <header className="modal__header">{children}</h
  사용처가 늘면 Modal이 커진다         Modal / Modal.Header / ...
                                      사용처가 늘어도 그대로
 ```
+-->
 
 ### 개선 2 — 합성 컴포넌트(Compound Component)
 
@@ -326,6 +338,11 @@ function Sidebar({ profile }) { return <nav>{profile}</nav>; }
 
 Context의 결정적 제약은 **값이 바뀌면 구독하는 모든 컴포넌트가 리렌더된다**는 것이다. 값의 일부만 구독하는 방법이 없다.
 
+<!-- diagram:fe-component-design-3 -->
+![Context가 맞는 경우와 안 맞는 경우](../../assets/diagrams/fe-component-design-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [하나의 큰 Context]                    [분리된 Context]
  AppContext = { user, theme, cart }     UserContext  ──> Header
@@ -336,6 +353,7 @@ Context의 결정적 제약은 **값이 바뀌면 구독하는 모든 컴포넌�
        └─> Footer      (theme만 씀) ─┘   CartBadge만 리렌더
    cart가 바뀌면 넷 다 리렌더
 ```
+-->
 
 판단 기준은 **"얼마나 자주 바뀌는가"**다.
 

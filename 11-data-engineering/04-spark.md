@@ -57,6 +57,11 @@ df.filter(df.status == 200).groupBy("user_id").count().show()
 
 ## 2. 드라이버, 익스큐터, 클러스터 매니저
 
+<!-- diagram:de-spark-1 -->
+![2. 드라이버, 익스큐터, 클러스터 매니저](../assets/diagrams/de-spark-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │  Driver (드라이버)                                            │
@@ -80,6 +85,7 @@ df.filter(df.status == 200).groupBy("user_id").count().show()
 └─────────────┘ └─────────────┘ └─────────────┘
         └──────── ④ 셔플 시 서로 데이터 교환 ────────┘
 ```
+-->
 
 ### 실행 단위의 계층
 
@@ -138,6 +144,11 @@ df.select("user_id", "amount") \
 
 이제 Spark는 **어떤 컬럼이 필요하고 어떤 조건으로 거르는지**를 구조로 안다. Catalyst 옵티마이저가 여기에 개입해 실행 계획을 다시 쓴다.
 
+<!-- diagram:de-spark-2 -->
+![DataFrame은 의도를 선언한다](../assets/diagrams/de-spark-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 사용자가 쓴 순서                옵티마이저가 바꾼 실행 계획
 ┌──────────────────┐            ┌──────────────────────────┐
@@ -148,6 +159,7 @@ df.select("user_id", "amount") \
 └──────────────────┘            │ 3. 줄어든 데이터로 join    │
                                 └──────────────────────────┘
 ```
+-->
 
 - **컬럼 프루닝(column pruning)** — 필요한 컬럼만 읽는다. Parquet 같은 컬럼 지향 포맷에서 효과가 극적이다
 - **조건 푸시다운(predicate pushdown)** — 필터를 데이터 소스 가까이 내려보내 애초에 적게 읽는다
@@ -212,6 +224,11 @@ b.show()                                  # 이때 전부 실행 (Action)
 
 Transformation은 데이터 이동 여부에 따라 두 종류로 나뉜다.
 
+<!-- diagram:de-spark-3 -->
+![narrow와 wide](../assets/diagrams/de-spark-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Narrow]  파티션 간 데이터 이동 없음 — 각자 자기 몫만 처리
   P0 ──> P0'
@@ -223,6 +240,7 @@ Transformation은 데이터 이동 여부에 따라 두 종류로 나뉜다.
   P1 ──┼─┼──> P1'   groupBy, join, distinct, repartition, orderBy
   P2 ──┘ └──> P2'
 ```
+-->
 
 **Stage 경계는 정확히 이 wide 변환에서 생긴다.** Spark UI에서 Stage가 여러 개면 그만큼 셔플이 있었다는 뜻이다.
 

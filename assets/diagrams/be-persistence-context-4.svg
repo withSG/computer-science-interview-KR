@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">지연 로딩과 프록시</title>
+  <desc id="d">Member$HibernateProxy 객체의 내부 구조 및 getId, getName 메서드 호출 시 동작 방식을 보여주는 다이어그램</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <text x="40" y="38" font-size="16" font-weight="bold" fill="#1f2933">7. 지연 로딩과 프록시</text>
+
+  <rect x="40" y="60" width="460" height="360" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <rect x="40" y="60" width="460" height="40" rx="6" fill="#eff6ff"/>
+  <rect x="40" y="90" width="460" height="10" fill="#eff6ff"/>
+  <line x1="40" y1="100" x2="500" y2="100" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="85" font-size="15" font-weight="bold" fill="#2563eb">Member$HibernateProxy</text>
+
+  <rect x="60" y="115" width="420" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="75" y="138" font-size="13" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#1f2933">id</text>
+  <text x="135" y="138" font-size="13" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">= 5</text>
+  <rect x="180" y="123" width="110" height="20" rx="3" fill="#ecfdf5"/>
+  <text x="185" y="137" font-size="11.5" fill="#059669">(이미 알고 있음)</text>
+
+  <rect x="60" y="160" width="420" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="75" y="183" font-size="13" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#1f2933">target</text>
+  <text x="135" y="183" font-size="13" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">= null</text>
+  <rect x="200" y="168" width="110" height="20" rx="3" fill="#fef2f2"/>
+  <text x="205" y="182" font-size="11.5" fill="#dc2626">(아직 미초기화)</text>
+
+  <line x1="60" y1="210" x2="480" y2="210" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <rect x="60" y="225" width="420" height="46" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="75" y="253" font-size="13" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#1f2933">getId()</text>
+
+  <path d="M140,248 L220,248" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="230" y="253" font-size="13" fill="#059669">target 없이 반환</text>
+
+  <rect x="60" y="285" width="420" height="120" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="75" y="313" font-size="13" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#1f2933">getName()</text>
+
+  <path d="M150,308 L230,308" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <text x="240" y="313" font-size="13" fill="#d97706">target 없으면</text>
+
+  <text x="240" y="343" font-size="13" fill="#1f2933">영속성 컨텍스트에</text>
+  <text x="240" y="373" font-size="13" fill="#1f2933">초기화 요청</text>
+
+  <path d="M500,80 L545,80" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="555" y="85" font-size="13" font-weight="bold" fill="#1f2933">Member 를 상속함</text>
+
+  <text x="580" y="138" font-size="11.5" fill="#52606d">orders.member_id 로부터</text>
+
+  <path d="M500,248 L545,248" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="555" y="253" font-size="13" font-weight="bold" fill="#059669">SQL 안 나감</text>
+
+  <path d="M500,368 L545,368" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="555" y="350" width="115" height="28" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="565" y="369" font-size="13" font-weight="bold" fill="#dc2626">여기서 SELECT</text>
+
+</svg>

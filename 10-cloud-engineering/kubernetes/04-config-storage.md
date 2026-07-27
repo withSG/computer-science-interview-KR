@@ -30,6 +30,11 @@
 
 그래서 쿠버네티스는 설정을 **Pod 밖의 별도 오브젝트**로 두고, Pod가 뜰 때 주입한다.
 
+<!-- diagram:cloud-config-storage-1 -->
+![1. 왜 필요한가: 설정을 이미지에 넣으면 벌어지는 일](../../assets/diagrams/cloud-config-storage-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 이미지: 코드와 런타임만 (환경 중립)
    +
@@ -37,6 +42,7 @@ ConfigMap / Secret: 환경별 값
    ↓
 Pod 실행 시점에 kubelet이 주입
 ```
+-->
 
 이 원칙은 쿠버네티스만의 발명은 아니다. 십이요소 앱(Twelve-Factor App)의 "설정은 환경에 저장한다"를 그대로 구현한 것이고, Docker Compose에서 `.env` 파일을 쓰던 것과 목적이 같다.
 
@@ -198,6 +204,11 @@ kubectl auth can-i get secrets --as=system:serviceaccount:default:my-sa
 
 컨테이너의 쓰기 가능 레이어는 컨테이너와 운명을 같이한다. 재시작만 해도 초기화된다. 볼륨은 이 밖에 저장 공간을 붙여 준다.
 
+<!-- diagram:cloud-config-storage-2 -->
+![4. 볼륨: 컨테이너 밖에 데이터를 두는 방법](../../assets/diagrams/cloud-config-storage-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌───────────────────── Pod ──────────────────────┐
 │                                                │
@@ -218,6 +229,7 @@ kubectl auth can-i get secrets --as=system:serviceaccount:default:my-sa
 │                  └──────────┘                  │
 └────────────────────────────────────────────────┘
 ```
+-->
 
 | 볼륨 종류 | 수명 | 용도 | 주의 |
 |---|---|---|---|
@@ -243,6 +255,11 @@ kubectl auth can-i get secrets --as=system:serviceaccount:default:my-sa
 
 이 둘을 한 곳에 적으면 개발자가 스토리지 백엔드를 알아야 하고, 클라우드를 옮길 때 모든 매니페스트를 고쳐야 한다. 쿠버네티스는 이를 요청과 실체로 분리했다.
 
+<!-- diagram:cloud-config-storage-3 -->
+![세 오브젝트가 나뉜 이유](../../assets/diagrams/cloud-config-storage-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 개발자가 작성                     클러스터가 처리
 ┌─────────────────┐
@@ -267,6 +284,7 @@ kubectl auth can-i get secrets --as=system:serviceaccount:default:my-sa
 │      Pod        │  volumes.persistentVolumeClaim 으로 마운트
 └─────────────────┘
 ```
+-->
 
 **PVC(PersistentVolumeClaim)** 는 요청서다. 크기, 접근 모드, StorageClass를 적는다.
 **PV(PersistentVolume)** 는 실제 볼륨이다. 클러스터 범위 리소스이며 네임스페이스에 속하지 않는다.

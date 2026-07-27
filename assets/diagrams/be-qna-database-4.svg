@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">프록시 동작 원리</title>
+  <desc id="d">em.getReference 호출부터 user.getName() 호출, DB 조회 발생, target 설정까지의 JPA 프록시 동작 원리를 나타낸 시퀀스 흐름도</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Top Code Block -->
+  <rect x="260" y="30" width="360" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="57" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">em.getReference(User.class, 1L)</text>
+
+  <!-- Arrow 1: To Proxy 1 -->
+  <path d="M440,74 L440,114" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 1: User$Proxy (Initial state, target: null) -->
+  <rect x="260" y="115" width="360" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="285" y="145" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="start">User$Proxy</text>
+  <text x="285" y="172" fill="#52606d" font-size="13" text-anchor="start">- target: null</text>
+  <text x="285" y="195" fill="#52606d" font-size="13" text-anchor="start">- id: 1</text>
+  <text x="460" y="145" fill="#52606d" font-size="12" text-anchor="start">← 프록시 객체 (DB 조회 X)</text>
+
+  <!-- Arrow 2: user.getName() call -->
+  <path d="M440,215 L440,289" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="375" y="240" width="130" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="440" y="256" fill="#d97706" font-size="12.5" font-weight="bold" text-anchor="middle">user.getName() 호출</text>
+
+  <!-- Step 2: DB Lookup -->
+  <rect x="260" y="290" width="360" height="75" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="320" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">DB 조회 발생</text>
+  <text x="440" y="345" fill="#52606d" font-size="13" font-family="monospace" text-anchor="middle">SELECT * ...</text>
+
+  <!-- Arrow 3: To Initialized Proxy -->
+  <path d="M440,365 L440,404" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step 3: User$Proxy (Initialized, target set) -->
+  <rect x="260" y="405" width="360" height="100" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="285" y="435" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="start">User$Proxy</text>
+  <text x="285" y="462" fill="#059669" font-size="13" font-weight="bold" text-anchor="start">- target: User(실제)</text>
+  <text x="285" y="485" fill="#52606d" font-size="13" text-anchor="start">- id: 1</text>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">대략적 설계</title>
+  <desc id="d">Client, CDN, API Gateway, Metadata Service, Upload Service, MySQL, S3 간의 상호작용을 나타내는 아키텍처 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <!-- 1. Client -->
+  <rect x="180" y="40" width="520" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="74.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Client</text>
+
+  <!-- Arrow: Client -> CDN -->
+  <path d="M440,100 L440,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 2. CDN (CloudFront) -->
+  <rect x="180" y="140" width="520" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="174.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">CDN (CloudFront)</text>
+  <text x="440" y="199.025" text-anchor="middle" font-size="11.5" fill="#52606d">(다운로드 가속, 캐싱)</text>
+
+  <!-- Arrow: CDN -> API Gateway -->
+  <path d="M440,220 L440,260" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 3. API Gateway -->
+  <rect x="180" y="260" width="520" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="294.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">API Gateway</text>
+
+  <!-- Branching Lines from API Gateway -->
+  <path d="M440,320 L440,360" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M280,360 L600,360" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M280,360 L280,390" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M600,360 L600,390" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 4. Metadata Service -->
+  <rect x="170" y="390" width="220" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="280" y="420.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Metadata</text>
+  <text x="280" y="440.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Service</text>
+
+  <!-- Arrow: Metadata Service -> MySQL -->
+  <path d="M280,460 L280,510" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 5. Upload Service -->
+  <rect x="490" y="390" width="220" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="600" y="420.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Upload</text>
+  <text x="600" y="440.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Service</text>
+
+  <!-- Arrow: Upload Service -> S3 -->
+  <path d="M600,460 L600,510" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 6. MySQL -->
+  <rect x="170" y="510" width="220" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="280" y="544.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">MySQL</text>
+  <text x="280" y="569.025" text-anchor="middle" font-size="11.5" fill="#52606d">(메타데이터)</text>
+
+  <!-- 7. S3 -->
+  <rect x="490" y="510" width="220" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="600" y="544.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">S3</text>
+  <text x="600" y="569.025" text-anchor="middle" font-size="11.5" fill="#52606d">(파일 저장)</text>
+</svg>

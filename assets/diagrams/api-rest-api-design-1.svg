@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Stateless가 진짜로 사주는 것</title>
+  <desc id="d">Stateful 방식과 Stateless 방식의 서버 세션 처리 및 요청 흐름 비교 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- ==================== Stateful 영역 ==================== -->
+  <rect x="24" y="24" width="832" height="206" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="40" y="52" font-size="16" font-weight="bold" fill="#dc2626">[Stateful — 서버 메모리에 세션]</text>
+
+  <!-- Stateful 상단 흐름 -->
+  <!-- 요청 -->
+  <text x="50" y="99" font-size="13" font-weight="bold" fill="#1f2933">요청</text>
+  <path d="M80,95 L120,95" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- LB 1 -->
+  <rect x="120" y="75" width="50" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="145" y="99" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+  <path d="M170,95 L210,95" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 서버A -->
+  <rect x="210" y="75" width="180" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="300" y="99" font-size="13" fill="#1f2933" text-anchor="middle">서버A (김씨 세션 보관)</text>
+
+  <!-- Stateful 하단 흐름 -->
+  <!-- 재요청 -->
+  <text x="40" y="149" font-size="13" font-weight="bold" fill="#1f2933">재요청</text>
+  <path d="M80,145 L120,145" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- LB 2 -->
+  <rect x="120" y="125" width="50" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="145" y="149" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+  <path d="M170,145 L210,145" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 서버B -->
+  <rect x="210" y="125" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="245" y="149" font-size="13" fill="#1f2933" text-anchor="middle">서버B</text>
+
+  <!-- 경고 / 세션 없음 화살표 -->
+  <path d="M290,145 L310,145" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="320" y="149" font-size="13" font-weight="bold" fill="#dc2626">세션 없음. 로그인 풀림</text>
+
+  <!-- Stateful 부가 설명 -->
+  <text x="40" y="190" font-size="13" fill="#52606d">해결하려면 LB에 "김씨는 항상 A로" 고정(sticky session)</text>
+  <text x="40" y="212" font-size="13" font-weight="bold" fill="#dc2626">→ A가 죽으면 A에 붙은 사용자 전원 로그아웃</text>
+
+
+  <!-- ==================== Stateless 영역 ==================== -->
+  <rect x="24" y="254" width="832" height="220" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="40" y="282" font-size="16" font-weight="bold" fill="#059669">[Stateless — 요청이 신원 증명을 들고 옴]</text>
+
+  <!-- Stateless 상단 흐름 -->
+  <!-- 요청 + 토큰 -->
+  <text x="40" y="329" font-size="13" font-weight="bold" fill="#1f2933">요청 + 토큰</text>
+  <path d="M120,325 L160,325" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- LB 1 -->
+  <rect x="160" y="305" width="50" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="185" y="329" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+  <path d="M210,325 L250,325" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 서버A -->
+  <rect x="250" y="305" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="285" y="329" font-size="13" fill="#1f2933" text-anchor="middle">서버A</text>
+
+  <!-- 부가 설명 A -->
+  <text x="335" y="329" font-size="13" fill="#52606d">(토큰 검증 후 처리)</text>
+
+  <!-- Stateless 하단 흐름 -->
+  <!-- 재요청 + 토큰 -->
+  <text x="40" y="379" font-size="13" font-weight="bold" fill="#1f2933">재요청 + 토큰</text>
+  <path d="M132,375 L160,375" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- LB 2 -->
+  <rect x="160" y="355" width="50" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="185" y="379" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+  <path d="M210,375 L250,375" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 서버B -->
+  <rect x="250" y="355" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="285" y="379" font-size="13" fill="#1f2933" text-anchor="middle">서버B</text>
+
+  <!-- 부가 설명 B -->
+  <text x="335" y="379" font-size="13" fill="#059669">(똑같이 검증. 문제 없음)</text>
+
+  <!-- Stateless 부가 설명 -->
+  <text x="40" y="442" font-size="13" font-weight="bold" fill="#059669">→ 서버를 아무 때나 늘리고 줄여도 된다</text>
+</svg>

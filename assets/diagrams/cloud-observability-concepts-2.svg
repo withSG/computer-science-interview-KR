@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">카디널리티 — 관측성 비용의 실제 변수</title>
+  <desc id="d">Prometheus 메트릭의 라벨 조합에 따른 시계열 수의 폭발적 증가를 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Metric Name Header -->
+  <rect x="40" y="30" width="800" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">http_requests_total{method, status, endpoint, pod}</text>
+
+  <!-- Safe Calculation Area -->
+  <rect x="40" y="90" width="800" height="230" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+
+  <!-- Labels breakdown -->
+  <!-- method -->
+  <text x="70" y="125" font-size="13" font-weight="bold" fill="#1f2933">method</text>
+  <text x="170" y="125" font-size="13" fill="#52606d">:</text>
+  <text x="190" y="125" font-size="13" fill="#1f2933">GET, POST, PUT, DELETE, PATCH</text>
+  <path d="M570,120 L640,120" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="680" y="125" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">5</text>
+
+  <!-- status -->
+  <text x="70" y="160" font-size="13" font-weight="bold" fill="#1f2933">status</text>
+  <text x="170" y="160" font-size="13" fill="#52606d">:</text>
+  <text x="190" y="160" font-size="13" fill="#1f2933">200, 201, 400, 401, 404, 500</text>
+  <path d="M570,155 L640,155" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="680" y="160" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">6</text>
+
+  <!-- endpoint -->
+  <text x="70" y="195" font-size="13" font-weight="bold" fill="#1f2933">endpoint</text>
+  <text x="170" y="195" font-size="13" fill="#52606d">:</text>
+  <text x="190" y="195" font-size="13" fill="#1f2933">/orders, /users, ... (20개)</text>
+  <path d="M570,190 L640,190" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="680" y="195" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">20</text>
+
+  <!-- pod -->
+  <text x="70" y="230" font-size="13" font-weight="bold" fill="#1f2933">pod</text>
+  <text x="170" y="230" font-size="13" fill="#52606d">:</text>
+  <text x="190" y="230" font-size="13" fill="#1f2933">주문 서비스 파드 50개</text>
+  <path d="M570,225 L640,225" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="680" y="230" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">50</text>
+
+  <!-- Divider line -->
+  <line x1="570" y1="250" x2="690" y2="250" stroke="#1f2933" stroke-width="1.5"/>
+
+  <!-- Safe Total Calculation -->
+  <text x="70" y="285" font-size="14" font-weight="bold" fill="#1f2933">시계열 수 = 5 × 6 × 20 × 50</text>
+  <text x="570" y="285" font-size="14" font-weight="bold" fill="#1f2933">=</text>
+  <text x="680" y="285" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="end">30,000</text>
+
+
+  <!-- Warning / High Cardinality Explosion Area -->
+  <rect x="40" y="340" width="800" height="150" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+
+  <!-- Question / Trigger -->
+  <text x="70" y="380" font-size="14" font-weight="bold" fill="#dc2626">여기에 user_id 라벨을 추가하면? (사용자 100만 명)</text>
+
+  <!-- Danger Total Calculation -->
+  <text x="70" y="445" font-size="14" font-weight="bold" fill="#1f2933">시계열 수 = 30,000 × 1,000,000</text>
+  <text x="570" y="445" font-size="14" font-weight="bold" fill="#dc2626">=</text>
+  <text x="680" y="445" font-size="18" font-weight="bold" fill="#dc2626" text-anchor="end">300억</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 필요한가 — 브라우저가 아니면 존재하지 않는 문제</title>
+  <desc id="d">브라우저 내 탭 A(bank.com)와 탭 B(evil.com) 사이의 교차 출처 요청 문제 및 정보 유출 위험을 설명하는 다이어그램</desc>
+
+  <defs>
+    <!-- Red Arrow Marker for Evil JS Fetch Request -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <!-- Purple Arrow Marker for Cookie Auto-Attach -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <!-- Red Arrow Marker for Response Read / Info Leak -->
+    <marker id="a-red-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="440" fill="#ffffff"/>
+
+  <!-- Main Container Outer Box: Browser Scope -->
+  <rect x="40" y="30" width="800" height="380" rx="10" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="60" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2933">브라우저 하나 안에서</text>
+
+  <!-- Inner Tab Container -->
+  <rect x="60" y="80" width="760" height="130" rx="8" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- Tab A Box -->
+  <rect x="80" y="100" width="720" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="100" y="126" font-size="13" font-weight="bold" fill="#2563eb">탭 A: bank.com</text>
+  <text x="210" y="126" font-size="13" fill="#52606d">(로그인됨, 세션 쿠키 보유)</text>
+
+  <!-- Tab B Box -->
+  <rect x="80" y="152" width="720" height="42" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="100" y="178" font-size="13" font-weight="bold" fill="#dc2626">탭 B: evil.com</text>
+  <text x="210" y="178" font-size="13" fill="#52606d">(공격자가 만든 페이지)</text>
+
+  <!-- Description Section below Tabs -->
+  <!-- Line 1: Fetch Call Request -->
+  <path d="M 80,245 L 790,245" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="180" y="233" width="480" height="24" fill="#ffffff" rx="4"/>
+  <text x="420" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">evil.com의 JS가 fetch('https://bank.com/api/accounts') 를 호출한다면?</text>
+
+  <!-- Line 2: Cookie Auto-Attach & Server Recognition -->
+  <path d="M 80,300 L 790,300" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="100" y="288" width="640" height="24" fill="#ffffff" rx="4"/>
+  <text x="420" y="305" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">브라우저는 bank.com용 쿠키를 자동으로 붙이고, 서버는 정상 사용자로 인식한다.</text>
+
+  <!-- Line 3: Info Leak Warning -->
+  <path d="M 80,355 L 790,355" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red-dash)"/>
+  <rect x="110" y="343" width="620" height="24" fill="#ffffff" rx="4"/>
+  <text x="420" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">응답을 evil.com의 JS가 읽을 수 있다면 → 잔액, 계좌번호가 그대로 넘어간다.</text>
+</svg>

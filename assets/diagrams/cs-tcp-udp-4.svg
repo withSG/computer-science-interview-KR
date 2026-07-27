@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Fast Retransmit / Fast Recovery</title>
+  <desc id="d">Client와 Server간의 TCP Fast Retransmit 및 Fast Recovery 시퀀스 다이어그램. seg2 유실 후 3번의 중복 ACK 수신 시 재전송 과정을 설명합니다.</desc>
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Title Section -->
+  <text x="440" y="32" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Fast Retransmit / Fast Recovery</text>
+
+  <!-- Lifelines (Vertical Rules) -->
+  <line x1="200" y1="90" x2="200" y2="490" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="680" y1="90" x2="680" y2="490" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Client Header -->
+  <rect x="130" y="50" width="140" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="200" y="74" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+
+  <!-- Server Header -->
+  <rect x="610" y="50" width="140" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="680" y="74" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+
+  <!-- Step 1: seg1 -> ACK(2번 주세요) -->
+  <!-- seg1 Label Rect -->
+  <rect x="208" y="103" width="48" height="20" fill="#ffffff" rx="3"/>
+  <text x="212" y="117" font-size="13" fill="#1f2933">seg1</text>
+  <!-- seg1 Line -->
+  <path d="M 200 120 L 680 145" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ACK Label Rect -->
+  <rect x="522" y="138" width="136" height="20" fill="#ffffff" rx="3"/>
+  <text x="526" y="152" font-size="13" fill="#1f2933">ACK(2번 주세요)</text>
+
+  <!-- Step 2: seg2 -> X (유실) -->
+  <!-- seg2 Label Rect -->
+  <rect x="208" y="158" width="48" height="20" fill="#ffffff" rx="3"/>
+  <text x="212" y="172" font-size="13" fill="#dc2626" font-weight="bold">seg2</text>
+  <!-- seg2 Line (Lost) -->
+  <path d="M 200 175 L 420 186" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <!-- Lost 'X' marker -->
+  <circle cx="420" cy="186" r="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="420" y="190" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">X</text>
+  <rect x="438" y="176" width="60" height="20" fill="#fef2f2" rx="3"/>
+  <text x="442" y="190" font-size="13" font-weight="bold" fill="#dc2626">(유실)</text>
+
+  <!-- Step 3: seg3 -> ACK(2번 주세요) ← 중복 1 -->
+  <!-- seg3 Label Rect -->
+  <rect x="208" y="213" width="48" height="20" fill="#ffffff" rx="3"/>
+  <text x="212" y="227" font-size="13" fill="#1f2933">seg3</text>
+  <!-- seg3 Line -->
+  <path d="M 200 230 L 680 255" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ACK Label Rect -->
+  <rect x="522" y="248" width="136" height="20" fill="#ffffff" rx="3"/>
+  <text x="526" y="262" font-size="13" fill="#d97706">ACK(2번 주세요)</text>
+  <!-- 중복 1 Note -->
+  <rect x="688" y="248" width="76" height="20" fill="#fffbeb" rx="3"/>
+  <text x="692" y="262" font-size="13" fill="#d97706">← 중복 1</text>
+
+  <!-- Step 4: seg4 -> ACK(2번 주세요) ← 중복 2 -->
+  <!-- seg4 Label Rect -->
+  <rect x="208" y="268" width="48" height="20" fill="#ffffff" rx="3"/>
+  <text x="212" y="282" font-size="13" fill="#1f2933">seg4</text>
+  <!-- seg4 Line -->
+  <path d="M 200 285 L 680 310" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ACK Label Rect -->
+  <rect x="522" y="303" width="136" height="20" fill="#ffffff" rx="3"/>
+  <text x="526" y="317" font-size="13" fill="#d97706">ACK(2번 주세요)</text>
+  <!-- 중복 2 Note -->
+  <rect x="688" y="303" width="76" height="20" fill="#fffbeb" rx="3"/>
+  <text x="692" y="317" font-size="13" fill="#d97706">← 중복 2</text>
+
+  <!-- Step 5: seg5 -> ACK(2번 주세요) ← 중복 3 -->
+  <!-- seg5 Label Rect -->
+  <rect x="208" y="323" width="48" height="20" fill="#ffffff" rx="3"/>
+  <text x="212" y="337" font-size="13" fill="#1f2933">seg5</text>
+  <!-- seg5 Line -->
+  <path d="M 200 340 L 680 365" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ACK Label Rect -->
+  <rect x="522" y="358" width="136" height="20" fill="#ffffff" rx="3"/>
+  <text x="526" y="372" font-size="13" font-weight="bold" fill="#d97706">ACK(2번 주세요)</text>
+  <!-- 중복 3 Note -->
+  <rect x="688" y="358" width="76" height="20" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="3"/>
+  <text x="692" y="372" font-size="13" font-weight="bold" fill="#d97706">← 중복 3</text>
+
+  <!-- Indicator Point: 3번째 중복 ACK 수신 -->
+  <circle cx="200" cy="405" r="4" fill="#d97706"/>
+  <path d="M 220 405 L 206 405" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="222" y="393" width="180" height="24" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="228" y="409" font-size="12.5" font-weight="bold" fill="#d97706">↑ 3번째 중복 ACK 수신</text>
+
+  <!-- Step 6: seg2 재전송 -> ACK(6번 주세요) ← 밀린 것까지 한 번에 확인 -->
+  <!-- seg2 재전송 Label Rect -->
+  <rect x="208" y="428" width="100" height="20" fill="#ffffff" rx="3"/>
+  <text x="212" y="442" font-size="13" font-weight="bold" fill="#059669">seg2 재전송</text>
+  <!-- seg2 Retransmit Line -->
+  <path d="M 200 445 L 680 470" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+  <!-- Final ACK Label Rect -->
+  <rect x="522" y="463" width="136" height="20" fill="#ffffff" rx="3"/>
+  <text x="526" y="477" font-size="13" font-weight="bold" fill="#059669">ACK(6번 주세요)</text>
+  <!-- Cumulative ACK Note -->
+  <rect x="688" y="463" width="176" height="20" fill="#ecfdf5" rx="3"/>
+  <text x="692" y="477" font-size="13" fill="#059669">← 밀린 것까지 한 번에 확인</text>
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">오늘의 현실적인 모습</title>
+  <desc id="d">수집은 Kafka로 통일하고, 실시간 스트리밍 경로와 원본 레이크 적재 후 배치/증분 변환 경로로 나뉘는 현실적인 데이터 아키텍처 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Legend -->
+  <rect x="580" y="24" width="260" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="595" y="39" width="12" height="12" rx="2" fill="#2563eb"/>
+  <text x="613" y="49" font-size="11.5" fill="#1f2933">실시간 처리</text>
+  <rect x="710" y="39" width="12" height="12" rx="2" fill="#059669"/>
+  <text x="728" y="49" font-size="11.5" fill="#1f2933">배치 처리</text>
+
+  <!-- Flow 1: Upper (Streaming) Line -->
+  <!-- M140,110 -> H200 -> H330 (Fork) -> H370 -> H520 -> M640,110 -> H680 -->
+  <path d="M140,110 L200,110" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M330,110 L370,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M520,110 L680,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Flow 2: Lower (Batch) Line -->
+  <!-- Fork from X=350, Y=110 -> V220 -> H370 -->
+  <path d="M350,110 L350,220 L370,220" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- Lake -> Batch Trans -->
+  <path d="M485,250 L485,270" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- Batch Trans -> Final Metric -->
+  <path d="M600,285 L680,285" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Nodes -->
+  <!-- 소스 -->
+  <rect x="40" y="85" width="100" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="114.55" font-size="13" text-anchor="middle" fill="#1f2933">소스</text>
+
+  <!-- Kafka -->
+  <rect x="200" y="85" width="130" height="50" rx="6" fill="#f8fafc" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="265" y="114.55" font-size="13" text-anchor="middle" font-weight="bold" fill="#1f2933">Kafka</text>
+
+  <!-- 스트리밍 잡 -->
+  <rect x="370" y="85" width="150" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="445" y="114.55" font-size="13" text-anchor="middle" fill="#2563eb" font-weight="bold">스트리밍 잡</text>
+
+  <!-- 실시간 지표 (근사값, 즉시) -->
+  <rect x="680" y="85" width="160" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="760" y="114.55" font-size="13" text-anchor="middle" fill="#2563eb">실시간 지표 (근사값, 즉시)</text>
+
+  <!-- 원본 그대로 레이크 적재 -->
+  <rect x="370" y="195" width="230" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="485" y="224.55" font-size="13" text-anchor="middle" fill="#059669">원본 그대로 레이크 적재</text>
+
+  <!-- 배치/증분 변환 -->
+  <rect x="370" y="270" width="230" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="485" y="299.55" font-size="13" text-anchor="middle" fill="#059669">배치/증분 변환</text>
+
+  <!-- 확정 지표 (정확, 하루 단위) -->
+  <rect x="680" y="260" width="160" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="760" y="289.55" font-size="13" text-anchor="middle" fill="#059669">확정 지표 (정확, 하루 단위)</text>
+</svg>

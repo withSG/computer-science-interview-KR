@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">학습 데이터 양에 따른 곡선으로 읽기</title>
+  <desc id="d">고편향과 고분산 증상을 학습 데이터 양에 따른 오차 곡선 변화로 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="770" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- [증상 A] 고편향 영역 -->
+  <g>
+    <rect x="24" y="24" width="832" height="346" fill="#fffbeb" stroke="#9aa5b1" stroke-width="1" rx="8"/>
+    <text x="44" y="58" font-size="16" font-weight="bold" fill="#d97706">[증상 A] 고편향 — 데이터를 더 모아도 소용없다</text>
+
+    <!-- y축 : 오차 -->
+    <text x="50" y="88" font-size="13" font-weight="bold" fill="#1f2933">오차</text>
+    <path d="M60,100 L60,310" stroke="#1f2933" stroke-width="1.5" marker-start="url(#a-ink)"/>
+
+    <!-- x축 : 학습 데이터 양 -->
+    <path d="M60,310 L500,310" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+    <text x="515" y="315" font-size="13" font-weight="bold" fill="#1f2933">학습 데이터 양</text>
+
+    <!-- 검증 오차 곡선 (A) -->
+    <path d="M60,110 Q100,200 180,210 T500,210" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+    <path d="M500,210 L580,210" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="590" y="215" font-size="13" font-weight="bold" fill="#dc2626">검증 오차 (내려오다 금세 멈춘다)</text>
+
+    <!-- 학습 오차 곡선 (A) -->
+    <path d="M60,290 Q100,270 180,230 T500,230" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+    <path d="M500,230 L580,230" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="590" y="235" font-size="13" font-weight="bold" fill="#2563eb">학습 오차 (샘플이 늘수록 올라간다)</text>
+
+    <!-- 화살표 및 부가 설명 (A) -->
+    <path d="M190,275 L190,225" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+    <text x="200" y="260" font-size="13" fill="#1f2933">↑ 두 곡선이 "높은 값"에서 일찍 붙어버린다</text>
+    <text x="215" y="285" font-size="11.5" fill="#52606d">모델이 표현할 수 있는 한계에 이미 도달했다는 뜻</text>
+  </g>
+
+  <!-- [증상 B] 고분산 영역 -->
+  <g>
+    <rect x="24" y="394" width="832" height="352" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1" rx="8"/>
+    <text x="44" y="428" font-size="16" font-weight="bold" fill="#7c3aed">[증상 B] 고분산 — 데이터를 더 모으면 좋아진다</text>
+
+    <!-- y축 : 오차 -->
+    <text x="50" y="458" font-size="13" font-weight="bold" fill="#1f2933">오차</text>
+    <path d="M60,470 L60,680" stroke="#1f2933" stroke-width="1.5" marker-start="url(#a-ink)"/>
+
+    <!-- x축 : 학습 데이터 양 -->
+    <path d="M60,680 L500,680" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+    <text x="515" y="685" font-size="13" font-weight="bold" fill="#1f2933">학습 데이터 양</text>
+
+    <!-- 검증 오차 곡선 (B) -->
+    <path d="M60,480 Q140,540 280,600 T500,630" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+    <path d="M500,630 L580,630" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="590" y="635" font-size="13" font-weight="bold" fill="#dc2626">검증 오차 (끝까지 아직 내려가는 중)</text>
+
+    <!-- 수렴 간격 표시 (↕) -->
+    <path d="M300,610 L300,665" stroke="#7c3aed" stroke-width="1.5" marker-start="url(#a-purple)" marker-end="url(#a-purple)"/>
+    <text x="312" y="642" font-size="13" fill="#7c3aed">↕ 간격이 넓고 천천히 좁혀진다</text>
+
+    <!-- 학습 오차 곡선 (B) -->
+    <path d="M60,660 Q140,665 280,670 T500,672" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+    <path d="M500,672 L580,672" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="590" y="677" font-size="13" font-weight="bold" fill="#2563eb">학습 오차 (거의 바닥에 붙어 있다)</text>
+  </g>
+</svg>

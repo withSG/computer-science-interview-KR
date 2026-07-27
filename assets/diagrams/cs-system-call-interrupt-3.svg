@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1020" width="880" height="1020" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">처리 과정</title>
+  <desc id="d">인터럽트 발생 시 CPU의 처리 과정을 순서대로 나타낸 흐름도</desc>
+  <rect width="880" height="1020" fill="#ffffff"/>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Section Header -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">처리 과정</text>
+
+  <!-- Main Flow Column Center X = 320 -->
+
+  <!-- Top Box: CPU: 명령어 실행 중 -->
+  <rect x="180" y="70" width="280" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="320" y="99" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">CPU: 명령어 실행 중</text>
+
+  <!-- External Interrupt Trigger from Right Side -->
+  <!-- Signal Box / Note -->
+  <rect x="520" y="112" width="220" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="630" y="135" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">장치가 인터럽트 신호 발생</text>
+
+  <!-- Arrow from Device Interrupt to Main Arrow -->
+  <path d="M520,130 L328,130" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-orange)"/>
+
+  <!-- Arrow from Start to Step 1 -->
+  <path d="M320,118 L320,154" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 1 -->
+  <rect x="70" y="160" width="500" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="320" y="187" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 현재 명령어를 끝까지 완료</text>
+  <!-- Comment inline/sub text in step 1 -->
+  <text x="320" y="207" font-size="11.5" fill="#52606d" text-anchor="middle">← 명령어 도중에 끊지 않는다</text>
+
+  <!-- Arrow Step 1 -> Step 2 -->
+  <path d="M320,220 L320,254" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2 -->
+  <rect x="70" y="260" width="500" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="320" y="290" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2. PC와 상태 레지스터를 저장, 커널 모드 진입</text>
+
+  <!-- Arrow Step 2 -> Step 3 -->
+  <path d="M320,310 L320,344" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 -->
+  <rect x="70" y="350" width="500" height="70" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="320" y="377" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3. 인터럽트 번호로 인터럽트 벡터 테이블 조회</text>
+  <text x="320" y="401" font-size="11.5" fill="#52606d" text-anchor="middle">(x86에서는 IDT: Interrupt Descriptor Table)</text>
+
+  <!-- Arrow Step 3 -> Step 4 -->
+  <path d="M320,420 L320,454" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 4 -->
+  <rect x="70" y="460" width="500" height="90" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="320" y="487" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">4. ISR(Interrupt Service Routine) 실행</text>
+  <text x="320" y="512" font-size="11.5" fill="#52606d" text-anchor="middle">- 같은 종류의 인터럽트는 잠시 막아둔다</text>
+  <text x="320" y="532" font-size="11.5" fill="#52606d" text-anchor="middle">- 최소한의 일만 하고 빨리 끝낸다</text>
+
+  <!-- Arrow Step 4 -> Step 5 -->
+  <path d="M320,550 L320,584" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5 -->
+  <rect x="70" y="590" width="500" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="320" y="620" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5. 인터럽트 처리 완료를 컨트롤러에 알림</text>
+
+  <!-- Arrow Step 5 -> Step 6 -->
+  <path d="M320,640 L320,674" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 6 -->
+  <rect x="70" y="680" width="500" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="320" y="710" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">6. 저장했던 상태 복원, 원래 모드로 복귀</text>
+
+  <!-- Arrow Step 6 -> Step 7 -->
+  <path d="M320,730 L320,764" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 7 -->
+  <rect x="70" y="770" width="500" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="320" y="797" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">7. 중단됐던 지점부터 실행 재개</text>
+  <text x="320" y="821" font-size="11.5" fill="#52606d" text-anchor="middle">(단, 스케줄러가 개입해 다른 프로세스가 선택될 수도 있다)</text>
+
+</svg>

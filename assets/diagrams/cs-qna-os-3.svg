@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Round Robin (RR) — 선점</title>
+  <desc id="d">각 프로세스에 동일한 시간 할당량을 부여하고 초과 시 선점하는 Round Robin 스케줄링의 특성과 적정 시간 할당량 기준을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 메인 원칙 박스 -->
+  <rect x="40" y="30" width="800" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="68" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">각 프로세스에 동일한 시간 할당량(Time Quantum) 부여</text>
+  <text x="440" y="102" font-size="14" fill="#52606d" text-anchor="middle">할당량 초과 시 다음 프로세스로 교체 (선점)</text>
+
+  <!-- 부작용/문제점 박스 1: 너무 클 때 -->
+  <rect x="40" y="170" width="380" height="90" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="230" y="202" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Time Quantum이 너무 크면</text>
+  <path d="M230,215 L230,230" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="230" y="247" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">FCFS와 유사</text>
+
+  <!-- 부작용/문제점 박스 2: 너무 작을 때 -->
+  <rect x="460" y="170" width="380" height="90" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="650" y="202" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Time Quantum이 너무 작으면</text>
+  <path d="M650,215 L650,230" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="650" y="247" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">컨텍스트 스위칭 오버헤드 증가</text>
+
+  <!-- 적정 기준 박스 -->
+  <rect x="40" y="290" width="800" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="330" font-size="15" font-weight="bold" fill="#059669" text-anchor="middle">적정 Time Quantum: CPU 연산 시간의 80%를 처리할 수 있는 크기</text>
+</svg>

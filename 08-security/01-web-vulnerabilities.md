@@ -48,6 +48,11 @@
 
 ### 유형 1. Stored XSS — 서버에 저장되어 모두에게 터진다
 
+<!-- diagram:sec-web-vulnerabilities-1 -->
+![유형 1. Stored XSS](../assets/diagrams/sec-web-vulnerabilities-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [공격자]                    [서버 DB]                   [피해자 전원]
    │  댓글 "<img src=x onerror=...>"                          │
@@ -57,6 +62,7 @@
    │                             │                     스크립트 실행
    │◄──────────────────────────────────────────────  쿠키 전송 │
 ```
+-->
 
 ```html
 <!-- 안티패턴 (Thymeleaf): utext는 "HTML로 해석하라"는 지시다 -->
@@ -183,6 +189,11 @@ CSRF는 데이터를 훔치는 공격이 아니다. **피해자의 브라우저�
 조건 3. 공격자가 요청을 완전히 재현할 수 있다  공격자가 모를 값(토큰)이 하나도 없다
 ```
 
+<!-- diagram:sec-web-vulnerabilities-2 -->
+![성립 조건 세 가지](../assets/diagrams/sec-web-vulnerabilities-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [피해자 브라우저]                                    [bank.com]
        │  ① 로그인 → 세션 쿠키 보관                        │
@@ -197,6 +208,7 @@ CSRF는 데이터를 훔치는 공격이 아니다. **피해자의 브라우저�
        │──────────────────────────────────────────────────►│
        │                            ④ 세션 유효 → 송금 처리 │
 ```
+-->
 
 공격자는 **응답을 읽지 못한다**(Same-Origin Policy가 막는다). 읽을 필요도 없다.
 요청이 처리되기만 하면 목적은 달성된다. 그래서 "CORS가 막아주지 않나요?"는 오해다.
@@ -295,6 +307,11 @@ try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
 핵심은 **문자열을 안전하게 만드는 것이 아니라, 문자열을 아예 합치지 않는 것**이다.
 
+<!-- diagram:sec-web-vulnerabilities-3 -->
+![PreparedStatement가 하는 일](../assets/diagrams/sec-web-vulnerabilities-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [문자열 연결]
   입력 ──합침──► SQL 문자열 ──► DB 파서 ──► 실행 계획
@@ -307,6 +324,7 @@ try (PreparedStatement ps = conn.prepareStatement(sql)) {
   입력 ────────────────────► 파라미터 바인딩 ─┘
                              값 슬롯에만 들어간다. 문법을 바꿀 수 없다
 ```
+-->
 
 DB는 `?` 자리표시자가 있는 상태로 먼저 구문을 분석하고 실행 계획을 세운다. 파싱이 끝난 트리는
 값으로 바꿀 수 없으므로 `' OR '1'='1`이 들어와도 **"따옴표가 포함된 이메일 문자열"**이 될 뿐이다.

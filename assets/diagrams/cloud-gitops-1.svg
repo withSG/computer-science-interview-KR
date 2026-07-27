@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Push 방식 배포의 두 가지 구멍</title>
+  <desc id="d">Git에서 CI 파이프라인을 거쳐 운영 클러스터로 배포되는 Push 방식 구조와 CI 파이프라인에 클러스터 관리자 자격증명이 저장되어 있는 보안 취약점을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Box 1: Git (앱 코드) -->
+  <rect x="40" y="40" width="160" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="120" y="84" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Git</text>
+  <text x="120" y="114" font-size="13" fill="#52606d" text-anchor="middle">(앱 코드)</text>
+
+  <!-- Arrow 1: Git -> CI 파이프라인 -->
+  <path d="M200,95 L270,95" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Box 2: CI 파이프라인 -->
+  <rect x="270" y="40" width="280" height="110" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="410" y="74" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">CI 파이프라인</text>
+  <text x="410" y="104" font-size="13" fill="#52606d" text-anchor="middle">빌드 → 테스트 →</text>
+  <text x="410" y="134" font-size="13" fill="#52606d" text-anchor="middle">배포</text>
+
+  <!-- Arrow 2: CI 파이프라인 -> 운영 클러스터 (with 'kubectl apply' label) -->
+  <path d="M550,95 L640,95" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="560" y="68" width="70" height="20" fill="#ffffff"/>
+  <text x="595" y="82" font-size="13" fill="#1f2933" text-anchor="middle">kubectl</text>
+  <rect x="565" y="102" width="60" height="20" fill="#ffffff"/>
+  <text x="595" y="116" font-size="13" fill="#1f2933" text-anchor="middle">apply</text>
+
+  <!-- Box 3: 운영 클러스터 -->
+  <rect x="640" y="40" width="200" height="110" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="740" y="99" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">운영 클러스터</text>
+
+  <!-- Arrow 3: Warning text -> CI 파이프라인 -->
+  <path d="M410,230 L410,150" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Warning Label Below -->
+  <rect x="110" y="230" width="600" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="410" y="260" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">여기에 클러스터 관리자 자격증명(kubeconfig)이 저장돼 있다</text>
+</svg>

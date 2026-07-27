@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">액세스 키의 구조적 문제 비교</title>
+  <desc id="d">액세스 키 방식의 취약점과 Role 및 STS 방식의 안전성을 비교하는 다이어그램</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Left Side: 액세스 키 방식 (Danger/Warning Zone) -->
+  <!-- Column Background Panel -->
+  <rect x="24" y="24" width="390" height="342" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+
+  <!-- Left Header -->
+  <text x="219" y="55.6" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[ 액세스 키 방식 ]</text>
+
+  <!-- Step 1: 콘솔에서 키를 발급 -->
+  <rect x="119" y="78" width="200" height="36" rx="4" fill="#ffffff" stroke="#f87171" stroke-width="1.5"/>
+  <text x="219" y="100.55" font-size="13" fill="#1f2933" text-anchor="middle">콘솔에서 키를 발급</text>
+
+  <!-- Arrow 1 -->
+  <path d="M219,114 L219,136" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step 2: 코드·설정·CI 시크릿에 저장 -->
+  <rect x="109" y="142" width="220" height="36" rx="4" fill="#ffffff" stroke="#f87171" stroke-width="1.5"/>
+  <text x="219" y="164.55" font-size="13" fill="#1f2933" text-anchor="middle">코드·설정·CI 시크릿에 저장</text>
+
+  <!-- Tree Branch Lines for Items -->
+  <path d="M129,178 L129,268" stroke="#f87171" stroke-width="1.5" fill="none"/>
+  <path d="M129,202 L149,202" stroke="#f87171" stroke-width="1.5" fill="none"/>
+  <path d="M129,235 L149,235" stroke="#f87171" stroke-width="1.5" fill="none"/>
+  <path d="M129,268 L149,268" stroke="#f87171" stroke-width="1.5" fill="none"/>
+
+  <!-- Tree Items -->
+  <text x="155" y="206.02" font-size="11.5" fill="#52606d">깃 저장소에 실수로 커밋</text>
+  <text x="155" y="239.02" font-size="11.5" fill="#52606d">로컬 PC에 평문 보관</text>
+  <text x="155" y="272.02" font-size="11.5" fill="#52606d">퇴사자 PC에 잔존</text>
+
+  <!-- Arrow 2 -->
+  <path d="M219,286 L219,308" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step 3: 유출돼도 알림 없음 · 만료 없음 -->
+  <rect x="94" y="314" width="250" height="36" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="219" y="336.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">유출돼도 알림 없음 · 만료 없음</text>
+
+
+  <!-- Right Side: Role + STS 방식 (Safe Zone) -->
+  <!-- Column Background Panel -->
+  <rect x="466" y="24" width="390" height="342" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+
+  <!-- Right Header -->
+  <text x="661" y="55.6" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[ Role + STS 방식 ]</text>
+
+  <!-- Step 1: EC2/Lambda가 자기 역할로 자동 수령 -->
+  <rect x="526" y="78" width="270" height="36" rx="4" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="661" y="100.55" font-size="13" fill="#1f2933" text-anchor="middle">EC2/Lambda가 자기 역할로 자동 수령</text>
+
+  <!-- Arrow 1 -->
+  <path d="M661,114 L661,136" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 2: Credentials Box (STS Box) -->
+  <rect x="541" y="142" width="240" height="142" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  
+  <text x="561" y="172.55" font-size="13" font-family="monospace" fill="#1f2933">AccessKeyId</text>
+  <text x="561" y="202.55" font-size="13" font-family="monospace" fill="#1f2933">SecretAccessKey</text>
+  <text x="561" y="232.55" font-size="13" font-family="monospace" stroke="none" fill="#1f2933">SessionToken <tspan font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="11.5" fill="#2563eb">(필수)</tspan></text>
+  <text x="561" y="262.55" font-size="13" font-family="monospace" stroke="none" fill="#1f2933">Expiration <tspan font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-size="11.5" fill="#52606d">(만료 시각)</tspan></text>
+
+  <!-- Step 3: Safe Outcome Text -->
+  <text x="661" y="336.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">자동 갱신 · 만료 후 무효 · 저장할 것 없음</text>
+
+</svg>

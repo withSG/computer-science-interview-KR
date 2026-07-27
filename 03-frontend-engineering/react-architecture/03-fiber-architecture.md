@@ -42,6 +42,11 @@ function reconcile(element) {
 
 그래서 한 번 시작한 렌더링은 끝까지 가야 했다.
 
+<!-- diagram:fe-fiber-architecture-1 -->
+![Stack Reconciler는 왜 멈출 수 없었나](../../assets/diagrams/fe-fiber-architecture-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 컴포넌트 3,000개짜리 트리를 렌더링하는 동안
 
@@ -54,6 +59,7 @@ function reconcile(element) {
 프레임:      ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕ ✕
              (18프레임 드랍 = 화면이 멈춘 것처럼 보임)
 ```
+-->
 
 특히 나쁜 조합은 **입력창 + 무거운 목록**이다. 글자를 하나 칠 때마다 수천 개 항목을 다시 그리느라, 타이핑이 뚝뚝 끊긴다. 문제는 "목록 갱신이 느리다"가 아니라 "목록 갱신 때문에 **글자 입력이라는 훨씬 급한 일**이 밀린다"는 것이다.
 
@@ -95,6 +101,11 @@ Fiber는 **컴포넌트 하나에 대응하는 작업 단위(unit of work)를 �
 
 주목할 것은 **자식이 배열이 아니라 `child` 하나 + `sibling` 체인**이라는 점이다. 배열 인덱스로 자식을 순회하면 "몇 번째까지 했는지"를 별도로 기억해야 하지만, 링크드 리스트 형태면 **현재 fiber 포인터 하나만 들고 있으면 그 자체가 진행 상황**이 된다.
 
+<!-- diagram:fe-fiber-architecture-2 -->
+![정의](../../assets/diagrams/fe-fiber-architecture-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         ┌──────────┐
         │   App    │
@@ -110,6 +121,7 @@ Fiber는 **컴포넌트 하나에 대응하는 작업 단위(unit of work)를 �
                         │  Item 1  │ ────────► │  Item 2  │
                         └──────────┘           └──────────┘
 ```
+-->
 
 이 구조 덕분에 재귀 없이 반복문으로 트리 전체를 순회할 수 있고, 어느 지점에서든 멈춰서 그 포인터만 저장해 두면 나중에 정확히 이어서 할 수 있다.
 
@@ -140,6 +152,11 @@ function workLoop() {
 
 각 fiber에서 수행되는 작업은 두 종류다.
 
+<!-- diagram:fe-fiber-architecture-3 -->
+![3. 작업 루프](../../assets/diagrams/fe-fiber-architecture-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         내려가면서 beginWork          올라오면서 completeWork
         (컴포넌트 실행, 자식 생성)      (DOM 노드 준비, 변경점 수집)
@@ -165,6 +182,7 @@ function workLoop() {
   ⑦ completeWork(List)    형제가 없으니 부모로 올라간다
   ⑧ completeWork(App)     루트까지 올라오면 render 단계 종료
 ```
+-->
 
 `beginWork`에서 컴포넌트 함수를 호출하고 이전 fiber와 비교해 자식 fiber를 만든다. 더 내려갈 자식이 없으면 `completeWork`로 올라오면서 DOM 노드를 준비하고 변경 사항을 기록한다. 이 왕복이 트리 전체에 대해 끝나면 render 단계가 완료된다.
 
@@ -218,6 +236,11 @@ function Analytics({ userId }) {
 
 ### 커밋은 다시 세 조각으로 나뉜다
 
+<!-- diagram:fe-fiber-architecture-4 -->
+![커밋은 다시 세 조각으로 나뉜다](../../assets/diagrams/fe-fiber-architecture-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 commit 단계 (전 구간 동기, 중단 불가)
   │
@@ -236,6 +259,7 @@ commit 단계 (전 구간 동기, 중단 불가)
   ▼
 useEffect (비동기로 이후에 실행)
 ```
+-->
 
 `useLayoutEffect`가 "페인트 전에 동기로 실행된다"는 말은 layout 하위 단계에 속한다는 뜻이다. 자세한 활용은 [05-useEffect-vs-useLayoutEffect.md](./05-useEffect-vs-useLayoutEffect.md)에서 다룬다.
 
@@ -243,6 +267,11 @@ useEffect (비동기로 이후에 실행)
 
 React는 fiber 트리를 두 벌 유지한다.
 
+<!-- diagram:fe-fiber-architecture-5 -->
+![더블 버퍼링](../../assets/diagrams/fe-fiber-architecture-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    current 트리                 workInProgress 트리
    (화면에 반영된 것)            (계산 중인 것)
@@ -257,6 +286,7 @@ React는 fiber 트리를 두 벌 유지한다.
   → 중간에 버려도 current는 멀쩡하다.
   commit이 끝나면 두 트리의 역할을 맞바꾼다(포인터 교체).
 ```
+-->
 
 각 fiber의 `alternate` 필드가 짝을 가리킨다. 게임 그래픽의 더블 버퍼링과 같은 발상이다. 그리는 중인 화면을 보여 주지 않고, 다 그린 뒤 통째로 교체한다.
 

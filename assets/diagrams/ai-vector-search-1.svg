@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">유사도를 재는 세 가지 방법: 무엇이 다른가</title>
+  <desc id="d">내적, 코사인, L2 거리의 기하학적 의미와 수식, 특성을 비교하는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- Column 1: 내적 (Dot Product) - Blue -->
+  <g id="col-dot-product">
+    <!-- Header Block -->
+    <rect x="20" y="20" width="260" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="150" y="47.6" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">내적(Dot Product)</text>
+    <text x="150" y="69.2" font-size="13" fill="#1f2933" text-anchor="middle">크기 × 크기 × cos θ</text>
+
+    <!-- Vector Diagram Area -->
+    <rect x="20" y="100" width="260" height="150" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <!-- Angle arc -->
+    <path d="M 120 200 A 30 30 0 0 0 101.2 178.8" fill="none" stroke="#52606d" stroke-width="1.2"/>
+    <text x="115" y="190.15" font-size="13" fill="#52606d">θ</text>
+    <!-- Origin O -->
+    <text x="65" y="208.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">O</text>
+    <!-- Vector A -->
+    <path d="M 80,205 L 200,205" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+    <text x="220" y="208.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
+    <!-- Vector B (Long) -->
+    <path d="M 80,205 L 140,135" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+    <text x="145" y="125.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">B</text>
+
+    <!-- Description Block -->
+    <rect x="20" y="260" width="260" height="110" rx="6" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="150" y="291.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">길이가 길수록 큰 값</text>
+    <text x="150" y="324.02" font-size="11.5" fill="#52606d" text-anchor="middle">→ 긴 문서가 유리해질 수 있음</text>
+  </g>
+
+  <!-- Column 2: 코사인 (Cosine) - Green -->
+  <g id="col-cosine">
+    <!-- Header Block -->
+    <rect x="310" y="20" width="260" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="440" y="47.6" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">코사인(Cosine)</text>
+    <text x="440" y="69.2" font-size="13" fill="#1f2933" text-anchor="middle">cos θ</text>
+
+    <!-- Vector Diagram Area -->
+    <rect x="310" y="100" width="260" height="150" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <!-- Angle arc -->
+    <path d="M 410 200 A 30 30 0 0 0 391.2 178.8" fill="none" stroke="#52606d" stroke-width="1.2"/>
+    <text x="405" y="190.15" font-size="13" fill="#52606d">θ</text>
+    <!-- Origin O -->
+    <text x="355" y="208.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">O</text>
+    <!-- Vector A -->
+    <path d="M 370,205 L 490,205" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+    <text x="510" y="208.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">A</text>
+    <!-- Vector B -->
+    <path d="M 370,205 L 430,135" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+    <text x="435" y="125.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">B</text>
+
+    <!-- Description Block -->
+    <rect x="310" y="260" width="260" height="110" rx="6" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="440" y="291.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">각도만 본다</text>
+    <text x="440" y="324.02" font-size="11.5" fill="#52606d" text-anchor="middle">→ 문서 길이에 중립</text>
+  </g>
+
+  <!-- Column 3: L2 거리 (Euclidean) - Purple -->
+  <g id="col-l2">
+    <!-- Header Block -->
+    <rect x="600" y="20" width="260" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+    <text x="730" y="47.6" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">L2 거리(Euclidean)</text>
+    <text x="730" y="69.2" font-size="13" fill="#1f2933" text-anchor="middle">두 점 사이 직선거리</text>
+
+    <!-- Vector Diagram Area -->
+    <rect x="600" y="100" width="260" height="150" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <!-- Origin O -->
+    <text x="645" y="208.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">O</text>
+    <!-- Vector A -->
+    <path d="M 660,205 L 780,205" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+    <text x="800" y="208.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">A</text>
+    <!-- Vector B -->
+    <path d="M 660,205 L 720,135" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+    <text x="725" y="125.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">B</text>
+    
+    <!-- Euclidean Distance Line (Dotted) -->
+    <path d="M 720,135 L 770,205" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+    
+    <!-- Dimension Bracket / Indicator -->
+    <path d="M 770,208 L 770,218 L 720,218 L 720,208" stroke="#dc2626" stroke-width="1" fill="none"/>
+    <text x="745" y="232.02" font-size="11.5" fill="#dc2626" text-anchor="middle">└ 이 길이</text>
+
+    <!-- Description Block -->
+    <rect x="600" y="260" width="260" height="110" rx="6" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="730" y="291.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">좌표 차이 그대로</text>
+    <text x="730" y="324.02" font-size="11.5" fill="#52606d" text-anchor="middle">→ 크기 차이에 민감</text>
+  </g>
+</svg>

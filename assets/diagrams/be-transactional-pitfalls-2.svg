@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">함정 6. 트랜잭션 안에서 외부 API 호출</title>
+  <desc id="d">트랜잭션이 없는 경우와 트랜잭션 안에서 외부 API를 호출하는 경우의 커넥션 점유 및 DB 작업과 외부 API 처리 시간을 비교하는 다이어그램</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-green" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L5,10 L10,0 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L5,10 L10,0 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Left Column: [트랜잭션 없이] (Good Pattern Side) -->
+  <g>
+    <text x="180" y="52" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[트랜잭션 없이]</text>
+
+    <!-- Connection Occupation Block Line 1 -->
+    <text x="50" y="105" font-size="13" font-weight="bold" fill="#1f2933">커넥션 점유</text>
+    <rect x="135" y="90" width="90" height="22" rx="3" fill="#059669"/>
+
+    <!-- Arrow 1 (DB 작업 -> 커넥션 점유) -->
+    <path d="M180,180 L180,120" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- Label: DB 작업 -->
+    <rect x="130" y="180" width="100" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="180" y="201" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">DB 작업</text>
+  </g>
+
+  <!-- Vertical Separator Line -->
+  <line x1="370" y1="30" x2="370" y2="360" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Right Column: [트랜잭션 안에서] (Bad Pattern Side) -->
+  <g>
+    <text x="620" y="52" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[트랜잭션 안에서]</text>
+
+    <!-- Connection Occupation Block Line 2 -->
+    <text x="400" y="105" font-size="13" font-weight="bold" fill="#1f2933">커넥션 점유</text>
+    <rect x="485" y="90" width="350" height="22" rx="3" fill="#dc2626"/>
+
+    <!-- Arrows for Right Section -->
+    <!-- Arrow to DB 작업 -->
+    <path d="M530,180 L530,120" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+    <!-- Arrow to 외부 API 10초 -->
+    <path d="M740,180 L740,120" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- Labels line 2 -->
+    <!-- DB 작업 -->
+    <rect x="480" y="180" width="100" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="530" y="201" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">DB 작업</text>
+
+    <!-- 외부 API 10초 -->
+    <rect x="670" y="180" width="140" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="740" y="201" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">외부 API 10초</text>
+
+    <!-- Bottom Description Note -->
+    <rect x="435" y="250" width="370" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="620" y="275" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">커넥션과 락을 10초 동안 붙잡고 있다</text>
+  </g>
+</svg>

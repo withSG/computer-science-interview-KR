@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Salt 적용 여부에 따른 해시 비교</title>
+  <desc id="d">Salt가 없을 때는 동일한 비밀번호가 같은 해시값을 가져 같다는 결과가 나오고, Salt가 있을 때는 사용자별 고유 Salt로 인해 서로 다른 해시값이 생성되어 다르다는 결과를 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
+  
+  <defs>
+    <!-- Markers -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Left Container: [ Salt 없음 ] -->
+  <rect x="30" y="30" width="395" height="310" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  
+  <!-- Title Left -->
+  <rect x="50" y="48" width="120" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="110" y="69.2" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">[ Salt 없음 ]</text>
+
+  <!-- Left Content Box 1: user A -->
+  <rect x="50" y="100" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="65" y="135.2" font-size="13" font-weight="bold" fill="#1f2933">user A:</text>
+  <text x="125" y="135.2" font-size="13" fill="#52606d">hash("hunter2") = a3f9c2…</text>
+
+  <!-- Left Content Box 2: user B -->
+  <rect x="50" y="180" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="65" y="215.2" font-size="13" font-weight="bold" fill="#1f2933">user B:</text>
+  <text x="125" y="215.2" font-size="13" fill="#52606d">hash("hunter2") = a3f9c2…</text>
+
+  <!-- Left Arrow & Result -->
+  <path d="M 285,290 L 285,250" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <text x="285" y="312.2" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">↑ 같다!</text>
+
+  <!-- Right Container: [ Salt 있음 ] -->
+  <rect x="455" y="30" width="395" height="310" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- Title Right -->
+  <rect x="475" y="48" width="120" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="535" y="69.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[ Salt 있음 ]</text>
+
+  <!-- Right Content Box 1: user A -->
+  <rect x="475" y="100" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="490" y="135.2" font-size="13" font-weight="bold" fill="#1f2933">user A:</text>
+  <text x="550" y="135.2" font-size="12.5" fill="#52606d">hash("hunter2" + "x7Kq2p") = 91be04…</text>
+
+  <!-- Right Content Box 2: user B -->
+  <rect x="475" y="180" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="490" y="215.2" font-size="13" font-weight="bold" fill="#1f2933">user B:</text>
+  <text x="550" y="215.2" font-size="12.5" fill="#52606d">hash("hunter2" + "mZ4Tn8") = 5cd7ff…</text>
+
+  <!-- Right Arrow & Result -->
+  <path d="M 725,290 L 725,250" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+  <text x="725" y="312.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">↑ 다르다</text>
+</svg>

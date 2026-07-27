@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">공유된 브랜치를 rebase할 때 발생하지 않는 문제 상황 분석</title>
+  <desc id="d">이미 push되어 동료와 공유된 브랜치를 rebase 및 force push 했을 때 커밋 히스토리가 꼬이고 충돌이 발생하는 과정을 단계별로 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="780" fill="#ffffff"/>
+
+  <defs>
+    <!-- Dark Ink Marker -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- Blue Marker -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- Orange/Red Marker -->
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <!-- Red Marker -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: 출발 -->
+  <g transform="translate(30, 30)">
+    <!-- Container Box -->
+    <rect x="0" y="0" width="820" height="150" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="14" font-weight="bold" fill="#2563eb">1) 출발</text>
+
+    <!-- Sub-row 1: 나 -->
+    <g transform="translate(30, 45)">
+      <text x="20" y="32" font-size="13" font-weight="bold" fill="#1f2933">나:</text>
+
+      <!-- Commits -->
+      <circle cx="100" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="100" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c1</text>
+
+      <path d="M 118 28 L 162 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="180" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="180" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c2</text>
+
+      <path d="M 198 28 L 242 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="260" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="260" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c3</text>
+
+      <!-- Label -->
+      <text x="310" y="32" font-size="13" fill="#52606d">(feature, push 완료)</text>
+    </g>
+
+    <!-- Sub-row 2: 동료 -->
+    <g transform="translate(30, 95)">
+      <text x="20" y="32" font-size="13" font-weight="bold" fill="#1f2933">동료:</text>
+
+      <!-- Commits -->
+      <circle cx="100" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="100" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c1</text>
+
+      <path d="M 118 28 L 162 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="180" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="180" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c2</text>
+
+      <path d="M 198 28 L 242 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="260" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="260" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c3</text>
+
+      <!-- Label -->
+      <text x="310" y="32" font-size="13" fill="#52606d">(pull 받아둠)</text>
+    </g>
+  </g>
+
+  <!-- Section 2: 내가 rebase + force push -->
+  <g transform="translate(30, 205)">
+    <!-- Container Box -->
+    <rect x="0" y="0" width="820" height="110" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="14" font-weight="bold" fill="#d97706">2) 내가 rebase + force push</text>
+
+    <g transform="translate(30, 40)">
+      <text x="20" y="32" font-size="13" font-weight="bold" fill="#1f2933">나:</text>
+
+      <!-- Commits -->
+      <circle cx="100" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="100" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c1</text>
+
+      <path d="M 118 28 L 162 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="180" cy="28" r="18" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+      <text x="180" y="32" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">c2'</text>
+
+      <path d="M 198 28 L 242 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="260" cy="28" r="18" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+      <text x="260" y="32" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">c3'</text>
+
+      <!-- Label -->
+      <text x="310" y="32" font-size="13" font-weight="bold" fill="#d97706">원격도 이 상태로 덮어씀</text>
+    </g>
+  </g>
+
+  <!-- Section 3: 동료가 작업을 얹고 push 시도 -->
+  <g transform="translate(30, 340)">
+    <!-- Container Box -->
+    <rect x="0" y="0" width="820" height="400" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="14" font-weight="bold" fill="#dc2626">3) 동료가 작업을 얹고 push 시도</text>
+
+    <!-- Sub-row: 동료 -->
+    <g transform="translate(30, 45)">
+      <text x="20" y="32" font-size="13" font-weight="bold" fill="#1f2933">동료:</text>
+
+      <!-- Commits -->
+      <circle cx="100" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="100" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c1</text>
+
+      <path d="M 118 28 L 162 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="180" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="180" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c2</text>
+
+      <path d="M 198 28 L 242 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="260" cy="28" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="260" y="32" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">c3</text>
+
+      <path d="M 278 28 L 322 28" stroke="#52606d" stroke-width="2" fill="none"/>
+
+      <circle cx="340" cy="28" r="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+      <text x="340" y="32" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">c7</text>
+
+      <!-- Arrow & Pointer Label -->
+      <path d="M 385 28 L 415 28" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+      <text x="425" y="32" font-size="13" font-weight="bold" fill="#dc2626">← 옛 c2, c3가 살아 있다</text>
+    </g>
+
+    <!-- Inner Narrative Box for Consequences -->
+    <g transform="translate(20, 130)">
+      <rect x="0" y="0" width="780" height="240" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+
+      <!-- Title line inside explanation -->
+      <text x="24" y="36" font-size="13.5" font-weight="bold" fill="#1f2933">pull 하면 Git은 두 히스토리를 합치려 든다</text>
+
+      <!-- Bullet 1 -->
+      <g transform="translate(24, 60)">
+        <path d="M 0 12 L 10 12" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+        <text x="18" y="16" font-size="13" fill="#dc2626">
+          <tspan fill="#dc2626" font-weight="bold">c2/c2', c3/c3'</tspan>
+          <tspan fill="#1f2933"> 처럼 같은 변경을 담은 커밋이 짝으로 남고</tspan>
+        </text>
+      </g>
+
+      <!-- Bullet 2 -->
+      <g transform="translate(24, 110)">
+        <path d="M 0 12 L 10 12" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+        <text x="18" y="16" font-size="13" fill="#1f2933">같은 변경이 두 번 적용되며 곳곳에서 충돌하고</text>
+      </g>
+
+      <!-- Bullet 3 -->
+      <g transform="translate(24, 160)">
+        <path d="M 0 12 L 10 12" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+        <text x="18" y="16" font-size="13" fill="#1f2933">
+          <tspan fill="#1f2933">동료가 </tspan>
+          <tspan fill="#dc2626" font-weight="bold">--force</tspan>
+          <tspan fill="#1f2933">로 밀면 내 rebase 결과가 사라진다</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

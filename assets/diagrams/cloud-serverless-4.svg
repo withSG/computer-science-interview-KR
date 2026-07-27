@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">패턴 B. 버퍼링 — SQS + Lambda</title>
+  <desc id="d">생산자가 SQS 큐로 메시지를 보내고, Lambda가 폴링하여 처리하며, 실패 시 DLQ로 이동하는 아키텍처 다이어그램</desc>
+  
+  <rect width="880" height="260" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Node 1: 생산자 -->
+  <rect x="40" y="50" width="100" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="80" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">생산자</text>
+
+  <!-- Edge 1: 생산자 ──▶ SQS 큐 -->
+  <path d="M 140 75 L 200 75" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Node 2: SQS 큐 -->
+  <rect x="200" y="50" width="110" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="255" y="80" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">SQS 큐</text>
+
+  <!-- Edge 2: SQS 큐 ──(Lambda가 폴링)──▶ Lambda -->
+  <path d="M 310 75 L 500 75" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="345" y="64" width="120" height="22" fill="#ffffff" rx="3"/>
+  <text x="405" y="79" fill="#52606d" font-size="11.5" text-anchor="middle">(Lambda가 폴링)</text>
+
+  <!-- Node 3: Lambda -->
+  <rect x="500" y="50" width="110" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="555" y="80" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">Lambda</text>
+
+  <!-- Edge 3: Lambda ──▶ 처리 -->
+  <path d="M 610 75 L 680 75" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Node 4: 처리 -->
+  <rect x="680" y="50" width="90" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="725" y="80" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">처리</text>
+
+  <!-- Edge 4: Lambda ──▶ DLQ (실패) -->
+  <path d="M 555 100 L 555 185" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="563" y="132" width="36" height="20" fill="#ffffff" rx="3"/>
+  <text x="581" y="146" fill="#dc2626" font-size="11.5" font-weight="bold" text-anchor="middle">실패</text>
+
+  <!-- Edge 5: SQS 큐 ──▶ DLQ (재시도 횟수 초과) -->
+  <path d="M 255 100 L 255 185 L 420 185" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <rect x="270" y="174" width="110" height="22" fill="#ffffff" rx="3"/>
+  <text x="325" y="189" fill="#dc2626" font-size="11.5" text-anchor="middle">재시도 횟수 초과</text>
+
+  <!-- Node 5: DLQ (Dead Letter Queue) -->
+  <rect x="420" y="160" width="270" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="555" y="190" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">DLQ (Dead Letter Queue)</text>
+</svg>

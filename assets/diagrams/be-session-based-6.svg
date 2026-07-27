@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세션 고정 (Session Fixation)</title>
+  <desc id="d">공격자가 미리 발급받은 세션 ID를 피해자에게 전달하고, 피해자가 그 세션 ID로 로그인하여 공격자도 피해자의 권한을 얻게 되는 세션 고정 공격 시퀀스 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Section Title -->
+  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">6. 세션 고정 (Session Fixation)</text>
+
+  <!-- Lifeline Headers -->
+  <!-- Header 1: 공격자 -->
+  <rect x="70" y="70" width="140" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="140" y="94" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">공격자</text>
+
+  <!-- Header 2: 피해자 -->
+  <rect x="370" y="70" width="140" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="94" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">피해자</text>
+
+  <!-- Header 3: 서버 -->
+  <rect x="670" y="70" width="140" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="740" y="94" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">서버</text>
+
+  <!-- Lifelines -->
+  <path d="M140,110 L140,490" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M440,110 L440,490" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M740,110 L740,490" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Sequence Step 1 -->
+  <!-- Arrow (1) 공격자 -> 서버 -->
+  <path d="M140,160 L740,160" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="298" y="148" width="284" height="22" fill="#ffffff" rx="2"/>
+  <text x="440" y="163" font-size="13" fill="#1f2933" text-anchor="middle">(1) 방문해서 세션 ID "X"를 발급받음</text>
+
+  <!-- Sequence Step 2 -->
+  <!-- Arrow (2) 공격자 -> 피해자 -->
+  <path d="M140,240 L440,240" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="160" y="228" width="260" height="22" fill="#ffffff" rx="2"/>
+  <text x="290" y="243" font-size="13" fill="#1f2933" text-anchor="middle">(2) "이 링크로 들어와" (?SESSIONID=X)</text>
+
+  <!-- Sequence Step 3 -->
+  <!-- Arrow (3) 피해자 -> 서버 -->
+  <path d="M440,320 L740,320" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="473" y="308" width="234" height="22" fill="#ffffff" rx="2"/>
+  <text x="590" y="323" font-size="13" fill="#1f2933" text-anchor="middle">(3) 세션 ID X 상태로 로그인</text>
+
+  <!-- Server Side State 1: X <- kim 연결 -->
+  <rect x="752" y="308" width="100" height="24" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="3"/>
+  <text x="802" y="324" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">X ← kim 연결</text>
+
+  <!-- Sequence Step 4 -->
+  <!-- Arrow (4) 공격자 -> 서버 -->
+  <path d="M140,410 L740,410" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="290" y="398" width="300" height="22" fill="#ffffff" rx="2"/>
+  <text x="440" y="413" font-size="13" fill="#1f2933" text-anchor="middle">(4) 공격자도 X를 갖고 있다</text>
+
+  <!-- Server Side State 2: kim으로 인식 -->
+  <rect x="752" y="398" width="100" height="24" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="3"/>
+  <text x="802" y="414" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">kim으로 인식</text>
+</svg>

@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">롤링 업데이트가 진행되는 순서</title>
+  <desc id="d">replicas 4, maxSurge 1, maxUnavailable 0 조건에서 시간 흐름에 따라 v1 Pod가 감소하고 v2 Pod가 증가하여 완료되는 과정</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 상단 시간 화살표 및 설정 라벨 -->
+  <path d="M40,30 L110,30" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="125" y="34" fill="#1f2933" font-size="14" font-weight="bold">시간</text>
+
+  <text x="320" y="34" fill="#52606d" font-size="13" font-weight="bold">replicas: 4, maxSurge: 1, maxUnavailable: 0</text>
+
+  <line x1="40" y1="55" x2="840" y2="55" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- t0 -->
+  <text x="50" y="86" fill="#1f2933" font-size="13" font-weight="bold">t0</text>
+  <g transform="translate(100, 68)">
+    <rect x="0" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="20" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="46" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="66" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="92" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="112" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="138" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="158" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+  </g>
+
+  <!-- t1 -->
+  <text x="50" y="128" fill="#1f2933" font-size="13" font-weight="bold">t1</text>
+  <g transform="translate(100, 110)">
+    <rect x="0" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="20" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="46" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="66" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="92" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="112" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="138" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="158" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="184" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="204" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+  </g>
+  <text x="400" y="128" fill="#52606d" font-size="13">새 Pod 1개 추가 (총 5개)</text>
+
+  <!-- t2 -->
+  <text x="50" y="170" fill="#1f2933" font-size="13" font-weight="bold">t2</text>
+  <g transform="translate(100, 152)">
+    <rect x="0" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="20" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="46" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="66" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="92" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="112" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="184" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="204" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+  </g>
+  <text x="400" y="170" fill="#52606d" font-size="13">v2가 Ready 되면 v1 하나 종료</text>
+
+  <!-- t3 -->
+  <text x="50" y="212" fill="#1f2933" font-size="13" font-weight="bold">t3</text>
+  <g transform="translate(100, 194)">
+    <rect x="0" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="20" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="46" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="66" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="92" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="112" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="138" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="158" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+    <rect x="184" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="204" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+  </g>
+
+  <!-- t4 -->
+  <text x="50" y="254" fill="#1f2933" font-size="13" font-weight="bold">t4</text>
+  <g transform="translate(100, 236)">
+    <rect x="0" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="20" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="46" y="0" width="40" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="66" y="18" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">v1</text>
+    <rect x="138" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="158" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+    <rect x="184" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="204" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+  </g>
+
+  <!-- ... -->
+  <text x="50" y="296" fill="#1f2933" font-size="13" font-weight="bold">...</text>
+
+  <!-- t8 -->
+  <text x="50" y="338" fill="#1f2933" font-size="13" font-weight="bold">t8</text>
+  <g transform="translate(100, 320)">
+    <rect x="92" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="112" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+    <rect x="138" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="158" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+    <rect x="184" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="204" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+    <rect x="230" y="0" width="40" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="250" y="18" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">v2</text>
+  </g>
+  <text x="400" y="338" fill="#52606d" font-size="13">완료</text>
+
+  <!-- 범례 (Legend) -->
+  <line x1="40" y1="365" x2="840" y2="365" stroke="#cbd2d9" stroke-width="1"/>
+  <g transform="translate(620, 370)">
+    <rect x="0" y="0" width="16" height="12" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="22" y="10" fill="#52606d" font-size="11">구버전 (v1)</text>
+    <rect x="100" y="0" width="16" height="12" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="122" y="10" fill="#52606d" font-size="11">신버전 (v2)</text>
+  </g>
+</svg>

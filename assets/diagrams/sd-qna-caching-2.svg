@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Cache-Aside 읽기 전략 흐름도</title>
+  <desc id="d">애플리케이션이 직접 캐시를 관리하며 캐시 조회, Cache Miss 시 DB 조회, 캐시 저장, 응답 반환을 수행하는 순서도입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 상단 주석 (애플리케이션이 직접 캐시 관리) -->
+  <rect x="250" y="30" width="380" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">애플리케이션이 직접 캐시 관리</text>
+
+  <!-- 연결선: 상단 주석 -> 1단계 -->
+  <path d="M440,70 L440,100" stroke="#9aa5b1" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+
+  <!-- 1. 캐시 조회 -->
+  <rect x="280" y="100" width="320" height="54" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="132" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1. 캐시 조회</text>
+
+  <!-- 연결선: 1단계 -> 2단계 -->
+  <path d="M440,154 L440,200" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- 2. Cache Miss -> DB 조회 -->
+  <rect x="280" y="200" width="320" height="54" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="232" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">2. Cache Miss → DB 조회</text>
+
+  <!-- 연결선: 2단계 -> 3단계 -->
+  <path d="M440,254 L440,300" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 3. 캐시에 저장 -->
+  <rect x="280" y="300" width="320" height="54" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="332" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">3. 캐시에 저장</text>
+
+  <!-- 연결선: 3단계 -> 4단계 -->
+  <path d="M440,354 L440,400" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 4. 응답 반환 -->
+  <rect x="280" y="400" width="320" height="54" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="432" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">4. 응답 반환</text>
+</svg>

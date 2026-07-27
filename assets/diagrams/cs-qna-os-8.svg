@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세그멘테이션 (Segmentation)</title>
+  <desc id="d">프로세스를 논리적 단위인 세그먼트로 분할하여 주소를 변환하는 방식과 세그멘테이션의 장단점을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="780" fill="#ffffff"/>
+
+  <!-- 메인 콘텍스트 영역 -->
+  <rect x="30" y="30" width="820" height="720" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" rx="8"/>
+
+  <!-- 헤딩 / 설명 섹션 -->
+  <rect x="50" y="50" width="780" height="90" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
+  <text x="70" y="80.6" font-size="16" font-weight="bold" fill="#1f2933">프로세스를 논리적 단위 "세그먼트"로 분할</text>
+  <text x="70" y="112.1" font-size="14" fill="#52606d">세그먼트: 코드, 스택, 힙, 데이터 등</text>
+
+  <!-- 주소 변환 및 메커니즘 섹션 -->
+  <rect x="50" y="160" width="780" height="230" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="6"/>
+
+  <rect x="80" y="185" width="310" height="45" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="235" y="212.55" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">가상 주소 = [세그먼트 번호 | 오프셋]</text>
+
+  <rect x="80" y="250" width="310" height="45" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="235" y="277.55" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">물리 주소 = 세그먼트 기준 주소 + 오프셋</text>
+
+  <rect x="430" y="185" width="370" height="110" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="615" y="244.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">세그먼트 테이블: 번호 → (기준 주소, 한계값)</text>
+
+  <path d="M 390,207.5 L 430,207.5" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M 615,295 L 615,330 L 235,330 L 235,295" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="365" y="318" width="120" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="425" y="334.5" font-size="11.5" fill="#52606d" text-anchor="middle">주소 변환 참고 매핑</text>
+
+  <!-- 장점 및 단점 비교 섹션 -->
+  <!-- 장점 영역 -->
+  <rect x="50" y="410" width="375" height="320" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="6"/>
+  <text x="70" y="440.6" font-size="16" font-weight="bold" fill="#059669">장점:</text>
+  
+  <rect x="70" y="460" width="335" height="65" fill="#ffffff" stroke="#059669" stroke-width="1" rx="4"/>
+  <text x="85" y="489.1" font-size="13" font-weight="bold" fill="#1f2933">- 내부 단편화 없음</text>
+  <text x="97" y="508.025" font-size="11.5" fill="#52606d">(가변 크기라 딱 맞게 배치)</text>
+
+  <rect x="70" y="540" width="335" height="65" fill="#ffffff" stroke="#059669" stroke-width="1" rx="4"/>
+  <text x="85" y="579.1" font-size="13" font-weight="bold" fill="#1f2933">- 논리적 단위로 보호(protection) 설정 가능</text>
+
+  <rect x="70" y="620" width="335" height="65" fill="#ffffff" stroke="#059669" stroke-width="1" rx="4"/>
+  <text x="85" y="649.1" font-size="13" font-weight="bold" fill="#1f2933">- 공유 용이</text>
+  <text x="97" y="668.025" font-size="11.5" fill="#52606d">(코드 세그먼트 공유)</text>
+
+  <!-- 단점 영역 -->
+  <rect x="455" y="410" width="375" height="320" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="6"/>
+  <text x="475" y="440.6" font-size="16" font-weight="bold" fill="#dc2626">단점:</text>
+
+  <rect x="475" y="460" width="335" height="120" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
+  <text x="490" y="489.1" font-size="13" font-weight="bold" fill="#1f2933">- 외부 단편화(External Fragmentation) 발생</text>
+  <text x="502" y="518.025" font-size="11.5" fill="#52606d">(가변 크기라 중간에 빈 공간 생김)</text>
+
+  <rect x="475" y="600" width="335" height="85" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
+  <text x="490" y="649.1" font-size="13" font-weight="bold" fill="#1f2933">- 연속 메모리 필요</text>
+</svg>

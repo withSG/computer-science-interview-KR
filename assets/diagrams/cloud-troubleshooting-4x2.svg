@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">삭제했는데 용량이 안 돌아온다 - 파일 삭제의 실제 동작</title>
+  <desc id="d">rm 명령어로 파일을 삭제했을 때 디렉토리 이름 제거, inode 링크 수 감소, 프로세스 열림 상태에 따른 공간 유지 및 close/종료 시 실제 해제 과정을 설명하는 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Section Header / Title -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">8-2. 삭제했는데 용량이 안 돌아온다</text>
+  <text x="40" y="75" font-size="14" font-weight="bold" fill="#52606d">파일 삭제의 실제 동작</text>
+
+  <!-- Step 1: Command -->
+  <rect x="220" y="105" width="200" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="320" y="130" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">rm access.log</text>
+
+  <!-- Flow Arrow 1: Down from command -->
+  <path d="M320,145 L320,175" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Step 2: Unlink Description -->
+  <path d="M320,175 L350,175" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="360" y="180" font-size="13" fill="#1f2933">디렉토리에서 이름만 제거 (unlink)</text>
+
+  <!-- Step 3: Inode Link Count -->
+  <text x="360" y="210" font-size="13" fill="#52606d">inode의 링크 수 1 → 0</text>
+
+  <!-- Step 4: Process Open Condition -->
+  <text x="360" y="240" font-size="13" fill="#d97706" font-weight="bold">그러나 프로세스가 아직 열고 있으면</text>
+
+  <!-- Flow Arrow 2: Down to Box -->
+  <path d="M360,250 L360,270" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- Step 5: Problem Box (Highlighted state) -->
+  <rect x="220" y="280" width="440" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="313" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">이름 없음 + 열린 상태 = 공간 유지</text>
+  <text x="440" y="341" font-size="13" fill="#dc2626" text-anchor="middle">du로는 안 보이고 df에는 잡힌다</text>
+
+  <!-- Flow Arrow 3: Down to Resolution -->
+  <path d="M440,360 L440,395" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step 6: Resolution Text -->
+  <rect x="220" y="405" width="440" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="430" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">프로세스가 close()하거나 종료해야 실제 해제</text>
+
+</svg>

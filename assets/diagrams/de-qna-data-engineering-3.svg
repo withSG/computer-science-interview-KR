@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">멱등성(Idempotency)과 백필(Backfill)</title>
+  <desc id="d">멱등성과 백필의 정의 및 핵심 개념을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="260" fill="#ffffff"/>
+  
+  <!-- Section 1: Idempotency -->
+  <g>
+    <rect x="24" y="24" width="832" height="96" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <!-- Title Badge -->
+    <rect x="40" y="40" width="68" height="26" rx="4" fill="#2563eb"/>
+    <text x="74" y="57" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">멱등성:</text>
+    <!-- Content Text -->
+    <text x="116" y="57" font-size="13" font-weight="bold" fill="#1f2933">같은 작업을 여러 번 실행해도 결과가 동일해야 함</text>
+    <!-- Arrow and subtext -->
+    <path d="M72,82 L72,98 L240,98" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+    <text x="80" y="77" font-size="11.5" fill="#52606d">(재시도/재실행 시 데이터 중복 방지)</text>
+    <text x="248" y="102" font-size="13" font-weight="bold" fill="#2563eb">날짜 파티션 덮어쓰기 등으로 구현</text>
+  </g>
+
+  <!-- Section 2: Backfill -->
+  <g>
+    <rect x="24" y="140" width="832" height="96" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <!-- Title Badge -->
+    <rect x="40" y="156" width="112" height="26" rx="4" fill="#7c3aed"/>
+    <text x="96" y="173" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">백필(Backfill):</text>
+    <!-- Content Text -->
+    <text x="160" y="173" font-size="13" font-weight="bold" fill="#1f2933">과거 기간에 대해 DAG를 소급 실행</text>
+    <!-- Subtext -->
+    <text x="80" y="209" font-size="11.5" fill="#52606d">(start_date~현재의 누락된 실행을 채움)</text>
+  </g>
+</svg>

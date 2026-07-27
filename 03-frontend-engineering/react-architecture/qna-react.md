@@ -17,6 +17,11 @@ Virtual DOM은 **메모리에 존재하는 가상의 DOM 트리**입니다. 실�
 
 ### Virtual DOM의 동작 과정
 
+<!-- diagram:fe-qna-react-1 -->
+![Virtual DOM의 동작 과정](../../assets/diagrams/fe-qna-react-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 상태 변경 발생
        ↓
@@ -28,6 +33,7 @@ Virtual DOM은 **메모리에 존재하는 가상의 DOM 트리**입니다. 실�
        ↓
 5. 실제 DOM에 일괄 반영 (Batch Update)
 ```
+-->
 
 ### Virtual DOM의 이점
 
@@ -113,6 +119,11 @@ setCount(newCount);  // Virtual DOM 비교 후 필요한 부분만 업데이트
 
 ### 재조정 과정
 
+<!-- diagram:fe-qna-react-2 -->
+![재조정 과정](../../assets/diagrams/fe-qna-react-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. Root부터 비교 시작
 2. 같은 타입 → 속성만 업데이트
@@ -121,6 +132,7 @@ setCount(newCount);  // Virtual DOM 비교 후 필요한 부분만 업데이트
 5. 변경사항 수집
 6. 실제 DOM에 반영
 ```
+-->
 
 ### O(n) 복잡도 달성
 
@@ -150,6 +162,11 @@ Fiber는 React 16에서 도입된 **새로운 재조정 엔진**입니다. 렌�
 
 ### 기존 Stack Reconciler의 문제
 
+<!-- diagram:fe-qna-react-3 -->
+![기존 Stack Reconciler의 문제](../../assets/diagrams/fe-qna-react-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Stack Reconciler (React 15 이전):
 ┌─────────────────────────────────────┐
@@ -158,9 +175,15 @@ Stack Reconciler (React 15 이전):
 └─────────────────────────────────────┘
 → 큰 업데이트 시 UI 블로킹, 프레임 드랍
 ```
+-->
 
 ### Fiber의 해결책
 
+<!-- diagram:fe-qna-react-4 -->
+![Fiber의 해결책](../../assets/diagrams/fe-qna-react-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Fiber Reconciler (React 16+):
 ┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐
@@ -171,6 +194,7 @@ Fiber Reconciler (React 16+):
 
 → 긴급한 업데이트(입력, 애니메이션)를 먼저 처리
 ```
+-->
 
 ### Fiber 노드 구조
 
@@ -241,6 +265,11 @@ const deferredValue = useDeferredValue(value);
 
 ### 실행 순서
 
+<!-- diagram:fe-qna-react-5 -->
+![실행 순서](../../assets/diagrams/fe-qna-react-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 렌더링 (Virtual DOM 생성)
 2. 커밋 (Real DOM 업데이트)
@@ -248,6 +277,7 @@ const deferredValue = useDeferredValue(value);
 4. 브라우저 페인트 (화면 그리기)
 5. useEffect 실행 ← 브라우저 페인트 후
 ```
+-->
 
 ### useLayoutEffect가 필요한 경우
 

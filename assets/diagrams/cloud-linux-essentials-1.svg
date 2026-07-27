@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">umask — 새로 만들어지는 파일의 기본 권한</title>
+  <desc id="d">새 파일 및 디렉토리의 기본 권한 설정과 umask 연산 방식을 보여주는 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Section 1: 기본값 영역 -->
+  <rect x="24" y="24" width="832" height="96" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <text x="44" y="61.55" fill="#1f2933" font-size="14" font-weight="bold">새 일반 파일 기본값 666  (rw-rw-rw-)</text>
+  
+  <!-- 화살표 (x는 애초에 안 준다) -->
+  <path d="M380,56 L430,56" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="442" y="60.025" fill="#52606d" font-size="13">x는 애초에 안 준다</text>
+
+  <text x="44" y="97.55" fill="#1f2933" font-size="14" font-weight="bold">새 디렉토리   기본값 777  (rwxrwxrwx)</text>
+
+  <!-- Section 2: 연산 원리 정의 -->
+  <rect x="24" y="136" width="832" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="44" y="164.55" fill="#1f2933" font-size="13" font-weight="bold">umask는 "빼기"가 아니라 "해당 비트를 끄기"다.  결과 = 기본값 AND (NOT umask)</text>
+
+  <!-- Section 3: umask 022 -->
+  <rect x="24" y="200" width="832" height="150" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  
+  <text x="44" y="235.025" fill="#2563eb" font-size="13" font-weight="bold">umask 022</text>
+  <path d="M125,231 L155,231" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="165" y="235.025" fill="#1f2933" font-size="13">022 = ----w--w-   group/other의 w 비트를 끈다</text>
+
+  <!-- umask 022 내역 -->
+  <rect x="54" y="254" width="772" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="74" y="276.55" fill="#1f2933" font-size="13">파일    666 에서 w 제거 → 644  (rw-r--r--)</text>
+
+  <rect x="54" y="298" width="772" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="74" y="320.55" fill="#1f2933" font-size="13">디렉토리 777 에서 w 제거 → 755  (rwxr-xr-x)</text>
+
+  <!-- Section 4: umask 077 -->
+  <rect x="24" y="366" width="832" height="150" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  
+  <text x="44" y="401.025" fill="#7c3aed" font-size="13" font-weight="bold">umask 077</text>
+  <path d="M125,397 L155,397" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <text x="165" y="401.025" fill="#1f2933" font-size="13">077 = ---rwxrwx   group/other의 rwx 비트를 전부 끈다</text>
+
+  <!-- umask 077 내역 -->
+  <rect x="54" y="420" width="772" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="74" y="442.55" fill="#1f2933" font-size="13">파일    666 → 600  (rw-------)</text>
+
+  <rect x="54" y="464" width="772" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="74" y="486.55" fill="#1f2933" font-size="13">디렉토리 777 → 700  (rwx------)</text>
+</svg>

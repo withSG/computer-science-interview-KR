@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">프레임 안에서 rAF의 위치</title>
+  <desc id="d">60Hz 기준 약 16.7ms의 한 프레임 내에서 입력 이벤트 처리, requestAnimationFrame 콜백, 렌더링 단계(스타일 계산, 레이아웃, 페인트, 합성), requestIdleCallback의 실행 순서를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- 프레임 컨테이너 영역 -->
+  <rect x="40" y="40" width="800" height="460" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 6"/>
+
+  <!-- 타임라인 상단 화살표 -->
+  <path d="M 60,65 L 810,65" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="70" y="52" width="280" height="24" fill="#f8fafc"/>
+  <text x="75" y="69" font-size="14" font-weight="bold" fill="#1f2933">한 프레임 (약 16.7ms @ 60Hz)</text>
+
+  <!-- 1. 입력 이벤트 처리 -->
+  <rect x="220" y="100" width="240" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="340" y="128" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">입력 이벤트 처리</text>
+
+  <!-- 화살표 1 -->
+  <path d="M 340,146 L 340,184" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 2. requestAnimationFrame 콜백 & 주석 -->
+  <rect x="220" y="185" width="240" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="340" y="213" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">requestAnimationFrame 콜백</text>
+
+  <!-- 주석 화살표 (←) -->
+  <path d="M 500,208 L 470,208" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="510" y="212" font-size="13" fill="#52606d">여기서 DOM을 바꾸는 게 가장 좋다</text>
+
+  <!-- 화살표 2 -->
+  <path d="M 340,231 L 340,269" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 3. 스타일 계산 → 레이아웃 → 페인트 → 합성 -->
+  <rect x="140" y="270" width="400" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="340" y="301" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">스타일 계산 → 레이아웃 → 페인트 → 합성</text>
+
+  <!-- 화살표 3 -->
+  <path d="M 340,320 L 340,359" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 4. (남는 시간) requestIdleCallback -->
+  <rect x="180" y="360" width="320" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="340" y="388" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">(남는 시간) requestIdleCallback</text>
+
+</svg>

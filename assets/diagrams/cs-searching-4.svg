@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">그래프 탐색 — DFS와 BFS</title>
+  <desc id="d">바이너리 트리 그래프 구조와 이를 탐색하는 DFS(스택/재귀) 및 BFS(큐)의 방문 순서와 특성 설명</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Section Header -->
+  <text x="24" y="41" font-size="16" font-weight="bold" fill="#1f2933">## 7. 그래프 탐색 — DFS와 BFS</text>
+
+  <!-- Left Side: Graph Structure Diagram -->
+  <!-- Edges -->
+  <line x1="180" y1="85" x2="110" y2="135" stroke="#9aa5b1" stroke-width="2"/>
+  <line x1="180" y1="85" x2="250" y2="135" stroke="#9aa5b1" stroke-width="2"/>
+  <line x1="110" y1="135" x2="70" y2="205" stroke="#9aa5b1" stroke-width="2"/>
+  <line x1="110" y1="135" x2="150" y2="205" stroke="#9aa5b1" stroke-width="2"/>
+  <line x1="250" y1="135" x2="290" y2="205" stroke="#9aa5b1" stroke-width="2"/>
+
+  <!-- Nodes -->
+  <!-- Node 1 -->
+  <circle cx="180" cy="85" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
+  <text x="180" y="91.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+
+  <!-- Node 2 -->
+  <circle cx="110" cy="135" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
+  <text x="110" y="141.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
+
+  <!-- Node 3 -->
+  <circle cx="250" cy="135" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
+  <text x="250" y="141.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+
+  <!-- Node 4 -->
+  <circle cx="70" cy="205" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
+  <text x="70" y="211.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
+
+  <!-- Node 5 -->
+  <circle cx="150" cy="205" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
+  <text x="150" y="211.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
+
+  <!-- Node 6 -->
+  <circle cx="290" cy="205" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
+  <text x="290" y="211.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">6</text>
+
+
+  <!-- Right Side: DFS and BFS Traversal Order & Explanations -->
+
+  <!-- DFS Block -->
+  <rect x="340" y="70" width="516" height="170" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+
+  <text x="360" y="104.55" font-size="14" font-weight="bold" fill="#2563eb">DFS(스택/재귀)</text>
+  <text x="475" y="104.55" font-size="14" font-weight="bold" fill="#1f2933">:</text>
+
+  <!-- DFS Sequence -->
+  <g font-size="14" font-weight="bold" text-anchor="middle">
+    <!-- 1 -->
+    <text x="495" y="104.55" fill="#1f2933">1</text>
+    <path d="M 505 100 L 520 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- 2 -->
+    <text x="530" y="104.55" fill="#1f2933">2</text>
+    <path d="M 540 100 L 555 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- 4 -->
+    <text x="565" y="104.55" fill="#1f2933">4</text>
+    <path d="M 575 100 L 590 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- (되돌아감) -->
+    <text x="635" y="104.55" font-size="13" font-weight="normal" fill="#52606d">(되돌아감)</text>
+    <path d="M 675 100 L 690 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- 5 -->
+    <text x="700" y="104.55" fill="#1f2933">5</text>
+    <path d="M 710 100 L 725 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- (되돌아감) -->
+    <text x="770" y="104.55" font-size="13" font-weight="normal" fill="#52606d">(되돌아감)</text>
+    <path d="M 810 100 L 825 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  </g>
+
+  <!-- DFS Sequence Line 2 -->
+  <g font-size="14" font-weight="bold" text-anchor="middle">
+    <text x="495" y="144.55" fill="#1f2933">3</text>
+    <path d="M 505 140 L 520 140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <text x="530" y="144.55" fill="#1f2933">6</text>
+  </g>
+
+  <!-- DFS Explanation -->
+  <text x="495" y="204.05" font-size="13" fill="#52606d">한 갈래를 끝까지 판 다음 되돌아온다</text>
+
+
+  <!-- BFS Block -->
+  <rect x="340" y="270" width="516" height="170" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+
+  <text x="360" y="314.55" font-size="14" font-weight="bold" fill="#059669">BFS(큐)</text>
+  <text x="475" y="314.55" font-size="14" font-weight="bold" fill="#1f2933">:</text>
+
+  <!-- BFS Sequence -->
+  <g font-size="14" font-weight="bold" text-anchor="middle">
+    <!-- 1 -->
+    <text x="495" y="314.55" fill="#1f2933">1</text>
+    <path d="M 505 310 L 520 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 2 -->
+    <text x="530" y="314.55" fill="#1f2933">2</text>
+    <path d="M 540 310 L 555 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 3 -->
+    <text x="565" y="314.55" fill="#1f2933">3</text>
+    <path d="M 575 310 L 590 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 4 -->
+    <text x="600" y="314.55" fill="#1f2933">4</text>
+    <path d="M 610 310 L 625 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 5 -->
+    <text x="635" y="314.55" fill="#1f2933">5</text>
+    <path d="M 645 310 L 660 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 6 -->
+    <text x="670" y="314.55" fill="#1f2933">6</text>
+  </g>
+
+  <!-- BFS Explanation -->
+  <text x="495" y="394.05" font-size="13" fill="#52606d">시작점에서 가까운 순서로 물결처럼 퍼진다</text>
+
+</svg>

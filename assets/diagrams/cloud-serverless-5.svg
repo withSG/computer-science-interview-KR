@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">패턴 C. 이벤트 라우팅 — EventBridge + Lambda</title>
+  <desc id="d">EventBridge가 이벤트 소스로부터 이벤트를 받아 규칙 및 스케줄에 따라 각 Lambda 함수로 라우팅하는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="260" fill="#ffffff"/>
+
+  <!-- Left Box: Event Source -->
+  <rect x="30" y="95" width="220" height="70" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="140" y="134.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">S3 / 애플리케이션 /</text>
+  <text x="140" y="152.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">AWS 서비스 이벤트</text>
+
+  <!-- Arrow: Source -> EventBridge -->
+  <path d="M250,130 L290,130" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Center Box: EventBridge -->
+  <rect x="290" y="100" width="130" height="60" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="355" y="134.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">EventBridge</text>
+
+  <!-- Fork Lines from EventBridge -->
+  <!-- Top Fork (Up) -->
+  <path d="M420,130 L440,130 L440,50 L460,50" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <!-- Middle Fork (Straight) -->
+  <path d="M420,130 L460,130" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+  <!-- Bottom Fork (Down) -->
+  <path d="M420,130 L440,130 L440,210 L460,210" stroke="#d97706" stroke-width="1.5" fill="none"/>
+
+  <!-- Rule 1: Top Line Arrow & Label -->
+  <path d="M440,50 L680,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="452" y="38" width="216" height="24" fill="#ffffff" rx="3" ry="3"/>
+  <text x="560" y="54.55" text-anchor="middle" font-size="12" fill="#2563eb" font-weight="bold">규칙: source=order, type=created</text>
+
+  <!-- Rule 2: Middle Line Arrow & Label -->
+  <path d="M440,130 L680,130" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="462" y="118" width="196" height="24" fill="#ffffff" rx="3" ry="3"/>
+  <text x="560" y="134.55" text-anchor="middle" font-size="12" fill="#7c3aed" font-weight="bold">규칙: detail.amount &gt; 10000</text>
+
+  <!-- Rule 3: Bottom Line Arrow & Label -->
+  <path d="M440,210 L680,210" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="497" y="198" width="126" height="24" fill="#ffffff" rx="3" ry="3"/>
+  <text x="560" y="214.55" text-anchor="middle" font-size="12" fill="#d97706" font-weight="bold">스케줄(cron)</text>
+
+  <!-- Right Box 1: 재고 Lambda -->
+  <rect x="680" y="25" width="150" height="50" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="755" y="54.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">재고 Lambda</text>
+
+  <!-- Right Box 2: 심사 Lambda -->
+  <rect x="680" y="105" width="150" height="50" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="755" y="134.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">심사 Lambda</text>
+
+  <!-- Right Box 3: 야간 배치 Lambda -->
+  <rect x="680" y="185" width="150" height="50" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="755" y="214.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#d97706">야간 배치 Lambda</text>
+</svg>

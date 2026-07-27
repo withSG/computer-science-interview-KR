@@ -34,6 +34,11 @@ m1 == m2;                             // false — 서로 다른 인스턴스
 
 JPA는 이걸 **애플리케이션과 DB 사이에 "작업 공간"을 하나 두는 방식**으로 해결한다. 그 공간이 영속성 컨텍스트다.
 
+<!-- diagram:be-persistence-context-1 -->
+![1. 왜 필요한가](../../assets/diagrams/be-persistence-context-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   애플리케이션 코드
         │
@@ -56,6 +61,7 @@ JPA는 이걸 **애플리케이션과 DB 사이에 "작업 공간"을 하나 두
                     ▼
                   [ DB ]
 ```
+-->
 
 > **비유** — 도서관에서 책을 빌려와 앉는 **개인 열람석**이다. 한 번 가져온 책은 자리에 두고 다시 서고까지 갈 필요가 없고(1차 캐시), 반납할 때 한꺼번에 정리해 돌려준다(쓰기 지연). 책에 붙인 포스트잇은 반납 시점에 사서가 확인한다(변경 감지).
 >
@@ -166,6 +172,11 @@ public void changeName(Long id, String newName) {
 
 원리는 **스냅샷 비교**다.
 
+<!-- diagram:be-persistence-context-2 -->
+![5. 변경 감지](../../assets/diagrams/be-persistence-context-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [ em.find(1L) 호출 시점 ]
 1차 캐시                        스냅샷
@@ -185,6 +196,7 @@ public void changeName(Long id, String newName) {
   영속성 컨텍스트의 모든 엔티티를 순회하며 스냅샷과 비교
   name 이 다름 → UPDATE member SET ... WHERE id = 1  생성
 ```
+-->
 
 여기서 나오는 성질 세 가지를 기억해야 한다.
 
@@ -200,6 +212,11 @@ public void changeName(Long id, String newName) {
 
 두 단어가 자주 섞여 쓰이지만 하는 일이 다르다.
 
+<!-- diagram:be-persistence-context-3 -->
+![6. flush와 commit은 다르다](../../assets/diagrams/be-persistence-context-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 flush()                              commit()
 ─────────────────────────────        ─────────────────────────────
@@ -212,6 +229,7 @@ flush()                              commit()
 1차 캐시는 그대로 유지된다           트랜잭션 종료 →
 (flush는 캐시를 비우는 게 아니다)    영속성 컨텍스트도 닫힌다
 ```
+-->
 
 | | flush | commit |
 |---|---|---|
@@ -248,6 +266,11 @@ String name = member.getName();
 
 프록시는 **엔티티를 상속해서 런타임에 만들어진 가짜 객체**다. 내부에 실제 객체 참조(`target`)를 들고 있는데, 처음에는 비어 있다. 식별자를 제외한 메서드를 호출하는 순간 영속성 컨텍스트에게 "초기화해 달라"고 요청하고, 그때 SELECT가 실행된다.
 
+<!-- diagram:be-persistence-context-4 -->
+![7. 지연 로딩과 프록시](../../assets/diagrams/be-persistence-context-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────┐
 │  Member$HibernateProxy              │  ← Member 를 상속함
@@ -260,6 +283,7 @@ String name = member.getName();
 │                초기화 요청          │
 └─────────────────────────────────────┘
 ```
+-->
 
 `getId()`가 SQL을 부르지 않는 건 프록시를 만들 때 이미 외래키 값으로 식별자를 알고 있기 때문이다. 그래서 "연관 엔티티의 ID만 필요한 경우"는 지연 로딩을 써도 추가 쿼리가 없다.
 
@@ -290,6 +314,11 @@ public String detail(Long id) {
 }
 ```
 
+<!-- diagram:be-persistence-context-5 -->
+![8. LazyInitializationException](../../assets/diagrams/be-persistence-context-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Service]  트랜잭션 시작 → 영속성 컨텍스트 열림
               │
@@ -303,6 +332,7 @@ public String detail(Long id) {
                     └─ "영속성 컨텍스트야, 초기화해줘"
                           → 이미 닫혀 있음 → 예외
 ```
+-->
 
 ### 해결책과 각각의 대가
 

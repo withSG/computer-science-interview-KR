@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">흔한 원인</title>
+  <desc id="d">메모리 누수의 흔한 원인 4가지와 각각의 문제점 및 해결 방법을 보여주는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 1. 캐시 무한 증가 -->
+  <g>
+    <text x="30" y="44" font-size="16" font-weight="bold" fill="#1f2933">1. 캐시 무한 증가</text>
+    <rect x="30" y="56" width="820" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="50" y="89.55" font-size="13" fill="#1f2933">HashMap에 데이터 추가만, 삭제 없음</text>
+    <text x="50" y="117.55" font-size="13" font-weight="bold" fill="#d97706">해결: LRU 캐시, TTL 설정</text>
+  </g>
+
+  <!-- 2. 이벤트 리스너 미해제 -->
+  <g>
+    <text x="30" y="164" font-size="16" font-weight="bold" fill="#1f2933">2. 이벤트 리스너 미해제</text>
+    <rect x="30" y="176" width="820" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="50" y="209.55" font-size="13" fill="#1f2933">등록 후 해제 안함</text>
+    <text x="50" y="237.55" font-size="13" font-weight="bold" fill="#7c3aed">해결: removeListener, WeakReference</text>
+  </g>
+
+  <!-- 3. 스레드 로컬 미정리 -->
+  <g>
+    <text x="30" y="284" font-size="16" font-weight="bold" fill="#1f2933">3. 스레드 로컬 미정리</text>
+    <rect x="30" y="296" width="820" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="50" y="329.55" font-size="13" fill="#1f2933">ThreadLocal 사용 후 remove() 안함</text>
+    <text x="50" y="357.55" font-size="13" font-weight="bold" fill="#dc2626">해결: finally 블록에서 remove()</text>
+  </g>
+
+  <!-- 4. 커넥션 미반환 -->
+  <g>
+    <text x="30" y="404" font-size="16" font-weight="bold" fill="#1f2933">4. 커넥션 미반환</text>
+    <rect x="30" y="416" width="820" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="50" y="449.55" font-size="13" fill="#1f2933">DB/HTTP 커넥션 close() 누락</text>
+    <text x="50" y="477.55" font-size="13" font-weight="bold" fill="#2563eb">해결: try-with-resources 사용</text>
+  </g>
+</svg>

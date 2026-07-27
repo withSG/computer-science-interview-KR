@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">state 파일 — 왜 필요하고 왜 위험한가</title>
+  <desc id="d">사용자가 선언한 것, Terraform이 아는 것, 클라우드의 실제 간의 관계와 state 파일의 역할을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 메인 박스 1: 사용자가 선언한 것 -->
+  <g>
+    <rect x="40" y="50" width="220" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="150" y="32" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">사용자가 선언한 것</text>
+    <text x="150" y="85" font-size="13" fill="#1f2933" text-anchor="middle">main.tf</text>
+    <text x="150" y="115" font-size="13" fill="#1f2933" text-anchor="middle">"EC2 1대 필요"</text>
+    <text x="150" y="210" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">①</text>
+  </g>
+
+  <!-- 메인 박스 2: Terraform이 아는 것 (핵심 강조) -->
+  <g>
+    <rect x="330" y="50" width="220" height="130" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="440" y="32" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">Terraform이 아는 것</text>
+    <text x="440" y="85" font-size="13" fill="#1f2933" font-weight="bold" text-anchor="middle">state 파일</text>
+    <text x="440" y="115" font-size="13" fill="#1f2933" text-anchor="middle">"i-0abc123 이</text>
+    <text x="440" y="138" font-size="13" fill="#1f2933" text-anchor="middle">내가 만든 그것"</text>
+    <text x="440" y="210" font-size="13" fill="#7c3aed" font-weight="bold" text-anchor="middle">②</text>
+  </g>
+
+  <!-- 메인 박스 3: 클라우드의 실제 -->
+  <g>
+    <rect x="620" y="50" width="220" height="130" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="730" y="32" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">클라우드의 실제</text>
+    <text x="730" y="85" font-size="13" fill="#1f2933" text-anchor="middle">실제 리소스</text>
+    <text x="730" y="115" font-size="13" fill="#1f2933" text-anchor="middle">i-0abc123</text>
+    <text x="730" y="210" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">③</text>
+  </g>
+
+  <!-- 양방향 화살표 1 <-> 2 -->
+  <path d="M269,115 L321,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
+
+  <!-- 양방향 화살표 2 <-> 3 -->
+  <path d="M559,115 L611,115" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-start="url(#a-purple)" marker-end="url(#a-purple)"/>
+
+  <!-- 설명 텍스트 구역 -->
+  <g>
+    <rect x="40" y="235" width="800" height="75" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="60" y="263" font-size="12.5" fill="#1f2933">①과 ③만 있으면: 클라우드에 EC2가 5대 있을 때 어느 것이 내가 관리하는 1대인지 모른다.</text>
+    <text x="60" y="291" font-size="12.5" fill="#1f2933">②가 그 연결을 기억한다. 코드의 논리적 이름과 클라우드의 실제 ID를 잇는 장부다.</text>
+  </g>
+</svg>

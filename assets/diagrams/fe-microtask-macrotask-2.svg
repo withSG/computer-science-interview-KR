@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">매크로태스크 큐와 마이크로태스크 큐 동작 규칙</title>
+  <desc id="d">매크로태스크 하나 실행 후 마이크로태스크 큐를 전부 소진하고 렌더링 기회를 갖는 이벤트 루프 사이클 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 매크로태스크 큐 섹션 -->
+  <text x="180" y="38" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">매크로태스크 큐</text>
+  <g transform="translate(60, 50)">
+    <!-- 큐 박스들 -->
+    <rect x="0" y="0" width="80" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="40" y="24" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">T1</text>
+
+    <rect x="80" y="0" width="80" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="120" y="24" font-size="13" fill="#52606d" text-anchor="middle">T2</text>
+
+    <rect x="160" y="0" width="80" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="200" y="24" font-size="13" fill="#52606d" text-anchor="middle">T3</text>
+  </g>
+
+  <!-- 마이크로태스크 큐 섹션 -->
+  <text x="700" y="38" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">마이크로태스크 큐</text>
+  <g transform="translate(580, 50)">
+    <!-- 큐 박스들 -->
+    <rect x="0" y="0" width="80" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="40" y="24" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">m1</text>
+
+    <rect x="80" y="0" width="80" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="120" y="24" font-size="13" fill="#7c3aed" text-anchor="middle">m2</text>
+
+    <rect x="160" y="0" width="80" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="200" y="24" font-size="13" fill="#52606d" text-anchor="middle">...</text>
+  </g>
+
+  <!-- 화살표 및 이동 설명 -->
+  <!-- T1에서 연결되는 화살표 -->
+  <path d="M100,90 L100,168" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="108" y="116" width="56" height="20" fill="#ffffff"/>
+  <text x="110" y="130" font-size="12" font-weight="bold" fill="#2563eb">하나만</text>
+
+  <!-- m1에서 연결되는 화살표 -->
+  <path d="M620,90 L620,168" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="628" y="116" width="42" height="20" fill="#ffffff"/>
+  <text x="630" y="130" font-size="12" font-weight="bold" fill="#7c3aed">전부</text>
+
+  <!-- 실행 및 사이클 박스 -->
+  <rect x="180" y="170" width="520" height="180" fill="#f8fafc" stroke="#1f2933" stroke-width="1.5" rx="4"/>
+
+  <!-- 실행 내용 텍스트 -->
+  <text x="210" y="210" font-size="13.5" fill="#1f2933">T1 실행 → m1 m2 ... 전부 소진</text>
+  <text x="210" y="240" font-size="13" fill="#52606d">(렌더링 기회)</text>
+
+  <text x="210" y="285" font-size="13.5" fill="#1f2933">T2 실행 → 마이크로태스크 전부 소진</text>
+  <text x="210" y="315" font-size="13" fill="#52606d">(렌더링 기회)</text>
+
+  <!-- 사이클 레이블 -->
+  <text x="610" y="210" font-size="13" font-weight="bold" fill="#d97706">← 사이클 1</text>
+  <text x="610" y="285" font-size="13" font-weight="bold" fill="#d97706">← 사이클 2</text>
+</svg>

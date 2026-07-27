@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">자동 생성되는 네트워크</title>
+  <desc id="d">Docker Compose의 자동 생성 네트워크 구조와 포트 노출 여부에 따른 접근성을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 제목 헤딩 -->
+  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">자동 생성되는 네트워크</text>
+
+  <!-- 호스트 영역 (외부 박스) -->
+  <rect x="30" y="65" width="820" height="360" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="93" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">호스트 (내 노트북 / 서버)</text>
+
+  <!-- 브라우저 노드 -->
+  <rect x="50" y="165" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="130" y="190" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">브라우저 :8080</text>
+
+  <!-- 네트워크 영역 (내부 박스) -->
+  <rect x="250" y="115" width="580" height="290" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="540" y="143" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">&lt;프로젝트&gt;_default (브리지 네트워크)</text>
+
+  <!-- 서비스 컨테이너 박스들 -->
+  <!-- backend -->
+  <rect x="280" y="190" width="120" height="40" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="340" y="215" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[backend]</text>
+
+  <!-- redis -->
+  <rect x="670" y="190" width="120" height="40" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="730" y="215" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[redis]</text>
+
+  <!-- mysql -->
+  <rect x="670" y="320" width="120" height="40" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="730" y="345" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[mysql]</text>
+
+  <!-- 화살표 및 경로 라인들 -->
+
+  <!-- 브라우저 :8080 -> [backend] 연결 (호스트에서 네트워크를 건너 들어가는 포트 매핑 통신) -->
+  <path d="M 210 185 L 230 185 L 230 210 L 280 210" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- backend -> redis 연결 -->
+  <!-- 메인 라인 -->
+  <path d="M 340 230 L 340 260 L 670 260" fill="none" stroke="#059669" stroke-width="1.5"/>
+  <!-- redisBranch: L 670 260 -> L 670 210 -->
+  <path d="M 670 260 L 670 210" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
+  <!-- redis 라벨 텍스트 배경 및 텍스트 -->
+  <rect x="495" y="200" width="105" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="547.5" y="214" font-size="11.5" fill="#059669" text-anchor="middle">redis:6379</text>
+
+  <!-- backend -> mysql 연결 -->
+  <!-- mysqlBranch: L 340 260 L 340 340 L 670 340 -->
+  <path d="M 340 260 L 340 340 L 670 340" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
+  <!-- mysql 라벨 텍스트 배경 및 텍스트 -->
+  <rect x="495" y="330" width="105" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="547.5" y="344" font-size="11.5" fill="#059669" text-anchor="middle">mysql:3306</text>
+
+  <!-- 각주 / 설명 화살표 및 텍스트 -->
+  <path d="M 360 435 L 360 412" fill="none" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-amber)"/>
+  <text x="375" y="445" font-size="11.5" fill="#d97706">▲ redis/mysql은 ports를 열지 않았다</text>
+  <text x="387" y="465" font-size="11.5" fill="#52606d">= 호스트나 외부에서 직접 접근 불가</text>
+</svg>

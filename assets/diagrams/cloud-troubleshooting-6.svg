@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">시나리오 2 — Service에 접속이 안 된다</title>
+  <desc id="d">Service 접속 불가 장애의 증상, 진단 단계, 원인 및 즉시/근본 대응 방안을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="880" height="780" fill="#ffffff"/>
+
+  <!-- 메인 제목 (주어진 문서 헤딩) -->
+  <text x="30" y="45" font-size="16" font-weight="bold" fill="#1f2933">시나리오 2 — Service에 접속이 안 된다</text>
+
+  <!-- Section 1: 증상 -->
+  <g>
+    <rect x="30" y="70" width="820" height="60" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <rect x="30" y="70" width="90" height="60" rx="6" fill="#dc2626"/>
+    <!-- rx overlap correction -->
+    <rect x="110" y="70" width="10" height="60" fill="#dc2626"/>
+    <text x="75" y="105" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">증상</text>
+    <text x="140" y="105" font-size="13" font-weight="bold" fill="#1f2933">Pod는 Running인데 Service로 요청하면 연결 거부</text>
+  </g>
+
+  <!-- 연결 화살표 1 -->
+  <path d="M440,130 L440,150" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Section 2: 진단 -->
+  <g>
+    <rect x="30" y="150" width="820" height="235" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="30" y="150" width="90" height="235" rx="6" fill="#2563eb"/>
+    <rect x="110" y="150" width="10" height="235" fill="#2563eb"/>
+    <text x="75" y="272" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">진단</text>
+
+    <!-- Step 1 -->
+    <rect x="140" y="165" width="690" height="60" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="155" y="189" font-size="13" font-weight="bold" fill="#1f2933">① kubectl get endpoints my-service</text>
+    <text x="175" y="212" font-size="13" font-weight="bold" fill="#dc2626">→ ENDPOINTS &lt;none&gt;</text>
+
+    <!-- Step 2 -->
+    <rect x="140" y="237" width="690" height="60" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="155" y="261" font-size="13" font-weight="bold" fill="#1f2933">② kubectl get pods -l app=web</text>
+    <text x="175" y="284" font-size="13" font-weight="bold" fill="#d97706">→ Pod는 있지만 READY 0/1</text>
+
+    <!-- Step 3 -->
+    <rect x="140" y="309" width="690" height="60" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="155" y="333" font-size="13" font-weight="bold" fill="#1f2933">③ kubectl describe pod &lt;pod&gt;</text>
+    <text x="175" y="356" font-size="13" font-weight="bold" fill="#dc2626">→ Readiness probe failed: connection refused</text>
+  </g>
+
+  <!-- 연결 화살표 2 -->
+  <path d="M440,385 L440,405" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Section 3: 원인 -->
+  <g>
+    <rect x="30" y="405" width="820" height="120" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="30" y="405" width="90" height="120" rx="6" fill="#d97706"/>
+    <rect x="110" y="405" width="10" height="120" fill="#d97706"/>
+    <text x="75" y="470" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">원인</text>
+
+    <text x="140" y="442" font-size="13" fill="#1f2933">readiness probe의 포트를 8080으로 적었는데</text>
+    <text x="140" y="470" font-size="13" fill="#1f2933">애플리케이션이 실제로는 3000에서 listen.</text>
+    <text x="140" y="498" font-size="13" fill="#1f2933">Ready가 되지 않으니 엔드포인트에 등록되지 않음.</text>
+  </g>
+
+  <!-- 연결 화살표 3 -->
+  <path d="M440,525 L440,545" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- Section 4: 대응 -->
+  <g>
+    <rect x="30" y="545" width="820" height="205" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <rect x="30" y="545" width="90" height="205" rx="6" fill="#059669"/>
+    <rect x="110" y="545" width="10" height="205" fill="#059669"/>
+    <text x="75" y="652" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">대응</text>
+
+    <!-- 즉시 -->
+    <rect x="140" y="560" width="690" height="60" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="155" y="595" font-size="13" font-weight="bold" fill="#059669">즉시:</text>
+    <text x="195" y="595" font-size="13" fill="#1f2933">probe 포트 수정 후 롤아웃</text>
+
+    <!-- 근본 -->
+    <rect x="140" y="632" width="690" height="103" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="155" y="670" font-size="13" font-weight="bold" fill="#059669">근본:</text>
+    <text x="195" y="670" font-size="13" fill="#1f2933">containerPort / targetPort / probe port가 한 값을 참조하도록</text>
+    <text x="195" y="698" font-size="13" fill="#1f2933">매니페스트 템플릿 정리</text>
+  </g>
+</svg>

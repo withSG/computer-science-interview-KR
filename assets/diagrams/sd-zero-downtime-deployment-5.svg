@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Blue-Green — 통째로 두 벌 만들고 스위치를 넘긴다</title>
+  <desc id="d">Load Balancer에서 Blue(v1) 및 Green(v2)으로의 트래픽 흐름과 전환, 롤백, 정리 절차를 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/>
+    </marker>
+  </defs>
+  <rect width="880" height="460" fill="#ffffff"/>
+
+  <!-- Load Balancer Box -->
+  <rect x="340" y="30" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="59.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Load Balancer</text>
+
+  <!-- Connectors from Load Balancer -->
+  <!-- Left Path to Blue (100%) -->
+  <path d="M440,80 L440,110 L210,110 L210,150" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+  <rect x="290" y="100" width="50" height="20" fill="#ffffff" rx="3"/>
+  <text x="315" y="114.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">100%</text>
+
+  <!-- Right Path to Green (0%) -->
+  <path d="M440,80 L440,110 L610,110 L610,150" fill="none" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-gray)"/>
+  <rect x="540" y="100" width="40" height="20" fill="#ffffff" rx="3"/>
+  <text x="560" y="114.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#52606d">0%</text>
+
+  <!-- Blue Box -->
+  <rect x="100" y="150" width="220" height="130" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="210" y="184.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">Blue (v1)</text>
+  <text x="210" y="214.55" text-anchor="middle" font-size="13" fill="#52606d">현재 운영</text>
+  <text x="210" y="244.55" text-anchor="middle" font-size="13" fill="#2563eb">[■][■][■]</text>
+
+  <!-- Green Box -->
+  <rect x="500" y="150" width="220" height="130" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="610" y="184.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">Green (v2)</text>
+  <text x="610" y="214.55" text-anchor="middle" font-size="13" fill="#52606d">배포 완료</text>
+  <text x="610" y="244.55" text-anchor="middle" font-size="13" fill="#059669">[■][■][■]</text>
+
+  <!-- Annotation next to Green Box -->
+  <text x="735" y="244.55" text-anchor="start" font-size="13" fill="#059669">← 미리 다 띄우고 검증</text>
+
+  <!-- Summary Section Box -->
+  <rect x="100" y="315" width="680" height="115" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <text x="120" y="348.55" font-size="13" fill="#1f2933">
+    <tspan font-weight="bold" fill="#059669">전환:</tspan>  트래픽 100%를 Green으로. 순간적으로 전부 v2.
+  </text>
+  <text x="120" y="378.55" font-size="13" fill="#1f2933">
+    <tspan font-weight="bold" fill="#2563eb">롤백:</tspan>  다시 Blue로. 초 단위.
+  </text>
+  <text x="120" y="408.55" font-size="13" fill="#1f2933">
+    <tspan font-weight="bold" fill="#52606d">정리:</tspan>  안정화 확인 후 Blue 회수.
+  </text>
+</svg>

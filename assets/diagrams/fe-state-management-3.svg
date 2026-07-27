@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Redux 데이터 흐름 다이어그램</title>
+  <desc id="d">Action, Reducer, Store, View 간의 단방향 데이터 흐름과 단일 dispatch 통로를 나타낸 다이어그램입니다.</desc>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 문서 헤딩 (원본 다이어그램이 놓인 위치의 절 제목) -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">Redux는 무엇을 풀려고 나왔나</text>
+
+  <!-- 외곽 테두리 상자 (원본 ASCII의 가장 바깥 테두리) -->
+  <rect x="40" y="70" width="800" height="300" rx="8" ry="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- 순환 루프 경로 (View/Store에서 Action으로 돌아가는 최외곽 연결선) -->
+  <path d="M 640,290 L 800,290 L 800,100 L 70,100 L 70,140" fill="none" stroke="#52606d" stroke-width="1.5" marker-end="url(#a-ink)"/>
+
+  <!-- 노드 1: View (컴포넌트) -->
+  <rect x="130" y="250" width="160" height="80" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="210" y="283" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">View</text>
+  <text x="210" y="306" font-size="13" fill="#52606d" text-anchor="middle">(컴포넌트)</text>
+
+  <!-- 노드 2: Action -->
+  <rect x="130" y="100" width="160" height="80" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="210" y="145" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Action</text>
+
+  <!-- 노드 3: Reducer (순수함수) -->
+  <rect x="480" y="100" width="160" height="80" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="560" y="133" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Reducer</text>
+  <text x="560" y="156" font-size="13" fill="#52606d" text-anchor="middle">(순수함수)</text>
+
+  <!-- 노드 4: Store -->
+  <rect x="480" y="250" width="160" height="80" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="560" y="295" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Store</text>
+
+  <!-- 화살표 1: View -> Action -->
+  <path d="M 210,250 L 210,180" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+
+  <!-- 화살표 2: Action -> Reducer (라벨: dispatch) -->
+  <path d="M 290,140 L 480,140" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <rect x="348" y="127" width="74" height="24" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="385" y="143" font-size="13" fill="#1f2933" text-anchor="middle">dispatch</text>
+
+  <!-- 화살표 3: Reducer -> Store (라벨: 새 state) -->
+  <path d="M 560,180 L 560,250" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
+  <rect x="572" y="202" width="70" height="24" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="607" y="218" font-size="13" fill="#1f2933" text-anchor="middle">새 state</text>
+
+  <!-- 화살표 4: Store -> View (라벨: 구독) -->
+  <path d="M 480,290 L 290,290" fill="none" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <rect x="363" y="278" width="44" height="24" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="385" y="294" font-size="13" fill="#1f2933" text-anchor="middle">구독</text>
+
+  <!-- 하단 원본 설명 텍스트 -->
+  <text x="40" y="410" font-size="13" fill="#1f2933">상태를 바꾸는 유일한 통로는 dispatch 하나다.</text>
+  <text x="40" y="435" font-size="13" fill="#1f2933">그래서 "누가 바꿨나"는 액션 로그만 보면 답이 나온다.</text>
+</svg>

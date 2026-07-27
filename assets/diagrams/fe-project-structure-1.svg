@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 670" width="880" height="670" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">FSD (Feature-Sliced Design)</title>
+  <desc id="d">FSD 방법론의 레이어 구조, 슬라이스 규칙, 세그먼트 구분을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="670" fill="#ffffff"/>
+
+  <!-- 헤더 (문서 헤딩) -->
+  <text x="30" y="42" font-size="16" font-weight="bold" fill="#1f2933">FSD (Feature-Sliced Design)</text>
+
+  <!-- 메인 설명 -->
+  <text x="30" y="80" font-size="14" fill="#52606d">레이어(layer)  ─ 위에서 아래로만 의존할 수 있다</text>
+
+  <!-- Layers (7개 박스 + 화살표) -->
+  <!-- 1. app -->
+  <rect x="30" y="105" width="120" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="90" y="128" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">app</text>
+  <text x="170" y="128" font-size="13" fill="#1f2933">전역 설정, 프로바이더, 라우터</text>
+
+  <path d="M90,141 L90,157" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-arrow)"/>
+
+  <!-- 2. pages -->
+  <rect x="30" y="159" width="120" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="182" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">pages</text>
+  <text x="170" y="182" font-size="13" fill="#1f2933">라우트 단위 화면</text>
+
+  <path d="M90,195 L90,211" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-arrow)"/>
+
+  <!-- 3. widgets -->
+  <rect x="30" y="213" width="120" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="236" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">widgets</text>
+  <text x="170" y="236" font-size="13" fill="#1f2933">여러 기능을 조합한 큰 UI 블록</text>
+
+  <path d="M90,249 L90,265" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-arrow)"/>
+
+  <!-- 4. features -->
+  <rect x="30" y="267" width="120" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="290" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">features</text>
+  <text x="170" y="290" font-size="13" fill="#1f2933">사용자가 하는 행동 하나 (좋아요 누르기, 로그인하기)</text>
+
+  <path d="M90,303 L90,319" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-arrow)"/>
+
+  <!-- 5. entities -->
+  <rect x="30" y="321" width="120" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="344" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">entities</text>
+  <text x="170" y="344" font-size="13" fill="#1f2933">도메인 개체 (User, Product)</text>
+
+  <path d="M90,357 L90,373" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-arrow)"/>
+
+  <!-- 6. shared -->
+  <rect x="30" y="375" width="120" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="398" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">shared</text>
+  <text x="170" y="398" font-size="13" fill="#1f2933">도메인을 모르는 공통 코드 (UI 키트, 유틸)</text>
+
+  <!-- 구분선 -->
+  <line x1="30" y1="440" x2="850" y2="440" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Slice 카드 영역 -->
+  <rect x="30" y="465" width="820" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="50" y="495" font-size="14" font-weight="bold" fill="#d97706">슬라이스(slice)</text>
+  <text x="160" y="495" font-size="13" fill="#1f2933">─ 레이어 안의 도메인 구분 (features/auth, features/cart)</text>
+  <text x="160" y="525" font-size="13" fill="#dc2626" font-weight="bold">같은 레이어의 다른 슬라이스는 서로 import 금지</text>
+
+  <!-- Segment 카드 영역 -->
+  <rect x="30" y="565" width="820" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="50" y="600" font-size="14" font-weight="bold" fill="#7c3aed">세그먼트(segment)</text>
+  <text x="185" y="600" font-size="13" fill="#1f2933">─ 슬라이스 안의 기술 구분 (ui, model, api, lib)</text>
+</svg>

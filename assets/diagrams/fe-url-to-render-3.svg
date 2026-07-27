@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">캐시 계층을 왜 이렇게 많이 두나</title>
+  <desc id="d">브라우저 캐시, OS 캐시, 라우터 캐시, ISP 재귀 리졸버를 거쳐 Root, TLD, 권한 있는 네임서버로 이어지는 DNS 캐시 및 조회 계층 구조 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- 구역 배경 및 범례 영역 -->
+  <rect x="24" y="20" width="832" height="490" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
+  
+  <!-- Title / Header -->
+  <text x="44" y="55" font-size="16" font-weight="bold" fill="#1f2933">### 캐시 계층을 왜 이렇게 많이 두나</text>
+
+  <!-- Legend -->
+  <rect x="620" y="38" width="216" height="32" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+  <rect x="632" y="50" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="650" y="60.7" font-size="11.5" fill="#52606d">캐시 계층 (로컬/중계)</text>
+  <rect x="750" y="50" width="12" height="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="768" y="60.7" font-size="11.5" fill="#52606d">실제 DNS 조회</text>
+
+  <!-- 1. 브라우저 캐시 -->
+  <rect x="44" y="85" width="220" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="154" y="111.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">브라우저 캐시</text>
+
+  <path d="M264,107 L330,107" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <text x="335" y="111.0" font-size="13" fill="#1f2933">─ 있으면 종료 (0 RTT, 가장 빠름)</text>
+
+  <!-- Down arrow 1 -->
+  <path d="M154,129 L154,169" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="162" y="140" width="34" height="18" fill="#ffffff"/>
+  <text x="164" y="153.0" font-size="11.5" fill="#52606d">miss</text>
+
+  <!-- 2. OS 캐시/hosts -->
+  <rect x="44" y="170" width="220" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="154" y="196.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">OS 캐시/hosts</text>
+
+  <path d="M264,192 L330,192" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <text x="335" y="196.0" font-size="13" fill="#1f2933">─ 운영체제 리졸버 캐시</text>
+
+  <!-- Down arrow 2 -->
+  <path d="M154,214 L154,254" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="162" y="225" width="34" height="18" fill="#ffffff"/>
+  <text x="164" y="238.0" font-size="11.5" fill="#52606d">miss</text>
+
+  <!-- 3. 라우터 캐시 -->
+  <rect x="44" y="255" width="220" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="154" y="281.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">라우터 캐시</text>
+
+  <path d="M264,277 L330,277" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <text x="335" y="281.0" font-size="13" fill="#1f2933">─ 가정/사내 공유기</text>
+
+  <!-- Down arrow 3 -->
+  <path d="M154,299 L154,339" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="162" y="310" width="34" height="18" fill="#ffffff"/>
+  <text x="164" y="323.0" font-size="11.5" fill="#52606d">miss</text>
+
+  <!-- 4. ISP 재귀 리졸버 -->
+  <rect x="44" y="340" width="220" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="154" y="366.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">ISP 재귀 리졸버</text>
+
+  <path d="M264,362 L330,362" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <text x="335" y="366.0" font-size="13" fill="#1f2933">─ 여기서부터 실제 "조회"가 시작된다</text>
+
+  <!-- Branching lines from ISP Resolver -->
+  <!-- Vertical trunk line down -->
+  <path d="M154,384 L154,482" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <rect x="162" y="388" width="34" height="18" fill="#ffffff"/>
+  <text x="164" y="401.0" font-size="11.5" fill="#52606d">miss</text>
+
+  <!-- Branch 1: Root 서버 -->
+  <path d="M154,412 L220,412" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="220" y="392" width="140" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="290" y="416.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Root 서버</text>
+  <text x="370" y="416.0" font-size="13" fill="#1f2933">"com은 저기서 물어봐"</text>
+
+  <!-- Branch 2: TLD 서버(.com) -->
+  <path d="M154,447 L220,447" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="220" y="427" width="140" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="290" y="451.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">TLD 서버(.com)</text>
+  <text x="370" y="451.0" font-size="13" fill="#1f2933">"example.com은 저 네임서버가 안다"</text>
+
+  <!-- Branch 3: 권한 있는 네임서버 -->
+  <path d="M154,482 L220,482" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="220" y="462" width="160" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="300" y="486.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">권한 있는 네임서버</text>
+  <path d="M380,482 L398,482" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="405" y="486.0" font-size="13" font-weight="bold" fill="#059669">최종 IP 응답</text>
+</svg>

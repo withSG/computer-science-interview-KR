@@ -42,6 +42,11 @@ u.toFixed(2);      // User인데 통과
 
 A는 로직이 똑같은 함수를 계속 복제해야 하고, B는 타입 검사를 포기한다. 문제의 본질은 **입력 타입과 출력 타입 사이의 관계가 끊어졌다**는 데 있다.
 
+<!-- diagram:fe-generics-utility-types-1 -->
+![선택지가 둘뿐이던 시절](../../assets/diagrams/fe-generics-utility-types-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [any 방식]                          [제네릭 방식]
 
@@ -55,6 +60,7 @@ A는 로직이 똑같은 함수를 계속 복제해야 하고, B는 타입 검�
           ▼                                   ▼
         any  ← 무엇이든 될 수 있음      User | undefined
 ```
+-->
 
 ### 제네릭은 "타입을 나중에 정하겠다"는 선언
 
@@ -272,6 +278,11 @@ function applyConfig(c: Config) { /* ... */ }
 
 설정 객체를 하나 만들어두면 타입은 자동으로 따라온다. 값과 타입이 어긋날 일이 구조적으로 없어진다.
 
+<!-- diagram:fe-generics-utility-types-2 -->
+![`typeof`](../../assets/diagrams/fe-generics-utility-types-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 값의 세계                      타입의 세계
 ─────────────                 ─────────────
@@ -285,6 +296,7 @@ const defaultConfig  ──typeof──▶  Config
                                      ▼
                               number | string | boolean
 ```
+-->
 
 값의 세계에서 타입의 세계로 건너오는 통로가 `typeof`라는 점만 기억하면 헷갈리지 않는다. (클래스 이름처럼 값과 타입을 동시에 만드는 선언도 있지만, 일반 값에서 타입을 꺼내는 수단은 `typeof`다.)
 
@@ -317,6 +329,11 @@ type R = NoString<string | number | boolean>;
 
 타입 파라미터가 조건부 타입의 왼쪽에 **벌거벗은 채로**(다른 타입으로 감싸이지 않고) 놓이면, 유니온의 각 멤버에 조건이 **따로따로** 적용된 뒤 결과가 다시 유니온으로 합쳐진다. 이걸 **분배 조건부 타입(distributive conditional type)**이라고 한다.
 
+<!-- diagram:fe-generics-utility-types-3 -->
+![유니온에 적용하면 분배된다](../../assets/diagrams/fe-generics-utility-types-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 NoString<string | number | boolean>
   ↓ 분배
@@ -326,6 +343,7 @@ NoString<string | number | boolean>
   ↓ 합침 (never는 유니온에서 사라진다)
 number | boolean
 ```
+-->
 
 분배를 원하지 않으면 대괄호로 감싸 벌거벗은 상태를 푼다.
 
@@ -377,6 +395,11 @@ type Optional<T> = {
 
 `[K in keyof T]`는 "`T`의 모든 키를 순회하며"라는 뜻이다. `for...in`의 타입 버전이라고 보면 된다.
 
+<!-- diagram:fe-generics-utility-types-4 -->
+![기존 타입의 모든 속성을 돌면서 변형하기](../../assets/diagrams/fe-generics-utility-types-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
        User                        Optional<User>
  ┌──────────────────┐        ┌──────────────────────┐
@@ -386,6 +409,7 @@ type Optional<T> = {
  └──────────────────┘   에 ? └──────────────────────┘
                         추가
 ```
+-->
 
 ### 수정자 추가와 제거
 

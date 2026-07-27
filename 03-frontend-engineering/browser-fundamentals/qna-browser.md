@@ -14,6 +14,11 @@
 
 ### 핵심 답변
 
+<!-- diagram:fe-qna-browser-1 -->
+![핵심 답변](../../assets/diagrams/fe-qna-browser-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. URL 파싱 → 프로토콜, 도메인, 경로 분리
 2. DNS 조회 → 도메인을 IP 주소로 변환
@@ -22,6 +27,7 @@
 5. 응답 수신 → HTML, CSS, JS 등
 6. 브라우저 렌더링 → CRP 시작
 ```
+-->
 
 ### 상세 과정
 
@@ -42,6 +48,11 @@ Client → ACK → Server
 **4단계: HTTP 요청/응답**
 
 **5단계: 브라우저 렌더링 (CRP)**
+<!-- diagram:fe-qna-browser-2 -->
+![상세 과정](../../assets/diagrams/fe-qna-browser-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 HTML 파싱 → DOM
 CSS 파싱 → CSSOM
@@ -54,6 +65,7 @@ CSS 파싱 → CSSOM
        ↓
    Composite
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 전체 흐름을 체계적으로 설명하는지
@@ -79,6 +91,11 @@ CRP는 브라우저가 HTML, CSS, JavaScript를 화면에 픽셀로 변환하는
 
 ### CRP 단계
 
+<!-- diagram:fe-qna-browser-3 -->
+![CRP 단계](../../assets/diagrams/fe-qna-browser-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │  HTML 파싱                                          │
@@ -96,6 +113,7 @@ CRP는 브라우저가 HTML, CSS, JavaScript를 화면에 픽셀로 변환하는
 │  Composite - 레이어 합성                             │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 렌더링 차단 리소스
 
@@ -214,6 +232,11 @@ for (let i = 0; i < items.length; i++) {
 
 ### 렌더링 파이프라인
 
+<!-- diagram:fe-qna-browser-4 -->
+![렌더링 파이프라인](../../assets/diagrams/fe-qna-browser-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 일반 속성 변경:
   Layout → Paint → Composite (모든 단계 실행)
@@ -221,6 +244,7 @@ for (let i = 0; i < items.length; i++) {
 transform/opacity 변경:
   Composite만 (GPU에서 처리)
 ```
+-->
 
 ### GPU 가속 속성
 
@@ -309,6 +333,11 @@ for (let i = 0; i < 1000; i++) {
 
 ### Virtual DOM 동작 원리
 
+<!-- diagram:fe-qna-browser-5 -->
+![Virtual DOM 동작 원리](../../assets/diagrams/fe-qna-browser-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 상태 변경 발생
        ↓
@@ -320,6 +349,7 @@ for (let i = 0; i < 1000; i++) {
        ↓
 5. 배치로 한 번에 업데이트
 ```
+-->
 
 ### Virtual DOM이 항상 빠른 것은 아님
 - 단순한 변경에는 직접 DOM 조작이 더 빠를 수 있음
@@ -433,6 +463,11 @@ Same-Origin Policy 보안 정책으로 인해 다른 출처의 요청이 차단�
 1. **Simple Request**: GET/POST + 안전한 헤더 → 직접 요청, 서버에서 Access-Control-Allow-Origin 반환
 2. **Preflight Request**: PUT/DELETE, 커스텀 헤더 → OPTIONS 메서드로 사전 확인 후 실제 요청
 
+<!-- diagram:fe-qna-browser-6 -->
+![동작 과정](../../assets/diagrams/fe-qna-browser-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client                    Server
   │ OPTIONS /api ──────►  │
@@ -440,6 +475,7 @@ Client                    Server
   │ POST /api ──────────► │
   │ ◄─ 200 response ────  │
 ```
+-->
 
 ### 해결 방법
 - 서버에서 `Access-Control-Allow-Origin` 헤더 설정

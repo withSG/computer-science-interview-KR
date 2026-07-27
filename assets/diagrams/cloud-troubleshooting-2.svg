@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 590" width="880" height="590" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">진단의 기본 순서</title>
+  <desc id="d">쿠버네티스 장애 발생 시 수행하는 5단계 진단 순서 및 설명 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="590" fill="#ffffff"/>
+
+  <!-- Step 1 -->
+  <g>
+    <rect x="50" y="30" width="780" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="65" y="45" width="230" height="50" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="75" font-size="13" font-weight="bold" fill="#1f2933">① kubectl get pods -o wide</text>
+    <text x="315" y="75" font-size="13" fill="#1f2933">"무엇이 이상한가" — 상태, RESTARTS, 어느 노드에 있나</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M440,110 L440,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2 -->
+  <g>
+    <rect x="50" y="140" width="780" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <rect x="65" y="155" width="230" height="50" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="185" font-size="13" font-weight="bold" fill="#1f2933">② kubectl describe pod &lt;pod&gt;</text>
+    <text x="315" y="185" font-size="13" fill="#1f2933">"쿠버네티스는 뭘 하려 했나" — Events, Last State, Exit Code, 마운트 정보</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M440,220 L440,248" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 -->
+  <g>
+    <rect x="50" y="250" width="780" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="65" y="265" width="280" height="50" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="295" font-size="13" font-weight="bold" fill="#1f2933">③ kubectl logs &lt;pod&gt; [--previous]</text>
+    <text x="360" y="295" font-size="13" fill="#1f2933">"애플리케이션은 뭐라 했나" — 스택트레이스, 기동 로그</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M440,330 L440,358" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 4 -->
+  <g>
+    <rect x="50" y="360" width="780" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <rect x="65" y="375" width="360" height="50" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="405" font-size="13" font-weight="bold" fill="#1f2933">④ kubectl get events --sort-by=.lastTimestamp</text>
+    <text x="440" y="405" font-size="13" fill="#1f2933">"주변에서 무슨 일이 있었나" — 노드 이벤트, 축출, 스케줄 실패</text>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M440,440 L440,468" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5 -->
+  <g>
+    <rect x="50" y="470" width="780" height="80" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <rect x="65" y="485" width="250" height="50" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="515" font-size="13" font-weight="bold" fill="#1f2933">⑤ kubectl exec -it &lt;pod&gt; -- sh</text>
+    <text x="330" y="515" font-size="13" fill="#1f2933">"안에서 직접 확인" — DNS, 환경변수, 파일, 네트워크 도달성</text>
+  </g>
+</svg>

@@ -54,6 +54,11 @@ BFF는 **프론트엔드를 위한 전용 백엔드 레이어**입니다. 여러
 | 데이터 집계 | 프론트에서 여러 API 호출 | BFF에서 집계 후 단일 응답 |
 | API 결합도 | 프론트가 내부 구조에 의존 | 프론트는 BFF만 바라봄 |
 
+<!-- diagram:fe-qna-frontend-architecture-1 -->
+![BFF 도입 효과](../../assets/diagrams/fe-qna-frontend-architecture-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [프론트엔드]
      ↓
@@ -61,6 +66,7 @@ BFF는 **프론트엔드를 위한 전용 백엔드 레이어**입니다. 여러
     ↙  ↓  ↘
 [서비스A] [서비스B] [서비스C]
 ```
+-->
 
 ### BFF 장단점
 
@@ -285,6 +291,11 @@ function calculateDiscount(price: number, rate: number): number {
 
 ### 레이어 구조
 
+<!-- diagram:fe-qna-frontend-architecture-2 -->
+![레이어 구조](../../assets/diagrams/fe-qna-frontend-architecture-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [UI Layer]              → 컴포넌트, JSX
       ↓ (의존)
@@ -292,6 +303,7 @@ function calculateDiscount(price: number, rate: number): number {
       ↓ (의존)
 [Data Access Layer]     → API 호출 함수, React Query
 ```
+-->
 
 ### 단방향 의존성의 장점
 

@@ -41,6 +41,11 @@ IP는 "최대한 보내본다"까지만 한다. 라우터 버퍼가 넘치면 �
 
 ## 2. 연결 수립 — 3-way 핸드셰이크
 
+<!-- diagram:cs-tcp-udp-1 -->
+![2. 연결 수립](../../assets/diagrams/cs-tcp-udp-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client                                        Server
   │  CLOSED                                      LISTEN
@@ -55,6 +60,7 @@ Client                                        Server
   │                                                │
   │ ◄══════════ 데이터 송수신 ══════════════════════►│
 ```
+-->
 
 ### 왜 3번인가
 
@@ -83,6 +89,11 @@ Client                                        Server
 
 ## 3. 연결 종료 — 4-way 핸드셰이크
 
+<!-- diagram:cs-tcp-udp-2 -->
+![3. 연결 종료](../../assets/diagrams/cs-tcp-udp-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client (먼저 닫는 쪽)                          Server
   │  ESTABLISHED                                ESTABLISHED
@@ -101,6 +112,7 @@ Client (먼저 닫는 쪽)                          Server
   │  TIME_WAIT                                     │  CLOSED
   │   └─ 2MSL 대기 후 ─► CLOSED
 ```
+-->
 
 ### 왜 3단계가 아니라 4단계인가
 
@@ -168,6 +180,11 @@ netstat -ano -p tcp
 해결은 단순하다. **수신 측이 자기 버퍼 여유를 매 ACK에 실어 알려준다.**
 TCP 헤더의 Window 필드가 그 값이고, 이를 수신 윈도우(rwnd)라 한다.
 
+<!-- diagram:cs-tcp-udp-3 -->
+![5. 흐름 제어](../../assets/diagrams/cs-tcp-udp-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 송신 측이 보는 바이트 스트림
 
@@ -184,6 +201,7 @@ ACK(8번까지 수신) 도착 → 윈도우가 오른쪽으로 미끄러진다
 └────────────────────┴──────────────────┴──────────────┴────────
                       └──────── 윈도우 ──────────────┘
 ```
+-->
 
 이것이 **슬라이딩 윈도우(Sliding Window)** 다. 핵심은 ACK를 하나 기다렸다 하나 보내는
 Stop-and-Wait과 달리 **윈도우 크기만큼 미리 보내 놓는다**는 것이다.
@@ -248,6 +266,11 @@ Update가 유실돼도 결국 복구된다.
 "2번 주세요"라는 **같은 ACK를 반복**해서 보낸다. 송신 측은 이 중복 ACK를 3번 받으면
 타임아웃을 기다리지 않고 즉시 2번을 재전송한다.
 
+<!-- diagram:cs-tcp-udp-4 -->
+![Fast Retransmit / Fast Recovery](../../assets/diagrams/cs-tcp-udp-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client                     Server
   ├── seg1 ────────────────►  ACK(2번 주세요)
@@ -258,6 +281,7 @@ Client                     Server
   │                            ↑ 3번째 중복 ACK 수신
   ├── seg2 재전송 ──────────►  ACK(6번 주세요)  ← 밀린 것까지 한 번에 확인
 ```
+-->
 
 **Fast Recovery** — 중복 ACK가 온다는 건 뒤 패킷들은 잘 도착하고 있다는 뜻이다.
 망이 완전히 막힌 게 아니므로 cwnd를 1로 리셋하지 않는다. ssthresh를 현재 cwnd의 절반으로 잡고

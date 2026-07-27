@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">주기와 임계값은 감으로 정하지 않는다</title>
+  <desc id="d">나쁜 설정과 무난한 설정에서 GC 발생 시 서버가 트래픽에서 제외되는지 여부를 비교하는 타임라인 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="580" fill="#ffffff"/>
+
+  <!-- 메인 제목 -->
+  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">주기와 임계값은 감으로 정하지 않는다</text>
+
+  <!-- ==================== 구역 1: 나쁜 설정 ==================== -->
+  <rect x="24" y="60" width="832" height="230" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="44" y="90" font-size="14" font-weight="bold" fill="#dc2626">[임계값 1회, 주기 1초]</text>
+  <text x="210" y="90" font-size="13" font-weight="bold" fill="#dc2626">← 나쁜 설정</text>
+
+  <!-- 시퀀스/타임라인 항목 1 -->
+  <text x="44" y="130" font-size="13" font-weight="bold" fill="#1f2933">0초</text>
+  <text x="80" y="130" font-size="13" fill="#1f2933">GC 시작</text>
+  
+  <path d="M140,126 L162,126" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="170" y="130" font-size="13" fill="#dc2626">헬스체크 실패</text>
+
+  <path d="M268,126 L290,126" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="298" y="130" font-size="13" font-weight="bold" fill="#dc2626">즉시 제외</text>
+
+  <!-- 시퀀스/타임라인 항목 2 -->
+  <text x="44" y="170" font-size="13" font-weight="bold" fill="#1f2933">2초</text>
+  <text x="80" y="170" font-size="13" fill="#1f2933">GC 끝, 서버는 완전히 정상인데 이미 트래픽에서 빠짐</text>
+
+  <!-- 결과 설명 -->
+  <path d="M44,216 L60,216" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="68" y="220" font-size="13" fill="#dc2626">남은 서버로 부하가 몰림</text>
+
+  <path d="M232,216 L248,216" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="256" y="220" font-size="13" fill="#dc2626">그 서버도 GC</text>
+
+  <path d="M352,216 L368,216" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="376" y="220" font-size="13" font-weight="bold" fill="#dc2626">연쇄적으로 전부 빠짐</text>
+
+
+  <!-- ==================== 구역 2: 무난한 설정 ==================== -->
+  <rect x="24" y="310" width="832" height="230" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="44" y="340" font-size="14" font-weight="bold" fill="#059669">[임계값 3회, 주기 5초]</text>
+  <text x="210" y="340" font-size="13" font-weight="bold" fill="#059669">← 무난한 설정</text>
+
+  <!-- 시퀀스/타임라인 항목 1 -->
+  <text x="44" y="380" font-size="13" font-weight="bold" fill="#1f2933">0초</text>
+  <text x="80" y="380" font-size="13" fill="#1f2933">실패 (GC 중)</text>
+
+  <path d="M172,376 L194,376" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="202" y="380" font-size="13" fill="#1f2933">1회</text>
+
+  <!-- 시퀀스/타임라인 항목 2 -->
+  <text x="44" y="420" font-size="13" font-weight="bold" fill="#1f2933">5초</text>
+  <text x="80" y="420" font-size="13" fill="#1f2933">성공 (GC 끝)</text>
+
+  <path d="M172,416 L194,416" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="202" y="420" font-size="13" fill="#1f2933">카운트 리셋</text>
+
+  <!-- 결과 설명 -->
+  <path d="M44,466 L60,466" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="68" y="470" font-size="13" font-weight="bold" fill="#059669">제외되지 않음</text>
+</svg>

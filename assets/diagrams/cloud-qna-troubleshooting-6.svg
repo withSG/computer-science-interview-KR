@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">대응 프로세스</title>
+  <desc id="d">배포 후 장애 발생 시 대응 프로세스 (롤백, 상황 전파, 롤백 실행, 원인 분석, Postmortem 작성)</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="730" fill="#ffffff"/>
+
+  <!-- Title Section -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">대응 프로세스</text>
+
+  <!-- Step 1 (Highlight/Urgent - Red Accent) -->
+  <g>
+    <rect x="190" y="70" width="500" height="90" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="210" y="105" font-size="14" font-weight="bold" fill="#dc2626">1. 롤백 먼저! (원인 분석은 나중)</text>
+    <text x="230" y="137" font-size="13" fill="#52606d">"서비스 복구가 최우선"</text>
+  </g>
+
+  <!-- Connector 1 -> 2 -->
+  <path d="M440,160 L440,200" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="410" y="171" width="60" height="18" fill="#ffffff"/>
+  <text x="440" y="184" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">5분 이내</text>
+
+  <!-- Step 2 -->
+  <g>
+    <rect x="190" y="200" width="500" height="100" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="210" y="235" font-size="14" font-weight="bold" fill="#1f2933">2. 상황 전파</text>
+    <text x="230" y="263" font-size="13" fill="#52606d">- Slack 장애 채널 알림</text>
+    <text x="230" y="285" font-size="13" fill="#52606d">- 관련자 소집</text>
+  </g>
+
+  <!-- Connector 2 -> 3 -->
+  <path d="M440,300 L440,330" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 -->
+  <g>
+    <rect x="190" y="330" width="500" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="210" y="365" font-size="14" font-weight="bold" fill="#1f2933">3. 롤백 실행</text>
+    <text x="230" y="393" font-size="13" fill="#52606d">- kubectl rollout undo</text>
+    <text x="230" y="415" font-size="13" fill="#52606d">- 이전 이미지 태그로 재배포</text>
+  </g>
+
+  <!-- Connector 3 -> 4 -->
+  <path d="M440,430 L440,470" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="405" y="441" width="70" height="18" fill="#ffffff"/>
+  <text x="440" y="454" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">복구 확인</text>
+
+  <!-- Step 4 -->
+  <g>
+    <rect x="190" y="470" width="500" height="110" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="210" y="502" font-size="14" font-weight="bold" fill="#1f2933">4. 원인 분석 (사후)</text>
+    <text x="230" y="528" font-size="13" fill="#52606d">- 로그/메트릭 분석</text>
+    <text x="230" y="550" font-size="13" fill="#52606d">- 변경사항 리뷰</text>
+    <text x="230" y="572" font-size="13" fill="#52606d">- 재현 테스트</text>
+  </g>
+
+  <!-- Connector 4 -> 5 -->
+  <path d="M440,580 L440,610" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5 -->
+  <g>
+    <rect x="190" y="610" width="500" height="100" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="210" y="645" font-size="14" font-weight="bold" fill="#1f2933">5. Postmortem 작성</text>
+    <text x="230" y="673" font-size="13" fill="#52606d">- 타임라인 정리</text>
+    <text x="230" y="695" font-size="13" fill="#52606d">- 재발 방지 Action Items</text>
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 존재하나 - OOM Killer 발동 과정</title>
+  <desc id="d">메모리 압박 상황에서 커널의 처리 단계와 OOM Killer 발동 과정을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Root Step -->
+  <rect x="250" y="30" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="330" y="54" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">메모리 압박</text>
+
+  <!-- Branch lines from Root -->
+  <path d="M330,70 L330,220" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+
+  <!-- Branch 1: 캐시 회수 시도 -->
+  <path d="M330,100 L370,100" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="370" y="80" width="160" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="450" y="104" font-size="13" fill="#1f2933" text-anchor="middle">캐시 회수 시도</text>
+
+  <!-- Branch 2: 스왑으로 페이지 밀어내기 -->
+  <path d="M330,160 L370,160" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="370" y="140" width="220" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="480" y="164" font-size="13" fill="#1f2933" text-anchor="middle">스왑으로 페이지 밀어내기</text>
+
+  <!-- Arrow & Annotation on Branch 2 -->
+  <path d="M590,160 L620,160" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="628" y="148" width="215" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="735" y="164" font-size="11.5" fill="#d97706" text-anchor="middle">여기서 이미 응답 시간 붕괴</text>
+
+  <!-- Branch 3: 그래도 부족 -->
+  <path d="M330,220 L370,220" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="370" y="200" width="160" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="450" y="224" font-size="13" fill="#1f2933" text-anchor="middle">그래도 부족</text>
+
+  <!-- Line down from 그래도 부족 -->
+  <path d="M450,240 L450,280 L480,280" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Target Step: OOM Killer 발동 & Details Box -->
+  <rect x="490" y="250" width="360" height="210" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+
+  <text x="510" y="285" font-size="16" font-weight="bold" fill="#dc2626">OOM Killer 발동</text>
+
+  <circle cx="515" cy="325" r="3" fill="#dc2626"/>
+  <text x="528" y="329" font-size="13" fill="#1f2933">oom_score가 가장 높은 프로세스 선택</text>
+  <text x="528" y="354" font-size="11.5" fill="#52606d">(대체로 메모리를 가장 많이 쓰는 프로세스)</text>
+
+  <circle cx="515" cy="405" r="3" fill="#dc2626"/>
+  <text x="528" y="409" font-size="13" font-weight="bold" fill="#dc2626">SIGKILL</text>
+  <text x="585" y="409" font-size="13" fill="#1f2933">— 정리 작업 없이 즉시 종료</text>
+</svg>

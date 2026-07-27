@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">진단 순서</title>
+  <desc id="d">서버 응답이 느려졌을 때 진단하는 4단계 순서를 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="770" fill="#ffffff"/>
+
+  <!-- Step 1 -->
+  <rect x="40" y="30" width="800" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="65" font-size="16" font-weight="bold" fill="#1f2933">1. 현상 파악</text>
+  <text x="80" y="95" font-size="13" fill="#52606d">- 어떤 요청이 느린지? (전체? 특정 API?)</text>
+  <text x="80" y="120" font-size="13" fill="#52606d">- 언제부터? 갑자기? 점진적?</text>
+  <text x="80" y="145" font-size="13" fill="#52606d">- 영향 범위는?</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M440,160 L440,205" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2 -->
+  <rect x="40" y="210" width="800" height="155" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="245" font-size="16" font-weight="bold" fill="#1f2933">2. 시스템 리소스 확인</text>
+  <text x="80" y="275" font-size="13" fill="#52606d">- CPU: top, htop</text>
+  <text x="80" y="300" font-size="13" fill="#52606d">- Memory: free -h</text>
+  <text x="80" y="325" font-size="13" fill="#52606d">- Disk: df -h, iostat</text>
+  <text x="80" y="350" font-size="13" fill="#52606d">- Network: netstat, ss</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M440,365 L440,410" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 -->
+  <rect x="40" y="415" width="800" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="450" font-size="16" font-weight="bold" fill="#1f2933">3. 애플리케이션 레벨</text>
+  <text x="80" y="480" font-size="13" fill="#52606d">- 로그 확인 (에러, 슬로우 로그)</text>
+  <text x="80" y="505" font-size="13" fill="#52606d">- 연결 풀 상태 (DB, Redis)</text>
+  <text x="80" y="530" font-size="13" fill="#52606d">- 스레드/프로세스 수</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M440,545 L440,590" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 4 -->
+  <rect x="40" y="595" width="800" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="630" font-size="16" font-weight="bold" fill="#1f2933">4. 외부 의존성</text>
+  <text x="80" y="660" font-size="13" fill="#52606d">- DB 쿼리 성능</text>
+  <text x="80" y="685" font-size="13" fill="#52606d">- 외부 API 응답 시간</text>
+  <text x="80" y="710" font-size="13" fill="#52606d">- 캐시 히트율</text>
+</svg>

@@ -26,6 +26,11 @@
 
 서비스를 쪼개는 순간 이 능력이 사라진다.
 
+<!-- diagram:cloud-distributed-tracing-1 -->
+![1. 왜 필요한가](../../assets/diagrams/cloud-distributed-tracing-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 사용자 ──▶ Gateway ──▶ order ──▶ inventory ──▶ pricing
                           ├──▶ payment ──▶ 외부 PG
@@ -35,6 +40,7 @@
      order 팀 "우리는 40ms"  /  inventory 팀 "15ms"  /  payment 팀 "60ms"
      ...  그런데 사용자는 2.8초를 기다렸다
 ```
+-->
 
 각 팀의 말이 다 사실이어도 사용자 경험은 2.8초다. 어떤 호출은 순차로 쌓였고, 어떤 구간은 큐에서
 대기했고, 어떤 재시도는 로그에 안 남았다. **각 서비스의 평균 지연을 모아도 요청 하나의 지연은
@@ -77,6 +83,11 @@
 
 ### 워터폴로 읽기
 
+<!-- diagram:cloud-distributed-tracing-2 -->
+![워터폴로 읽기](../../assets/diagrams/cloud-distributed-tracing-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 0ms                        1000ms                      2000ms        2800ms
 │                            │                            │             │
@@ -90,6 +101,7 @@
 │                                                                   ▲
 │                                                        여기서 2.65초
 ```
+-->
 
 이 그림에서 읽어야 할 것은 세 가지다.
 
@@ -122,6 +134,11 @@
 과거에는 Zipkin의 B3, 각 APM 벤더의 독자 헤더가 난립했다. 서비스마다 다른 라이브러리를 쓰면
 트레이스가 경계에서 끊겼다. W3C가 이를 표준화한 것이 Trace Context다.
 
+<!-- diagram:cloud-distributed-tracing-3 -->
+![traceparent 헤더](../../assets/diagrams/cloud-distributed-tracing-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
              │  │                                │                │
@@ -134,6 +151,7 @@ traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 
 tracestate: vendorA=abc,vendorB=def     ← 벤더별 부가 정보
 ```
+-->
 
 전파 규칙은 단순하다. **요청을 받으면 `traceparent`를 파싱해서 `trace_id`는 그대로 유지하고,
 자기 스팬을 만들 때 그 `parent-id`를 부모로 삼는다. 다음 서비스로 나갈 때는 `parent-id`를
@@ -193,11 +211,17 @@ Span span = tracer.spanBuilder("process-order")
 **요청이 시작되는 시점에** 수집 여부를 결정한다. 결정 결과는 `traceparent`의 샘플링 비트로
 전파되어 모든 서비스가 따른다.
 
+<!-- diagram:cloud-distributed-tracing-4 -->
+![Head 샘플링](../../assets/diagrams/cloud-distributed-tracing-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Gateway: 난수를 뽑아 1% 안에 들면 샘플링 결정
    ├─ 샘플링됨(flags=01) → 모든 하위 서비스가 스팬 기록
    └─ 안 됨(flags=00)    → 모든 하위 서비스가 기록 생략 (오버헤드 거의 0)
 ```
+-->
 
 장점은 구조가 단순하고, 샘플링 안 된 요청은 아예 데이터를 만들지 않아 오버헤드가 없다는 것이다.
 치명적 단점은 **결과를 모르는 상태에서 결정한다는 것**이다. 1% 샘플링이면 에러가 난 요청도
@@ -207,6 +231,11 @@ Gateway: 난수를 뽑아 1% 안에 들면 샘플링 결정
 
 **요청이 끝난 뒤 결과를 보고** 결정한다. 에러나 느린 트레이스는 100% 남기고 정상은 일부만 남긴다.
 
+<!-- diagram:cloud-distributed-tracing-5 -->
+![Tail 샘플링](../../assets/diagrams/cloud-distributed-tracing-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 모든 서비스 ──▶ Collector (트레이스별로 스팬을 모아 버퍼링)
                      │ 트레이스가 완성되면 정책 평가
@@ -217,6 +246,7 @@ Gateway: 난수를 뽑아 1% 안에 들면 샘플링 결정
               │ 그 외 정상      →   1% 저장 │
               └────────────────────────────┘
 ```
+-->
 
 원하는 데이터를 정확히 남긴다는 점에서 압도적으로 우수하다. 대신 **인프라가 복잡해진다.**
 가장 큰 제약은 **같은 트레이스의 모든 스팬이 같은 Collector 인스턴스에 모여야 한다**는 점이다.
@@ -251,6 +281,11 @@ Collector를 여러 대로 확장하면 트레이스가 쪼개져 판단이 불�
 했고, 백엔드를 바꾸려면 전 서비스의 계측 코드를 고쳐야 했다. OpenTelemetry(OTel)는 **계측 API를
 백엔드에서 분리한 표준**이며, CNCF에서 Kubernetes 다음으로 활발한 프로젝트로 꼽힌다.
 
+<!-- diagram:cloud-distributed-tracing-6 -->
+![OpenTelemetry가 해결한 문제](../../assets/diagrams/cloud-distributed-tracing-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────────────────────────────────────────────────┐
 │ 애플리케이션   OTel API/SDK (자동 계측 또는 수동 계측)   │
@@ -266,6 +301,7 @@ Collector를 여러 대로 확장하면 트레이스가 쪼개져 판단이 불�
 └──────────────────────┬─────────────────────────────────┘
                        ▼   Jaeger / Grafana Tempo / SaaS APM
 ```
+-->
 
 Collector가 중간에 있으면 **애플리케이션은 OTLP로만 내보내고, 백엔드 교체는 Collector 설정
 변경으로 끝난다.** 민감정보 제거, 속성 정규화, 샘플링도 여기서 중앙 집중으로 처리한다.

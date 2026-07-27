@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">인증서 체인과 CA 신뢰 모델</title>
+  <desc id="d">루트 CA, 중간 CA, 서버 인증서 간의 서명 체인 구조와 설명 및 검증 방향을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- 제목 -->
+  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">## 4. 인증서 체인과 CA 신뢰 모델</text>
+
+  <!-- 1. 루트 CA 인증서 (self-signed) -->
+  <g>
+    <rect x="30" y="60" width="450" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="50" y="90" font-size="14" font-weight="bold" fill="#7c3aed">루트 CA 인증서 (self-signed)</text>
+    <text x="60" y="118" font-size="13" fill="#1f2933">주체: Example Root CA</text>
+    <text x="60" y="142" font-size="13" fill="#1f2933">서명: 자기 자신</text>
+
+    <!-- 오른쪽 설명 -->
+    <path d="M490,110 L520,110" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+    <text x="530" y="102" font-size="13" fill="#52606d">← OS/브라우저에 미리 내장 (신뢰 저장소)</text>
+    <text x="548" y="126" font-size="13" fill="#52606d">여기가 신뢰의 출발점이다</text>
+  </g>
+
+  <!-- 루트 -> 중간 화살표 및 라벨 -->
+  <g>
+    <path d="M255,160 L255,200" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+    <rect x="240" y="172" width="30" height="16" fill="#ffffff"/>
+    <text x="255" y="184" font-size="11.5" text-anchor="middle" fill="#7c3aed">서명</text>
+  </g>
+
+  <!-- 2. 중간 CA 인증서 -->
+  <g>
+    <rect x="30" y="200" width="450" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="50" y="230" font-size="14" font-weight="bold" fill="#2563eb">중간 CA 인증서</text>
+    <text x="60" y="258" font-size="13" fill="#1f2933">서명: 루트 CA의 개인키</text>
+
+    <!-- 오른쪽 설명 -->
+    <path d="M490,240 L520,240" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+    <text x="530" y="245" font-size="13" fill="#52606d">← 서버가 함께 보내줘야 한다</text>
+  </g>
+
+  <!-- 중간 -> 서버 화살표 및 라벨 -->
+  <g>
+    <path d="M255,280 L255,320" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <rect x="240" y="292" width="30" height="16" fill="#ffffff"/>
+    <text x="255" y="304" font-size="11.5" text-anchor="middle" fill="#2563eb">서명</text>
+  </g>
+
+  <!-- 3. 서버 인증서 (leaf) -->
+  <g>
+    <rect x="30" y="320" width="450" height="120" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="50" y="350" font-size="14" font-weight="bold" fill="#059669">서버 인증서 (leaf)</text>
+    <text x="60" y="378" font-size="13" fill="#1f2933">SAN: [www.example.com](https://www.example.com)</text>
+    <text x="60" y="402" font-size="13" fill="#1f2933">공개키: (서버의 공개키)</text>
+    <text x="60" y="426" font-size="13" fill="#1f2933">서명: 중간 CA의 개인키</text>
+
+    <!-- 오른쪽 설명 -->
+    <path d="M490,380 L520,380" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+    <text x="530" y="385" font-size="13" fill="#52606d">← 서버가 보낸다</text>
+  </g>
+
+  <!-- 아래쪽 검증 방향 및 설명 -->
+  <g>
+    <path d="M15,410 L15,90" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+    <text x="30" y="482" font-size="13" font-weight="bold" fill="#1f2933">검증은 아래에서 위로. 신뢰 저장소에 있는 루트에 닿으면 통과.</text>
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">주요 원인과 해결</title>
+  <desc id="d">DB 커넥션 풀 고갈 문제의 주요 원인 4가지와 각각의 문제 및 해결 방법을 나타낸 다이어그램</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
+
+  <!-- 원인 1: 슬로우 쿼리 -->
+  <g id="cause-1">
+    <text x="40" y="52" font-size="16" font-weight="bold" fill="#1f2933">원인 1: 슬로우 쿼리</text>
+    <rect x="40" y="70" width="380" height="100" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="60" y="110.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#dc2626">문제:</tspan> 특정 쿼리가 30초 이상 소요
+    </text>
+    <text x="60" y="140.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#059669">해결:</tspan> 인덱스 추가, 쿼리 최적화
+    </text>
+  </g>
+
+  <!-- 원인 2: 커넥션 누수 -->
+  <g id="cause-2">
+    <text x="460" y="52" font-size="16" font-weight="bold" fill="#1f2933">원인 2: 커넥션 누수</text>
+    <rect x="460" y="70" width="380" height="100" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="480" y="110.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#d97706">문제:</tspan> 커넥션 반환 안됨 (try-with 누락)
+    </text>
+    <text x="480" y="140.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#059669">해결:</tspan> 코드 수정, leak detection 활성화
+    </text>
+  </g>
+
+  <!-- 원인 3: 풀 사이즈 부족 -->
+  <g id="cause-3">
+    <text x="40" y="322" font-size="16" font-weight="bold" fill="#1f2933">원인 3: 풀 사이즈 부족</text>
+    <rect x="40" y="340" width="380" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="60" y="380.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#2563eb">문제:</tspan> 트래픽 대비 풀 사이즈 작음
+    </text>
+    <text x="60" y="410.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#059669">해결:</tspan> 풀 사이즈 조정, 타임아웃 설정
+    </text>
+  </g>
+
+  <!-- 원인 4: 트랜잭션 장시간 유지 -->
+  <g id="cause-4">
+    <text x="460" y="322" font-size="16" font-weight="bold" fill="#1f2933">원인 4: 트랜잭션 장시간 유지</text>
+    <rect x="460" y="340" width="380" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="480" y="380.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#7c3aed">문제:</tspan> @Transactional 범위 너무 큼
+    </text>
+    <text x="480" y="410.55" font-size="13" fill="#1f2933">
+      <tspan font-weight="bold" fill="#059669">해결:</tspan> 트랜잭션 범위 최소화
+    </text>
+  </g>
+</svg>

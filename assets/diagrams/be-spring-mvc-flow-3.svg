@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340"
+     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
+     role="img" aria-labelledby="t d">
+  <title id="t">예외는 어디서 처리되나</title>
+  <desc id="d">Filter에서 발생한 예외가 DispatcherServlet 처리 구간을 벗어나 ControllerAdvice가 잡지 못하고 서블릿 컨테이너를 통해 BasicErrorController로 다시 디스패치되는 흐름을 나타낸 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Step 1: Filter에서 던진 예외 -->
+  <g>
+    <rect x="40" y="40" width="220" height="60" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="150" y="75" fill="#dc2626" font-size="14" font-weight="bold" text-anchor="middle">Filter에서 던진 예외</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M260,70 L300,70 L300,140 L330,140" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step 2: DispatcherServlet의 예외 처리 구간 밖 -->
+  <g>
+    <rect x="340" y="110" width="500" height="60" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="590" y="145" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">DispatcherServlet의 예외 처리 구간 밖</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M590,170 L590,200" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step 3: @ControllerAdvice가 못 잡는다 -->
+  <g>
+    <rect x="460" y="200" width="260" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="590" y="224" fill="#7c3aed" font-size="13" font-weight="bold" text-anchor="middle">@ControllerAdvice가 못 잡는다</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <path d="M590,240 L590,270" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step 4: 서블릿 컨테이너가 에러 페이지 경로로 다시 디스패치 (Spring Boot는 /error → BasicErrorController) -->
+  <g>
+    <rect x="180" y="270" width="820" height="46" rx="6" fill="#f8fafc" stroke="#52606d" stroke-width="1.5" transform="translate(-130, 0)"/>
+    <text x="590" y="298" fill="#1f2933" font-size="13" text-anchor="middle">
+      서블릿 컨테이너가 에러 페이지 경로로 다시 디스패치 <tspan fill="#52606d" font-size="11.5">(Spring Boot는 /error → BasicErrorController)</tspan>
+    </text>
+  </g>
+</svg>

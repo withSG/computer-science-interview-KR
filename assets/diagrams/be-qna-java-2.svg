@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Virtual Thread 동작 원리</title>
+  <desc id="d">Virtual Thread가 I/O 대기 시 Unmount 되었다가 I/O 완료 후 다시 Mount 되는 흐름을 나타낸 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">동작 원리</text>
+
+  <!-- Step 1: Virtual Thread가 I/O 대기 -->
+  <rect x="235" y="60" width="410" height="60" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="96" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Virtual Thread가 I/O 대기</text>
+
+  <!-- Arrow 1 -->
+  <path d="M440,120 L440,165" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 2: JVM이 힙에 저장 (Unmount) -->
+  <rect x="235" y="165" width="410" height="60" rx="8" ry="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="440" y="201" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">JVM이 힙에 저장 (Unmount)</text>
+
+  <!-- Arrow 2 -->
+  <path d="M440,225 L440,270" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step 3: Carrier Thread가 다른 Virtual Thread 실행 -->
+  <rect x="235" y="270" width="410" height="60" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="440" y="306" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Carrier Thread가 다른 Virtual Thread 실행</text>
+
+  <!-- Arrow 3 -->
+  <path d="M440,330 L440,375" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step 4: I/O 완료 시 다시 Mount -->
+  <rect x="235" y="375" width="410" height="60" rx="8" ry="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="411" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">I/O 완료 시 다시 Mount</text>
+</svg>

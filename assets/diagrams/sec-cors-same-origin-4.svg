@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">에러 메시지별 원인 진단</title>
+  <desc id="d">CORS 에러 발생 시 네트워크 탭의 OPTIONS 요청, Access-Control-Allow-Origin 헤더, 쿠키 설정 여부를 차례로 확인하여 원인을 진단하는 플로우차트</desc>
+  <rect width="880" height="490" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Title Banner / Header Area -->
+  <rect x="24" y="20" width="832" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">## 7. 에러 메시지별 원인 진단</text>
+
+  <!-- STEP 1 Group -->
+  <!-- Step 1 Main Decision Box -->
+  <rect x="24" y="80" width="360" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="40" y="107" font-size="13" font-weight="bold" fill="#1f2933">1. 네트워크 탭에 OPTIONS 요청이 있는가?</text>
+
+  <!-- Step 1 Branch 1 (False / Issue) -->
+  <path d="M204,124 L204,146" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="180" y="128" width="48" height="16" rx="3" fill="#ffffff"/>
+  <text x="204" y="140" font-size="11" fill="#d97706" font-weight="bold" text-anchor="middle">└ 있는데</text>
+
+  <rect x="110" y="146" width="530" height="38" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="126" y="170" font-size="13" fill="#1f2933">200/204가 아니다 → 인증 필터 또는 리다이렉트 문제</text>
+
+  <!-- Step 1 Branch 2 (True / Next) -->
+  <path d="M384,102 L656,102 L656,200" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="440" y="93" width="130" height="18" rx="3" fill="#ffffff"/>
+  <text x="505" y="106" font-size="11" fill="#2563eb" font-weight="bold" text-anchor="middle">└ 정상이거나 없다</text>
+
+  <!-- STEP 2 Group -->
+  <!-- Step 2 Main Decision Box -->
+  <rect x="24" y="200" width="832" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="40" y="227" font-size="13" font-weight="bold" fill="#1f2933">2. 본 응답에 Access-Control-Allow-Origin이 있는가?</text>
+
+  <!-- Step 2 Branch 1 (No) -->
+  <path d="M220,244 L220,266" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="200" y="248" width="40" height="16" rx="3" fill="#ffffff"/>
+  <text x="220" y="260" font-size="11" fill="#d97706" font-weight="bold" text-anchor="middle">└ 없다</text>
+
+  <rect x="110" y="266" width="650" height="38" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="126" y="290" font-size="13" fill="#1f2933">→ 서버 CORS 설정이 안 걸렸거나 Origin이 화이트리스트 밖</text>
+
+  <!-- Step 2 Branch 2 (Yes) -->
+  <path d="M220,304 L220,326" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="200" y="308" width="40" height="16" rx="3" fill="#ffffff"/>
+  <text x="220" y="320" font-size="11" fill="#2563eb" font-weight="bold" text-anchor="middle">└ 있다</text>
+
+  <rect x="110" y="326" width="650" height="38" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="126" y="350" font-size="13" fill="#1f2933">→ 요청 Origin과 문자 단위로 같은가? (스킴·포트·끝 슬래시)</text>
+
+  <!-- Flow line from Step 2 to Step 3 -->
+  <path d="M440,364 L440,390" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- STEP 3 Group -->
+  <!-- Step 3 Main Decision Box -->
+  <rect x="24" y="390" width="832" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="40" y="417" font-size="13" font-weight="bold" fill="#1f2933">3. 쿠키를 보내야 하는가?</text>
+
+  <!-- Step 3 Branch (Yes) -->
+  <path d="M220,434 L220,450 L320,450" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="190" y="442" width="30" height="16" rx="3" fill="#ffffff"/>
+  <text x="205" y="454" font-size="11" fill="#2563eb" font-weight="bold" text-anchor="middle">└ 예</text>
+
+  <rect x="320" y="438" width="536" height="38" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="332" y="462" font-size="12" fill="#1f2933">→ credentials:'include' + Allow-Credentials:true + 정확한 Allow-Origin, 셋 다 확인</text>
+</svg>

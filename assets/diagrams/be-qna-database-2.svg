@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">2NF 예시</title>
+  <desc id="d">1NF의 부분 함수 종속 관계와 2NF 분해 결과를 나타낸 다이어그램입니다.</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <!-- 마커 정의 -->
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 1NF 그룹 영역 -->
+  <rect x="40" y="30" width="800" height="180" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="60" y="62" font-size="16" font-weight="bold" fill="#dc2626">[1NF - 부분 함수 종속]</text>
+
+  <!-- 1NF 본문 콘텐츠 -->
+  <!-- 함수 종속 1: (학생ID, 과목코드) → 성적, 학생이름 -->
+  <!-- 좌표 계산: 
+       "(학생ID, 과목코드)" 폭 ≈ (11*0.55 + 5*1.0 + 2*0.30)*13 = 11.6*13 = 150.8, 중심x=145
+       "→" x=235~265
+       "성적, 학생이름" 폭 ≈ (4*1.0 + 2*0.55 + 1*0.30)*13 = 5.4*13 = 70.2, 중심x=310
+  -->
+  <text x="70" y="105" font-size="14" font-weight="bold" fill="#1f2933">(학생ID, 과목코드)</text>
+  <path d="M 215,100 L 265,100" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <text x="275" y="105" font-size="14" fill="#1f2933">성적, 학생이름</text>
+
+  <!-- 함수 종속 2 (부분 종속): └─ 학생ID → 학생이름 (부분 종속) -->
+  <!-- ㄴ- 기호 선 및 텍스트 -->
+  <path d="M 100,115 L 100,160 L 130,160" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  
+  <text x="140" y="165" font-size="14" font-weight="bold" fill="#dc2626">학생ID</text>
+  <path d="M 195,160 L 245,160" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <text x="255" y="165" font-size="14" fill="#1f2933">학생이름</text>
+  <text x="330" y="165" font-size="13" fill="#dc2626">(부분 종속)</text>
+
+  <!-- 2NF 그룹 영역 -->
+  <rect x="40" y="230" width="800" height="170" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="60" y="262" font-size="16" font-weight="bold" fill="#059669">[2NF]</text>
+
+  <!-- 2NF 테이블 결과 -->
+  <!-- 박스 1: 학생(학생ID, 학생이름) -->
+  <rect x="60" y="285" width="340" height="85" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="80" y="312" font-size="14" font-weight="bold" fill="#059669">학생</text>
+  <text x="115" y="312" font-size="14" fill="#52606d">(학생ID, 학생이름)</text>
+  <rect x="80" y="332" width="300" height="24" rx="4" fill="#eff6ff"/>
+  <text x="90" y="348" font-size="11.5" fill="#2563eb">✓ 부분 함수 종속 제거 (독립 테이블 분리)</text>
+
+  <!-- 박스 2: 성적(학생ID, 과목코드, 성적) -->
+  <rect x="420" y="285" width="390" height="85" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="440" y="312" font-size="14" font-weight="bold" fill="#059669">성적</text>
+  <text x="475" y="312" font-size="14" fill="#52606d">(학생ID, 과목코드, 성적)</text>
+  <rect x="440" y="332" width="350" height="24" rx="4" fill="#ecfdf5"/>
+  <text x="450" y="348" font-size="11.5" fill="#059669">✓ 완전 함수 종속만 남음 (기본키 전체에 종속)</text>
+
+</svg>

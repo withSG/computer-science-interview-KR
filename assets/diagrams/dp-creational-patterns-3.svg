@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">구현 1. Double-Checked Locking</title>
+  <desc id="d">JIT/CPU 명령어 재배치로 인해 volatile 없는 Double-Checked Locking에서 발생하는 문제점 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <rect width="880" height="300" fill="#ffffff"/>
+
+  <!-- 정상 객체 생성 순서 -->
+  <g id="normal-sequence">
+    <!-- ① 힙에 메모리 할당 -->
+    <rect x="40" y="30" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="150" y="60" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">① 힙에 메모리 할당</text>
+
+    <!-- 화살표 1 -> 2 -->
+    <path d="M260,55 L320,55" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- ② 생성자 실행 -->
+    <rect x="330" y="30" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="440" y="60" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">② 생성자 실행</text>
+
+    <!-- 화살표 2 -> 3 -->
+    <path d="M550,55 L610,55" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- ③ instance에 주소 대입 -->
+    <rect x="620" y="30" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="730" y="60" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">③ instance에 주소 대입</text>
+  </g>
+
+  <!-- JIT/CPU 재배치 및 스레드 경쟁 상태 영역 -->
+  <g id="reordering-problem">
+    <rect x="40" y="105" width="800" height="165" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+
+    <!-- JIT/CPU 설명 -->
+    <text x="440" y="137" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">JIT/CPU는 성능을 위해 ②와 ③의 순서를 바꿀 수 있다.</text>
+
+    <!-- 재배치 순서 강조 박스 -->
+    <rect x="290" y="153" width="300" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="440" y="174" font-size="13.5" font-weight="700" fill="#dc2626" text-anchor="middle">①  →  ③  →  ②</text>
+
+    <!-- 문제 발생 조건 및 영향 설명 -->
+    <text x="440" y="212" font-size="13" fill="#1f2933" text-anchor="middle">가 되면, 그 틈에 다른 스레드가 1차 검사를 통과해</text>
+    <text x="440" y="238" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">instance != null 이지만 커넥션은 아직 안 열린 객체를 받는다.</text>
+  </g>
+</svg>

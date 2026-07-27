@@ -30,6 +30,11 @@
 
 이름은 의존성 그래프를 나무로 보고, 줄기를 흔들어 붙어 있지 않은 잎을 털어낸다는 이미지에서 왔다. 흔히 "번들러가 안 쓰는 코드를 지운다"고 뭉뚱그려 설명하는데, 실제로는 **역할이 다른 두 도구가 나눠서** 한다.
 
+<!-- diagram:fe-tree-shaking-optimization-1 -->
+![2. 트리 쉐이킹은 두 단계로 일어난다](../../assets/diagrams/fe-tree-shaking-optimization-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [1단계] 번들러가 "표시"한다 (webpack: optimization.usedExports)
 
@@ -51,6 +56,7 @@
          ↓
   최종 번들에는 formatDate만 남는다
 ```
+-->
 
 이 구분이 왜 중요하냐면, **`mode: 'development'`에서는 트리 쉐이킹이 안 되는 것처럼 보이는 이유**가 여기 있기 때문이다. 개발 모드에서는 `optimization.usedExports`가 기본으로 꺼져 있어 1단계 표시부터 일어나지 않고, 설령 켜더라도 미니파이어가 돌지 않으니 코드가 그대로 남는다. "트리 쉐이킹이 왜 안 되죠?"라고 묻기 전에 프로덕션 빌드로 확인하는 것이 먼저다.
 
@@ -251,6 +257,11 @@ output: {
 
 `[contenthash]`는 **그 파일의 내용에서 계산된 해시**다. 내용이 바뀌면 파일명이 바뀌고, 안 바뀌면 그대로다.
 
+<!-- diagram:fe-tree-shaking-optimization-2 -->
+![파일명 해싱과 캐싱](../../assets/diagrams/fe-tree-shaking-optimization-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [해싱 없이 bundle.js로 배포]
 
@@ -271,6 +282,7 @@ output: {
   Cache-Control: public, max-age=31536000, immutable
   을 걸어 1년간 재검증 없이 쓰게 한다.
 ```
+-->
 
 핵심은 **HTML은 캐시하지 않고 정적 자산은 영구 캐시한다**는 조합이다. HTML이 항상 최신이므로 그 안의 스크립트 태그가 새 해시 파일명을 가리키고, 브라우저는 이름이 다른 새 파일이니 자연히 내려받는다. 캐시 무효화를 위해 별도 작업을 할 필요가 없다.
 
@@ -301,6 +313,11 @@ esbuild는 Go, SWC는 Rust로 작성됐다. Webpack과 Babel은 자바스크립�
 
 ### 이유 2: 파이프라인 왕복이 없다
 
+<!-- diagram:fe-tree-shaking-optimization-3 -->
+![이유 2: 파이프라인 왕복이 없다](../../assets/diagrams/fe-tree-shaking-optimization-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [기존 조합]
   소스 → Babel이 파싱해 AST 생성 → 변환 → 다시 문자열로 출력
@@ -312,6 +329,7 @@ esbuild는 Go, SWC는 Rust로 작성됐다. Webpack과 Babel은 자바스크립�
 [esbuild]
   소스 → 파싱 → (변환 · 의존성 분석 · 압축을 같은 AST 위에서 처리) → 출력
 ```
+-->
 
 도구를 갈아끼우기 쉬운 구조를 위해 각 도구가 "문자열을 받아 문자열을 내놓는" 방식으로 연결돼 있는데, 그 유연함의 대가가 반복 파싱이다. esbuild는 이 단계들을 하나의 프로그램 안에서 처리해 왕복을 없앴다.
 
@@ -319,6 +337,11 @@ esbuild는 Go, SWC는 Rust로 작성됐다. Webpack과 Babel은 자바스크립�
 
 이게 Vite의 진짜 차별점이다.
 
+<!-- diagram:fe-tree-shaking-optimization-4 -->
+![이유 3(개발 서버): 처음부터 번들링을 하지 않는다](../../assets/diagrams/fe-tree-shaking-optimization-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Webpack dev server]
 
@@ -348,6 +371,7 @@ esbuild는 Go, SWC는 Rust로 작성됐다. Webpack과 Babel은 자바스크립�
   실제로 화면에 필요한 모듈만 요청되고, 요청된 것만 변환한다.
   프로젝트에 파일이 1000개든 10000개든 첫 화면 시간은 크게 변하지 않는다.
 ```
+-->
 
 브라우저가 `type="module"`을 이해하기 때문에 가능한 전략이다. 번들러가 모듈 그래프를 따라가며 하던 일을 **브라우저가 대신 하게 만든 것**이다.
 

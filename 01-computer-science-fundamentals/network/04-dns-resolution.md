@@ -43,6 +43,11 @@ DNS(Domain Name System)는 이 문제를 **위임(Delegation)** 으로 푼다.
 
 ## 2. 계층 구조와 등장인물
 
+<!-- diagram:cs-dns-resolution-1 -->
+![2. 계층 구조와 등장인물](../../assets/diagrams/cs-dns-resolution-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                           . (루트)
                           │  "com은 저쪽 서버들이 안다"
@@ -55,6 +60,7 @@ DNS(Domain Name System)는 이 문제를 **위임(Delegation)** 으로 푼다.
  ┌──┴──┬────────┐
 www   api   blog                                       ← 서브도메인
 ```
+-->
 
 도메인은 오른쪽부터 읽는다. `www.example.com.`의 맨 끝 점이 루트이고,
 `com`이 TLD, `example`이 등록한 도메인, `www`가 호스트다.
@@ -79,6 +85,11 @@ www   api   blog                                       ← 서브도메인
 - **재귀 질의(Recursive Query)** — "최종 답을 구해서 가져와라"라고 **책임을 통째로 위임**하는 질의. 클라이언트 → 재귀 리졸버 구간이 여기다.
 - **반복 질의(Iterative Query)** — "네가 아는 만큼만 답해라"라는 질의. 답을 모르면 "저쪽에 물어봐"라고 다음 서버를 알려준다(referral). 재귀 리졸버 → 루트/TLD/권한 서버 구간이 전부 이것이다.
 
+<!-- diagram:cs-dns-resolution-2 -->
+![3. 재귀 질의와 반복 질의](../../assets/diagrams/cs-dns-resolution-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [브라우저/OS]
     │
@@ -102,6 +113,7 @@ www   api   blog                                       ← 서브도메인
     ▼                                                     │
  ⑥ 클라이언트에 최종 응답 ◄────────────────────────────────┘
 ```
+-->
 
 이 구조가 중요한 이유는 **부하 분산**이다. 루트 서버가 전 세계 모든 조회를 다 받아야 한다면 진작 무너졌다.
 재귀 리졸버가 결과를 캐시하기 때문에 루트까지 올라가는 질의는 실제로 극히 일부다.
@@ -110,6 +122,11 @@ www   api   blog                                       ← 서브도메인
 
 ## 4. 캐시는 몇 겹인가
 
+<!-- diagram:cs-dns-resolution-3 -->
+![4. 캐시는 몇 겹인가](../../assets/diagrams/cs-dns-resolution-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ① 브라우저 자체 DNS 캐시     ─┐
 ② OS 캐시 + hosts 파일        │ 여기서 맞으면 네트워크로 나가지 않는다
@@ -117,6 +134,7 @@ www   api   blog                                       ← 서브도메인
 ④ 재귀 리졸버(ISP/공개DNS)   ─┘
 ⑤ ── 여기서부터 루트 → TLD → 권한 서버 실제 조회 ──
 ```
+-->
 
 `hosts` 파일은 캐시가 아니라 **강제 매핑**이다. DNS 조회 이전에 참조되며,
 여기 적힌 항목은 실제 DNS 값이 무엇이든 우선한다. 로컬 개발에서 `127.0.0.1 dev.myapp.com`을
@@ -161,6 +179,11 @@ DNS는 도메인 → IP만 하는 게 아니다. 도메인에 붙은 **여러 �
 
 ### CNAME과 A의 진짜 차이
 
+<!-- diagram:cs-dns-resolution-4 -->
+![CNAME과 A의 진짜 차이](../../assets/diagrams/cs-dns-resolution-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [A 레코드]                       [CNAME 레코드]
 www.example.com → 203.0.113.5    www.example.com → cdn.provider.net
@@ -171,6 +194,7 @@ www.example.com → 203.0.113.5    www.example.com → cdn.provider.net
 조회 1회로 끝                     조회가 한 번 더 필요(약간의 지연)
 IP가 바뀌면 내가 고쳐야 함         대상이 IP를 바꿔도 내 설정은 그대로
 ```
+-->
 
 CNAME에는 두 가지 제약이 있고, 둘 다 실무에서 자주 부딪힌다.
 
@@ -212,6 +236,11 @@ TTL을 당일에 낮춰봐야 소용없다. 이미 하루짜리로 캐시된 리
 
 ## 7. 주소창 입력부터 IP를 얻기까지
 
+<!-- diagram:cs-dns-resolution-5 -->
+![7. 주소창 입력부터 IP를 얻기까지](../../assets/diagrams/cs-dns-resolution-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 사용자: "https://www.example.com" 입력
   │
@@ -231,6 +260,7 @@ TTL을 당일에 낮춰봐야 소용없다. 이미 하루짜리로 캐시된 리
   │
   └─ 7. IP 확보 → TCP 3-way 핸드셰이크(443) → TLS 핸드셰이크 → HTTP 요청
 ```
+-->
 
 여기서부터 이어지는 흐름은 [03-tcp-udp.md](./03-tcp-udp.md)와 [05-ssl-tls-handshake.md](./05-ssl-tls-handshake.md)에서 다룬다.
 

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1120" width="880" height="1120" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">페이지 폴트 단계별 처리 과정</title>
+  <desc id="d">CPU 가상 주소 접근부터 페이지 폴트 트랩 발생, 커널 및 디스크 처리, 페이지 테이블 갱신 후 명령어 재실행까지의 순서도입니다.</desc>
+  <rect width="880" height="1120" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Step 1: CPU Request (Start) -->
+  <rect x="140" y="30" width="600" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="60" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">CPU가 가상 주소 접근 → 페이지 테이블에서 Valid 비트 = 0 확인</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M440,80 L440,110" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2: Hardware Trap -->
+  <rect x="200" y="110" width="480" height="50" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="140" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">[하드웨어] 페이지 폴트 트랩 발생 → 커널 모드 진입</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M440,160 L440,190" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3: Kernel Check -->
+  <rect x="250" y="190" width="380" height="50" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="220" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">[커널] 접근이 정당한지 검사</text>
+
+  <!-- Step 3 Sub-branches -->
+  <!-- Branch Lines from Kernel Check -->
+  <path d="M440,240 L440,325" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  
+  <!-- Left Branch: Error -->
+  <path d="M440,270 L480,270 L480,270" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+  <path d="M480,270 L500,270" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="490" y="252" width="330" height="36" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="500" y="275" font-size="13" fill="#dc2626">잘못된 주소 / 권한 위반이면 → 프로세스 종료 (SIGSEGV)</text>
+
+  <!-- Right Branch: Normal -->
+  <rect x="490" y="307" width="130" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="500" y="330" font-size="13" fill="#059669">정당하면 계속</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M440,325 L440,380" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 4: Kernel Free Frame -->
+  <rect x="250" y="380" width="380" height="50" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="410" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">[커널] 빈 프레임 확보</text>
+
+  <!-- Step 4 Sub-branches -->
+  <path d="M440,430 L440,580" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Sub 1: Available -->
+  <rect x="490" y="452" width="170" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="500" y="475" font-size="13" fill="#1f2933">여유 있으면 그대로 사용</text>
+
+  <!-- Sub 2: Eviction Needed -->
+  <rect x="490" y="502" width="290" height="36" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="500" y="525" font-size="13" fill="#1f2933">없으면 교체 알고리즘으로 희생 페이지 선택</text>
+
+  <!-- Sub 2-1: Dirty Page Writeback -->
+  <path d="M520,538 L520,570 L540,570" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="545" y="552" width="230" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="555" y="575" font-size="13" fill="#52606d">Dirty면 디스크에 기록 후 회수</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M440,580 L440,630" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5: Disk Read (Slowest - Highlighted) -->
+  <rect x="180" y="630" width="520" height="50" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="360" y="660" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">[디스크] 필요한 페이지를 프레임으로 읽어 온다</text>
+  
+  <!-- "Here is the slowest" label -->
+  <path d="M525,660 L545,660" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="550" y="642" width="140" height="36" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="560" y="665" font-size="13" font-weight="bold" fill="#dc2626">여기가 가장 느리다</text>
+
+  <!-- Arrow 5 -> 6 -->
+  <path d="M440,680 L440,730" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 6: Kernel Update Page Table -->
+  <rect x="200" y="730" width="480" height="50" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="760" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">[커널] 페이지 테이블 갱신 (Valid=1, 프레임 번호 기록)</text>
+
+  <!-- Arrow 6 -> 7 -->
+  <path d="M440,780 L440,830" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 7: Restart Process -->
+  <rect x="100" y="830" width="680" height="50" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="860" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">프로세스를 Ready로 되돌리고, 폴트가 났던 명령어를 처음부터 재실행</text>
+
+  <!-- Legend -->
+  <rect x="60" y="940" width="760" height="130" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="80" y="970" font-size="14" font-weight="bold" fill="#1f2933">범례 (의미별 구별)</text>
+  
+  <rect x="80" y="990" width="16" height="16" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="105" y="1003" font-size="12" fill="#52606d">CPU / 시작</text>
+
+  <rect x="210" y="990" width="16" height="16" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="235" y="1003" font-size="12" fill="#52606d">하드웨어 트랩 / 경고</text>
+
+  <rect x="380" y="990" width="16" height="16" rx="3" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="405" y="1003" font-size="12" fill="#52606d">커널 처리</text>
+
+  <rect x="500" y="990" width="16" height="16" rx="3" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="525" y="1003" font-size="12" fill="#52606d">디스크 I/O (병목)</text>
+
+  <rect x="650" y="990" width="16" height="16" rx="3" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="675" y="1003" font-size="12" fill="#52606d">정상 완료</text>
+
+  <rect x="80" y="1030" width="16" height="16" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="105" y="1043" font-size="12" fill="#52606d">오류 / 예외 종료</text>
+</svg>

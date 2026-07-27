@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동작 원리</title>
+  <desc id="d">Grafana와 Alertmanager 사이의 Prometheus가 app pod 및 node_exporter 대상에서 15초마다 메트릭을 수집하는 구조도</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <!-- 연결선 및 화살표 -->
+  <!-- Grafana -> Prometheus (PromQL) -->
+  <path d="M 190,95 L 300,95" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="210" y="78" width="70" height="20" fill="#ffffff" rx="3"/>
+  <text x="245" y="92" font-size="13" fill="#2563eb" text-anchor="middle">(PromQL)</text>
+
+  <!-- Prometheus Rule Engine -> Alertmanager -->
+  <path d="M 580,120 L 680,120" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-orange)"/>
+
+  <!-- Prometheus -> Targets 수집 메인 트리선 -->
+  <path d="M 490,160 L 490,210" stroke="#059669" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+  <path d="M 165,210 L 815,210" stroke="#059669" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+  <path d="M 165,210 L 165,270" stroke="#059669" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-green)"/>
+  <path d="M 490,210 L 490,270" stroke="#059669" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-green)"/>
+  <path d="M 815,210 L 815,270" stroke="#059669" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 수집 주기 라벨 -->
+  <rect x="410" y="200" width="160" height="22" fill="#ffffff" rx="4"/>
+  <text x="490" y="215" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">15초마다 GET /metrics</text>
+
+  <!-- 노드: Grafana -->
+  <rect x="40" y="55" width="150" height="80" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="115" y="100" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Grafana</text>
+
+  <!-- 노드: Prometheus (메인 시스템) -->
+  <rect x="300" y="30" width="380" height="130" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="320" y="62" font-size="16" font-weight="bold" fill="#1f2933">Prometheus</text>
+  <text x="320" y="92" font-size="13" fill="#52606d">TSDB (로컬 디스크)</text>
+
+  <!-- Prometheus 내부 Rule Engine 영역 및 선 -->
+  <path d="M 320,120 L 580,120" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="320" y="115" font-size="13" fill="#52606d">Rule Engine</text>
+
+  <!-- 노드: Alertmanager -->
+  <rect x="680" y="95" width="160" height="50" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="760" y="125" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Alertmanager</text>
+
+  <!-- 타겟 1: app pod (좌) -->
+  <rect x="65" y="270" width="200" height="110" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="165" y="303" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">app pod</text>
+  <text x="165" y="333" font-size="13" fill="#52606d" text-anchor="middle">:8080</text>
+  <text x="165" y="358" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">/metrics</text>
+
+  <!-- 타겟 2: app pod (중) -->
+  <rect x="390" y="270" width="200" height="110" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="490" y="303" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">app pod</text>
+  <text x="490" y="333" font-size="13" fill="#52606d" text-anchor="middle">:8080</text>
+  <text x="490" y="358" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">/metrics</text>
+
+  <!-- 타겟 3: node_exporter (우) -->
+  <rect x="715" y="270" width="200" height="110" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="815" y="303" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">node_exporter</text>
+  <text x="815" y="333" font-size="13" fill="#52606d" text-anchor="middle">:9100</text>
+  <text x="815" y="358" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">/metrics</text>
+</svg>

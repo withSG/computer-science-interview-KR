@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">분리 연결법 (Separate Chaining)</title>
+  <desc id="d">해시 테이블의 버킷 배열과 연결 리스트 체인을 통한 충돌 처리 구조 및 조회 프로세스 다이어그램</desc>
+  
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Section Header -->
+  <text x="30" y="32" font-size="16" font-weight="bold" fill="#1f2933">버킷 배열</text>
+
+  <!-- Bucket Array Base -->
+  <rect x="30" y="45" width="60" height="180" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+
+  <!-- Bucket 0 -->
+  <rect x="30" y="45" width="60" height="45" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="60" y="72" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">0</text>
+  <path d="M90,67.5 L130,67.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="140" y="72" font-size="13" font-weight="bold" fill="#52606d">null</text>
+
+  <!-- Bucket 1 -->
+  <rect x="30" y="90" width="60" height="45" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="117" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
+  <path d="M90,112.5 L120,112.5" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- Chain 1: [K1|V1] -> [K5|V5] -> null -->
+  <g transform="translate(120, 92.5)">
+    <rect x="0" y="0" width="80" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <line x1="40" y1="0" x2="40" y2="40" stroke="#2563eb" stroke-width="1"/>
+    <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">K1</text>
+    <text x="60" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">V1</text>
+  </g>
+  <path d="M200,112.5 L230,112.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <g transform="translate(230, 92.5)">
+    <rect x="0" y="0" width="80" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <line x1="40" y1="0" x2="40" y2="40" stroke="#2563eb" stroke-width="1"/>
+    <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">K5</text>
+    <text x="60" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">V5</text>
+  </g>
+  <path d="M310,112.5 L340,112.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="350" y="117" font-size="13" font-weight="bold" fill="#52606d">null</text>
+
+  <!-- Annotation 1 -->
+  <text x="430" y="117" font-size="13" fill="#d97706" font-weight="bold">충돌 → 체인으로 연결</text>
+
+  <!-- Bucket 2 -->
+  <rect x="30" y="135" width="60" height="45" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="60" y="162" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
+  <path d="M90,157.5 L120,157.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <!-- Chain 2: [K3|V3] -> null -->
+  <g transform="translate(120, 137.5)">
+    <rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+    <line x1="40" y1="0" x2="40" y2="40" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">K3</text>
+    <text x="60" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">V3</text>
+  </g>
+  <path d="M200,157.5 L230,157.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="240" y="162" font-size="13" font-weight="bold" fill="#52606d">null</text>
+
+  <!-- Bucket 3 -->
+  <rect x="30" y="180" width="60" height="45" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="60" y="207" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+  <path d="M90,202.5 L120,202.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Chain 3: [K2|V2] -> [K7|V7] -> [K9|V9] -> null -->
+  <g transform="translate(120, 182.5)">
+    <rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+    <line x1="40" y1="0" x2="40" y2="40" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">K2</text>
+    <text x="60" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">V2</text>
+  </g>
+  <path d="M200,202.5 L230,202.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <g transform="translate(230, 182.5)">
+    <rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+    <line x1="40" y1="0" x2="40" y2="40" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">K7</text>
+    <text x="60" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">V7</text>
+  </g>
+  <path d="M310,202.5 L340,202.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <g transform="translate(340, 182.5)">
+    <rect x="0" y="0" width="80" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+    <line x1="40" y1="0" x2="40" y2="40" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">K9</text>
+    <text x="60" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">V9</text>
+  </g>
+  <path d="M420,202.5 L450,202.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="460" y="207" font-size="13" font-weight="bold" fill="#52606d">null</text>
+
+  <!-- Annotation 2 -->
+  <text x="540" y="207" font-size="13" fill="#dc2626" font-weight="bold">체인이 길어질수록 느려짐</text>
+
+  <!-- Divider Line -->
+  <line x1="30" y1="260" x2="850" y2="260" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="5 4"/>
+
+  <!-- Lookup Process Section -->
+  <rect x="30" y="290" width="820" height="60" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="6"/>
+  <text x="50" y="325" font-size="14" font-weight="bold" fill="#1f2933">
+    <tspan fill="#2563eb">조회:</tspan> hash(K5) → 버킷 1 → 체인을 훑으며 equals()로 실제 키 비교
+  </text>
+</svg>

@@ -40,6 +40,11 @@ HTML은 논문을 공유하려고 만든 문서 포맷이다. 기본 배치 규�
 
 모든 요소는 안쪽부터 **content → padding → border → margin** 네 겹의 사각형으로 그려진다.
 
+<!-- diagram:fe-css-layout-1 -->
+![네 겹의 영역](../../assets/diagrams/fe-css-layout-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    ┌───────────── margin ─────────────┐   바깥 여백 (투명, 배경 없음)
    │  ┌────────── border ──────────┐  │
@@ -51,6 +56,7 @@ HTML은 논문을 공유하려고 만든 문서 포맷이다. 기본 배치 규�
    │  └────────────────────────────┘  │
    └──────────────────────────────────┘
 ```
+-->
 
 액자에 든 사진으로 생각하면 편하다. 사진이 content, 사진과 액자테 사이 흰 여백(매트)이 padding, 액자테가 border, 옆 액자와의 벽 간격이 margin이다.
 
@@ -76,6 +82,11 @@ HTML은 논문을 공유하려고 만든 문서 포맷이다. 기본 배치 규�
 
 세로로 맞닿은 두 블록 요소의 margin은 각자 제 몫을 차지하지 않는다. **둘 중 큰 값 하나만 남고 나머지는 그 안으로 삼켜진다.**
 
+<!-- diagram:fe-css-layout-2 -->
+![마진 병합(margin collapsing)](../../assets/diagrams/fe-css-layout-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   .a { margin-bottom: 20px; }        기대: 50px          실제: 30px
   .b { margin-top: 30px; }
@@ -85,6 +96,7 @@ HTML은 논문을 공유하려고 만든 문서 포맷이다. 기본 배치 규�
                                      ┌──.b──┐          ┌──.b──┐
                                      └──────┘          └──────┘
 ```
+-->
 
 병합은 세 상황에서 일어난다. 인접한 형제 사이, 부모와 첫/마지막 자식 사이(그 경계에 border·padding이 없고 부모가 BFC를 만들지 않을 때), 내용이 빈 블록의 위아래 margin 사이다. 특히 두 번째가 사고를 많이 낸다. 자식에게 준 `margin-top`이 부모 밖으로 튀어나가 **부모 전체가 아래로 밀리는** 현상이다.
 
@@ -129,6 +141,11 @@ HTML은 논문을 공유하려고 만든 문서 포맷이다. 기본 배치 규�
 
 ### 다섯 값의 기준점
 
+<!-- diagram:fe-css-layout-3 -->
+![다섯 값의 기준점](../../assets/diagrams/fe-css-layout-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 static     일반 흐름 그대로. top/left를 적어도 무시된다 (기본값)
 relative   흐름은 유지하면서 "보이는 위치"만 이동. 원래 자리는 비워둔다
@@ -136,11 +153,17 @@ absolute   흐름에서 제거. 가장 가까운 positioned 조상이 기준
 fixed      흐름에서 제거. 뷰포트가 기준 → 스크롤해도 고정
 sticky     흐름 유지. 임계점 전에는 relative, 도달하면 fixed처럼 굳는다
 ```
+-->
 
 **positioned 조상**이란 `position`이 `static`이 아닌 조상이다. 그런 조상이 하나도 없으면 문서 최상단(초기 컨테이닝 블록)이 기준이 된다.
 
 `fixed`가 "언제나 뷰포트 기준"인 것도 아니다. 조상 중에 `transform`, `filter`, `perspective`가 `none`이 아닌 요소가 있으면 **그 조상이 기준**으로 바뀌어, 고정되어 있어야 할 요소가 스크롤을 따라 움직인다. 애니메이션을 넣은 래퍼 안에서 고정 헤더가 갑자기 안 붙는다면 여기부터 의심한다.
 
+<!-- diagram:fe-css-layout-4 -->
+![다섯 값의 기준점](../../assets/diagrams/fe-css-layout-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   ┌─ .card { position: relative } ──┐   .badge { position:absolute; top:0; right:0 }
   │                          ┌────┐ │
@@ -148,6 +171,7 @@ sticky     흐름 유지. 임계점 전에는 relative, 도달하면 fixed처럼
   │  상품 이미지                └────┘ │   페이지 전체의 오른쪽 위로 날아간다
   └─────────────────────────────────┘
 ```
+-->
 
 `position: relative`는 좌표 이동보다 **자식 absolute의 기준점을 만드는 용도**로 훨씬 많이 쓰인다.
 
@@ -163,6 +187,11 @@ sticky     흐름 유지. 임계점 전에는 relative, 도달하면 fixed처럼
 
 **왜 문제인가**: z-index는 **같은 stacking context 안에서만** 비교된다. 부모가 새 stacking context를 만들었다면 자식의 z-index가 백만이어도 그 부모 통째로가 다른 형제 뒤에 깔린다.
 
+<!-- diagram:fe-css-layout-5 -->
+![안티패턴](../../assets/diagrams/fe-css-layout-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   문서 루트 (stacking context)
   ├─ .header    position:relative; z-index:10; opacity:0.99  ← 새 stacking context 생성!
@@ -171,6 +200,7 @@ sticky     흐름 유지. 임계점 전에는 relative, 도달하면 fixed처럼
 
   결과: .content가 .dropdown 위로 온다 (.header=10 vs .content=20 으로 판정)
 ```
+-->
 
 새 stacking context를 만드는 대표적인 조건은 이렇다.
 
@@ -197,6 +227,11 @@ React Portal 등으로 모달을 `body` 직속으로 렌더링하면 부모의 s
 
 문제는 이걸 다단 레이아웃에 전용하면서 시작됐다.
 
+<!-- diagram:fe-css-layout-6 -->
+![5. float와 clearfix](../../assets/diagrams/fe-css-layout-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   <div class="row">                    ┌ .row (높이 0!) ──────┐
     <div style="float:left">A</div>    └─────────────────────┘
@@ -204,6 +239,7 @@ React Portal 등으로 모달을 `body` 직속으로 렌더링하면 부모의 s
   </div>                                │ A  │ │ B  │  ← 자식이 흐름에서 빠져
                                         └────┘ └────┘     부모가 높이를 모른다
 ```
+-->
 
 배경색과 테두리가 안 보이고 아래 요소가 A, B 위로 겹쳐 올라온다. 이 "높이 붕괴"를 막으려고 나온 것이 clearfix다.
 
@@ -228,6 +264,11 @@ float가 지금도 최선인 자리는 원래 목적, 즉 텍스트가 이미지
 
 Flexbox가 헷갈리는 이유는 대부분 하나다. **`justify-content`와 `align-items`가 가로/세로 중 무엇을 담당하는지 외우려 하기 때문이다.** 외울 필요가 없다. 축은 `flex-direction`이 정한다.
 
+<!-- diagram:fe-css-layout-7 -->
+![주축과 교차축](../../assets/diagrams/fe-css-layout-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   flex-direction: row (기본)              flex-direction: column
                 주축 →                            교차축 →
@@ -240,6 +281,7 @@ Flexbox가 헷갈리는 이유는 대부분 하나다. **`justify-content`와 `a
    justify-* = 주축   align-* = 교차축      │  └────────┘  │
                                           └──────────────┘
 ```
+-->
 
 `justify-*`는 언제나 주축, `align-*`는 언제나 교차축. 이 한 문장이면 `flex-direction`이 뭐든 헷갈리지 않는다.
 

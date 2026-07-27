@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">문제의 구조</title>
+  <desc id="d">마이그레이션 실행 후 Rolling Update 중 발생하는 스키마 불일치 장애 흐름도</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <rect width="880" height="390" fill="#ffffff"/>
+  
+  <!-- Step 1 -->
+  <rect x="40" y="30" width="800" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="50" y="59" font-size="13" font-weight="bold" fill="#d97706">1.</text>
+  <text x="70" y="59" font-size="13" fill="#1f2933">마이그레이션 실행: user_name → full_name 이름 변경</text>
+
+  <!-- Flow Arrow 1 -> 2 -->
+  <path d="M440,78 L440,98" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2 -->
+  <rect x="40" y="98" width="800" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="50" y="127" font-size="13" font-weight="bold" fill="#2563eb">2.</text>
+  <text x="70" y="127" font-size="13" fill="#1f2933">Rolling Update 시작</text>
+
+  <!-- Flow Arrow 2 -> 3 -->
+  <path d="M440,146 L440,166" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 -->
+  <rect x="40" y="166" width="800" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="195" font-size="13" font-weight="bold" fill="#dc2626">3.</text>
+  <text x="70" y="195" font-size="13" fill="#1f2933">아직 안 바뀐 v1 인스턴스가 user_name을 조회 → 컬럼이 없다 → 500 에러</text>
+
+  <!-- Flow Arrow 3 -> 4 -->
+  <path d="M440,214 L440,234" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step 4 -->
+  <rect x="40" y="234" width="800" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="263" font-size="13" font-weight="bold" fill="#dc2626">4.</text>
+  <text x="70" y="263" font-size="13" fill="#1f2933">놀라서 롤백 → v2를 전부 내림 → 그런데 스키마는 이미 바뀐 상태</text>
+
+  <!-- Flow Arrow 4 -> 5 -->
+  <path d="M440,282 L440,302" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step 5 -->
+  <rect x="40" y="302" width="800" height="48" rx="6" fill="#dc2626" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="331" font-size="13" font-weight="bold" fill="#ffffff">5.</text>
+  <text x="70" y="331" font-size="13" font-weight="bold" fill="#ffffff">v1 전체가 죽는다. 서비스 전면 장애.</text>
+</svg>

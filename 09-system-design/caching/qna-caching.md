@@ -26,6 +26,11 @@
 
 ### 캐싱 레이어
 
+<!-- diagram:sd-qna-caching-1 -->
+![캐싱 레이어](../../assets/diagrams/sd-qna-caching-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────┐
 │   Client    │
@@ -52,6 +57,7 @@
 │  Database   │ ← 원본 데이터
 └─────────────┘
 ```
+-->
 
 ### Cache Hit vs Cache Miss
 
@@ -78,6 +84,11 @@ Cache Miss: 캐시에 없음 → DB 조회 → 캐시 저장 → 반환
 ### 읽기 전략
 
 **1. Cache-Aside (Lazy Loading)**
+<!-- diagram:sd-qna-caching-2 -->
+![읽기 전략](../../assets/diagrams/sd-qna-caching-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 애플리케이션이 직접 캐시 관리
 
@@ -86,6 +97,7 @@ Cache Miss: 캐시에 없음 → DB 조회 → 캐시 저장 → 반환
 3. 캐시에 저장
 4. 응답 반환
 ```
+-->
 
 ```python
 def get_user(user_id):
@@ -107,6 +119,11 @@ def get_user(user_id):
 **단점**: 첫 요청 느림, Cache Miss 시 지연
 
 **2. Read-Through**
+<!-- diagram:sd-qna-caching-3 -->
+![읽기 전략](../../assets/diagrams/sd-qna-caching-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 캐시가 DB를 직접 조회
 
@@ -114,6 +131,7 @@ def get_user(user_id):
 2. Cache Miss → 캐시가 자동으로 DB 조회 및 저장
 3. 응답 반환
 ```
+-->
 
 **장점**: 애플리케이션 코드 단순화
 **단점**: 캐시 라이브러리/서비스 의존
@@ -223,6 +241,11 @@ cache.invalidate_tag("user:1")  # 관련 캐시 모두 삭제
 
 ### Cache Stampede 문제
 
+<!-- diagram:sd-qna-caching-4 -->
+![Cache Stampede 문제](../../assets/diagrams/sd-qna-caching-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 많은 요청이 동시에 Cache Miss → DB 과부하
 
@@ -231,6 +254,7 @@ cache.invalidate_tag("user:1")  # 관련 캐시 모두 삭제
 2. Early Expiration: 만료 전에 미리 갱신
 3. Probabilistic Early Expiration: 확률적으로 미리 갱신
 ```
+-->
 
 ```python
 # Lock 방식
@@ -329,6 +353,11 @@ CDN은 **지리적으로 분산된 서버 네트워크**를 통해 사용자에�
 
 ### CDN 동작 원리
 
+<!-- diagram:sd-qna-caching-5 -->
+![CDN 동작 원리](../../assets/diagrams/sd-qna-caching-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     ┌─────────────┐
                     │   Origin    │
@@ -346,6 +375,7 @@ CDN은 **지리적으로 분산된 서버 네트워크**를 통해 사용자에�
     │한국 사용자│      │일본 사용자│      │동남아 사용자│
     └─────────┘      └─────────┘      └─────────┘
 ```
+-->
 
 ### CDN 장점
 

@@ -356,6 +356,11 @@ Scenario: 올바른 자격증명으로 로그인
 ```
 
 ### V-모델
+<!-- diagram:se-qna-software-engineering-1 -->
+![V-모델](../assets/diagrams/se-qna-software-engineering-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 요구사항 분석 ←――――――――――→ 인수 테스트
       ↓                      ↑
@@ -365,6 +370,7 @@ Scenario: 올바른 자격증명으로 로그인
           ↓              ↑
         코딩 ←――――→ 단위 테스트
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 각 테스트 단계의 목적 차이
@@ -394,15 +400,26 @@ Scenario: 올바른 자격증명으로 로그인
 
 ### 테스트가 없는 경우의 문제점
 
+<!-- diagram:se-qna-software-engineering-2 -->
+![테스트가 없는 경우의 문제점](../assets/diagrams/se-qna-software-engineering-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ❌ 수동 테스트에 의존 → 시간 소모, 휴먼 에러
 ❌ 리팩토링 두려움 → 기술 부채 증가
 ❌ 배포 불안감 → 릴리즈 지연
 ❌ 버그 재발 → 같은 문제 반복
 ```
+-->
 
 ### 테스트 코드의 비용 vs 가치
 
+<!-- diagram:se-qna-software-engineering-3 -->
+![테스트 코드의 비용 vs 가치](../assets/diagrams/se-qna-software-engineering-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 초기 비용: 테스트 작성 시간
 장기 가치:
@@ -412,6 +429,7 @@ Scenario: 올바른 자격증명으로 로그인
 
 → 프로젝트가 길어질수록 테스트의 ROI가 증가
 ```
+-->
 
 ### 테스트 작성 우선순위
 
@@ -606,6 +624,11 @@ void validateName(String name) {
 
 ### 리팩토링 대상 코드 냄새 (Code Smell)
 
+<!-- diagram:se-qna-software-engineering-4 -->
+![리팩토링 대상 코드 냄새](../assets/diagrams/se-qna-software-engineering-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 - 중복 코드 (Duplicated Code)
 - 긴 메서드 (Long Method): 20줄 이상 → 분리 고려
@@ -613,6 +636,7 @@ void validateName(String name) {
 - 긴 파라미터 목록 (Long Parameter List): 4개 이상
 - 주석이 많은 코드: 코드 자체가 설명되어야
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 클린 코드가 단순히 스타일 문제가 아님 (가독성 → 유지보수성 → 비용 절감)
@@ -744,6 +768,11 @@ MSA는 **하나의 애플리케이션을 독립적으로 배포 가능한 작은
 
 ### MSA 구성 요소
 
+<!-- diagram:se-qna-software-engineering-5 -->
+![MSA 구성 요소](../assets/diagrams/se-qna-software-engineering-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 클라이언트
     │
@@ -766,9 +795,15 @@ API Gateway (단일 진입점, 인증/라우팅)
               │
               Message Queue (Kafka/RabbitMQ)
 ```
+-->
 
 ### 서비스 간 통신
 
+<!-- diagram:se-qna-software-engineering-6 -->
+![서비스 간 통신](../assets/diagrams/se-qna-software-engineering-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 동기 통신: REST API, gRPC
   → 즉시 응답 필요한 경우
@@ -778,6 +813,7 @@ API Gateway (단일 진입점, 인증/라우팅)
   → 느슨한 결합, 높은 가용성
   → 단점: 최종 일관성, 디버깅 어려움
 ```
+-->
 
 ### MSA 주요 패턴
 
@@ -791,6 +827,11 @@ API Gateway (단일 진입점, 인증/라우팅)
 
 ### 언제 MSA를 선택하는가?
 
+<!-- diagram:se-qna-software-engineering-7 -->
+![언제 MSA를 선택하는가?](../assets/diagrams/se-qna-software-engineering-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 MSA 도입 시기:
   ✓ 팀 규모가 크고 독립적 배포가 필요
@@ -804,6 +845,7 @@ MSA 도입 시기:
   ✓ 분산 시스템 운영 역량 부족
   → 먼저 모놀리식으로 시작, 성장 후 MSA로 전환 (Strangler Fig 패턴)
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - MSA의 장점만이 아니라 단점(분산 트랜잭션, 네트워크 지연, 운영 복잡도)도 알고 있는지

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">실행 모델: 실행 환경의 생명주기</title>
+  <desc id="d">Lambda 실행 환경의 INIT, INVOKE 단계 및 웜 스타트, SHUTDOWN 생명주기를 나타낸 다이어그램</desc>
+  <rect width="880" height="610" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Top Trigger Label & Arrow -->
+  <text x="440" y="35" font-size="12.5" fill="#52606d" text-anchor="middle">첫 호출 (또는 동시성 부족으로 새 환경이 필요할 때)</text>
+  <path d="M440,45 L440,78" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- INIT Box (Cold Start) -->
+  <rect x="140" y="80" width="600" height="150" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="110" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">INIT 단계 (콜드 스타트)</text>
+  <line x1="160" y1="124" x2="720" y2="124" stroke="#fde68a" stroke-width="1"/>
+  
+  <text x="170" y="152" font-size="13" fill="#1f2933">① 코드/이미지 다운로드</text>
+  <text x="450" y="152" font-size="13" fill="#1f2933">② 실행 환경(마이크로 VM) 부팅</text>
+  <text x="170" y="192" font-size="13" fill="#1f2933">③ 런타임 시작</text>
+  <text x="450" y="192" font-size="13" fill="#1f2933">④ 핸들러 바깥 초기화 코드 실행</text>
+
+  <!-- Arrow from INIT to INVOKE -->
+  <path d="M440,230 L440,268" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- INVOKE Box -->
+  <rect x="140" y="270" width="600" height="100" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="298" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">INVOKE 단계</text>
+  <line x1="160" y1="312" x2="720" y2="312" stroke="#a7f3d0" stroke-width="1"/>
+  <text x="440" y="344" font-size="13" fill="#1f2933" text-anchor="middle">핸들러 함수 실행 → 응답 반환</text>
+
+  <!-- Line from INVOKE down through Warm Start Info -->
+  <path d="M440,370 L440,403" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Warm Start Interval Container -->
+  <rect x="180" y="403" width="520" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="200" y="426" font-size="12.5" fill="#1f2933">환경은 살아 있음 (다음 호출을 기다림)</text>
+  <text x="485" y="426" font-size="12.5" font-weight="bold" fill="#059669">← 웜 스타트 구간</text>
+
+  <path d="M440,439 L440,478" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Branching / Next Steps Box -->
+  <rect x="140" y="480" width="600" height="100" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="170" y="518" font-size="13" fill="#059669">다음 호출이 곧 오면 → INVOKE만 다시 실행</text>
+  <line x1="160" y1="531" x2="720" y2="531" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="170" y="555" font-size="13" fill="#dc2626">한동안 호출이 없으면 → SHUTDOWN 후 환경 회수</text>
+</svg>

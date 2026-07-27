@@ -54,6 +54,11 @@ UPDATE account SET balance = balance + 10000 WHERE id = 2;   -- 입금
 
 ### Dirty Read — 커밋되지 않은 값을 읽는다
 
+<!-- diagram:be-transaction-isolation-1 -->
+![Dirty Read](../../assets/diagrams/be-transaction-isolation-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 시간 →
 
@@ -63,26 +68,39 @@ UPDATE account SET balance = balance + 10000 WHERE id = 2;   -- 입금
                                   ↑
                         존재한 적 없는 값을 읽었다
 ```
+-->
 
 A가 롤백하면 2000이라는 값은 DB 어디에도 없었던 값이 된다. B가 그 값으로 계산했다면 결과 전체가 오염된다.
 
 ### Non-Repeatable Read — 같은 행을 두 번 읽었는데 값이 다르다
 
+<!-- diagram:be-transaction-isolation-2 -->
+![Non-Repeatable Read](../../assets/diagrams/be-transaction-isolation-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 트랜잭션 A ──[SELECT id=1 → 1000]────────────────[SELECT id=1 → 2000]──
                                        │
 트랜잭션 B ────────────────[UPDATE 2000 + COMMIT]──────────────────────
 ```
+-->
 
 A의 관점에서는 "내가 아무것도 안 했는데 값이 변했다". 조회 결과를 근거로 판단하고 그 다음 문장에서 다시 조회하는 로직이라면 앞뒤가 어긋난다.
 
 ### Phantom Read — 같은 조건으로 조회했는데 행 개수가 다르다
 
+<!-- diagram:be-transaction-isolation-3 -->
+![Phantom Read](../../assets/diagrams/be-transaction-isolation-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 트랜잭션 A ──[WHERE age > 20 → 3건]──────────────[WHERE age > 20 → 4건]──
                                        │
 트랜잭션 B ────────────────[age=25 INSERT + COMMIT]────────────────────
 ```
+-->
 
 Non-Repeatable Read는 **값**이 바뀌는 것, Phantom Read는 **행 수**가 바뀌는 것이다. 원인도 다르다. 전자는 UPDATE/DELETE, 후자는 INSERT다.
 
@@ -123,6 +141,11 @@ public void process() { ... }
 
 InnoDB는 행을 수정할 때 **덮어쓰지 않는다.** 변경 전 버전을 언두 로그에 남기고, 각 행에는 "이 버전을 만든 트랜잭션 ID"가 함께 기록된다.
 
+<!-- diagram:be-transaction-isolation-4 -->
+![5.1 MVCC](../../assets/diagrams/be-transaction-isolation-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     현재 테이블                      언두 로그 (과거 버전 체인)
                 ┌──────────────────┐            ┌──────────────────┐
@@ -136,6 +159,7 @@ InnoDB는 행을 수정할 때 **덮어쓰지 않는다.** 변경 전 버전을 
    trx 100 이 읽으면 ─────────────────────────────────┘
    (120은 내 시작 이후 → 과거 버전을 따라간다)
 ```
+-->
 
 트랜잭션은 시작할 때 **읽기 뷰(Read View)** 를 만든다. "그 시점에 어떤 트랜잭션들이 아직 진행 중이었나"를 담은 스냅샷이다. 행을 읽을 때 그 행의 버전이 내 읽기 뷰 기준으로 보이면 안 되는 것이면, 언두 로그를 따라 과거 버전으로 거슬러 올라간다.
 
@@ -155,6 +179,11 @@ InnoDB는 행을 수정할 때 **덮어쓰지 않는다.** 변경 전 버전을 
 
 MVCC는 **일반 SELECT**를 보호한다. 그런데 `SELECT ... FOR UPDATE`처럼 락을 거는 읽기(Locking Read)는 스냅샷이 아니라 현재 데이터를 봐야 한다. 여기서 Phantom Read를 막는 두 번째 장치가 필요하다.
 
+<!-- diagram:be-transaction-isolation-5 -->
+![5.2 갭 락](../../assets/diagrams/be-transaction-isolation-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 id 기준으로 정렬된 인덱스
 
@@ -170,6 +199,7 @@ id 기준으로 정렬된 인덱스
 갭   락 : 행과 행 "사이의 빈 공간"에 INSERT하는 것을 막는다
 넥스트키 락 = 레코드 락 + 그 앞쪽 갭 락
 ```
+-->
 
 ```sql
 -- 트랜잭션 A
@@ -213,6 +243,11 @@ UPDATE는 스냅샷이 아니라 **현재 데이터에 적용된다.** 그 결�
 
 ### 6.1 격리 수준으로는 안 풀리는 문제
 
+<!-- diagram:be-transaction-isolation-6 -->
+![6.1 격리 수준으로는 안 풀리는 문제](../../assets/diagrams/be-transaction-isolation-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 재고 10개, 두 사용자가 동시에 1개씩 주문
 
@@ -223,6 +258,7 @@ UPDATE는 스냅샷이 아니라 **현재 데이터에 적용된다.** 그 결�
 
 2개 팔렸는데 재고는 1개만 줄었다
 ```
+-->
 
 **갱신 손실(Lost Update)** 이다. 두 트랜잭션 모두 커밋에 성공했고 격리 수준도 지켜졌는데 결과가 틀렸다. 애플리케이션이 "읽은 값으로 계산해서 다시 쓰는" 구조이기 때문에, 격리 수준만으로는 막을 수 없다.
 

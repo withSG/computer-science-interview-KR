@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">없으면 어떻게 되나</title>
+  <desc id="d">직접 호출 방식과 옵저버 패턴의 결합도 및 구조 비교 다이어그램</desc>
+  <rect width="880" height="300" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 영역 구분 카드의 배경 -->
+  <rect x="24" y="24" width="396" height="252" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="440" y="24" width="416" height="252" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- [직접 호출] 영역 -->
+  <text x="44" y="55" font-size="14" font-weight="bold" fill="#dc2626">[직접 호출]</text>
+
+  <!-- UserService (직접 호출) -->
+  <rect x="44" y="125" width="120" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="104" y="149.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">UserService</text>
+
+  <!-- 연결선 (트리) -->
+  <path d="M164,145 L184,145 M184,95 L184,195 M184,95 L204,95 M184,145 L204,145 M184,195 L204,195" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+  <path d="M184,95 L204,95" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M184,145 L204,145" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M184,195 L204,195" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 하위 서비스 목록 -->
+  <rect x="204" y="75" width="126" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="267" y="99.55" font-size="13" fill="#1f2933" text-anchor="middle">EmailService</text>
+
+  <rect x="204" y="125" width="126" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="267" y="149.55" font-size="13" fill="#1f2933" text-anchor="middle">PointService</text>
+
+  <rect x="204" y="175" width="126" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="267" y="199.55" font-size="13" fill="#1f2933" text-anchor="middle">StatsService</text>
+
+  <!-- 직접 호출 하단 설명 -->
+  <text x="222" y="250" font-size="12.5" font-weight="bold" fill="#dc2626" text-anchor="middle">추가될 때마다 UserService가 커진다</text>
+
+  <!-- [옵저버] 영역 -->
+  <text x="460" y="55" font-size="14" font-weight="bold" fill="#2563eb">[옵저버]</text>
+
+  <!-- UserService (옵저버) -->
+  <rect x="455" y="75" width="110" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="510" y="99.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">UserService</text>
+
+  <!-- 발행 화살표 -->
+  <path d="M565,95 L615,95" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="575" y="85" width="30" height="18" fill="#ffffff"/>
+  <text x="590" y="98.025" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">발행</text>
+
+  <!-- UserRegisteredEvent -->
+  <rect x="615" y="75" width="185" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="707.5" y="99.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">UserRegisteredEvent</text>
+
+  <!-- 이벤트 분개 선 및 화살표 -->
+  <path d="M707.5,115 L707.5,145 M485,145 L815,145" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M485,145 L485,175" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M595,145 L595,175" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M705,145 L705,175" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M815,145 L815,175" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 구독자 목록 -->
+  <rect x="455" y="175" width="60" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="485" y="197.2" font-size="12" fill="#1f2933" text-anchor="middle">Email</text>
+
+  <rect x="565" y="175" width="60" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="595" y="197.2" font-size="12" fill="#1f2933" text-anchor="middle">Point</text>
+
+  <rect x="675" y="175" width="60" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="705" y="197.2" font-size="12" fill="#1f2933" text-anchor="middle">Stats</text>
+
+  <rect x="785" y="175" width="60" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="815" y="197.2" font-size="12" fill="#1f2933" text-anchor="middle">Coupon</text>
+
+  <!-- 옵저버 하단 설명 -->
+  <text x="648" y="250" font-size="12.5" font-weight="bold" fill="#059669" text-anchor="middle">발행자는 구독자를 모른다</text>
+</svg>

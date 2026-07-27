@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">실패 지점의 해상도</title>
+  <desc id="d">E2E 테스트만 있을 때와 단위 테스트가 있을 때의 디버깅 범위 및 해상도 비교 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <g>
+    <rect x="30" y="24" width="820" height="176" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+    <rect x="46" y="40" width="132" height="26" rx="4" fill="#dc2626"/>
+    <text x="112" y="57" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">[E2E만 있을 때]</text>
+
+    <text x="192" y="57" fill="#dc2626" font-size="13" font-weight="bold">실패 메시지: "결제 시나리오 실패"</text>
+
+    <rect x="75" y="86" width="100" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="125" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">브라우저</text>
+
+    <path d="M175,106 L223,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="225" y="86" width="100" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="275" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">API GW</text>
+
+    <path d="M325,106 L373,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="375" y="86" width="110" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="430" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">주문서비스</text>
+
+    <path d="M485,106 L533,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="535" y="86" width="110" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="590" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">결제서비스</text>
+
+    <path d="M645,106 L693,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="695" y="86" width="80" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="735" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">DB</text>
+
+    <text x="125" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
+    <text x="275" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
+    <text x="430" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
+    <text x="590" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
+    <text x="735" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
+
+    <path d="M125,162 L735,162" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+    <path d="M735,162 L755,162" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <rect x="600" y="172" width="170" height="20" fill="#fef2f2" rx="3"/>
+    <text x="685" y="186" fill="#dc2626" font-size="11.5" font-weight="bold" text-anchor="middle">← 로그를 처음부터 뒤진다</text>
+  </g>
+
+  <g>
+    <rect x="30" y="220" width="820" height="186" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+    <rect x="46" y="236" width="165" height="26" rx="4" fill="#2563eb"/>
+    <text x="128" y="253" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">[단위 테스트가 있을 때]</text>
+
+    <text x="225" y="253" fill="#2563eb" font-size="13" font-weight="bold">"DiscountPolicy.apply() expected 900 but was 1000"</text>
+
+    <rect x="75" y="282" width="100" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+    <text x="125" y="307" fill="#52606d" font-size="13" text-anchor="middle">브라우저</text>
+
+    <path d="M175,302 L223,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="225" y="282" width="100" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+    <text x="275" y="307" fill="#52606d" font-size="13" text-anchor="middle">API GW</text>
+
+    <path d="M325,302 L373,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="375" y="282" width="110" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="430" y="307" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">주문서비스</text>
+
+    <path d="M485,302 L533,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="535" y="282" width="110" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+    <text x="590" y="307" fill="#52606d" font-size="13" text-anchor="middle">결제서비스</text>
+
+    <path d="M645,302 L693,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <rect x="695" y="282" width="80" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+    <text x="735" y="307" fill="#52606d" font-size="13" text-anchor="middle">DB</text>
+
+    <path d="M430,322 L430,358 L448,358" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <rect x="455" y="344" width="220" height="28" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    <text x="465" y="362" fill="#1e40af" font-size="12.5" font-weight="bold">└ 이 클래스, 이 메서드, 이 입력</text>
+  </g>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">데이터 해저드 (Data Hazard)</title>
+  <desc id="d">CPU 파이프라인에서 이전 명령어의 WB 단계 전 제출된 R1 값을 읽지 못해 발생하는 데이터 해저드를 보여주는 파이프라인 그리드 다이어그램입니다.</desc>
+  
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="370" fill="#ffffff"/>
+
+  <!-- 메인 영역 테두리 및 배경 -->
+  <rect x="24" y="24" width="832" height="322" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 헤더 / 레지스터 설명 코멘트 (상단) -->
+  <g font-size="13" font-weight="600">
+    <text x="50" y="58" fill="#2563eb">ADD R1, R2, R3</text>
+    <text x="180" y="58" fill="#52606d">;</text>
+    <text x="195" y="58" fill="#52606d">R1 = R2 + R3</text>
+
+    <text x="50" y="88" fill="#dc2626">SUB R4, R1, R5</text>
+    <text x="180" y="88" fill="#52606d">;</text>
+    <text x="195" y="88" fill="#52606d">R4 = R1 - R5</text>
+    <text x="300" y="88" fill="#dc2626">← R1이 필요하다</text>
+  </g>
+
+  <!-- 구분선 -->
+  <line x1="40" y1="108" x2="840" y2="108" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 사이클 그리드 헤더 -->
+  <text x="60" y="137" font-size="13" font-weight="bold" fill="#1f2933">사이클</text>
+  
+  <!-- 사이클 번호 (1 ~ 6) -->
+  <g font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">
+    <text x="190" y="137">1</text>
+    <text x="290" y="137">2</text>
+    <text x="390" y="137">3</text>
+    <text x="490" y="137">4</text>
+    <text x="590" y="137">5</text>
+    <text x="690" y="137">6</text>
+  </g>
+
+  <!-- ADD 파이프라인 단계 -->
+  <text x="60" y="180" font-size="13" font-weight="bold" fill="#2563eb">ADD</text>
+  <g text-anchor="middle" font-size="13" font-weight="600">
+    <!-- IF -->
+    <rect x="155" y="160" width="70" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="190" y="180" fill="#2563eb">IF</text>
+    
+    <!-- ID -->
+    <rect x="255" y="160" width="70" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="290" y="180" fill="#2563eb">ID</text>
+    
+    <!-- EX -->
+    <rect x="355" y="160" width="70" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="390" y="180" fill="#2563eb">EX</text>
+    
+    <!-- MEM -->
+    <rect x="455" y="160" width="70" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="490" y="180" fill="#2563eb">MEM</text>
+    
+    <!-- WB (강조: R1이 5사이클 WB에서야 기록됨) -->
+    <rect x="555" y="160" width="70" height="30" rx="4" fill="#2563eb" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="590" y="180" fill="#ffffff">WB</text>
+  </g>
+  <text x="635" y="180" font-size="12" fill="#2563eb" font-weight="600">← R1은 5사이클 WB에서야 기록됨</text>
+
+  <!-- SUB 파이프라인 단계 -->
+  <text x="60" y="230" font-size="13" font-weight="bold" fill="#dc2626">SUB</text>
+  <g text-anchor="middle" font-size="13" font-weight="600">
+    <!-- IF -->
+    <rect x="255" y="210" width="70" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="290" y="230" fill="#dc2626">IF</text>
+    
+    <!-- ID (강조: 3사이클에서 R1 읽기 시도) -->
+    <rect x="355" y="210" width="70" height="30" rx="4" fill="#dc2626" stroke="#b91c1c" stroke-width="1.5"/>
+    <text x="390" y="230" fill="#ffffff">ID</text>
+    
+    <!-- EX -->
+    <rect x="455" y="210" width="70" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="490" y="230" fill="#dc2626">EX</text>
+    
+    <!-- MEM -->
+    <rect x="555" y="210" width="70" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="590" y="230" fill="#dc2626">MEM</text>
+    
+    <!-- WB -->
+    <rect x="655" y="210" width="70" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="690" y="230" fill="#dc2626">WB</text>
+  </g>
+
+  <!-- 충돌 지점 화살표 및 설명 -->
+  <path d="M390,292 L390,248" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="390" y="312" font-size="12" font-weight="600" fill="#dc2626" text-anchor="middle">3사이클에 R1을 읽어야 하는데 아직 없다</text>
+</svg>

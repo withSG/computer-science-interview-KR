@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340"
+     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
+     role="img" aria-labelledby="t d">
+  <title id="t">Offset 페이지네이션 삭제시 데이터 누락 문제</title>
+  <desc id="d">페이지를 넘기는 사이 데이터가 삭제되어 2페이지 조회 시 특정 데이터가 누락되는 현상을 보여주는 다이어그램</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마커 -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 1. 초기 상태 -->
+  <text x="40" y="44" font-size="13" font-weight="bold" fill="#1f2933">초기 상태:</text>
+  
+  <g transform="translate(140, 20)">
+    <rect x="0" y="0" width="370" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <rect x="10" y="6" width="52" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="36" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글6</text>
+    
+    <rect x="68" y="6" width="52" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="94" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글5</text>
+    
+    <rect x="126" y="6" width="52" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="152" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글4</text>
+    
+    <rect x="184" y="6" width="52" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="210" y="25" font-size="13" fill="#1f2933" text-anchor="middle">글3</text>
+    
+    <rect x="242" y="6" width="52" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="268" y="25" font-size="13" fill="#1f2933" text-anchor="middle">글2</text>
+    
+    <rect x="300" y="6" width="52" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="326" y="25" font-size="13" fill="#1f2933" text-anchor="middle">글1</text>
+  </g>
+
+  <!-- 2. 1페이지 -->
+  <text x="40" y="99" font-size="13" font-weight="bold" fill="#1f2933">1페이지:</text>
+  
+  <g transform="translate(140, 75)">
+    <rect x="0" y="0" width="190" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="10" y="6" width="52" height="28" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+    <text x="36" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글6</text>
+    
+    <rect x="68" y="6" width="52" height="28" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+    <text x="94" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글5</text>
+    
+    <rect x="126" y="6" width="52" height="28" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+    <text x="152" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글4</text>
+  </g>
+
+  <!-- 이벤트 구분선: 이 순간 글5가 삭제 -->
+  <g transform="translate(40, 130)">
+    <line x1="0" y1="12" x2="330" y2="12" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <rect x="338" y="0" width="164" height="24" rx="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="420" y="16" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">이 순간 글5가 삭제</text>
+    <line x1="510" y1="12" x2="800" y2="12" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+  </g>
+
+  <!-- 3. 현재 상태 -->
+  <text x="40" y="194" font-size="13" font-weight="bold" fill="#1f2933">현재 상태:</text>
+  
+  <g transform="translate(140, 170)">
+    <rect x="0" y="0" width="312" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <rect x="10" y="6" width="52" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="36" y="25" font-size="13" fill="#1f2933" text-anchor="middle">글6</text>
+    
+    <rect x="68" y="6" width="52" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="94" y="25" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">글4</text>
+    
+    <rect x="126" y="6" width="52" height="28" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="152" y="25" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">글3</text>
+    
+    <rect x="184" y="6" width="52" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="210" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글2</text>
+    
+    <rect x="242" y="6" width="52" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="268" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글1</text>
+
+    <!-- 당겨짐 표시 화살표 및 설명 -->
+    <path d="M 234 54 L 234 43" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="246" y="58" font-size="11.5" fill="#52606d">전체가 한 칸 당겨졌다</text>
+  </g>
+
+  <!-- 4. 2페이지 -->
+  <text x="40" y="284" font-size="13" font-weight="bold" fill="#1f2933">2페이지:</text>
+  
+  <g transform="translate(140, 260)">
+    <rect x="0" y="0" width="130" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="65" y="18" font-size="11.5" font-weight="bold" fill="#52606d" text-anchor="middle">OFFSET 3 LIMIT 3</text>
+    
+    <path d="M 138 14 L 162 14" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    
+    <g transform="translate(170, -10)">
+      <rect x="0" y="0" width="130" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+      <rect x="10" y="10" width="52" height="28" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+      <text x="36" y="29" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글2</text>
+      
+      <rect x="68" y="10" width="52" height="28" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+      <text x="94" y="29" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">글1</text>
+    </g>
+
+    <!-- 누락 경고 -->
+    <g transform="translate(315, 0)">
+      <text x="0" y="18" font-size="12" font-weight="bold" fill="#dc2626">글3을 못 봤다 (누락)</text>
+    </g>
+  </g>
+</svg>

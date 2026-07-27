@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">조정 루프(Reconciliation Loop)</title>
+  <desc id="d">쿠버네티스의 원하는 상태(spec)와 실제 상태(status)를 비교하여 차이가 있을 때 Pod를 추가 생성하고 무한히 다시 비교하는 조정 루프 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- spec (원하는 상태) -->
+  <rect x="290" y="40" width="300" height="80" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="70" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">spec (원하는 상태)</text>
+  <text x="440" y="98" text-anchor="middle" font-size="13" fill="#1f2933">replicas: 3</text>
+
+  <!-- spec -> status 화살표 및 비교(diff) 라벨 -->
+  <path d="M440,120 L440,170" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="403" y="136" width="74" height="20" fill="#ffffff"/>
+  <text x="440" y="150" text-anchor="middle" font-size="12" fill="#52606d">비교(diff)</text>
+
+  <!-- status (실제 상태) -->
+  <rect x="290" y="170" width="300" height="80" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="200" text-anchor="middle" font-size="14" font-weight="bold" fill="#d97706">status (실제 상태)</text>
+  <text x="440" y="228" text-anchor="middle" font-size="13" fill="#1f2933">readyReplicas: 2</text>
+
+  <!-- status -> Pod 1개 추가 생성 화살표 및 차이 발견 라벨 -->
+  <path d="M440,250 L440,300" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="403" y="266" width="74" height="20" fill="#ffffff"/>
+  <text x="440" y="280" text-anchor="middle" font-size="12" fill="#52606d">차이 발견</text>
+
+  <!-- Pod 1개 추가 생성 -->
+  <rect x="330" y="300" width="220" height="60" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="335" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">Pod 1개 추가 생성</text>
+
+  <!-- Loop back path: Pod 1개 추가 생성 -> spec (원하는 상태) -->
+  <path d="M440,360 L440,420 L640,420 L640,80 L590,80" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 다시 비교 (끝나지 않음) 라벨 -->
+  <rect x="495" y="410" width="170" height="20" fill="#ffffff"/>
+  <text x="580" y="424" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">다시 비교 (끝나지 않음)</text>
+</svg>

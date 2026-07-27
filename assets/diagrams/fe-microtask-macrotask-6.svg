@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">마이크로태스크 기아</title>
+  <desc id="d">마이크로태스크 큐가 계속 채워져 매크로태스크 큐와 렌더링 단계에 도달하지 못하는 현상을 설명하는 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section (From Header) -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">마이크로태스크 기아</text>
+
+  <!-- Row 1: Macrotask Queue -->
+  <!-- Label: 매크로태스크 큐 -->
+  <text x="40" y="110" font-size="14" font-weight="bold" fill="#1f2933">매크로태스크 큐</text>
+  <!-- Box: [클릭, 타이머, ...] -->
+  <rect x="180" y="85" width="230" height="40" rx="4" ry="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="295" y="110" font-size="13" text-anchor="middle" fill="#52606d">[클릭, 타이머, ...]</text>
+
+  <!-- Arrow & Blocked Label -->
+  <path d="M410,105 L520,105" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <!-- Symbol ✕ + Label: 영원히 대기 -->
+  <text x="535" y="110" font-size="14" font-weight="bold" fill="#dc2626">✕</text>
+  <text x="555" y="110" font-size="13" fill="#dc2626">영원히 대기</text>
+
+  <!-- Row 2: Microtask Queue (Highlighted/Active) -->
+  <!-- Label: 마이크로태스크 큐 -->
+  <text x="40" y="180" font-size="14" font-weight="bold" fill="#1f2933">마이크로태스크 큐</text>
+  <!-- Box: [starve, starve, starve, ...] -->
+  <rect x="180" y="155" width="300" height="40" rx="4" ry="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="330" y="180" font-size="13" font-weight="bold" text-anchor="middle" fill="#7c3aed">[starve, starve, starve, ...]</text>
+
+  <!-- Loop Arrow & Label: 계속 채워짐 -->
+  <path d="M480,175 C520,175 520,135 480,155" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M480,175 L520,175" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <text x="535" y="180" font-size="13" fill="#7c3aed" font-weight="bold">← 계속 채워짐</text>
+
+  <!-- Row 3: Rendering -->
+  <!-- Label: 렌더링 -->
+  <text x="40" y="250" font-size="14" font-weight="bold" fill="#1f2933">렌더링</text>
+
+  <!-- Arrow & Blocked Label -->
+  <path d="M180,245 L520,245" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <!-- Symbol ✕ + Label: 영원히 대기 / 도달 불가 -->
+  <text x="535" y="250" font-size="14" font-weight="bold" fill="#dc2626">✕</text>
+  <text x="555" y="250" font-size="13" fill="#dc2626">도달 불가</text>
+
+  <!-- Legend / Note box for clarity -->
+  <rect x="40" y="285" width="800" height="30" rx="4" ry="4" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+  <text x="50" y="304" font-size="11.5" fill="#dc2626">* 마이크로태스크 큐가 비워질 때까지 매크로태스크 및 렌더링으로 진행하지 못함</text>
+</svg>

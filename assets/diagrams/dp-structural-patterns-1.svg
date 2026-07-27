@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">감싸기로 조합한다</title>
+  <desc id="d">sender.send() 호출 시 LoggingSender와 RetryingSender를 거쳐 SmsSender로 전달되는 데코레이터 패턴의 실행 흐름 다이어그램</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Legend -->
+  <g transform="translate(680, 24)">
+    <rect x="0" y="0" width="160" height="96" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="12" y="22" font-size="11.5" font-weight="bold" fill="#1f2933">범례</text>
+    <rect x="12" y="34" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="30" y="44" font-size="11" fill="#52606d">진입 / 로깅</text>
+    <rect x="12" y="52" width="12" height="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="30" y="62" font-size="11" fill="#52606d">실패</text>
+    <rect x="12" y="70" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="30" y="80" font-size="11" fill="#52606d">성공 / 반환</text>
+  </g>
+
+  <!-- Root: sender.send() -->
+  <rect x="40" y="30" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="120" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">sender.send()</text>
+
+  <!-- Vertical tree branch main line -->
+  <path d="M70,70 L70,450" stroke="#cbd2d9" stroke-width="2" fill="none"/>
+
+  <!-- Step 1: LoggingSender 시작 시각 기록 -->
+  <path d="M70,110 L110,110" stroke="#cbd2d9" stroke-width="2" fill="none"/>
+  <rect x="110" y="90" width="170" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="195" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">LoggingSender</text>
+  
+  <rect x="300" y="95" width="110" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="355" y="114" text-anchor="middle" font-size="12" fill="#52606d">시작 시각 기록</text>
+
+  <!-- Sub-branch for RetryingSender & 반환 -->
+  <path d="M140,130 L140,400" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+
+  <!-- Step 2: RetryingSender 1회차 -->
+  <path d="M140,180 L180,180" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <rect x="180" y="160" width="180" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="270" y="184" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">RetryingSender</text>
+  
+  <rect x="370" y="165" width="56" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="398" y="184" text-anchor="middle" font-size="12" fill="#52606d">1회차</text>
+
+  <path d="M434,180 L480,180" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <rect x="488" y="160" width="150" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="563" y="184" text-anchor="middle" font-size="13" fill="#1f2933">SmsSender.send()</text>
+
+  <path d="M646,180 L710,180" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  
+  <rect x="718" y="165" width="50" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="743" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#dc2626">실패</text>
+
+  <!-- Step 3: RetryingSender 2회차 -->
+  <path d="M140,260 L180,260" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <rect x="180" y="240" width="180" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="270" y="264" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">RetryingSender</text>
+  
+  <rect x="370" y="245" width="56" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="398" y="264" text-anchor="middle" font-size="12" fill="#52606d">2회차</text>
+
+  <path d="M434,260 L480,260" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <rect x="488" y="240" width="150" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="563" y="264" text-anchor="middle" font-size="13" fill="#1f2933">SmsSender.send()</text>
+
+  <path d="M646,260 L710,260" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  
+  <rect x="718" y="245" width="50" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="743" y="264" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">성공</text>
+
+  <!-- Step 4: 반환 -->
+  <path d="M140,330 L180,330" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <rect x="180" y="315" width="70" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="215" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#52606d">반환</text>
+
+  <!-- Step 5: LoggingSender 소요 시간 로깅 -->
+  <path d="M70,430 L110,430" stroke="#cbd2d9" stroke-width="2" fill="none"/>
+  <rect x="110" y="410" width="170" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="195" y="434" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">LoggingSender</text>
+  
+  <rect x="300" y="415" width="124" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="362" y="434" text-anchor="middle" font-size="12" fill="#52606d">소요 시간 로깅</text>
+</svg>

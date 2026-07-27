@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">3. 완화 기법을 세 층으로 배치하기</title>
+  <desc id="d">입력, 생성, 출력 세 층으로 구성된 환각 완화 기법 배치도</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  <rect width="880" height="630" fill="#ffffff"/>
+
+  <!-- 1층: 입력 (근거 주입) -->
+  <rect x="40" y="30" width="800" height="150" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="40" y="30" width="800" height="36" rx="8" ry="8" fill="#2563eb"/>
+  <rect x="40" y="58" width="800" height="8" fill="#2563eb"/>
+  <text x="440" y="53.55" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1층: 입력 (근거 주입)</text>
+
+  <text x="64" y="93.55" font-size="13" fill="#1f2933">RAG로 관련 문서 검색해 컨텍스트에 넣기</text>
+  <text x="64" y="118.55" font-size="13" fill="#1f2933">도구(계산기, DB 조회, 검색 API)로 사실을 가져오기</text>
+  <text x="64" y="147.55" font-size="13" font-weight="bold" fill="#2563eb">→ 추측할 필요 자체를 없앤다. 효과가 가장 크다</text>
+
+  <!-- 화살표 1 -> 2 -->
+  <path d="M440,180 L440,223" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 2층: 생성 (출력 제어) -->
+  <rect x="40" y="230" width="800" height="175" rx="8" ry="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="40" y="230" width="800" height="36" rx="8" ry="8" fill="#d97706"/>
+  <rect x="40" y="258" width="800" height="8" fill="#d97706"/>
+  <text x="440" y="253.55" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2층: 생성 (출력 제어)</text>
+
+  <text x="64" y="293.55" font-size="13" fill="#1f2933">"컨텍스트에 없으면 모른다고 답하라" 명시</text>
+  <text x="64" y="318.55" font-size="13" fill="#1f2933">인용 형식 강제 ([1], [2])</text>
+  <text x="64" y="343.55" font-size="13" fill="#1f2933">Temperature 낮추기</text>
+  <text x="64" y="372.55" font-size="13" font-weight="bold" fill="#d97706">→ 벗어날 여지를 좁힌다. 싸고 즉시 적용 가능</text>
+
+  <!-- 화살표 2 -> 3 -->
+  <path d="M440,405 L440,448" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 3층: 출력 (사후 검증) -->
+  <rect x="40" y="455" width="800" height="200" rx="8" ry="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <rect x="40" y="455" width="800" height="36" rx="8" ry="8" fill="#059669"/>
+  <rect x="40" y="483" width="800" height="8" fill="#059669"/>
+  <text x="440" y="478.55" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3층: 출력 (사후 검증)</text>
+
+  <text x="64" y="518.55" font-size="13" fill="#1f2933">스키마·값 범위 검증</text>
+  <text x="64" y="543.55" font-size="13" fill="#1f2933">인용된 출처가 실제 컨텍스트에 있는지 대조</text>
+  <text x="64" y="568.55" font-size="13" fill="#1f2933">별도 모델로 근거 충실도 판정 (LLM-as-a-Judge)</text>
+  <text x="64" y="593.55" font-size="13" fill="#1f2933">위험 작업은 사람 승인</text>
+  <text x="64" y="622.55" font-size="13" font-weight="bold" fill="#059669">→ 통과 못한 답변을 사용자에게 안 보낸다</text>
+</svg>

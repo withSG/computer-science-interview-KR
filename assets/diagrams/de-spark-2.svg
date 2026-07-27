@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DataFrame은 의도를 선언한다</title>
+  <desc id="d">사용자가 쓴 순서와 옵티마이저가 바꾼 실행 계획의 비교 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="300" fill="#ffffff"/>
+
+  <!-- 범례 (의미 구분을 위한 색상 참고) -->
+  <g transform="translate(680, 20)">
+    <rect x="0" y="0" width="12" height="12" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="2"/>
+    <text x="18" y="10" font-size="11" fill="#52606d">비최적화 순서</text>
+    <rect x="100" y="0" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="2"/>
+    <text x="118" y="10" font-size="11" fill="#52606d">최적화 실행 계획</text>
+  </g>
+
+  <!-- 왼쪽 영역: 사용자가 쓴 순서 -->
+  <!-- Header -->
+  <text x="190" y="50" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자가 쓴 순서</text>
+  
+  <!-- Left Box -->
+  <!-- Box dimension: x=40, y=70, w=300, h=190 -->
+  <rect x="40" y="70" width="300" height="190" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+  
+  <text x="64" y="112" font-size="13" fill="#1f2933">1. 파일 전체 읽기</text>
+  <text x="64" y="148" font-size="13" fill="#1f2933">2. join</text>
+  <text x="64" y="184" font-size="13" fill="#1f2933">3. filter</text>
+  <text x="64" y="220" font-size="13" fill="#1f2933">4. select 2개 컬럼</text>
+
+  <!-- 화살표 (옵티마이저 변환) -->
+  <path d="M360,165 L480,165" stroke="#2563eb" stroke-width="2.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 오른쪽 영역: 옵티마이저가 바꾼 실행 계획 -->
+  <!-- Header -->
+  <text x="670" y="50" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">옵티마이저가 바꾼 실행 계획</text>
+
+  <!-- Right Box -->
+  <!-- Box dimension: x=500, y=70, w=340, h=190 -->
+  <rect x="500" y="70" width="340" height="190" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="6"/>
+
+  <text x="524" y="105" font-size="13" fill="#1f2933">1. amount, user_id 컬럼만</text>
+  <text x="542" y="127" font-size="13" fill="#1f2933">읽기 (column pruning)</text>
+  
+  <text x="524" y="160" font-size="13" fill="#1f2933">2. 읽는 즉시 filter 적용</text>
+  <text x="542" y="182" font-size="13" fill="#1f2933">(predicate pushdown)</text>
+
+  <text x="524" y="220" font-size="13" fill="#1f2933">3. 줄어든 데이터로 join</text>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">2. Service는 어떻게 Pod를 찾는가</title>
+  <desc id="d">Service 생성부터 EndpointSlice 컨트롤러의 Pod 탐색, kube-proxy의 규칙 설치 및 갱신 흐름을 나타낸 시퀀스 다이어그램</desc>
+  
+  <defs>
+    <!-- 화살표 마커: 기본 잉크색 -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커: 파랑 -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- 화살표 마커: 보라 (순환 흐름용) -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <!-- 메인 콘테이너 영역 (흐름 전체를 감싸는 배경 영역) -->
+  <rect x="40" y="30" width="800" height="660" rx="12" ry="12" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- ① Service 생성 -->
+  <g transform="translate(230, 60)">
+    <rect x="0" y="0" width="420" height="60" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="210" y="35" text-anchor="middle" fill="#1f2933" font-size="15" font-weight="bold">① Service 생성</text>
+  </g>
+
+  <!-- 화살표 ① -> ② -->
+  <path d="M440,120 L440,150" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- ② EndpointSlice 컨트롤러 -->
+  <g transform="translate(100, 150)">
+    <rect x="0" y="0" width="680" height="80" rx="8" ry="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="340" y="32" text-anchor="middle" fill="#1f2933" font-size="14" font-weight="bold">② EndpointSlice 컨트롤러가 selector에 맞고 Ready 상태인 Pod를 찾아</text>
+    <text x="340" y="58" text-anchor="middle" fill="#1f2933" font-size="14" font-weight="bold">IP 목록을 EndpointSlice 오브젝트에 기록</text>
+  </g>
+
+  <!-- 화살표 ② -> ③ -->
+  <path d="M440,230 L440,260" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- ③ kube-proxy watch -->
+  <g transform="translate(140, 260)">
+    <rect x="0" y="0" width="600" height="60" rx="8" ry="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="300" y="35" text-anchor="middle" fill="#1f2933" font-size="14" font-weight="bold">③ 각 노드의 kube-proxy가 EndpointSlice 변경을 watch</text>
+  </g>
+
+  <!-- 화살표 ③ -> ④ -->
+  <path d="M440,320 L440,350" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- ④ kube-proxy 규칙 설치 -->
+  <g transform="translate(80, 350)">
+    <rect x="0" y="0" width="720" height="90" rx="8" ry="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="360" y="36" text-anchor="middle" fill="#1f2933" font-size="14" font-weight="bold">④ kube-proxy가 노드 커널에 "10.96.0.42:80 으로 온 패킷은</text>
+    <text x="360" y="64" text-anchor="middle" fill="#1f2933" font-size="14" font-weight="bold">10.244.1.7:8080 / 10.244.2.3:8080 중 하나로 보내라" 규칙 설치</text>
+  </g>
+
+  <!-- 화살표 ④ -> ⑤ -->
+  <path d="M440,440 L440,470" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- ⑤ Pod 변경 및 갱신 흐름 -->
+  <g transform="translate(80, 470)">
+    <rect x="0" y="0" width="720" height="60" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="360" y="35" text-anchor="middle" fill="#1f2933" font-size="14" font-weight="bold">⑤ Pod가 죽거나 늘면 ②로 돌아가 목록이 갱신되고 규칙도 다시 깔린다</text>
+  </g>
+
+  <!-- ⑤ -> ② 피드백/순환 화살표 (오른쪽으로 우회) -->
+  <path d="M800,500 L825,500 L825,190 L780,190" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#a-purple)"/>
+
+</svg>

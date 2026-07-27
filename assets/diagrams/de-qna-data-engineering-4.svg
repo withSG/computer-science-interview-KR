@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Kafka 구조 다이어그램</title>
+  <desc id="d">Producer가 Topic orders의 Partition 0, 1, 2로 메시지를 보내고 Consumer Group 내의 Consumer A, B, C가 각각 소비하는 구조 및 설명</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="370" fill="#ffffff"/>
+
+  <!-- 메인 다이어그램 구역 -->
+  <!-- Consumer Group 영역 박스 -->
+  <rect x="520" y="30" width="320" height="210" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="790" y="140" fill="#7c3aed" font-size="14" font-weight="bold" text-anchor="middle">Consumer Group</text>
+
+  <!-- Producer -->
+  <rect x="30" y="110" width="110" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="85" y="140" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Producer</text>
+
+  <!-- Producer -> Topic 화살표 -->
+  <path d="M140,135 L210,135" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Topic: orders 영역 박스 -->
+  <rect x="210" y="40" width="220" height="190" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="320" y="65" fill="#d97706" font-size="14" font-weight="bold" text-anchor="middle">Topic: orders</text>
+
+  <!-- Partitions -->
+  <!-- Partition 0 -->
+  <rect x="230" y="80" width="180" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="320" y="103" fill="#1f2933" font-size="13" text-anchor="middle">Partition 0</text>
+
+  <!-- Partition 1 -->
+  <rect x="230" y="127" width="180" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="320" y="150" fill="#1f2933" font-size="13" text-anchor="middle">Partition 1</text>
+
+  <!-- Partition 2 -->
+  <rect x="230" y="174" width="180" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="320" y="197" fill="#1f2933" font-size="13" text-anchor="middle">Partition 2</text>
+
+  <!-- Partition -> Consumer 화살표들 -->
+  <path d="M410,98 L540,98" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M410,145 L540,145" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M410,192 L540,192" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Consumers -->
+  <!-- Consumer A -->
+  <rect x="540" y="80" width="130" height="36" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="605" y="103" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Consumer A</text>
+
+  <!-- Consumer B -->
+  <rect x="540" y="127" width="130" height="36" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="605" y="150" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Consumer B</text>
+
+  <!-- Consumer C -->
+  <rect x="540" y="174" width="130" height="36" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="605" y="197" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Consumer C</text>
+
+  <!-- Consumer Group 중괄호 연결선 (Consumer들과 Consumer Group 라벨 연결) -->
+  <path d="M670,98 L685,98 L685,145 L685,192 L670,192" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+  <path d="M685,145 L695,145" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+
+  <!-- 하단 부가 설명 텍스트 영역 -->
+  <line x1="30" y1="265" x2="850" y2="265" stroke="#cbd2d9" stroke-width="1"/>
+
+  <text x="40" y="295" fill="#1f2933" font-size="13">- 파티션 수만큼 컨슈머가 병렬 소비 (처리량 확장)</text>
+  <text x="40" y="325" fill="#1f2933" font-size="13">- 같은 파티션 내에서는 순서 보장</text>
+</svg>

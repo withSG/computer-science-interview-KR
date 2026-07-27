@@ -66,6 +66,11 @@
 
 가장 널리 쓰이는 방식이다. **애플리케이션이 캐시를 직접 조회하고, 없으면 DB에서 읽어 캐시에 채운다.** 캐시는 그냥 옆에 놓인(aside) 저장소일 뿐이고, 모든 판단은 애플리케이션 코드가 한다.
 
+<!-- diagram:sd-caching-strategies-1 -->
+![Cache-Aside](../../assets/diagrams/sd-caching-strategies-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         ┌─────────────┐  1. GET user:42   ┌───────────┐
         │ Application │ ────────────────► │   Cache   │
@@ -78,6 +83,7 @@
         │  Database   │ ────────────────────────┘
         └─────────────┘        6. 응답 반환
 ```
+-->
 
 ```java
 @Service
@@ -182,6 +188,11 @@ public Optional<User> getUser(Long id) {
 
 읽기 전략이 "미스가 났을 때 어떻게 채울 것인가"라면, 쓰기 전략은 **"데이터가 바뀔 때 캐시와 DB를 어떤 순서로 건드릴 것인가"**다.
 
+<!-- diagram:sd-caching-strategies-2 -->
+![3. 쓰기 전략](../../assets/diagrams/sd-caching-strategies-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Write-Through]  둘 다, 지금, 동기로
    App ──write──► Cache ──write──► DB ──ack──► ... ──► App
@@ -195,6 +206,7 @@ public Optional<User> getUser(Long id) {
    App ──write──► DB ──ack──► App
         └─ 캐시에 새 값을 넣지 않는다. 다음 읽기 때 Cache-Aside로 채워짐
 ```
+-->
 
 ### 비교
 
@@ -239,12 +251,18 @@ public void evictPriceCache(PriceChangedEvent event) {
 
 캐시를 지우는 대신 새 값으로 덮어쓰고 싶은 유혹이 있다. 다음 읽기가 빨라지니까. 하지만 두 요청이 동시에 같은 데이터를 수정하면 이런 일이 생긴다.
 
+<!-- diagram:sd-caching-strategies-3 -->
+![안티패턴: 캐시를 갱신(update)한다](../../assets/diagrams/sd-caching-strategies-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    요청A: DB에 100 쓰기 ─────────────┐
    요청B: DB에 200 쓰기 ──┐          │
    요청B: 캐시에 200 쓰기 ─┘          │
    요청A: 캐시에 100 쓰기 ────────────┘   ← DB는 200, 캐시는 100
 ```
+-->
 
 DB 쓰기 순서와 캐시 쓰기 순서가 뒤집히면 불일치가 **영구히** 남는다. **캐시는 갱신하지 말고 삭제하라(delete, don't update).** 삭제는 순서가 뒤집혀도 결과가 같다(멱등하다). 다음 읽기가 알아서 최신 값을 채운다.
 
@@ -275,6 +293,11 @@ TTL의 진짜 가치는 성능이 아니라 **안전망**에 있다. 아래 이�
 
 세 가지는 배타적이지 않다. 실무의 정석은 다층 방어다.
 
+<!-- diagram:sd-caching-strategies-4 -->
+![조합](../../assets/diagrams/sd-caching-strategies-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    모든 키에 TTL              ← 무효화가 실패해도 결국 복구되는 안전망
       +
@@ -282,6 +305,7 @@ TTL의 진짜 가치는 성능이 아니라 **안전망**에 있다. 아래 이�
       +
    연관 관계가 넓으면 태그     ← 한 변경이 여러 캐시를 낡게 만들 때만
 ```
+-->
 
 ---
 
@@ -291,6 +315,11 @@ TTL의 진짜 가치는 성능이 아니라 **안전망**에 있다. 아래 이�
 
 인기 키의 TTL이 만료되는 **바로 그 순간**, 그 키를 읽던 수천 개의 요청이 동시에 미스를 만나 한꺼번에 DB로 몰려간다. 평소 캐시가 다 받아내던 트래픽이 순간적으로 DB를 직격한다.
 
+<!-- diagram:sd-caching-strategies-5 -->
+![캐시 스탬피드](../../assets/diagrams/sd-caching-strategies-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    ~ 만료 직전        ~ 만료 순간
    ┌──────────┐      ┌──────────┐
@@ -304,6 +333,7 @@ TTL의 진짜 가치는 성능이 아니라 **안전망**에 있다. 아래 이�
                        │ DB  │  5000개 동시 쿼리 → 커넥션 풀 고갈 → 장애
                        └─────┘
 ```
+-->
 
 대응은 세 가지다.
 
@@ -380,12 +410,18 @@ public Product getProduct(Long id) {
 
 둘을 겹쳐 쓰는 구조를 2단 캐시(또는 near cache)라고 한다.
 
+<!-- diagram:sd-caching-strategies-6 -->
+![2단 캐시와 무효화 전파](../../assets/diagrams/sd-caching-strategies-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    요청 ──► [L1 로컬 캐시] ──miss──► [L2 Redis] ──miss──► [DB]
               (수 초 TTL)              (수 분 TTL)
                   ▲                        │
                   └──── Pub/Sub 무효화 ─────┘
 ```
+-->
 
 L1에 짧은 TTL을 걸어 대부분의 요청을 프로세스 안에서 끝내고, 데이터가 바뀌면 Redis Pub/Sub으로 전 서버에 "이 키 버려라" 메시지를 뿌린다. 다만 Pub/Sub 메시지는 유실될 수 있으므로 **L1의 TTL을 짧게(수 초~수십 초) 잡아 최종 안전망을 남겨두는 것이 필수**다. 무효화 전파를 100% 신뢰하는 구조는 만들지 않는다.
 

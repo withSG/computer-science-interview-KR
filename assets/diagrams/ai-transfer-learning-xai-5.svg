@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">LIME: 그 지점 근처만 단순한 모델로 흉내 낸다</title>
+  <desc id="d">LIME의 작동 원리와 실제 복잡한 결정 경계 및 국소 선형 근사를 비교 설명하는 다이어그램</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 상단 단계별 프로세스 카드 -->
+  <g id="steps">
+    <!-- Step 1 -->
+    <rect x="40" y="30" width="800" height="38" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+    <text x="50" y="53.5" font-size="13" font-weight="bold" fill="#2563eb">1.</text>
+    <text x="70" y="53.5" font-size="13" fill="#1f2933">설명할 샘플 x 주변에 변형된 가짜 샘플을 많이 만든다</text>
+
+    <!-- Step 2 -->
+    <rect x="40" y="78" width="800" height="38" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+    <text x="50" y="101.5" font-size="13" font-weight="bold" fill="#2563eb">2.</text>
+    <text x="70" y="101.5" font-size="13" fill="#1f2933">원래(복잡한) 모델로 그 샘플들의 예측을 받는다</text>
+
+    <!-- Step 3 -->
+    <rect x="40" y="126" width="800" height="38" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+    <text x="50" y="149.5" font-size="13" font-weight="bold" fill="#2563eb">3.</text>
+    <text x="70" y="149.5" font-size="13" fill="#1f2933">x에 가까운 샘플에 큰 가중치를 주고, 선형 모델을 학습시킨다</text>
+
+    <!-- Step 4 -->
+    <rect x="40" y="174" width="800" height="38" rx="6" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="50" y="197.5" font-size="13" font-weight="bold" fill="#2563eb">4.</text>
+    <text x="70" y="197.5" font-size="13" fill="#1f2933">그 선형 모델의 계수를 "x 근처에서의 설명"으로 제시한다</text>
+  </g>
+
+  <!-- 하단 다이어그램 영역 -->
+  <g id="comparison-diagrams">
+    <!-- 왼쪽: 실제 결정 경계 (복잡) -->
+    <g id="diagram-left">
+      <rect x="40" y="240" width="380" height="210" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+      <text x="230" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">실제 결정 경계(복잡)</text>
+      
+      <!-- 복잡한 결정 경계 곡선 -->
+      <path d="M 100,380 C 70,300 130,280 160,330 C 180,360 220,380 250,340 C 270,310 240,280 200,290" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="6 4"/>
+      
+      <!-- 샘플 x -->
+      <circle cx="270" cy="310" r="5" fill="#dc2626"/>
+      <text x="282" y="314" font-size="13" font-weight="bold" fill="#dc2626">● x</text>
+      
+      <!-- 설명 문구 -->
+      <text x="230" y="480" text-anchor="middle" font-size="13" font-weight="bold" fill="#52606d">전체를 설명하려는 게 아니라</text>
+    </g>
+
+    <!-- 오른쪽: LIME이 만든 국소 근사 -->
+    <g id="diagram-right">
+      <rect x="460" y="240" width="380" height="210" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1.5"/>
+      <text x="650" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">LIME이 만든 국소 근사</text>
+      
+      <!-- 국소 선형 경계 (직선) -->
+      <line x1="530" y1="280" x2="650" y2="400" stroke="#2563eb" stroke-width="2.5"/>
+      
+      <!-- 샘플 x -->
+      <circle cx="670" cy="310" r="5" fill="#dc2626"/>
+      <text x="682" y="314" font-size="13" font-weight="bold" fill="#dc2626">● x</text>
+      
+      <!-- 설명 문구 -->
+      <text x="650" y="480" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">x 근처에서만 맞으면 된다</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">불린 플래그로 상태를 표현할 때의 문제점</title>
+  <desc id="d">isLoading, data, error 3가지 불린/옵셔널 상태 조합 중 유효한 4가지 상태와 유효하지 않은 4가지 상태를 비교하는 표 형식 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 헤더 영역 -->
+  <rect x="40" y="40" width="380" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <rect x="420" y="40" width="420" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  
+  <text x="100" y="65" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">isLoading</text>
+  <text x="230" y="65" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">data</text>
+  <text x="360" y="65" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">error</text>
+  <text x="435" y="65" font-size="14" font-weight="bold" fill="#52606d">│</text>
+  <text x="455" y="65" font-size="14" font-weight="bold" fill="#1f2933">의미</text>
+
+  <!-- 구분선 1 -->
+  <line x1="40" y1="80" x2="840" y2="80" stroke="#1f2933" stroke-width="2"/>
+
+  <!-- 정상 상태 (4개) 배경 -->
+  <rect x="40" y="85" width="380" height="150" fill="#ecfdf5" rx="4"/>
+  <rect x="420" y="85" width="420" height="150" fill="#ecfdf5" rx="4"/>
+
+  <!-- Row 1: 시작 전 -->
+  <text x="100" y="109" font-size="13" fill="#1f2933" text-anchor="middle">false</text>
+  <text x="230" y="109" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="360" y="109" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="435" y="109" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="109" font-size="13" fill="#1f2933">시작 전</text>
+  <text x="560" y="109" font-size="13" fill="#059669" font-weight="bold">(정상)</text>
+
+  <!-- Row 2: 로딩 중 -->
+  <text x="100" y="144" font-size="13" fill="#1f2933" text-anchor="middle">true</text>
+  <text x="230" y="144" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="360" y="144" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="435" y="144" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="144" font-size="13" fill="#1f2933">로딩 중</text>
+  <text x="560" y="144" font-size="13" fill="#059669" font-weight="bold">(정상)</text>
+
+  <!-- Row 3: 성공 -->
+  <text x="100" y="179" font-size="13" fill="#1f2933" text-anchor="middle">false</text>
+  <text x="230" y="179" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="360" y="179" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="435" y="179" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="179" font-size="13" fill="#1f2933">성공</text>
+  <text x="560" y="179" font-size="13" fill="#059669" font-weight="bold">(정상)</text>
+
+  <!-- Row 4: 실패 -->
+  <text x="100" y="214" font-size="13" fill="#1f2933" text-anchor="middle">false</text>
+  <text x="230" y="214" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="360" y="214" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="435" y="214" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="214" font-size="13" fill="#1f2933">실패</text>
+  <text x="560" y="214" font-size="13" fill="#059669" font-weight="bold">(정상)</text>
+
+  <!-- 구분선 2 -->
+  <line x1="40" y1="240" x2="840" y2="240" stroke="#1f2933" stroke-width="2"/>
+
+  <!-- 비정상 상태 (4개) 배경 -->
+  <rect x="40" y="245" width="380" height="150" fill="#fef2f2" rx="4"/>
+  <rect x="420" y="245" width="420" height="150" fill="#fef2f2" rx="4"/>
+
+  <!-- Row 5: ??? 로딩 중인데 데이터가 있음 -->
+  <text x="100" y="269" font-size="13" fill="#1f2933" text-anchor="middle">true</text>
+  <text x="230" y="269" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="360" y="269" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="435" y="269" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="269" font-size="13" fill="#dc2626" font-weight="bold">???</text>
+  <text x="485" y="269" font-size="13" fill="#1f2933">로딩 중인데 데이터가 있음</text>
+
+  <!-- Row 6: ??? 로딩 중인데 실패 -->
+  <text x="100" y="304" font-size="13" fill="#1f2933" text-anchor="middle">true</text>
+  <text x="230" y="304" font-size="13" fill="#1f2933" text-anchor="middle">없음</text>
+  <text x="360" y="304" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="435" y="304" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="304" font-size="13" fill="#dc2626" font-weight="bold">???</text>
+  <text x="485" y="304" font-size="13" fill="#1f2933">로딩 중인데 실패</text>
+
+  <!-- Row 7: ??? 성공이면서 실패 -->
+  <text x="100" y="339" font-size="13" fill="#1f2933" text-anchor="middle">false</text>
+  <text x="230" y="339" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="360" y="339" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="435" y="339" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="339" font-size="13" fill="#dc2626" font-weight="bold">???</text>
+  <text x="485" y="339" font-size="13" fill="#1f2933">성공이면서 실패</text>
+
+  <!-- Row 8: ??? 셋 다 동시에 -->
+  <text x="100" y="374" font-size="13" fill="#1f2933" text-anchor="middle">true</text>
+  <text x="230" y="374" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="360" y="374" font-size="13" fill="#1f2933" text-anchor="middle">있음</text>
+  <text x="435" y="374" font-size="13" fill="#52606d">│</text>
+  <text x="455" y="374" font-size="13" fill="#dc2626" font-weight="bold">???</text>
+  <text x="485" y="374" font-size="13" fill="#1f2933">셋 다 동시에</text>
+
+  <!-- 하단 구분선 및 결론 하이라이트 -->
+  <line x1="40" y1="400" x2="840" y2="400" stroke="#1f2933" stroke-width="2"/>
+  
+  <rect x="40" y="415" width="800" height="45" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+  <text x="440" y="442" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">2 × 2 × 2 = 8가지 조합 중 4가지만 유효하다</text>
+</svg>

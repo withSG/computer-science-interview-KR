@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">호출 한 번의 전체 경로</title>
+  <desc id="d">Controller가 OrderService 프록시를 호출하여 Around 어드바이스, proceed를 통한 원본 OrderService 실행, 결과 반환까지의 전체 경로를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="880" height="620" fill="#ffffff"/>
+
+  <!-- Top Controller -->
+  <rect x="360" y="30" width="160" height="40" rx="4" ry="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Controller</text>
+
+  <!-- Flow Arrow from Top Controller to OrderService$$Proxy -->
+  <path d="M440,70 L440,110" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <!-- Top Arrow Label with White Background to prevent overlap and text clipping -->
+  <rect x="452" y="80" width="370" height="20" fill="#ffffff"/>
+  <text x="456" y="94" font-size="13" fill="#52606d">orderService.order(...)   ← 실제로는 프록시의 메서드</text>
+
+  <!-- Outer Box: OrderService$$Proxy -->
+  <rect x="120" y="110" width="640" height="420" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="145" y="139" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="start">OrderService$$Proxy</text>
+
+  <!-- Step 1 Text -->
+  <text x="440" y="184" font-size="13" fill="#1f2933" text-anchor="middle">1. @Around 앞부분  (측정 시작, 트랜잭션 begin)</text>
+
+  <!-- Arrow from Step 1 to Inner Box -->
+  <path d="M440,195 L440,235" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="448" y="205" width="64" height="20" fill="#ffffff"/>
+  <text x="452" y="219" font-size="13" fill="#2563eb">proceed()</text>
+
+  <!-- Inner Box: OrderService (원본) -->
+  <rect x="290" y="235" width="300" height="110" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="274" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">OrderService (원본)</text>
+  <text x="440" y="309" font-size="13" fill="#1f2933" text-anchor="middle">order() 실제 로직</text>
+
+  <!-- Arrow from Inner Box to Step 2 -->
+  <path d="M440,345 L440,385" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="448" y="355" width="105" height="20" fill="#ffffff"/>
+  <text x="452" y="369" font-size="13" fill="#2563eb">반환 또는 예외</text>
+
+  <!-- Step 2 Text -->
+  <text x="440" y="424" font-size="13" fill="#1f2933" text-anchor="middle">2. @Around 뒷부분  (commit/rollback, 시간 로그)</text>
+
+  <!-- Flow Arrow from OrderService$$Proxy to Bottom Controller -->
+  <path d="M440,530 L440,570" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <!-- Bottom Arrow Label -->
+  <rect x="452" y="540" width="75" height="20" fill="#ffffff"/>
+  <text x="456" y="554" font-size="13" fill="#52606d">결과 반환</text>
+
+  <!-- Bottom Controller -->
+  <rect x="360" y="570" width="160" height="40" rx="4" ry="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="594" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Controller</text>
+</svg>

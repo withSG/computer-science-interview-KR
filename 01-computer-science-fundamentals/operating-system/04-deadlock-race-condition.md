@@ -70,6 +70,11 @@ public class Counter {
 
 한 줄짜리 코드지만 CPU 입장에서는 세 단계다.
 
+<!-- diagram:cs-deadlock-race-condition-1 -->
+![왜 `count++` 가 안전하지 않은가](../../assets/diagrams/cs-deadlock-race-condition-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 count++ 의 실제 동작
 
@@ -85,6 +90,7 @@ count = 0 인 상태에서 두 스레드가 끼어들면
                                                         │
   최종 count = 1  ← 두 번 증가시켰는데 1만 늘었다  ──────┘
 ```
+-->
 
 T2가 T1의 STORE 전에 LOAD를 해버려서, T1의 작업 결과가 통째로 덮여 사라졌다. 이것을 **갱신 유실
 (lost update)** 이라 부른다. 이 창은 나노초 단위라 개발 환경에서는 거의 재현되지 않고, 트래픽이 오른
@@ -162,6 +168,11 @@ public void increment() {
 CAS는 "현재 값이 내가 읽었던 값과 같으면 새 값으로 바꾼다"를 CPU 명령어 하나로 처리한다. 다르면
 실패를 알려주고, 실패하면 다시 읽어서 재시도한다. 락을 잡지 않으므로 대기 자체가 없다.
 
+<!-- diagram:cs-deadlock-race-condition-2 -->
+![3) Atomic 클래스](../../assets/diagrams/cs-deadlock-race-condition-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 CAS 재시도 루프 (incrementAndGet 내부 개념)
 
@@ -178,6 +189,7 @@ CAS 재시도 루프 (incrementAndGet 내부 개념)
         ▼
       완료
 ```
+-->
 
 경합이 적으면 첫 시도에 성공해서 락보다 빠르다. 반대로 경합이 심하면 실패-재시도가 반복되며 CPU를
 태운다. 이럴 때 Java에서는 여러 내부 셀에 나눠 더하고 읽을 때만 합산하는 `LongAdder`가 유리하다.
@@ -211,6 +223,11 @@ CAS 재시도 루프 (incrementAndGet 내부 개념)
 
 ### 데드락 예시
 
+<!-- diagram:cs-deadlock-race-condition-3 -->
+![데드락 예시](../../assets/diagrams/cs-deadlock-race-condition-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Thread 1: Lock A 획득 → Lock B 대기
 Thread 2: Lock B 획득 → Lock A 대기
@@ -227,6 +244,7 @@ Thread 2: Lock B 획득 → Lock A 대기
 │ (T1 보유) │         │  (B 보유) │
 └──────────┘         └──────────┘
 ```
+-->
 
 코드로 옮기면 이렇다. 계좌 이체처럼 두 자원을 함께 잠가야 하는 상황에서 흔히 나온다.
 

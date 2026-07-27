@@ -113,6 +113,11 @@ Rebase:
 
 ### Git Flow
 
+<!-- diagram:git-qna-version-control-1 -->
+![Git Flow](../assets/diagrams/git-qna-version-control-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 main ────────────────────────────
         ↑                    ↑
@@ -123,29 +128,42 @@ develop ──────────┴────┴────────
 feature ─────┘
 hotfix ─────────────────────────→ main
 ```
+-->
 
 - 복잡하지만 체계적
 - 릴리스 주기가 있는 프로젝트
 
 ### GitHub Flow
 
+<!-- diagram:git-qna-version-control-2 -->
+![GitHub Flow](../assets/diagrams/git-qna-version-control-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 main ────────────────────────────
         ↑         ↑
 feature ──────────┘
 ```
+-->
 
 - 단순, 지속적 배포
 - 웹 서비스에 적합
 
 ### Trunk Based Development
 
+<!-- diagram:git-qna-version-control-3 -->
+![Trunk Based Development](../assets/diagrams/git-qna-version-control-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 main ────────────────────────────
       ↑   ↑   ↑
       │   │   │
    (짧은 feature 브랜치)
 ```
+-->
 
 - 빠른 통합
 - CI/CD 필수

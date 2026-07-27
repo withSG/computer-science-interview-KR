@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Blue/Green Deployment</title>
+  <desc id="d">Blue/Green 배포 방식 구조 및 특징 설명 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="440" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">두 환경을 전환</text>
+
+  <!-- Load Balancer -->
+  <rect x="340" y="70" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="100" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Load Balancer</text>
+
+  <!-- Connection Lines & Arrows -->
+  <path d="M440,120 L440,150 L250,150 L250,180" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <path d="M440,150 L630,150 L630,180" fill="none" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-gray)"/>
+
+  <!-- Blue Box (Active) -->
+  <rect x="170" y="180" width="160" height="120" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="250" y="215" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Blue</text>
+  <text x="250" y="243" font-size="13" fill="#1f2933" text-anchor="middle">(v1)</text>
+  <text x="250" y="271" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Active</text>
+
+  <!-- Green Box (Standby) -->
+  <rect x="550" y="180" width="160" height="120" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="630" y="215" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Green</text>
+  <text x="630" y="243" font-size="13" fill="#1f2933" text-anchor="middle">(v2)</text>
+  <text x="630" y="271" font-size="13" fill="#059669" text-anchor="middle">Standby</text>
+
+  <!-- Description Texts -->
+  <text x="440" y="340" font-size="13" fill="#1f2933" text-anchor="middle">배포: Green에 v2 배포 → 트래픽 전환</text>
+  <text x="440" y="368" font-size="13" fill="#1f2933" text-anchor="middle">롤백: 트래픽을 Blue로 재전환</text>
+
+  <!-- Advantages & Disadvantages -->
+  <rect x="170" y="405" width="540" height="90" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="190" y="442" font-size="13" fill="#059669" font-weight="bold">장점:</text>
+  <text x="235" y="442" font-size="13" fill="#1f2933">빠른 롤백, 테스트 용이</text>
+  <text x="190" y="472" font-size="13" fill="#dc2626" font-weight="bold">단점:</text>
+  <text x="235" y="472" font-size="13" fill="#1f2933">2배 인프라 비용</text>
+</svg>

@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">큐로 부하를 평탄화한다</title>
+  <desc id="d">동기방식과 비동기방식의 처리 과정 및 응답시간 비교 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- [동기] 섹션 -->
+  <g id="sync-section">
+    <rect x="24" y="24" width="832" height="210" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+    
+    <!-- 동기 헤더 -->
+    <text x="40" y="58" font-size="16" font-weight="bold" fill="#dc2626">[동기]</text>
+    <text x="95" y="58" font-size="14" fill="#52606d">사용자가 모든 단계를 기다린다</text>
+    
+    <!-- 동기 흐름 노드 -->
+    <!-- 노드 1: 사용자 -->
+    <rect x="40" y="80" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="75" y="105" font-size="13" text-anchor="middle" fill="#1f2933">사용자</text>
+    
+    <!-- 화살표 1 -->
+    <path d="M 110 100 L 126 100" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- 노드 2: 주문 -->
+    <rect x="134" y="80" width="60" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="164" y="105" font-size="13" text-anchor="middle" fill="#1f2933">주문</text>
+    
+    <!-- 화살표 2 -->
+    <path d="M 194 100 L 210 100" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- 노드 3: 재고차감 -->
+    <rect x="218" y="80" width="80" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="258" y="105" font-size="13" text-anchor="middle" fill="#1f2933">재고차감</text>
+    <text x="258" y="138" font-size="11.5" text-anchor="middle" fill="#52606d">50ms</text>
+    
+    <!-- 화살표 3 -->
+    <path d="M 298 100 L 314 100" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- 노드 4: 결제 -->
+    <rect x="322" y="80" width="60" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="352" y="105" font-size="13" text-anchor="middle" fill="#1f2933">결제</text>
+    <text x="352" y="138" font-size="11.5" text-anchor="middle" fill="#52606d">400ms</text>
+    
+    <!-- 화살표 4 -->
+    <path d="M 382 100 L 398 100" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- 노드 5: 이메일 -->
+    <rect x="406" y="80" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="441" y="105" font-size="13" text-anchor="middle" fill="#1f2933">이메일</text>
+    <text x="441" y="138" font-size="11.5" text-anchor="middle" fill="#52606d">300ms</text>
+    
+    <!-- 화살표 5 -->
+    <path d="M 476 100 L 492 100" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- 노드 6: 알림톡 -->
+    <rect x="500" y="80" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="535" y="105" font-size="13" text-anchor="middle" fill="#1f2933">알림톡</text>
+    <text x="535" y="138" font-size="11.5" text-anchor="middle" fill="#52606d">200ms</text>
+    
+    <!-- 화살표 6 -->
+    <path d="M 570 100 L 586 100" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- 노드 7: 포인트 -->
+    <rect x="594" y="80" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="629" y="105" font-size="13" text-anchor="middle" fill="#1f2933">포인트</text>
+    <text x="629" y="138" font-size="11.5" text-anchor="middle" fill="#52606d">100ms</text>
+    
+    <!-- 화살표 7 -->
+    <path d="M 664 100 L 680 100" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- 노드 8: 응답 -->
+    <rect x="688" y="80" width="60" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="718" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#dc2626">응답</text>
+    
+    <!-- 총 소요시간 -->
+    <text x="780" y="105" font-size="14" font-weight="bold" fill="#dc2626">총 1,050ms</text>
+    
+    <!-- 동기 부가 설명 -->
+    <text x="40" y="185" font-size="13" fill="#dc2626">이메일 서버가 느려지면 주문 응답이 통째로 느려진다</text>
+  </g>
+
+  <!-- [비동기] 섹션 -->
+  <g id="async-section">
+    <rect x="24" y="254" width="832" height="260" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+    
+    <!-- 비동기 헤더 -->
+    <text x="40" y="288" font-size="16" font-weight="bold" fill="#2563eb">[비동기]</text>
+    <text x="110" y="288" font-size="14" fill="#52606d">꼭 필요한 것만 기다린다</text>
+    
+    <!-- 비동기 흐름 노드 -->
+    <!-- 노드 1: 사용자 -->
+    <rect x="40" y="310" width="70" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="75" y="335" font-size="13" text-anchor="middle" fill="#1f2933">사용자</text>
+    
+    <!-- 화살표 1 -->
+    <path d="M 110 330 L 126 330" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- 노드 2: 주문 -->
+    <rect x="134" y="310" width="60" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="164" y="335" font-size="13" text-anchor="middle" fill="#1f2933">주문</text>
+    
+    <!-- 화살표 2 -->
+    <path d="M 194 330 L 210 330" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- 노드 3: 재고차감 -->
+    <rect x="218" y="310" width="80" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="258" y="335" font-size="13" text-anchor="middle" fill="#1f2933">재고차감</text>
+    
+    <!-- 화살표 3 -->
+    <path d="M 298 330 L 314 330" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- 노드 4: 결제 -->
+    <rect x="322" y="310" width="60" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="352" y="335" font-size="13" text-anchor="middle" fill="#1f2933">결제</text>
+    
+    <!-- 화살표 4 -->
+    <path d="M 382 330 L 398 330" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- 노드 5: 큐에 발행 -->
+    <rect x="406" y="310" width="90" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="451" y="335" font-size="13" font-weight="bold" text-anchor="middle" fill="#7c3aed">큐에 발행</text>
+    
+    <!-- 화살표 5 (메인 응답 경로) -->
+    <path d="M 496 330 L 512 330" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- 노드 6: 응답 -->
+    <rect x="520" y="310" width="60" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="550" y="335" font-size="13" font-weight="bold" text-anchor="middle" fill="#059669">응답</text>
+    
+    <!-- 총 소요시간 -->
+    <text x="600" y="335" font-size="14" font-weight="bold" fill="#059669">총 455ms</text>
+    
+    <!-- 분기 화살표 (큐에 발행 -> 워커) -->
+    <path d="M 451 350 L 451 405 L 474 405" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+    
+    <!-- 백그라운드 워커 노드 -->
+    <g id="worker-group">
+      <rect x="482" y="385" width="280" height="40" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <text x="492" y="410" font-size="13" font-weight="bold" fill="#7c3aed">워커:</text>
+      <text x="535" y="410" font-size="13" fill="#1f2933">이메일 / 알림톡 / 포인트</text>
+    </g>
+    
+    <!-- 비동기 부가 설명 -->
+    <text x="40" y="475" font-size="13" fill="#059669">이메일 서버가 느려도 주문은 정상</text>
+  </g>
+</svg>

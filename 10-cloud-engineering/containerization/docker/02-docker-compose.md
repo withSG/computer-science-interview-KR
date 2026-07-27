@@ -152,6 +152,11 @@ Compose는 프로젝트마다 브리지 네트워크를 만든다(기본 이름�
 Docker 내장 DNS 서버가 컨테이너의 `/etc/resolv.conf`에 등록돼 있고, 이 DNS가 서비스 이름을
 컨테이너 IP로 풀어 준다. 컨테이너가 재생성되어 IP가 바뀌어도 이름은 그대로다.
 
+<!-- diagram:cloud-docker-compose-1 -->
+![자동 생성되는 네트워크](../../../assets/diagrams/cloud-docker-compose-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                      호스트 (내 노트북 / 서버)
    브라우저 :8080 ─┐
@@ -163,6 +168,7 @@ Docker 내장 DNS 서버가 컨테이너의 `/etc/resolv.conf`에 등록돼 있�
                              ▲ redis/mysql은 ports를 열지 않았다
                                = 호스트나 외부에서 직접 접근 불가
 ```
+-->
 
 여기서 핵심은 **`ports`를 열지 않아도 내부 통신은 된다**는 점이다.
 backend는 `mysql:3306`으로 접속할 수 있지만, 내 노트북 브라우저에서는 MySQL에 닿을 수 없다.
@@ -186,12 +192,18 @@ backend 자신에게 물어보는 꼴이라 `Connection refused`가 난다. 값�
 
 값이 들어오는 경로가 세 층이라 헷갈리기 쉽다. 층을 나눠서 보면 간단하다.
 
+<!-- diagram:cloud-docker-compose-2 -->
+![4. 환경변수와 `.env`](../../../assets/diagrams/cloud-docker-compose-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  ① .env 파일             ② compose 파일의 ${VAR} 치환      ③ 컨테이너 안 환경변수
  ─────────────           ─────────────────────────         ────────────────────
  DB_PASSWORD=devpw   ──▶  password: ${DB_PASSWORD}    ──▶   environment / env_file
  (Compose가 읽는다)        (파일이 렌더링됨)                 (앱이 읽는다)
 ```
+-->
 
 - `.env`는 **Compose 파일 자체를 렌더링하기 위한 변수**다. 컨테이너에 자동으로 들어가지 않는다
 - 컨테이너 안에서 쓰려면 `environment:`에 적거나 `env_file:`로 파일째 주입해야 한다
@@ -224,6 +236,11 @@ docker compose config          # 변수 치환까지 끝난 최종 YAML 출력
 조건 없이 쓴 `depends_on: [mysql]`이 보장하는 것은 **"mysql 컨테이너를 backend보다 먼저 start한다"** 뿐이다.
 MySQL 컨테이너가 시작됐다는 것과 MySQL이 쿼리를 받을 준비가 됐다는 것은 완전히 다른 얘기다.
 
+<!-- diagram:cloud-docker-compose-3 -->
+![`depends_on`이 보장하는 것과 못 하는 것](../../../assets/diagrams/cloud-docker-compose-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    t=0s   t=1s        t=3s                          t=25s
    │      │           │                              │
@@ -234,6 +251,7 @@ MySQL 컨테이너가 시작됐다는 것과 MySQL이 쿼리를 받을 준비가
    │      │           │                              ├─ MySQL 준비 완료
    │      │           └─ backend는 이미 죽었다
 ```
+-->
 
 이것이 "Compose로 띄우면 첫 실행만 항상 실패하고 한 번 더 up 하면 된다"는 현상의 정체다.
 

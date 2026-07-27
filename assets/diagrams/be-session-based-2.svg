@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세션 인증은 어떻게 동작하나</title>
+  <desc id="d">Client, Server, 세션 저장소 간의 6단계 세션 기반 로그인 및 인증 흐름 다이어그램</desc>
+  
+  <defs>
+    <!-- 화살표 마커 (Default 잉크색) -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커 (파란색: 요청/응답 강조) -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- 화살표 마커 (초록색: 성공 응답) -->
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <!-- 화살표 마커 (보라색: 세션 저장소 관련) -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <!-- 제목 헤딩 (문서 헤딩 수용) -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">## 2. 세션 인증은 어떻게 동작하나</text>
+
+  <!-- 세션 저장소 Box (상단) -->
+  <!-- Box: x=480, y=70, w=340, h=100 -->
+  <rect x="480" y="70" width="340" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="650" y="100" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">세션 저장소</text>
+  <text x="650" y="128" font-size="13" fill="#1f2933" text-anchor="middle">a3f9…: {userId: 7,</text>
+  <text x="650" y="150" font-size="13" fill="#1f2933" text-anchor="middle">role: USER}</text>
+
+  <!-- 수직 라이프라인 (Client & Server) -->
+  <!-- Client Lifeline x=140 -->
+  <text x="140" y="210" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+  <line x1="140" y1="230" x2="140" y2="680" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Server Lifeline x=560 -->
+  <text x="560" y="210" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <line x1="560" y1="230" x2="560" y2="680" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- (2) 세션 생성: Server -> 세션 저장소 (x=560, y=260 -> x=650, y=170) -->
+  <path d="M 560,260 L 650,260 L 650,170" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-purple)"/>
+  <rect x="575" y="222" width="90" height="22" fill="#ffffff" rx="3"/>
+  <text x="620" y="237" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">(2) 세션 생성</text>
+
+  <!-- (5) 세션 조회: Server -> 세션 저장소 (x=560, y=560 -> x=700, y=170) -->
+  <path d="M 560,560 L 700,560 L 700,170" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-purple)"/>
+  <rect x="625" y="522" width="90" height="22" fill="#ffffff" rx="3"/>
+  <text x="670" y="537" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">(5) 세션 조회</text>
+
+
+  <!-- (1) POST /login id=kim&pw=**** -->
+  <!-- Line: y=280 -->
+  <path d="M 140,280 L 560,280" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <rect x="230" y="261" width="240" height="20" fill="#ffffff" rx="3"/>
+  <text x="350" y="275" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">(1) POST /login  id=kim&amp;pw=****</text>
+
+  <!-- (3) 200 OK Set-Cookie... -->
+  <!-- Line: y=370 -->
+  <path d="M 560,370 L 140,370" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
+  <!-- Multi-line Label Box for (3) -->
+  <rect x="200" y="306" width="300" height="60" fill="#ffffff" rx="4" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="350" y="323" font-size="12.5" font-weight="bold" fill="#059669" text-anchor="middle">(3) 200 OK</text>
+  <text x="350" y="341" font-size="12" fill="#1f2933" text-anchor="middle">Set-Cookie: SESSIONID=a3f9…;</text>
+  <text x="350" y="358" font-size="12" fill="#52606d" text-anchor="middle">HttpOnly; Secure; SameSite=Lax</text>
+
+  <!-- (4) GET /my-orders Cookie... -->
+  <!-- Line: y=470 -->
+  <path d="M 140,470 L 560,470" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <!-- Multi-line Label Box for (4) -->
+  <rect x="220" y="420" width="260" height="42" fill="#ffffff" rx="4" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="350" y="437" font-size="12.5" font-weight="bold" fill="#2563eb" text-anchor="middle">(4) GET /my-orders</text>
+  <text x="350" y="455" font-size="12" fill="#1f2933" text-anchor="middle">Cookie: SESSIONID=a3f9…</text>
+
+  <!-- Server 내부 자기 자신 호출: userId=7 확인 -->
+  <path d="M 560,480 C 620,480 620,520 560,520" fill="none" stroke="#52606d" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <rect x="580" y="490" width="95" height="20" fill="#ffffff" rx="3"/>
+  <text x="627" y="504" font-size="12" fill="#52606d" text-anchor="middle">userId=7 확인</text>
+
+  <!-- (6) 200 OK [kim의 주문 목록] -->
+  <!-- Line: y=630 -->
+  <path d="M 560,630 L 140,630" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
+  <rect x="230" y="611" width="240" height="20" fill="#ffffff" rx="3"/>
+  <text x="350" y="625" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">(6) 200 OK  [kim의 주문 목록]</text>
+
+</svg>

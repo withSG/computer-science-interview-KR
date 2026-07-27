@@ -24,6 +24,11 @@
 
 ### 수직 확장 (Vertical Scaling)
 
+<!-- diagram:sd-qna-scalability-1 -->
+![수직 확장](../../assets/diagrams/sd-qna-scalability-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────┐      ┌──────────────────┐
 │  서버 1대    │  →   │    더 강력한 서버   │
@@ -31,12 +36,18 @@
 │  RAM 16GB   │      │    RAM 256GB     │
 └──────────────┘      └──────────────────┘
 ```
+-->
 
 **장점**: 구현 간단, 데이터 일관성 유지
 **단점**: 비용 급증, 하드웨어 한계, SPOF
 
 ### 수평 확장 (Horizontal Scaling)
 
+<!-- diagram:sd-qna-scalability-2 -->
+![수평 확장](../../assets/diagrams/sd-qna-scalability-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────┐      ┌──────────────┐
 │   서버 1대   │      │    서버 N대    │
@@ -45,6 +56,7 @@
 └──────────────┘      │  └───┴───┴───┘ │
                       └──────────────┘
 ```
+-->
 
 **장점**: 이론상 무제한, 고가용성, 비용 효율적
 **단점**: 복잡성 증가, 데이터 동기화 필요
@@ -109,6 +121,11 @@ L7 (Application Layer)
 
 ### 로드 밸런서 구성
 
+<!-- diagram:sd-qna-scalability-3 -->
+![로드 밸런서 구성](../../assets/diagrams/sd-qna-scalability-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     ┌─────────────────┐
                     │  Load Balancer  │
@@ -121,9 +138,15 @@ L7 (Application Layer)
               │Server1│  │Server2│  │Server3│
               └───────┘  └───────┘  └───────┘
 ```
+-->
 
 ### Health Check
 
+<!-- diagram:sd-qna-scalability-4 -->
+![Health Check](../../assets/diagrams/sd-qna-scalability-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 로드 밸런서가 서버 상태 주기적 확인
 
@@ -132,9 +155,15 @@ L7 (Application Layer)
 
 Health Check 실패 → 해당 서버로 트래픽 전송 중단
 ```
+-->
 
 ### Sticky Session
 
+<!-- diagram:sd-qna-scalability-5 -->
+![Sticky Session](../../assets/diagrams/sd-qna-scalability-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 같은 클라이언트를 같은 서버로 라우팅
 
@@ -147,6 +176,7 @@ Health Check 실패 → 해당 서버로 트래픽 전송 중단
 - 부하 불균형 가능
 → 외부 세션 저장소 권장 (Redis)
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 알고리즘 선택 기준
@@ -221,6 +251,11 @@ shard_key = hash(user_id) % num_shards
 
 ### Consistent Hashing
 
+<!-- diagram:sd-qna-scalability-6 -->
+![Consistent Hashing](../../assets/diagrams/sd-qna-scalability-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 리샤딩 시 최소한의 데이터만 이동
 
@@ -239,6 +274,7 @@ Consistent Hash: 인접 노드에만 영향
 │        └───┘          │
 └────────────────────────┘
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 샤딩 전략 선택 기준
@@ -266,6 +302,11 @@ Consistent Hash: 인접 노드에만 영향
 
 ### CAP 조합
 
+<!-- diagram:sd-qna-scalability-7 -->
+![CAP 조합](../../assets/diagrams/sd-qna-scalability-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 분산 시스템에서 P(Partition Tolerance)는 필수
 → 실제로는 CP vs AP 선택
@@ -280,6 +321,7 @@ AP (Availability + Partition Tolerance)
 - 네트워크 분할 시에도 응답 (오래된 데이터 가능)
 - 예: Cassandra, DynamoDB, CouchDB
 ```
+-->
 
 ### PACELC 확장
 
@@ -311,6 +353,11 @@ PA/EC: 평소엔 일관성, 분할 시 가용성
 ### 복제 방식
 
 **1. Master-Slave (Primary-Replica)**
+<!-- diagram:sd-qna-scalability-8 -->
+![복제 방식](../../assets/diagrams/sd-qna-scalability-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────┐
 │   Master   │ ← 쓰기 전담
@@ -321,11 +368,17 @@ PA/EC: 평소엔 일관성, 분할 시 가용성
 ▼     ▼      ▼
 Slave Slave Slave ← 읽기 분산
 ```
+-->
 
 **장점**: 읽기 확장, 백업
 **단점**: 쓰기 병목, 복제 지연, Master 장애 시 failover
 
 **2. Master-Master (Multi-Master)**
+<!-- diagram:sd-qna-scalability-9 -->
+![복제 방식](../../assets/diagrams/sd-qna-scalability-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────┐     ┌────────────┐
 │  Master 1  │ ←── │  Master 2  │
@@ -333,6 +386,7 @@ Slave Slave Slave ← 읽기 분산
 └────────────┘     └────────────┘
     읽기/쓰기          읽기/쓰기
 ```
+-->
 
 **장점**: 쓰기 분산, 고가용성
 **단점**: 충돌 해결 복잡, 일관성 문제
@@ -381,6 +435,11 @@ Slave Slave Slave ← 읽기 분산
 
 ### 모놀리식
 
+<!-- diagram:sd-qna-scalability-10 -->
+![모놀리식](../../assets/diagrams/sd-qna-scalability-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────────────────────────┐
 │        Monolithic App          │
@@ -390,9 +449,15 @@ Slave Slave Slave ← 읽기 분산
 │           Single DB            │
 └────────────────────────────────┘
 ```
+-->
 
 ### 마이크로서비스
 
+<!-- diagram:sd-qna-scalability-11 -->
+![마이크로서비스](../../assets/diagrams/sd-qna-scalability-11.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────┐  ┌─────────┐  ┌─────────┐
 │  User   │  │  Order  │  │ Product │
@@ -404,6 +469,7 @@ Slave Slave Slave ← 읽기 분산
                   │
             Message Queue / API Gateway
 ```
+-->
 
 ### 마이크로서비스 장단점
 

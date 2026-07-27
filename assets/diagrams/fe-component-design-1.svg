@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">기준은 줄 수가 아니라 변경 이유다</title>
+  <desc id="d">줄 수로 잘못 분리한 나쁜 사례와 변경 이유로 올바르게 분리한 좋은 사례를 비교한 컴포넌트 설계 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Left Header -->
+  <text x="210" y="38" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[나쁜 분리]</text>
+  <text x="290" y="38" font-size="14" fill="#52606d">줄 수로 자름</text>
+
+  <!-- Right Header -->
+  <text x="630" y="38" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[좋은 분리]</text>
+  <text x="710" y="38" font-size="14" fill="#52606d">변경 이유로 자름</text>
+
+  <!-- Left Container (Bad Separation) -->
+  <rect x="30" y="60" width="360" height="200" rx="6" ry="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="93" font-size="14" font-weight="bold" fill="#1f2933">OrderPage</text>
+
+  <!-- Left Item 1 -->
+  <text x="70" y="125" font-size="13" fill="#52606d">├─</text>
+  <text x="92" y="125" font-size="13" fill="#1f2933">OrderPart1</text>
+  <text x="175" y="125" font-size="13" fill="#dc2626">(수량 상태)</text>
+
+  <!-- Left Item 2 -->
+  <text x="70" y="165" font-size="13" fill="#52606d">├─</text>
+  <text x="92" y="165" font-size="13" fill="#1f2933">OrderPart2</text>
+  <text x="175" y="165" font-size="13" fill="#dc2626">(수량 필요)</text>
+
+  <!-- Left Item 3 -->
+  <text x="70" y="205" font-size="13" fill="#52606d">└─</text>
+  <text x="92" y="205" font-size="13" fill="#1f2933">OrderPart3</text>
+  <text x="175" y="205" font-size="13" fill="#dc2626">(수량+쿠폰)</text>
+
+  <!-- Left Arrow Path (Coupled dependencies) -->
+  <path d="M 268 160 L 320 160 L 320 120 L 290 120" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Left Footer Caption -->
+  <text x="210" y="290" font-size="13" fill="#dc2626" text-anchor="middle">하나를 고치면 나머지를 확인</text>
+
+  <!-- Right Container (Good Separation) -->
+  <rect x="450" y="60" width="360" height="200" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="470" y="93" font-size="14" font-weight="bold" fill="#1f2933">OrderPage (조립 + 상태)</text>
+
+  <!-- Right Item 1 -->
+  <text x="490" y="125" font-size="13" fill="#52606d">├─</text>
+  <text x="512" y="125" font-size="13" fill="#1f2933">CartItemList</text>
+  <text x="635" y="125" font-size="13" font-weight="bold" fill="#059669">장바구니</text>
+
+  <!-- Right Item 2 -->
+  <text x="490" y="157" font-size="13" fill="#52606d">├─</text>
+  <text x="512" y="157" font-size="13" fill="#1f2933">CouponSelector</text>
+  <text x="635" y="157" font-size="13" font-weight="bold" fill="#059669">프로모션</text>
+
+  <!-- Right Item 3 -->
+  <text x="490" y="189" font-size="13" fill="#52606d">├─</text>
+  <text x="512" y="189" font-size="13" fill="#1f2933">AddressSection</text>
+  <text x="635" y="189" font-size="13" font-weight="bold" fill="#059669">배송</text>
+
+  <!-- Right Item 4 -->
+  <text x="490" y="221" font-size="13" fill="#52606d">└─</text>
+  <text x="512" y="221" font-size="13" fill="#1f2933">PaymentSummary</text>
+  <text x="635" y="221" font-size="13" font-weight="bold" fill="#059669">결제</text>
+
+  <!-- Right Footer Caption -->
+  <text x="630" y="290" font-size="13" fill="#059669" text-anchor="middle">쿠폰 정책이 바뀌면 한 파일만</text>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Health Check</title>
+  <desc id="d">로드 밸런서의 서버 상태 주기적 확인 방식인 Passive와 Active 방식, 그리고 실패 시 트래픽 전송 중단 처리를 설명하는 다이어그램</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 상단 중앙 메인 메시지 박스 -->
+  <rect x="230" y="30" width="420" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">로드 밸런서가 서버 상태 주기적 확인</text>
+
+  <!-- 메인 박스에서 두 점검 방식으로 내려가는 화살표 -->
+  <path d="M330,70 L240,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M550,70 L640,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 좌측: Passive 영역 -->
+  <rect x="40" y="110" width="380" height="100" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="230" y="140" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Passive</text>
+  <text x="230" y="175" font-size="13" fill="#52606d" text-anchor="middle">- Passive: 실패 응답 감지</text>
+
+  <!-- 우측: Active 영역 -->
+  <rect x="460" y="110" width="380" height="100" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="650" y="140" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Active</text>
+  <text x="650" y="175" font-size="13" fill="#52606d" text-anchor="middle">- Active: 주기적 요청 (ping, HTTP)</text>
+
+  <!-- 점검 방식에서 실패 처리로 모이는 화살표 -->
+  <path d="M230,210 L380,270" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <path d="M650,210 L500,270" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 하단 결과: Health Check 실패 처리 박스 -->
+  <rect x="180" y="270" width="520" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="440" y="315" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">Health Check 실패 → 해당 서버로 트래픽 전송 중단</text>
+</svg>

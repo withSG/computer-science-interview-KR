@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">변경 감지 (Dirty Checking)</title>
+  <desc id="d">em.find 호출 시 1차 캐시와 스냅샷 생성부터 member.setName 호출 후 커밋 및 flush 시 스냅샷 비교를 통한 UPDATE SQL 생성 과정을 나타낸 다이어그램</desc>
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- ==================== STEP 1 ==================== -->
+  <rect x="40" y="30" width="800" height="200" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="61" font-size="14" font-weight="bold" fill="#2563eb">[ em.find(1L) 호출 시점 ]</text>
+
+  <!-- Step 1: 1차 캐시 -->
+  <rect x="70" y="80" width="350" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="245" y="105" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1차 캐시</text>
+  <line x1="85" y1="115" x2="405" y2="115" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="90" y="138" font-size="13" fill="#1f2933">1L → Member 인스턴스</text>
+  <text x="130" y="163" font-size="13" fill="#1f2933">name = "김개발"</text>
+  <text x="130" y="188" font-size="13" fill="#1f2933">age  = 28</text>
+
+  <!-- Step 1: 스냅샷 -->
+  <rect x="460" y="80" width="350" height="130" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="635" y="105" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">스냅샷</text>
+  <line x1="475" y1="115" x2="795" y2="115" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="480" y="138" font-size="13" fill="#1f2933">1L → 필드 값 복사본</text>
+  <text x="520" y="163" font-size="13" fill="#52606d">name = "김개발"</text>
+  <text x="520" y="188" font-size="13" fill="#52606d">age  = 28</text>
+
+
+  <!-- ==================== STEP 2 ==================== -->
+  <rect x="40" y="250" width="800" height="200" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="60" y="281" font-size="14" font-weight="bold" fill="#d97706">[ member.setName("박개발") 호출 ]</text>
+  
+  <rect x="360" y="263" width="260" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <path d="M350,275 L360,275" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-orange)"/>
+  <text x="370" y="279" font-size="13" font-weight="bold" fill="#d97706">← JPA는 여기서 아무것도 하지 않는다</text>
+
+  <!-- Step 2: 1차 캐시 (변경된 상태) -->
+  <rect x="70" y="300" width="350" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="130" y="353" font-size="13" font-weight="bold" fill="#dc2626">name = "박개발"</text>
+  <text x="130" y="388" font-size="13" fill="#1f2933">age  = 28</text>
+
+  <!-- Step 2: 스냅샷 (원본 보존) -->
+  <rect x="460" y="300" width="350" height="130" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="520" y="353" font-size="13" fill="#52606d">name = "김개발"</text>
+  <text x="520" y="388" font-size="13" fill="#52606d">age  = 28</text>
+
+
+  <!-- ==================== STEP 3 ==================== -->
+  <rect x="40" y="470" width="800" height="220" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="60" y="501" font-size="14" font-weight="bold" fill="#059669">[ 커밋 → flush ]</text>
+
+  <rect x="70" y="520" width="740" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="545" font-size="13" fill="#1f2933" text-anchor="middle">영속성 컨텍스트의 모든 엔티티를 순회하며 스냅샷과 비교</text>
+
+  <!-- 비교 프로세스 화살표 및 비교 텍스트 -->
+  <path d="M245,430 L245,460" stroke="#2563eb" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+  <path d="M635,430 L635,460" stroke="#52606d" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+
+  <rect x="70" y="580" width="740" height="90" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="90" y="618" font-size="13" font-weight="bold" fill="#dc2626">name 이 다름</text>
+  
+  <path d="M190,614 L210,614" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <rect x="220" y="595" width="570" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="235" y="630" font-size="14" font-weight="bold" fill="#059669">UPDATE member SET ... WHERE id = 1</text>
+  <text x="525" y="630" font-size="13" fill="#1f2933">  생성</text>
+</svg>

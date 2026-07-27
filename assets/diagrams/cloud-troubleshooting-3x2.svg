@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">free — 메모리를 오해하지 않기</title>
+  <desc id="d">리눅스 free 명령어의 메모리 구성을 나타내는 다이어그램. total, used, buff/cache, free 영역 및 available 영역의 관계를 설명합니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 전체 배경 -->
+  <rect width="880" height="280" fill="#ffffff"/>
+
+  <!-- 메인 토탈 컨테이너 / 캡션 -->
+  <rect x="40" y="40" width="800" height="100" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">total 15Gi</text>
+
+  <!-- 1. used 영역 -->
+  <rect x="48" y="50" width="440" height="80" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="268" y="94.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">used 11Gi (애플리케이션)</text>
+
+  <!-- 2. buff/cache 영역 -->
+  <rect x="496" y="50" width="220" height="80" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="606" y="94.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">buff/cache 4.1Gi</text>
+
+  <!-- 3. free 영역 -->
+  <rect x="724" y="50" width="108" height="80" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="778" y="94.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">free 0.4Gi</text>
+
+  <!-- 하단 선 및 주석 : "필요하면 즉시 회수된다" -->
+  <path d="M 606,130 L 606,165 L 560,165" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="552" y="169.025" text-anchor="end" font-size="13" fill="#1f2933">└─ 필요하면 즉시 회수된다</text>
+
+  <!-- 하단 available 대괄호 영역 -->
+  <!-- buff/cache + free 포함 범위를 나타내는 L자 브래킷 -->
+  <path d="M 500,140 L 500,215 L 828,215 L 828,140" stroke="#7c3aed" stroke-width="2" fill="none"/>
+  
+  <!-- available 텍스트 -->
+  <rect x="290" y="203" width="300" height="24" fill="#ffffff"/>
+  <text x="440" y="219.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">available 3.4Gi = free + 회수 가능한 캐시</text>
+</svg>

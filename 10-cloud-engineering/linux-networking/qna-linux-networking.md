@@ -16,6 +16,11 @@
 
 ### 권한 구조
 
+<!-- diagram:cloud-qna-linux-networking-1 -->
+![권한 구조](../../assets/diagrams/cloud-qna-linux-networking-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 -rwxr-xr-- 1 user group 4096 Jan 15 10:30 file.txt
 │├─┤├─┤├─┤
@@ -24,6 +29,7 @@
 │ └──────── User (소유자)
 └────────── 파일 타입 (- 파일, d 디렉토리, l 링크)
 ```
+-->
 
 ### 권한 의미
 

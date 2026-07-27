@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">AWS 3-tier HA 아키텍처</title>
+  <desc id="d">Internet, ALB, 다중 AZ의 EC2 인스턴스들, RDS Multi-AZ 간의 연결 구조를 나타낸 AWS 3-tier 고가용성 아키텍처 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 범례 (Legend) -->
+  <g transform="translate(680, 20)">
+    <rect x="0" y="0" width="176" height="110" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="12" y="21.5" font-size="11.5" font-weight="bold" fill="#1f2933">범례</text>
+    
+    <rect x="12" y="32" width="12" height="12" rx="2" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="30" y="42" font-size="11" fill="#52606d">로드 밸런서 (ALB)</text>
+    
+    <rect x="12" y="54" width="12" height="12" rx="2" fill="#ecfdf5" stroke="#059669"/>
+    <text x="30" y="64" font-size="11" fill="#52606d">EC2 Compute 계층</text>
+    
+    <rect x="12" y="76" width="12" height="12" rx="2" fill="#f5f3ff" stroke="#7c3aed"/>
+    <text x="30" y="86" font-size="11" fill="#52606d">Database 계층</text>
+  </g>
+
+  <!-- Internet -->
+  <text x="360" y="44.9" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Internet</text>
+
+  <!-- Internet -> ALB 연결선 -->
+  <path d="M360,55 L360,90" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- ALB Box -->
+  <rect x="290" y="90" width="140" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="360" y="119.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">ALB</text>
+
+  <!-- ALB 옆 부가설명 -->
+  <text x="445" y="119.025" font-size="11.5" fill="#52606d">← Load Balancer</text>
+
+  <!-- ALB -> EC2 분배 선 -->
+  <path d="M360,140 L360,170" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M140,170 L580,170" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M140,170 L140,200" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M360,170 L360,200" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M580,170 L580,200" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- EC2-1 Box -->
+  <rect x="70" y="200" width="140" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="140" y="229.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2-1</text>
+  <text x="140" y="254.55" font-size="13" fill="#52606d" text-anchor="middle">(AZ-a)</text>
+
+  <!-- EC2-2 Box -->
+  <rect x="290" y="200" width="140" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="360" y="229.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2-2</text>
+  <text x="360" y="254.55" font-size="13" fill="#52606d" text-anchor="middle">(AZ-b)</text>
+
+  <!-- EC2-3 Box -->
+  <rect x="510" y="200" width="140" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="580" y="229.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2-3</text>
+  <text x="580" y="254.55" font-size="13" fill="#52606d" text-anchor="middle">(AZ-c)</text>
+
+  <!-- EC2 옆 부가설명 -->
+  <text x="665" y="229.025" font-size="11.5" fill="#52606d">← 다중 인스턴스</text>
+  <text x="665" y="254.025" font-size="11.5" fill="#52606d">← 다중 AZ</text>
+
+  <!-- EC2 -> RDS 취합 선 -->
+  <path d="M140,270 L140,300" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M360,270 L360,300" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M580,270 L580,300" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M140,300 L580,300" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M360,300 L360,330" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- RDS Box -->
+  <rect x="250" y="330" width="220" height="50" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="360" y="359.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">RDS (Multi-AZ)</text>
+
+  <!-- RDS 옆 부가설명 -->
+  <text x="485" y="359.025" font-size="11.5" fill="#52606d">← DB 이중화</text>
+</svg>

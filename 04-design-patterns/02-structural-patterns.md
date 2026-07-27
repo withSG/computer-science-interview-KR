@@ -155,6 +155,11 @@ MessageSender sender = new LoggingSender(new RetryingSender(new SmsSender(), 3))
 sender.send("010-0000-0000", "인증번호는 123456입니다");
 ```
 
+<!-- diagram:dp-structural-patterns-1 -->
+![감싸기로 조합한다](../assets/diagrams/dp-structural-patterns-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 sender.send()
   │
@@ -167,6 +172,7 @@ sender.send()
   │
   └─ LoggingSender      소요 시간 로깅
 ```
+-->
 
 **무한히 쌓을 수 있는 이유는 한 줄로 설명된다.** `LoggingSender`도 `MessageSender`이기 때문에 그것을 또 다른 데코레이터의 생성자에 넣을 수 있다. 감싼 결과가 감쌀 수 있는 대상과 같은 타입이다.
 
@@ -188,6 +194,11 @@ BufferedReader reader = new BufferedReader(
 
 이 한 줄 안에 구조 패턴이 두 개 들어 있다.
 
+<!-- diagram:dp-structural-patterns-2 -->
+![`java.io`가 교과서인 이유](../assets/diagrams/dp-structural-patterns-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 FileInputStream      원본. byte를 읽는다
       ↓
@@ -196,6 +207,7 @@ InputStreamReader    어댑터. InputStream을 받아 Reader를 구현한다 →
 BufferedReader       데코레이터. Reader를 받아 Reader를 구현한다 → 인터페이스는 그대로,
                      버퍼링과 readLine() 기능만 얹는다
 ```
+-->
 
 **인터페이스가 바뀌면 어댑터, 그대로면 데코레이터.** 이 기준 하나로 둘을 구분할 수 있다.
 
@@ -222,6 +234,11 @@ public List<User> findActiveUsers() {
 }
 ```
 
+<!-- diagram:dp-structural-patterns-3 -->
+![퍼사드](../assets/diagrams/dp-structural-patterns-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
        [퍼사드 없이]                        [퍼사드]
 
@@ -235,6 +252,7 @@ public List<User> findActiveUsers() {
    순서와 정리 책임을 전부 안다        ▼       ▼        ▼          ▼
                                 DataSource  PS    ResultSet  예외 변환
 ```
+-->
 
 퍼사드는 **서브시스템을 숨기지 폐쇄하지는 않는다.** `JdbcTemplate`으로 안 되는 작업은 여전히 `Connection`을 직접 꺼내 쓸 수 있다. 퍼사드가 서브시스템을 막아버리면 그건 퍼사드가 아니라 감옥이다.
 
@@ -331,6 +349,11 @@ public class Circle extends Shape {
 }
 ```
 
+<!-- diagram:dp-structural-patterns-4 -->
+![6. 브릿지](../assets/diagrams/dp-structural-patterns-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [상속만]  n × m 개              [브릿지]  n + m 개
 
@@ -340,6 +363,7 @@ public class Circle extends Shape {
    ├ VectorSquare                 └ Triangle
    └ RasterSquare                두 축이 서로를 모른 채 각자 늘어난다
 ```
+-->
 
 JDBC가 대표적이다. `Connection`, `Statement`가 추상화 축이고 각 DB 벤더의 드라이버가 구현 축이다. `application.yml`의 URL 한 줄만 바꿔도 쿼리 코드가 그대로인 이유가 이 분리에 있다.
 
@@ -382,6 +406,11 @@ public class FolderNode implements Node {        // 가지(composite)
 }
 ```
 
+<!-- diagram:dp-structural-patterns-5 -->
+![7. 컴포지트](../assets/diagrams/dp-structural-patterns-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         FolderNode("/")
               │
@@ -395,6 +424,7 @@ public class FolderNode implements Node {        // 가지(composite)
 root.size() 한 번이면 재귀가 알아서 6KB를 만든다.
 호출부는 파일인지 폴더인지 신경 쓰지 않는다.
 ```
+-->
 
 핵심은 **`FolderNode`도 `Node`라서 자기 자신을 자식으로 가질 수 있다**는 점이다. 이 재귀 구조 덕분에 깊이가 얼마든 코드는 그대로다. AWT/Swing의 `Component`와 그것을 담으면서 스스로도 `Component`인 `Container`, HTML DOM 트리, 조직도, 카테고리 트리가 모두 이 형태다.
 

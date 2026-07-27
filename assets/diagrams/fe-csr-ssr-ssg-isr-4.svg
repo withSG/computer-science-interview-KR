@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">상품 상세 페이지 렌더링 전략 분리 다이어그램</title>
+  <desc id="d">상품 상세 페이지 내 데이터 성격에 따른 ISR, CSR, 동적 렌더링 영역 분리를 설명하는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 외곽 상품 상세 페이지 영역 -->
+  <rect x="40" y="30" width="800" height="440" rx="10" ry="10" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <text x="65" y="65.6" font-size="16" font-weight="bold" fill="#1f2933">상품 상세 페이지</text>
+
+  <!-- 내부 프레임 -->
+  <rect x="65" y="85" width="750" height="365" rx="8" ry="8" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- 섹션 1: 정적/SEO 영역 (ISR) -->
+  <rect x="85" y="100" width="710" height="100" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="105" y="129.9" font-size="14" font-weight="bold" fill="#1e40af">상품명 / 이미지 / 상세 설명 / 스펙</text>
+  <text x="115" y="156.55" font-size="13" fill="#1e3a8a">→ 거의 안 바뀜, SEO 필수</text>
+  <text x="115" y="180.55" font-size="13" font-weight="bold" fill="#2563eb">→ ISR (revalidate + 수정 시 온디맨드)</text>
+
+  <!-- 섹션 2: 실시간 데이터 영역 (CSR) -->
+  <rect x="85" y="215" width="710" height="100" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="105" y="244.9" font-size="14" font-weight="bold" fill="#92400e">재고 수량 / 실시간 가격</text>
+  <text x="115" y="271.55" font-size="13" fill="#78350f">→ 초 단위로 바뀜, 틀리면 사고</text>
+  <text x="115" y="295.55" font-size="13" font-weight="bold" fill="#d97706">→ 클라이언트에서 별도 조회 (CSR)</text>
+
+  <!-- 섹션 3: 개인화 영역 -->
+  <rect x="85" y="330" width="710" height="100" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="105" y="359.9" font-size="14" font-weight="bold" fill="#5b21b6">장바구니 담김 여부 / 내 쿠폰</text>
+  <text x="115" y="391.55" font-size="13" font-weight="bold" fill="#7c3aed">→ 사용자별 → 클라이언트 조회 또는 동적 렌더</text>
+</svg>

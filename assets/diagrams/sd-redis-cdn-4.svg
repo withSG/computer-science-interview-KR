@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ETag와 조건부 요청</title>
+  <desc id="d">1차 요청 및 ETag 발급과 2차 조건부 요청 및 304 Not Modified 응답 흐름 시퀀스 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 제목 -->
+  <text x="40" y="41.6" font-size="16" font-weight="bold" fill="#1f2933">ETag와 조건부 요청</text>
+
+  <!-- Lifelines (클라이언트 / 서버) -->
+  <line x1="200" y1="70" x2="200" y2="460" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="680" y1="70" x2="680" y2="460" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- 헤더 박스 -->
+  <rect x="130" y="60" width="140" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="200" y="82.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">클라이언트 (캐시)</text>
+
+  <rect x="620" y="60" width="120" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="680" y="82.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">오리진 서버</text>
+
+  <!-- ===== 1차 요청 구역 ===== -->
+  <!-- 구역 라벨 -->
+  <rect x="40" y="112" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="80" y="128.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">1차 요청</text>
+
+  <!-- 1차 GET 요청 -->
+  <path d="M200,140 L680,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="360" y="127" width="160" height="22" fill="#ffffff"/>
+  <text x="440" y="142.0" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">GET /api/products/1</text>
+
+  <!-- 1차 응답 -->
+  <path d="M680,210 L200,210" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  
+  <rect x="370" y="172" width="140" height="20" fill="#ffffff"/>
+  <text x="440" y="186.0" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">← 200 OK</text>
+  
+  <rect x="360" y="196" width="160" height="18" fill="#ffffff"/>
+  <text x="440" y="209.0" font-size="11.5" fill="#52606d" text-anchor="middle">ETag: "v3-a1b2c3"</text>
+
+  <rect x="330" y="218" width="220" height="18" fill="#ffffff"/>
+  <text x="440" y="231.0" font-size="11.5" fill="#52606d" text-anchor="middle">Cache-Control: no-cache</text>
+
+  <!-- 구분선 -->
+  <line x1="60" y1="260" x2="820" y2="260" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ===== 2차 요청 구역 ===== -->
+  <!-- 구역 라벨 -->
+  <rect x="40" y="280" width="270" height="26" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="175" y="296.5" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">2차 요청 (캐시 만료 또는 no-cache)</text>
+
+  <!-- 2차 GET 요청 (조건부 요청) -->
+  <path d="M200,330 L680,330" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="360" y="307" width="160" height="20" fill="#ffffff"/>
+  <text x="440" y="321.0" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">GET /api/products/1</text>
+  
+  <rect x="330" y="335" width="220" height="20" fill="#ffffff"/>
+  <text x="440" y="349.0" font-size="11.5" fill="#52606d" text-anchor="middle">If-None-Match: "v3-a1b2c3"</text>
+
+  <!-- 2차 응답 (304 Not Modified) -->
+  <path d="M680,400 L200,400" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  
+  <rect x="340" y="387" width="200" height="22" fill="#ffffff"/>
+  <text x="440" y="402.0" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">← 304 Not Modified</text>
+
+  <!-- 각주 / 부가 설명 -->
+  <rect x="565" y="388" width="225" height="24" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="677.5" y="403.85" font-size="11" fill="#d97706" text-anchor="middle">← 본문이 없다. 헤더만 오간다</text>
+
+</svg>

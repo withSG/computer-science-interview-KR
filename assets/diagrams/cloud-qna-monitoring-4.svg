@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ELK Stack</title>
+  <desc id="d">Filebeat, Logstash, Elasticsearch, Kibana로 구성된 ELK 스택 로그 수집 아키텍처 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Kibana -->
+  <rect x="220" y="30" width="440" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="58" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Kibana</text>
+  <text x="440" y="80" font-size="13" fill="#52606d" text-anchor="middle">(시각화/검색 UI)</text>
+
+  <!-- 화살표: Kibana <- Elasticsearch (데이터 흐름: Logstash -> ES -> Kibana) -->
+  <path d="M440,170 L440,109" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Elasticsearch -->
+  <rect x="220" y="170" width="440" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="198" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Elasticsearch</text>
+  <text x="440" y="220" font-size="13" fill="#52606d" text-anchor="middle">(검색/저장 엔진)</text>
+
+  <!-- 화살표: Elasticsearch <- Logstash -->
+  <path d="M440,310 L440,249" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Logstash -->
+  <rect x="220" y="310" width="440" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="338" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Logstash</text>
+  <text x="440" y="360" font-size="13" fill="#52606d" text-anchor="middle">(수집/변환/전송)</text>
+
+  <!-- 화살표 분기선: Filebeats -> Logstash -->
+  <path d="M220,440 L220,410 L660,410 L660,440" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M440,440 L440,389" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Filebeat 1 -->
+  <rect x="150" y="440" width="140" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="220" y="465" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Filebeat</text>
+
+  <!-- Filebeat 2 -->
+  <rect x="370" y="440" width="140" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="465" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Filebeat</text>
+
+  <!-- Filebeat 3 -->
+  <rect x="590" y="440" width="140" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="660" y="465" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Filebeat</text>
+
+  <!-- 부가 설명 -->
+  <text x="220" y="504" font-size="13" fill="#52606d" text-anchor="middle">(경량 수집기)</text>
+</svg>

@@ -47,6 +47,11 @@ LIFO(Last In First Out, 후입선출)라고 한다.
 
 ### 동작
 
+<!-- diagram:cs-stack-queue-1 -->
+![동작](../../assets/diagrams/cs-stack-queue-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  push(10)   push(20)   push(30)   pop() → 30
                         ┌────┐
@@ -57,6 +62,7 @@ LIFO(Last In First Out, 후입선출)라고 한다.
   │////│     │////│     │ 10 │      ├────┤
   └────┘     └────┘     └────┘      └────┘
 ```
+-->
 
 핵심 연산은 세 개다.
 
@@ -116,6 +122,11 @@ head 쪽에서만 넣고 빼면 된다. `push`는 새 노드를 만들어 head�
 함수를 호출하면 지역 변수와 복귀 주소를 담은 스택 프레임(Stack Frame)이 쌓이고, 반환하면 걷힌다.
 재귀가 너무 깊으면 이 영역이 고갈되어 `StackOverflowError`가 난다.
 
+<!-- diagram:cs-stack-queue-2 -->
+![실제 사용처](../../assets/diagrams/cs-stack-queue-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  main 실행       f() 호출        g() 호출        g 반환
 ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
@@ -124,6 +135,7 @@ head 쪽에서만 넣고 빼면 된다. `push`는 새 노드를 만들어 head�
 │main 프레임│  │main 프레임│  │main 프레임│  │main 프레임│
 └─────────┘    └─────────┘    └─────────┘    └─────────┘
 ```
+-->
 
 **되돌리기/다시하기(Undo/Redo), 브라우저 뒤로/앞으로** — 스택 두 개를 쓴다. 작업을 하면 undo 스택에
 쌓고 redo 스택을 비운다. Ctrl+Z는 undo에서 pop해 redo로 push하고, Ctrl+Y는 그 반대다.
@@ -150,6 +162,11 @@ head 쪽에서만 넣고 빼면 된다. `push`는 새 노드를 만들어 head�
 
 ### 동작
 
+<!-- diagram:cs-stack-queue-3 -->
+![동작](../../assets/diagrams/cs-stack-queue-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  A, B, C 를 넣은 뒤 dequeue 한 번
 
@@ -161,6 +178,7 @@ head 쪽에서만 넣고 빼면 된다. `push`는 새 노드를 만들어 head�
 
   넣는 쪽과 빼는 쪽이 반대 끝이라 서로 간섭하지 않는다
 ```
+-->
 
 연산은 `enqueue(x)`(뒤에 넣기), `dequeue()`(앞에서 빼기), `peek()`(맨 앞 보기) 세 개이며
 모두 O(1)이다. Java에서는 각각 `offer`, `poll`, `peek`이라는 이름을 쓴다.
@@ -184,6 +202,11 @@ Java `ThreadPoolExecutor`가 내부에 `BlockingQueue`를 두고 이렇게 동�
 
 배열로 큐를 순진하게 만들면 이런 일이 생긴다.
 
+<!-- diagram:cs-stack-queue-4 -->
+![4. 원형 큐](../../assets/diagrams/cs-stack-queue-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 capacity 5인 배열. enqueue 5번, dequeue 3번 후
 
@@ -196,6 +219,7 @@ capacity 5인 배열. enqueue 5번, dequeue 3번 후
 
 앞쪽 3칸이 놀고 있는데 rear가 끝에 닿아 더 못 넣는다.
 ```
+-->
 
 해결책은 두 가지다. dequeue할 때마다 전체를 앞으로 당기거나 — 그럼 dequeue가 O(n)이 된다 —
 **rear가 끝에 닿으면 0번으로 되감는** 것이다. 후자가 원형 큐다.
@@ -253,11 +277,17 @@ class CircularQueue {
 
 양쪽 끝에서 모두 넣고 뺄 수 있는 구조다. 발음은 "덱".
 
+<!-- diagram:cs-stack-queue-5 -->
+![5. 덱](../../assets/diagrams/cs-stack-queue-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 addFirst ─▶ ┌───┬───┬───┬───┐ ◀─ addLast
             │ A │ B │ C │ D │
 removeFirst ◀┴───┴───┴───┴───┘ ─▶ removeLast
 ```
+-->
 
 한쪽 끝만 쓰면 스택, 한쪽에서 넣고 반대쪽에서 빼면 큐다. **스택과 큐를 모두 포함하는 상위 개념**이라
 언어 표준 라이브러리는 스택/큐를 따로 두기보다 덱 하나로 통합하는 추세이며, Java의 `Deque`
@@ -289,6 +319,11 @@ queue.poll();                   // 1   — 뒤로 넣고 앞에서 빼면 FIFO
 "부모-자식 관계만" 지키므로 유지 비용이 싸다. 그리고 완전 이진 트리는 빈틈없이 채워지므로
 **포인터 없이 배열로 표현할 수 있다.** 덕분에 메모리도 아끼고 캐시 지역성도 좋다.
 
+<!-- diagram:cs-stack-queue-6 -->
+![힙의 구조](../../assets/diagrams/cs-stack-queue-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Min Heap                        배열 표현
        1                        idx:  0  1  2  3  4  5
@@ -300,6 +335,7 @@ Min Heap                        배열 표현
 
    idx 4(값 5)의 부모 = (4-1)/2 = 1 → 값 3.  3 ≤ 5 이므로 힙 조건 만족
 ```
+-->
 
 ### 삽입과 삭제
 

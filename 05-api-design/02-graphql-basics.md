@@ -23,6 +23,11 @@
 
 인스타그램 프로필 화면을 만든다고 하자. 필요한 것은 사용자 이름, 게시글 제목 목록, 팔로워 이름 목록이다. REST로 짜면 이렇게 된다.
 
+<!-- diagram:api-graphql-basics-1 -->
+![화면 하나에 요청 세 번](../assets/diagrams/api-graphql-basics-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 GET /users/1
   → { id, name, email, phone, address, bio, profileImage,
@@ -34,6 +39,7 @@ GET /users/1/followers
 
 총 3번의 왕복
 ```
+-->
 
 두 가지 문제가 동시에 보인다.
 
@@ -87,6 +93,11 @@ type Query {
 
 읽는 법이 처음엔 낯선데, 규칙은 두 개뿐이다.
 
+<!-- diagram:api-graphql-basics-2 -->
+![2. 스키마와 타입 시스템](../assets/diagrams/api-graphql-basics-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 String     널 허용            String!   널 불가 (반드시 값이 있음)
 
@@ -94,6 +105,7 @@ String     널 허용            String!   널 불가 (반드시 값이 있음)
 [Post!]    리스트는 널일 수 있지만 원소는 널이 아님
 [Post!]!   리스트도 원소도 널이 아님 ← 가장 흔하다. 결과가 없으면 빈 배열 []
 ```
+-->
 
 기본 스칼라 타입은 `Int`, `Float`, `String`, `Boolean`, `ID` 다섯 개다. `ID`는 내부적으로 문자열로 직렬화되지만 "식별자로 쓰이며 사람이 읽을 목적이 아니다"라는 의도를 표현한다.
 
@@ -101,6 +113,11 @@ String     널 허용            String!   널 불가 (반드시 값이 있음)
 
 REST에서는 응답 JSON의 모양이 코드에 흩어져 있고 문서는 따로 관리된다. 그래서 문서와 실제 응답이 어긋나는 일이 흔하다. GraphQL은 **스키마가 곧 실행 대상이자 문서**다. 스키마에 없는 필드를 요청하면 서버가 실행 전에 거절한다.
 
+<!-- diagram:api-graphql-basics-3 -->
+![스키마가 계약서 역할을 한다](../assets/diagrams/api-graphql-basics-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 쿼리 도착
    │
@@ -108,6 +125,7 @@ REST에서는 응답 JSON의 모양이 코드에 흩어져 있고 문서는 따�
    ├─ 2. 검증      스키마에 존재하는 필드인가, 타입이 맞는가  ← 여기서 걸리면 실행 안 함
    └─ 3. 실행      리졸버 호출
 ```
+-->
 
 이 검증 단계 덕분에 클라이언트 도구가 **자동 완성과 타입 생성**을 해줄 수 있다. 서버 스키마에서 TypeScript 타입을 뽑아내는 코드 생성기가 널리 쓰이는 이유다.
 
@@ -231,6 +249,11 @@ query {
 }
 ```
 
+<!-- diagram:api-graphql-basics-4 -->
+![N+1이 생기는 순간](../assets/diagrams/api-graphql-basics-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Query.posts 리졸버
   └─> SELECT * FROM posts LIMIT 10                     쿼리 1번
@@ -241,6 +264,7 @@ Post.author 리졸버 (게시글마다 독립적으로 호출된다)
   ├─> SELECT * FROM users WHERE id = 3   ← 3번 유저를 또 조회한다
   └─> ... (총 10번)                                    쿼리 11번
 ```
+-->
 
 REST에도 N+1은 있지만 성격이 다르다. REST에서는 개발자가 `/posts` 엔드포인트 코드를 짜면서 조인을 넣을지 말지 직접 결정한다. GraphQL에서는 **클라이언트가 쿼리를 짜는 순간 어떤 리졸버가 몇 번 불릴지 결정되기 때문에**, 서버 개발자가 미리 최적화해 둘 지점을 특정하기 어렵다. 그래서 구조적으로 더 잘 터진다.
 
@@ -248,6 +272,11 @@ REST에도 N+1은 있지만 성격이 다르다. REST에서는 개발자가 `/po
 
 해결책의 아이디어는 단순하다. **개별 리졸버가 즉시 DB를 때리지 않고, 같은 실행 사이클에서 들어온 요청을 모아 한 번에 조회한다.**
 
+<!-- diagram:api-graphql-basics-5 -->
+![DataLoader](../assets/diagrams/api-graphql-basics-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [DataLoader 없음]                    [DataLoader 있음]
 
@@ -262,6 +291,7 @@ author(5) ──> SELECT ... id=5        author(5) ──┘  [3, 7, 3, 5]
         쿼리 4번                          SELECT * FROM users WHERE id IN (3,7,5)
                                                     쿼리 1번
 ```
+-->
 
 ```js
 const DataLoader = require('dataloader');

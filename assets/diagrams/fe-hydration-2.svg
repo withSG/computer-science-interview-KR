@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">3.1 무슨 일이 벌어지나 (Hydration Mismatch)</title>
+  <desc id="d">하이드레이션 시 정상 작동 케이스와 Mismatch 발생 케이스의 흐름 및 결과를 비교하는 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">### 3.1 무슨 일이 벌어지나</text>
+
+  <!-- Left Container: 정상 -->
+  <rect x="30" y="60" width="395" height="450" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="227" y="93" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">정상</text>
+  <line x1="50" y1="108" x2="405" y2="108" stroke="#059669" stroke-width="1"/>
+
+  <!-- Left Content: Box 1 -->
+  <rect x="60" y="125" width="335" height="42" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="227" y="151" font-size="13" fill="#1f2933" text-anchor="middle">서버 HTML: &lt;div&gt;0&lt;/div&gt;</text>
+
+  <!-- Left Content: Box 2 -->
+  <rect x="60" y="180" width="335" height="42" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="227" y="206" font-size="13" fill="#1f2933" text-anchor="middle">클라 렌더: &lt;div&gt;0&lt;/div&gt;</text>
+
+  <!-- Arrow 1 Left -->
+  <path d="M227,222 L227,252" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Left Content: Box 3 -->
+  <rect x="60" y="260" width="335" height="64" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="227" y="287" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">일치 → DOM 재사용</text>
+  <text x="227" y="307" font-size="13" fill="#1f2933" text-anchor="middle">이벤트만 부착</text>
+
+  <!-- Arrow 2 Left -->
+  <path d="M227,324 L227,370" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Left Content: Box 4 (Result) -->
+  <rect x="60" y="378" width="335" height="48" rx="4" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="227" y="407" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">빠름</text>
+
+
+  <!-- Right Container: mismatch 발생 -->
+  <rect x="455" y="60" width="395" height="450" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="652" y="93" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">mismatch 발생</text>
+  <line x1="475" y1="108" x2="830" y2="108" stroke="#dc2626" stroke-width="1"/>
+
+  <!-- Right Content: Box 1 -->
+  <rect x="485" y="125" width="335" height="42" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="652" y="151" font-size="13" fill="#1f2933" text-anchor="middle">서버 HTML: &lt;div&gt;14:03:22&lt;/div&gt;</text>
+
+  <!-- Right Content: Box 2 -->
+  <rect x="485" y="180" width="335" height="42" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="652" y="206" font-size="13" fill="#1f2933" text-anchor="middle">클라 렌더: &lt;div&gt;14:03:25&lt;/div&gt;</text>
+
+  <!-- Arrow 1 Right -->
+  <path d="M652,222 L652,252" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Right Content: Box 3 -->
+  <rect x="485" y="260" width="335" height="42" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="652" y="286" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">불일치 감지</text>
+
+  <!-- Arrow 2 Right -->
+  <path d="M652,302 L652,326" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Right Content: Box 4 -->
+  <rect x="485" y="334" width="335" height="42" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="652" y="360" font-size="13" fill="#dc2626" text-anchor="middle">경고 + 클라이언트 렌더로 폐기·재생성</text>
+
+  <!-- Arrow 3 Right -->
+  <path d="M652,376 L652,400" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Right Content: Box 5 (Result) -->
+  <rect x="485" y="408" width="335" height="48" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <text x="652" y="437" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">SSR로 아낀 시간을 도로 반납 + 깜빡임</text>
+</svg>

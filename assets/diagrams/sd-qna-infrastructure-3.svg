@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Health Check</title>
+  <desc id="d">로드 밸런서의 Health Check 동작 방식과 장애 서버 자동 제외 프로세스</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Main Concept -->
+  <rect x="40" y="24" width="800" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="49" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">로드 밸런서가 서버 상태를 주기적으로 확인</text>
+
+  <!-- Active Check Card -->
+  <rect x="40" y="80" width="388" height="150" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="56" y="96" width="70" height="26" rx="4" fill="#2563eb"/>
+  <text x="91" y="113" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">Active</text>
+  <text x="136" y="113" fill="#1f2933" font-size="13">: 주기적 요청 전송 (GET /health)</text>
+
+  <!-- Active Check Visualization -->
+  <rect x="60" y="140" width="100" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="110" y="175" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Load Balancer</text>
+
+  <path d="M160,160 L290,160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="180" y="146" width="90" height="18" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="225" y="159" fill="#2563eb" font-size="11.5" text-anchor="middle">GET /health</text>
+
+  <rect x="300" y="140" width="110" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="355" y="175" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Server</text>
+
+  <!-- Passive Check Card -->
+  <rect x="452" y="80" width="388" height="150" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="468" y="96" width="76" height="26" rx="4" fill="#d97706"/>
+  <text x="506" y="113" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">Passive</text>
+  <text x="552" y="113" fill="#1f2933" font-size="13">: 실제 요청 실패 감지</text>
+
+  <!-- Passive Check Visualization -->
+  <rect x="472" y="140" width="100" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="522" y="175" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Load Balancer</text>
+
+  <path d="M572,160 L702,160" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="592" y="146" width="90" height="18" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="637" y="159" fill="#d97706" font-size="11.5" text-anchor="middle">실제 요청 실패</text>
+
+  <rect x="712" y="140" width="110" height="60" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="767" y="175" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">Server (Fail)</text>
+
+  <!-- Flow to Outcome -->
+  <path d="M234,230 L234,250 L440,250 L440,264" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M646,230 L646,250 L440,250" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M440,250 L440,264" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Outcome Box -->
+  <rect x="240" y="270" width="400" height="46" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="298" fill="#059669" font-size="14" font-weight="bold" text-anchor="middle">장애 서버 자동 제외 → 고가용성 확보</text>
+</svg>

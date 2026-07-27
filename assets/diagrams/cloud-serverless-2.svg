@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">15분 제한을 만났을 때의 사고 흐름</title>
+  <desc id="d">Lambda의 15분 실행 제한을 만났을 때 조건별로 해결 방안을 선택하는 사고 흐름 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="320" fill="#ffffff"/>
+
+  <!-- 메인 루트 노드 -->
+  <rect x="30" y="130" width="180" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="120" y="159" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">"작업이 15분을 넘는다"</text>
+
+  <!-- 트리 분기 선 -->
+  <!-- 메인 선 -->
+  <path d="M210,155 L250,155 L250,55 L270,55" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M250,155 L270,155" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M250,155 L250,255 L270,255" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <!-- 1번 질문 박스 (병렬) -->
+  <rect x="270" y="30" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="370" y="59" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">병렬로 쪼갤 수 있나?</text>
+
+  <path d="M470,55 L510,55" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 1번 결과 박스 -->
+  <rect x="510" y="25" width="340" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="680" y="60" font-size="13" fill="#1f2933" text-anchor="middle">큐에 작업 단위로 흩뿌리고 Lambda 여러 개가 나눠 처리</text>
+
+  <!-- 2번 질문 박스 (순차) -->
+  <rect x="270" y="130" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="370" y="159" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">순차 단계로 쪼갤 수 있나?</text>
+
+  <path d="M470,155 L510,155" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 2번 결과 박스 -->
+  <rect x="510" y="125" width="340" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="680" y="152" font-size="13" fill="#1f2933" text-anchor="middle">Step Functions로 상태 머신 구성</text>
+  <text x="680" y="171" font-size="11.5" fill="#52606d" text-anchor="middle">(Step Functions 자체는 장시간 실행 가능)</text>
+
+  <!-- 3번 질문 박스 (단일) -->
+  <rect x="270" y="230" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="370" y="259" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">하나의 긴 프로세스여야 하나?</text>
+
+  <path d="M470,255 L510,255" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+
+  <!-- 3번 결과 박스 -->
+  <rect x="510" y="225" width="340" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="680" y="260" font-size="13" fill="#1f2933" text-anchor="middle">Lambda가 아니라 ECS/Fargate Task, AWS Batch</text>
+</svg>

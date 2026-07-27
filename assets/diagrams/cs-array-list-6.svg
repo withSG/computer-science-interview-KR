@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">연결 리스트를 순회할 때</title>
+  <desc id="d">연결 리스트 순회 시 메모리의 힙 공간에 흩어진 노드들을 읽으며 발생하는 캐시 미스와 포인터 추적 과정을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 상단 라벨 -->
+  <text x="440" y="32" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">노드들이 힙 여기저기 흩어져 있다</text>
+
+  <!-- 메모리 공간 영역 -->
+  <rect x="40" y="55" width="800" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="55" y="91" font-size="13" fill="#52606d" font-weight="bold">메모리:</text>
+
+  <!-- 생략 및 노드 박스들 -->
+  <text x="140" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">...</text>
+
+  <!-- n3 -->
+  <rect x="165" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="190" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n3</text>
+
+  <text x="250" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">......</text>
+
+  <!-- n1 -->
+  <rect x="285" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="310" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n1</text>
+
+  <text x="420" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">...........</text>
+
+  <!-- n5 -->
+  <rect x="535" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="560" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n5</text>
+
+  <text x="625" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">....</text>
+
+  <!-- n2 -->
+  <rect x="665" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="690" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n2</text>
+
+  <text x="755" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">...</text>
+
+  <!-- 메모리 가리키는 화살표들 -->
+  <path d="M190,145 L190,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M310,145 L310,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M560,145 L560,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M690,145 L690,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 중간 중앙 요약 설명 -->
+  <rect x="230" y="145" width="420" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="165" font-size="13" fill="#d97706" font-weight="bold" text-anchor="middle">매번 다른 캐시 라인 → 매번 캐시 미스</text>
+
+  <!-- 하단 순회 단계별 포인터 추적 설명 -->
+  <!-- n1 읽기 -->
+  <rect x="180" y="210" width="520" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="195" y="230" font-size="13" fill="#1f2933">
+    <tspan fill="#dc2626" font-weight="bold">n1 읽기 → 미스.</tspan> n1.next 주소를 알아냄
+  </text>
+
+  <!-- n2 읽기 -->
+  <rect x="180" y="250" width="520" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="195" y="270" font-size="13" fill="#1f2933">
+    <tspan fill="#dc2626" font-weight="bold">n2 읽기 → 미스.</tspan> 주소를 알기 전엔 프리페치도 불가능
+  </text>
+
+  <!-- n3 읽기 -->
+  <rect x="180" y="290" width="520" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="195" y="310" font-size="13" fill="#1f2933">
+    <tspan fill="#dc2626" font-weight="bold">n3 읽기 → 미스</tspan>
+  </text>
+</svg>

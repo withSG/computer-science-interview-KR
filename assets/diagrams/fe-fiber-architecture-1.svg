@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Stack Reconciler는 왜 멈출 수 없었나</title>
+  <desc id="d">컴포넌트 3,000개짜리 트리를 렌der링하는 동안 메인 스레드가 300ms 동안 중단 없이 점유되어 사용자 입력 반응이 지연되는 상황을 보여주는 다이어그램</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Description area -->
+  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">컴포넌트 3,000개짜리 트리를 렌더링하는 동안</text>
+
+  <!-- Grid lines for alignment / Vertical block mark -->
+  <path d="M 280,60 L 280,240" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Row 1: Main Thread -->
+  <text x="30" y="89" font-size="14" font-weight="bold" fill="#1f2933">메인 스레드:</text>
+  <!-- Block representing 300ms unblocking work -->
+  <rect x="150" y="68" fill="#dc2626" width="670" height="32" rx="4"/>
+  <text x="485" y="89" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">(300ms, 중단 불가)</text>
+
+  <!-- Row 2: User Input -->
+  <text x="30" y="149" font-size="14" font-weight="bold" fill="#1f2933">사용자 입력</text>
+  <path d="M 150,145 L 271,145" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <rect x="290" y="132" width="168" height="26" fill="#ffffff" rx="2"/>
+  <text x="294" y="149" font-size="13" fill="#dc2626" font-weight="bold">(여기서 키를 눌렀지만)</text>
+
+  <!-- Row 3: Screen Reflection -->
+  <text x="30" y="209" font-size="14" font-weight="bold" fill="#1f2933">화면 반영</text>
+  <path d="M 150,205 L 811,205" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="660" y="192" width="150" height="26" fill="#ffffff" rx="2"/>
+  <text x="664" y="209" font-size="13" fill="#1f2933" font-weight="bold">(300ms 뒤에야 반응)</text>
+
+  <!-- Divider line -->
+  <path d="M 30,245 L 850,245" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Row 4: Frame / Drop indicator -->
+  <text x="30" y="284" font-size="14" font-weight="bold" fill="#1f2933">프레임:</text>
+  
+  <!-- 18 Frame drops represented clearly as red crosses -->
+  <g fill="#dc2626" font-size="14" font-weight="bold" text-anchor="middle">
+    <text x="160" y="284">✕</text>
+    <text x="195" y="284">✕</text>
+    <text x="230" y="284">✕</text>
+    <text x="265" y="284">✕</text>
+    <text x="300" y="284">✕</text>
+    <text x="335" y="284">✕</text>
+    <text x="370" y="284">✕</text>
+    <text x="405" y="284">✕</text>
+    <text x="440" y="284">✕</text>
+    <text x="475" y="284">✕</text>
+    <text x="510" y="284">✕</text>
+    <text x="545" y="284">✕</text>
+    <text x="580" y="284">✕</text>
+    <text x="615" y="284">✕</text>
+    <text x="650" y="284">✕</text>
+    <text x="685" y="284">✕</text>
+    <text x="720" y="284">✕</text>
+    <text x="755" y="284">✕</text>
+  </g>
+
+  <!-- Footnote -->
+  <rect x="150" y="310" width="315" height="32" fill="#fef2f2" rx="4" stroke="#fca5a5" stroke-width="1"/>
+  <text x="162" y="331" font-size="13" font-weight="bold" fill="#dc2626">(18프레임 드랍 = 화면이 멈춘 것처럼 보임)</text>
+</svg>

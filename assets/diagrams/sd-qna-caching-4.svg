@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Cache Stampede 문제 및 해결책</title>
+  <desc id="d">Cache Stampede 문제와 이를 해결하기 위한 Lock, Early Expiration, Probabilistic Early Expiration 세 가지 해결책을 보여주는 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 메인 영역 카드 배경 -->
+  <rect x="24" y="24" width="832" height="342" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 상단: Cache Stampede 문제 설명 박스 (경고/레드계열) -->
+  <rect x="44" y="44" width="792" height="76" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  
+  <!-- 다량 요청 -> Cache Miss -> DB 과부하 흐름 -->
+  <rect x="64" y="62" width="220" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="174" y="87" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">많은 요청이 동시에</text>
+
+  <path d="M284,82 L324,82" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <rect x="334" y="62" width="180" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+  <text x="424" y="87" font-size="14" fill="#dc2626" text-anchor="middle" font-weight="bold">Cache Miss</text>
+
+  <path d="M514,82 L554,82" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <rect x="564" y="62" width="252" height="40" rx="4" fill="#dc2626"/>
+  <text x="690" y="87" font-size="14" fill="#ffffff" text-anchor="middle" font-weight="bold">DB 과부하</text>
+
+  <!-- 구분선 -->
+  <line x1="44" y1="140" x2="836" y2="140" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 하단: 해결책 영역 -->
+  <text x="44" y="166" font-size="16" fill="#1f2933" font-weight="bold">해결책:</text>
+
+  <!-- 1. Lock (Mutex) -->
+  <g transform="translate(44, 180)">
+    <rect x="0" y="0" width="792" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <rect x="12" y="9" width="300" height="28" rx="4" fill="#2563eb"/>
+    <text x="162" y="28" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="bold">1. Lock (Mutex)</text>
+    <path d="M322,23 L342,23" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="352" y="28" font-size="13" fill="#1f2933">하나의 요청만 DB 조회</text>
+  </g>
+
+  <!-- 2. Early Expiration -->
+  <g transform="translate(44, 236)">
+    <rect x="0" y="0" width="792" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <rect x="12" y="9" width="300" height="28" rx="4" fill="#059669"/>
+    <text x="162" y="28" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="bold">2. Early Expiration</text>
+    <path d="M322,23 L342,23" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="352" y="28" font-size="13" fill="#1f2933">만료 전에 미리 갱신</text>
+  </g>
+
+  <!-- 3. Probabilistic Early Expiration -->
+  <g transform="translate(44, 292)">
+    <rect x="0" y="0" width="792" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+    <rect x="12" y="9" width="300" height="28" rx="4" fill="#7c3aed"/>
+    <text x="162" y="28" font-size="13" fill="#ffffff" text-anchor="middle" font-weight="bold">3. Probabilistic Early Expiration</text>
+    <path d="M322,23 L342,23" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="352" y="28" font-size="13" fill="#1f2933">확률적으로 미리 갱신</text>
+  </g>
+</svg>

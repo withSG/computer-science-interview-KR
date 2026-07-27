@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CNAME과 A의 진짜 차이</title>
+  <desc id="d">A 레코드와 CNAME 레코드의 조회 방식, 과정, 특성 비교 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- Left Column: [A 레코드] Zone -->
+  <rect x="40" y="30" width="380" height="330" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="230" y="68" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[A 레코드]</text>
+
+  <!-- Left: Direct Mapping Box -->
+  <rect x="60" y="95" width="340" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="75" y="125" font-size="13" fill="#1f2933">www.example.com</text>
+  <path d="M225,120 L245,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="260" y="125" font-size="13" font-weight="bold" fill="#1f2933">203.0.113.5</text>
+
+  <!-- Left: Characteristics -->
+  <rect x="60" y="210" width="340" height="50" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="230" y="240" font-size="13" fill="#1f2933" text-anchor="middle">조회 1회로 끝</text>
+
+  <rect x="60" y="280" width="340" height="50" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="230" y="310" font-size="13" fill="#1f2933" text-anchor="middle">IP가 바뀌면 내가 고쳐야 함</text>
+
+
+  <!-- Right Column: [CNAME 레코드] Zone -->
+  <rect x="460" y="30" width="380" height="330" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="650" y="68" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">[CNAME 레코드]</text>
+
+  <!-- Right: CNAME Mapping Box -->
+  <rect x="480" y="95" width="340" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="495" y="125" font-size="13" fill="#1f2933">www.example.com</text>
+  <path d="M645,120 L665,120" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <text x="680" y="125" font-size="13" font-weight="bold" fill="#1f2933">cdn.provider.net</text>
+
+  <!-- Right: Re-query Arrow & Label -->
+  <path d="M740,145 L740,165" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="668" y="145" width="104" height="20" fill="#f5f3ff"/>
+  <text x="720" y="159" font-size="11.5" fill="#52606d" text-anchor="middle">(여기서 다시 조회)</text>
+
+  <!-- Right: Final A Record -->
+  <rect x="635" y="170" width="185" height="30" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="727" y="189" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">A 203.0.113.77</text>
+
+  <!-- Right: Characteristics -->
+  <rect x="480" y="210" width="340" height="50" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="650" y="240" font-size="13" fill="#1f2933" text-anchor="middle">조회가 한 번 더 필요(약간의 지연)</text>
+
+  <rect x="480" y="280" width="340" height="50" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="650" y="310" font-size="13" fill="#1f2933" text-anchor="middle">대상이 IP를 바꿔도 내 설정은 그대로</text>
+</svg>

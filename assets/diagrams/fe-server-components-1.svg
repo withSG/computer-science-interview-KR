@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">RSC는 무엇을 보내나</title>
+  <desc id="d">서버 컴포넌트 실행 결과가 클라이언트로 전달되고 하이드레이션되는 과정을 나타낸 RSC Payload 전달 프로세스 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 좌우 영구 구조 배경 구역 (서버 / 클라이언트) -->
+  <rect x="24" y="20" width="400" height="350" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="456" y="20" width="400" height="350" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 컬럼 헤더 -->
+  <text x="44" y="52" font-size="16" font-weight="bold" fill="#1f2933">서버</text>
+  <line x1="44" y1="62" x2="404" y2="62" stroke="#9aa5b1" stroke-width="1"/>
+
+  <text x="476" y="52" font-size="16" font-weight="bold" fill="#1f2933">클라이언트</text>
+  <line x1="476" y1="62" x2="836" y2="62" stroke="#9aa5b1" stroke-width="1"/>
+
+  <!-- 서버 실행 메인 박스 -->
+  <rect x="44" y="80" width="360" height="180" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="105" font-size="14" font-weight="bold" fill="#1f2933">Server Component 실행</text>
+
+  <!-- 트리 노드 1: DB 조회 / 마크다운 파싱 -->
+  <path d="M 80 110 L 80 135 L 94 135" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <rect x="96" y="121" width="168" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="106" y="139" font-size="13" fill="#1f2933">DB 조회 / 마크다운 파싱</text>
+
+  <!-- 트리 노드 2: 트리 생성 -->
+  <path d="M 80 110 L 80 175 L 94 175" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <text x="96" y="179" font-size="13" font-weight="bold" fill="#1f2933">트리 생성</text>
+
+  <!-- 서브 트리 노드 2-1: 순수 마크업 부분 -->
+  <path d="M 112 184 L 112 205 L 124 205" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <rect x="126" y="191" width="118" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="136" y="209" font-size="13" fill="#2563eb">순수 마크업 부분</text>
+
+  <!-- 서브 트리 노드 2-2: <LikeButton count="{3}"/> -->
+  <path d="M 112 184 L 112 240 L 124 240" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <rect x="126" y="224" width="262" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="134" y="240" font-size="12.5" font-family="monospace" fill="#7c3aed">&lt;LikeButton count={3}/&gt;</text>
+  <text x="134" y="252" font-size="11" fill="#52606d">(클라이언트 컴포넌트 참조)</text>
+
+  <!-- 클라이언트측 박스 1: 그대로 사용 (JS 없음) -->
+  <rect x="520" y="191" width="160" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="528" y="209" font-size="13" fill="#2563eb">그대로 사용 (JS 없음)</text>
+
+  <!-- 화살표 1: 순수 마크업 -> 그대로 사용 -->
+  <path d="M 244 205 L 518 205" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- 클라이언트측 박스 2: LikeButton 모듈 로드 지시 -->
+  <rect x="520" y="220" width="220" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="528" y="236" font-size="12" fill="#7c3aed">"LikeButton 모듈을 로드해</text>
+  <text x="528" y="252" font-size="12" fill="#7c3aed">props {count:3}으로 렌더하라"</text>
+
+  <!-- 화살표 2: LikeButton 참조 -> 모듈 로드 지시 -->
+  <path d="M 388 240 L 518 240" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+
+  <!-- 수직 화살표: 모듈 로드 지시 -> JS 다운로드 -->
+  <path d="M 630 260 L 630 286" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+
+  <!-- 클라이언트측 단계 3: LikeButton의 JS만 다운로드 -->
+  <rect x="520" y="290" width="220" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="532" y="309" font-size="13" fill="#1f2933">LikeButton의 JS만 다운로드</text>
+
+  <!-- 텍스트 라벨: 하이드레이션 -->
+  <text x="520" y="342" font-size="13" fill="#1f2933">→ 하이드레이션</text>
+</svg>

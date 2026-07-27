@@ -36,6 +36,11 @@ CPU는 **ALU(산술논리장치)**, **제어장치(CU)**, **레지스터**로 �
 
 ### 명령어 실행 사이클 (Instruction Cycle)
 
+<!-- diagram:cs-qna-computer-architecture-1 -->
+![명령어 실행 사이클](../../assets/diagrams/cs-qna-computer-architecture-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ① Fetch (인출)
    PC → MAR → 메모리에서 명령어 읽기 → MBR → IR
@@ -51,15 +56,22 @@ CPU는 **ALU(산술논리장치)**, **제어장치(CU)**, **레지스터**로 �
 
 ④ (필요 시) Memory Access / Write Back
 ```
+-->
 
 ### 명령어 예시
 
+<!-- diagram:cs-qna-computer-architecture-2 -->
+![명령어 예시](../../assets/diagrams/cs-qna-computer-architecture-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ADD R1, R2, R3   → R1 = R2 + R3  (ALU 연산)
 LOAD R1, 100     → R1 = MEM[100] (메모리 읽기)
 STORE R1, 200    → MEM[200] = R1 (메모리 쓰기)
 JUMP 300         → PC = 300      (분기)
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - PC(Program Counter)의 역할과 증가 시점
@@ -91,6 +103,11 @@ JUMP 300         → PC = 300      (분기)
 
 ### 지역성 원리 (Locality)
 
+<!-- diagram:cs-qna-computer-architecture-3 -->
+![지역성 원리](../../assets/diagrams/cs-qna-computer-architecture-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 시간적 지역성 (Temporal Locality)
   → 최근에 접근한 데이터를 곧 다시 접근할 가능성이 높음
@@ -100,6 +117,7 @@ JUMP 300         → PC = 300      (분기)
   → 접근한 주소 근처의 데이터를 곧 접근할 가능성이 높음
   → 예: 배열의 순차 접근
 ```
+-->
 
 ### 캐시 동작 방식
 
@@ -146,6 +164,11 @@ JUMP 300         → PC = 300      (분기)
 
 ### 고정 소수점 (Fixed Point)
 
+<!-- diagram:cs-qna-computer-architecture-4 -->
+![고정 소수점](../../assets/diagrams/cs-qna-computer-architecture-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 구조: [부호 비트 | 정수부 | 소수부]
 예: 16비트 기준 → 부호(1) + 정수(7) + 소수(8)
@@ -155,6 +178,7 @@ JUMP 300         → PC = 300      (분기)
 
 사용: 임베디드 시스템, 실시간 제어 시스템, DSP
 ```
+-->
 
 ### 부동 소수점 (Floating Point, IEEE 754)
 
@@ -212,6 +236,11 @@ JUMP 300         → PC = 300      (분기)
 
 ### 패리티 비트 (Parity Bit)
 
+<!-- diagram:cs-qna-computer-architecture-5 -->
+![패리티 비트](../../assets/diagrams/cs-qna-computer-architecture-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 짝수 패리티: 전체 1의 개수가 짝수가 되도록 패리티 비트 설정
 홀수 패리티: 전체 1의 개수가 홀수가 되도록 패리티 비트 설정
@@ -223,6 +252,7 @@ JUMP 300         → PC = 300      (분기)
 데이터: 1011000 → 1의 개수 = 3개 (홀수)
 패리티 비트: 1 → 전송: 1011000 1
 ```
+-->
 
 ```
 한계:
@@ -233,6 +263,11 @@ JUMP 300         → PC = 300      (분기)
 
 ### 해밍 코드 (Hamming Code / ECC)
 
+<!-- diagram:cs-qna-computer-architecture-6 -->
+![해밍 코드](../../assets/diagrams/cs-qna-computer-architecture-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 원리: 여러 패리티 비트를 전략적으로 배치하여 오류 위치 특정
 
@@ -250,6 +285,7 @@ P4 = 위치 4,5,6,7의 XOR = 0⊕1⊕1 = 0
 수신 측에서 패리티 검사 결과가 P4=1, P2=1, P1=0이면
 오류 위치 = 4×1 + 2×1 + 1×0 = 6번 위치 → 수정
 ```
+-->
 
 ### 실제 사용
 
@@ -292,6 +328,11 @@ ARM은 **RISC(Reduced Instruction Set Computer)** 아키텍처로 단순한 명�
 
 ### ARM의 부상
 
+<!-- diagram:cs-qna-computer-architecture-7 -->
+![ARM의 부상](../../assets/diagrams/cs-qna-computer-architecture-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 모바일 시대:
   → 배터리 수명이 중요 → 낮은 전력의 ARM 채택
@@ -302,9 +343,15 @@ ARM은 **RISC(Reduced Instruction Set Computer)** 아키텍처로 단순한 명�
   → AWS Graviton (ARM 기반 서버)
   → Microsoft Windows on ARM
 ```
+-->
 
 ### 소프트웨어 호환성
 
+<!-- diagram:cs-qna-computer-architecture-8 -->
+![소프트웨어 호환성](../../assets/diagrams/cs-qna-computer-architecture-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 x86 → ARM 이식 시 고려 사항:
   - 엔디언(Byte Order): ARM은 bi-endian (기본 little-endian)
@@ -314,6 +361,7 @@ x86 → ARM 이식 시 고려 사항:
 해결:
   - Apple Rosetta 2: x86 바이너리를 ARM에서 동적 번역
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - RISC와 CISC의 근본적 설계 철학 차이

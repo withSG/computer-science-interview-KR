@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">무엇을 공유하고 무엇을 공유하지 않나</title>
+  <desc id="d">Pod 내부 컨테이너들의 pause, app, log-agent 배치와 emptyDir 볼륨 공유, 네임스페이스 공유 및 비공유 항목을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <!-- 전체 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Pod 바깥 테두리 및 영역 (파랑 계열 배경) -->
+  <rect x="24" y="24" width="832" height="452" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="55" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">Pod (IP 10.244.1.7)</text>
+
+  <!-- 1. pause 컨테이너 박스 (보라 계열) -->
+  <rect x="54" y="80" width="180" height="130" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="144" y="115" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">pause</text>
+  <text x="144" y="145" font-size="13" fill="#1f2933" text-anchor="middle">네임스페이스</text>
+  <text x="144" y="175" font-size="13" fill="#1f2933" text-anchor="middle">보유</text>
+
+  <!-- 2. app 컨테이너 박스 (초록 계열) -->
+  <rect x="264" y="80" width="220" height="130" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="374" y="115" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">app</text>
+  <text x="374" y="145" font-size="13" fill="#1f2933" text-anchor="middle">:8080</text>
+
+  <!-- 3. log-agent 컨테이너 박스 (주황 계열) -->
+  <rect x="514" y="80" width="220" height="130" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="624" y="115" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">log-agent</text>
+  <text x="624" y="145" font-size="13" fill="#1f2933" text-anchor="middle">(사이드카)</text>
+
+  <!-- 통신 및 연결 화살표: app 및 log-agent 에서 emptyDir 로 연결 -->
+  <path d="M374,210 L374,380" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M624,210 L624,380" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- localhost:8080 라벨 (화살표 사이 교차 지점 선 위에 흰 배경) -->
+  <rect x="424" y="222" width="150" height="22" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
+  <text x="499" y="237" font-size="11.5" fill="#52606d" text-anchor="middle">localhost:8080</text>
+
+  <!-- 공유/비공유 정보 텍스트 영역 -->
+  <rect x="54" y="260" width="350" height="80" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="74" y="292" font-size="13" fill="#1f2933">공유:  network ns · IPC ns · 볼륨</text>
+  <text x="74" y="322" font-size="13" fill="#1f2933">비공유: 각 컨테이너의 이미지 파일시스템</text>
+
+  <!-- 4. emptyDir 하단 볼륨 박스 (회색/보조 계열) -->
+  <rect x="300" y="380" width="400" height="60" rx="4" fill="#f8fafc" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="500" y="415" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">emptyDir  /var/log</text>
+</svg>

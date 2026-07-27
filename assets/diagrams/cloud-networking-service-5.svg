@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Ingress: 하나의 진입점에서 L7 라우팅 - 왜 필요한가</title>
+  <desc id="d">인터넷에서 LoadBalancer와 Ingress Controller를 거쳐 Host 및 경로 조건에 따라 각 ClusterIP 서비스와 Pod로 트래픽이 라우팅되는 구조 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Top: 인터넷 -->
+  <text x="440" y="38" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">인터넷</text>
+
+  <!-- Arrow: 인터넷 -> LoadBalancer -->
+  <path d="M440,46 L440,78" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Level 1: LoadBalancer 1개 -->
+  <rect x="290" y="80" width="300" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">LoadBalancer 1개</text>
+  
+  <!-- Right note for LoadBalancer -->
+  <text x="606" y="108" font-size="11.5" fill="#52606d">← 여기만 외부 노출 / 인증서도 여기</text>
+
+  <!-- Arrow: LoadBalancer -> Ingress Controller -->
+  <path d="M440,126 L440,158" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Level 2: Ingress Controller -->
+  <rect x="250" y="160" width="380" height="64" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="186" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">Ingress Controller</text>
+  <text x="440" y="208" text-anchor="middle" font-size="13" fill="#52606d">(nginx / traefik 등)</text>
+  
+  <!-- Right notes for Ingress Controller -->
+  <text x="646" y="186" font-size="11.5" fill="#52606d">실제로 트래픽을 처리하는 Pod</text>
+  <text x="646" y="208" font-size="11.5" fill="#52606d">Ingress 규칙을 읽어 설정으로 변환</text>
+
+  <!-- Branching Paths -->
+  <!-- Left Branch Path: to cart-svc -->
+  <path d="M340,224 L340,368" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- Right Branch Path: to storefront-svc -->
+  <path d="M540,224 L540,368" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Branching Text Labels (Left Branch) -->
+  <rect x="230" y="261" width="168" height="20" fill="#ffffff"/>
+  <text x="234" y="275" font-size="13" font-weight="bold" fill="#1f2933">Host: shop.example.com</text>
+
+  <rect x="240" y="291" width="92" height="20" fill="#ffffff"/>
+  <text x="244" y="305" font-size="13" fill="#2563eb">/api/v1/cart</text>
+
+  <!-- Branching Text Labels (Right Branch) -->
+  <rect x="548" y="291" width="100" height="20" fill="#ffffff"/>
+  <text x="552" y="305" font-size="13" fill="#7c3aed">그 외 전부 (/)</text>
+
+  <!-- Level 3: ClusterIP Services -->
+  <!-- Left: cart-svc -->
+  <rect x="260" y="370" width="160" height="54" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="340" y="393" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">ClusterIP</text>
+  <text x="340" y="411" text-anchor="middle" font-size="13" fill="#1f2933">cart-svc</text>
+
+  <!-- Right: storefront-svc -->
+  <rect x="440" y="370" width="200" height="54" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="540" y="393" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">ClusterIP</text>
+  <text x="540" y="411" text-anchor="middle" font-size="13" fill="#1f2933">storefront-svc</text>
+
+  <!-- Arrows: Services -> Pods -->
+  <path d="M340,424 L340,468" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M540,424 L540,468" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Level 4: [Pods] -->
+  <text x="340" y="488" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">[Pods]</text>
+  <text x="540" y="488" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">[Pods]</text>
+</svg>

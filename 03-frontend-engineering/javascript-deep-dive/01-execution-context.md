@@ -56,6 +56,11 @@ console.log(userName);
 
 ## 3. 실행 컨텍스트의 구성 요소
 
+<!-- diagram:fe-execution-context-1 -->
+![3. 실행 컨텍스트의 구성 요소](../../assets/diagrams/fe-execution-context-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌───────────────────────────────────────────────────┐
 │              Execution Context                    │
@@ -82,6 +87,7 @@ console.log(userName);
 │  └─────────────────────────────────────────────┘  │
 └───────────────────────────────────────────────────┘
 ```
+-->
 
 ### 3-1. 렉시컬 환경 = 환경 레코드 + 외부 참조
 
@@ -103,6 +109,11 @@ function outer() {
 outer();
 ```
 
+<!-- diagram:fe-execution-context-2 -->
+![3-1. 렉시컬 환경 = 환경 레코드 + 외부 참조](../../assets/diagrams/fe-execution-context-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 inner의 환경 레코드   { i: 'I' }
         │ outer 참조
@@ -115,6 +126,7 @@ outer의 환경 레코드   { o: 'O', inner: fn }
         ▼
        null   ← 여기까지 없으면 ReferenceError
 ```
+-->
 
 탐색은 **항상 안에서 밖으로 한 방향**이다. 바깥에서 안쪽 변수는 볼 수 없다. 그래서 `inner` 밖에서 `i`를 참조하면 `ReferenceError`가 난다.
 
@@ -138,12 +150,18 @@ function f() {
 f();
 ```
 
+<!-- diagram:fe-execution-context-3 -->
+![3-2. 변수 환경은 왜 따로 있나](../../assets/diagrams/fe-execution-context-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 함수 진입 시            블록 진입 시
 LexicalEnv ──┐          LexicalEnv ──→ [블록 레코드 { l: 2 }] ──outer──┐
              ├→ [함수 레코드]                                          │
 VariableEnv ─┘          VariableEnv ──→ [함수 레코드 { v: 2, l: 1 }] ◄─┘
 ```
+-->
 
 `var`가 블록을 무시하는 현상은 문법적 예외가 아니라 **저장 위치가 다르기 때문**이다. 이 구조를 이해하면 `var`를 쓰지 말아야 할 이유가 규칙 암기가 아니라 원리로 남는다.
 
@@ -202,6 +220,11 @@ demo();
 
 생성 단계가 끝난 직후 `demo`의 환경은 이렇게 생겼다.
 
+<!-- diagram:fe-execution-context-4 -->
+![4. 생성 단계와 실행 단계](../../assets/diagrams/fe-execution-context-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 생성 단계 종료 시점
 ┌──────────────────────────────────────────┐
@@ -217,6 +240,7 @@ demo();
   a = 1  → a: 1
   b = 2  → b: 2 (여기서 초기화, TDZ 종료)
 ```
+-->
 
 `var`는 등록과 동시에 `undefined`로 초기화되고, `let`/`const`는 등록만 되고 초기화되지 않는다. 이 **초기화 시점의 차이**가 TDZ의 전부다. 자세한 내용은 [02-hoisting-tdz.md](./02-hoisting-tdz.md)에서 다룬다.
 
@@ -233,6 +257,11 @@ function first()  { second(); }
 first();
 ```
 
+<!-- diagram:fe-execution-context-5 -->
+![5. 콜 스택](../../assets/diagrams/fe-execution-context-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  시간 →
  ①            ②            ③            ④            ⑤            ⑥
@@ -245,6 +274,7 @@ first();
  스크립트      first 호출    second 호출  third 호출   third 반환   second 반환
  평가
 ```
+-->
 
 스택이 걷히는 순서가 곧 함수가 반환되는 순서다. 개발자 도구의 **Call Stack 패널**이 보여주는 목록, 그리고 에러의 스택 트레이스가 정확히 이 스택의 스냅샷이다.
 

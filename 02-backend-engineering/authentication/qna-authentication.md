@@ -30,12 +30,18 @@
 ```
 
 ### JWT 기반 인증 흐름
+<!-- diagram:be-qna-authentication-1 -->
+![JWT 기반 인증 흐름](../../assets/diagrams/be-qna-authentication-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 로그인 → 서버에서 JWT 생성 및 발급
 2. 클라이언트에서 토큰 저장 (localStorage/Cookie)
 3. 이후 요청 시 Authorization 헤더에 토큰 포함
 4. 서버에서 토큰 검증 (서명 확인)
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 스케일아웃 환경에서의 차이
@@ -60,6 +66,11 @@
 JWT는 **Header.Payload.Signature** 3부분으로 구성됩니다.
 
 ### JWT 구조
+<!-- diagram:be-qna-authentication-2 -->
+![JWT 구조](../../assets/diagrams/be-qna-authentication-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 xxxxx.yyyyy.zzzzz
  │      │      │
@@ -67,6 +78,7 @@ xxxxx.yyyyy.zzzzz
  │      └── Payload (데이터)
  └── Header (알고리즘)
 ```
+-->
 
 ### 각 부분 설명
 
@@ -125,12 +137,18 @@ HMACSHA256(
 | 탈취 영향 | 제한적 | 치명적 |
 
 ### 흐름
+<!-- diagram:be-qna-authentication-3 -->
+![흐름](../../assets/diagrams/be-qna-authentication-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 로그인 → Access Token + Refresh Token 발급
 2. API 요청 시 Access Token 사용
 3. Access Token 만료 → Refresh Token으로 재발급
 4. Refresh Token 만료 → 재로그인
 ```
+-->
 
 ### Refresh Token Rotation
 - 매번 재발급 시 Refresh Token도 갱신
@@ -151,6 +169,11 @@ HMACSHA256(
 
 ### 핵심 답변
 
+<!-- diagram:be-qna-authentication-4 -->
+![핵심 답변](../../assets/diagrams/be-qna-authentication-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────┐                               ┌──────────────┐
 │   User   │                               │ Authorization│
@@ -178,6 +201,7 @@ HMACSHA256(
 │          │◄───────────────────────────────┤            │
 └──────────┘                               └────────────┘
 ```
+-->
 
 ### Grant Types
 

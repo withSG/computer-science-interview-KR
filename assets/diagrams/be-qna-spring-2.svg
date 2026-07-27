@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Spring MVC의 요청 처리 흐름도</title>
+  <desc id="d">Client 요청이 DispatcherServlet, HandlerMapping, HandlerAdapter, Controller, ViewResolver, View를 거쳐 다시 Client로 전달되는 상세 흐름도</desc>
+  <rect width="880" height="780" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="440" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">상세 흐름도</text>
+
+  <!-- Top Client -->
+  <rect x="360" y="80" width="160" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="107" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
+
+  <!-- Arrow 1: Client -> DispatcherServlet -->
+  <path d="M440,124 L440,164" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- DispatcherServlet Section -->
+  <!-- Box width calculated: Label length ~210px + 40px padding = 250px -->
+  <rect x="315" y="165" width="250" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="440" y="196" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">DispatcherServlet</text>
+
+  <!-- Annotation: Front Controller -->
+  <path d="M575,190 L605,190" stroke="#52606d" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+  <path d="M582,186 L575,190 L582,194" fill="none" stroke="#52606d" stroke-width="1"/>
+  <text x="615" y="194" font-size="13" fill="#52606d" text-anchor="start">← Front Controller</text>
+
+  <!-- Branch Lines from DispatcherServlet -->
+  <!-- Line down from DispatcherServlet -->
+  <path d="M440,215 L440,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- Horizontal split line -->
+  <path d="M260,250 L620,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- Left branch down to HandlerMapping -->
+  <path d="M260,250 L260,284" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Right branch down to HandlerAdapter -->
+  <path d="M620,250 L620,284" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- HandlerMapping Node -->
+  <rect x="170" y="285" width="180" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="260" y="313" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">HandlerMapping</text>
+
+  <!-- HandlerAdapter Node -->
+  <rect x="530" y="285" width="180" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="620" y="313" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">HandlerAdapter</text>
+
+  <!-- Merge Lines from HandlerMapping and HandlerAdapter to Controller -->
+  <path d="M260,331 L260,370" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M620,331 L620,370" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M260,370 L620,370" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M440,370 L440,404" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Controller Node -->
+  <rect x="350" y="405" width="180" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="433" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Controller</text>
+
+  <!-- Arrow: Controller -> ViewResolver -->
+  <path d="M440,451 L440,494" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- ViewResolver Node -->
+  <rect x="350" y="495" width="180" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="523" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">ViewResolver</text>
+
+  <!-- Arrow: ViewResolver -> View -->
+  <path d="M440,541 L440,584" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- View Node -->
+  <rect x="350" y="585" width="180" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="613" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">View</text>
+
+  <!-- Arrow: View -> Client -->
+  <path d="M440,631 L440,674" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Bottom Client -->
+  <rect x="360" y="675" width="160" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="702" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
+</svg>

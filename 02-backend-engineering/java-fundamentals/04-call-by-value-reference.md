@@ -89,6 +89,11 @@ public class Proof1 {
 }
 ```
 
+<!-- diagram:be-call-by-value-reference-1 -->
+![3. 증명 1](../../assets/diagrams/be-call-by-value-reference-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
      main 프레임              modify 프레임
    ┌──────────────┐         ┌──────────────┐
@@ -99,6 +104,7 @@ public class Proof1 {
                             │  x  │  999   │  ← 이 프레임은 곧 사라진다
                             └──────────────┘
 ```
+-->
 
 여기까지는 이견이 없다. 값이 복사됐다.
 
@@ -129,6 +135,11 @@ public class Proof2 {
 }
 ```
 
+<!-- diagram:be-call-by-value-reference-2 -->
+![4. 증명 2](../../assets/diagrams/be-call-by-value-reference-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [초기 상태]
    main 스택                     Heap
@@ -155,6 +166,7 @@ public class Proof2 {
  └──────────────┘        └────────────────────┘
    (reassign 프레임)      프레임이 사라지면 이 객체는 GC 대상
 ```
+-->
 
 **두 결과를 하나의 규칙으로 설명하면**: 메서드가 받은 것은 참조값의 **복사본**이다. 복사본으로 화살표를 따라가 객체를 고치면 원본에도 보인다. 하지만 복사본에 새 주소를 넣는 것은 **내 프레임의 변수 하나를 바꾼 것**일 뿐 호출부 변수와 무관하다.
 

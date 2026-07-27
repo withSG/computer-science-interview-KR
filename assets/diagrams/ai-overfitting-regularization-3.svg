@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1140" width="880" height="1140" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">편향-분산 트레이드오프 (Bias-Variance Tradeoff)</title>
+  <desc id="d">일반화 오차의 구성 요소와 모델 복잡도에 따른 편향과 분산의 트레이드오프 관계를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="1140" fill="#ffffff"/>
+
+  <!-- Section 1: Top Definition Card -->
+  <rect x="40" y="30" width="800" height="340" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  
+  <!-- Generalization Error Formula Box -->
+  <rect x="70" y="55" width="740" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="86" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2933">일반화 오차 = 편향²(Bias) + 분산(Variance) + 줄일 수 없는 노이즈</text>
+
+  <!-- Definition List -->
+  <!-- Bias -->
+  <rect x="70" y="125" width="80" height="28" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="110" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">편향</text>
+  <text x="160" y="143" font-size="13" font-weight="bold" fill="#1f2933">: 모델이 단순해서 정답 구조 자체를 표현하지 못하는 정도</text>
+  <text x="180" y="168" font-size="13" fill="#52606d">→ 학습 데이터를 바꿔도 "일관되게" 틀린다</text>
+
+  <!-- Variance -->
+  <rect x="70" y="195" width="80" height="28" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="110" y="213" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">분산</text>
+  <text x="160" y="213" font-size="13" font-weight="bold" fill="#1f2933">: 학습 데이터가 조금 바뀌면 모델이 크게 흔들리는 정도</text>
+  <text x="180" y="238" font-size="13" fill="#52606d">→ 데이터의 노이즈까지 따라 그린 결과</text>
+
+  <!-- Noise -->
+  <rect x="70" y="265" width="80" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="110" y="283" text-anchor="middle" font-size="13" font-weight="bold" fill="#d97706">노이즈</text>
+  <text x="160" y="283" font-size="13" font-weight="bold" fill="#1f2933">: 라벨 오류나 관측 불가능한 요인. 어떤 모델로도 줄일 수 없다</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="400" x2="840" y2="400" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Section 2: Main Curve Graph -->
+  <!-- Header Text -->
+  <text x="440" y="435" text-anchor="middle" font-size="14" fill="#52606d">모델 복잡도를 키우면 편향은 줄고 분산은 는다. 둘의 합이 최소가 되는 지점을 찾는 것이 튜닝의 목표다.</text>
+
+  <!-- Graph Container Box -->
+  <rect x="40" y="460" width="800" height="640" rx="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Y Axis Label -->
+  <text x="90" y="505" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">오차</text>
+
+  <!-- Axes Grid Lines -->
+  <!-- Y Axis -->
+  <path d="M 120,520 L 120,980" stroke="#1f2933" stroke-width="2" marker-start="url(#a-ink)"/>
+  <!-- X Axis -->
+  <path d="M 120,980 L 800,980" stroke="#1f2933" stroke-width="2" marker-end="url(#a-ink)"/>
+  
+  <!-- X Axis Label -->
+  <text x="760" y="1015" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">모델 복잡도</text>
+
+  <!-- Optimal Point Vertical Line (Optimal Line) -->
+  <line x1="420" y1="590" x2="420" y2="980" stroke="#059669" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Underfitting / Overfitting Labels -->
+  <rect x="235" y="995" width="90" height="30" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="280" y="1014" text-anchor="middle" font-size="13" font-weight="bold" fill="#d97706">과소적합</text>
+
+  <rect x="535" y="995" width="90" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="580" y="1014" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">과적합</text>
+
+  <!-- Optimal Point Indicators -->
+  <!-- Arrow top point pointing to total error min -->
+  <text x="420" y="605" text-anchor="middle" font-size="14" fill="#059669">▼</text>
+  
+  <rect x="440" y="590" width="220" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="550" y="608" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">▼ 총 오차가 최소가 되는 지점</text>
+
+  <!-- Mid intersection circle mark ─┼─ -->
+  <circle cx="420" cy="740" r="14" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="420" y="745" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">─┼─</text>
+
+  <!-- CURVES -->
+
+  <!-- Bias Curve (Bias^2) - Falling Curve (Red) -->
+  <path d="M 130,550 Q 220,780 420,920 T 750,960" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <!-- Bias Curve Label -->
+  <rect x="235" y="775" width="55" height="24" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+  <text x="262.5" y="791" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">편향²</text>
+
+  <!-- Variance Curve - Rising Curve (Purple) -->
+  <path d="M 130,960 Q 420,920 620,780 T 750,550" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+  <!-- Variance Curve Label -->
+  <rect x="625" y="775" width="45" height="24" rx="3" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="647.5" y="791" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">분산</text>
+
+  <!-- Total Error Curve - U Shaped (Blue) -->
+  <path d="M 130,530 Q 220,680 420,740 T 750,530" fill="none" stroke="#2563eb" stroke-width="3"/>
+  <!-- Total Error Label Box -->
+  <rect x="490" y="520" width="245" height="30" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="612.5" y="539" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">총 오차 = 편향² + 분산 + 노이즈</text>
+
+</svg>

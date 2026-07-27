@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Over-fetching / Under-fetching</title>
+  <desc id="d">REST와 GraphQL의 Over-fetching 및 Under-fetching 차이를 나타내는 기술 다이어그램</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="40" y="38" font-size="16" font-weight="bold" fill="#1f2933">Over-fetching / Under-fetching</text>
+
+  <!-- REST Section Panel -->
+  <rect x="40" y="55" width="800" height="230" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5" rx="8"/>
+  <text x="60" y="82" font-size="14" font-weight="bold" fill="#dc2626">REST:</text>
+
+  <!-- Over-fetching Group -->
+  <g>
+    <!-- Request Box -->
+    <rect x="60" y="98" width="200" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+    <text x="160" y="122.55" font-size="13" fill="#1f2933" text-anchor="middle">GET /users/1</text>
+    
+    <!-- Arrow -->
+    <path d="M260,118 L330,118" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- Result Box -->
+    <rect x="340" y="98" width="340" height="40" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="510" y="122.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">→ 불필요한 필드도 반환 (Over-fetching)</text>
+  </g>
+
+  <!-- Under-fetching Group -->
+  <g>
+    <!-- Request Boxes -->
+    <rect x="60" y="155" width="200" height="34" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+    <text x="160" y="176.55" font-size="13" fill="#1f2933" text-anchor="middle">GET /users/1</text>
+    
+    <rect x="60" y="197" width="200" height="34" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+    <text x="160" y="218.55" font-size="13" fill="#1f2933" text-anchor="middle">GET /users/1/posts</text>
+
+    <!-- Multi-request Bracket & Arrow -->
+    <path d="M260,172 L280,172 L280,214 L260,214" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+    <path d="M280,193 L330,193" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- Result Box -->
+    <rect x="340" y="173" width="340" height="40" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="510" y="197.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">→ 여러 요청 필요 (Under-fetching)</text>
+  </g>
+
+  <!-- GraphQL Section Panel -->
+  <rect x="40" y="305" width="800" height="225" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5" rx="8"/>
+  <text x="60" y="332" font-size="14" font-weight="bold" fill="#059669">GraphQL:</text>
+
+  <!-- GraphQL Query Box -->
+  <g>
+    <rect x="60" y="348" width="250" height="160" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+    <text x="80" y="372" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">query {</text>
+    <text x="80" y="394" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">  user(id: 1) {</text>
+    <text x="80" y="416" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">    name</text>
+    <text x="80" y="438" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">    posts { title }</text>
+    <text x="80" y="460" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">  }</text>
+    <text x="80" y="482" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">}</text>
+
+    <!-- Arrow -->
+    <path d="M310,428 L380,428" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- Result Box -->
+    <rect x="390" y="408" width="290" height="40" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
+    <text x="535" y="432.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">→ 필요한 필드만 한 번에</text>
+  </g>
+</svg>

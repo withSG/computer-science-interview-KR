@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">1. 왜 무상태(Stateless)로 만들었나</title>
+  <desc id="d">Stateful 서버와 Stateless 서버의 구조 차이 및 특징을 비교하는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 제목 -->
+  <text x="440" y="32" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 왜 무상태(Stateless)로 만들었나</text>
+
+  <!-- 구분 바탕 영역 ( Stateful vs Stateless 영역 구분 ) -->
+  <rect x="30" y="55" width="395" height="420" fill="#fef2f2" rx="8" stroke="#dc2626" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="455" y="55" width="395" height="420" fill="#ecfdf5" rx="8" stroke="#059669" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- [Stateful 서버] 영역 -->
+  <text x="227" y="85" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[Stateful 서버]</text>
+  
+  <text x="60" y="125" font-size="13" fill="#1f2933">사용자 A의 상태 → 서버1에만 있음</text>
+
+  <!-- Stateful 서버 박스 그룹 -->
+  <g stroke="#9aa5b1" stroke-width="1.5" fill="#ffffff">
+    <rect x="80" y="150" width="120" height="150" rx="4"/>
+    <line x1="80" y1="200" x2="200" y2="200"/>
+    <line x1="80" y1="250" x2="200" y2="250"/>
+  </g>
+  <text x="140" y="179" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">서버1</text>
+  <text x="140" y="229" font-size="13" fill="#1f2933" text-anchor="middle">서버2</text>
+  <text x="140" y="279" font-size="13" fill="#1f2933" text-anchor="middle">서버3</text>
+
+  <!-- Stateful 화살표 및 설명 라벨 -->
+  <path d="M260,175 L209,175" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="215" y="160" width="160" height="20" fill="#ffffff" rx="2"/>
+  <text x="217" y="174" font-size="12" fill="#1f2933">A는 무조건 여기로만</text>
+
+  <path d="M260,225 L209,225" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="215" y="210" width="165" height="20" fill="#ffffff" rx="2"/>
+  <text x="217" y="224" font-size="12" fill="#1f2933">A가 오면 "누구세요?"</text>
+
+  <!-- Stateful 하단 문구 -->
+  <rect x="50" y="380" width="355" height="36" fill="#fffbeb" rx="4" stroke="#d97706" stroke-width="1"/>
+  <text x="227" y="403" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">서버1이 죽으면 A의 진행 상황도 소멸</text>
+
+
+  <!-- [Stateless 서버] 영역 -->
+  <text x="652" y="85" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[Stateless 서버]</text>
+
+  <text x="505" y="125" font-size="13" fill="#1f2933">상태 없음</text>
+
+  <!-- Stateless 서버 박스 그룹 -->
+  <g stroke="#059669" stroke-width="1.5" fill="#eff6ff">
+    <rect x="525" y="150" width="120" height="150" rx="4"/>
+    <line x1="525" y1="200" x2="645" y2="200"/>
+    <line x1="525" y1="250" x2="645" y2="250"/>
+  </g>
+  <text x="585" y="179" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">서버1</text>
+  <text x="585" y="229" font-size="13" stroke-width="0" fill="#1f2933" text-anchor="middle">서버2</text>
+  <text x="585" y="279" font-size="13" stroke-width="0" fill="#1f2933" text-anchor="middle">서버3</text>
+
+  <!-- Stateless 화살표 및 설명 라벨 -->
+  <path d="M700,175 L654,175" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="660" y="160" width="115" height="35" fill="#ffffff" rx="2"/>
+  <text x="662" y="174" font-size="12" fill="#2563eb">A의 요청이</text>
+  <text x="662" y="190" font-size="12" fill="#2563eb">아무 서버로 가도</text>
+  <text x="662" y="206" font-size="12" fill="#2563eb">동일하게 처리됨</text>
+
+  <path d="M700,275 L654,275" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="660" y="265" width="165" height="20" fill="#ffffff" rx="2"/>
+  <text x="662" y="279" font-size="12" fill="#059669">서버 추가가 자유롭다</text>
+
+  <!-- Stateless 하단 문구 -->
+  <rect x="475" y="380" width="355" height="36" fill="#eff6ff" rx="4" stroke="#2563eb" stroke-width="1"/>
+  <text x="652" y="403" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">서버가 죽어도 다른 서버가 받으면 그만</text>
+
+</svg>

@@ -39,6 +39,11 @@
 
 에이전트는 강력한 만큼 비싸고 느리고 예측하기 어렵다. **가장 단순한 방식부터 올라가는 것**이 원칙이다.
 
+<!-- diagram:ai-agent-langgraph-1 -->
+![2. 언제 에이전트를 쓰나](../../assets/diagrams/ai-agent-langgraph-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                 작업이 들어온다
                       │
@@ -63,6 +68,7 @@
                정하고 각 단계에    비싸고 느리고
                LLM을 쓴다         디버깅이 어렵다
 ```
+-->
 
 | 방식 | 경로를 정하는 주체 | 호출 횟수 | 적합한 작업 |
 |------|-----------------|----------|-----------|
@@ -90,6 +96,11 @@
 
 ReAct(Reasoning + Acting)는 에이전트의 기본 패턴이다. **생각하고, 행동하고, 결과를 본다**를 목표 달성까지 반복한다.
 
+<!-- diagram:ai-agent-langgraph-2 -->
+![세 단계](../../assets/diagrams/ai-agent-langgraph-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 사용자: "서울과 부산 중 지금 더 따뜻한 곳은?"
 
@@ -110,6 +121,7 @@ ReAct(Reasoning + Acting)는 에이전트의 기본 패턴이다. **생각하고
   │ Answer   부산이 26도로 3도 더 따뜻합니다   │
   └─────────────────────────────────────────┘
 ```
+-->
 
 여기서 중요한 오해 하나. **모델이 도구를 실행하는 게 아니다.** 모델은 "이 도구를 이런 인자로 부르고 싶다"는 구조화된 출력을 낼 뿐이고, 실제 실행은 우리 코드가 한다. 그리고 그 결과를 다시 컨텍스트에 넣어 모델을 또 호출한다. 이 실행과 주입을 담당하는 코드 골격을 **하네스(harness)**라고 부른다.
 
@@ -220,6 +232,11 @@ builder.add_edge("tools", "model")             # 도구 실행 후 다시 모델
 app = builder.compile()
 ```
 
+<!-- diagram:ai-agent-langgraph-3 -->
+![그래프 구성](../../assets/diagrams/ai-agent-langgraph-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
      START
        │
@@ -237,6 +254,7 @@ app = builder.compile()
   이 순환이 ReAct 루프다. add_edge는 무조건 가는 길,
   add_conditional_edges는 State를 보고 갈림길을 고르는 길이다.
 ```
+-->
 
 ---
 
@@ -351,6 +369,11 @@ app.invoke(Command(resume="approve"), config)    # 같은 thread_id로 재개
 
 단발 호출과 달리 **한 요청이 여러 번의 LLM 호출과 도구 실행으로 이루어지므로, 요청 단위로 묶어서 봐야 한다.**
 
+<!-- diagram:ai-agent-langgraph-4 -->
+![무엇을 관측해야 하나](../../assets/diagrams/ai-agent-langgraph-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 요청 단위로 남길 것
 ├─ 총 LLM 호출 수 / 총 토큰 / 총 비용      ← 폭주 탐지
@@ -358,6 +381,7 @@ app.invoke(Command(resume="approve"), config)    # 같은 thread_id로 재개
 ├─ 종료 사유 (정상 / 예산 소진 / 하드 리밋) ← 리밋 비율이 오르면 경보
 └─ 전체 궤적 (Thought-Action-Observation)  ← 사후 디버깅의 유일한 단서
 ```
+-->
 
 궤적 로그가 특히 중요하다. 에이전트가 이상한 답을 냈을 때, **어느 단계에서 어긋났는지는 궤적을 보지 않으면 알 수 없다.**
 

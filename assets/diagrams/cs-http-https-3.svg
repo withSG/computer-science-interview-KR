@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">쿠키와 세션 동작 방식</title>
+  <desc id="d">클라이언트와 서버 간의 로그인 요청, Set-Cookie 응답 및 세션 저장소를 활용한 이후 요청 처리 흐름을 나타낸 시퀀스 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- 헤더 / 레인 (클라이언트 & 서버 영역) -->
+  <!-- 클라이언트 영역 -->
+  <rect x="40" y="30" width="300" height="480" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <rect x="50" y="40" width="280" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="190" y="64.9" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">클라이언트 (브라우저)</text>
+  <line x1="190" y1="80" x2="190" y2="490" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- 서버 영역 -->
+  <rect x="540" y="30" width="300" height="480" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <rect x="550" y="40" width="280" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="690" y="64.9" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">[서버]</text>
+  <line x1="690" y1="80" x2="690" y2="490" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- ==================== ① 로그인 요청 ==================== -->
+  <!-- 단계 1 라벨 -->
+  <rect x="60" y="105" width="115" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="117.5" y="122.05" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">① 로그인 요청</text>
+
+  <!-- 요청 화살표 -->
+  <path d="M 190 150 L 681 150" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- 요청 데이터 텍스트 패키지 -->
+  <rect x="340" y="132" width="200" height="36" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+  <text x="440" y="155.05" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">POST /login  {id, pw}</text>
+
+  <!-- 서버 내부 처리: 세션 저장소 기록 -->
+  <rect x="580" y="180" width="220" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="690" y="202.55" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">세션 저장소에</text>
+  <text x="690" y="222.55" font-size="13" fill="#1f2933" text-anchor="middle">"8f2c1a → userId=77" 기록</text>
+
+
+  <!-- ==================== ② 응답 ==================== -->
+  <!-- 단계 2 라벨 -->
+  <rect x="735" y="260" width="65" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="767.5" y="277.05" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">② 응답</text>
+
+  <!-- 응답 화살표 -->
+  <path d="M 690 300 L 199 300" stroke="#059669" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 응답 헤더 텍스트 패키지 -->
+  <rect x="220" y="282" width="440" height="36" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1"/>
+  <text x="440" y="305.05" font-size="12.5" font-weight="bold" fill="#059669" text-anchor="middle">Set-Cookie: SESSIONID=8f2c1a; HttpOnly; Secure; SameSite=Lax</text>
+
+
+  <!-- ==================== ③ 이후 모든 요청 ==================== -->
+  <!-- 단계 3 라벨 및 부가 설명 -->
+  <rect x="60" y="360" width="375" height="26" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="247.5" y="377.05" font-size="13.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">③ 이후 모든 요청 (브라우저가 자동으로 붙임)</text>
+
+  <!-- 요청 화살표 -->
+  <path d="M 190 435 L 681 435" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 요청 데이터 텍스트 패키지 -->
+  <rect x="340" y="405" width="200" height="60" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="440" y="427.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">GET /mypage</text>
+  <text x="440" y="447.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Cookie: SESSIONID=8f2c1a</text>
+
+  <!-- 서버 내부 처리: 세션 조회 -->
+  <rect x="560" y="475" width="260" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="690" y="495.55" font-size="12.5" fill="#1f2933" text-anchor="middle">세션 저장소 조회 → userId=77 확인</text>
+</svg>

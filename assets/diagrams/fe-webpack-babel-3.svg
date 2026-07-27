@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">트랜스파일로 해결되는 것 vs 폴리필이 필요한 것</title>
+  <desc id="d">트랜스파일과 폴리필의 특징, 동작 방식 및 코드 예시 비교 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Blue Arrow Marker for Transpile -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- Purple Arrow Marker for Polyfill -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title Heading -->
+  <text x="30" y="42" font-size="16" font-weight="bold" fill="#1f2933">트랜스파일로 해결되는 것 vs 폴리필이 필요한 것</text>
+
+  <!-- Left Column Zone: Transpile -->
+  <rect x="30" y="70" width="400" height="440" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+  
+  <!-- Left Header -->
+  <text x="230" y="105" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">트랜스파일</text>
+  <line x1="50" y1="120" x2="410" y2="120" stroke="#2563eb" stroke-width="2"/>
+
+  <!-- Left List Items (Key-Value style rows) -->
+  <rect x="50" y="135" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="230" y="157" font-size="13" fill="#1f2933" text-anchor="middle">코드 형태를 바꾼다</text>
+
+  <rect x="50" y="179" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="230" y="201" font-size="13" fill="#1f2933" text-anchor="middle">빌드 타임에 끝난다</text>
+
+  <rect x="50" y="223" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="230" y="245" font-size="13" fill="#1f2933" text-anchor="middle">번들 크기 영향 작음</text>
+
+  <rect x="50" y="267" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="230" y="289" font-size="13" fill="#1f2933" text-anchor="middle">Babel이 담당</text>
+
+  <!-- Left Code Example Area -->
+  <rect x="50" y="320" width="360" height="170" rx="6" fill="#ffffff" stroke="#9aa5b1"/>
+  
+  <!-- Top Code -->
+  <text x="230" y="360" font-size="13" font-family="monospace" fill="#1f2933" text-anchor="middle">const f = n =&gt; n*2</text>
+
+  <!-- Arrow & Label -->
+  <path d="M230,375 L230,410" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="180" y="384" width="100" height="18" fill="#ffffff"/>
+  <text x="230" y="397" font-size="11.5" fill="#2563eb" text-anchor="middle">빌드 타임</text>
+
+  <!-- Bottom Code -->
+  <text x="230" y="445" font-size="13" font-family="monospace" fill="#1f2933" text-anchor="middle">var f = function(n){return n*2}</text>
+
+
+  <!-- Right Column Zone: Polyfill -->
+  <rect x="450" y="70" width="400" height="440" rx="8" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
+
+  <!-- Right Header -->
+  <text x="650" y="105" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">폴리필</text>
+  <line x1="470" y1="120" x2="830" y2="120" stroke="#7c3aed" stroke-width="2"/>
+
+  <!-- Right List Items -->
+  <rect x="470" y="135" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="650" y="157" font-size="13" fill="#1f2933" text-anchor="middle">없는 기능을 만들어 넣는다</text>
+
+  <rect x="470" y="179" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="650" y="201" font-size="13" fill="#1f2933" text-anchor="middle">런타임에 실행되어 전역을 채운다</text>
+
+  <rect x="470" y="223" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="650" y="245" font-size="13" fill="#1f2933" text-anchor="middle">추가한 만큼 번들이 커진다</text>
+
+  <rect x="470" y="267" width="360" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
+  <text x="650" y="289" font-size="13" fill="#1f2933" text-anchor="middle">core-js 같은 라이브러리가 담당</text>
+
+  <!-- Right Code Example Area -->
+  <rect x="470" y="320" width="360" height="170" rx="6" fill="#ffffff" stroke="#9aa5b1"/>
+
+  <!-- Polyfill Code -->
+  <text x="485" y="355" font-size="12" font-family="monospace" fill="#1f2933">if (!Array.prototype.includes) {</text>
+  <text x="505" y="375" font-size="12" font-family="monospace" fill="#1f2933">Array.prototype.includes = function (x) { ... };</text>
+  <text x="485" y="395" font-size="12" font-family="monospace" fill="#1f2933">}</text>
+
+  <!-- Upward Arrow & Explanation Label -->
+  <path d="M650,440 L650,410" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <text x="650" y="465" font-size="11.5" fill="#7c3aed" text-anchor="middle">이 코드 자체가 번들에 실려 런타임에 실행된다</text>
+
+</svg>

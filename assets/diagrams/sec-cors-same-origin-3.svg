@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Simple Request vs Preflight — 분기 조건</title>
+  <desc id="d">CORS 요청 시 Simple Request 조건 충족 여부에 따른 Preflight 분기 흐름도</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- 상단 질문 -->
+  <text x="440" y="44" font-size="16" fill="#1f2933" font-weight="bold" text-anchor="middle">요청이 아래 조건을 "모두" 만족하는가?</text>
+
+  <!-- 중앙 조건 박스 -->
+  <rect x="70" y="70" width="740" height="230" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 조건 항목 텍스트 -->
+  <text x="100" y="105" font-size="13" fill="#1f2933" font-weight="bold">① 메서드가 GET, HEAD, POST 중 하나</text>
+
+  <text x="100" y="140" font-size="13" fill="#1f2933" font-weight="bold">② 직접 설정한 헤더가 안전 목록 안에만 있다</text>
+  <text x="122" y="165" font-size="13" fill="#52606d">(Accept, Accept-Language, Content-Language, Content-Type)</text>
+
+  <text x="100" y="200" font-size="13" fill="#1f2933" font-weight="bold">③ Content-Type이 아래 셋 중 하나</text>
+  <text x="122" y="225" font-size="13" fill="#52606d">application/x-www-form-urlencoded</text>
+  <text x="122" y="248" font-size="13" fill="#52606d">multipart/form-data</text>
+  <text x="122" y="271" font-size="13" fill="#52606d">text/plain</text>
+
+  <!-- 좌측 경로 (모두 예 -> Simple Request) -->
+  <path d="M260,300 L260,382" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+  <rect x="220" y="328" width="80" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="260" y="344.5" font-size="12" fill="#059669" font-weight="bold" text-anchor="middle">모두 예</text>
+
+  <!-- 우측 경로 (하나라도 아니오 -> Preflight) -->
+  <path d="M620,300 L620,382" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="560" y="328" width="120" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="620" y="344.5" font-size="12" fill="#d97706" font-weight="bold" text-anchor="middle">하나라도 아니오</text>
+
+  <!-- 하단 좌측 박스: Simple Request -->
+  <rect x="150" y="385" width="220" height="75" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="260" y="415.5" font-size="14" fill="#059669" font-weight="bold" text-anchor="middle">Simple Request</text>
+  <text x="260" y="440.5" font-size="13" fill="#1f2933" text-anchor="middle">바로 본 요청 전송</text>
+
+  <!-- 하단 우측 박스: Preflight -->
+  <rect x="500" y="385" width="240" height="75" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="620" y="415.5" font-size="14" fill="#d97706" font-weight="bold" text-anchor="middle">Preflight 먼저</text>
+  <text x="620" y="440.5" font-size="13" fill="#1f2933" text-anchor="middle">OPTIONS로 허가 확인</text>
+</svg>

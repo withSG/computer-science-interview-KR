@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">두 개의 모자를 동시에 쓰지 않는다</title>
+  <desc id="d">하나의 PR에 리팩토링과 기능 추가를 섞는 안티패턴과, PR을 분리하는 개선 방법을 비교하는 다이어그램</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: 안티패턴 -->
+  <rect x="24" y="24" width="832" height="200" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  
+  <!-- Header Badge: 안티패턴 -->
+  <rect x="44" y="40" width="310" height="32" rx="4" fill="#dc2626"/>
+  <text x="56" y="61.2" fill="#ffffff" font-size="15" font-weight="bold">안티패턴: 하나의 PR에 섞여 있다</text>
+
+  <!-- Target PR Label Box -->
+  <rect x="44" y="86" width="792" height="36" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+  <text x="60" y="108.55" fill="#1f2933" font-size="13.5" font-weight="bold">"결제 수단 추가 + 결제 모듈 전면 리팩토링"</text>
+  <text x="390" y="108.55" fill="#dc2626" font-size="12.5" font-weight="bold">(변경 1,400줄)</text>
+
+  <!-- Bullets / Consequences -->
+  <path d="M 60 138 L 72 138" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="80" y="142.55" fill="#1f2933" font-size="13">리뷰어는 어느 줄이 동작을 바꾸는 줄인지 구분할 수 없다</text>
+
+  <path d="M 60 164 L 72 164" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="80" y="168.55" fill="#1f2933" font-size="13">장애가 나도 원인이 새 기능인지 리팩토링인지 모른다</text>
+
+  <path d="M 60 190 L 72 190" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="80" y="194.55" fill="#1f2933" font-size="13">되돌리려면 새 기능까지 같이 사라진다</text>
+
+  <!-- Section 2: 개선 -->
+  <rect x="24" y="244" width="832" height="162" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+
+  <!-- Header Badge: 개선 -->
+  <rect x="44" y="260" width="230" height="32" rx="4" fill="#059669"/>
+  <text x="56" y="281.2" fill="#ffffff" font-size="15" font-weight="bold">개선: 커밋과 PR을 분리한다</text>
+
+  <!-- PR #1 Item -->
+  <rect x="44" y="306" width="792" height="38" rx="4" fill="#ffffff" stroke="#a7f3d0" stroke-width="1"/>
+  <rect x="54" y="313" width="56" height="24" rx="3" fill="#059669"/>
+  <text x="82" y="329.2" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">PR #1</text>
+  <text x="120" y="329.55" fill="#1f2933" font-size="13" font-weight="bold">결제 모듈 리팩토링</text>
+  <text x="250" y="329.55" fill="#059669" font-size="12">(동작 변화 0. 기존 테스트가 그대로 통과)</text>
+
+  <!-- PR #2 Item -->
+  <rect x="44" y="352" width="792" height="38" rx="4" fill="#ffffff" stroke="#a7f3d0" stroke-width="1"/>
+  <rect x="54" y="359" width="56" height="24" rx="3" fill="#2563eb"/>
+  <text x="82" y="375.2" fill="#ffffff" font-size="12" font-weight="bold" text-anchor="middle">PR #2</text>
+  <text x="120" y="375.55" fill="#1f2933" font-size="13" font-weight="bold">결제 수단 추가</text>
+  <text x="222" y="375.55" fill="#2563eb" font-size="12">(깨끗해진 구조 위에서 작은 변경)</text>
+</svg>

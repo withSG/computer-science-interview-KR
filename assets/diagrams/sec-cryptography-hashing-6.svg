@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">8. 전자서명 — 키 사용 방향이 반대다</title>
+  <desc id="d">비대칭 암호화와 전자서명의 키 사용 방향 차이, 그리고 서명 생성과 서명 검증의 절차를 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- SECTION 1: 비대칭 암호화 vs 전자서명 (Top Comparison) -->
+
+  <!-- Top Left: 비대칭 암호화 -->
+  <rect x="30" y="20" width="395" height="190" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="45" y="35" width="130" height="30" rx="4" fill="#2563eb"/>
+  <text x="110" y="55.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[ 비대칭 암호화 ]</text>
+  <text x="190" y="55.5" font-size="14" font-weight="bold" fill="#2563eb">기밀성</text>
+
+  <text x="50" y="95.5" font-size="13" fill="#1f2933">보내는 쪽: 받는 사람의 공개키로 암호화</text>
+  <text x="50" y="125.5" font-size="13" fill="#1f2933">받는 쪽:   자기 개인키로 복호화</text>
+  <text x="50" y="165.5" font-size="13" font-weight="bold" fill="#2563eb">→ 개인키를 가진 사람만 읽을 수 있다</text>
+
+  <!-- Top Right: 전자서명 -->
+  <rect x="455" y="20" width="395" height="190" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <rect x="470" y="35" width="100" height="30" rx="4" fill="#7c3aed"/>
+  <text x="520" y="55.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[ 전자서명 ]</text>
+  <text x="585" y="55.5" font-size="14" font-weight="bold" fill="#7c3aed">인증 + 무결성 + 부인 방지</text>
+
+  <text x="475" y="95.5" font-size="13" fill="#1f2933">보내는 쪽: 자기 개인키로 서명</text>
+  <text x="475" y="125.5" font-size="13" fill="#1f2933">받는 쪽:   보낸 사람의 공개키로 검증</text>
+  <text x="475" y="157.5" font-size="13" font-weight="bold" fill="#7c3aed">→ 개인키를 가진 사람만 만들 수 있다</text>
+  <text x="491" y="181.5" font-size="13" font-weight="bold" fill="#7c3aed">= 신원 증명</text>
+
+
+  <!-- SECTION 2: 서명 생성 vs 서명 검증 (Bottom Workflows) -->
+
+  <!-- Bottom Left Container: 서명 생성 -->
+  <rect x="30" y="235" width="395" height="235" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="50" y="267" font-size="16" font-weight="bold" fill="#1f2933">서명 생성</text>
+
+  <!-- Flow 1: 서명 생성 Node Elements -->
+  <!-- 문서 -->
+  <rect x="50" y="300" width="60" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="80" y="322.5" font-size="13" fill="#1f2933" text-anchor="middle">문서</text>
+
+  <!-- H -->
+  <rect x="180" y="300" width="36" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="198" y="322.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">H</text>
+
+  <!-- 서명값 -->
+  <rect x="320" y="300" width="70" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="355" y="322.5" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">서명값</text>
+
+  <!-- Flow 1 Paths & Labels -->
+  <!-- 문서 -> H -->
+  <path d="M110,318 L180,318" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="127" y="308" width="36" height="20" fill="#ffffff"/>
+  <text x="145" y="322" font-size="11.5" fill="#52606d" text-anchor="middle">해시</text>
+
+  <!-- H -> 서명값 -->
+  <path d="M216,318 L320,318" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="227" y="308" width="82" height="20" fill="#ffffff"/>
+  <text x="268" y="322" font-size="11.5" fill="#7c3aed" font-weight="bold" text-anchor="middle">개인키로 서명</text>
+
+
+  <!-- Bottom Right Container: 서명 검증 -->
+  <rect x="455" y="235" width="395" height="235" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="475" y="267" font-size="16" font-weight="bold" fill="#1f2933">서명 검증</text>
+
+  <!-- Flow 2: 서명 검증 Node Elements -->
+  <!-- 문서 -->
+  <rect x="475" y="290" width="60" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="505" y="312.5" font-size="13" fill="#1f2933" text-anchor="middle">문서</text>
+
+  <!-- H' -->
+  <rect x="610" y="290" width="36" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="628" y="312.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">H'</text>
+
+  <!-- 서명값 -->
+  <rect x="475" y="350" width="70" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="510" y="372.5" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">서명값</text>
+
+  <!-- H -->
+  <rect x="710" y="350" width="36" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="728" y="372.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">H</text>
+
+  <!-- Flow 2 Paths & Labels -->
+  <!-- 문서 -> H' -->
+  <path d="M535,308 L610,308" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="552" y="298" width="36" height="20" fill="#ffffff"/>
+  <text x="570" y="312" font-size="11.5" fill="#52606d" text-anchor="middle">해시</text>
+
+  <!-- 서명값 -> H -->
+  <path d="M545,368 L710,368" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="568" y="358" width="118" height="20" fill="#ffffff"/>
+  <text x="627" y="372" font-size="11.5" fill="#059669" font-weight="bold" text-anchor="middle">공개키로 복원</text>
+
+  <!-- Bottom Result Text: H == H' 이면 유효 -->
+  <rect x="475" y="412" width="220" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="585" y="433.5" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">H == H' 이면 유효</text>
+</svg>

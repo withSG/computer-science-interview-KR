@@ -79,6 +79,11 @@ tar czf /backup/data.tar.gz .     # 디스크가 꽉 차서 실패
 rm -rf ./*                        # 그래도 실행됨 → 데이터 소실
 ```
 
+<!-- diagram:cloud-shell-scripting-1 -->
+![3. set -euo pipefail](../../assets/diagrams/cloud-shell-scripting-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 set -e 없음                          set -e 있음
 ┌────────────┐                     ┌────────────┐
@@ -89,6 +94,7 @@ set -e 없음                          set -e 있음
 │ rm -rf     │ ✓ 실행됨 (사고)          즉시 종료, exit 1
 └────────────┘
 ```
+-->
 
 ### 세 옵션이 각각 막는 것
 
@@ -304,6 +310,11 @@ cleanup() {
 trap cleanup EXIT INT TERM
 ```
 
+<!-- diagram:cloud-shell-scripting-2 -->
+![trap](../../assets/diagrams/cloud-shell-scripting-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 정상 흐름                    중간 실패                    Ctrl+C
    │                           │                          │
@@ -317,6 +328,7 @@ trap cleanup EXIT INT TERM
                   │
              cleanup 실행 — 어떤 경로로 끝나도 반드시 지난다
 ```
+-->
 
 `EXIT`는 정상 종료·`set -e` 종료 모두에서 발동한다. 여기에 `INT TERM`을 추가하면 Ctrl+C나 종료 요청에도 정리가 보장된다. 임시 파일은 `mktemp`로 만들어야 이름 충돌과 예측 가능한 경로로 인한 문제를 피한다.
 
@@ -384,6 +396,11 @@ shift $((OPTIND - 1))       # 처리한 옵션을 걷어내면 $1부터 나머�
 
 ### 형식
 
+<!-- diagram:cloud-shell-scripting-3 -->
+![형식](../../assets/diagrams/cloud-shell-scripting-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌───────── 분    (0-59)
 │ ┌─────── 시    (0-23)
@@ -400,6 +417,7 @@ shift $((OPTIND - 1))       # 처리한 옵션을 걷어내면 $1부터 나머�
 0 0 1 * *         매월 1일 자정
 @reboot           부팅 시 1회
 ```
+-->
 
 ```bash
 crontab -e        # 현재 사용자의 crontab 편집
@@ -411,6 +429,11 @@ sudo crontab -u deploy -l
 
 **터미널에서는 잘 되던 스크립트가 cron에서만 실패한다**는 것이 이 주제의 전부라고 해도 과언이 아니다. 원인은 거의 항상 아래 넷 중 하나다.
 
+<!-- diagram:cloud-shell-scripting-4 -->
+![cron이 사람을 배신하는 지점](../../assets/diagrams/cloud-shell-scripting-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    내 터미널                          cron
 ┌──────────────────┐          ┌──────────────────┐
@@ -421,6 +444,7 @@ sudo crontab -u deploy -l
 │ 출력이 화면에 보임  │          │ 출력이 사라지거나 메일│
 └──────────────────┘          └──────────────────┘
 ```
+-->
 
 1. **PATH가 짧다.** `docker`, `aws`, `java`가 안 잡힌다. 해결: 명령을 절대 경로로 쓰거나 스크립트 상단에 `export PATH=...`를 명시한다.
 2. **환경 변수가 없다.** `.bashrc`에서 export하던 값이 하나도 없다. 해결: 스크립트가 직접 설정 파일을 읽게 한다.

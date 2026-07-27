@@ -25,6 +25,11 @@
 
 ### 실행 컨텍스트의 구성
 
+<!-- diagram:fe-qna-javascript-1 -->
+![실행 컨텍스트의 구성](../../assets/diagrams/fe-qna-javascript-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Execution Context
 ├── Lexical Environment (렉시컬 환경)
@@ -36,6 +41,7 @@ Execution Context
 │
 └── This Binding (this 바인딩)
 ```
+-->
 
 ### 콜 스택과 실행 컨텍스트
 
@@ -172,6 +178,11 @@ closure();  // "Hello" - outer는 종료됐지만 message 접근 가능
 
 ### 클로저의 동작 원리
 
+<!-- diagram:fe-qna-javascript-2 -->
+![클로저의 동작 원리](../../assets/diagrams/fe-qna-javascript-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 outer() 호출 시:
 ┌─────────────────────────────┐
@@ -184,6 +195,7 @@ outer() 호출 시:
 outer() 종료 후에도 inner가 outer의 렉시컬 환경을 참조하므로
 message 변수는 가비지 컬렉션되지 않음
 ```
+-->
 
 ### 클로저 활용 1: 은닉화 (Private 변수)
 
@@ -269,6 +281,11 @@ for (var i = 0; i < 3; i++) {
 
 ### 구성 요소
 
+<!-- diagram:fe-qna-javascript-3 -->
+![구성 요소](../../assets/diagrams/fe-qna-javascript-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    JavaScript Engine                 │
@@ -294,6 +311,7 @@ for (var i = 0; i < 3; i++) {
 │  └─────────────────────────────────────────────┘    │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 이벤트 루프 동작 순서
 
@@ -735,6 +753,11 @@ console.log(typeof foo);  // function
 
 ### 스코프 체인 동작 원리
 
+<!-- diagram:fe-qna-javascript-4 -->
+![스코프 체인 동작 원리](../../assets/diagrams/fe-qna-javascript-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Global Scope
 ├── outer 함수 Scope
@@ -743,6 +766,7 @@ Global Scope
 │       └── innerVar: 'I am from inner'
 │           → outerVar 접근 가능 (스코프 체인 탐색)
 ```
+-->
 
 ```javascript
 function outer() {
@@ -799,6 +823,11 @@ bar();  // 1
 
 ### 프로토타입 구조
 
+<!-- diagram:fe-qna-javascript-5 -->
+![프로토타입 구조](../../assets/diagrams/fe-qna-javascript-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────┐
 │  Person (생성자 함수) │
@@ -811,6 +840,7 @@ bar();  // 1
        │  __proto__ ───┼──────┘
        └──────────────┘
 ```
+-->
 
 ### 프로토타입 체인 탐색
 
@@ -960,6 +990,11 @@ DOM(Document Object Model)은 **HTML 문서의 계층적 구조와 정보를 표
 
 ### DOM 트리 구조
 
+<!-- diagram:fe-qna-javascript-6 -->
+![DOM 트리 구조](../../assets/diagrams/fe-qna-javascript-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Document (문서 노드)
 └── html (요소 노드)
@@ -971,6 +1006,7 @@ Document (문서 노드)
             ├── id="app" (어트리뷰트 노드)
             └── "Hello" (텍스트 노드)
 ```
+-->
 
 ### 주요 노드 타입
 
@@ -1025,6 +1061,11 @@ el.remove();
 
 ### 이벤트 전파 3단계
 
+<!-- diagram:fe-qna-javascript-7 -->
+![이벤트 전파 3단계](../../assets/diagrams/fe-qna-javascript-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
            ① 캡처링 (위 → 아래)
 Window ──────────────────────→ Target
@@ -1037,6 +1078,7 @@ Window ──────────────────────→ Tar
 Window ◀─────────────────────── Target
            ③ 버블링 (아래 → 위)
 ```
+-->
 
 ### 이벤트 버블링
 
@@ -1196,6 +1238,11 @@ window.addEventListener('scroll', throttle(() => {
 
 ### Mark-and-Sweep 동작 과정
 
+<!-- diagram:fe-qna-javascript-8 -->
+![Mark-and-Sweep 동작 과정](../../assets/diagrams/fe-qna-javascript-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. Mark 단계: GC 루트에서 시작하여 도달 가능한 객체를 마크
 2. Sweep 단계: 마크되지 않은 객체를 메모리에서 해제
@@ -1209,6 +1256,7 @@ GC Root (전역 객체, 콜 스택)
 └── (obj4) ✗ (마크 안됨 - 수거 대상)
     └── (obj5) ✗ (마크 안됨 - 수거 대상)
 ```
+-->
 
 ### 메모리 누수 방지 패턴
 
@@ -1312,12 +1360,18 @@ console.log(decrease());  // -1
 
 ### 함수형 프로그래밍
 
+<!-- diagram:fe-qna-javascript-9 -->
+![함수형 프로그래밍](../../assets/diagrams/fe-qna-javascript-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 핵심 원칙:
 ├── 순수 함수: 동일 입력 → 동일 출력, 부수 효과 없음
 ├── 불변성: 데이터를 직접 변경하지 않고 새로운 데이터 생성
 └── 고차 함수: 함수를 조합하여 로직 구성
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 일급 객체의 정확한 정의
@@ -1547,6 +1601,11 @@ import * as math from './math.js';
 
 ### 트리 쉐이킹
 
+<!-- diagram:fe-qna-javascript-10 -->
+![트리 쉐이킹](../../assets/diagrams/fe-qna-javascript-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ES Modules (정적 분석 가능)
 ├── import { add } from './math.js'
@@ -1556,6 +1615,7 @@ CommonJS (동적 분석)
 ├── const { add } = require('./math')
 │   → 정적 분석 불가, 전체 모듈 포함
 ```
+-->
 
 ### Dynamic Import
 

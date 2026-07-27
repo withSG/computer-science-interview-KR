@@ -69,6 +69,11 @@ function Counter() {
 
 각 컴포넌트 인스턴스에는 fiber 노드가 하나씩 대응한다. 함수 컴포넌트의 fiber는 `memoizedState` 필드에 **훅 객체들의 연결 리스트 첫 번째 노드**를 들고 있다.
 
+<!-- diagram:fe-hooks-internals-1 -->
+![2. 훅은 fiber에 붙은 링크드 리스트에 저장된다](../../assets/diagrams/fe-hooks-internals-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
        fiber (Counter 컴포넌트)
        ┌──────────────────────────┐
@@ -82,6 +87,7 @@ function Counter() {
    │ state: 1     │        │ current: dom │        │ deps: [1]    │
    └──────────────┘        └──────────────┘        └──────────────┘
 ```
+-->
 
 **핵심은 훅이 이름으로 식별되지 않는다는 것이다.** `useState('count')` 같은 이름표는 없다. React가 아는 것은 오직 **몇 번째로 호출됐는가**뿐이다.
 
@@ -143,12 +149,18 @@ function Profile({ userId }) {
 
 **왜 문제인가**: 훅은 순서로만 식별되므로, 조건이 바뀌면 저장소의 짝이 어긋난다.
 
+<!-- diagram:fe-hooks-internals-2 -->
+![규칙을 어기면 벌어지는 일](../../assets/diagrams/fe-hooks-internals-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [렌더 1] userId 있음                [렌더 2] userId 없음 (email 훅을 건너뜀)
   useState(name)  → 저장소 0 : ''     useState(name)  → 저장소 0 : ''      정상
   useState(email) → 저장소 1 : ''     useState(theme) → 저장소 1 : ''      email 값을 읽는다!
   useState(theme) → 저장소 2 : 'light'                  저장소 2 : 'light' 접근 불가로 유실
 ```
+-->
 
 `theme` 상태에 엉뚱하게 email 값이 들어간다. `useEffect`가 섞이면 더 나빠져서, 의존성 배열이 들어 있는 자리를 `useState`가 상태로 해석하는 식의 뒤엉킴이 생긴다.
 
@@ -310,6 +322,11 @@ function Timer() {
 
 **왜 문제인가**: effect 콜백은 첫 렌더링 시점의 스코프를 클로저로 붙잡는다. 그 안의 `count`는 영원히 0이다. 그래서 매초 `setCount(0 + 1)`이 실행되고, 화면은 0에서 1로 올라간 뒤 멈춘다.
 
+<!-- diagram:fe-hooks-internals-3 -->
+![오래된 클로저](../../assets/diagrams/fe-hooks-internals-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 렌더 1: count = 0  → interval 등록, 클로저가 count=0을 캡처
   1초: setCount(0 + 1) → count = 1
@@ -318,6 +335,7 @@ function Timer() {
   2초: setCount(0 + 1) → count = 1 (변화 없음)
   3초: setCount(0 + 1) → count = 1 (변화 없음)
 ```
+-->
 
 ```jsx
 // 개선: 함수형 업데이트로 클로저 의존 자체를 없앤다
@@ -335,6 +353,11 @@ useEffect(() => {
 
 `react-hooks/exhaustive-deps` 린트 경고를 주석으로 끄는 것은 대부분 문제를 미루는 행위다. 경고가 뜬다면 보통 셋 중 하나가 답이다.
 
+<!-- diagram:fe-hooks-internals-4 -->
+![의존성 배열에 거짓말하지 않는다](../../assets/diagrams/fe-hooks-internals-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 경고가 뜬다
   ├─ 값이 바뀌면 정말로 effect를 다시 실행해야 한다
@@ -345,6 +368,7 @@ useEffect(() => {
        → 정의를 effect 안으로 옮기거나, 컴포넌트 밖으로 빼거나,
          useCallback/useMemo로 참조를 고정한다
 ```
+-->
 
 ### 의존성 비교는 얕은 비교다
 

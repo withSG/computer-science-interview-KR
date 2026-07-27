@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">프록시가 대신 감싼다</title>
+  <desc id="d">Controller가 OrderService 프록시를 호출하여 TransactionInterceptor, PlatformTransactionManager, 실제 OrderService 로직 및 커밋, 롤백, 커넥션 반환 과정을 거치는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Controller (Top Call Source) -->
+  <rect x="360" y="20" width="160" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="45.25" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Controller</text>
+
+  <!-- Connection line from Controller to Proxy -->
+  <path d="M440,60 L440,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- Arrow Label: orderService.placeOrder(...) -->
+  <rect x="330" y="73" width="220" height="22" fill="#ffffff" rx="4"/>
+  <text x="440" y="88.2" font-size="12" fill="#2563eb" font-weight="bold" text-anchor="middle">orderService.placeOrder(...)</text>
+
+  <!-- Outer Box: OrderService$$Proxy -->
+  <rect x="80" y="110" width="720" height="390" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="105" y="139.6" font-size="16" font-weight="bold" fill="#7c3aed">OrderService$$Proxy</text>
+
+  <!-- TransactionInterceptor Block -->
+  <rect x="110" y="155" width="660" height="115" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="130" y="179.6" font-size="14" font-weight="bold" fill="#1f2933">TransactionInterceptor</text>
+  <text x="295" y="179.6" font-size="13" fill="#52606d">(@Around 성격의 Advice)</text>
+
+  <!-- Bullet 1: PlatformTransactionManager.getTransaction() -->
+  <text x="145" y="204.2" font-size="13" fill="#52606d">├─</text>
+  <text x="165" y="204.2" font-size="13" font-weight="bold" fill="#1f2933">PlatformTransactionManager.getTransaction()</text>
+
+  <!-- Sub bullets -->
+  <text x="165" y="225.2" font-size="12.5" fill="#2563eb">→ 커넥션 획득, setAutoCommit(false)</text>
+  <text x="165" y="244.2" font-size="12.5" fill="#2563eb">→ 커넥션을 ThreadLocal 에 보관</text>
+
+  <!-- Down Arrow inside Proxy before Inner Service Box -->
+  <path d="M440,270 L440,295" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Inner Box: OrderService (원본) -->
+  <rect x="150" y="295" width="580" height="90" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="170" y="322.2" font-size="14" font-weight="bold" fill="#059669">OrderService (원본)</text>
+  <text x="315" y="322.2" font-size="13" font-weight="bold" fill="#1f2933">placeOrder() 실제 로직</text>
+
+  <text x="170" y="347.2" font-size="12.5" fill="#52606d">Repository 들은 ThreadLocal 에서</text>
+  <text x="170" y="367.2" font-size="12.5" fill="#52606d">같은 커넥션을 꺼내 쓴다</text>
+
+  <!-- Flow out of OrderService (원본) -->
+  <path d="M440,385 L440,410" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Normal Return / Exception Branch Label -->
+  <g>
+    <!-- Normal Return -> commit() -->
+    <text x="310" y="420.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="end">정상 반환 → commit()</text>
+    
+    <!-- Separator / Spacing -->
+    <text x="360" y="420.2" font-size="13" fill="#9aa5b1" text-anchor="middle">│</text>
+
+    <!-- Exception -> rollback() -->
+    <text x="410" y="420.2" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="start">예외 → rollback()</text>
+  </g>
+
+  <!-- Arrow down to Connection Return -->
+  <path d="M440,428 L440,450" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Connection Return Label -->
+  <rect x="380" y="458" width="120" height="26" fill="#ffffff" rx="4" stroke="#cbd2d9"/>
+  <text x="440" y="475.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">커넥션 반환</text>
+</svg>

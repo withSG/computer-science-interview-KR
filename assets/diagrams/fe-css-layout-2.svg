@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">마진 병합(margin collapsing)</title>
+  <desc id="d">CSS 마진 병합 현상으로 기대값 50px 대신 큰 값인 30px만 적용되는 실제 동작 비교 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="440" fill="#ffffff"/>
+
+  <!-- 상단 CSS 코드 표시 구역 -->
+  <rect x="24" y="24" width="832" height="64" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="44" y="52" fill="#1f2933" font-size="14" font-weight="600" font-family="monospace">.a { margin-bottom: 20px; }</text>
+  <text x="44" y="74" fill="#1f2933" font-size="14" font-weight="600" font-family="monospace">.b { margin-top: 30px; }</text>
+
+  <!-- 왼쪽 섹션: 기대: 50px -->
+  <g transform="translate(0, 20)">
+    <text x="230" y="110" text-anchor="middle" fill="#52606d" font-size="16" font-weight="700">기대: 50px</text>
+
+    <!-- .a 박스 -->
+    <rect x="150" y="130" width="160" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="230" y="157" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">.a</text>
+
+    <!-- margin-bottom: 20px 영역 -->
+    <rect x="150" y="174" width="160" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="230" y="193" text-anchor="middle" fill="#d97706" font-size="11.5">20px</text>
+
+    <!-- margin-top: 30px 영역 -->
+    <rect x="150" y="204" width="160" height="45" fill="#fffbeb" stroke="#d97706" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="230" y="230" text-anchor="middle" fill="#d97706" font-size="11.5">30px</text>
+
+    <!-- .b 박스 -->
+    <rect x="150" y="249" width="160" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="230" y="276" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">.b</text>
+
+    <!-- 전체 기대 마진 표시 치수선 (50px) -->
+    <line x1="330" y1="174" x2="330" y2="249" stroke="#52606d" stroke-width="1.5"/>
+    <line x1="324" y1="174" x2="336" y2="174" stroke="#52606d" stroke-width="1.5"/>
+    <line x1="324" y1="249" x2="336" y2="249" stroke="#52606d" stroke-width="1.5"/>
+    <text x="345" y="216" fill="#52606d" font-size="13" font-weight="600">50px</text>
+  </g>
+
+  <!-- 오른쪽 섹션: 실제: 30px -->
+  <g transform="translate(290, 20)">
+    <text x="360" y="110" text-anchor="middle" fill="#dc2626" font-size="16" font-weight="700">실제: 30px</text>
+
+    <!-- .a 박스 -->
+    <rect x="280" y="130" width="160" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="360" y="157" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">.a</text>
+
+    <!-- 병합된 마진 영역 (30px) -->
+    <rect x="280" y="174" width="160" height="45" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="360" y="201" text-anchor="middle" fill="#dc2626" font-size="13" font-weight="700">30px</text>
+
+    <!-- .b 박스 -->
+    <rect x="280" y="219" width="160" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="360" y="246" text-anchor="middle" fill="#2563eb" font-size="14" font-weight="700">.b</text>
+
+    <!-- 설명 주석 화살표 및 라벨 (← 겹쳐서 큰 쪽만) -->
+    <path d="M 450 196 L 490 196" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="496" y="182" width="126" height="28" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+    <text x="502" y="200" fill="#1f2933" font-size="11.5" font-weight="600">← 겹쳐서 큰 쪽만</text>
+  </g>
+
+  <!-- 하단 범례 -->
+  <g transform="translate(24, 380)">
+    <rect x="0" y="0" width="832" height="36" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+    <rect x="16" y="12" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="34" y="22" fill="#52606d" font-size="11.5">요소 박스</text>
+
+    <rect x="130" y="12" width="12" height="12" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="148" y="22" fill="#52606d" font-size="11.5">개별 마진 영역</text>
+
+    <rect x="260" y="12" width="12" height="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="278" y="22" fill="#52606d" font-size="11.5">병합된 마진 영역 (최대값 적용)</text>
+  </g>
+</svg>

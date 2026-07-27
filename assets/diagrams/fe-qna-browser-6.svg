@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CORS Preflight 동작 과정</title>
+  <desc id="d">Client와 Server 간의 Preflight(OPTIONS) 요청 및 응답, 이어서 실제 POST 요청 및 응답의 시퀀스 다이어그램</desc>
+  
+  <rect width="880" height="380" fill="#ffffff"/>
+
+  <defs>
+    <!-- Blue arrow marker for Requests -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- Green arrow marker for Responses -->
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title (from context document section header) -->
+  <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">동작 과정</text>
+
+  <!-- Participant Boxes -->
+  <!-- Client Box -->
+  <rect x="180" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="260" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
+
+  <!-- Server Box -->
+  <rect x="540" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="620" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Server</text>
+
+  <!-- Lifelines -->
+  <line x1="260" y1="100" x2="260" y2="340" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="620" y1="100" x2="620" y2="340" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- 1. OPTIONS /api Request -->
+  <path d="M260,140 L620,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="382" y="125" width="116" height="20" fill="#ffffff" rx="2"/>
+  <text x="440" y="139" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">OPTIONS /api</text>
+
+  <!-- 2. 200 + CORS 헤더 Response -->
+  <path d="M620,190 L260,190" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="360" y="175" width="160" height="20" fill="#ffffff" rx="2"/>
+  <text x="440" y="189" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">200 + CORS 헤더</text>
+
+  <!-- 3. POST /api Request -->
+  <path d="M260,240 L620,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="395" y="225" width="90" height="20" fill="#ffffff" rx="2"/>
+  <text x="440" y="239" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">POST /api</text>
+
+  <!-- 4. 200 response Response -->
+  <path d="M620,290 L260,290" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="375" y="275" width="130" height="20" fill="#ffffff" rx="2"/>
+  <text x="440" y="289" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">200 response</text>
+</svg>

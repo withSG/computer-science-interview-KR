@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">트리 쉐이킹은 두 단계로 일어난다</title>
+  <desc id="d">번들러의 사용 표기 단계와 미니파이어의 데드 코드 제거 단계를 나타낸 2단계 트리 쉐이킹 과정 다이어그램</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- [1단계] 구역 그룹 -->
+  <rect x="24" y="24" width="832" height="306" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="40" y="55" font-size="16" font-weight="bold" fill="#2563eb">[1단계] 번들러가 "표시"한다 (webpack: optimization.usedExports)</text>
+
+  <!-- format.js 박스 -->
+  <rect x="50" y="80" width="780" height="130" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="66" y="103" font-size="13" font-weight="bold" fill="#52606d">format.js</text>
+
+  <!-- format.js 내부 함수 라인들 -->
+  <!-- 1. formatDate (used) -->
+  <rect x="66" y="112" width="748" height="26" rx="4" fill="#ecfdf5"/>
+  <text x="78" y="129" font-size="13" font-family="monospace" fill="#1f2933">export function formatDate(d)     { ... }</text>
+  <path d="M430,125 L450,125" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="460" y="129" font-size="13" fill="#059669" font-weight="bold">main.js가 import함 → used</text>
+
+  <!-- 2. formatCurrency (unused) -->
+  <rect x="66" y="142" width="748" height="26" rx="4" fill="#fef2f2"/>
+  <text x="78" y="159" font-size="13" font-family="monospace" fill="#1f2933">export function formatCurrency(n) { ... }</text>
+  <path d="M430,155 L450,155" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="460" y="159" font-size="13" fill="#dc2626">아무도 import 안 함 → unused</text>
+
+  <!-- 3. slugify (unused) -->
+  <rect x="66" y="172" width="748" height="26" rx="4" fill="#fef2f2"/>
+  <text x="78" y="189" font-size="13" font-family="monospace" fill="#1f2933">export function slugify(s)        { ... }</text>
+  <path d="M430,185 L450,185" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="460" y="189" font-size="13" fill="#dc2626">아무도 import 안 함 → unused</text>
+
+  <!-- 1단계 하단 화살표 및 설명 -->
+  <path d="M120,210 L120,236" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="135" y="217" width="375" height="20" fill="#eff6ff"/>
+  <text x="140" y="231" font-size="13" fill="#2563eb">미압축 번들을 열어보면 쓰인 export만 등록돼 있다</text>
+
+  <!-- 코드 블록: __webpack_require__.d -->
+  <rect x="50" y="244" width="780" height="70" rx="6" fill="#1f2933"/>
+  <text x="66" y="271" font-size="13" font-family="monospace" fill="#f8fafc">__webpack_require__.d(__webpack_exports__, {</text>
+  <text x="82" y="293" font-size="13" font-family="monospace" fill="#10b981">  formatDate: () =&gt; formatDate       <tspan fill="#9aa5b1">// formatCurrency·slugify는 목록에 없다</tspan></text>
+  <text x="432" y="271" font-size="13" font-family="monospace" fill="#f8fafc">});</text>
+
+  <!-- [2단계] 구역 그룹 -->
+  <rect x="24" y="350" width="832" height="196" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="40" y="381" font-size="16" font-weight="bold" fill="#1f2933">[2단계] 미니파이어가 "제거"한다 (Terser 등)</text>
+
+  <!-- 주석/설명 박스 -->
+  <rect x="50" y="400" width="780" height="54" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="66" y="422" font-size="13" fill="#d97706">"이 함수는 export도 안 되고 파일 안에서 호출되지도 않는다</text>
+  <text x="80" y="442" font-size="13" fill="#d97706">→ 도달 불가능한 코드(dead code) → 삭제"</text>
+
+  <!-- 2단계 화살표 -->
+  <path d="M440,454 L440,480" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 최종 번들 결과 박스 -->
+  <rect x="50" y="488" width="780" height="42" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="514" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">최종 번들에는 formatDate만 남는다</text>
+</svg>

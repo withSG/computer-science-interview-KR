@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Push vs Pull 기반</title>
+  <desc id="d">Push 기반 전통적 CI/CD 파이프라인과 Pull 기반 GitOps 방식의 구성 요소 및 데이터 흐름 비교 다이어그램</desc>
+  
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: Push 기반 (전통적) -->
+  <g id="push-section">
+    <rect x="24" y="24" width="832" height="156" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="44" y="55" font-size="16" font-weight="bold" fill="#1f2933">Push 기반 (전통적):</text>
+
+    <!-- Git Box -->
+    <rect x="70" y="74" width="180" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="160" y="113.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Git</text>
+
+    <!-- Arrow 1: Git -> CI/CD Pipeline -->
+    <path d="M250,109 L340,109" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- CI/CD Pipeline Box -->
+    <rect x="340" y="74" width="180" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="430" y="105.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">CI/CD</text>
+    <text x="430" y="123.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Pipeline</text>
+
+    <!-- Arrow 2: CI/CD Pipeline -> Cluster -->
+    <path d="M520,109 L610,109" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- Cluster Box -->
+    <rect x="610" y="74" width="180" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="700" y="113.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Cluster</text>
+
+    <!-- Subtext -->
+    <text x="430" y="161.5" font-size="11.5" fill="#52606d" text-anchor="middle">(권한 필요)</text>
+  </g>
+
+  <!-- Section 2: Pull 기반 (GitOps) -->
+  <g id="pull-section">
+    <rect x="24" y="204" width="832" height="156" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="44" y="235" font-size="16" font-weight="bold" fill="#1f2933">Pull 기반 (GitOps):</text>
+
+    <!-- Git Box -->
+    <rect x="70" y="254" width="180" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="160" y="293.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Git</text>
+
+    <!-- Arrow 1: ArgoCD (Pull) -> Git (Left direction) -->
+    <path d="M340,289 L250,289" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- ArgoCD Box -->
+    <rect x="340" y="254" width="180" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="430" y="285.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">ArgoCD</text>
+    <text x="430" y="303.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">(Pull)</text>
+
+    <!-- Arrow 2: ArgoCD -> Cluster -->
+    <path d="M520,289 L610,289" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- Cluster Box -->
+    <rect x="610" y="254" width="180" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="700" y="293.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Cluster</text>
+
+    <!-- Subtext -->
+    <text x="430" y="341.5" font-size="11.5" fill="#52606d" text-anchor="middle">(클러스터 내부)</text>
+  </g>
+</svg>

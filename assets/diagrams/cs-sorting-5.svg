@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 750" width="880" height="750" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">힙 정렬 (Heap Sort)</title>
+  <desc id="d">힙 정렬의 배열 해석, 최대 힙 구성, 루트 교환 및 정렬 반복 과정을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="750" fill="#ffffff"/>
+
+  <!-- Section 1: 원본 초기 상태 (배열 & 트리 해석) -->
+  <g>
+    <!-- 배열: [ 4  10  3  5  1 ] -->
+    <text x="50" y="65" font-size="14" font-weight="bold" fill="#1f2933">배열:</text>
+    <text x="90" y="65" font-size="14" fill="#52606d">[</text>
+    
+    <rect x="100" y="40" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="118" y="63" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
+
+    <rect x="144" y="40" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="162" y="63" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">10</text>
+
+    <rect x="188" y="40" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="206" y="63" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+
+    <rect x="232" y="40" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="250" y="63" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
+
+    <rect x="276" y="40" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="294" y="63" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+
+    <text x="320" y="65" font-size="14" fill="#52606d">]</text>
+
+    <!-- 트리 해석: -->
+    <text x="440" y="65" font-size="14" font-weight="bold" fill="#1f2933">트리 해석:</text>
+
+    <!-- 초기 트리 -->
+    <!-- 노드 간 연결선 -->
+    <line x1="630" y1="60" x2="580" y2="100" stroke="#9aa5b1" stroke-width="1.5"/>
+    <line x1="630" y1="60" x2="680" y2="100" stroke="#9aa5b1" stroke-width="1.5"/>
+    <line x1="580" y1="110" x2="555" y2="150" stroke="#9aa5b1" stroke-width="1.5"/>
+    <line x1="580" y1="110" x2="605" y2="150" stroke="#9aa5b1" stroke-width="1.5"/>
+
+    <!-- 노드 4 -->
+    <circle cx="630" cy="55" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="630" y="60" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
+
+    <!-- 노드 10 -->
+    <circle cx="580" cy="105" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="580" y="110" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">10</text>
+
+    <!-- 노드 3 -->
+    <circle cx="680" cy="105" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="680" y="110" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+
+    <!-- 노드 5 -->
+    <circle cx="555" cy="155" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="555" y="160" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
+
+    <!-- 노드 1 -->
+    <circle cx="605" cy="155" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="605" y="160" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+  </g>
+
+  <line x1="40" y1="200" x2="840" y2="200" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Section 2: 1단계) 최대 힙 구성 -->
+  <g>
+    <text x="50" y="235" font-size="14" font-weight="bold" fill="#2563eb">1단계) 최대 힙 구성 (아래쪽 노드부터 sift-down) → O(n)</text>
+
+    <!-- 1단계 트리 -->
+    <line x1="280" y1="275" x2="230" y2="315" stroke="#2563eb" stroke-width="1.5"/>
+    <line x1="280" y1="275" x2="330" y2="315" stroke="#9aa5b1" stroke-width="1.5"/>
+    <line x1="230" y1="325" x2="205" y2="365" stroke="#9aa5b1" stroke-width="1.5"/>
+    <line x1="230" y1="325" x2="255" y2="365" stroke="#9aa5b1" stroke-width="1.5"/>
+
+    <!-- 노드 10 -->
+    <circle cx="280" cy="270" r="16" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="280" y="275" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">10</text>
+
+    <!-- 노드 5 -->
+    <circle cx="230" cy="320" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="230" y="325" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
+
+    <!-- 노드 3 -->
+    <circle cx="330" cy="320" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="330" y="325" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+
+    <!-- 노드 4 -->
+    <circle cx="205" cy="370" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="205" y="375" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
+
+    <!-- 노드 1 -->
+    <circle cx="255" cy="370" r="16" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="255" y="375" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+
+    <!-- 1단계 배열 -->
+    <text x="440" y="325" font-size="14" font-weight="bold" fill="#1f2933">배열:</text>
+    <text x="480" y="325" font-size="14" fill="#52606d">[</text>
+    
+    <rect x="490" y="300" width="36" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="508" y="323" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">10</text>
+
+    <rect x="534" y="300" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="552" y="323" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
+
+    <rect x="578" y="300" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="596" y="323" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+
+    <rect x="622" y="300" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="640" y="323" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
+
+    <rect x="666" y="300" width="36" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="684" y="323" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+
+    <text x="710" y="325" font-size="14" fill="#52606d">]</text>
+  </g>
+
+  <line x1="40" y1="420" x2="840" y2="420" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Section 3: 2단계) 루트와 마지막을 교환 → 힙 크기 축소 → sift-down 반복 -->
+  <g>
+    <text x="50" y="455" font-size="14" font-weight="bold" fill="#7c3aed">2단계) 루트와 마지막을 교환 → 힙 크기 축소 → sift-down 반복</text>
+
+    <!-- Sub-row 1 -->
+    <g>
+      <!-- [10 5 3 4 1] -->
+      <text x="60" y="505" font-size="13" font-weight="bold" fill="#1f2933">[10 5 3 4 1]</text>
+
+      <!-- - -swap--> -->
+      <line x1="160" y1="500" x2="230" y2="500" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+      <rect x="172" y="488" width="46" height="18" fill="#ffffff"/>
+      <text x="195" y="501" font-size="11.5" fill="#2563eb" text-anchor="middle">--swap--&gt;</text>
+
+      <!-- [1 5 3 4 |10] -->
+      <rect x="245" y="485" width="130" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+      <line x1="337" y1="485" x2="337" y2="513" stroke="#d97706" stroke-width="2"/>
+      <rect x="338" y="486" width="36" height="26" fill="#fffbeb"/>
+      <text x="290" y="503" font-size="13" fill="#1f2933" text-anchor="middle">1 5 3 4</text>
+      <text x="356" y="503" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">10</text>
+      <text x="248" y="503" font-size="13" fill="#52606d">[</text>
+      <text x="372" y="503" font-size="13" fill="#52606d">]</text>
+
+      <!-- 10 확정 -->
+      <rect x="395" y="487" width="60" height="24" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+      <text x="425" y="503" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">10 확정</text>
+    </g>
+
+    <g>
+      <!-- sift-down -->
+      <text x="195" y="543" font-size="11.5" fill="#52606d" text-anchor="middle">sift-down</text>
+
+      <!-- [5 4 3 1 |10] -->
+      <rect x="245" y="527" width="130" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+      <line x1="337" y1="527" x2="337" y2="555" stroke="#d97706" stroke-width="2"/>
+      <rect x="338" y="528" width="36" height="26" fill="#fffbeb"/>
+      <text x="290" y="545" font-size="13" fill="#1f2933" text-anchor="middle">5 4 3 1</text>
+      <text x="356" y="545" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">10</text>
+      <text x="248" y="545" font-size="13" fill="#52606d">[</text>
+      <text x="372" y="545" font-size="13" fill="#52606d">]</text>
+    </g>
+
+    <!-- Sub-row 2 -->
+    <g>
+      <!-- [5 4 3 1 |10] -->
+      <text x="60" y="595" font-size="13" font-weight="bold" fill="#1f2933">[5 4 3 1 |10]</text>
+
+      <!-- - -swap--> -->
+      <line x1="160" y1="590" x2="230" y2="590" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+      <rect x="172" y="578" width="46" height="18" fill="#ffffff"/>
+      <text x="195" y="591" font-size="11.5" fill="#2563eb" text-anchor="middle">--swap--&gt;</text>
+
+      <!-- [1 4 3 |5 10] -->
+      <rect x="245" y="575" width="130" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+      <line x1="310" y1="575" x2="310" y2="603" stroke="#d97706" stroke-width="2"/>
+      <rect x="311" y="576" width="63" height="26" fill="#fffbeb"/>
+      <text x="277" y="593" font-size="13" fill="#1f2933" text-anchor="middle">1 4 3</text>
+      <text x="341" y="593" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">5 10</text>
+      <text x="248" y="593" font-size="13" fill="#52606d">[</text>
+      <text x="372" y="593" font-size="13" fill="#52606d">]</text>
+
+      <!-- 5 확정 -->
+      <rect x="395" y="577" width="55" height="24" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+      <text x="422" y="593" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">5 확정</text>
+    </g>
+
+    <g>
+      <!-- sift-down -->
+      <text x="195" y="633" font-size="11.5" fill="#52606d" text-anchor="middle">sift-down</text>
+
+      <!-- [4 1 3 |5 10] -->
+      <rect x="245" y="617" width="130" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+      <line x1="310" y1="617" x2="310" y2="645" stroke="#d97706" stroke-width="2"/>
+      <rect x="311" y="618" width="63" height="26" fill="#fffbeb"/>
+      <text x="277" y="635" font-size="13" fill="#1f2933" text-anchor="middle">4 1 3</text>
+      <text x="341" y="635" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">5 10</text>
+      <text x="248" y="635" font-size="13" fill="#52606d">[</text>
+      <text x="372" y="635" font-size="13" fill="#52606d">]</text>
+    </g>
+
+    <!-- Sub-row 3: ... 반복 → [1 3 4 5 10] -->
+    <g>
+      <text x="60" y="690" font-size="14" font-weight="bold" fill="#1f2933">... 반복 →</text>
+      
+      <rect x="150" y="667" width="160" height="34" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+      <text x="230" y="689" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[1 3 4 5 10]</text>
+    </g>
+  </g>
+</svg>

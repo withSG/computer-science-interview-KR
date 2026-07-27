@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730"
+     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
+     role="img" aria-labelledby="t d">
+  <title id="t">파일명 해싱과 캐싱</title>
+  <desc id="d">해싱 없이 배포하는 경우의 캐시 비효율성과 contenthash를 적용하여 1차 및 2차 배포 시 효율적으로 캐시를 재사용하는 과정을 비교하는 다이어그램</desc>
+  <rect width="880" height="730" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- ================= SECTION 1: 해싱 없이 bundle.js로 배포 ================= -->
+  <g>
+    <!-- Outer Container -->
+    <rect x="24" y="20" width="832" height="190" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    
+    <!-- Title -->
+    <text x="44" y="52" font-size="16" font-weight="bold" fill="#dc2626">[해싱 없이 bundle.js로 배포]</text>
+
+    <!-- Content Box -->
+    <rect x="44" y="70" width="792" height="120" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+
+    <!-- Arrow Line -->
+    <path d="M74,105 L74,125" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- Text Group -->
+    <text x="74" y="99" font-size="13" font-weight="bold" fill="#1f2933">브라우저: "bundle.js 캐시에 있는데 최신인가?"</text>
+    
+    <text x="90" y="139" font-size="13" fill="#52606d">→ 매번 서버에 물어봐야 한다. 캐시 기간을 길게 잡으면</text>
+    <text x="106" y="164" font-size="13" fill="#dc2626">배포해도 사용자가 옛날 코드를 계속 쓰는 사고가 난다.</text>
+  </g>
+
+  <!-- ================= SECTION 2: contenthash로 배포 ================= -->
+  <g>
+    <!-- Outer Container -->
+    <rect x="24" y="230" width="832" height="480" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+
+    <!-- Title -->
+    <text x="44" y="262" font-size="16" font-weight="bold" fill="#2563eb">[contenthash로 배포]</text>
+
+    <!-- Sub-container 1: 1차 배포 -->
+    <rect x="44" y="280" width="792" height="60" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="64" y="318" font-size="13" font-weight="bold" fill="#1f2933">1차 배포:</text>
+    
+    <!-- File 1: vendor.a1b2c3.js -->
+    <rect x="150" y="293" width="160" height="34" rx="4" fill="#f8fafc" stroke="#059669" stroke-width="1.5"/>
+    <text x="230" y="315" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">vendor.a1b2c3.js</text>
+
+    <!-- File 2: app.9f8e7d.js -->
+    <rect x="330" y="293" width="150" height="34" rx="4" fill="#f8fafc" stroke="#d97706" stroke-width="1.5"/>
+    <text x="405" y="315" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">app.9f8e7d.js</text>
+
+    <!-- Sub-container 2: 2차 배포 -->
+    <rect x="44" y="355" width="792" height="185" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="64" y="383" font-size="13" font-weight="bold" fill="#1f2933">2차 배포 (내 코드만 수정):</text>
+
+    <!-- File 3: vendor.a1b2c3.js -->
+    <rect x="150" y="398" width="160" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="230" y="420" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">vendor.a1b2c3.js</text>
+
+    <!-- File 4: app.4c5d6e.js -->
+    <rect x="330" y="398" width="150" height="34" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="405" y="420" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">app.4c5d6e.js</text>
+
+    <!-- Indicators & Explanations for vendor -->
+    <text x="230" y="450" font-size="13" fill="#059669" text-anchor="middle">▲ 이름이 같다</text>
+    <text x="230" y="475" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">= 캐시에서 재사용</text>
+
+    <!-- Indicators & Explanations for app -->
+    <text x="405" y="450" font-size="13" fill="#d97706" text-anchor="middle">▲ 이름이 바뀌었다</text>
+    <text x="405" y="475" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">= 새로 내려받는다</text>
+
+    <!-- Connecting Arrows from 1st to 2nd deployment -->
+    <path d="M230,327 L230,390" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-green)"/>
+    <path d="M405,327 L405,390" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-amber)"/>
+
+    <!-- Additional Cache-Control Note Box -->
+    <rect x="44" y="555" width="792" height="135" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+    
+    <text x="64" y="583" font-size="13" fill="#1f2933">HTML은 캐시하지 않고, 해시가 붙은 정적 파일에만</text>
+    
+    <!-- Code Highlight Box -->
+    <rect x="64" y="598" width="550" height="32" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+    <text x="74" y="619" font-size="13" font-weight="bold" fill="#7c3aed">Cache-Control: public, max-age=31536000, immutable</text>
+    
+    <text x="64" y="654" font-size="13" fill="#1f2933">을 걸어 1년간 재검증 없이 쓰게 한다.</text>
+  </g>
+
+  <!-- Marker additions for colored arrows -->
+  <defs>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+</svg>

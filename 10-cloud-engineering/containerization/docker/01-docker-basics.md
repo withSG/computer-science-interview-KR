@@ -23,6 +23,11 @@
 
 신입이 배포 첫날 가장 많이 하는 말이다. 상황을 구체적으로 보자.
 
+<!-- diagram:cloud-docker-basics-1 -->
+!["제 컴퓨터에서는 잘 되는데요"](../../../assets/diagrams/cloud-docker-basics-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 개발자 노트북                  운영 서버
 ─────────────                 ─────────────
@@ -31,6 +36,7 @@ OpenSSL 3.x                   OpenSSL 1.1     ← 다름
 TZ=Asia/Seoul                 TZ=UTC          ← 다름
 locale ko_KR.UTF-8            locale C        ← 다름
 ```
+-->
 
 코드는 `git push`로 똑같이 옮겼다. 그런데 서버에서만 날짜가 9시간 밀리고, 한글 파일명이 깨지고,
 네이티브 모듈이 로드되지 않는다. **옮긴 것은 코드뿐이고, 코드가 기대하던 환경은 옮기지 않았기 때문이다.**
@@ -75,6 +81,11 @@ docker run -d --name web3 -p 8083:80 nginx:1.27-alpine
 
 컨테이너를 만든다는 것은 **이미지 위에 얇은 쓰기 가능 레이어(Writable Layer) 한 장을 얹는 것**이다.
 
+<!-- diagram:cloud-docker-basics-2 -->
+![동작 원리: 읽기 전용 레이어 + 쓰기 가능 레이어](../../../assets/diagrams/cloud-docker-basics-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                 이미지 nginx:1.27-alpine (읽기 전용, 공유됨)
         ┌──────────────────────────────────────────────┐
@@ -89,6 +100,7 @@ docker run -d --name web3 -p 8083:80 nginx:1.27-alpine
         │ 쓰기레이어│    │ 쓰기레이어│    │ 쓰기레이어│   ← 컨테이너마다 자기 것
         └─────────┘    └─────────┘    └─────────┘
 ```
+-->
 
 디스크에 실제로 저장된 이미지 레이어는 **한 벌뿐**이다. 컨테이너 3개가 그 한 벌을 같이 본다.
 컨테이너가 파일을 수정하면 그 파일만 쓰기 레이어로 복사된 뒤 수정된다(Copy-on-Write).
@@ -127,6 +139,11 @@ docker diff web2 | grep html   # 안 나온다. web2가 보는 index.html은 이
 여러 디렉터리를 겹쳐서 **하나의 디렉터리인 것처럼 보여주는** 파일시스템이다.
 리눅스 Docker의 기본 스토리지 드라이버는 `overlay2`이며 구조는 이렇다.
 
+<!-- diagram:cloud-docker-basics-3 -->
+![유니온 파일시스템이 하는 일](../../../assets/diagrams/cloud-docker-basics-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    merged (컨테이너가 실제로 보는 /)
    ┌──────────────────────────────────────┐
@@ -141,6 +158,7 @@ docker diff web2 | grep html   # 안 나온다. web2가 보는 index.html은 이
    │ lowerdir1  이미지 레이어 L1           │
    └──────────────────────────────────────┘
 ```
+-->
 
 같은 경로의 파일이 여러 층에 있으면 **위층이 이긴다.** 파일을 수정하면 lower에서 upper로 통째 복사한 뒤
 upper 것을 고친다(copy-up). 그래서 **1GB짜리 로그 파일 한 줄을 고치면 1GB가 복사된다.**
@@ -283,6 +301,11 @@ CI에서만 쓰는 패턴도 흔하다.
 
 ### 컨테이너 라이프사이클
 
+<!-- diagram:cloud-docker-basics-4 -->
+![컨테이너 라이프사이클](../../../assets/diagrams/cloud-docker-basics-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    docker build        docker run (= create + start)      docker stop
   Dockerfile ──────▶ 이미지 ────────────────────────▶ 실행 중 ─────────▶ 정지됨
@@ -292,6 +315,7 @@ CI에서만 쓰는 패턴도 흔하다.
                                                                           ▼
                                                           삭제 (쓰기 레이어도 소멸)
 ```
+-->
 
 `docker stop`은 먼저 SIGTERM을 보내고, 기본 유예 시간(10초) 안에 안 죽으면 SIGKILL로 강제 종료한다.
 그래서 애플리케이션이 SIGTERM을 받아 커넥션을 정리하도록 만들어야 무중단 배포가 가능해진다.

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">다섯 종류의 브랜치</title>
+  <desc id="d">Git Flow의 다섯 브랜치(main, hotfix, release, develop, feature) 사이의 분기 및 합류 흐름을 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers for each color -->
+    <marker id="a-main" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-hotfix" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-release" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-develop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-feature" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="40" y="35" font-size="16" font-weight="bold" fill="#1f2933">다섯 종류의 브랜치</text>
+
+  <!-- Background Swimlane Guides -->
+  <rect x="130" y="55" width="710" height="40" rx="4" fill="#fef2f2"/>
+  <rect x="130" y="125" width="710" height="40" rx="4" fill="#fffbeb"/>
+  <rect x="130" y="195" width="710" height="40" rx="4" fill="#f5f3ff"/>
+  <rect x="130" y="265" width="710" height="40" rx="4" fill="#eff6ff"/>
+  <rect x="130" y="335" width="710" height="40" rx="4" fill="#ecfdf5"/>
+
+  <!-- Branch Labels (Left side) -->
+  <!-- main -->
+  <rect x="30" y="60" width="80" height="30" rx="4" fill="#dc2626"/>
+  <text x="70" y="79.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">main</text>
+
+  <!-- hotfix -->
+  <rect x="30" y="130" width="80" height="30" rx="4" fill="#d97706"/>
+  <text x="70" y="149.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">hotfix</text>
+
+  <!-- release -->
+  <rect x="30" y="200" width="80" height="30" rx="4" fill="#7c3aed"/>
+  <text x="70" y="219.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">release</text>
+
+  <!-- develop -->
+  <rect x="30" y="270" width="80" height="30" rx="4" fill="#2563eb"/>
+  <text x="70" y="289.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">develop</text>
+
+  <!-- feature -->
+  <rect x="30" y="340" width="80" height="30" rx="4" fill="#059669"/>
+  <text x="70" y="359.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">feature</text>
+
+  <!-- Horizontal Main Lines & Flow Arrows -->
+  <!-- main timeline -->
+  <path d="M120,75 L820,75" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-main)"/>
+  
+  <!-- develop timeline -->
+  <path d="M120,285 L820,285" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-develop)"/>
+
+  <!-- Branch Connection Paths & Lines -->
+
+  <!-- feature branch line: develop -> feature -> develop -->
+  <path d="M210,285 L250,355 L320,355 L360,285" stroke="#059669" stroke-width="2" fill="none"/>
+
+  <!-- release branch line: develop -> release -> main & develop -->
+  <path d="M330,285 L370,215 L460,215" stroke="#7c3aed" stroke-width="2" fill="none"/>
+  <!-- release to main -->
+  <path d="M460,215 L545,78" stroke="#7c3aed" stroke-width="2" fill="none"/>
+  <!-- release to develop -->
+  <path d="M560,75 L560,277" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-release)"/>
+
+  <!-- hotfix branch line: main -> hotfix -> main & develop -->
+  <path d="M570,75 L620,145 L700,145 L740,75" stroke="#d97706" stroke-width="2" fill="none"/>
+  <!-- hotfix to develop -->
+  <path d="M700,145 L755,277" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-hotfix)"/>
+
+
+  <!-- Commits (Nodes / Dots) -->
+
+  <!-- main branch commits -->
+  <circle cx="210" cy="75" r="5" fill="#dc2626"/>
+  <circle cx="560" cy="75" r="5" fill="#dc2626"/>
+  <circle cx="610" cy="75" r="5" fill="#dc2626"/>
+  <circle cx="760" cy="75" r="5" fill="#dc2626"/>
+
+  <!-- hotfix branch commits -->
+  <circle cx="650" cy="145" r="5" fill="#d97706"/>
+  <circle cx="700" cy="145" r="5" fill="#d97706"/>
+
+  <!-- release branch commits -->
+  <circle cx="410" cy="215" r="5" fill="#7c3aed"/>
+  <circle cx="460" cy="215" r="5" fill="#7c3aed"/>
+
+  <!-- develop branch commits -->
+  <circle cx="210" cy="285" r="5" fill="#2563eb"/>
+  <circle cx="260" cy="285" r="5" fill="#2563eb"/>
+  <circle cx="310" cy="285" r="5" fill="#2563eb"/>
+  <circle cx="360" cy="285" r="5" fill="#2563eb"/>
+  <circle cx="560" cy="285" r="5" fill="#2563eb"/>
+  <circle cx="760" cy="285" r="5" fill="#2563eb"/>
+
+  <!-- feature branch commits -->
+  <circle cx="270" cy="355" r="5" fill="#059669"/>
+  <circle cx="300" cy="355" r="5" fill="#059669"/>
+
+
+  <!-- Labels on Main Branch Commits -->
+  <!-- v1.0 -->
+  <rect x="220" y="52" width="38" height="18" fill="#ffffff" rx="2"/>
+  <text x="222" y="65" font-size="11.5" font-weight="bold" fill="#dc2626">v1.0</text>
+
+  <!-- v1.1 -->
+  <rect x="570" y="52" width="38" height="18" fill="#ffffff" rx="2"/>
+  <text x="572" y="65" font-size="11.5" font-weight="bold" fill="#dc2626">v1.1</text>
+
+  <!-- v1.1.1 -->
+  <rect x="770" y="52" width="48" height="18" fill="#ffffff" rx="2"/>
+  <text x="772" y="65" font-size="11.5" font-weight="bold" fill="#dc2626">v1.1.1</text>
+
+
+  <!-- Legend Section (Footer) -->
+  <rect x="30" y="425" width="820" height="65" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Legend Item 1: ╲ = 여기서 갈라져 나온다 -->
+  <text x="60" y="463" font-size="14" font-weight="bold" fill="#1f2933">╲</text>
+  <text x="80" y="462" font-size="13" fill="#52606d">=</text>
+  <text x="95" y="462" font-size="13" fill="#1f2933">여기서 갈라져 나온다</text>
+
+  <!-- Legend Item 2: ╱, ▼ = 여기로 합쳐 들어간다 -->
+  <text x="320" y="463" font-size="14" font-weight="bold" fill="#1f2933">╱, ▼</text>
+  <text x="360" y="462" font-size="13" fill="#52606d">=</text>
+  <text x="375" y="462" font-size="13" fill="#1f2933">여기로 합쳐 들어간다</text>
+</svg>

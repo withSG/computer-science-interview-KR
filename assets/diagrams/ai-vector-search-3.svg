@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">메타데이터 필터링의 함정</title>
+  <desc id="d">Post-filtering과 Pre-filtering의 차이점 및 문제점을 설명하는 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- ================= Post-filtering Section ================= -->
+  <g id="post-filtering">
+    <!-- Subtitle -->
+    <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">Post-filtering (검색 먼저, 필터 나중)</text>
+
+    <!-- Flow Line Base -->
+    <path d="M 125 90 L 210 90" stroke="#2563eb" stroke-width="2" fill="none"/>
+    <path d="M 330 90 L 415 90" stroke="#2563eb" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+    <path d="M 535 90 L 610 90" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- Nodes -->
+    <!-- Node 1: 전체 100만 -->
+    <text x="75" y="95" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">전체 100만</text>
+
+    <!-- Edge 1 Label: [ANN Top-10] -->
+    <rect x="210" y="70" width="120" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="270" y="95" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[ANN Top-10]</text>
+
+    <!-- Node 2: 10개 -->
+    <text x="375" y="95" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">10개</text>
+
+    <!-- Edge 2 Label: [필터] -->
+    <rect x="415" y="70" width="120" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="475" y="95" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">[필터]</text>
+
+    <!-- Node 3: 1개 -->
+    <text x="635" y="95" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">1개</text>
+
+    <!-- Warning Point & Description -->
+    <path d="M 475 165 L 475 120" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    <rect x="280" y="165" width="390" height="40" rx="6" fill="#fef2f2" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="475" y="190" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">9개가 필터에서 탈락 → 결과가 텅 빈다</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="30" y1="235" x2="850" y2="235" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ================= Pre-filtering Section ================= -->
+  <g id="pre-filtering">
+    <!-- Subtitle -->
+    <text x="30" y="275" font-size="16" font-weight="bold" fill="#1f2933">Pre-filtering (필터 먼저, 검색 나중)</text>
+
+    <!-- Flow Line Base -->
+    <path d="M 125 325 L 210 325" stroke="#d97706" stroke-width="2" fill="none"/>
+    <path d="M 330 325 L 435 325" stroke="#d97706" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+    <path d="M 555 325 L 630 325" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- Nodes -->
+    <!-- Node 1: 전체 100만 -->
+    <text x="75" y="330" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">전체 100만</text>
+
+    <!-- Edge 1 Label: [필터] -->
+    <rect x="210" y="305" width="120" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="270" y="330" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">[필터]</text>
+
+    <!-- Node 2: 5,000개 -->
+    <text x="495" y="330" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">5,000개</text>
+
+    <!-- Edge 2 Label: [검색] -->
+    <rect x="555" y="305" width="120" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="615" y="330" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">[검색]</text>
+
+    <!-- Node 3: 10개 -->
+    <text x="655" y="330" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">10개</text>
+
+    <!-- Warning Point & Description -->
+    <path d="M 495 390 L 495 350" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+    
+    <rect x="180" y="390" width="630" height="110" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="200" y="423" font-size="12.5" fill="#1f2933">ANN 인덱스는 100만 개 기준으로 만들어졌다.</text>
+    <text x="200" y="448" font-size="12.5" fill="#1f2933">5,000개 부분집합 안에서 그래프를 타면 길이 끊겨</text>
+    <text x="200" y="473" font-size="12.5" fill="#1f2933">엉뚱한 곳에 갇히거나, 결국 5,000개를 다 비교하게 된다</text>
+  </g>
+</svg>

@@ -444,6 +444,11 @@ notepad.exe (프로그램) → 실행 → notepad 프로세스
 DMA는 CPU 개입 없이 **I/O 장치가 메모리에 직접 접근**하여 데이터를 전송하는 방식입니다.
 
 ### DMA가 필요한 이유
+<!-- diagram:cs-qna-os-1 -->
+![DMA가 필요한 이유](../../assets/diagrams/cs-qna-os-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [기존 방식 - PIO (Programmed I/O)]
 1. CPU가 I/O 장치에서 데이터 읽기
@@ -457,6 +462,7 @@ DMA는 CPU 개입 없이 **I/O 장치가 메모리에 직접 접근**하여 데�
 3. 전송 완료 시 인터럽트로 CPU에 알림
 → CPU가 다른 작업 수행 가능
 ```
+-->
 
 ### DMA 동작 과정
 1. CPU가 DMA 컨트롤러에 전송 정보 설정 (소스, 목적지, 크기)
@@ -526,6 +532,11 @@ CPU 스케줄링은 준비 큐에 있는 프로세스 중 **어떤 프로세스�
 ### 주요 알고리즘
 
 #### 1. FCFS (First Come First Served) — 비선점
+<!-- diagram:cs-qna-os-2 -->
+![1. FCFS](../../assets/diagrams/cs-qna-os-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 도착 순서대로 처리
 단점: 앞의 긴 작업이 뒤를 막음 (Convoy Effect)
@@ -533,6 +544,7 @@ CPU 스케줄링은 준비 큐에 있는 프로세스 중 **어떤 프로세스�
 작업: P1(24ms), P2(3ms), P3(3ms) 순서로 도착
 대기 시간: P1=0, P2=24, P3=27 → 평균 17ms
 ```
+-->
 
 #### 2. SJF (Shortest Job First) — 비선점
 ```
@@ -551,6 +563,11 @@ SJF의 Starvation 문제 보완
 ```
 
 #### 4. Round Robin (RR) — 선점
+<!-- diagram:cs-qna-os-3 -->
+![4. Round Robin](../../assets/diagrams/cs-qna-os-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 각 프로세스에 동일한 시간 할당량(Time Quantum) 부여
 할당량 초과 시 다음 프로세스로 교체 (선점)
@@ -560,6 +577,7 @@ Time Quantum이 너무 작으면 → 컨텍스트 스위칭 오버헤드 증가
 
 적정 Time Quantum: CPU 연산 시간의 80%를 처리할 수 있는 크기
 ```
+-->
 
 #### 5. Priority Scheduling — 선점/비선점
 ```
@@ -569,6 +587,11 @@ Time Quantum이 너무 작으면 → 컨텍스트 스위칭 오버헤드 증가
 ```
 
 #### 6. 다단계 피드백 큐 (MLFQ, Multilevel Feedback Queue) — 선점
+<!-- diagram:cs-qna-os-4 -->
+![6. 다단계 피드백 큐](../../assets/diagrams/cs-qna-os-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 여러 개의 Ready Queue (높은 우선순위 ~ 낮은 우선순위)
 새 프로세스는 가장 높은 우선순위 큐에 배치
@@ -578,6 +601,7 @@ Time Quantum이 너무 작으면 → 컨텍스트 스위칭 오버헤드 증가
       CPU 위주 프로세스는 점점 낮은 큐로 이동
 → Linux의 CFS(Completely Fair Scheduler)도 이 개념 기반
 ```
+-->
 
 ### 성능 지표
 
@@ -665,6 +689,11 @@ with shared.get_lock():
 
 ### 선택 기준
 
+<!-- diagram:cs-qna-os-5 -->
+![선택 기준](../../assets/diagrams/cs-qna-os-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 대용량 + 고속 → Shared Memory (+ 세마포어)
 비동기 메시징 → Message Queue
@@ -672,6 +701,7 @@ with shared.get_lock():
 단순 부모-자식 → Pipe
 이벤트 알림 → Signal
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 공유 메모리가 빠른 이유 (복사 없이 메모리 직접 접근)
@@ -694,6 +724,11 @@ with shared.get_lock():
 
 ### 파일 시스템 구성
 
+<!-- diagram:cs-qna-os-6 -->
+![파일 시스템 구성](../../assets/diagrams/cs-qna-os-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────────────────────┐
 │             메타 영역                 │
@@ -705,6 +740,7 @@ with shared.get_lock():
 │  - 실제 파일 내용                     │
 └──────────────────────────────────────┘
 ```
+-->
 
 ### 파일 접근 방법
 
@@ -767,6 +803,11 @@ ls -i 명령어로 i-node 번호 확인 가능
 
 ### 페이징 (Paging)
 
+<!-- diagram:cs-qna-os-7 -->
+![페이징](../../assets/diagrams/cs-qna-os-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 가상 메모리를 고정 크기 "페이지(Page)"로 분할
 물리 메모리를 동일 크기 "프레임(Frame)"으로 분할
@@ -785,9 +826,15 @@ ls -i 명령어로 i-node 번호 확인 가능
     (마지막 페이지가 꽉 차지 않으면 낭비)
   - 페이지 테이블 오버헤드
 ```
+-->
 
 ### 세그멘테이션 (Segmentation)
 
+<!-- diagram:cs-qna-os-8 -->
+![세그멘테이션](../../assets/diagrams/cs-qna-os-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 프로세스를 논리적 단위 "세그먼트"로 분할
 세그먼트: 코드, 스택, 힙, 데이터 등
@@ -807,6 +854,7 @@ ls -i 명령어로 i-node 번호 확인 가능
     (가변 크기라 중간에 빈 공간 생김)
   - 연속 메모리 필요
 ```
+-->
 
 ### 비교
 
@@ -821,6 +869,11 @@ ls -i 명령어로 i-node 번호 확인 가능
 
 ### 단편화 비교
 
+<!-- diagram:cs-qna-os-9 -->
+![단편화 비교](../../assets/diagrams/cs-qna-os-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 내부 단편화 (Internal Fragmentation):
   할당된 공간 내부에 낭비 발생
@@ -830,6 +883,7 @@ ls -i 명령어로 i-node 번호 확인 가능
   여러 곳에 흩어진 빈 공간 때문에 큰 연속 공간 없음
   예: 세그먼트 할당/해제 반복 시 중간에 구멍 발생
 ```
+-->
 
 ### 현대 OS: 세그먼테이션 + 페이징 혼합
 

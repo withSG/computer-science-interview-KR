@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 필요한가 - 사용자 체감 시간 구성</title>
+  <desc id="d">클릭부터 시작하여 DNS 조회, TCP TLS 연결, HTML 요청, HTML 파싱, JS 실행, 이미지 폰트 로드 및 서버 처리 200ms와 TTFB, 사용자가 됐다 고 느끼는 순간까지의 흐름을 나타낸 트리 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 클릭 node -->
+  <rect x="30" y="170" width="70" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="65" y="192" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">클릭</text>
+
+  <!-- Tree branch paths from 클릭 -->
+  <!-- 1. DNS 조회 -->
+  <path d="M100,188 L120,188 L120,48 L140,48" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 2. TCP + TLS 연결 -->
+  <path d="M100,188 L120,188 L120,104 L140,104" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 3. HTML 요청... -->
+  <path d="M100,188 L120,188 L120,160 L140,160" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 4. HTML 파싱... -->
+  <path d="M100,188 L120,188 L120,216 L140,216" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 5. JS 실행... -->
+  <path d="M100,188 L120,188 L120,272 L140,272" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 6. 이미지·폰트 로드... -->
+  <path d="M100,188 L120,188 L120,328 L140,328" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+
+  <!-- Node 1: DNS 조회 -->
+  <rect x="140" y="30" width="110" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="195" y="52" font-size="13" fill="#1f2933" text-anchor="middle">DNS 조회</text>
+
+  <!-- Node 2: TCP + TLS 연결 -->
+  <rect x="140" y="86" width="140" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="210" y="108" font-size="13" fill="#1f2933" text-anchor="middle">TCP + TLS 연결</text>
+
+  <!-- Node 3: HTML 요청 Sequence -->
+  <rect x="140" y="142" width="110" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="195" y="164" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">HTML 요청</text>
+
+  <path d="M250,160 L275,160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <rect x="285" y="142" width="180" height="36" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="375" y="164" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">서버 처리(여기가 200ms)</text>
+
+  <path d="M465,160 L490,160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <rect x="500" y="142" width="180" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="590" y="164" font-size="13" fill="#1f2933" text-anchor="middle">첫 바이트 도착 (TTFB)</text>
+
+  <!-- Node 4: HTML 파싱 Sequence -->
+  <rect x="140" y="198" width="110" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="195" y="220" font-size="13" fill="#1f2933" text-anchor="middle">HTML 파싱</text>
+
+  <path d="M250,216 L275,216" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <rect x="285" y="198" width="125" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="347.5" y="220" font-size="13" fill="#1f2933" text-anchor="middle">CSS/JS 발견</text>
+
+  <path d="M410,216 L435,216" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <rect x="445" y="198" width="150" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="520" y="220" font-size="13" fill="#1f2933" text-anchor="middle">그것들을 다시 요청</text>
+
+  <!-- Node 5: JS 실행 Sequence -->
+  <rect x="140" y="254" width="85" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="182.5" y="276" font-size="13" fill="#1f2933" text-anchor="middle">JS 실행</text>
+
+  <path d="M225,272 L250,272" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <rect x="260" y="254" width="135" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="327.5" y="276" font-size="13" fill="#1f2933" text-anchor="middle">프레임워크 부팅</text>
+
+  <path d="M395,272 L420,272" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <rect x="430" y="254" width="105" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="482.5" y="276" font-size="13" fill="#1f2933" text-anchor="middle">데이터 요청</text>
+
+  <path d="M535,272 L560,272" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <rect x="570" y="254" width="65" height="36" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="602.5" y="276" font-size="13" fill="#1f2933" text-anchor="middle">렌더</text>
+
+  <!-- Node 6: 이미지·폰트 로드 Sequence -->
+  <rect x="140" y="310" width="145" height="36" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="212.5" y="332" font-size="13" fill="#7c3aed" font-weight="bold" text-anchor="middle">이미지·폰트 로드</text>
+
+  <path d="M285,328 L310,328" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <rect x="320" y="310" width="95" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="367.5" y="332" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">최종 화면</text>
+
+  <!-- 사용자가 "됐다"고 느끼는 순간 (Annotation) -->
+  <path d="M367.5,310 L367.5,280 L520,280 L520,315" stroke="#52606d" stroke-width="1" stroke-dasharray="4 3" fill="none"/>
+  <text x="610" y="332" font-size="13" font-weight="bold" fill="#52606d">사용자가 "됐다"고 느끼는 순간</text>
+  <path d="M602,328 L423,328" stroke="#52606d" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+</svg>

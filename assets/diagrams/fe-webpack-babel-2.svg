@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">loader 체인은 오른쪽에서 왼쪽으로</title>
+  <desc id="d">Webpack loader 체인의 SCSS 처리 과정 다이어그램: 파일 읽기부터 style-loader를 거쳐 자바스크립트 모듈 생성까지의 흐름</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Step 0: Input File -->
+  <rect x="265" y="30" width="350" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="56.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">파일 읽기: styles.scss</text>
+
+  <!-- Arrow 1 -->
+  <path d="M440,74 L440,114" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 1: sass-loader -->
+  <rect x="50" y="114" width="780" height="64" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="70" y="130" width="130" height="32" rx="4" fill="#2563eb"/>
+  <text x="135" y="150.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">sass-loader</text>
+  <text x="220" y="150.5" font-size="13" fill="#1f2933" text-anchor="start">SCSS 문법을 해석해 순수 CSS 문자열로</text>
+
+  <!-- Arrow 2 -->
+  <path d="M440,178 L440,218" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 2: css-loader -->
+  <rect x="50" y="218" width="780" height="64" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="70" y="234" width="130" height="32" rx="4" fill="#2563eb"/>
+  <text x="135" y="254.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">css-loader</text>
+  <text x="220" y="254.5" font-size="13" fill="#1f2933" text-anchor="start">CSS 안의 @import·url()을 모듈 의존성으로 바꿔 JS 모듈화</text>
+
+  <!-- Arrow 3 -->
+  <path d="M440,282 L440,322" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 3: style-loader -->
+  <rect x="50" y="322" width="780" height="64" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="70" y="338" width="130" height="32" rx="4" fill="#2563eb"/>
+  <text x="135" y="358.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">style-loader</text>
+  <text x="220" y="358.5" font-size="13" fill="#1f2933" text-anchor="start">"이 CSS를 &lt;style&gt; 태그로 DOM에 꽂아라"는 JS 코드로 감싼다</text>
+
+  <!-- Arrow 4 -->
+  <path d="M440,386 L440,426" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step 4: Output JS Module -->
+  <rect x="140" y="426" width="600" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="452.5" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">자바스크립트 모듈 (Webpack이 드디어 이해할 수 있는 형태)</text>
+</svg>

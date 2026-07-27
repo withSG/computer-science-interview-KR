@@ -185,6 +185,11 @@ CORS(Cross-Origin Resource Sharing)는 **다른 출처의 리소스 접근을 �
 
 ### Same-Origin Policy
 
+<!-- diagram:sec-qna-security-1 -->
+![Same-Origin Policy](../assets/diagrams/sec-qna-security-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 같은 출처: 프로토콜 + 호스트 + 포트가 동일
 
@@ -194,6 +199,7 @@ https://example.com:443/page
 
 https://api.example.com → 다른 출처 (호스트 다름)
 ```
+-->
 
 ### CORS 헤더
 
@@ -345,6 +351,11 @@ String hash = BCrypt.hashpw(password, BCrypt.gensalt());
 | 용도 | 데이터 암호화 | 키 교환, 서명 |
 
 ### 대칭키 암호화
+<!-- diagram:sec-qna-security-2 -->
+![대칭키 암호화](../assets/diagrams/sec-qna-security-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 송신자          수신자
   │               │
@@ -352,10 +363,16 @@ String hash = BCrypt.hashpw(password, BCrypt.gensalt());
   │     데이터      │
   │◄─── 복호화 ────│
 ```
+-->
 - 장점: 빠름
 - 단점: 키 공유 문제
 
 ### 비대칭키 암호화
+<!-- diagram:sec-qna-security-3 -->
+![비대칭키 암호화](../assets/diagrams/sec-qna-security-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 송신자                 수신자
   │                     │
@@ -365,6 +382,7 @@ String hash = BCrypt.hashpw(password, BCrypt.gensalt());
   │                     │
   │     개인키로 복호화   │
 ```
+-->
 - 공개키: 암호화용 (공개)
 - 개인키: 복호화용 (비밀)
 
@@ -442,6 +460,11 @@ JWT는 **JSON 형식의 자가 포함(Self-contained) 토큰**으로, 당사자 
 
 ### JWT 구조
 
+<!-- diagram:sec-qna-security-4 -->
+![JWT 구조](../assets/diagrams/sec-qna-security-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 xxxxx.yyyyy.zzzzz
   │      │     │
@@ -451,6 +474,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.    ← Header (Base64)
 eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik...  ← Payload (Base64)
 SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c ← Signature
 ```
+-->
 
 ### 각 부분의 역할
 
@@ -462,12 +486,18 @@ SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c ← Signature
 
 ### JWT 인증 흐름
 
+<!-- diagram:sec-qna-security-5 -->
+![JWT 인증 흐름](../assets/diagrams/sec-qna-security-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 로그인 → 서버가 JWT 발급
 2. 클라이언트가 토큰 저장 (localStorage, Cookie)
 3. 요청마다 Authorization: Bearer {token} 헤더로 전송
 4. 서버가 서명 검증 후 요청 처리
 ```
+-->
 
 ### JWT 장점
 
@@ -524,6 +554,11 @@ OAuth는 **제3자 애플리케이션이 사용자의 리소스에 접근할 수
 
 ### Authorization Code Grant 흐름 (가장 일반적)
 
+<!-- diagram:sec-qna-security-6 -->
+![Authorization Code Grant 흐름](../assets/diagrams/sec-qna-security-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────┐                              ┌───────────────┐
 │  사용자   │                              │  Authorization │
@@ -548,6 +583,7 @@ OAuth는 **제3자 애플리케이션이 사용자의 리소스에 접근할 수
 │          │  6. Access Token 발급         │               │
 └──────────┘                              └───────────────┘
 ```
+-->
 
 ### OAuth Grant Types
 
@@ -623,6 +659,11 @@ OAuth = 신분증 발급 절차 (프로토콜)
 
 ### 관계
 
+<!-- diagram:sec-qna-security-7 -->
+![관계](../assets/diagrams/sec-qna-security-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────┐
 │           OAuth 2.0                 │
@@ -635,6 +676,7 @@ OAuth = 신분증 발급 절차 (프로토콜)
 │                                     │
 └─────────────────────────────────────┘
 ```
+-->
 
 ### 사용 시나리오 비교
 
@@ -655,6 +697,11 @@ OAuth = 신분증 발급 절차 (프로토콜)
 ```
 
 **OAuth + JWT (소셜 로그인)**
+<!-- diagram:sec-qna-security-8 -->
+![JWT 단독 인증 vs OAuth 인증](../assets/diagrams/sec-qna-security-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 사용자 → Google: 로그인
 2. Google → 우리 서버: Authorization Code
@@ -662,6 +709,7 @@ OAuth = 신분증 발급 절차 (프로토콜)
 4. 우리 서버: 사용자 정보 확인 후 자체 JWT 발급
 5. 사용자: 우리 JWT로 API 요청
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - JWT와 OAuth가 다른 레벨의 개념임을 이해

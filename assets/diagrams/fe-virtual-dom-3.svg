@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Virtual DOM이 하지 않는 일</title>
+  <desc id="d">상태 변경부터 페인트까지의 프로세스에서 내 코드, Virtual DOM, 브라우저가 각각 담당하는 구간을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Left Boundary Zone: Virtual DOM이 담당하는 구간 -->
+  <rect x="24" y="24" width="466" height="292" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="40" y="52" font-size="14" font-weight="bold" fill="#2563eb">Virtual DOM이 담당하는 구간</text>
+
+  <!-- Divider Line -->
+  <line x1="160" y1="24" x2="160" y2="316" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Main Flow Nodes -->
+  <!-- 1. 상태 변경 -->
+  <text x="90" y="104.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">상태 변경</text>
+
+  <!-- Arrow: 상태 변경 -> [렌더] -->
+  <path d="M130,100 L180,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 2. [렌더] -->
+  <rect x="180" y="75" width="80" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="220" y="104.55" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">렌더</text>
+
+  <!-- Arrow: [렌더] -> [비교] -->
+  <path d="M260,100 L300,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 3. [비교] -->
+  <rect x="300" y="75" width="80" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="340" y="104.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">비교</text>
+
+  <!-- Arrow: [비교] -> [커밋] -->
+  <path d="M380,100 L420,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 4. [커밋] -->
+  <rect x="420" y="75" width="80" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="460" y="104.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">커밋</text>
+
+  <!-- Arrow: [커밋] -> 레이아웃 -->
+  <path d="M500,100 L550,100" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 5. 레이아웃 -->
+  <rect x="550" y="75" width="100" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="600" y="104.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">레이아웃</text>
+
+  <!-- Arrow: 레이아웃 -> 페인트 -->
+  <path d="M650,100 L700,100" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 6. 페인트 -->
+  <rect x="700" y="75" width="100" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="750" y="104.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">페인트</text>
+
+  <!-- Vertical Annotations Below Main Flow -->
+
+  <!-- Annotations for [렌더] -->
+  <path d="M220,200 L220,133" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#a-ink)"/>
+  <text x="220" y="218.025" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">내 코드</text>
+  <text x="220" y="240.025" font-size="11.5" fill="#52606d" text-anchor="middle">(느리면</text>
+  <text x="220" y="260.025" font-size="11.5" fill="#52606d" text-anchor="middle">그대로 느림)</text>
+
+  <!-- Annotations for [비교] -->
+  <path d="M340,200 L340,133" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#a-blue)"/>
+  <text x="340" y="218.025" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">VDOM 담당</text>
+
+  <!-- Annotations for [커밋] -->
+  <path d="M460,200 L460,133" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#a-blue)"/>
+  <text x="460" y="218.025" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">VDOM 담당</text>
+
+  <!-- Annotations for 레이아웃 -->
+  <path d="M600,200 L600,133" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#a-purple)"/>
+  <text x="600" y="218.025" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">브라우저</text>
+
+  <!-- Annotations for 페인트 -->
+  <path d="M750,200 L750,133" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#a-purple)"/>
+  <text x="750" y="218.025" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">브라우저</text>
+</svg>

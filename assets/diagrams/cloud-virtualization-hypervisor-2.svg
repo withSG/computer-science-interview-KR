@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">3.1 하는 일 — 게스트의 명령을 가로채는 것</title>
+  <desc id="d">게스트 OS의 특권 명령 시도를 하이퍼바이저가 가로채어 가상 자원에 반영한 뒤 결과만 돌려주고 실제 하드웨어에는 하이퍼바이저만 접근하는 과정을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="370" fill="#ffffff"/>
+
+  <!-- Step 1: 게스트 OS -->
+  <rect x="220" y="30" width="280" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="360" y="54.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">게스트 OS: "인터럽트 끄고 페이지 테이블 바꿀게"</text>
+
+  <!-- Arrow 1: 특권 명령 실행 시도 -->
+  <path d="M360,70 L360,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="295" y="81" width="130" height="18" fill="#ffffff"/>
+  <text x="360" y="94.025" text-anchor="middle" font-size="11.5" fill="#52606d">특권 명령 실행 시도</text>
+
+  <!-- Step 2: 하이퍼바이저 트랩 박스 -->
+  <rect x="190" y="110" width="340" height="110" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="210" y="142.55" text-anchor="start" font-size="13" font-weight="bold" fill="#1f2933">하이퍼바이저가 트랩(가로채기)</text>
+  <text x="210" y="169.55" text-anchor="start" font-size="13" fill="#1f2933">→ 이 VM의 가상 자원에만 반영</text>
+  <text x="210" y="196.55" text-anchor="start" font-size="13" fill="#1f2933">→ 결과만 게스트에게 돌려준다</text>
+
+  <!-- Side Note: ← 게스트는 이 단계를 인지하지 못한다 -->
+  <text x="545" y="169.55" text-anchor="start" font-size="13" fill="#d97706">← 게스트는 이 단계를 인지하지 못한다</text>
+
+  <!-- Arrow 2: 하드웨어로 전달 -->
+  <path d="M360,220 L360,270" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step 3: 실제 하드웨어 -->
+  <rect x="200" y="270" width="320" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="360" y="294.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">실제 하드웨어에는 하이퍼바이저만 접근</text>
+</svg>

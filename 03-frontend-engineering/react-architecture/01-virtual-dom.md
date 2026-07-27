@@ -146,6 +146,11 @@ const tree = (
 
 ## 3. 상태 변경부터 화면 반영까지
 
+<!-- diagram:fe-virtual-dom-1 -->
+![3. 상태 변경부터 화면 반영까지](../../assets/diagrams/fe-virtual-dom-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  setState 호출
       │
@@ -175,6 +180,7 @@ const tree = (
       ▼
  브라우저가 레이아웃·페인트 수행
 ```
+-->
 
 여기서 반드시 구분해야 할 두 단어가 있다.
 
@@ -225,6 +231,11 @@ setCount(42);
 
 Virtual DOM은 DOM 조작을 **빠르게** 만드는 기술이 아니라, **필요 이상의 DOM 조작을 막아 주는** 기술이다. 상한선을 낮춰 주는 것이지 하한선을 낮추는 게 아니다.
 
+<!-- diagram:fe-virtual-dom-2 -->
+![왜 부정확한가](../../assets/diagrams/fe-virtual-dom-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 직접 조작 (수동 최적화)
   ├─ 최선의 경우: React보다 빠름 (사람이 정확히 최소 변경만 함)
@@ -236,6 +247,7 @@ Virtual DOM
         ↑
    "성능의 바닥을 보장한다"가 Virtual DOM의 실제 효용
 ```
+-->
 
 ### 정확한 표현
 
@@ -256,6 +268,11 @@ Virtual DOM
 
 **노드 개수를 줄여 주지 않는다.** 1만 행짜리 테이블을 그리라고 하면 그대로 1만 개의 DOM 노드를 만든다. 이 문제의 답은 Virtual DOM이 아니라 가상 스크롤이다.
 
+<!-- diagram:fe-virtual-dom-3 -->
+![Virtual DOM이 하지 않는 일](../../assets/diagrams/fe-virtual-dom-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Virtual DOM이 담당하는 구간
              │
@@ -265,6 +282,7 @@ Virtual DOM이 담당하는 구간
              │   (느리면
              │    그대로 느림)
 ```
+-->
 
 ---
 
@@ -285,6 +303,11 @@ Virtual DOM이 담당하는 구간
 
 Virtual DOM 트리는 "무엇을 그릴지"만 담고 "어떻게 그릴지"는 담지 않는다. 그래서 트리를 해석하는 렌더러를 바꿔 끼울 수 있다.
 
+<!-- diagram:fe-virtual-dom-4 -->
+![크로스 플랫폼](../../assets/diagrams/fe-virtual-dom-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
        컴포넌트 코드 (공통)
               │
@@ -296,6 +319,7 @@ Virtual DOM 트리는 "무엇을 그릴지"만 담고 "어떻게 그릴지"는 �
       │               │
    HTML 요소      네이티브 View
 ```
+-->
 
 React Native가 같은 React 문법으로 동작하는 이유가 여기 있다. 재조정 로직은 그대로 두고 커밋 단계의 렌더러만 교체한 것이다.
 

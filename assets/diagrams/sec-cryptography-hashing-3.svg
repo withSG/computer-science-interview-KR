@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">SHA-256만으로는 왜 부족한가</title>
+  <desc id="d">공격자가 유출 이전에 미리 만들어두는 레인보우 테이블과 유출 시 해시값 조회 과정을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 상단 박스: 공격자가 유출 이전에 미리 만들어두는 표 -->
+  <rect x="40" y="30" width="800" height="190" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+
+  <text x="60" y="65" font-size="14" font-weight="bold" fill="#dc2626">공격자가 유출 이전에 미리 만들어두는 표</text>
+
+  <!-- 매핑 항목 1 -->
+  <g transform="translate(80, 85)">
+    <rect x="0" y="0" width="110" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="55" y="21" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"123456"</text>
+
+    <path d="M120,16 L170,16" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <rect x="180" y="0" width="160" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="260" y="21" font-size="13" font-family="'Courier New', Courier, monospace" fill="#52606d" text-anchor="middle">e10adc39...</text>
+  </g>
+
+  <!-- 매핑 항목 2 -->
+  <g transform="translate(80, 125)">
+    <rect x="0" y="0" width="110" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="55" y="21" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"password"</text>
+
+    <path d="M120,16 L170,16" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <rect x="180" y="0" width="160" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="260" y="21" font-size="13" font-family="'Courier New', Courier, monospace" fill="#52606d" text-anchor="middle">5e884898...</text>
+  </g>
+
+  <!-- 매핑 항목 3 (부연 설명) -->
+  <text x="80" y="192" font-size="13" fill="#52606d">(수십억 개의 흔한 비밀번호 + 조합)</text>
+
+  <!-- 하단 박스: DB 유출 시 결과 설명 -->
+  <rect x="40" y="240" width="800" height="70" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="60" y="281" font-size="14" font-weight="bold" fill="#7c3aed">DB가 유출되면 해시값으로 표를 조회. 일치하면 즉시 원본 확인. 계산 시간 0.</text>
+</svg>

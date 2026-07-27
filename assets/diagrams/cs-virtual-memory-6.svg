@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">악순환의 구조</title>
+  <desc id="d">스래싱이 발생하는 악순환 과정. 페이지 폴트 급증에서 CPU 이용률 하락, 프로세스 추가 투입, 메모리 부족 심화로 이어지는 순환 다이어그램.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <text x="440" y="38" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">악순환의 구조</text>
+
+  <!-- Node 1 -->
+  <rect x="220" y="60" width="440" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="89" fill="#1f2933" font-size="13" text-anchor="middle">프로세스들이 각자 필요한 페이지를 다 확보하지 못함</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M440,108 L440,138" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Node 2 -->
+  <rect x="150" y="140" width="580" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="169" fill="#1f2933" font-size="13" text-anchor="middle">페이지 폴트 급증 → 디스크 I/O 대기로 Waiting 상태에 몰림</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M440,188 L440,218" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Node 3 -->
+  <rect x="330" y="220" width="220" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="249" fill="#1f2933" font-size="13" text-anchor="middle">CPU 이용률 하락</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M440,268 L440,298" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Node 4 -->
+  <g>
+    <rect x="180" y="300" width="370" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="365" y="329" fill="#1f2933" font-size="13" text-anchor="middle">OS: "CPU가 놀고 있네? 프로세스를 더 올리자"</text>
+    
+    <rect x="560" y="312" width="105" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="612" y="328" fill="#dc2626" font-size="12" font-weight="bold" text-anchor="middle">← 여기가 함정</text>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M440,348 L440,378" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Node 5 -->
+  <rect x="270" y="380" width="180" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="360" y="409" fill="#1f2933" font-size="13" text-anchor="middle">메모리가 더 부족해짐</text>
+
+  <!-- Feedback Loop Arrow: Node 5 -> Node 2 -->
+  <path d="M450,404 L760,404 L760,164 L732,164" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#a-red)"/>
+  
+  <rect x="475" y="392" width="225" height="24" fill="#ffffff"/>
+  <text x="587" y="408" fill="#dc2626" font-size="12" font-weight="bold" text-anchor="middle">페이지 폴트 더 급증 (악순환)</text>
+</svg>

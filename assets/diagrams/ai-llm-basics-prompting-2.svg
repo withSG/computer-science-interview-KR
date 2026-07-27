@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">컨텍스트 윈도우는 예산이다</title>
+  <desc id="d">컨텍스트 윈도우 내 시스템 프롬프트, 대화 이력, RAG 컨텍스트, 질문, 출력 영역의 구성과 대화 이력이 증가함에 따른 영향 설명 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 메인 컨텍스트 윈도우 테두리 및 영역 -->
+  <rect x="24" y="30" width="832" height="110" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  
+  <!-- 컨텍스트 윈도우 제목 (상단 중앙) -->
+  <rect x="360" y="20" width="160" height="20" fill="#ffffff"/>
+  <text x="440" y="34" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">컨텍스트 윈도우</text>
+
+  <!-- 내부 박스들 -->
+  <!-- 1. 시스템 프롬프트 (보라색) -->
+  <rect x="40" y="60" width="150" height="60" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="115" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">시스템 프롬프트</text>
+
+  <!-- 2. 대화 이력 (주황색 - 경고/위험 의미) -->
+  <rect x="200" y="60" width="160" height="60" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="280" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#d97706">대화 이력</text>
+
+  <!-- 3. RAG 컨텍스트 (파란색) -->
+  <rect x="370" y="60" width="170" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="455" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">RAG 컨텍스트</text>
+
+  <!-- 4. 질문 (초록색) -->
+  <rect x="550" y="60" width="120" height="60" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="610" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">질문</text>
+
+  <!-- 5. 출력 (빨간색 - 확보 영역/위험) -->
+  <rect x="680" y="60" width="160" height="60" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="760" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">출력</text>
+
+  <!-- 각 박스 하단 설명 (부연 설명) -->
+  <!-- 시스템 프롬프트 설명 -->
+  <text x="115" y="160" text-anchor="middle" font-size="11.5" fill="#52606d">고정, 매 호출</text>
+  <text x="115" y="178" text-anchor="middle" font-size="11.5" fill="#52606d">마다 재전송</text>
+
+  <!-- 대화 이력 설명 -->
+  <text x="280" y="160" text-anchor="middle" font-size="11.5" fill="#d97706" font-weight="bold">늘어남</text>
+  <text x="280" y="178" text-anchor="middle" font-size="11.5" fill="#d97706">(누적)</text>
+
+  <!-- RAG 컨텍스트 설명 -->
+  <text x="455" y="160" text-anchor="middle" font-size="11.5" fill="#52606d">Top-K에 비례</text>
+
+  <!-- 질문 설명 -->
+  <text x="610" y="160" text-anchor="middle" font-size="11.5" fill="#52606d">짧음</text>
+
+  <!-- 출력 설명 -->
+  <text x="760" y="160" text-anchor="middle" font-size="11.5" fill="#52606d">max_tokens</text>
+  <text x="760" y="178" text-anchor="middle" font-size="11.5" fill="#52606d">만큼 확보</text>
+
+  <!-- 대화 이력이 자라는 화살표 표시 -->
+  <path d="M 330 90 L 670 90" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 하단 경고/강조 문구 박스 -->
+  <rect x="180" y="225" width="520" height="75" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
+  <text x="440" y="253" text-anchor="middle" font-size="13" font-weight="bold" fill="#b45309">여기가 계속 자라서 출력 자리를 잡아먹는 것이</text>
+  <text x="440" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#b45309">장시간 대화형 서비스에서 가장 흔한 사고다</text>
+</svg>

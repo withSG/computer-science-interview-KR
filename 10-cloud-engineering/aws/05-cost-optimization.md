@@ -36,6 +36,11 @@
 
 AWS가 컴퓨팅 요금제를 여러 개로 나눈 이유는 명확하다. **AWS 입장에서 가장 비싼 것은 예측 불가능한 수요**다. 사용자가 "1년간 이만큼 쓰겠다"고 약속해주면 AWS는 용량 계획이 쉬워지고, 그 대가로 할인을 준다. 반대로 "언제든 뺏어가도 좋다"고 하면 AWS는 남는 용량을 팔 수 있으므로 더 큰 할인을 준다.
 
+<!-- diagram:cloud-cost-optimization-1 -->
+![2. 컴퓨팅 과금 모델: 약정과 유연성의 교환](../../assets/diagrams/cloud-cost-optimization-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    유연성 높음                                              유연성 낮음
    할인 없음                                                할인 큼
@@ -53,6 +58,7 @@ AWS가 컴퓨팅 요금제를 여러 개로 나눈 이유는 명확하다. **AWS
   스파이크          바뀔 수 있는      장기 워크로드      배치·비동기 작업
                     장기 워크로드
 ```
+-->
 
 ### 각각의 성격
 
@@ -81,6 +87,11 @@ AWS가 컴퓨팅 요금제를 여러 개로 나눈 이유는 명확하다. **AWS
 
 **결론: 하나를 고르는 문제가 아니라 층을 쌓는 문제다.**
 
+<!-- diagram:cloud-cost-optimization-2 -->
+![비교](../../assets/diagrams/cloud-cost-optimization-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 사용량
   ▲
@@ -89,6 +100,7 @@ AWS가 컴퓨팅 요금제를 여러 개로 나눈 이유는 명확하다. **AWS
   │  ██████████████████ ← 기저 부하(baseline): Savings Plans / RI로 약정
   └──────────────────────────▶ 시간
 ```
+-->
 
 기저 부하는 1년 내내 반드시 돌아가는 양이다. 여기를 약정으로 덮고, 그 위의 변동분은 On-Demand와 Spot으로 채운다. **약정을 실제 기저보다 크게 잡으면 안 쓰는 약정에 돈을 내게 되므로**, 과거 사용량 데이터를 보고 보수적으로 시작해 점진적으로 늘리는 것이 안전하다.
 
@@ -100,6 +112,11 @@ Spot을 "싸니까 그냥 쓰자"로 접근하면 반드시 사고가 난다. Sp
 
 ### 중단은 이렇게 통보된다
 
+<!-- diagram:cloud-cost-optimization-3 -->
+![중단은 이렇게 통보된다](../../assets/diagrams/cloud-cost-optimization-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  AWS가 용량 회수를 결정
         ├──▶ 인스턴스 메타데이터에 중단 예고 노출
@@ -108,6 +125,7 @@ Spot을 "싸니까 그냥 쓰자"로 접근하면 반드시 사고가 난다. Sp
         ├──▶ EventBridge 이벤트 발행 (Spot Instance Interruption Warning)
         └──▶ 약 2분 뒤 인스턴스 중지/종료
 ```
+-->
 
 애플리케이션은 이 신호를 폴링하거나 이벤트로 받아 **정리(graceful shutdown)** 를 시작해야 한다.
 
@@ -122,6 +140,11 @@ curl -s -o /dev/null -w "%{http_code}" -H "X-aws-ec2-metadata-token: $TOKEN" \
 
 ### 2분 동안 해야 할 일
 
+<!-- diagram:cloud-cost-optimization-4 -->
+![2분 동안 해야 할 일](../../assets/diagrams/cloud-cost-optimization-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 중단 예고 감지
    │
@@ -131,6 +154,7 @@ curl -s -o /dev/null -w "%{http_code}" -H "X-aws-ec2-metadata-token: $TOKEN" \
    ├─ 4) 진행 중 요청이 끝날 때까지 대기 (드레이닝)
    └─ 5) 정상 종료
 ```
+-->
 
 이 흐름이 성립하려면 애플리케이션이 세 가지 성질을 가져야 한다.
 
@@ -219,6 +243,11 @@ aws s3api put-bucket-lifecycle-configuration \
 
 기본 원칙은 세 가지다. **들어오는 것(inbound)은 대체로 무료**이고, **나가는 것(outbound)이 과금**되며 인터넷으로 나갈수록·멀리 갈수록 비싸다. 그리고 **AWS 안에서도 경계를 넘으면 과금된다.** AZ를 넘고, 리전을 넘고, 퍼블릭 IP를 거치면 돈이 붙는다.
 
+<!-- diagram:cloud-cost-optimization-5 -->
+![5. 데이터 전송 비용: 청구서에서 가장 늦게 발견되는 항목](../../assets/diagrams/cloud-cost-optimization-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────────────── Region ──────────────────────┐
 │  ┌───── AZ-a ─────┐         ┌───── AZ-c ─────┐     │
@@ -238,6 +267,7 @@ aws s3api put-bucket-lifecycle-configuration \
                  ▼
              사용자
 ```
+-->
 
 여기서 실무에서 비용이 새는 대표적인 지점들이다.
 
@@ -309,6 +339,11 @@ aws ec2 describe-addresses \
 
 가장 확실한 절감은 **안 쓰는 시간에 안 켜져 있는 것**이다.
 
+<!-- diagram:cloud-cost-optimization-6 -->
+![7. 오토스케일링과 스케줄링으로 줄이기](../../assets/diagrams/cloud-cost-optimization-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [ 고정 용량 ]                       [ 오토스케일링 ]
 용량                                용량
@@ -319,6 +354,7 @@ aws ec2 describe-addresses \
  └──────────────────▶ 시간          └──────────────────▶ 시간
    피크에 맞춰 상시 유지               수요를 따라 용량이 움직임
 ```
+-->
 
 ### 운영 환경: 수요 기반 스케일링
 

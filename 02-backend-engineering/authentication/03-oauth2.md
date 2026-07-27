@@ -23,6 +23,11 @@
 
 2000년대 중반, 어떤 서비스가 "당신의 Gmail 주소록을 가져와 친구를 찾아드립니다"라고 하면 방법은 하나뿐이었다. **사용자가 Gmail 아이디와 비밀번호를 그 서비스에 입력하는 것.**
 
+<!-- diagram:be-oauth2-1 -->
+![1. 왜 필요한가](../../assets/diagrams/be-oauth2-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   사용자 ── "구글 아이디/비번을 여기 입력하세요" ──► 친구찾기 서비스
                                                         │ 사용자 비번으로 로그인
@@ -30,6 +35,7 @@
                                     Google 계정 전체 (주소록, 메일, 드라이브,
                                                      결제수단, 비밀번호 변경…)
 ```
+-->
 
 문제는 다섯 가지다. **범위를 제한할 수 없고**(사진만 필요한 서비스가 메일까지 본다), **기간을 제한할 수 없고**,
 **철회하려면 비밀번호를 바꿔야 하며**(그 비밀번호를 준 다른 모든 서비스가 함께 끊긴다), **서비스가 비밀번호를
@@ -128,6 +134,11 @@ grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA
 "바로 Access Token을 주면 안 되나?"가 자연스러운 질문이다. 답은 **브라우저를 통과하는 값과 서버끼리 주고받는 값을
 분리하기 위해서**다.
 
+<!-- diagram:be-oauth2-2 -->
+![왜 코드를 한 번 거치나](../../assets/diagrams/be-oauth2-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    브라우저 경유 (위험)                 백엔드 직통 (안전)
    ─────────────────                   ──────────────────
@@ -137,6 +148,7 @@ grant_type=authorization_code&code=SplxlOBeZQQYbYS6WxSbIA
 
    여기로는 ▶ Code(일회용, 단명)        여기로는 ▶ Access Token(장기, 강력)
 ```
+-->
 
 Authorization Code에는 세 겹의 안전장치가 있다. **일회용**이라 한 번 교환되면 무효고(재사용이 감지되면 그 코드로 발급된
 토큰까지 폐기하도록 권고된다), **수명이 매우 짧아** 로그를 뒤져 찾아냈을 땐 이미 죽어 있으며, **`client_secret`이 있어야
@@ -224,6 +236,11 @@ printf '%s' 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk' \
 
 OAuth의 Access Token은 **"무엇을 할 수 있는가"**를 담는다. **"누구인가"**를 담지 않는다. 이 차이가 실제 공격으로 이어진다.
 
+<!-- diagram:be-oauth2-3 -->
+![6. OAuth(인가) vs OIDC(인증)](../../assets/diagrams/be-oauth2-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [토큰 대체 공격 — OAuth만으로 로그인을 만들었을 때]
 
@@ -233,6 +250,7 @@ OAuth의 Access Token은 **"무엇을 할 수 있는가"**를 담는다. **"누�
            문제: 토큰의 발급 대상을 확인할 표준 수단이 없어
                  다른 앱용으로 발급된 토큰도 그대로 통과한다
 ```
+-->
 
 핵심은 **Access Token만 받아서는 "이 토큰이 어느 앱을 위해 발급됐는지"를 확인할 방법이 마땅치 않다**는 점이다. 토큰이
 불투명한 문자열(opaque string)인 경우가 많아 서비스는 그 안을 볼 수 없고, UserInfo 응답 형식도 공급자마다 제각각이다.
@@ -242,6 +260,11 @@ Deputy)** 문제라 부른다.
 
 **OpenID Connect(OIDC)**는 OAuth 2.0 위에 얇게 얹은 인증 표준이다. 핵심은 `id_token` 하나다.
 
+<!-- diagram:be-oauth2-4 -->
+![6. OAuth(인가) vs OIDC(인증)](../../assets/diagrams/be-oauth2-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
      ┌──────────────────────────────────────────┐
      │ OpenID Connect: ID Token/UserInfo/nonce  │  ← 인증 (누구인가)
@@ -249,6 +272,7 @@ Deputy)** 문제라 부른다.
      │ OAuth 2.0: Grant Type/Access Token/Scope │  ← 인가 (무엇을 할 수 있는가)
      └──────────────────────────────────────────┘
 ```
+-->
 
 `scope`에 `openid`를 포함해 요청하면 토큰 응답에 `id_token`이 함께 온다. 이것은 **JWT**다.
 
@@ -302,6 +326,11 @@ async function verifyIdToken(idToken, expectedNonce) {
 
 `state`가 없으면 이런 공격이 성립한다.
 
+<!-- diagram:be-oauth2-5 -->
+![7. state 파라미터와 CSRF](../../assets/diagrams/be-oauth2-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  (1) 공격자가 자기 구글 계정으로 인가 흐름을 시작해 code를 손에 넣는다 (쓰지 않고 보관)
  (2) 피해자에게 링크를 보낸다:  https://victim-service.com/callback?code=<공격자의_code>
@@ -309,6 +338,7 @@ async function verifyIdToken(idToken, expectedNonce) {
  (4) 우리 서비스: "코드가 왔네" → 토큰 교환 → 공격자의 구글 계정을 피해자 계정에 연결
  (5) 이제 공격자는 자기 구글 계정으로 피해자의 계정에 로그인할 수 있다
 ```
+-->
 
 **로그인 CSRF** 또는 **계정 연결 하이재킹**이라 부른다. 콜백 요청이 **정말 우리가 시작한 흐름의 결과인지** 확인하지 않았기
 때문에 뚫린다. 방어는 인가 요청 때 예측 불가능한 랜덤값 `state`를 만들어 **서버 세션에 저장**하고 함께 보낸 뒤, 콜백으로
@@ -362,6 +392,11 @@ app.get('/auth/callback', async (req, res) => {
 
 소셜 로그인에서 우리 서비스가 하는 일은 이렇다.
 
+<!-- diagram:be-oauth2-6 -->
+![8. 실무에서는](../../assets/diagrams/be-oauth2-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  1. 사용자를 공급자 인가 화면으로 보낸다 (state, nonce, PKCE 포함)
  2. 콜백에서 state 검증 → code를 토큰으로 교환
@@ -369,6 +404,7 @@ app.get('/auth/callback', async (req, res) => {
  4. (iss, sub)로 우리 DB에서 사용자를 찾거나 새로 만든다
  5. 여기서부터는 우리 서비스의 인증 체계로 (세션 쿠키 또는 우리가 서명한 JWT)
 ```
+-->
 
 **5번이 중요하다.** 구글의 Access Token을 우리 서비스의 인증 수단으로 계속 쓰지 않는다. 구글 토큰은 "구글 API를 호출할
 권한"이지 "우리 서비스의 로그인 상태"가 아니다.

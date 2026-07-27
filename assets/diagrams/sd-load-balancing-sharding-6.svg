@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">일관된 해싱</title>
+  <desc id="d">일관된 해싱의 노드 추가 시 키 이동 비율과 원형 링 위에서의 노드 및 키 배정 방식을 보여주는 다이어그램입니다.</desc>
+  
+  <rect width="880" height="730" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 상단 박스: 나머지 % N 방식 vs 일관된 해싱 비교 -->
+  <rect x="24" y="24" width="832" height="150" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Section 1: 나머지 % N 방식 -->
+  <rect x="40" y="40" width="800" height="54" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="56" y="73" fill="#dc2626" font-size="14" font-weight="bold" text-anchor="start">나머지 % N 방식:</text>
+  <text x="210" y="73" fill="#1f2933" font-size="13" text-anchor="start">노드 N개 → N+1개일 때  약 N/(N+1) 의 키가 이동</text>
+  <text x="580" y="73" fill="#52606d" font-size="13" text-anchor="start">(노드 3→4면 약 75%)</text>
+
+  <!-- Section 2: 일관된 해싱 -->
+  <rect x="40" y="104" width="800" height="54" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="56" y="137" fill="#059669" font-size="14" font-weight="bold" text-anchor="start">일관된 해싱:</text>
+  <text x="210" y="137" fill="#1f2933" font-size="13" text-anchor="start">노드 N개 → N+1개일 때  약 1/(N+1) 의 키가 이동</text>
+  <text x="580" y="137" fill="#52606d" font-size="13" text-anchor="start">(노드 3→4면 약 25%)</text>
+
+  <!-- 하단 박스: 원형 링 다이어그램 -->
+  <rect x="24" y="190" width="832" height="516" rx="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+
+  <!-- 링 중심: (320, 460), 반지름: 180 -->
+  <!-- 링 원선 -->
+  <circle cx="320" cy="460" r="180" fill="none" stroke="#cbd2d9" stroke-width="2"/>
+
+  <!-- 십자 가이드선 (원본 ASCII의 │ ┼ ─── 표현) -->
+  <line x1="320" y1="260" x2="320" y2="660" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="120" y1="460" x2="520" y2="460" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- 링 최상단 라벨: 0 / 2^32 -->
+  <rect x="270" y="232" width="100" height="24" fill="#ffffff" stroke="none"/>
+  <text x="320" y="249" fill="#52606d" font-size="13" font-weight="bold" text-anchor="middle">0 / 2^32</text>
+
+  <!-- 대각선 연결선 (노드A, 노드C를 지나는 선) -->
+  <line x1="164" y1="370" x2="476" y2="550" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="164" y1="550" x2="476" y2="370" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- 노드 A (각도 -30도 위치: x=320+180*cos(-30)=476, y=460+180*sin(-30)=370) -->
+  <circle cx="476" cy="370" r="8" fill="#2563eb"/>
+  <rect x="492" y="356" width="68" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="526" y="375" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">노드A</text>
+
+  <!-- 노드 B (각도 90도 위치: x=320, y=460+180=640) -->
+  <circle cx="320" cy="640" r="8" fill="#2563eb"/>
+  <rect x="286" y="656" width="68" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="320" y="675" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">노드B</text>
+
+  <!-- 노드 C (각도 210도 위치: x=320+180*cos(210)=164, y=460+180*sin(210)=370) -->
+  <circle cx="164" cy="370" r="8" fill="#2563eb"/>
+  <rect x="88" y="356" width="68" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="122" y="375" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">노드C</text>
+
+  <!-- 키1 (각도 -60도 위치 근처: x=410, y=304) -->
+  <circle cx="410" cy="304" r="5" fill="#d97706"/>
+  <text x="422" y="309" fill="#d97706" font-size="13" font-weight="bold" text-anchor="start">● 키1</text>
+
+  <!-- 키2 (각도 135도 위치 근처: x=193, y=587) -->
+  <circle cx="193" cy="587" r="5" fill="#d97706"/>
+  <text x="138" y="592" fill="#d97706" font-size="13" font-weight="bold" text-anchor="start">키2 ●</text>
+
+  <!-- 키3 (각도 190도 위치 근처: x=143, y=430) -->
+  <circle cx="143" cy="430" r="5" fill="#d97706"/>
+  <text x="88" y="435" fill="#d97706" font-size="13" font-weight="bold" text-anchor="start">키3 ●</text>
+
+  <!-- 시계 방향 진행 안내 화살표 (링 우상단) -->
+  <path d="M 390 280 A 180 180 0 0 1 450 325" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+
+  <!-- 우측 설명 텍스트 영역 -->
+  <!-- 1. 설명 제목 -->
+  <rect x="530" y="280" width="300" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="546" y="300" fill="#d97706" font-size="13" font-weight="bold" text-anchor="start">키는 시계 방향으로 가다</text>
+  <text x="546" y="318" fill="#d97706" font-size="13" font-weight="bold" text-anchor="start">처음 만나는 노드에 배정된다</text>
+
+  <!-- 2. 매핑 리스트 -->
+  <rect x="530" y="342" width="300" height="120" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="550" y="375" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="start">키1 → 노드A</text>
+  <text x="550" y="405" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="start">키2 → 노드B</text>
+  <text x="550" y="435" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="start">키3 → 노드A</text>
+  <text x="642" y="435" fill="#52606d" font-size="12" text-anchor="start">(링을 한 바퀴 돌아)</text>
+
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">7. 관리형이냐 직접 운영이냐</title>
+  <desc id="d">직접 운영과 관리형 간의 통제권, 운영 부담 비교 및 Redis 구축 3가지 방식의 특징 비교 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Title Heading -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">7. 관리형이냐 직접 운영이냐</text>
+
+  <!-- Top Axis 1: 통제권 (Direct Operation vs Managed) -->
+  <text x="180" y="88.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">직접 운영</text>
+  
+  <path d="M 230,85 L 390,85" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="405" y="73" width="70" height="24" fill="#ffffff"/>
+  <text x="440" y="89.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">통제권</text>
+  <path d="M 475,85 L 635,85" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <text x="690" y="88.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">관리형</text>
+
+  <!-- Top Axis 2: 운영 부담 (High vs Low) -->
+  <text x="180" y="128.2" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">높음</text>
+  
+  <path d="M 220,125 L 380,125" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="395" y="113" width="90" height="24" fill="#ffffff"/>
+  <text x="440" y="129.55" font-size="13" opacity="1" fill="#1f2933" text-anchor="middle">운영 부담</text>
+  <path d="M 485,125 L 645,125" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <text x="690" y="128.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">낮음</text>
+
+  <!-- Separator Line -->
+  <path d="M 40,155 L 840,155" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Column 1: EC2 직접 설치 -->
+  <g transform="translate(40, 175)">
+    <!-- Header Box -->
+    <rect x="0" y="0" width="250" height="70" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="125" y="29.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2에 직접 설치</text>
+    <text x="125" y="52.55" font-size="13" fill="#d97706" text-anchor="middle">redis-server</text>
+    
+    <!-- Vertical Connector Line -->
+    <path d="M 125,70 L 125,100" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    
+    <!-- Content Box -->
+    <rect x="0" y="100" width="250" height="190" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="20" y="132.55" font-size="13" fill="#1f2933">버전/설정 자유</text>
+    <text x="20" y="167.55" font-size="13" fill="#1f2933">백업·HA 직접 구현</text>
+    <text x="20" y="202.55" font-size="13" fill="#dc2626">장애 시 내가 대응</text>
+  </g>
+
+  <!-- Column 2: ECS/EKS 컨테이너 배포 -->
+  <g transform="translate(315, 175)">
+    <!-- Header Box -->
+    <rect x="0" y="0" width="250" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="125" y="29.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">ECS/EKS에 컨테이너로</text>
+    <text x="125" y="52.55" font-size="13" fill="#2563eb" text-anchor="middle">Redis 배포</text>
+    
+    <!-- Vertical Connector Line -->
+    <path d="M 125,70 L 125,100" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    
+    <!-- Content Box -->
+    <rect x="0" y="100" width="250" height="190" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="20" y="132.55" font-size="13" fill="#1f2933">오케스트레이션 활용</text>
+    <text x="20" y="167.55" font-size="13" fill="#1f2933">여전히 HA는 직접</text>
+  </g>
+
+  <!-- Column 3: ElastiCache (관리형) -->
+  <g transform="translate(590, 175)">
+    <!-- Header Box -->
+    <rect x="0" y="0" width="250" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="125" y="29.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">ElastiCache</text>
+    <text x="125" y="52.55" font-size="13" fill="#059669" text-anchor="middle">(관리형)</text>
+    
+    <!-- Vertical Connector Line -->
+    <path d="M 125,70 L 125,100" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    
+    <!-- Content Box -->
+    <rect x="0" y="100" width="250" height="190" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="20" y="132.55" font-size="13" fill="#1f2933">백업·패치·페일오버</text>
+    <text x="20" y="152.55" font-size="13" fill="#059669">AWS가 담당</text>
+    <text x="20" y="197.55" font-size="13" fill="#52606d">세부 설정 제한</text>
+  </g>
+</svg>

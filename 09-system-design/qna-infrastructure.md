@@ -17,6 +17,11 @@
 
 ### 로드 밸런서 위치
 
+<!-- diagram:sd-qna-infrastructure-1 -->
+![로드 밸런서 위치](../assets/diagrams/sd-qna-infrastructure-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     ┌──────────┐
                     │   User   │
@@ -32,6 +37,7 @@
       │Server 1│    │Server 2│    │Server 3│
       └────────┘    └────────┘    └────────┘
 ```
+-->
 
 ### 로드 밸런서 종류 (OSI 계층별)
 
@@ -42,6 +48,11 @@
 
 ### L4 vs L7 비교
 
+<!-- diagram:sd-qna-infrastructure-2 -->
+![L4 vs L7 비교](../assets/diagrams/sd-qna-infrastructure-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 L4 (Transport Layer)
 - TCP/UDP 기반
@@ -56,6 +67,7 @@ L7 (Application Layer)
 - /static/* → 정적 서버
 - 더 많은 리소스 사용
 ```
+-->
 
 ### 로드 밸런싱 알고리즘
 
@@ -69,6 +81,11 @@ L7 (Application Layer)
 
 ### Health Check
 
+<!-- diagram:sd-qna-infrastructure-3 -->
+![Health Check](../assets/diagrams/sd-qna-infrastructure-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 로드 밸런서가 서버 상태를 주기적으로 확인
 
@@ -77,6 +94,7 @@ L7 (Application Layer)
 
 장애 서버 자동 제외 → 고가용성 확보
 ```
+-->
 
 ### AWS에서의 로드 밸런서
 
@@ -131,6 +149,11 @@ After:  [v2] [v2] [v2] [v2]
 
 ### 2. Blue/Green Deployment
 
+<!-- diagram:sd-qna-infrastructure-4 -->
+![2. Blue/Green Deployment](../assets/diagrams/sd-qna-infrastructure-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 두 환경을 전환
 
@@ -152,9 +175,15 @@ After:  [v2] [v2] [v2] [v2]
 장점: 빠른 롤백, 테스트 용이
 단점: 2배 인프라 비용
 ```
+-->
 
 ### 3. Canary Deployment
 
+<!-- diagram:sd-qna-infrastructure-5 -->
+![3. Canary Deployment](../assets/diagrams/sd-qna-infrastructure-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 일부 사용자에게만 먼저 배포
 
@@ -174,15 +203,22 @@ After:  [v2] [v2] [v2] [v2]
 장점: 위험 최소화, 실제 트래픽으로 검증
 단점: 복잡한 트래픽 분배 설정
 ```
+-->
 
 ### 배포 전략 선택 가이드
 
+<!-- diagram:sd-qna-infrastructure-6 -->
+![배포 전략 선택 가이드](../assets/diagrams/sd-qna-infrastructure-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ✓ 인프라 비용 최소화 → Rolling
 ✓ 빠른 롤백 필수 → Blue/Green
 ✓ 신규 기능 검증 필요 → Canary
 ✓ DB 스키마 변경 동반 → Blue/Green + 마이그레이션 전략
 ```
+-->
 
 ### Kubernetes에서의 배포
 
@@ -220,6 +256,11 @@ spec:
 
 ### 대응 전략 개요
 
+<!-- diagram:sd-qna-infrastructure-7 -->
+![대응 전략 개요](../assets/diagrams/sd-qna-infrastructure-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────┐
 │           대용량 트래픽 대응              │
@@ -232,9 +273,15 @@ spec:
 │ - Scale Out│   디그레이드  │             │
 └─────────────┴─────────────┴─────────────┘
 ```
+-->
 
 ### 1. Scale Out (수평 확장)
 
+<!-- diagram:sd-qna-infrastructure-8 -->
+![1. Scale Out](../assets/diagrams/sd-qna-infrastructure-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 트래픽 증가 시 서버 인스턴스 추가
 
@@ -249,6 +296,7 @@ spec:
 - CPU 70% 이상 → 인스턴스 추가
 - 요청 수 10,000/초 이상 → 인스턴스 추가
 ```
+-->
 
 ### 2. 캐싱 전략
 
@@ -267,6 +315,11 @@ Cache-Aside 패턴:
 
 ### 3. 비동기 처리 (Message Queue)
 
+<!-- diagram:sd-qna-infrastructure-9 -->
+![3. 비동기 처리](../assets/diagrams/sd-qna-infrastructure-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 동기 처리 (문제)         비동기 처리 (해결)
 
@@ -278,9 +331,15 @@ User → API → DB         User → API → MQ → Worker → DB
 - 로그 처리
 - 이미지 리사이징
 ```
+-->
 
 ### 4. 서킷 브레이커
 
+<!-- diagram:sd-qna-infrastructure-10 -->
+![4. 서킷 브레이커](../assets/diagrams/sd-qna-infrastructure-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 장애 서비스 호출 차단으로 연쇄 장애 방지
 
@@ -298,6 +357,7 @@ User → API → DB         User → API → MQ → Worker → DB
               │ 성공 → CLOSED
               │ 실패 → OPEN
 ```
+-->
 
 ### 5. Graceful Degradation
 

@@ -23,6 +23,11 @@
 
 ### Latency vs Throughput
 
+<!-- diagram:sd-qna-performance-1 -->
+![Latency vs Throughput](../../assets/diagrams/sd-qna-performance-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Latency: 한 요청이 처리되는 시간
 Throughput: 전체 시스템이 처리하는 양
@@ -31,9 +36,15 @@ Throughput: 전체 시스템이 처리하는 양
 - Latency = 서울→부산 소요 시간 (4시간)
 - Throughput = 시간당 통과 차량 수 (1000대/시)
 ```
+-->
 
 ### 백분위수 (Percentile)
 
+<!-- diagram:sd-qna-performance-2 -->
+![백분위수](../../assets/diagrams/sd-qna-performance-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 P50 (Median): 50%의 요청이 이 시간 내 완료
 P95: 95%의 요청이 이 시간 내 완료
@@ -45,6 +56,7 @@ P99: 500ms → 1%의 요청은 500ms 초과
 
 평균보다 P99가 더 중요 (느린 요청 파악)
 ```
+-->
 
 ### SLA vs SLO vs SLI
 
@@ -77,12 +89,18 @@ SLA (Service Level Agreement): 계약
 
 ### 병목 발생 위치
 
+<!-- diagram:sd-qna-performance-3 -->
+![병목 발생 위치](../../assets/diagrams/sd-qna-performance-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────┐
 │ Client → Network → LB → App → DB → Disk │
 └─────────────────────────────────────────┘
           모든 구간이 병목 후보
 ```
+-->
 
 ### 분석 도구
 
@@ -148,6 +166,11 @@ DB 커넥션 풀 고갈 → 대기 시간 증가
 
 ### 커넥션 풀 없이
 
+<!-- diagram:sd-qna-performance-4 -->
+![커넥션 풀 없이](../../assets/diagrams/sd-qna-performance-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 요청 1 → 연결 생성 → 쿼리 → 연결 종료
 요청 2 → 연결 생성 → 쿼리 → 연결 종료
@@ -155,9 +178,15 @@ DB 커넥션 풀 고갈 → 대기 시간 증가
 
 문제: 연결 생성/종료 비용 (TCP 핸드셰이크, 인증)
 ```
+-->
 
 ### 커넥션 풀 사용
 
+<!-- diagram:sd-qna-performance-5 -->
+![커넥션 풀 사용](../../assets/diagrams/sd-qna-performance-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 초기화: 풀에 N개 연결 생성
 
@@ -166,6 +195,7 @@ DB 커넥션 풀 고갈 → 대기 시간 증가
 
 장점: 연결 재사용으로 오버헤드 감소
 ```
+-->
 
 ### 풀 설정 파라미터
 
@@ -210,6 +240,11 @@ spring:
 
 ### 동기 vs 비동기
 
+<!-- diagram:sd-qna-performance-6 -->
+![동기 vs 비동기](../../assets/diagrams/sd-qna-performance-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 동기 (Synchronous):
 요청1 → 대기 → 응답1 → 요청2 → 대기 → 응답2
@@ -217,6 +252,7 @@ spring:
 비동기 (Asynchronous):
 요청1 → 요청2 → 요청3 → 응답1 → 응답2 → 응답3
 ```
+-->
 
 ### 비동기 처리 사용 사례
 
@@ -259,6 +295,11 @@ results = await asyncio.gather(
 
 ### 메시지 큐 활용
 
+<!-- diagram:sd-qna-performance-7 -->
+![메시지 큐 활용](../../assets/diagrams/sd-qna-performance-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Producer → [Message Queue] → Consumer
            (RabbitMQ, Kafka, SQS)
@@ -268,6 +309,7 @@ Producer → [Message Queue] → Consumer
 - 부하 분산
 - 재시도/실패 처리
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 동기/비동기 선택 기준

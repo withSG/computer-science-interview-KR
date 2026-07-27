@@ -71,6 +71,11 @@ SSL은 TLS의 전신인 옛 이름인데, SSL 3.0까지 나온 뒤 TLS로 이름
 
 ## 3. TLS 1.2 핸드셰이크
 
+<!-- diagram:cs-ssl-tls-handshake-1 -->
+![3. TLS 1.2 핸드셰이크](../../assets/diagrams/cs-ssl-tls-handshake-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client                                              Server
   │                                                    │
@@ -100,6 +105,7 @@ Client                                              Server
   │                                                    │
   │ ◄══════ 이후 대칭키로 암호화된 통신 ══════════════► │
 ```
+-->
 
 ### 단계별로 무슨 일이 일어나는가
 
@@ -126,6 +132,11 @@ Client                                              Server
 
 ### Cipher Suite 읽는 법
 
+<!-- diagram:cs-ssl-tls-handshake-2 -->
+![Cipher Suite 읽는 법](../../assets/diagrams/cs-ssl-tls-handshake-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
      ─┬── ─┬─      ─────┬───── ──┬───
@@ -134,6 +145,7 @@ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
       │    └─────────────────────── 인증: RSA 서명으로 서버 신원 증명
       └──────────────────────────── 키 교환: ECDHE (전방 비밀성 O)
 ```
+-->
 
 ---
 
@@ -141,6 +153,11 @@ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 
 TLS 1.3의 설계 방향은 두 가지다. **더 빠르게**, 그리고 **잘못 고를 여지를 없애기**.
 
+<!-- diagram:cs-ssl-tls-handshake-3 -->
+![4. TLS 1.3](../../assets/diagrams/cs-ssl-tls-handshake-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client                                              Server
   │ ── ClientHello ──────────────────────────────────► │  ┐
@@ -159,6 +176,7 @@ Client                                              Server
   │ ══════ 암호화 통신 (클라이언트는 Finished와 함께      │
   │        바로 데이터를 실어 보낼 수 있다) ═══════════► │
 ```
+-->
 
 핵심 변화:
 
@@ -185,6 +203,11 @@ Client                                              Server
 브라우저가 세상 모든 서버의 공개키를 알 수는 없다.
 그래서 **신뢰할 수 있는 제3자(CA, Certificate Authority)** 가 "이 공개키는 이 도메인 주인의 것이 맞다"고 서명해 준다.
 
+<!-- diagram:cs-ssl-tls-handshake-4 -->
+![5. 인증서 체인과 CA](../../assets/diagrams/cs-ssl-tls-handshake-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────────────────────┐
 │ 루트 CA 인증서 (self-signed)          │  ← OS/브라우저에 미리 내장되어 있다
@@ -208,6 +231,7 @@ Client                                              Server
 │  서명: 중간 CA의 개인키                │
 └──────────────────────────────────────┘
 ```
+-->
 
 검증은 **아래에서 위로** 올라간다. 서버 인증서의 서명을 중간 CA 공개키로 검증하고,
 중간 CA 인증서의 서명을 루트 CA 공개키로 검증하고, 루트 CA가 내 신뢰 저장소에 있으면 통과다.
@@ -249,12 +273,18 @@ HTTP라면 `Host` 헤더로 구분하면 되는데, **문제는 TLS 핸드셰이
 **SNI(Server Name Indication)** 는 ClientHello에 "나는 www.example.com에 접속하려 한다"를
 확장 필드로 실어 보내 이 문제를 푼다. 서버는 그걸 보고 해당 도메인 인증서를 고른다.
 
+<!-- diagram:cs-ssl-tls-handshake-5 -->
+![6. SNI](../../assets/diagrams/cs-ssl-tls-handshake-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [SNI 없이]                         [SNI 사용]
 Client: (TLS 시작)                  Client: ClientHello
 Server: 어떤 인증서를? 알 수 없음     └ server_name = shop.example.com
         → IP당 도메인 하나만 가능     Server: shop.example.com용 인증서 선택
 ```
+-->
 
 주의할 점은 **SNI가 평문**이라는 것이다. TLS 1.3에서 인증서까지 암호화됐지만
 SNI는 여전히 첫 메시지에 그대로 실린다. 암호화 자체가 시작되기 전이라 어쩔 수 없다.

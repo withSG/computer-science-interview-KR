@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">뉴스피드 Fan-out 방식 비교 및 하이브리드 전략</title>
+  <desc id="d">Fan-out on Write와 Fan-out on Read 방식의 특징과 문제점을 비교하고, 실무 표준인 하이브리드 방식을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Left Card: Fan-out on Write (Push) -->
+  <rect x="24" y="24" width="404" height="290" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="226" y="58" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">Fan-out on Write (Push)</text>
+  
+  <text x="44" y="88" font-size="13" fill="#1f2933">글 작성 시 팔로워 전원의</text>
+  <text x="44" y="108" font-size="13" fill="#1f2933">피드 캐시에 미리 삽입</text>
+
+  <line x1="44" y1="126" x2="408" y2="126" stroke="#cbd2d9" stroke-width="1"/>
+
+  <text x="44" y="152" font-size="13" fill="#1f2933"><tspan font-weight="bold">읽기:</tspan> 매우 빠름 (내 피드만 읽음)</text>
+  <text x="44" y="176" font-size="13" fill="#1f2933"><tspan font-weight="bold">쓰기:</tspan> 팔로워 수만큼 증폭</text>
+  
+  <rect x="40" y="196" width="372" height="102" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="54" y="222" font-size="13" font-weight="bold" fill="#dc2626">문제:</text>
+  <text x="96" y="222" font-size="13" fill="#dc2626">팔로워 1,000만 명 = 쓰기</text>
+  <text x="96" y="244" font-size="13" fill="#dc2626">한 번이 1,000만 번의 쓰기</text>
+
+  <!-- Right Card: Fan-out on Read (Pull) -->
+  <rect x="452" y="24" width="404" height="290" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="654" y="58" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">Fan-out on Read (Pull)</text>
+  
+  <text x="472" y="88" font-size="13" fill="#1f2933">조회 시 팔로우한 사람들의</text>
+  <text x="472" y="108" font-size="13" fill="#1f2933">최근 글을 그때 모아서 정렬</text>
+
+  <line x1="472" y1="126" x2="836" y2="126" stroke="#cbd2d9" stroke-width="1"/>
+
+  <text x="472" y="152" font-size="13" fill="#1f2933"><tspan font-weight="bold">읽기:</tspan> 느림 (N명 조회 + 병합)</text>
+  <text x="472" y="176" font-size="13" fill="#1f2933"><tspan font-weight="bold">쓰기:</tspan> 가벼움</text>
+  
+  <rect x="468" y="196" width="372" height="102" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="482" y="222" font-size="13" font-weight="bold" fill="#dc2626">문제:</text>
+  <text x="524" y="222" font-size="13" fill="#dc2626">팔로잉 많은 사용자의 조회 지연</text>
+
+  <!-- Arrow & Label -->
+  <path d="M440,314 L440,366" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="350" y="328" width="180" height="24" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="440" y="344" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">↓ 실무 표준은 하이브리드</text>
+
+  <!-- Bottom Card: Hybrid Approach -->
+  <rect x="24" y="376" width="832" height="100" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="44" y="412" font-size="14" font-weight="bold" fill="#1f2933">일반 사용자는 Push, 팔로워가 임계치를 넘는 계정은 Pull.</text>
+  <text x="44" y="444" font-size="14" font-weight="bold" fill="#1f2933">조회 시점에 "미리 쌓인 피드 + 셀러브리티 최신 글"을 병합한다.</text>
+</svg>

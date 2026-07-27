@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">컨테이너에 등록되는 것은 원본이 아니다</title>
+  <desc id="d">AOP 적용 전과 후의 컨테이너, 프록시 객체, 원본 객체, 주입받는 쪽 간의 참조 관계 변화를 나타낸 다이어그램</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
+
+  <defs>
+    <!-- Dark Ink Arrowhead -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- Blue Arrowhead -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- Purple Arrowhead -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Section Heading from Markdown Context -->
+  <text x="30" y="35" font-size="16" font-weight="bold" fill="#1f2933">컨테이너에 등록되는 것은 원본이 아니다</text>
+
+  <!-- ================= SECTION 1: AOP 적용 전 ================= -->
+  <g id="before-aop">
+    <rect x="30" y="60" width="820" height="90" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+    
+    <!-- Title Label -->
+    <text x="50" y="111" font-size="14" font-weight="bold" fill="#52606d">[AOP 적용 전]</text>
+
+    <!-- Block 1: 컨테이너 -->
+    <rect x="180" y="83" width="120" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="240" y="109" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">컨테이너</text>
+
+    <!-- Arrow 1: 컨테이너 ──> OrderService (원본) -->
+    <path d="M300,105 L370,105" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- Block 2: OrderService (원본) -->
+    <rect x="380" y="83" width="185" height="44" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="472.5" y="109" font-size="13" fill="#1f2933" text-anchor="middle">OrderService (원본)</text>
+
+    <!-- Arrow 2: OrderService (원본) <── 주입받는 쪽 -->
+    <path d="M700,105 L575,105" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- Block 3: 주입받는 쪽 -->
+    <rect x="710" y="83" width="120" height="44" rx="6" fill="#ffffff" stroke="#52606d" stroke-width="1.5"/>
+    <text x="770" y="109" font-size="13" fill="#1f2933" text-anchor="middle">주입받는 쪽</text>
+  </g>
+
+  <!-- ================= SECTION 2: AOP 적용 후 ================= -->
+  <g id="after-aop">
+    <rect x="30" y="170" width="820" height="170" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 4"/>
+
+    <!-- Title Label -->
+    <text x="50" y="221" font-size="14" font-weight="bold" fill="#7c3aed">[AOP 적용 후]</text>
+
+    <!-- Block 1: 컨테이너 -->
+    <rect x="180" y="193" width="120" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="240" y="219" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">컨테이너</text>
+
+    <!-- Arrow 1: 컨테이너 ──> OrderService$$Proxy -->
+    <path d="M300,215 L360,215" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- Block 2: OrderService$$Proxy (Highlighted Proxy Object) -->
+    <rect x="370" y="193" width="210" height="44" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="475" y="219" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">OrderService$$Proxy</text>
+
+    <!-- Arrow 2: OrderService$$Proxy <── 주입받는 쪽 -->
+    <path d="M700,215 L590,215" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- Block 3: 주입받는 쪽 -->
+    <rect x="710" y="193" width="120" height="44" rx="6" fill="#ffffff" stroke="#52606d" stroke-width="1.5"/>
+    <text x="770" y="219" font-size="13" fill="#1f2933" text-anchor="middle">주입받는 쪽</text>
+
+    <!-- Vertical Arrow: Proxy ──> Target (내부 참조) -->
+    <path d="M475,237 L475,273" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+    
+    <!-- Edge Label: 내부 참조 (with white background rect to clear line) -->
+    <rect x="483" y="246" width="60" height="18" fill="#ffffff" rx="2"/>
+    <text x="485" y="259" font-size="11.5" fill="#7c3aed">내부 참조</text>
+
+    <!-- Block 4: OrderService (원본, target) -->
+    <rect x="350" y="280" width="250" height="44" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="475" y="306" font-size="13" fill="#1f2933" text-anchor="middle">OrderService (원본, target)</text>
+  </g>
+</svg>

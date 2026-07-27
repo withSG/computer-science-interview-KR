@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">LoadBalancer externalTrafficPolicy 비교</title>
+  <desc id="d">Cluster 기본 모드와 Local 모드의 차이점 비교 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Cluster Section -->
+  <g transform="translate(30, 30)">
+    <!-- Header Badge -->
+    <rect x="0" y="0" width="130" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="65" y="21.2" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Cluster (기본)</text>
+
+    <!-- Colon -->
+    <text x="140" y="21.2" font-size="14" font-weight="bold" fill="#1f2933">:</text>
+
+    <!-- First Line -->
+    <text x="155" y="21.2" font-size="13" fill="#1f2933">어느 노드로 들어와도 클러스터 전체 Pod에 분산</text>
+
+    <!-- Arrow & Bullet Points -->
+    <path d="M155,52 L170,52" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <text x="180" y="56.55" font-size="13" fill="#52606d">부하는 고르지만 노드 간 홉이 한 번 더 생기고</text>
+    <text x="180" y="81.55" font-size="13" fill="#52606d">클라이언트 원본 IP가 가려진다</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="30" y1="160" x2="850" y2="160" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Local Section -->
+  <g transform="translate(30, 190)">
+    <!-- Header Badge -->
+    <rect x="0" y="0" width="130" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="65" y="21.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Local</text>
+
+    <!-- Colon -->
+    <text x="140" y="21.2" font-size="14" font-weight="bold" fill="#1f2933">:</text>
+
+    <!-- First Line -->
+    <text x="155" y="21.2" font-size="13" fill="#1f2933">들어온 노드에 있는 Pod로만 전달</text>
+
+    <!-- Arrow & Bullet Points -->
+    <path d="M155,52 L170,52" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <text x="180" y="56.55" font-size="13" fill="#52606d">원본 IP가 보존되고 홉이 없지만,</text>
+    <text x="180" y="81.55" font-size="13" fill="#52606d">노드별 Pod 개수가 다르면 부하가 치우친다</text>
+  </g>
+</svg>

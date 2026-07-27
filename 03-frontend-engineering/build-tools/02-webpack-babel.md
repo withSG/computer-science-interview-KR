@@ -37,6 +37,11 @@ Webpack이 기본적으로 이해하는 것은 자바스크립트와 JSON뿐이�
 
 빌드가 진행되는 순서 위에 다섯 개념을 얹어보면 관계가 한눈에 들어온다.
 
+<!-- diagram:fe-webpack-babel-1 -->
+![2. 다섯 덩어리와 각각의 타이밍](../../assets/diagrams/fe-webpack-babel-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────────────── Webpack 빌드 파이프라인 ──────────────────────┐
 │                                                                     │
@@ -62,6 +67,7 @@ Webpack이 기본적으로 이해하는 것은 자바스크립트와 JSON뿐이�
     DefinePlugin은 ②와 ③ 사이(모듈을 파싱하며 식별자를 치환하는 시점)에,
     MiniCssExtractPlugin은 ②와 ⑤ 양쪽에 관여한다.
 ```
+-->
 
 ### entry와 output — 그래프의 시작과 끝
 
@@ -147,6 +153,11 @@ loader는 자기가 맡은 파일 하나만 알지만, plugin은 `compilation`�
 
 읽는 순서와 실행 순서가 반대라 처음엔 헷갈린다.
 
+<!-- diagram:fe-webpack-babel-2 -->
+![loader 체인은 오른쪽에서 왼쪽으로](../../assets/diagrams/fe-webpack-babel-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 파일 읽기: styles.scss
    ↓  sass-loader     SCSS 문법을 해석해 순수 CSS 문자열로
@@ -155,6 +166,7 @@ loader는 자기가 맡은 파일 하나만 알지만, plugin은 `compilation`�
    ↓
 자바스크립트 모듈 (Webpack이 드디어 이해할 수 있는 형태)
 ```
+-->
 
 배열의 **마지막 원소가 원본 파일에 가장 가깝다**고 기억하면 된다. 함수 합성 `style(css(sass(source)))`와 같은 순서다.
 
@@ -287,6 +299,11 @@ new Map(); new Set(); fetch('/api');
 
 (B)는 **엔진이 미리 만들어둔 객체와 메서드**다. 코드 형태를 아무리 바꿔도 없는 `Promise` 생성자가 생겨나지는 않는다. 이건 **직접 구현한 코드를 실행 시점에 전역에 심어주는 수밖에 없고**, 그 코드를 폴리필(polyfill)이라 부른다. 자바스크립트로 작성된 폴리필 모음이 `core-js`다.
 
+<!-- diagram:fe-webpack-babel-3 -->
+![트랜스파일로 해결되는 것 vs 폴리필이 필요한 것](../../assets/diagrams/fe-webpack-babel-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   트랜스파일                      폴리필
   ─────────────                   ────────────
@@ -300,6 +317,7 @@ new Map(); new Set(); fetch('/api');
   var f = function(n){return n*2}  }
                                    ↑ 이 코드 자체가 번들에 실려 런타임에 실행된다
 ```
+-->
 
 ### preset-env와 targets
 
