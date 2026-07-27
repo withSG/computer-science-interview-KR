@@ -37,6 +37,9 @@ SELECT * FROM member WHERE email = 'kim@example.com';
 
 ## 2. 왜 하필 B-Tree인가
 
+<!-- diagram:db-bst-vs-bplustree -->
+![이진 탐색 트리 vs B+Tree](../../assets/diagrams/db-bst-vs-bplustree.svg)
+
 ### 2.1 해시 인덱스는 왜 기본이 아닌가
 
 해시 테이블은 등호 비교가 평균 O(1)이다. 그런데 해시는 **순서를 보존하지 않는다.**

@@ -34,6 +34,9 @@ CPU는 빨라졌는데 메모리는 그만큼 빨라지지 못했다. 이 격차
 
 ## 2. 메모리 계층 구조
 
+<!-- diagram:arch-memory-hierarchy -->
+![메모리 계층](../../assets/diagrams/arch-memory-hierarchy.svg)
+
 ```
                      ▲ 빠름 / 작음 / 비쌈
         ┌────────────┴────────────┐

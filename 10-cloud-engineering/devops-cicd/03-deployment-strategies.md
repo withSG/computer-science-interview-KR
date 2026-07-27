@@ -220,6 +220,9 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 
 ## 5. DB 스키마 변경이 무중단 배포를 깨뜨리는 이유
 
+<!-- diagram:cloud-deployment-strategies -->
+![확장-수축 패턴](../../assets/diagrams/cloud-deployment-strategies.svg)
+
 ### 문제의 구조
 
 애플리케이션 인스턴스는 여러 개고 배포 중에 버전이 섞이지만, **DB는 하나다.** 애플리케이션은 롤백하면 되돌아가지만 데이터는 되돌아가지 않는다. 이 비대칭이 문제의 뿌리다.

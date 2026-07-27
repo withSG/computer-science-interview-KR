@@ -215,6 +215,9 @@ Update가 유실돼도 결국 복구된다.
 
 ### Slow Start와 AIMD
 
+<!-- diagram:cs-tcp-udp -->
+![혼잡 윈도우(cwnd) 변화 곡선](../../assets/diagrams/cs-tcp-udp.svg)
+
 ```
  cwnd
   │                              ╱╲  ← 유실 감지

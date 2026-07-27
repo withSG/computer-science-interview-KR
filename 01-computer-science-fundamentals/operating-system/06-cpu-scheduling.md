@@ -192,6 +192,9 @@ nice 값), 시스템이 계산할 수도 있다(I/O 위주 프로세스에 가�
 
 ### MLFQ (다단계 피드백 큐) — 선점
 
+<!-- diagram:cs-cpu-scheduling -->
+![MLFQ 큐 강등·승격 구조](../../assets/diagrams/cs-cpu-scheduling.svg)
+
 우선순위 큐를 여러 개 두고, 프로세스를 그 사이에서 **이동시킨다**. "피드백"은 실행 결과를 보고
 우선순위를 조정한다는 뜻이다.
 

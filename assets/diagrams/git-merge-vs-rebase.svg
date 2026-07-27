@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">3-way merge와 rebase 커밋 그래프 비교</title>
+  <desc id="d">동일한 분기 상태에서 시작하여 3-way merge를 실행했을 때 생성되는 병합 커밋 히스토리와, rebase를 실행했을 때 생성되는 직선 히스토리 및 참조를 잃은 이전 커밋의 관계를 비교하여 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-gray" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cbd2d9"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 그림 제목 -->
+  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">같은 분기, 다른 결과 — 3-way merge와 rebase의 커밋 그래프 비교</text>
+
+  <!-- 1. 공통 초기 상태 구역 -->
+  <rect x="30" y="50" width="820" height="120" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="6"/>
+  <text x="50" y="74" font-size="14" font-weight="600" fill="#1f2933">공통 초기 상태 (merge base: C2)</text>
+
+  <!-- 공통 그래프 커밋 및 선 -->
+  <line x1="160" y1="120" x2="220" y2="120" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="260" y1="120" x2="320" y2="120" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="260" y1="120" x2="320" y2="145" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <line x1="360" y1="120" x2="420" y2="120" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="360" y1="145" x2="420" y2="145" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- 공통 노드: C1 -->
+  <circle cx="140" cy="120" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="140" y="124.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c1</text>
+
+  <!-- 공통 노드: C2 (merge base) -->
+  <circle cx="240" cy="120" r="18" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="240" y="124.7" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">c2</text>
+  <rect x="195" y="80" width="90" height="18" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="3"/>
+  <text x="240" y="93" font-size="11" font-weight="400" fill="#d97706" text-anchor="middle">merge base</text>
+
+  <!-- 공통 노드: C5, C6 (main) -->
+  <circle cx="340" cy="120" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="340" y="124.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c5</text>
+  <circle cx="440" cy="120" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="440" y="124.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c6</text>
+  <rect x="470" y="111" width="56" height="18" fill="#1f2933" rx="3"/>
+  <text x="498" y="124" font-size="11" font-weight="400" fill="#ffffff" text-anchor="middle">main</text>
+
+  <!-- 공통 노드: C3, C4 (feature) -->
+  <circle cx="340" cy="145" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="340" y="149.7" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">c3</text>
+  <circle cx="440" cy="145" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="149.7" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">c4</text>
+  <rect x="470" y="136" width="64" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="3"/>
+  <text x="502" y="149" font-size="11" font-weight="400" fill="#2563eb" text-anchor="middle">feature</text>
+
+  <!-- 분할선 및 비교 영역 -->
+  <line x1="440" y1="185" x2="440" y2="480" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- 2. 왼쪽: 3-way merge 결과 -->
+  <text x="220" y="205" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">git merge (3-way merge)</text>
+
+  <!-- Merge 히스토리 선 -->
+  <line x1="60" y1="280" x2="105" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="145" y1="280" x2="190" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="230" y1="280" x2="275" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="315" y1="280" x2="350" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+
+  <!-- Feature 브랜치 선 -->
+  <line x1="145" y1="280" x2="190" y2="340" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <line x1="230" y1="340" x2="275" y2="340" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <line x1="315" y1="340" x2="355" y2="290" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- Merge 노드들 -->
+  <circle cx="40" cy="280" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="40" y="284.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c1</text>
+
+  <circle cx="125" cy="280" r="18" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="125" y="284.7" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">c2</text>
+
+  <circle cx="210" cy="280" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="210" y="284.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c5</text>
+
+  <circle cx="295" cy="280" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="295" y="284.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c6</text>
+
+  <circle cx="210" cy="340" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="210" y="344.7" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">c3</text>
+
+  <circle cx="295" cy="340" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="295" y="344.7" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">c4</text>
+
+  <!-- 병합 커밋 M -->
+  <circle cx="370" cy="280" r="18" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="370" y="284.7" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">M</text>
+  <rect x="342" y="235" width="56" height="18" fill="#dc2626" rx="3"/>
+  <text x="370" y="248" font-size="11" font-weight="400" fill="#ffffff" text-anchor="middle">main</text>
+
+  <text x="220" y="400" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">• 분기/합류 기록 보존, 기존 커밋 해시 유지</text>
+  <text x="220" y="420" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">• 두 부모를 가지는 병합 커밋(M) 생성</text>
+
+  <!-- 3. 오른쪽: rebase 결과 -->
+  <text x="660" y="205" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">git rebase</text>
+
+  <!-- Rebase 직선 히스토리 선 -->
+  <line x1="480" y1="280" x2="515" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="550" y1="280" x2="585" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="620" y1="280" x2="655" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="690" y1="280" x2="725" y2="280" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <line x1="760" y1="280" x2="795" y2="280" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+
+  <!-- Rebase 노드들 -->
+  <circle cx="465" cy="280" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="465" y="284.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c1</text>
+
+  <circle cx="532" cy="280" r="18" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="532" y="284.7" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">c2</text>
+
+  <circle cx="602" cy="280" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="602" y="284.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c5</text>
+
+  <circle cx="672" cy="280" r="18" fill="#ffffff" stroke="#1f2933" stroke-width="1.5"/>
+  <text x="672" y="284.7" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">c6</text>
+
+  <!-- 새 커밋 c3', c4' -->
+  <circle cx="742" cy="280" r="18" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="742" y="284.7" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">c3'</text>
+
+  <circle cx="812" cy="280" r="18" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="812" y="284.7" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">c4'</text>
+  <rect x="780" y="235" width="64" height="18" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="3"/>
+  <text x="812" y="248" font-size="11" font-weight="400" fill="#7c3aed" text-anchor="middle">feature</text>
+
+  <!-- 고립된 기존 커밋 (흐리게 처리) -->
+  <line x1="550" y1="280" x2="600" y2="350" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#a-gray)"/>
+  <line x1="636" y1="350" x2="684" y2="350" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#a-gray)"/>
+
+  <circle cx="618" cy="350" r="18" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="618" y="354.7" font-size="13" font-weight="400" fill="#9aa5b1" text-anchor="middle">c3</text>
+
+  <circle cx="702" cy="350" r="18" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="702" y="354.7" font-size="13" font-weight="400" fill="#9aa5b1" text-anchor="middle">c4</text>
+  <rect x="728" y="341" width="100" height="18" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="778" y="354" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">참조 잃은 커밋</text>
+
+  <text x="660" y="400" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">• 최신 main(c6) 위로 재구성하여 깔끔한 직선 히스토리</text>
+  <text x="660" y="420" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">• 재배치된 커밋은 새로운 커밋 해시(c3', c4')를 가짐</text>
+
+  <!-- 구분선 및 하단 캡션 -->
+  <line x1="30" y1="460" x2="850" y2="460" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 범례 -->
+  <rect x="180" y="475" width="12" height="12" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="198" y="485.5" font-size="11" font-weight="400" fill="#52606d">Merge Base</text>
+
+  <rect x="290" y="475" width="12" height="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="308" y="485.5" font-size="11" font-weight="400" fill="#52606d">병합 커밋(M)</text>
+
+  <rect x="400" y="475" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="418" y="485.5" font-size="11" font-weight="400" fill="#52606d">기존 브랜치 커밋</text>
+
+  <rect x="530" y="475" width="12" height="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="548" y="485.5" font-size="11" font-weight="400" fill="#52606d">Rebase된 새 커밋</text>
+
+  <rect x="660" y="475" width="12" height="12" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="678" y="485.5" font-size="11" font-weight="400" fill="#52606d">참조 해제된 커밋</text>
+
+  <!-- 하단 캡션 결론 -->
+  <text x="440" y="515" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: 히스토리 보존과 흐름 기록에는 merge, 가독성과 선형 추적에는 rebase가 유리합니다.</text>
+</svg>

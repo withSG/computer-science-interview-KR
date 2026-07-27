@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">조합 폭발 — 상속 2ⁿ-1개 vs 데코레이터 n개</title>
+  <desc id="d">상속을 사용할 때 옵션 조합으로 인해 클래스가 급격히 증가하는 조합 폭발 문제와, 데코레이터 패턴을 통해 클래스 수를 유지하는 구조를 비교 설명하는 다이어그램입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 제목 -->
+  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">조합 폭발 — 상속 (2ⁿ - 1개) vs 데코레이터 (n개)</text>
+
+  <!-- 왼쪽 섹션: 상속 방식 (조합 폭발) -->
+  <rect x="20" y="50" width="480" height="340" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="40" y="78" font-size="14" font-weight="600" fill="#dc2626">상속 방식: 조합 폭발 (클래스 7개)</text>
+
+  <!-- 레벨 0: Root -->
+  <rect x="200" y="90" width="120" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="260" y="109" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">MessageSender</text>
+
+  <!-- 레벨 1: 단일 옵션 (3개) -->
+  <rect x="60" y="160" width="90" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="105" y="179" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Logging</text>
+
+  <rect x="215" y="160" width="90" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="260" y="179" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Retry</text>
+
+  <rect x="370" y="160" width="90" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="415" y="179" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Encrypting</text>
+
+  <!-- 연결선: Root -> 레벨 1 -->
+  <path d="M260,120 L105,160" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M260,120 L260,160" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M260,120 L415,160" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 레벨 2: 2개 조합 (3개) -->
+  <rect x="100" y="240" width="120" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="160" y="259" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">LoggingRetry</text>
+
+  <rect x="300" y="240" width="130" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="365" y="259" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">RetryEncrypting</text>
+
+  <!-- 연결선: Root -> 레벨 2 (조합 클래스도 MessageSender의 직계 자식이다.
+       레벨 1에서 끌어오면 부모가 둘인 다중 상속이 되는데 Java에는 없는 구조다.) -->
+  <path d="M260,120 L260,132 L40,132 L40,255 L100,255" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M260,120 L260,132 L490,132 L490,255 L430,255" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 레벨 3: 3개 조합 (1개) -->
+  <rect x="150" y="320" width="220" height="30" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="260" y="339" font-size="13" font-weight="500" fill="#dc2626" text-anchor="middle">LoggingRetryEncrypting</text>
+
+  <!-- 연결선: 레벨 2 -> 레벨 3 -->
+  <path d="M160,270 L260,320" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <text x="260" y="372" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">컴파일 시점에 조합이 고정됨 (런타임 유연성 없음)</text>
+
+
+  <!-- 오른쪽 섹션: 데코레이터 패턴 -->
+  <rect x="520" y="50" width="340" height="340" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="540" y="78" font-size="14" font-weight="600" fill="#2563eb">데코레이터 패턴: 조립 구조 (클래스 3+1개)</text>
+
+  <!-- 감싸는 데코레이터들 -->
+  <rect x="580" y="100" width="220" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="690" y="124" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">LoggingSender</text>
+
+  <rect x="580" y="160" width="220" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="690" y="184" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">RetryingSender</text>
+
+  <rect x="580" y="220" width="220" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="690" y="244" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">EncryptingSender</text>
+
+  <!-- 원본 대상 -->
+  <rect x="580" y="290" width="220" height="40" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="690" y="314" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">SmsSender (원본)</text>
+
+  <!-- 감싸는 화살표 (위에서 아래로 위임/호출) -->
+  <path d="M690,140 L690,160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M690,200 L690,220" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M690,260 L690,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 화살표 설명 라벨 -->
+  <rect x="700" y="268" width="80" height="16" fill="#ffffff"/>
+  <text x="740" y="280" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">inner.doWork()</text>
+
+  <text x="690" y="362" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">런타임에 동적으로 조합 가능</text>
+
+
+  <!-- 하단 수량 비교 그래프 (옵션 수 n에 따른 클래스 증가) -->
+  <rect x="20" y="405" width="840" height="85" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="40" y="425" font-size="12" font-weight="600" fill="#1f2933">옵션 수(n)에 따른 클래스 수 비교</text>
+
+  <!-- 범례 -->
+  <rect x="660" y="415" width="12" height="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="678" y="425" font-size="11" font-weight="400" fill="#1f2933">상속 (2ⁿ - 1)</text>
+
+  <rect x="760" y="415" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="778" y="425" font-size="11" font-weight="400" fill="#1f2933">데코레이터 (n)</text>
+
+  <!-- 표/막대 데이터 -->
+  <!-- n = 1 -->
+  <text x="80" y="450" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">n = 1</text>
+  <rect x="60" y="458" width="15" height="16" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="67.5" y="471" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">1</text>
+  <rect x="85" y="458" width="15" height="16" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="92.5" y="471" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">1</text>
+
+  <!-- n = 2 -->
+  <text x="240" y="450" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">n = 2</text>
+  <rect x="220" y="458" width="15" height="16" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="227.5" y="471" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">3</text>
+  <rect x="245" y="458" width="15" height="16" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="252.5" y="471" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">2</text>
+
+  <!-- n = 3 -->
+  <text x="400" y="450" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">n = 3</text>
+  <rect x="380" y="458" width="15" height="16" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="387.5" y="471" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">7</text>
+  <rect x="405" y="458" width="15" height="16" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="412.5" y="471" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">3</text>
+
+  <!-- n = 4 -->
+  <text x="560" y="450" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">n = 4</text>
+  <rect x="540" y="458" width="22" height="16" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="551" y="471" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">15</text>
+  <rect x="568" y="458" width="15" height="16" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="575.5" y="471" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">4</text>
+
+  <!-- n = 5 -->
+  <text x="720" y="450" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">n = 5</text>
+  <rect x="700" y="458" width="22" height="16" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="711" y="471" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">31</text>
+  <rect x="728" y="458" width="15" height="16" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="735.5" y="471" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">5</text>
+
+
+  <!-- 하단 캡션 -->
+  <text x="440" y="510" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">상속은 옵션 증가 시 클래스 수가 지수적으로 폭발하지만, 데코레이터 패턴은 선형적(n개)으로 유지된다.</text>
+</svg>

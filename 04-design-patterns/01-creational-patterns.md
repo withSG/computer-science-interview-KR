@@ -92,6 +92,9 @@ public static ConnectionPool getInstance() {
 
 ### 구현 1. Double-Checked Locking
 
+<!-- diagram:dp-dcl-reordering -->
+![volatile 없는 DCL](../assets/diagrams/dp-dcl-reordering.svg)
+
 `getInstance()` 전체에 `synchronized`를 걸면 안전하지만 인스턴스가 만들어진 뒤에도 모든 호출이 락을 기다린다. 락을 꼭 필요할 때만 걸자는 것이 DCL이다.
 
 ```java

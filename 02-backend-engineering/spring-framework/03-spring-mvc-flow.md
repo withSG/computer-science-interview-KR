@@ -92,6 +92,9 @@ public class OrderListServlet extends HttpServlet {
 
 ## 2. 요청 하나가 지나는 전 경로
 
+<!-- diagram:be-spring-mvc-flow -->
+![HTTP 요청 한 건이 지나는 계층](../../assets/diagrams/be-spring-mvc-flow.svg)
+
 ### 전체 그림
 
 ```

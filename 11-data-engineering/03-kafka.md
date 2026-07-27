@@ -20,6 +20,9 @@
 
 ## 1. 왜 필요한가
 
+<!-- diagram:de-kafka-coupling -->
+![직접 연결(N×M) vs 이벤트 로그 중심(N+M) 결합도 비교](../assets/diagrams/de-kafka-coupling.svg)
+
 ### 서비스가 늘어날수록 연결선이 제곱으로 는다
 
 주문이 들어오면 다음이 일어나야 한다고 하자.
@@ -147,6 +150,9 @@ producer.send(new ProducerRecord<>("orders", payload));
 ---
 
 ## 3. 컨슈머 그룹과 리밸런싱
+
+<!-- diagram:de-kafka-partition-group -->
+![토픽 파티션과 컨슈머 그룹의 두 층 배정 구조](../assets/diagrams/de-kafka-partition-group.svg)
 
 ### 두 층의 구조
 

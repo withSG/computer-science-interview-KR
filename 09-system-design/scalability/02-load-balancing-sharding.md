@@ -235,6 +235,9 @@ public DependencyStatus dependencies() {
 
 ## 6. 일관된 해싱
 
+<!-- diagram:sd-consistent-hashing -->
+![일관된 해싱 링](../../assets/diagrams/sd-consistent-hashing.svg)
+
 핵심 아이디어는 **키와 노드를 같은 해시 공간(원형 링) 위에 올려놓고, 키는 자기보다 큰 쪽으로 가다 처음 만나는 노드에 배정하는 것**이다.
 
 ```

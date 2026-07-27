@@ -151,6 +151,9 @@ HTML 파싱 이어서 ────┘ ████████████
 
 ### async와 defer
 
+<!-- diagram:crp-async-defer -->
+![기본 / async / defer 스크립트의 파싱·다운로드·실행 타임라인](../../assets/diagrams/crp-async-defer.svg)
+
 ```html
 <script src="app.js"></script>              <!-- 기본: 파서 차단 -->
 <script async src="analytics.js"></script>  <!-- 받는 즉시 실행 -->

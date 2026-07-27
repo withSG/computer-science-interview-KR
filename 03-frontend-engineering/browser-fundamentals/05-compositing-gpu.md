@@ -62,6 +62,9 @@ Layout 결과
 
 ### 레이어란
 
+<!-- diagram:fe-compositing-gpu -->
+![합성 레이어의 z축 분리와 합성 결과](../../assets/diagrams/fe-compositing-gpu.svg)
+
 브라우저는 페이지 전체를 한 장으로만 다루지 않는다. 특정 조건을 만족하는 요소는
 **독립된 합성 레이어(compositing layer)**로 분리되어 자기만의 비트맵을 갖는다.
 

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">엔티티 상태 전이도 — merge 동작 방식 포함</title>
+  <desc id="d">JPA 엔티티의 비영속, 영속, 준영속, 삭제 4가지 상태 전이와 em.merge()의 실제 동작 메커니즘을 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마커: 잉크(검정/회색) -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커: 파랑 -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- 화살표 마커: 주황 -->
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <!-- 화살표 마커: 빨강 -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <!-- 화살표 마커: 보라 -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 제목 -->
+  <text x="440" y="35" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">JPA 엔티티 상태 전이 및 em.merge() 메커니즘</text>
+
+  <!-- 영역 배경 박스 (상태 전이 & merge 상세) -->
+  <rect x="30" y="60" width="820" height="420" rx="8" ry="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- ==================== 상태 노드들 ==================== -->
+
+  <!-- 1. 비영속 (New) 노드 -->
+  <!-- x: 60, y: 90, w: 180, h: 80 -->
+  <rect x="60" y="90" width="180" height="80" rx="8" ry="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="150" y="125" font-size="14" font-weight="600" fill="#d97706" text-anchor="middle">비영속 (new)</text>
+  <text x="150" y="145" font-size="11.5" fill="#52606d" text-anchor="middle">JPA가 모르는 순수 자바 객체</text>
+
+  <!-- 2. 영속 (Managed) 노드 -->
+  <!-- x: 350, y: 90, w: 180, h: 80 -->
+  <rect x="350" y="90" width="180" height="80" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="125" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">영속 (managed)</text>
+  <text x="440" y="145" font-size="11.5" fill="#52606d" text-anchor="middle">1차 캐시 등록 및 변경 감지</text>
+
+  <!-- 3. 준영속 (Detached) 노드 -->
+  <!-- x: 640, y: 90, w: 180, h: 80 -->
+  <rect x="640" y="90" width="180" height="80" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="730" y="125" font-size="14" font-weight="600" fill="#7c3aed" text-anchor="middle">준영속 (detached)</text>
+  <text x="730" y="145" font-size="11.5" fill="#52606d" text-anchor="middle">영속성 컨텍스트에서 제외됨</text>
+
+  <!-- 4. 삭제 (Removed) 노드 -->
+  <!-- x: 350, y: 260, w: 180, h: 80 -->
+  <rect x="350" y="260" width="180" height="80" rx="8" ry="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="440" y="295" font-size="14" font-weight="600" fill="#dc2626" text-anchor="middle">삭제 (removed)</text>
+  <text x="440" y="315" font-size="11.5" fill="#52606d" text-anchor="middle">DELETE 예약 (커밋 시 삭제)</text>
+
+
+  <!-- ==================== 기본 상태 전이 화살표 ==================== -->
+
+  <!-- 시작 -> 비영속 (new Member()) -->
+  <path d="M 150, 60 L 150, 90" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="110" y="63" width="80" height="18" fill="#ffffff"/>
+  <text x="150" y="76" font-size="11.5" fill="#1f2933" text-anchor="middle">new Member()</text>
+
+  <!-- 비영속 -> 영속 (em.persist()) -->
+  <path d="M 240, 130 L 350, 130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="252" y="112" width="86" height="18" fill="#ffffff"/>
+  <text x="295" y="125" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">em.persist()</text>
+
+  <!-- 영속 -> 준영속 (em.detach / clear / close) -->
+  <path d="M 530, 110 L 640, 110" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="540" y="92" width="90" height="18" fill="#ffffff"/>
+  <text x="585" y="105" font-size="11.5" font-weight="500" fill="#7c3aed" text-anchor="middle">em.detach()</text>
+
+  <!-- 영속 -> 삭제 (em.remove()) -->
+  <path d="M 440, 170 L 440, 260" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="390" y="202" width="100" height="18" fill="#ffffff"/>
+  <text x="440" y="215" font-size="11.5" font-weight="500" fill="#dc2626" text-anchor="middle">em.remove()</text>
+
+
+  <!-- ==================== merge 메커니즘 영역 ==================== -->
+
+  <!-- merge 서브 박스 -->
+  <rect x="60" y="360" width="760" height="100" rx="6" ry="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="75" y="380" font-size="13" font-weight="600" fill="#7c3aed">em.merge(param) 동작 상세 메커니즘</text>
+
+  <!-- 인자로 전달된 준영속 객체 -->
+  <rect x="80" y="395" width="200" height="50" rx="4" ry="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="180" y="417" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">인자: 준영속 객체</text>
+  <text x="180" y="433" font-size="11" fill="#52606d" text-anchor="middle">(상태 변경 없음: 준영속 유지)</text>
+
+  <!-- 복사 화살표 -->
+  <path d="M 280, 420 L 380, 420" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="290" y="402" width="80" height="18" fill="#ffffff"/>
+  <text x="330" y="415" font-size="11.5" font-weight="500" fill="#7c3aed" text-anchor="middle">값 복사 (copy)</text>
+
+  <!-- DB 조회/캐시 찾기 및 영속 객체 -->
+  <rect x="380" y="395" width="220" height="50" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="490" y="417" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">1차 캐시/DB 조회 영속 객체</text>
+  <text x="490" y="433" font-size="11" fill="#2563eb" text-anchor="middle">(식별자로 찾아 값 덮어씀)</text>
+
+  <!-- 반환 화살표 -->
+  <path d="M 600, 420 L 680, 420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="610" y="402" width="60" height="18" fill="#ffffff"/>
+  <text x="640" y="415" font-size="11.5" font-weight="500" fill="#059669" text-anchor="middle">반환 (return)</text>
+
+  <!-- 반환된 신규 영속 인스턴스 -->
+  <rect x="680" y="395" width="120" height="50" rx="4" ry="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="740" y="417" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">반환 객체</text>
+  <text x="740" y="433" font-size="11" fill="#059669" text-anchor="middle">(영속 인스턴스)</text>
+
+  <!-- 준영속 노드에서 merge 흐름으로 내려가는 화살표 -->
+  <path d="M 730, 170 Q 730, 280 430, 360" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="660" y="240" width="84" height="18" fill="#ffffff"/>
+  <text x="702" y="253" font-size="11.5" font-weight="500" fill="#7c3aed" text-anchor="middle">em.merge() 호출</text>
+
+  <!-- merge 결과 반환 객체가 영속 상태임을 나타내는 연관선 -->
+  <path d="M 740, 395 Q 740, 310 530, 150" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 하단 캡션 -->
+  <text x="440" y="510" font-size="11.5" fill="#52606d" text-anchor="middle">결론: em.merge()는 준영속 객체를 영속으로 바꾸지 않고, 값을 복사한 영속 인스턴스를 반환한다.</text>
+</svg>

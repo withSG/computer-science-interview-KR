@@ -69,6 +69,9 @@ JavaScript는 UI를 다루는 언어였기 때문에 2번을 택했다. DOM을 �
 
 ## 3. 구성 요소와 전체 흐름
 
+<!-- diagram:js-event-loop -->
+![이벤트 루프의 구성 요소와 순환 흐름](../../assets/diagrams/js-event-loop.svg)
+
 ```
         ┌──────────────────────────────────────────────┐
         │            JavaScript 엔진                    │

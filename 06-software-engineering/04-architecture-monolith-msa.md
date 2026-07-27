@@ -216,6 +216,9 @@ MSA로 가면 이 다섯 가지를 **전부 잃고** 각각을 직접 구현해�
 
 ## 6. Saga — 분산 환경의 트랜잭션
 
+<!-- diagram:se-saga-compensation -->
+![Saga 보상 트랜잭션 타임라인과 격리성이 깨지는 구간](../assets/diagrams/se-saga-compensation.svg)
+
 여러 서비스를 거치는 작업은 DB 트랜잭션으로 묶을 수 없다. Saga 패턴은 이것을 **각 서비스의 로컬 트랜잭션을 순서대로 실행하고, 중간에 실패하면 앞서 성공한 것들을 되돌리는 보상 트랜잭션(compensating transaction)을 실행하는 방식**으로 푼다.
 
 ```

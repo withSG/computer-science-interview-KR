@@ -249,6 +249,9 @@ filtered.unpersist()                     # 다 썼으면 해제
 
 ## 5. 셔플이 비싼 이유와 줄이는 법
 
+<!-- diagram:de-spark -->
+![셔플의 all-to-all 데이터 교환과 Stage 경계](../assets/diagrams/de-spark.svg)
+
 ### 왜 비싼가
 
 `groupBy("user_id")`를 하려면 같은 `user_id`가 한 곳에 모여야 한다. 그런데 데이터는 처음에 파일 단위로 나뉘어 있어서 같은 사용자의 행이 모든 파티션에 흩어져 있다. 그래서 다음이 일어난다.

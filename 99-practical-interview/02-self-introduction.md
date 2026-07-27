@@ -57,6 +57,9 @@
 
 ## 2. 구조: 현재 → 강점 근거 → 지원 연결
 
+<!-- diagram:iv-self-introduction -->
+![자기소개 키워드가 만드는 질문 트리](../assets/diagrams/iv-self-introduction.svg)
+
 ### 3단 구조
 
 ```

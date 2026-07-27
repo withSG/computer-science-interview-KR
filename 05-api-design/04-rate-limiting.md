@@ -60,6 +60,9 @@
 
 ### 경계 버스트
 
+<!-- diagram:api-fixed-window-burst -->
+![Fixed Window 경계 버스트](../assets/diagrams/api-fixed-window-burst.svg)
+
 ```
 한도: 분당 5개
 

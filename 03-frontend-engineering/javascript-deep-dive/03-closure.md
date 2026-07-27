@@ -61,6 +61,9 @@ console.log(typeof count);           // 'undefined' — 외부에 노출되지 �
 
 ### 왜 종료된 함수의 변수가 살아남나
 
+<!-- diagram:fe-closure -->
+![콜 스택과 힙의 수명 차이](../../assets/diagrams/fe-closure.svg)
+
 ```js
 function outer() {
   const secret = 'hidden';

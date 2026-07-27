@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">SOP는 요청이 아니라 응답 읽기를 막는다</title>
+  <desc id="d">evil.com JS에서 bank.com으로 요청을 보낼 때, 브라우저가 실제 요청을 전송하고 서버가 처리하지만 응답 헤더 검사 실패로 JS에는 TypeError만 전달되는 동일 출처 정책(SOP) 동작 시퀀스 다이어그램</desc>
+  
+  <!-- 배경 흰색 카드 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마커: 검은색/잉크 -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커: 파랑 -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- 화살표 마커: 빨강 -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <!-- 차단 표시 (X 마커) -->
+    <marker id="a-stop" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1,1 L9,9 M9,1 L1,9" stroke="#dc2626" stroke-width="2.5" fill="none"/>
+    </marker>
+  </defs>
+
+  <!-- 다이어그램 제목 -->
+  <text x="40" y="40" font-size="17" font-weight="600" fill="#1f2933">SOP는 요청이 아니라 응답 읽기를 막는다</text>
+
+  <!-- 영역 강조 반투명 배경 (서버 처리 및 응답 차단 구간) -->
+  <!-- 범주 1: 서버 전달 및 정상 처리 (요청 통과) -->
+  <rect x="230" y="190" fill="#ecfdf5" width="600" height="150" rx="6"/>
+  <rect x="230" y="190" fill="none" stroke="#059669" stroke-width="1" stroke-dasharray="4 4" width="600" height="150" rx="6"/>
+  <text x="820" y="210" font-size="11.5" font-weight="500" fill="#059669" text-anchor="end">요청 서버 도착 및 정상 처리 (송금/조회 발생)</text>
+
+  <!-- 범주 2: 브라우저 응답 차단 (CORS 에러) -->
+  <rect x="50" y="370" fill="#fef2f2" width="420" height="110" rx="6"/>
+  <rect x="50" y="370" fill="none" stroke="#dc2626" stroke-width="1" stroke-dasharray="4 4" width="420" height="110" rx="6"/>
+  <text x="60" y="390" font-size="11.5" font-weight="500" fill="#dc2626">Access-Control-Allow-Origin 검사 실패: JS에 응답 전달 차단</text>
+
+  <!-- 참여자 (Lifeline Header) -->
+  <!-- 레인 1: evil.com JS (x=160) -->
+  <rect x="80" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="160" y="85" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">evil.com JS</text>
+  <line x1="160" y1="100" x2="160" y2="490" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- 레인 2: 브라우저 (x=440) -->
+  <rect x="360" y="60" width="160" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="85" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">브라우저</text>
+  <line x1="440" y1="100" x2="440" y2="490" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- 레인 3: bank.com 서버 (x=720) -->
+  <rect x="640" y="60" width="160" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="720" y="85" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">bank.com 서버</text>
+  <line x1="720" y1="100" x2="720" y2="490" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- 시퀀스 메시지 1: fetch() 호출 -->
+  <path d="M160,130 L440,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="250" y="116" width="100" height="20" fill="#ffffff"/>
+  <text x="300" y="130" font-size="12" font-weight="500" fill="#2563eb" text-anchor="middle">fetch() 호출</text>
+
+  <!-- 시퀀스 메시지 2: 실제 HTTP 요청 전송 (쿠키 포함) -->
+  <path d="M440,170 L720,170" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="490" y="148" width="180" height="34" fill="#ffffff"/>
+  <text x="580" y="161" font-size="12" font-weight="500" fill="#1f2933" text-anchor="middle">실제 HTTP 요청 전송</text>
+  <text x="580" y="177" font-size="11" font-weight="400" fill="#059669" text-anchor="middle">(쿠키까지 포함해서 전송)</text>
+
+  <!-- 서버 내부 동작: 요청 처리 -->
+  <rect x="660" y="220" width="120" height="30" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="720" y="239" font-size="12" font-weight="500" fill="#d97706" text-anchor="middle">요청을 처리한다</text>
+
+  <!-- 시퀀스 메시지 3: 200 OK + JSON 응답 -->
+  <path d="M720,290 L440,290" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="500" y="278" width="160" height="20" fill="#ffffff"/>
+  <text x="580" y="292" font-size="12" font-weight="500" fill="#1f2933" text-anchor="middle">200 OK + JSON 응답</text>
+
+  <!-- 브라우저 내부 동작: ACAO 헤더 확인 -->
+  <rect x="330" y="325" width="220" height="36" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="340" font-size="11.5" font-weight="500" fill="#7c3aed" text-anchor="middle">Access-Control-Allow-Origin</text>
+  <text x="440" y="354" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">헤더 확인 (없거나 불일치)</text>
+
+  <!-- 시퀀스 메시지 4: JS 응답 전달 차단 (TypeError만) -->
+  <path d="M440,430 L160,430" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <!-- 차단 표시 아이콘 -->
+  <circle cx="300" cy="430" r="10" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <line x1="293" y1="423" x2="307" y2="437" stroke="#dc2626" stroke-width="2"/>
+  <line x1="307" y1="423" x2="293" y2="437" stroke="#dc2626" stroke-width="2"/>
+
+  <rect x="180" y="405" width="220" height="20" fill="#ffffff"/>
+  <text x="290" y="419" font-size="12" font-weight="600" fill="#dc2626" text-anchor="middle">TypeError (응답 내용은 못 봄)</text>
+
+  <!-- 하단 결론 캡션 -->
+  <text x="440" y="515" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: 요청은 서버에 도달한다. 브라우저가 응답을 JS에게 넘기지 않을 뿐이다.</text>
+</svg>

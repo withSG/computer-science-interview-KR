@@ -57,6 +57,9 @@
 
 ### 원인 2. 로드 밸런서가 아직 이 서버를 살아 있다고 믿는다
 
+<!-- diagram:sd-zero-downtime-deployment -->
+![종료 시점의 시차](../assets/diagrams/sd-zero-downtime-deployment.svg)
+
 우아한 종료를 켰는데도 502가 남는다면 십중팔구 이 문제다.
 
 ```

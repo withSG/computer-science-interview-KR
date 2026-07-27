@@ -219,6 +219,9 @@ const resolvers = {
 
 ### N+1이 생기는 순간
 
+<!-- diagram:api-graphql-basics -->
+![리졸버 호출 트리와 DataLoader 배치](../assets/diagrams/api-graphql-basics.svg)
+
 ```graphql
 query {
   posts(first: 10) {       # ① posts 리졸버 1번 호출 → 게시글 10개

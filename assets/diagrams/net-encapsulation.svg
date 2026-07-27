@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">네트워크 캡슐화 및 비캡슐화 구조</title>
+  <desc id="d">응용 계층 메시지가 전송, 네트워크, 데이터링크 계층을 거치며 헤더와 트레일러가 추가되는 캡슐화 과정과 수신 측의 역방향 비캡슐화 과정을 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-down" viewBox="0 0 10 10" refX="5" refY="9" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,0 L5,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-up" viewBox="0 0 10 10" refX="5" refY="1" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,10 L10,10 L5,0 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">캡슐화(Encapsulation) 및 비캡슐화(Decapsulation) 구조</text>
+
+  <!-- Process Flow Arrow Labels (Side Indicators) -->
+  <!-- Encapsulation Path (Left) -->
+  <path d="M 50,80 L 50,420" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-down)"/>
+  <rect x="15" y="235" width="70" height="30" fill="#ffffff" rx="4"/>
+  <text x="50" y="247" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">캡슐화</text>
+  <text x="50" y="261" font-size="11" font-weight="400" fill="#2563eb" text-anchor="middle">(송신 측)</text>
+
+  <!-- Decapsulation Path (Right) -->
+  <path d="M 830,420 L 830,80" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-up)"/>
+  <rect x="795" y="235" width="70" height="30" fill="#ffffff" rx="4"/>
+  <text x="830" y="247" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">비캡슐화</text>
+  <text x="830" y="261" font-size="11" font-weight="400" fill="#059669" text-anchor="middle">(수신 측)</text>
+
+  <!-- LAYER 4: Link Layer Box (Outer) -->
+  <rect x="80" y="60" width="720" height="350" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="8"/>
+  <text x="100" y="85" font-size="14" font-weight="600" fill="#1f2933">데이터링크 계층 [Data Link Layer]</text>
+  <text x="780" y="85" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="end">PDU: 프레임 (Frame)</text>
+
+  <!-- MAC Header & FCS details -->
+  <rect x="95" y="100" width="100" height="295" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="145" y="125" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">MAC hdr</text>
+  <text x="145" y="150" font-size="11" fill="#52606d" text-anchor="middle">출발지/목적지</text>
+  <text x="145" y="165" font-size="11" fill="#52606d" text-anchor="middle">MAC 주소</text>
+
+  <rect x="685" y="100" width="100" height="295" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="735" y="125" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">FCS</text>
+  <text x="735" y="150" font-size="11" fill="#52606d" text-anchor="middle">오류검출</text>
+  <text x="735" y="165" font-size="11" fill="#52606d" text-anchor="middle">트레일러</text>
+
+  <!-- LAYER 3: Network Layer Box -->
+  <rect x="205" y="100" width="470" height="295" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
+  <text x="220" y="125" font-size="14" font-weight="600" fill="#1f2933">네트워크 계층 [Network Layer]</text>
+  <text x="660" y="125" font-size="13" font-weight="600" fill="#2563eb" text-anchor="end">PDU: 패킷 (Packet)</text>
+
+  <!-- IP Header details -->
+  <rect x="215" y="140" width="115" height="240" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="272" y="165" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">IP hdr</text>
+  <text x="272" y="190" font-size="11" fill="#52606d" text-anchor="middle">출발지 IP</text>
+  <text x="272" y="205" font-size="11" fill="#1f2933" text-anchor="middle">192.0.2.10</text>
+  <text x="272" y="230" font-size="11" fill="#52606d" text-anchor="middle">목적지 IP</text>
+  <text x="272" y="245" font-size="11" fill="#1f2933" text-anchor="middle">203.0.113.5</text>
+  <text x="272" y="270" font-size="11" fill="#52606d" text-anchor="middle">TTL</text>
+
+  <!-- LAYER 2: Transport Layer Box -->
+  <rect x="340" y="140" width="325" height="240" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+  <text x="350" y="165" font-size="14" font-weight="600" fill="#1f2933">전송 계층 [Transport Layer]</text>
+  <text x="650" y="165" font-size="13" font-weight="600" fill="#d97706" text-anchor="end">PDU: 세그먼트</text>
+
+  <!-- TCP Header details -->
+  <rect x="350" y="180" width="115" height="185" fill="#ffffff" stroke="#d97706" stroke-width="1.5" rx="4"/>
+  <text x="407" y="205" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">TCP hdr</text>
+  <text x="407" y="230" font-size="11" fill="#52606d" text-anchor="middle">출발지 포트 51234</text>
+  <text x="407" y="250" font-size="11" fill="#52606d" text-anchor="middle">목적지 포트 443</text>
+  <text x="407" y="270" font-size="11" fill="#52606d" text-anchor="middle">시퀀스 / ACK 번호</text>
+  <text x="407" y="290" font-size="11" fill="#52606d" text-anchor="middle">윈도우 크기</text>
+
+  <!-- LAYER 1: Application Layer Box (Innermost) -->
+  <rect x="475" y="180" width="180" height="185" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="6"/>
+  <text x="565" y="205" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">응용 계층</text>
+  <text x="565" y="225" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">PDU: 메시지 (Message)</text>
+
+  <!-- Payload Box -->
+  <rect x="485" y="240" width="160" height="110" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="565" y="265" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">HTTP 메시지</text>
+  <text x="565" y="295" font-size="11" stroke-width="0" fill="#1f2933" text-anchor="middle">GET /index.html</text>
+  <text x="565" y="315" font-size="11" fill="#1f2933" text-anchor="middle">HTTP/1.1 ...</text>
+  <text x="565" y="338" font-size="11" fill="#52606d" text-anchor="middle">(상위 데이터 페이로드)</text>
+
+  <!-- Physical Layer Line (Bottom Indicator) -->
+  <rect x="80" y="425" width="720" height="30" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="95" y="445" font-size="11.5" font-weight="600" fill="#1f2933">물리 계층 [Physical Layer] (PDU: 비트)</text>
+  <text x="450" y="445" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">신호 전송: 1010110001110101...</text>
+
+  <!-- Bottom Caption -->
+  <text x="440" y="480" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 하위 계층은 상위 계층의 데이터 구조를 해석하지 않고 하나의 바이트 덩어리(Payload)로 다룹니다.</text>
+</svg>

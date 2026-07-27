@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CSRF 성립 조건 3가지와 방어 메커니즘</title>
+  <desc id="d">피해자 브라우저, evil.com, bank.com 간의 시퀀스를 통해 CSRF 성립 조건 3가지와 이를 차단하는 SameSite, Origin 검증, CSRF 토큰 방어책을 설명하는 다이어그램</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마커: 검은색/잉크 (기본 메인) -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커: 빨간색 (공격 시도) -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <!-- 화살표 마커: 파란색 (정상 흐름) -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 제목 -->
+  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">CSRF 성립 조건 3가지와 방어 메커니즘 (하나만 깨도 공격 실패)</text>
+
+  <!-- 범례 (Legend) -->
+  <g transform="translate(140, 50)">
+    <rect x="0" y="0" width="600" height="30" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+    
+    <rect x="20" y="8" width="14" height="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="40" y="20" font-size="11" font-weight="500" fill="#1f2933">CSRF 성립 조건 (①, ②, ③)</text>
+    
+    <rect x="230" y="8" width="14" height="14" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="250" y="20" font-size="11" font-weight="500" fill="#1f2933">대응 방어책 (조건 차단)</text>
+
+    <line x1="420" y1="15" x2="450" y2="15" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-red)"/>
+    <text x="458" y="20" font-size="11" font-weight="500" fill="#1f2933">위조된 요청 / 차단 경로</text>
+  </g>
+
+  <!-- 라이프라인 / 참가자 헤더 -->
+  <!-- 1. 피해자 브라우저 (X = 180) -->
+  <rect x="100" y="100" width="160" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="180" y="125" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">피해자 브라우저</text>
+  <line x1="180" y1="140" x2="180" y2="640" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- 2. evil.com (공격자) (X = 440) -->
+  <rect x="360" y="100" width="160" height="40" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="440" y="125" font-size="14" font-weight="600" fill="#dc2626" text-anchor="middle">evil.com (공격자)</text>
+  <line x1="440" y1="140" x2="440" y2="640" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- 3. bank.com (대상 서버) (X = 700) -->
+  <rect x="620" y="100" width="160" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="700" y="125" font-size="14" font-weight="600" fill="#7c3aed" text-anchor="middle">bank.com (대상 서버)</text>
+  <line x1="700" y1="140" x2="700" y2="640" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- STEP 1: 로그인 및 세션 쿠키 발급 (Y = 170) -->
+  <line x1="180" y1="170" x2="700" y2="170" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <rect x="360" y="156" width="160" height="20" fill="#ffffff"/>
+  <text x="440" y="170" font-size="11.5" fill="#2563eb" text-anchor="middle">1. 로그인 요청</text>
+
+  <line x1="700" y1="200" x2="180" y2="200" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-blue)"/>
+  <rect x="340" y="186" width="200" height="20" fill="#ffffff"/>
+  <text x="440" y="200" font-size="11.5" fill="#2563eb" text-anchor="middle">세션 쿠키 발급 (브라우저 보관)</text>
+
+  <!-- STEP 2: evil.com 방문 (Y = 250) -->
+  <line x1="180" y1="240" x2="440" y2="240" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <rect x="250" y="226" width="120" height="20" fill="#ffffff"/>
+  <text x="310" y="240" font-size="11.5" fill="#1f2933" text-anchor="middle">2. evil.com 방문</text>
+
+  <!-- evil.com 악성 폼 응답 (Y = 280) -->
+  <line x1="440" y1="280" x2="180" y2="280" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-red)"/>
+  <rect x="200" y="266" width="220" height="20" fill="#ffffff"/>
+  <text x="310" y="280" font-size="11.5" fill="#dc2626" text-anchor="middle">자동 제출 폼 응답 (&lt;form action=...&gt;)</text>
+
+  <!-- 조건 3 강조 영역 (Y = 320 ~ 400) -->
+  <rect x="40" y="315" width="800" height="85" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="6" opacity="0.85"/>
+  
+  <!-- 조건 3 배지 & 차단 1 (CSRF 토큰) -->
+  <rect x="50" y="325" width="220" height="26" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="160" y="342" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">조건 3. 요청 완전 재현 가능</text>
+  <text x="50" y="365" font-size="11" fill="#52606d">공격자가 모르는 비밀값(토큰)이 없음</text>
+  <text x="50" y="382" font-size="11" fill="#52606d">스크립트로 폼 자동 제출 (submit)</text>
+
+  <rect x="290" y="325" width="250" height="65" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="415" y="345" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">방어 2. CSRF 토큰 (조건 3 차단)</text>
+  <text x="415" y="363" font-size="11" fill="#1f2933" text-anchor="middle">서버가 발행한 랜덤 토큰 검증</text>
+  <text x="415" y="379" font-size="11" fill="#52606d" text-anchor="middle">SOP로 인해 evil.com은 토큰 탈취 불가</text>
+
+  <!-- STEP 3: 위조된 요청 전송 (Y = 430) -->
+  <line x1="180" y1="430" x2="700" y2="430" stroke="#dc2626" stroke-width="2" marker-end="url(#a-red)"/>
+  <rect x="320" y="416" width="240" height="20" fill="#ffffff"/>
+  <text x="440" y="430" font-size="12" font-weight="600" fill="#dc2626" text-anchor="middle">3. POST /transfer (송금 요청)</text>
+
+  <!-- 조건 1 강조 영역 (Y = 450 ~ 530) -->
+  <rect x="40" y="450" width="800" height="80" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="6" opacity="0.85"/>
+  
+  <!-- 조건 1 배지 & 차단 2 (SameSite 쿠키) -->
+  <rect x="50" y="460" width="220" height="26" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="160" y="477" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">조건 1. 자격 증명 자동 첨부</text>
+  <text x="50" y="500" font-size="11" fill="#52606d">브라우저가 bank.com 쿠키를 자동 전송</text>
+
+  <rect x="290" y="460" width="250" height="60" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="415" y="480" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">방어 1. SameSite 쿠키 (조건 1 차단)</text>
+  <text x="415" y="498" font-size="11" fill="#1f2933" text-anchor="middle">SameSite=Lax / Strict 설정 시</text>
+  <text x="415" y="513" font-size="11" fill="#52606d" text-anchor="middle">Cross-Site POST 요청에 쿠키 미전송</text>
+
+  <!-- 조건 2 강조 영역 (Y = 540 ~ 620) -->
+  <rect x="40" y="540" width="800" height="80" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="6" opacity="0.85"/>
+  
+  <!-- 조건 2 배지 & 차단 3 (Origin 헤더 검증) -->
+  <rect x="50" y="550" width="220" height="26" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="160" y="567" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">조건 2. 출처 미검증 서버</text>
+  <text x="50" y="590" font-size="11" fill="#52606d">세션만 유효하면 요청 출처 불문 처리</text>
+
+  <rect x="290" y="550" width="250" height="60" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="415" y="570" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">방어 3. Origin 검증 (조건 2 차단)</text>
+  <text x="415" y="588" font-size="11" fill="#1f2933" text-anchor="middle">HTTP Origin 헤더 확인</text>
+  <text x="415" y="603" font-size="11" fill="#52606d" text-anchor="middle">허용되지 않은 출처(evil.com) 거부</text>
+
+  <!-- 처리 결과 (Y = 640) -->
+  <rect x="580" y="630" width="240" height="35" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="700" y="652" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">4. 조건 충족 시: 강제 송금 성공</text>
+
+  <!-- 하단 요약 캡션 -->
+  <text x="440" y="695" font-size="11.5" fill="#52606d" text-anchor="middle">결론: CSRF는 3가지 조건이 동시에 만족되어야 성립하며, 세 조건 중 하나만 깨뜨려도 공격은 실패한다.</text>
+</svg>

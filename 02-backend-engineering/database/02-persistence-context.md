@@ -67,6 +67,9 @@ JPA는 이걸 **애플리케이션과 DB 사이에 "작업 공간"을 하나 두
 
 ## 2. 엔티티의 네 가지 상태
 
+<!-- diagram:be-persistence-context -->
+![엔티티 상태 전이도](../../assets/diagrams/be-persistence-context.svg)
+
 ```
         new Member()
              │

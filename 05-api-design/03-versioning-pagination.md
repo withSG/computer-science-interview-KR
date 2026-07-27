@@ -195,6 +195,9 @@ Cursor 방식이 읽는 양
 
 ### 문제 2 — 페이지를 넘기는 사이 데이터가 움직인다
 
+<!-- diagram:api-versioning-pagination -->
+![Offset 페이지네이션의 중복과 누락](../assets/diagrams/api-versioning-pagination.svg)
+
 ```
 초기 상태 (최신순):  [글6, 글5, 글4, 글3, 글2, 글1]
 

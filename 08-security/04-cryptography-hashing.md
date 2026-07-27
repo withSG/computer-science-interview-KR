@@ -223,6 +223,9 @@ Salt는 DB에 함께 저장되므로, DB가 통째로 유출되면 공격자도 
 
 ## 7. work factor — 공격 비용을 의도적으로 올린다
 
+<!-- diagram:sec-cryptography-hashing -->
+![방어층을 쌓을 때마다 줄어드는 공격자의 초당 시도 횟수](../assets/diagrams/sec-cryptography-hashing.svg)
+
 Salt를 붙여도 문제 2(너무 빠름)는 남는다. 특정 사용자 한 명을 노린 공격은 여전히 GPU로 가능하다.
 그래서 비밀번호 전용 해시는 **의도적으로 느리게** 설계된다.
 

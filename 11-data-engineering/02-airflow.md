@@ -166,6 +166,9 @@ daily_sales()
 
 ## 3. 실행 시각과 데이터 구간 — 가장 헷갈리는 지점
 
+<!-- diagram:de-airflow-data-interval -->
+![데이터 구간과 실제 실행 시각의 어긋남 타임라인](../assets/diagrams/de-airflow-data-interval.svg)
+
 ### 왜 자정 DAG가 다음 날 도는가
 
 `schedule="@daily"`, `start_date=2026-03-01`인 DAG는 **3월 1일 자정이 아니라 3월 2일 자정에 처음 실행된다.** 처음 보면 버그처럼 느껴지는데, 배치의 본질을 생각하면 당연하다.

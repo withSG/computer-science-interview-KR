@@ -147,6 +147,9 @@ df.groupBy(F.window("event_time", "10 minutes")).count()
 
 ## 5. 워터마크 — 언제 마감할 것인가
 
+<!-- diagram:de-batch-vs-streaming -->
+![워터마크가 윈도우를 마감하고 늦은 이벤트를 버리는 순간](../assets/diagrams/de-batch-vs-streaming.svg)
+
 ### 풀어야 할 질문
 
 10:00~10:10 윈도우의 카운트를 언제 확정해 내보낼 것인가? 10:10이 되는 순간에 마감하면 늦게 도착한 이벤트를 놓친다. 영원히 열어 두면 상태가 무한히 쌓여 메모리가 터지고 결과는 영영 나오지 않는다.

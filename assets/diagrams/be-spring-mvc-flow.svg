@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 750" width="880" height="750" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">HTTP 요청 한 건이 지나는 계층 구조 및 처리 흐름</title>
+  <desc id="d">서블릿 컨테이너 Tomcat, Filter Chain, DispatcherServlet, Controller 및 AOP 프록시 계층의 중첩 구조와 요청 응답 처리 경로를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="750" fill="#ffffff"/>
+  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">HTTP 요청 한 건이 지나는 계층 구조</text>
+  <rect x="30" y="50" width="820" height="610" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="50" y="74" font-size="14" font-weight="600" fill="#1f2933">0단계: 서블릿 컨테이너 (Tomcat)</text>
+  <text x="50" y="93" font-size="11.5" fill="#52606d">요청 스레드 할당, HttpServletRequest / HttpServletResponse 객체 생성</text>
+  <rect x="50" y="110" width="780" height="530" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="70" y="134" font-size="14" font-weight="600" fill="#7c3aed">Filter Chain</text>
+  <text x="160" y="134" font-size="11.5" fill="#52606d">(인코딩, CORS, Spring Security 처리)</text>
+  <rect x="70" y="150" width="740" height="470" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="90" y="174" font-size="14" font-weight="600" fill="#2563eb">DispatcherServlet</text>
+  <rect x="90" y="190" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="100" y="210" font-size="13" font-weight="500" fill="#1f2933">1단계: HandlerMapping</text>
+  <text x="100" y="229" font-size="11.5" fill="#52606d">요청 처리할 핸들러 검색</text>
+  <rect x="330" y="190" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="340" y="210" font-size="13" font-weight="500" fill="#1f2933">2단계: HandlerAdapter</text>
+  <text x="340" y="229" font-size="11.5" fill="#52606d">핸들러 실행 어댑터 선택</text>
+  <rect x="570" y="190" width="240" height="55" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="580" y="210" font-size="13" font-weight="500" fill="#d97706">3단계: Interceptor.preHandle</text>
+  <text x="580" y="229" font-size="11.5" fill="#52606d">전처리 (false 반환 시 중단)</text>
+  <rect x="90" y="260" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="100" y="280" font-size="13" font-weight="500" fill="#1f2933">4단계: ArgumentResolver</text>
+  <text x="100" y="299" font-size="11.5" fill="#52606d">HttpMessageConverter 역직렬화</text>
+  <rect x="90" y="330" width="720" height="190" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="110" y="354" font-size="14" font-weight="600" fill="#059669">5단계: Controller / Service (AOP 프록시 개입 영역)</text>
+  <rect x="110" y="370" width="680" height="135" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="130" y="394" font-size="13" font-weight="500" fill="#059669">AOP Proxy (트랜잭션 관리 및 비즈니스 로직)</text>
+  <rect x="130" y="410" width="200" height="75" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="230" y="435" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Controller</text>
+  <text x="230" y="455" font-size="11.5" fill="#52606d" text-anchor="middle">비즈니스 요청 전달</text>
+  <rect x="370" y="410" width="200" height="75" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="470" y="435" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Service</text>
+  <text x="470" y="455" font-size="11.5" fill="#52606d" text-anchor="middle">트랜잭션 시작 및 처리</text>
+  <rect x="610" y="410" width="160" height="75" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="690" y="435" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Repository / DB</text>
+  <text x="690" y="455" font-size="11.5" fill="#52606d" text-anchor="middle">데이터 액세스</text>
+  <path d="M330,447 L361,447" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M570,447 L601,447" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="90" y="535" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="100" y="555" font-size="13" font-weight="500" fill="#1f2933">6단계: ReturnValueHandler</text>
+  <text x="100" y="574" font-size="11.5" fill="#52606d">응답 반환값 유형별 처리</text>
+  <rect x="330" y="535" width="220" height="55" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="340" y="555" font-size="13" font-weight="500" fill="#d97706">7단계: Interceptor.postHandle</text>
+  <text x="340" y="574" font-size="11.5" fill="#52606d">컨트롤러 정상 반환 후 호출</text>
+  <rect x="570" y="535" width="240" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="580" y="555" font-size="13" font-weight="500" fill="#1f2933">8단계: 응답 생성</text>
+  <text x="580" y="574" font-size="11.5" fill="#52606d">뷰 렌더링 또는 JSON 직렬화</text>
+  <rect x="330" y="600" width="480" height="35" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="340" y="622" font-size="13" font-weight="500" fill="#d97706">9단계: Interceptor.afterCompletion</text>
+  <text x="590" y="622" font-size="11.5" fill="#52606d">(예외 발생 여부와 상관없이 항상 실행)</text>
+  <path d="M120,10 L120,39" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="80" y="15" width="80" height="18" fill="#ffffff"/>
+  <text x="120" y="28" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">HTTP 요청</text>
+  <path d="M440,670 L440,699" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="400" y="675" width="80" height="18" fill="#ffffff"/>
+  <text x="440" y="688" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">HTTP 응답</text>
+  <rect x="580" y="118" width="250" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="585" y="135" font-size="11" font-weight="500" fill="#dc2626">Filter 예외 발생 시 @ControllerAdvice 도달 불가</text>
+  <text x="440" y="728" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 요청은 Tomcat → Filter → DispatcherServlet → Interceptor → Controller/AOP 순으로 처리되며, 각 계층별 책임이 분리되어 있다.</text>
+</svg>

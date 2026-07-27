@@ -94,6 +94,9 @@ GC는 "안 쓰는 객체"를 지운다고 하는데, JVM은 개발자의 의도�
 
 ### Minor GC 흐름
 
+<!-- diagram:be-garbage-collection -->
+![Minor GC](../../assets/diagrams/be-garbage-collection.svg)
+
 1. 새 객체는 **Eden**에 할당된다. 실제로는 각 스레드가 Eden 안에 자기 몫의 구간(**TLAB**, Thread-Local Allocation Buffer)을 받아 락 없이 포인터만 밀어서 할당한다. 그래서 Java의 객체 생성은 생각보다 매우 싸다.
 2. Eden이 차면 Minor GC 발동. Eden과 사용 중인 Survivor(S0)에서 **살아있는 객체만** 비어 있는 Survivor(S1)로 복사한다.
 3. 복사된 객체의 **age(살아남은 횟수)** 를 1 증가시킨다.

@@ -154,6 +154,9 @@ tree 항목 맨 앞 숫자는 파일 모드다. `100644`는 일반 파일, `1007
 
 ### 객체가 서로를 가리키는 모습
 
+<!-- diagram:git-object-graph -->
+![Git 객체 그래프](../assets/diagrams/git-object-graph.svg)
+
 ```
                     ┌──────────────────────┐
    refs/heads/main ─┤ commit  c3           │

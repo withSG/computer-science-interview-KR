@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Offset 페이지네이션의 중복과 누락</title>
+  <desc id="d">페이지 이동 사이에 데이터가 삽입되거나 삭제될 때 발생되는 OFFSET 위치 기반 조회 오류(중복 및 누락)를 보여주는 타임라인 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/>
+    </marker>
+
+    <!-- Hatch Pattern for Missing Item -->
+    <pattern id="hatch-gray" width="8" height="8" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#cbd2d9" stroke-width="2.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Main Title -->
+  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">Offset 페이지네이션의 중복과 누락 — 데이터 변동으로 밀리는 목록</text>
+
+  <!-- Time/Step Column Headers -->
+  <line x1="200" y1="65" x2="200" y2="470" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="530" y1="65" x2="530" y2="470" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Top Time Track Badges -->
+  <rect x="230" y="55" width="280" height="24" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="370" y="71" font-size="11.5" font-weight="600" fill="#1f2933" text-anchor="middle">1페이지 조회 (OFFSET 0 LIMIT 3)</text>
+
+  <rect x="560" y="55" width="280" height="24" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="700" y="71" font-size="11.5" font-weight="600" fill="#1f2933" text-anchor="middle">2페이지 조회 (OFFSET 3 LIMIT 3)</text>
+
+  <!-- ================= SECTION 1: INSERTION CASE ================= -->
+  <rect x="30" y="90" width="820" height="175" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  
+  <!-- Lane Title -->
+  <rect x="40" y="100" width="140" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="110" y="117" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">시나리오 A: 글7 등록</text>
+
+  <!-- Step A1: Initial State -->
+  <text x="180" y="149" font-size="11.5" font-weight="600" fill="#52606d" text-anchor="end">초기 상태</text>
+  <!-- [글6, 글5, 글4, 글3, 글2, 글1] -->
+  <g id="lane-a1-cells">
+    <rect x="230" y="132" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="250" y="150" font-size="13" fill="#1f2933" text-anchor="middle">글6</text>
+    <rect x="270" y="132" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="290" y="150" font-size="13" fill="#1f2933" text-anchor="middle">글5</text>
+    <rect x="310" y="132" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="330" y="150" font-size="13" fill="#1f2933" text-anchor="middle">글4</text>
+    <rect x="350" y="132" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="370" y="150" font-size="13" fill="#1f2933" text-anchor="middle">글3</text>
+    <rect x="390" y="132" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="410" y="150" font-size="13" fill="#1f2933" text-anchor="middle">글2</text>
+    <rect x="430" y="132" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="450" y="150" font-size="13" fill="#1f2933" text-anchor="middle">글1</text>
+  </g>
+
+  <!-- Window 1 (OFFSET 0 LIMIT 3) -->
+  <rect x="226" y="127" width="128" height="38" rx="4" fill="#2563eb" fill-opacity="0.08" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="290" y="120" font-size="11" font-weight="600" fill="#2563eb" text-anchor="middle">1페이지 결과: [글6, 글5, 글4]</text>
+
+  <!-- Step A2: Event (Insertion) -->
+  <rect x="380" y="180" width="130" height="22" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="445" y="195" font-size="11.5" font-weight="600" fill="#d97706" text-anchor="middle">글7 등록 (+1 밀림)</text>
+  <path d="M445,160 L445,178" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#a-ink)"/>
+
+  <!-- Step A3: Current State after Insertion -->
+  <text x="180" y="232" font-size="11.5" font-weight="600" fill="#52606d" text-anchor="end">현재 상태</text>
+  <!-- [글7, 글6, 글5, 글4, 글3, 글2, 글1] -->
+  <g id="lane-a2-cells">
+    <rect x="560" y="215" width="40" height="28" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="580" y="233" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">글7</text>
+    <rect x="600" y="215" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="620" y="233" font-size="13" fill="#1f2933" text-anchor="middle">글6</text>
+    <rect x="640" y="215" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="660" y="233" font-size="13" fill="#1f2933" text-anchor="middle">글5</text>
+    <rect x="680" y="215" width="40" height="28" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="700" y="233" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">글4</text>
+    <rect x="720" y="215" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="740" y="233" font-size="13" fill="#1f2933" text-anchor="middle">글3</text>
+    <rect x="760" y="215" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="780" y="233" font-size="13" fill="#1f2933" text-anchor="middle">글2</text>
+    <rect x="800" y="215" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="820" y="233" font-size="13" fill="#1f2933" text-anchor="middle">글1</text>
+  </g>
+
+  <!-- Window 2 (OFFSET 3 LIMIT 3) -->
+  <rect x="676" y="210" width="128" height="38" rx="4" fill="#dc2626" fill-opacity="0.08" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="740" y="203" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">2페이지 결과: [글4, 글3, 글2]</text>
+
+  <!-- Duplicate Callout Indicator -->
+  <path d="M330,160 Q330,190 685,212" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a-red)"/>
+  <rect x="460" y="248" width="160" height="18" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="540" y="261" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">⚠ 글4 두 번 노출 (중복 발생)</text>
+
+
+  <!-- ================= SECTION 2: DELETION CASE ================= -->
+  <rect x="30" y="280" width="820" height="175" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Lane Title -->
+  <rect x="40" y="290" width="140" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="110" y="307" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">시나리오 B: 글5 삭제</text>
+
+  <!-- Step B1: Initial State -->
+  <text x="180" y="339" font-size="11.5" font-weight="600" fill="#52606d" text-anchor="end">초기 상태</text>
+  <!-- [글6, 글5, 글4, 글3, 글2, 글1] -->
+  <g id="lane-b1-cells">
+    <rect x="230" y="322" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="250" y="340" font-size="13" fill="#1f2933" text-anchor="middle">글6</text>
+    <rect x="270" y="322" width="40" height="28" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="290" y="340" font-size="13" fill="#d97706" text-anchor="middle">글5</text>
+    <rect x="310" y="322" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="330" y="340" font-size="13" fill="#1f2933" text-anchor="middle">글4</text>
+    <rect x="350" y="322" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="370" y="340" font-size="13" stroke="#52606d" text-anchor="middle">글3</text>
+    <rect x="390" y="322" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="410" y="340" font-size="13" fill="#1f2933" text-anchor="middle">글2</text>
+    <rect x="430" y="322" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="450" y="340" font-size="13" fill="#1f2933" text-anchor="middle">글1</text>
+  </g>
+
+  <!-- Window 1 (OFFSET 0 LIMIT 3) -->
+  <rect x="226" y="317" width="128" height="38" rx="4" fill="#2563eb" fill-opacity="0.08" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="290" y="310" font-size="11" font-weight="600" fill="#2563eb" text-anchor="middle">1페이지 결과: [글6, 글5, 글4]</text>
+
+  <!-- Step B2: Event (Deletion) -->
+  <rect x="380" y="370" width="130" height="22" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="445" y="385" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">글5 삭제 (-1 당겨짐)</text>
+  <path d="M290,350 L290,365 Q290,380 378,380" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Step B3: Current State after Deletion -->
+  <text x="180" y="422" font-size="11.5" font-weight="600" fill="#52606d" text-anchor="end">현재 상태</text>
+  <!-- [글6, 글4, 글3, 글2, 글1] -->
+  <g id="lane-b2-cells">
+    <rect x="560" y="405" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="580" y="423" font-size="13" fill="#1f2933" text-anchor="middle">글6</text>
+    <rect x="600" y="405" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="620" y="423" font-size="13" fill="#1f2933" text-anchor="middle">글4</text>
+    
+    <!-- Skipped Item (글3) - Marked Gray Hatching -->
+    <rect x="640" y="405" width="40" height="28" fill="url(#hatch-gray)" stroke="#52606d" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <text x="660" y="423" font-size="13" font-weight="600" fill="#52606d" text-anchor="middle">글3</text>
+    
+    <rect x="680" y="405" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="700" y="423" font-size="13" fill="#1f2933" text-anchor="middle">글2</text>
+    <rect x="720" y="405" width="40" height="28" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="740" y="423" font-size="13" fill="#1f2933" text-anchor="middle">글1</text>
+  </g>
+
+  <!-- Window 2 (OFFSET 3 LIMIT 3) -->
+  <rect x="676" y="400" width="128" height="38" rx="4" fill="#52606d" fill-opacity="0.1" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="740" y="393" font-size="11" font-weight="600" fill="#52606d" text-anchor="middle">2페이지 결과: [글2, 글1]</text>
+
+  <!-- Missing Callout Indicator -->
+  <path d="M370,350 Q370,380 655,402" fill="none" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a-gray)"/>
+  <rect x="460" y="438" width="160" height="18" rx="3" fill="#f8fafc" stroke="#52606d" stroke-width="1"/>
+  <text x="540" y="451" font-size="11" font-weight="600" fill="#52606d" text-anchor="middle">⚠ 글3 건너뜀 (누락 발생)</text>
+
+  <!-- ================= LEGEND & FOOTER ================= -->
+  <!-- Legend -->
+  <g id="legend" transform="translate(40, 470)">
+    <rect x="0" y="0" width="800" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    
+    <rect x="20" y="9" width="12" height="12" fill="#2563eb" fill-opacity="0.2" stroke="#2563eb" stroke-width="1"/>
+    <text x="38" y="19" font-size="11" fill="#52606d">조회 윈도우(OFFSET)</text>
+
+    <rect x="180" y="9" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="198" y="19" font-size="11" fill="#52606d">새로 삽입된 데이터</text>
+
+    <rect x="330" y="9" width="12" height="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="348" y="19" font-size="11" fill="#52606d">중복 조회된 데이터</text>
+
+    <rect x="480" y="9" width="12" height="12" fill="url(#hatch-gray)" stroke="#52606d" stroke-width="1"/>
+    <text x="498" y="19" font-size="11" fill="#52606d">조회에서 누락된 데이터</text>
+  </g>
+
+  <!-- Conclusion Summary Line -->
+  <text x="440" y="522" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: OFFSET은 단순 개수 기반 위치 지시자이므로, 요청 사이 데이터 변동 시 조회 대상의 상대 위치가 밀려 중복·누락이 발생한다.</text>
+</svg>

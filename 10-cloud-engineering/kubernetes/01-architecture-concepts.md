@@ -307,6 +307,9 @@ Service로 들어온 트래픽을 실제 Pod로 보내는 규칙을 노드 커�
 
 ## 6. Pod 하나가 만들어지는 전체 흐름
 
+<!-- diagram:k8s-pod-creation -->
+![Pod 하나가 만들어지기까지](../../assets/diagrams/k8s-pod-creation.svg)
+
 지금까지의 구성요소가 실제로 어떻게 이어지는지 한 번에 따라가 보자.
 
 ```

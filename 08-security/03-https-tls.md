@@ -92,6 +92,9 @@ TLS 1.3은 키 교환을 (EC)DHE로 못 박아 이 성질을 기본값으로 만
 
 ## 3. 핸드셰이크가 하는 일
 
+<!-- diagram:sec-tls-handshake -->
+![TLS 핸드셰이크와 인증서 검증 4단계](../assets/diagrams/sec-tls-handshake.svg)
+
 ```
 Client                                                    Server
   │  (TCP 연결은 이미 수립된 상태)                              │

@@ -160,6 +160,9 @@ git push --force-with-lease origin feature
 
 ### merge vs rebase
 
+<!-- diagram:git-merge-vs-rebase -->
+![같은 분기, 다른 결과](../assets/diagrams/git-merge-vs-rebase.svg)
+
 | 기준 | merge | rebase |
 |------|-------|--------|
 | 결과 히스토리 | 분기와 합류가 남는 그래프 | 직선 |
@@ -331,6 +334,9 @@ git cherry-pick a3d0e54      # main의 핫픽스 커밋 하나만 가져온다
 ---
 
 ## 6. 되돌리기 — reset / revert / restore
+
+<!-- diagram:git-merge-rebase-conflict -->
+![reset --soft / --mixed / --hard 의 도달 범위](../assets/diagrams/git-merge-rebase-conflict.svg)
 
 셋 다 "되돌린다"고 부르지만 대상이 다르다.
 

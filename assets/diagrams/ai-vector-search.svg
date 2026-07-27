@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">IVF 클러스터 분할과 경계 문제</title>
+  <desc id="d">IVF 알고리즘에서 공간이 nlist개 클러스터로 분할되고, 쿼리 좌표 근처의 경계 건너편 정답을 nprobe 값에 따라 찾는지 여부를 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="40" y="42" font-size="17" font-weight="600" fill="#1f2933">IVF 클러스터 분할과 경계 건너편 정답을 놓치는 문제</text>
+
+  <!-- Legend -->
+  <rect x="520" y="24" width="320" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <path d="M535,40 L547,32 L559,40 L547,48 z" fill="#2563eb"/>
+  <text x="565" y="44" font-size="11" fill="#1f2933">Centroid (▲)</text>
+  <circle cx="650" cy="40" r="4" fill="#52606d"/>
+  <text x="660" y="44" font-size="11" fill="#1f2933">벡터 데이터 점 (●)</text>
+  <polygon points="755,34 761,46 749,38 761,38 749,46" fill="#d97706"/>
+  <text x="768" y="44" font-size="11" fill="#1f2933">쿼리 (★)</text>
+
+  <!-- Left Side Panel: Spatial Partitioning Diagram -->
+  <rect x="40" y="70" width="480" height="380" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="56" y="96" font-size="14" font-weight="600" fill="#1f2933">2차원 벡터 공간 (nlist 영역 분할)</text>
+
+  <!-- Cluster Background Fill Areas -->
+  <!-- C3 Region Fill (nprobe=1 Search Region) -->
+  <path d="M280,110 L490,110 L490,320 L270,270 Z" fill="#fffbeb" stroke="none"/>
+  <!-- C2 Region Fill (Included when nprobe=2) -->
+  <path d="M280,110 L270,270 L140,420 L40,420 L40,110 Z" fill="#ecfdf5" stroke="none"/>
+
+  <!-- Cluster Boundaries (Voronoi Approximation Lines) -->
+  <path d="M280,110 L270,270" stroke="#dc2626" stroke-width="2.5"/> <!-- Critical Boundary between C2 and C3 -->
+  <path d="M270,270 L140,420" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <path d="M270,270 L490,320" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <path d="M140,420 L490,420" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- Cluster Labels & Centroids -->
+  <!-- C1 (Top Left/Outside) -->
+  <text x="80" y="140" font-size="13" font-weight="600" fill="#52606d">C1</text>
+  <path d="M90,150 L100,136 L110,150 L100,146 z" fill="#52606d"/>
+  <circle cx="80" cy="170" r="3" fill="#9aa5b1"/><circle cx="110" cy="170" r="3" fill="#9aa5b1"/><circle cx="95" cy="185" r="3" fill="#9aa5b1"/>
+
+  <!-- C4 (Bottom) -->
+  <text x="280" y="350" font-size="13" font-weight="600" fill="#52606d">C4</text>
+  <path d="M280,380 L290,366 L300,380 L290,376 z" fill="#52606d"/>
+  <circle cx="240" cy="380" r="3" fill="#9aa5b1"/><circle cx="260" cy="400" r="3" fill="#9aa5b1"/><circle cx="320" cy="390" r="3" fill="#9aa5b1"/>
+
+  <!-- C2 (Target Cluster with Answer) -->
+  <text x="180" y="140" font-size="14" font-weight="600" fill="#059669">C2 구역</text>
+  <path d="M180,180 L190,166 L200,180 L190,176 z" fill="#2563eb"/>
+  <text x="204" y="178" font-size="11" fill="#52606d">centroid</text>
+  <circle cx="150" cy="170" r="3.5" fill="#52606d"/><circle cx="160" cy="210" r="3.5" fill="#52606d"/>
+  
+  <!-- Right Answer Point in C2 -->
+  <circle cx="240" cy="200" r="5" fill="#059669"/>
+  <text x="195" y="204" font-size="12" font-weight="600" fill="#059669">● 정답</text>
+
+  <!-- C3 (Cluster containing Query) -->
+  <text x="380" y="140" font-size="14" font-weight="600" fill="#d97706">C3 구역</text>
+  <path d="M380,220 L390,206 L400,220 L390,216 z" fill="#2563eb"/>
+  <text x="404" y="218" font-size="11" fill="#52606d">centroid</text>
+  <circle cx="420" cy="160" r="3.5" fill="#52606d"/><circle cx="440" cy="230" r="3.5" fill="#52606d"/>
+
+  <!-- Query Point in C3 (Near C2 Boundary) -->
+  <polygon points="295,190 302,206 288,195 302,195 288,206" fill="#d97706"/>
+  <text x="308" y="200" font-size="12" font-weight="600" fill="#d97706">★ 쿼리</text>
+
+  <!-- Distance Vectors / Annotations -->
+  <path d="M290,198 L190,173" stroke="#2563eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M290,198 L390,213" stroke="#2563eb" stroke-width="1.5"/>
+  
+  <!-- Boundary Line Highlight Label -->
+  <rect x="235" y="282" width="70" height="20" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="3"/>
+  <text x="270" y="296" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">클러스터 경계</text>
+
+  <!-- Distance Rank Indicators -->
+  <rect x="330" y="240" width="130" height="22" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="335" y="255" font-size="11" fill="#1f2933">1순위 Centroid: C3</text>
+  
+  <rect x="130" y="240" width="130" height="22" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="135" y="255" font-size="11" fill="#1f2933">2순위 Centroid: C2</text>
+
+
+  <!-- Right Side Panel: Search Execution Logic & Parameters -->
+  <!-- Case 1: nprobe = 1 -->
+  <rect x="540" y="70" width="300" height="180" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <rect x="555" y="82" width="90" height="22" fill="#dc2626" rx="3"/>
+  <text x="600" y="97" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">nprobe = 1</text>
+  <text x="655" y="97" font-size="12" font-weight="600" fill="#dc2626">(1개 구역만 탐색)</text>
+
+  <text x="555" y="130" font-size="13" fill="#1f2933">1. 쿼리와 가장 가까운 C3만 선택</text>
+  <text x="555" y="155" font-size="13" fill="#1f2933">2. C3 내부 벡터들만 거리 비교</text>
+  <text x="555" y="180" font-size="13" fill="#52606d">3. 건너편 C2의 정답은 아예 제외됨</text>
+  
+  <rect x="555" y="198" width="270" height="38" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
+  <text x="690" y="222" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">결과: 정답 탐색 실패 (Recall 하락)</text>
+
+
+  <!-- Case 2: nprobe = 2 -->
+  <rect x="540" y="270" width="300" height="180" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <rect x="555" y="282" width="90" height="22" fill="#059669" rx="3"/>
+  <text x="600" y="297" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">nprobe = 2</text>
+  <text x="655" y="297" font-size="12" font-weight="600" fill="#059669">(2개 구역 동시 탐색)</text>
+
+  <text x="555" y="330" font-size="13" fill="#1f2933">1. 가까운 Centroid 2개 선택 → C3, C2</text>
+  <text x="555" y="355" font-size="13" fill="#1f2933">2. C3 및 C2 내부 벡터 모두 비교</text>
+  <text x="555" y="380" font-size="13" fill="#52606d">3. 경계 건너편 C2의 정답 발견 성공</text>
+  
+  <rect x="555" y="398" width="270" height="38" fill="#ffffff" stroke="#059669" stroke-width="1" rx="4"/>
+  <text x="690" y="422" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">결과: 정답 탐색 성공 (Recall 상승)</text>
+
+
+  <!-- Bottom Parameter Trade-off Bar -->
+  <rect x="40" y="465" width="800" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="55" y="489" font-size="12" font-weight="600" fill="#1f2933">파라미터 역할:</text>
+  <text x="145" y="489" font-size="12" fill="#1f2933"><tspan font-weight="600" fill="#2563eb">nlist</tspan> (구축 시): 클러스터 개수. 높으면 빠른 속도, 경계 문제 증가</text>
+  <text x="500" y="489" font-size="12" fill="#1f2933"><tspan font-weight="600" fill="#2563eb">nprobe</tspan> (검색 시): 탐색 구역 수. 높으면 Recall 상승, 속도 하락</text>
+
+  <!-- Conclusion Caption -->
+  <text x="440" y="525" font-size="11.5" fill="#52606d" text-anchor="middle">IVF는 nprobe를 조절하여 경계 건너편 정답 검색 확률(Recall)과 검색 지연 시간(Latency) 간의 트레이드오프를 런타임에 제어한다.</text>
+</svg>

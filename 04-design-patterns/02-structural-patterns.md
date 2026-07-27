@@ -19,6 +19,9 @@
 
 ## 1. 왜 필요한가
 
+<!-- diagram:dp-structural-patterns -->
+![조합 폭발](../assets/diagrams/dp-structural-patterns.svg)
+
 알림 발송기에 로깅, 재시도, 암호화를 선택적으로 붙이고 싶다고 하자. 상속만 쓰면 이렇게 된다.
 
 ```

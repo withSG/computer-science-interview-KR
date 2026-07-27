@@ -55,6 +55,9 @@ E2E 테스트는 "무언가 잘못됐다"까지만 알려주고, 단위 테스�
 
 ## 2. 테스트 피라미드
 
+<!-- diagram:se-testing-tdd -->
+![테스트 피라미드 vs 아이스크림 콘](../assets/diagrams/se-testing-tdd.svg)
+
 ```
      [권장 - 피라미드]                [안티패턴 - 아이스크림 콘]
 

@@ -110,6 +110,9 @@ fbeta_score(y_true, y_pred, beta=0.5)  # 정밀도를 중시 (헛다리가 비�
 
 ## 3. 임계값 — 정밀도와 재현율이 반대로 움직이는 이유
 
+<!-- diagram:ai-evaluation-metrics -->
+![점수 분포 겹침과 임계값 이동에 따른 TP/FP/FN/TN 면적 변화](../../assets/diagrams/ai-evaluation-metrics.svg)
+
 분류 모델은 사실 "스팸이다/아니다"를 직접 내놓지 않는다. **0~1 사이의 점수**를 내고, 그 점수가 임계값을 넘으면 Positive로 판정한다. `predict()`가 하는 일은 그 임계값을 0.5로 고정해 적용하는 것뿐이다.
 
 ```

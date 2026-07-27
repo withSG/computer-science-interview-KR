@@ -65,6 +65,9 @@ Client는 사전에 Authorization Server에 **등록**돼 있어야 한다. 등�
 
 ## 3. Authorization Code Grant — 표준 흐름
 
+<!-- diagram:auth-oauth2-code-grant -->
+![Authorization Code Grant](../../assets/diagrams/auth-oauth2-code-grant.svg)
+
 ```
   사용자(브라우저)   Client(우리 서버)   Authorization Server    Resource Server
  (1) │ "구글로 로그인" ►│                       │                       │

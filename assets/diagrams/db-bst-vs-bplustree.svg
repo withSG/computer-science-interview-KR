@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이진 탐색 트리 vs B+Tree — 페이지 단위 I/O가 결정한 구조</title>
+  <desc id="d">이진 탐색 트리는 노드당 키 1개로 디스크 접근 20번이 필요하지만, B+Tree는 페이지당 수백 개 키로 디스크 접근 3~4번 및 리프 양방향 연결을 통해 효율적 범위를 탐색합니다.</desc>
+  
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 그림 제목 -->
+  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">이진 탐색 트리 vs B+Tree — 페이지 단위 I/O가 결정한 구조</text>
+
+  <!-- 범례 및 배경 영토 구분 -->
+  <rect x="30" y="60" width="395" height="425" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="455" y="60" width="395" height="425" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 좌측: 이진 탐색 트리 구역 헤더 -->
+  <text x="227" y="85" font-size="14" font-weight="600" fill="#dc2626" text-anchor="middle">이진 탐색 트리 (BST)</text>
+
+  <!-- BST 노드 및 연결선 -->
+  <!-- 루트 (높이 1) -->
+  <rect x="187" y="105" width="80" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="227" y="124" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[50]</text>
+
+  <path d="M207,135 L157,165" stroke="#9aa5b1" stroke-width="1.5"/>
+  <path d="M247,135 L297,165" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 높이 2 -->
+  <rect x="117" y="165" width="80" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="157" y="184" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[20]</text>
+
+  <rect x="257" y="165" width="80" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="297" y="184" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[70]</text>
+
+  <path d="M137,195 L107,225" stroke="#9aa5b1" stroke-width="1.5"/>
+  <path d="M177,195 L207,225" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- 높이 3 -->
+  <rect x="67" y="225" width="80" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="107" y="244" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[10]</text>
+
+  <rect x="167" y="225" width="80" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="207" y="244" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[30]</text>
+
+  <!-- 생략 점선 경로 -->
+  <path d="M107,255 L107,290" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <path d="M207,255 L207,290" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- 리프 (높이 약 20) -->
+  <rect x="67" y="290" width="80" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="107" y="309" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[...]</text>
+
+  <!-- BST 특성 요약 박스 -->
+  <rect x="50" y="335" width="355" height="135" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="65" y="360" font-size="13" font-weight="500" fill="#1f2933">• 노드당 키 1개 (노드 = 1 페이지 = 16KB)</text>
+  <text x="65" y="385" font-size="13" font-weight="500" fill="#dc2626">• 16KB 읽어서 4바이트만 사용 (낭비 심함)</text>
+  <text x="65" y="410" font-size="13" font-weight="500" fill="#1f2933">• 100만 건 데이터 기준 트리 높이: 약 20</text>
+  <rect x="65" y="425" width="325" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="227" y="444" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">디스크 접근 횟수: 약 20회</text>
+
+
+  <!-- 우측: B+Tree 구역 헤더 -->
+  <text x="652" y="85" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">B+Tree (RDBMS 표준)</text>
+
+  <!-- B+Tree 루트 노드 (16KB 페이지, 길잡이 키) -->
+  <rect x="480" y="105" width="345" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="652" y="123" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[50] [120] [300] [740] ... 수백 개의 길잡이 키</text>
+  <text x="652" y="138" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">루트 노드 (1 페이지 = 16KB)</text>
+
+  <!-- 자식 연결 화살표 -->
+  <path d="M520,145 L490,185" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <path d="M610,145 L590,185" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <path d="M700,145 L710,185" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <path d="M790,145 L810,185" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- 내부 노드 계층 (생략 표시) -->
+  <rect x="475" y="185" width="355" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="652" y="204" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">내부 노드 계층 (높이 3~4 수준으로 팬아웃 수백 유지)</text>
+
+  <path d="M520,215 L520,245" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <path d="M652,215 L652,245" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <path d="M785,215 L785,245" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+
+  <!-- 리프 노드 (실제 데이터 + 양방향 연결) -->
+  <rect x="475" y="245" width="100" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="525" y="263" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[20] [30]</text>
+  <text x="525" y="278" font-size="11" font-weight="400" fill="#7c3aed" text-anchor="middle">리프 (데이터)</text>
+
+  <rect x="602" y="245" width="100" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="652" y="263" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[50] [70]</text>
+  <text x="652" y="278" font-size="11" font-weight="400" fill="#7c3aed" text-anchor="middle">리프 (데이터)</text>
+
+  <rect x="730" y="245" width="100" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="780" y="263" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">[120] [...]</text>
+  <text x="780" y="278" font-size="11" font-weight="400" fill="#7c3aed" text-anchor="middle">리프 (데이터)</text>
+
+  <!-- 리프 간 양방향 연결 리스트 화살표 -->
+  <path d="M575,258 L602,258" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+  <path d="M602,272 L575,272" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+
+  <path d="M702,258 L730,258" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+  <path d="M730,272 L702,272" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+
+  <!-- 범위 검색 안내 라벨 -->
+  <rect x="560" y="295" width="185" height="22" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="652" y="310" font-size="11" font-weight="400" fill="#7c3aed" text-anchor="middle">리프끼리 양방향 연결 (범위 검색)</text>
+
+  <!-- B+Tree 특성 요약 박스 -->
+  <rect x="475" y="335" width="355" height="135" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="490" y="360" font-size="13" font-weight="500" fill="#1f2933">• 노드 하나 = 16KB 페이지에 수백 개 키 저장</text>
+  <text x="490" y="385" font-size="13" font-weight="500" fill="#2563eb">• 수억 건 데이터도 높이 3~4 수준 유지</text>
+  <text x="490" y="410" font-size="13" font-weight="500" fill="#1f2933">• 리프 노드 스캔만으로 범위 검색(BETWEEN) 해결</text>
+  <rect x="490" y="425" width="325" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="652" y="444" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">디스크 접근 횟수: 3~4회</text>
+
+  <!-- 하단 결론 캡션 -->
+  <text x="440" y="515" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: DB는 페이지 단위 디스크 I/O를 수행하므로(InnoDB 기본 16KB), 팬아웃을 극대화하여 트리 높이를 낮추는 B+Tree가 표준 구조로 선택된다.</text>
+</svg>

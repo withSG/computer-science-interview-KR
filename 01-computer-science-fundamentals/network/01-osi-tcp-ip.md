@@ -169,6 +169,9 @@ OSI가 나오기 전에 이미 인터넷은 TCP/IP로 돌아가고 있었다. �
 
 ## 4. 캡슐화와 PDU
 
+<!-- diagram:net-encapsulation -->
+![캡슐화](../../assets/diagrams/net-encapsulation.svg)
+
 각 계층은 위에서 받은 데이터를 **뜯어보지 않고** 자기 헤더만 앞에 붙여서 아래로 내린다.
 이것이 **캡슐화(Encapsulation)** 이고, 각 계층에서 다루는 데이터 덩어리를 **PDU(Protocol Data Unit)** 라 부른다.
 

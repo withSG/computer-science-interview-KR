@@ -169,6 +169,9 @@ Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-a1b2c3'; o
 
 ## 3. CSRF (Cross-Site Request Forgery)
 
+<!-- diagram:sec-web-vulnerabilities -->
+![CSRF 성립 조건 3개와 그것을 깨는 방어 3개](../assets/diagrams/sec-web-vulnerabilities.svg)
+
 ### 성립 조건 세 가지
 
 CSRF는 데이터를 훔치는 공격이 아니다. **피해자의 브라우저를 리모컨처럼 써서** 서버에 명령을 보낸다.

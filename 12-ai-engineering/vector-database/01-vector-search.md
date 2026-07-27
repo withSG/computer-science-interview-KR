@@ -168,6 +168,9 @@ ANN(Approximate Nearest Neighbor, 근사 최근접 이웃)의 아이디어는 �
 
 ## 5. HNSW: 그래프를 타고 이동한다
 
+<!-- diagram:vec-hnsw-layers -->
+![HNSW 계층 그래프와 상위에서 하위로 내려오는 탐색 경로](../../assets/diagrams/vec-hnsw-layers.svg)
+
 ### 동작 원리
 
 HNSW(Hierarchical Navigable Small World)는 벡터들을 **서로 연결한 그래프**를 만들고, 그 위를 걸어서 목적지에 접근한다. 여기에 계층을 얹어 처음엔 성큼성큼, 나중엔 촘촘히 움직인다.
@@ -214,6 +217,9 @@ Layer 0 (전체)   [A][B][C][D][E][F][G][H]         이웃끼리만 연결
 ---
 
 ## 6. IVF: 구역을 나눠 일부만 본다
+
+<!-- diagram:ai-vector-search -->
+![IVF 클러스터 분할과 경계 건너편 정답을 놓치는 문제](../../assets/diagrams/ai-vector-search.svg)
 
 ### 동작 원리
 

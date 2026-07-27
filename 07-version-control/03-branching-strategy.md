@@ -55,6 +55,9 @@
 
 ### 다섯 종류의 브랜치
 
+<!-- diagram:git-branching-strategy -->
+![Git Flow 다섯 브랜치의 분기·합류 흐름](../assets/diagrams/git-branching-strategy.svg)
+
 | 브랜치 | 수명 | 역할 | 어디서 따고 어디로 합치나 |
 |--------|------|------|------------------------|
 | `main` | 영구 | 운영에 배포된 상태. 커밋마다 릴리스 태그가 붙는다 | — |

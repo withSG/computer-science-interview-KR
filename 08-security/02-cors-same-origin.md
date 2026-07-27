@@ -82,6 +82,9 @@ https://example.com:443/products/1?q=a#top
 
 ## 3. SOP가 막는 것과 막지 않는 것
 
+<!-- diagram:sec-sop-response-block -->
+![SOP는 요청이 아니라 응답 읽기를 막는다](../assets/diagrams/sec-sop-response-block.svg)
+
 여기가 CORS 이해의 분수령이다. **SOP는 요청을 막지 않는다. 응답을 읽는 것을 막는다.**
 
 ```
@@ -165,6 +168,9 @@ CSRF가 여전히 성립하는 이유가 바로 이것이고, "CORS 설정했으
 즉 **요즘 API 호출은 대부분 Preflight를 탄다.**
 
 ### Preflight 왕복
+
+<!-- diagram:sec-cors-same-origin -->
+![Preflight 2왕복](../assets/diagrams/sec-cors-same-origin.svg)
 
 ```
 Browser                                              api.example.com

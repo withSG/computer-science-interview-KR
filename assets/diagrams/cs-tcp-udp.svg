@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TCP 혼잡 윈도우(cwnd) 변화 곡선</title>
+  <desc id="d">Slow Start, 혼잡 회피, Fast Recovery 구간 및 패킷 유실 시 cwnd 변화를 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">TCP 혼잡 윈도우(cwnd) 변화 곡선 및 구간별 동작</text>
+
+  <rect x="100" y="60" width="220" height="340" fill="#eff6ff" opacity="0.5"/>
+  <rect x="320" y="60" width="240" height="340" fill="#ecfdf5" opacity="0.5"/>
+  <rect x="560" y="60" width="220" height="340" fill="#f5f3ff" opacity="0.5"/>
+
+  <text x="210" y="80" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">Slow Start (지수 증가)</text>
+  <text x="440" y="80" font-size="14" font-weight="600" fill="#059669" text-anchor="middle">혼잡 회피 (선형 증가)</text>
+  <text x="670" y="80" font-size="14" font-weight="600" fill="#7c3aed" text-anchor="middle">Fast Recovery / 재전송</text>
+
+  <line x1="320" y1="60" x2="320" y2="400" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="560" y1="60" x2="560" y2="400" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <line x1="100" y1="220" x2="780" y2="220" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="788" y="224" font-size="11.5" font-weight="500" fill="#d97706">ssthresh (임계값)</text>
+
+  <line x1="100" y1="400" x2="810" y2="400" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="820" y="404" font-size="11.5" font-weight="500" fill="#1f2933">시간 (RTT)</text>
+
+  <line x1="100" y1="400" x2="100" y2="50" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="100" y="40" font-size="11.5" font-weight="500" fill="#1f2933" text-anchor="middle">cwnd</text>
+
+  <text x="90" y="384" font-size="11" font-weight="400" fill="#52606d" text-anchor="end">초기 cwnd</text>
+  <line x1="95" y1="380" x2="100" y2="380" stroke="#52606d" stroke-width="1"/>
+
+  <path d="M 100 380 Q 220 370 320 220" stroke="#2563eb" stroke-width="2.5" fill="none"/>
+  <path d="M 320 220 L 560 100" stroke="#059669" stroke-width="2.5" fill="none"/>
+
+  <circle cx="560" cy="100" r="4" fill="#dc2626"/>
+  <rect x="505" y="108" width="110" height="20" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+  <text x="560" y="122" font-size="11.5" font-weight="500" fill="#dc2626" text-anchor="middle">패킷 유실 감지</text>
+
+  <path d="M 560 100 Q 610 110 660 220" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M 660 220 L 780 160" stroke="#7c3aed" stroke-width="2.5" fill="none"/>
+
+  <path d="M 560 100 L 580 380" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <path d="M 580 380 Q 640 370 700 220" stroke="#2563eb" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+
+  <rect x="665" y="210" width="110" height="20" rx="3" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="720" y="224" font-size="11" font-weight="500" fill="#7c3aed" text-anchor="middle">중복 ACK 3회 (절반 감소)</text>
+
+  <rect x="585" y="370" width="105" height="20" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+  <text x="637" y="384" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">타임아웃 (cwnd → 1)</text>
+
+  <rect x="130" y="425" width="620" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="140" y="445" font-size="11.5" font-weight="600" fill="#1f2933">• Slow Start:</text>
+  <text x="215" y="445" font-size="11.5" font-weight="400" fill="#1f2933">ACK 수신마다 지수 증가 (RTT당 2배)</text>
+
+  <text x="430" y="445" font-size="11.5" font-weight="600" fill="#1f2933">• 혼잡 회피:</text>
+  <text x="505" y="445" font-size="11.5" font-weight="400" fill="#1f2933">ssthresh 도달 후 RTT당 1 MSS 선형 증가</text>
+
+  <text x="140" y="465" font-size="11.5" font-weight="600" fill="#1f2933">• AIMD 원리:</text>
+  <text x="220" y="465" font-size="11.5" font-weight="400" fill="#1f2933">완만하게 증가(Additive Increase)시키고, 유실 발생 시 급격히 감소(Multiplicative Decrease)</text>
+
+  <text x="440" y="500" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: TCP는 cwnd를 지수·선형으로 늘리다 유실 시 감축하는 AIMD 방식으로 대역폭을 공평하게 공유한다.</text>
+</svg>

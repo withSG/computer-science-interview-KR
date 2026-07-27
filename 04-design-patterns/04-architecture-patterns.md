@@ -142,6 +142,9 @@ public String create(@RequestParam Long userId, @RequestParam int amount) {
 
 ### 데이터 흐름 비교
 
+<!-- diagram:dp-architecture-patterns -->
+![MVC · MVP · MVVM 데이터 흐름 3분할 비교](../assets/diagrams/dp-architecture-patterns.svg)
+
 ```
 [MVC]  Controller가 흐름을 지휘. View는 Model을 직접 볼 수 있다
 

@@ -171,6 +171,9 @@ key 있음 (key로 매칭)
 
 ### 실제 버그 시나리오
 
+<!-- diagram:fe-reconciliation -->
+![index를 key로 쓸 때 체크 상태가 엉뚱한 항목으로 옮겨가는 과정](../../assets/diagrams/fe-reconciliation.svg)
+
 체크박스가 달린 할 일 목록에서 **맨 앞에 새 항목을 추가**하는 상황이다.
 
 ```jsx

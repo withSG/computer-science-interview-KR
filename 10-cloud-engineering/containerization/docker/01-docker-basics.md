@@ -112,6 +112,9 @@ docker diff web2 | grep html   # 안 나온다. web2가 보는 index.html은 이
 
 ## 3. 레이어와 유니온 파일시스템
 
+<!-- diagram:cloud-docker-basics -->
+![유니온 파일시스템](../../../assets/diagrams/cloud-docker-basics.svg)
+
 ### 왜 레이어로 쪼갰나
 
 이미지가 통짜 파일 하나였다면 코드 한 줄만 고쳐도 처음부터 다시 만들어야 하고, push할 때마다 전체 용량을

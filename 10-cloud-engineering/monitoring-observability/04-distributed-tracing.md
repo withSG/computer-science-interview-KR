@@ -54,6 +54,9 @@
 
 ## 2. Trace, Span, Context Propagation
 
+<!-- diagram:cloud-distributed-tracing -->
+![트레이스 워터폴](../../assets/diagrams/cloud-distributed-tracing.svg)
+
 ### 세 가지 구성 요소
 
 **Trace(트레이스)** 는 요청 하나의 전체 여정이다. 하나의 `trace_id`로 식별된다.

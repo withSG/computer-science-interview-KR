@@ -96,6 +96,9 @@ PCB의 존재가 [03-context-switching.md](./03-context-switching.md)에서 말�
 
 ### 프로세스 상태 전이
 
+<!-- diagram:os-process-state -->
+![프로세스 상태 전이 다이어그램](../../assets/diagrams/os-process-state.svg)
+
 ```
                   ┌──────────┐
       생성        │   New    │

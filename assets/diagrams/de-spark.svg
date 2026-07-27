@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">셔플의 all-to-all 데이터 교환과 Stage 경계</title>
+  <desc id="d">Spark의 셔플 과정에서 map 측 익스큐터들과 reduce 측 익스큐터들 간의 all-to-all 네트워크 통신, 로컬 디스크 파일 기록 및 Stage 경계를 나타낸 다이어그램입니다.</desc>
+  
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 타이틀 -->
+  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">셔플의 All-to-All 데이터 교환과 Stage 경계</text>
+
+  <!-- ==================== 왼쪽: 일반 셔플 (All-to-All) 영역 ==================== -->
+  <rect x="30" y="50" width="570" height="400" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="6"/>
+  <text x="315" y="72" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">기본 셔플 (Shuffle All-to-All)</text>
+
+  <!-- Stage 1 (map 측) 구역 -->
+  <rect x="45" y="85" width="225" height="350" fill="#eff6ff" stroke="#9aa5b1" stroke-dasharray="4 3" stroke-width="1" rx="4"/>
+  <text x="157.5" y="105" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">Stage 1 (map 측)</text>
+
+  <!-- Map Exec 1 ~ 4 -->
+  <!-- Exec 1 -->
+  <rect x="60" y="120" width="90" height="60" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="105" y="146" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 1</text>
+  <rect x="160" y="120" width="100" height="60" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="210" y="144" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">로컬 디스크</text>
+  <text x="210" y="162" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(Shuffle Write)</text>
+  <path d="M150,150 L160,150" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Exec 2 -->
+  <rect x="60" y="195" width="90" height="60" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="105" y="221" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 2</text>
+  <rect x="160" y="195" width="100" height="60" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="210" y="219" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">로컬 디스크</text>
+  <text x="210" y="237" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(Shuffle Write)</text>
+  <path d="M150,225 L160,225" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Exec 3 -->
+  <rect x="60" y="270" width="90" height="60" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="105" y="296" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 3</text>
+  <rect x="160" y="270" width="100" height="60" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="210" y="294" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">로컬 디스크</text>
+  <text x="210" y="312" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(Shuffle Write)</text>
+  <path d="M150,300 L160,300" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Exec 4 -->
+  <rect x="60" y="345" width="90" height="60" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="105" y="371" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 4</text>
+  <rect x="160" y="345" width="100" height="60" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="210" y="369" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">로컬 디스크</text>
+  <text x="210" y="387" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(Shuffle Write)</text>
+  <path d="M150,375 L160,375" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Stage 경계 중앙선 -->
+  <line x1="315" y1="85" x2="315" y2="435" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+  <rect x="270" y="245" width="90" height="20" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="3"/>
+  <text x="315" y="259" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">Stage 경계</text>
+
+  <!-- Stage 2 (reduce 측) 구역 -->
+  <rect x="360" y="85" width="225" height="350" fill="#ecfdf5" stroke="#9aa5b1" stroke-dasharray="4 3" stroke-width="1" rx="4"/>
+  <text x="472.5" y="105" font-size="14" font-weight="600" fill="#059669" text-anchor="middle">Stage 2 (reduce 측)</text>
+
+  <!-- Reduce Exec 1 ~ 4 -->
+  <!-- Exec 1 -->
+  <rect x="430" y="120" width="140" height="60" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="500" y="146" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 1</text>
+  <text x="500" y="165" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(키 0, 4, 8…)</text>
+
+  <!-- Exec 2 -->
+  <rect x="430" y="195" width="140" height="60" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="500" y="221" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 2</text>
+  <text x="500" y="240" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(키 1, 5, 9…)</text>
+
+  <!-- Exec 3 -->
+  <rect x="430" y="270" width="140" height="60" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="500" y="296" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 3</text>
+  <text x="500" y="315" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(키 2, 6, 10…)</text>
+
+  <!-- Exec 4 -->
+  <rect x="430" y="345" width="140" height="60" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="500" y="371" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 4</text>
+  <text x="500" y="390" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">(키 3, 7, 11…)</text>
+
+  <!-- 16개 통신선 (All-to-All 4x4) -->
+  <!-- Map 1 (260,150) -> Red 1,2,3,4 (430, 150/225/300/375) -->
+  <path d="M260,150 L430,150" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,150 L430,225" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,150 L430,300" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,150 L430,375" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+
+  <!-- Map 2 (260,225) -> Red 1,2,3,4 -->
+  <path d="M260,225 L430,150" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,225 L430,225" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M260,225 L430,300" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,225 L430,375" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+
+  <!-- Map 3 (260,300) -> Red 1,2,3,4 -->
+  <path d="M260,300 L430,150" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,300 L430,225" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,300 L430,300" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,300 L430,375" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+
+  <!-- Map 4 (260,375) -> Red 1,2,3,4 -->
+  <path d="M260,375 L430,150" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,375 L430,225" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,375 L430,300" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <path d="M260,375 L430,375" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+
+  <!-- 네트워크 수신 강조 화살표 라벨 (Shuffle Read) -->
+  <rect x="290" y="200" width="130" height="20" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
+  <text x="355" y="214" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">Shuffle Read (네트워크)</text>
+
+  <!-- ==================== 오른쪽: 브로드캐스트 조인 (최적화) 영역 ==================== -->
+  <rect x="620" y="50" width="230" height="400" fill="#f5f3ff" stroke="#cbd2d9" stroke-width="1" rx="6"/>
+  <text x="735" y="72" font-size="14" font-weight="600" fill="#7c3aed" text-anchor="middle">브로드캐스트 조인 적용 시</text>
+
+  <!-- 드라이버/작은 테이블 -->
+  <rect x="650" y="95" width="170" height="40" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="735" y="119" font-size="12" font-weight="500" fill="#7c3aed" text-anchor="middle">작은 테이블 (Broadcast)</text>
+
+  <!-- 화살표 다발 (모든 익스큐터에 전송) -->
+  <path d="M735,135 L690,175" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M735,135 L720,175" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M735,135 L750,175" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M735,135 L780,175" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 수신 Executor들 (단일 Stage) -->
+  <rect x="640" y="180" width="190" height="255" fill="#f8fafc" stroke="#9aa5b1" stroke-dasharray="3 3" stroke-width="1" rx="4"/>
+  <text x="735" y="200" font-size="12" font-weight="600" fill="#1f2933" text-anchor="middle">단일 Stage (셔플 없음)</text>
+
+  <rect x="655" y="215" width="160" height="40" fill="#ffffff" stroke="#1f2933" stroke-width="1" rx="3"/>
+  <text x="735" y="239" font-size="12" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 1 (로컬 조인)</text>
+
+  <rect x="655" y="265" width="160" height="40" fill="#ffffff" stroke="#1f2933" stroke-width="1" rx="3"/>
+  <text x="735" y="289" font-size="12" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 2 (로컬 조인)</text>
+
+  <rect x="655" y="315" width="160" height="40" fill="#ffffff" stroke="#1f2933" stroke-width="1" rx="3"/>
+  <text x="735" y="339" font-size="12" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 3 (로컬 조인)</text>
+
+  <rect x="655" y="365" width="160" height="40" fill="#ffffff" stroke="#1f2933" stroke-width="1" rx="3"/>
+  <text x="735" y="389" font-size="12" font-weight="500" fill="#1f2933" text-anchor="middle">Executor 4 (로컬 조인)</text>
+
+  <!-- 하단 캡션 -->
+  <text x="440" y="475" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: 셔플은 All-to-All 디스크 IO와 네트워크 이동을 유발하여 비싸며, 브로드캐스트 조인 등을 통해 선 다발(셔플)을 줄이는 것이 핵심이다.</text>
+</svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">워터마크 마감 및 지연 이벤트 처리</title>
+  <desc id="d">이벤트 시간과 도착 시간을 기준으로 워터마크(10:07) 생성 시 윈도우 마감 및 늦은 이벤트(09:55) 버림 처리 과정을 보여주는 타임라인 다이어그램</desc>
+  
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 제목 -->
+  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">워터마크가 윈도우를 마감하고 늦은 이벤트를 버리는 순간</text>
+
+  <!-- 범례 영의 (상단 우측) -->
+  <rect x="520" y="55" width="320" height="30" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <circle cx="535" cy="70" r="5" fill="#2563eb"/>
+  <text x="545" y="74" font-size="11" fill="#1f2933">정상 이벤트</text>
+  <circle cx="635" cy="70" r="5" fill="#dc2626"/>
+  <text x="645" y="74" font-size="11" fill="#1f2933">지연 이벤트(버림)</text>
+  <line x1="745" y1="62" x2="745" y2="78" stroke="#7c3aed" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="755" y="74" font-size="11" fill="#7c3aed">워터마크</text>
+
+  <!-- 가로 영역 배치 정의 -->
+  <!-- 레인 라벨 영역: x 30 ~ 170 (폭 140) -->
+  <!-- 타임라인 메인 영역: x 180 ~ 820 (폭 640) -->
+  <!-- 시점 매핑 (이벤트 시간):
+       09:50 -> x=200
+       09:55 -> x=300
+       10:00 -> x=400
+       10:07 -> x=540 (워터마크)
+       10:10 -> x=600
+       10:12 -> x=640 (최대 이벤트)
+       10:20 -> x=800
+  -->
+
+  <!-- 시간축 눈금 및 세로 가이드 선 -->
+  <!-- 09:50 -->
+  <line x1="200" y1="120" x2="200" y2="410" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="200" y="112" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">09:50</text>
+
+  <!-- 10:00 -->
+  <line x1="400" y1="120" x2="400" y2="410" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="400" y="112" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">10:00</text>
+
+  <!-- 10:10 -->
+  <line x1="600" y1="120" x2="600" y2="410" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="600" y="112" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">10:10</text>
+
+  <!-- 10:20 -->
+  <line x1="800" y1="120" x2="800" y2="410" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="800" y="112" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">10:20</text>
+
+  <!-- 레인 1: 윈도우 상태 레인 (09:50~10:00 마감 / 10:00~10:10 열림) -->
+  <rect x="30" y="130" width="140" height="110" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="100" y="180" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">시간 윈도우</text>
+  <text x="100" y="200" font-size="11.5" fill="#52606d" text-anchor="middle">(Window State)</text>
+
+  <!-- 09:50~10:00 윈도우 (마감됨) -->
+  <rect x="200" y="130" width="200" height="110" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="300" y="170" font-size="13" font-weight="600" fill="#52606d" text-anchor="middle">09:50 ~ 10:00 윈도우</text>
+  <rect x="235" y="185" width="130" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="300" y="204" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">마감 (결과 확정)</text>
+
+  <!-- 10:00~10:10 윈도우 (열려있음) -->
+  <rect x="400" y="130" width="200" height="110" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="500" y="170" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">10:00 ~ 10:10 윈도우</text>
+  <rect x="445" y="185" width="110" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="500" y="204" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">열림 (수집 중)</text>
+
+  <!-- 레인 2: 데이터 이벤트 도착 레인 -->
+  <rect x="30" y="260" width="140" height="150" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="100" y="330" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">이벤트 스트림</text>
+  <text x="100" y="350" font-size="11.5" fill="#52606d" text-anchor="middle">(Event Stream)</text>
+
+  <!-- 레인 2 배경선 -->
+  <line x1="180" y1="335" x2="820" y2="335" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- 정상 이벤트 1 (10:02 생성 -> 도착) -->
+  <circle cx="440" cy="335" r="7" fill="#2563eb"/>
+  <text x="440" y="315" font-size="11" fill="#1f2933" text-anchor="middle">10:02</text>
+
+  <!-- 정상 이벤트 2 (10:12 생성 -> 현재 최대 이벤트) -->
+  <circle cx="640" cy="335" r="7" fill="#2563eb"/>
+  <text x="640" y="315" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">10:12</text>
+  <text x="640" y="298" font-size="11" fill="#2563eb" text-anchor="middle">최대 이벤트 시간</text>
+
+  <!-- 지연 이벤트 (09:55 생성 -> 뒤늦게 도착) -->
+  <circle cx="300" cy="335" r="7" fill="#dc2626"/>
+  <text x="300" y="315" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">09:55 (지연)</text>
+  
+  <!-- 지연 이벤트 버림 표시 (X 및 설명) -->
+  <line x1="292" y1="327" x2="308" y2="343" stroke="#dc2626" stroke-width="2.5"/>
+  <line x1="308" y1="327" x2="292" y2="343" stroke="#dc2626" stroke-width="2.5"/>
+  
+  <!-- 버려짐 안내 박스 -->
+  <rect x="230" y="360" width="140" height="36" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="4"/>
+  <text x="300" y="375" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">워터마크(10:07)보다</text>
+  <text x="300" y="389" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">뒤처져 버려짐 (DROP)</text>
+
+  <!-- 주요 세로 기준선: 워터마크 (10:07) -->
+  <!-- x = 400 + (600-400)*(7/10) = 540 -->
+  <line x1="540" y1="120" x2="540" y2="410" stroke="#7c3aed" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <rect x="475" y="235" width="130" height="24" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="4"/>
+  <text x="540" y="251" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">워터마크 = 10:07</text>
+
+  <!-- 워터마크 계산 공식 화살표 (10:12 -> 지연5분 -> 10:07) -->
+  <path d="M640,282 Q590,265 545,265" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <rect x="555" y="270" width="110" height="18" fill="#ffffff"/>
+  <text x="610" y="283" font-size="11" fill="#52606d" text-anchor="middle">지연 설정 -5분</text>
+
+  <!-- 하단 시간축 화살표 -->
+  <path d="M180,430 L820,430" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <text x="500" y="448" font-size="12" font-weight="600" fill="#1f2933" text-anchor="middle">이벤트 시간 (Event Time)</text>
+
+  <!-- 결론 캡션 -->
+  <rect x="30" y="468" width="820" height="28" fill="#f8fafc" rx="4"/>
+  <text x="440" y="486" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 최대 이벤트(10:12) - 지연(5분) = 워터마크(10:07) 미만인 09:50~10:00 윈도우는 마감되며, 이후 도착한 09:55 이벤트는 폐기된다.</text>
+</svg>
