@@ -45,7 +45,11 @@ import { maskFormattingArtifacts, maskQuotedSpans } from '../server/mask.js'
 import { APP_ROOT } from '../server/config.js'
 
 const HEADING_RE = /^(#{1,6})\s+(.*)$/
-const SENTENCE_FINAL_RE = /([가-힣]+)다\.(?=\s|$)/g
+// 볼드/이탤릭 마커(**, __, *, _)가 어간과 '다' 사이 또는 '다'와 마침표 사이에
+// 끼어들어도(예: "**주어**다.", "**중요하다**.") 종결로 인식해야 한다 — 마커는
+// 원문 위치 그대로 되살리므로 서식 범위가 바뀌지 않는다.
+const EMPHASIS_RE = '(?:\\*{1,2}|_{1,2})?'
+const SENTENCE_FINAL_RE = new RegExp(`([가-힣]+)${EMPHASIS_RE}다${EMPHASIS_RE}\\.(?=\\s|$)`, 'g')
 
 /** 한 줄 안의 인라인 코드 스팬(`...`)을 같은 길이의 공백으로 지운다.
  *  lint-style.js의 stripInlineCode와 달리 스팬을 제거하지 않고 블랭크 처리한다 —
@@ -63,45 +67,50 @@ function isPoliteEnding(word) {
   return (c - 0xac00) % 28 === 17
 }
 
-/** word의 마지막 음절 종성을 ㅂ(인덱스 17)으로 바꾸고(기존 종성이 무엇이든, 없어도)
- *  '니다'를 붙인다. */
-function fuseAndAppendNida(word) {
+/** word의 마지막 음절 종성을 ㅂ(인덱스 17)으로 바꾼다(기존 종성이 무엇이든, 없어도).
+ *  '니다'는 붙이지 않는다 — 어간과 종결 사이에 볼드/이탤릭 마커가 끼어드는 경우
+ *  (예: "**크**다." → "**큽**니다.") stem과 suffix를 따로 조립해야 마커 위치가
+ *  보존된다. */
+function fuseLast(word) {
   const n = word.length
   const lastCode = word.charCodeAt(n - 1)
   const jong = (lastCode - 0xac00) % 28
   const newLast = String.fromCharCode(lastCode - jong + 17)
-  return word.slice(0, -1) + newLast + '니다'
+  return word.slice(0, -1) + newLast
 }
 
 /**
- * word(종결 '다' 앞부분)를 합니다체 종결로 바꾼다.
- * @returns {string|{unknown:true}} 변환 결과 문자열, 또는 결정표에 없어 판단을
+ * word(종결 '다' 앞부분, 마커는 뺀 순수 한글)를 합니다체 stem/suffix로 바꾼다.
+ * 호출부가 `stem + markersA + suffix + markersB + '.'` 순서로 다시 이어붙이므로,
+ * 마커가 word와 '다' 사이(또는 '다'와 마침표 사이)에 있어도 서식 범위가 원문과
+ * 동일하게 보존된다.
+ * @returns {{stem:string, suffix:string}|{unknown:true}} 또는 결정표에 없어 판단을
  *   보류해야 하면 {unknown:true}.
  */
-function transformEnding(word, t2Table) {
+function transformEndingParts(word, t2Table) {
   const n = word.length
   const last = word[n - 1]
   const lastCode = last.charCodeAt(0)
   if (lastCode < 0xac00 || lastCode > 0xd7a3) return { unknown: true, reason: 'non-hangul-last-char' }
 
   if (last === '는') {
-    return word.slice(0, -1) + '습니다' // -는다 (자음 어간 현재형) → -습니다
+    return { stem: word.slice(0, -1), suffix: '습니다' } // -는다 (자음 어간 현재형) → -습니다
   }
 
   const jong = (lastCode - 0xac00) % 28
   if (jong === 4 || jong === 8) {
-    return fuseAndAppendNida(word) // -ㄴ다 / -ㄹ다 → -ㅂ니다
+    return { stem: fuseLast(word), suffix: '니다' } // -ㄴ다 / -ㄹ다 → -ㅂ니다
   }
   if (jong === 0) {
     if (last === '하' || last === '이') {
-      return fuseAndAppendNida(word) // -하다 / N-이다 → 항상 안전하게 융합
+      return { stem: fuseLast(word), suffix: '니다' } // -하다 / N-이다 → 항상 안전하게 융합
     }
     const verdict = t2Table[word]
-    if (verdict === 'verb') return fuseAndAppendNida(word)
-    if (verdict === 'noun') return word + '입니다'
+    if (verdict === 'verb') return { stem: fuseLast(word), suffix: '니다' }
+    if (verdict === 'noun') return { stem: word, suffix: '입니다' }
     return { unknown: true, reason: 'open-syllable-not-in-table' }
   }
-  return word + '습니다' // 그 밖의 자음 어간(과거형 포함)
+  return { stem: word, suffix: '습니다' } // 그 밖의 자음 어간(과거형 포함)
 }
 
 async function loadT2Table() {
@@ -147,13 +156,16 @@ function scanDoc(repoPath, text, t2Table) {
     let m
     while ((m = SENTENCE_FINAL_RE.exec(scanLine)) !== null) {
       const word = m[1]
+      const markersA = m[2] || '' // 어간과 '다' 사이 (예: "**주어**다."의 "**")
+      const markersB = m[3] || '' // '다'와 마침표 사이 (예: "**중요하다**."의 "**")
       const start = m.index
       const end = SENTENCE_FINAL_RE.lastIndex
       if (isPoliteEnding(word)) continue
-      const result = transformEnding(word, t2Table)
+      const result = transformEndingParts(word, t2Table)
       const before = originalLines[i].slice(start, end)
-      if (typeof result === 'string') {
-        edits.push({ lineIdx: i, start, end, before, after: result + '.', word })
+      if (!result.unknown) {
+        const after = result.stem + markersA + result.suffix + markersB + '.'
+        edits.push({ lineIdx: i, start, end, before, after, word })
       } else {
         edits.push({ lineIdx: i, start, end, before, after: null, unknownReason: result.reason, word })
       }

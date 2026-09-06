@@ -75,7 +75,11 @@ function h2Headings(maskedText) {
 // 리드문·비유 설명 등 문서 자신의 목소리가 대부분이고, 진짜 타인 발화는 큰따옴표
 // 안에 있어 maskQuotedSpans가 이미 걸러낸다.
 
-const SENTENCE_FINAL_RE = /([가-힣]+)다\.(?=\s|$)/g
+// 볼드/이탤릭 마커(**, __, *, _)가 어간과 '다' 사이 또는 '다'와 마침표 사이에
+// 끼어들어도(예: "**주어**다.", "**중요하다**.") 종결로 인식해야 한다 —
+// convert-register.js의 같은 이름 상수와 반드시 동일하게 유지한다.
+const EMPHASIS_RE = '(?:\\*{1,2}|_{1,2})?'
+const SENTENCE_FINAL_RE = new RegExp(`([가-힣]+)${EMPHASIS_RE}다${EMPHASIS_RE}\\.(?=\\s|$)`, 'g')
 
 /**
  * 'X니다' 형태의 합쇼체 종결인가. word는 마지막 '다' 앞부분(예: 확인합니다의

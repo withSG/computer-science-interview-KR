@@ -1,6 +1,6 @@
 # 실전 트러블슈팅 (Kubernetes Troubleshooting)
 
-> Pod 상태 이름만 보고 원인을 넘겨짚는 대신, 어떤 명령을 어떤 순서로 실행해 증상에서 원인까지 좁혀 가는지 몸에 익힌다.
+> Pod 상태 이름만 보고 원인을 넘겨짚는 대신, 어떤 명령을 어떤 순서로 실행해 증상에서 원인까지 좁혀 가는지 몸에 익힙니다.
 
 ## 학습 목표
 
@@ -20,13 +20,13 @@
 
 ## 1. 왜 필요한가: 상태 이름은 원인이 아니라 증상이다
 
-`kubectl get pods`를 쳤을 때 나오는 `CrashLoopBackOff`는 원인이 아니다. **"컨테이너가 반복해서 죽고 있으며, 쿠버네티스가 재시작 간격을 늘려 가며 기다리는 중"** 이라는 상태 서술일 뿐이다. 실제 원인은 DB 연결 실패일 수도, 환경변수 누락일 수도, 메모리 부족일 수도, liveness probe 오설정일 수도 있다.
+`kubectl get pods`를 쳤을 때 나오는 `CrashLoopBackOff`는 원인이 아닙니다. **"컨테이너가 반복해서 죽고 있으며, 쿠버네티스가 재시작 간격을 늘려 가며 기다리는 중"** 이라는 상태 서술일 뿐입니다. 실제 원인은 DB 연결 실패일 수도, 환경변수 누락일 수도, 메모리 부족일 수도, liveness probe 오설정일 수도 있습니다.
 
-> **병원에 비유하면 "열이 난다"에 해당한다.** 열은 증상이지 병명이 아니다. 감기일 수도 있고 폐렴일 수도 있어서, 문진하고 검사해서 좁혀 간다.
+> **병원에 비유하면 "열이 난다"에 해당한다.** 열은 증상이지 병명이 아닙니다. 감기일 수도 있고 폐렴일 수도 있어서, 문진하고 검사해서 좁혀 갑니다.
 >
-> 비유의 한계 — 환자는 증상을 말해 주지만 Pod는 말이 없다. 대신 쿠버네티스는 **모든 판단 과정을 이벤트로 기록해 둔다.** 그래서 진단의 절반은 "물어보는" 게 아니라 "이미 기록된 것을 읽는" 일이다. `describe`와 `events`를 먼저 보는 습관이 중요한 이유다.
+> 비유의 한계 — 환자는 증상을 말해 주지만 Pod는 말이 없습니다. 대신 쿠버네티스는 **모든 판단 과정을 이벤트로 기록해 둔다.** 그래서 진단의 절반은 "물어보는" 게 아니라 "이미 기록된 것을 읽는" 일입니다. `describe`와 `events`를 먼저 보는 습관이 중요한 이유입니다.
 
-또 하나 알아 둘 것은 **원인이 어느 층에 있는지 층위가 정해져 있다**는 점이다.
+또 하나 알아 둘 것은 **원인이 어느 층에 있는지 층위가 정해져 있다**는 점입니다.
 
 <!-- diagram:cloud-troubleshooting-1 -->
 ![1. 왜 필요한가: 상태 이름은 원인이 아니라 증상이다](../../assets/diagrams/cloud-troubleshooting-1.svg)
@@ -42,13 +42,13 @@ Pod가 아예 안 뜬다        → 스케줄링 층 (Pending)
 ```
 -->
 
-증상을 보고 어느 층인지 먼저 정하면 확인할 명령이 절반 이하로 줄어든다.
+증상을 보고 어느 층인지 먼저 정하면 확인할 명령이 절반 이하로 줄어듭니다.
 
 ---
 
 ## 2. 진단의 기본 순서
 
-무슨 장애든 이 순서를 벗어나지 않는다.
+무슨 장애든 이 순서를 벗어나지 않습니다.
 
 <!-- diagram:cloud-troubleshooting-2 -->
 ![2. 진단의 기본 순서](../../assets/diagrams/cloud-troubleshooting-2.svg)
@@ -73,9 +73,9 @@ Pod가 아예 안 뜬다        → 스케줄링 층 (Pending)
 ```
 -->
 
-②를 건너뛰고 ③으로 가는 실수를 특히 조심한다. **컨테이너가 아직 만들어지지도 않은 상태라면 로그는 애초에 존재하지 않는다.** `ImagePullBackOff`나 `CreateContainerConfigError`에서 `kubectl logs`를 아무리 쳐도 아무것도 나오지 않는다. 그런데 그 이유가 `describe`에는 한 줄로 적혀 있다.
+②를 건너뛰고 ③으로 가는 실수를 특히 조심합니다. **컨테이너가 아직 만들어지지도 않은 상태라면 로그는 애초에 존재하지 않는다.** `ImagePullBackOff`나 `CreateContainerConfigError`에서 `kubectl logs`를 아무리 쳐도 아무것도 나오지 않습니다. 그런데 그 이유가 `describe`에는 한 줄로 적혀 있습니다.
 
-자주 쓰는 변형도 같이 익혀 둔다.
+자주 쓰는 변형도 같이 익혀 둡니다.
 
 ```bash
 kubectl get pods -o wide --sort-by='.status.containerStatuses[0].restartCount'
@@ -86,13 +86,13 @@ kubectl describe pod <pod> | sed -n '/Events/,$p'    # 이벤트만 잘라 보�
 kubectl get events --field-selector involvedObject.name=<pod>
 ```
 
-`--previous`가 특히 중요하다. CrashLoopBackOff 상태에서 `kubectl logs`는 **방금 재시작한 컨테이너의 로그**를 보여주는데, 아직 실패하기 전이라 비어 있는 경우가 많다. 실패 원인은 죽은 이전 컨테이너에 남아 있다.
+`--previous`가 특히 중요합니다. CrashLoopBackOff 상태에서 `kubectl logs`는 **방금 재시작한 컨테이너의 로그**를 보여주는데, 아직 실패하기 전이라 비어 있는 경우가 많습니다. 실패 원인은 죽은 이전 컨테이너에 남아 있습니다.
 
 ---
 
 ## 3. Pending: 스케줄되지 못하고 있다
 
-Pod가 만들어지긴 했는데 노드에 배정되지 않은 상태다. 스케줄러의 필터링을 통과한 노드가 없다는 뜻이다.
+Pod가 만들어지긴 했는데 노드에 배정되지 않은 상태입니다. 스케줄러의 필터링을 통과한 노드가 없다는 뜻입니다.
 
 ```bash
 kubectl describe pod <pod> | grep -A 10 Events
@@ -100,7 +100,7 @@ kubectl describe pod <pod> | grep -A 10 Events
 #   3 Insufficient cpu, 2 node(s) had untolerated taint {dedicated: gpu}
 ```
 
-메시지가 곧 답이다. 그래도 자주 나오는 원인은 정해져 있다.
+메시지가 곧 답입니다. 그래도 자주 나오는 원인은 정해져 있습니다.
 
 | 이벤트 메시지 조각 | 원인 | 대응 |
 |---|---|---|
@@ -118,13 +118,13 @@ kubectl get pvc                     # Pending PVC가 있는지
 kubectl get resourcequota -n <ns>
 ```
 
-여기서 자주 오해하는 것이 **"노드에 여유가 있는데 왜 Insufficient cpu냐"** 는 상황이다. 스케줄러는 **실제 사용량이 아니라 requests의 합**을 본다. 노드 CPU 실사용률이 20%여도 그 노드의 Pod들이 requests로 이미 전부 예약해 뒀다면 더 못 넣는다. `kubectl top node`(실사용)와 `describe node`의 Allocated resources(예약)를 함께 봐야 하는 이유다.
+여기서 자주 오해하는 것이 **"노드에 여유가 있는데 왜 Insufficient cpu냐"** 는 상황입니다. 스케줄러는 **실제 사용량이 아니라 requests의 합**을 봅니다. 노드 CPU 실사용률이 20%여도 그 노드의 Pod들이 requests로 이미 전부 예약해 뒀다면 더 못 넣습니다. `kubectl top node`(실사용)와 `describe node`의 Allocated resources(예약)를 함께 봐야 하는 이유입니다.
 
 ---
 
 ## 4. ImagePullBackOff / ErrImagePull
 
-이미지를 가져오지 못한 상태다. `ErrImagePull`이 먼저 뜨고 재시도가 반복되면 `ImagePullBackOff`가 된다.
+이미지를 가져오지 못한 상태입니다. `ErrImagePull`이 먼저 뜨고 재시도가 반복되면 `ImagePullBackOff`가 됩니다.
 
 ```bash
 kubectl describe pod <pod> | grep -A 5 Events
@@ -132,12 +132,12 @@ kubectl describe pod <pod> | grep -A 5 Events
 # Failed to pull image "reg.example.com/myapp:1.0": ... unauthorized
 ```
 
-원인은 대개 넷 중 하나다.
+원인은 대개 넷 중 하나입니다.
 
-1. **이미지 이름이나 태그 오타** — 가장 흔하다. 존재하지 않는 태그를 적었거나 레지스트리 주소가 틀렸다.
-2. **프라이빗 레지스트리 인증 누락** — `imagePullSecrets`가 없거나 잘못된 네임스페이스에 있다. Secret은 네임스페이스 범위라, 다른 네임스페이스에 만들어 둔 것은 쓸 수 없다.
-3. **레지스트리 pull 제한이나 네트워크 차단** — 사설 네트워크에서 아웃바운드가 막혀 있거나, 공개 레지스트리의 요청 한도에 걸렸다.
-4. **아키텍처 불일치** — ARM 노드에 amd64 전용 이미지를 올리는 경우. `exec format error`로도 나타난다.
+1. **이미지 이름이나 태그 오타** — 가장 흔합니다. 존재하지 않는 태그를 적었거나 레지스트리 주소가 틀렸습니다.
+2. **프라이빗 레지스트리 인증 누락** — `imagePullSecrets`가 없거나 잘못된 네임스페이스에 있습니다. Secret은 네임스페이스 범위라, 다른 네임스페이스에 만들어 둔 것은 쓸 수 없습니다.
+3. **레지스트리 pull 제한이나 네트워크 차단** — 사설 네트워크에서 아웃바운드가 막혀 있거나, 공개 레지스트리의 요청 한도에 걸렸습니다.
+4. **아키텍처 불일치** — ARM 노드에 amd64 전용 이미지를 올리는 경우. `exec format error`로도 나타납니다.
 
 ```bash
 # 인증 Secret이 올바른 네임스페이스에 있는지
@@ -145,13 +145,13 @@ kubectl get secret -n <ns> | grep dockerconfig
 kubectl get pod <pod> -o jsonpath='{.spec.imagePullSecrets}'
 ```
 
-`imagePullPolicy`도 함께 본다. 태그를 `latest`로 두고 이미지를 갱신했는데 반영이 안 된다면 노드에 캐시된 이미지를 쓰고 있을 수 있다. 운영에서는 태그를 불변으로(버전이나 커밋 해시) 관리하는 것이 근본 대책이다.
+`imagePullPolicy`도 함께 봅니다. 태그를 `latest`로 두고 이미지를 갱신했는데 반영이 안 된다면 노드에 캐시된 이미지를 쓰고 있을 수 있습니다. 운영에서는 태그를 불변으로(버전이나 커밋 해시) 관리하는 것이 근본 대책입니다.
 
 ---
 
 ## 5. CrashLoopBackOff: 떴다가 계속 죽는다
 
-컨테이너가 시작은 되는데 곧 종료되고, 쿠버네티스가 재시작 간격을 지수적으로 늘려 가며(대략 10초에서 시작해 최대 5분까지) 기다리는 상태다.
+컨테이너가 시작은 되는데 곧 종료되고, 쿠버네티스가 재시작 간격을 지수적으로 늘려 가며(대략 10초에서 시작해 최대 5분까지) 기다리는 상태입니다.
 
 ### 종료 코드부터 읽는다
 
@@ -173,13 +173,13 @@ kubectl describe pod <pod> | grep -A 12 "Last State"
 
 ### 원인별 대응
 
-**설정 누락.** DB 호스트나 필수 환경변수가 없어 기동 직후 죽는 경우가 가장 흔하다. `logs --previous`에 대개 명확한 메시지가 있다. ConfigMap/Secret 키 이름 오타, 다른 네임스페이스의 리소스를 참조한 경우를 확인한다. 참고로 참조 대상 자체가 없으면 컨테이너가 아예 생성되지 않고 `CreateContainerConfigError`로 나타난다.
+**설정 누락.** DB 호스트나 필수 환경변수가 없어 기동 직후 죽는 경우가 가장 흔합니다. `logs --previous`에 대개 명확한 메시지가 있습니다. ConfigMap/Secret 키 이름 오타, 다른 네임스페이스의 리소스를 참조한 경우를 확인합니다. 참고로 참조 대상 자체가 없으면 컨테이너가 아예 생성되지 않고 `CreateContainerConfigError`로 나타납니다.
 
-**의존 서비스 미기동.** DB가 아직 안 떴는데 앱이 먼저 떠서 연결 실패로 죽는 경우다. 근본 대책은 애플리케이션에 재시도와 백오프를 넣는 것이다. 순서를 강제해야 한다면 init container로 의존 서비스가 뜰 때까지 대기시킨다. 다만 재시도 없는 앱은 운영 중 DB가 잠깐 끊겨도 똑같이 죽으므로 순서 강제는 임시방편이다.
+**의존 서비스 미기동.** DB가 아직 안 떴는데 앱이 먼저 떠서 연결 실패로 죽는 경우입니다. 근본 대책은 애플리케이션에 재시도와 백오프를 넣는 것입니다. 순서를 강제해야 한다면 init container로 의존 서비스가 뜰 때까지 대기시킵니다. 다만 재시도 없는 앱은 운영 중 DB가 잠깐 끊겨도 똑같이 죽으므로 순서 강제는 임시방편입니다.
 
-**liveness probe 오설정.** 앱은 멀쩡한데 probe가 실패해 계속 죽이는 경우. 아래 8절에서 따로 다룬다.
+**liveness probe 오설정.** 앱은 멀쩡한데 probe가 실패해 계속 죽이는 경우. 아래 8절에서 따로 다룹니다.
 
-**파일 권한.** non-root로 실행하는데 마운트된 볼륨이 root 소유라 쓰기에 실패하는 경우. `securityContext.fsGroup`을 지정하면 볼륨 소유 그룹이 맞춰진다.
+**파일 권한.** non-root로 실행하는데 마운트된 볼륨이 root 소유라 쓰기에 실패하는 경우. `securityContext.fsGroup`을 지정하면 볼륨 소유 그룹이 맞춰집니다.
 
 ---
 
@@ -191,27 +191,27 @@ kubectl describe pod <pod> | grep -B 2 -A 6 "Last State"
 #   Exit Code: 137
 ```
 
-컨테이너가 `resources.limits.memory`를 넘어서는 순간 커널이 프로세스를 죽인다. 경고도 유예도 없다. CPU가 limit을 넘으면 스로틀링으로 느려지기만 하는 것과 대조적인데, 메모리는 이미 준 것을 회수할 수 없기 때문이다.
+컨테이너가 `resources.limits.memory`를 넘어서는 순간 커널이 프로세스를 죽입니다. 경고도 유예도 없습니다. CPU가 limit을 넘으면 스로틀링으로 느려지기만 하는 것과 대조적인데, 메모리는 이미 준 것을 회수할 수 없기 때문입니다.
 
-진단할 때 세 가지를 구분한다.
+진단할 때 세 가지를 구분합니다.
 
-**① limit이 실제 필요량보다 작은가.** 부하 상태에서의 실제 사용량을 봐야 한다.
+**① limit이 실제 필요량보다 작은가.** 부하 상태에서의 실제 사용량을 봐야 합니다.
 
 ```bash
 kubectl top pod <pod> --containers
 ```
 
-**② 애플리케이션에 메모리 누수가 있는가.** 사용량이 톱니 모양으로 오르내리지 않고 단조 증가한다면 누수를 의심한다. 재시작 주기가 점점 짧아지는 패턴도 신호다.
+**② 애플리케이션에 메모리 누수가 있는가.** 사용량이 톱니 모양으로 오르내리지 않고 단조 증가한다면 누수를 의심합니다. 재시작 주기가 점점 짧아지는 패턴도 신호입니다.
 
-**③ 런타임 설정이 컨테이너 limit을 모르는가.** JVM 앱에서 특히 자주 발생한다. 힙 외에도 메타스페이스, 스레드 스택, 네이티브 버퍼가 메모리를 쓰기 때문에, **힙 최대치를 컨테이너 limit과 같게 잡으면 거의 확실히 OOMKilled가 난다.** 힙은 limit보다 충분히 낮게 잡거나, 컨테이너 인식 옵션으로 비율 기반 설정을 쓴다. Node.js의 힙 상한, Go의 메모리 한도 설정도 같은 맥락에서 점검한다.
+**③ 런타임 설정이 컨테이너 limit을 모르는가.** JVM 앱에서 특히 자주 발생합니다. 힙 외에도 메타스페이스, 스레드 스택, 네이티브 버퍼가 메모리를 쓰기 때문에, **힙 최대치를 컨테이너 limit과 같게 잡으면 거의 확실히 OOMKilled가 난다.** 힙은 limit보다 충분히 낮게 잡거나, 컨테이너 인식 옵션으로 비율 기반 설정을 씁니다. Node.js의 힙 상한, Go의 메모리 한도 설정도 같은 맥락에서 점검합니다.
 
-대응 순서는 이렇다. 먼저 실측으로 limit이 타당한지 확인하고, 타당하다면 애플리케이션 쪽 문제이므로 프로파일링으로 넘어간다. 아무 근거 없이 limit만 계속 올리면 노드 전체가 위험해진다.
+대응 순서는 이렇습니다. 먼저 실측으로 limit이 타당한지 확인하고, 타당하다면 애플리케이션 쪽 문제이므로 프로파일링으로 넘어갑니다. 아무 근거 없이 limit만 계속 올리면 노드 전체가 위험해집니다.
 
 ---
 
 ## 7. Evicted와 노드 문제
 
-Pod가 잘 돌다가 갑자기 `Evicted` 상태로 바뀌어 있다면 **노드가 자원 압박을 받아 kubelet이 Pod를 쫓아낸 것**이다.
+Pod가 잘 돌다가 갑자기 `Evicted` 상태로 바뀌어 있다면 **노드가 자원 압박을 받아 kubelet이 Pod를 쫓아낸 것**입니다.
 
 ```bash
 kubectl get pods -A --field-selector status.phase=Failed
@@ -219,7 +219,7 @@ kubectl describe pod <pod> | grep -i "message\|reason"
 # The node was low on resource: ephemeral-storage.
 ```
 
-kubelet은 노드 상태를 Condition으로 표시한다.
+kubelet은 노드 상태를 Condition으로 표시합니다.
 
 ```bash
 kubectl describe node <node> | grep -A 10 Conditions
@@ -232,11 +232,11 @@ kubectl describe node <node> | grep -A 10 Conditions
 | `PIDPressure` | 프로세스 ID 고갈 | 프로세스를 정리하지 않는 애플리케이션 |
 | `Ready=False` | kubelet 응답 없음 | kubelet/런타임 장애, 네트워크 단절, 노드 재부팅 |
 
-축출 순서는 QoS 클래스를 따른다. **BestEffort → Burstable → Guaranteed** 순으로 희생된다. 그래서 requests를 적어 두지 않은 Pod가 제일 먼저 사라진다. 중요한 워크로드에 requests/limits를 성실히 적는 것이 곧 생존 전략이다.
+축출 순서는 QoS 클래스를 따릅니다. **BestEffort → Burstable → Guaranteed** 순으로 희생됩니다. 그래서 requests를 적어 두지 않은 Pod가 제일 먼저 사라집니다. 중요한 워크로드에 requests/limits를 성실히 적는 것이 곧 생존 전략입니다.
 
-`DiskPressure`는 원인이 노드 바깥에 있는 경우가 많다. 애플리케이션이 파일 로그를 무한정 쌓거나, 오래된 이미지가 정리되지 않아 노드 디스크를 채운다. 로그를 표준 출력으로 내보내고 수집기가 가져가게 하는 구성이 기본이다.
+`DiskPressure`는 원인이 노드 바깥에 있는 경우가 많습니다. 애플리케이션이 파일 로그를 무한정 쌓거나, 오래된 이미지가 정리되지 않아 노드 디스크를 채웁니다. 로그를 표준 출력으로 내보내고 수집기가 가져가게 하는 구성이 기본입니다.
 
-노드 자체가 `NotReady`라면 절차는 이렇다.
+노드 자체가 `NotReady`라면 절차는 이렇습니다.
 
 ```bash
 kubectl get nodes                       # 어느 노드가 문제인지
@@ -246,13 +246,13 @@ kubectl cordon <node>                   # 새 Pod 배치 중단
 kubectl drain <node> --ignore-daemonsets --delete-emptydir-data   # 기존 Pod 대피
 ```
 
-`drain`을 실행하기 전에 PodDisruptionBudget이 걸려 있는지 확인한다. 없으면 한 서비스의 Pod가 전부 동시에 빠져 순간적인 다운타임이 생길 수 있다.
+`drain`을 실행하기 전에 PodDisruptionBudget이 걸려 있는지 확인합니다. 없으면 한 서비스의 Pod가 전부 동시에 빠져 순간적인 다운타임이 생길 수 있습니다.
 
 ---
 
 ## 8. Probe 세 종류와 오설정이 만드는 장애
 
-Probe는 실무 장애의 단골 원인이면서, 동시에 잘 설정하면 대부분의 장애를 자동으로 흡수해 주는 장치다. 세 개의 역할이 완전히 다르다.
+Probe는 실무 장애의 단골 원인이면서, 동시에 잘 설정하면 대부분의 장애를 자동으로 흡수해 주는 장치입니다. 세 개의 역할이 완전히 다릅니다.
 
 <!-- diagram:cloud-troubleshooting-3 -->
 ![8. Probe 세 종류와 오설정이 만드는 장애](../../assets/diagrams/cloud-troubleshooting-3.svg)
@@ -298,7 +298,7 @@ t=30s  다시 부팅 시작... 무한 반복
 ```
 -->
 
-증상은 `CrashLoopBackOff`인데 로그에는 애플리케이션 오류가 전혀 없다. 정상 기동 로그만 반복해서 찍힌다. **이럴 때는 앱을 의심하기 전에 probe 설정을 본다.** 해결은 startup probe를 두어 부팅 구간을 보호하는 것이다.
+증상은 `CrashLoopBackOff`인데 로그에는 애플리케이션 오류가 전혀 없습니다. 정상 기동 로그만 반복해서 찍힙니다. **이럴 때는 앱을 의심하기 전에 probe 설정을 본다.** 해결은 startup probe를 두어 부팅 구간을 보호하는 것입니다.
 
 ```yaml
 startupProbe:
@@ -323,9 +323,9 @@ readinessProbe:
 
 **장애 B: readiness probe가 의존 서비스까지 확인한다**
 
-`/readyz`가 DB 연결까지 검사하도록 만들어 두면, DB가 잠깐 느려지는 순간 **모든 Pod가 동시에 Not Ready가 되어 Service 엔드포인트가 비고, 서비스가 통째로 죽는다.** DB는 곧 회복되는데 그 사이 전체 장애가 되는 것이다. 게다가 이 상황에서 liveness까지 같은 엔드포인트를 보고 있으면 전체 Pod가 동시에 재시작되면서 복구가 더 늦어진다.
+`/readyz`가 DB 연결까지 검사하도록 만들어 두면, DB가 잠깐 느려지는 순간 **모든 Pod가 동시에 Not Ready가 되어 Service 엔드포인트가 비고, 서비스가 통째로 죽는다.** DB는 곧 회복되는데 그 사이 전체 장애가 되는 것입니다. 게다가 이 상황에서 liveness까지 같은 엔드포인트를 보고 있으면 전체 Pod가 동시에 재시작되면서 복구가 더 늦어집니다.
 
-원칙은 이렇다. **liveness는 프로세스 자신만 검사한다. readiness는 자신이 요청을 처리할 준비가 되었는지만 본다. 외부 의존성 검사는 최소화하거나, 실패해도 부분 기능은 제공하도록 설계한다.**
+원칙은 이렇습니다. **liveness는 프로세스 자신만 검사합니다. readiness는 자신이 요청을 처리할 준비가 되었는지만 봅니다. 외부 의존성 검사는 최소화하거나, 실패해도 부분 기능은 제공하도록 설계한다.**
 
 ```bash
 kubectl describe pod <pod> | grep -i "liveness\|readiness\|startup"
@@ -429,25 +429,25 @@ kubectl get endpoints <service>          # 비어 있으면 readiness 실패 의
 | `Completed`인데 재시작 반복 | 종료되는 프로세스를 Deployment로 실행 | Job으로 바꿔야 하는 워크로드인지 검토 |
 | `Unknown` | kubelet과 통신 불가 | 노드 상태 확인 |
 
-로그가 나오지 않는 이미지(distroless 등)를 조사할 때는 임시 디버그 컨테이너를 붙일 수 있다.
+로그가 나오지 않는 이미지(distroless 등)를 조사할 때는 임시 디버그 컨테이너를 붙일 수 있습니다.
 
 ```bash
 kubectl debug -it <pod> --image=busybox:1.36 --target=<container>
 ```
 
-기존 Pod를 건드리지 않고 같은 네임스페이스를 공유하는 컨테이너를 하나 더 띄우는 방식이라, 셸이 없는 이미지에서도 네트워크와 프로세스를 확인할 수 있다.
+기존 Pod를 건드리지 않고 같은 네임스페이스를 공유하는 컨테이너를 하나 더 띄우는 방식이라, 셸이 없는 이미지에서도 네트워크와 프로세스를 확인할 수 있습니다.
 
 ---
 
 ## 11. 실무에서는
 
-**로그는 Pod 밖으로 나가 있어야 한다.** Pod가 사라지면 `kubectl logs`도 함께 사라진다. 정작 원인 규명이 필요한 순간에 로그가 없는 상황이 자주 생기므로, 로그 수집 파이프라인(Fluent Bit + Loki/Elasticsearch 등)을 먼저 갖춘다.
+**로그는 Pod 밖으로 나가 있어야 한다.** Pod가 사라지면 `kubectl logs`도 함께 사라집니다. 정작 원인 규명이 필요한 순간에 로그가 없는 상황이 자주 생기므로, 로그 수집 파이프라인(Fluent Bit + Loki/Elasticsearch 등)을 먼저 갖춥니다.
 
-**메트릭 없이는 리소스 판단이 불가능하다.** `kubectl top`은 metrics-server가 있어야 동작하고, 과거 시점의 사용량은 보여주지 않는다. OOMKilled의 원인을 사후에 밝히려면 Prometheus처럼 시계열을 남기는 도구가 필요하다. 관련 내용은 [qna-monitoring.md](../monitoring-observability/qna-monitoring.md)에 있다.
+**메트릭 없이는 리소스 판단이 불가능하다.** `kubectl top`은 metrics-server가 있어야 동작하고, 과거 시점의 사용량은 보여주지 않습니다. OOMKilled의 원인을 사후에 밝히려면 Prometheus처럼 시계열을 남기는 도구가 필요합니다. 관련 내용은 [qna-monitoring.md](../monitoring-observability/qna-monitoring.md)에 있습니다.
 
-**같은 장애를 두 번 겪지 않도록 만든다.** 원인을 찾았다면 그 원인이 다시 발생했을 때 자동으로 감지되게 만든다. 리소스 사용률 알림, Pod 재시작 횟수 알림, 엔드포인트 개수 알림이 대표적이다.
+**같은 장애를 두 번 겪지 않도록 만든다.** 원인을 찾았다면 그 원인이 다시 발생했을 때 자동으로 감지되게 만듭니다. 리소스 사용률 알림, Pod 재시작 횟수 알림, 엔드포인트 개수 알림이 대표적입니다.
 
-**진단 절차를 문서로 남긴다.** 온콜 담당자가 새벽에 보는 것은 남이 정리해 둔 순서다. 증상별로 "무슨 명령을 어떤 순서로"를 적어 두면 대응 시간이 크게 줄어든다. 더 넓은 장애 대응 사례는 [qna-troubleshooting.md](../practical-scenarios/qna-troubleshooting.md)를 참고한다.
+**진단 절차를 문서로 남긴다.** 온콜 담당자가 새벽에 보는 것은 남이 정리해 둔 순서입니다. 증상별로 "무슨 명령을 어떤 순서로"를 적어 두면 대응 시간이 크게 줄어듭니다. 더 넓은 장애 대응 사례는 [qna-troubleshooting.md](../practical-scenarios/qna-troubleshooting.md)를 참고합니다.
 
 ---
 
@@ -465,13 +465,13 @@ A. 먼저 `kubectl describe pod`으로 Last State의 Reason과 Exit Code를 봅�
 
 A. `kubectl describe pod`의 FailedScheduling 이벤트가 이유를 그대로 알려줍니다. Insufficient cpu/memory면 requests 합계가 노드 여유를 넘은 것이고, untolerated taint면 toleration이 없는 것이고, unbound PVC면 스토리지 문제입니다. 여기서 주의할 점은 스케줄러가 실사용량이 아니라 requests 합을 본다는 것입니다. `kubectl top node`로 실사용률이 낮은데도 배치가 안 되는 경우가 있고, 그건 다른 Pod들이 이미 requests로 예약해 뒀기 때문입니다.
 
-- 꼬리 질문: "노드를 늘려야 하나요?" → 먼저 requests가 과대 설정된 건 아닌지 본다. 실사용 대비 과도한 requests는 클러스터 전체의 배치 효율을 떨어뜨린다.
+- 꼬리 질문: "노드를 늘려야 하나요?" → 먼저 requests가 과대 설정된 건 아닌지 봅니다. 실사용 대비 과도한 requests는 클러스터 전체의 배치 효율을 떨어뜨립니다.
 
 **Q. liveness probe와 readiness probe의 차이는 무엇인가요?**
 
 A. liveness는 실패하면 컨테이너를 재시작하고, readiness는 실패해도 죽이지 않고 Service 엔드포인트에서만 제외합니다. 그래서 liveness는 데드락처럼 회생 불가능한 상태에만 반응해야 하고, 일시적인 과부하나 의존성 지연에는 readiness가 대응해야 합니다. 흔한 사고가 readiness에서 DB 연결까지 검사하는 것입니다. DB가 잠깐 느려지면 모든 Pod가 동시에 Not Ready가 되어 엔드포인트가 비고 서비스 전체가 죽습니다. 여기에 기동이 오래 걸리는 앱이면 startup probe로 부팅 구간을 따로 보호합니다.
 
-- 꼬리 질문: "probe를 아예 안 걸면 어떻게 되나요?" → 컨테이너가 뜨자마자 Ready로 간주되어, 초기화 중인 Pod에 트래픽이 들어가고 롤링 업데이트의 안전장치도 사라진다.
+- 꼬리 질문: "probe를 아예 안 걸면 어떻게 되나요?" → 컨테이너가 뜨자마자 Ready로 간주되어, 초기화 중인 Pod에 트래픽이 들어가고 롤링 업데이트의 안전장치도 사라집니다.
 
 **Q. 노드가 NotReady가 되면 Pod는 어떻게 되나요?**
 
@@ -496,7 +496,7 @@ A. 컨테이너 자체는 런타임이 붙들고 있어 즉시 죽지는 않습�
 
 ## 한 줄 정리
 
-Pod 상태 이름은 증상일 뿐이므로, 어느 층(스케줄링·이미지·애플리케이션·네트워크·노드)의 문제인지부터 가르고 describe → logs --previous → events 순으로 기록된 사실을 읽어 내려가는 것이 트러블슈팅의 전부다.
+Pod 상태 이름은 증상일 뿐이므로, 어느 층(스케줄링·이미지·애플리케이션·네트워크·노드)의 문제인지부터 가르고 describe → logs --previous → events 순으로 기록된 사실을 읽어 내려가는 것이 트러블슈팅의 전부입니다.
 
 ---
 
