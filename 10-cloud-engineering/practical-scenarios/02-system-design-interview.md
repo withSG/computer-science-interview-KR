@@ -311,7 +311,7 @@ CREATE TABLE urls (
 
 ### 뉴스피드
 
-핵심은 **피드를 언제 만드느냐**다.
+핵심은 **피드를 언제 만드느냐입니다.
 
 <!-- diagram:cloud-system-design-interview-5 -->
 ![뉴스피드](../../assets/diagrams/cloud-system-design-interview-5.svg)
