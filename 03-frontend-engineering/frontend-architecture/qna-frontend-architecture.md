@@ -94,7 +94,7 @@ BFF는 **프론트엔드를 위한 전용 백엔드 레이어**입니다. 여러
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-프론트엔드 상태는 **서버 상태, 전역 클라이언트 상태, 로컬 상태** 3가지로 분류하고 각각 다른 도구로 관리하는 것이 효과적입니다. 서버 상태는 React Query로 캐싱과 동기화를 선언적으로 처리하고, 전역 클라이언트 상태(인증, 테마 등)는 Zustand/Redux로 관리하며, UI 관련 로컬 상태는 useState로 충분합니다.
+프론트엔드 상태는 **서버 상태, 전역 클라이언트 상태, 로컬 상태, URL 상태** 4가지로 분류하고 각각 다른 도구로 관리하는 것이 효과적입니다. 서버 상태는 React Query로 캐싱과 동기화를 선언적으로 처리하고, 전역 클라이언트 상태(인증, 테마 등)는 Zustand/Redux로 관리하며, UI 관련 로컬 상태는 useState로 충분하고, 검색어·필터·페이지 번호처럼 새로고침이나 링크 공유 후에도 같은 화면이어야 하는 값은 URL 상태로 둡니다.
 
 ### 상태 분류 및 관리 도구
 
@@ -103,6 +103,9 @@ BFF는 **프론트엔드를 위한 전용 백엔드 레이어**입니다. 여러
 | 서버 상태 | 목록 데이터, 사용자 정보 | React Query / TanStack Query | 캐싱, 리페칭, 로딩/에러 처리 |
 | 전역 클라이언트 상태 | 인증 정보, 테마, 언어 | Zustand / Redux Toolkit | 앱 전체 공유 |
 | 로컬 상태 | 모달 열림/닫힘, 입력값 | useState | 컴포넌트 단위 |
+| URL 상태 | 검색어, 필터, 페이지 번호 | useSearchParams 등 라우터 | 새로고침·링크 공유 후에도 유지 |
+
+URL 상태인지 판별하는 기준은 "이 값을 포함한 링크를 다른 사람에게 보냈을 때도 같은 화면이 나와야 하는가"입니다. 그렇다면 URL에 둡니다.
 
 ```ts
 // 서버 상태: React Query
@@ -122,6 +125,10 @@ const useAuthStore = create<AuthState>((set) => ({
 
 // 로컬 상태: useState
 const [isModalOpen, setIsModalOpen] = useState(false);
+
+// URL 상태: useSearchParams
+const [searchParams, setSearchParams] = useSearchParams();
+const category = searchParams.get('category') ?? 'all';
 ```
 
 ### 면접관이 주목하는 포인트

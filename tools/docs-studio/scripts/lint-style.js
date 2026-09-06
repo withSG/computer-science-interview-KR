@@ -13,6 +13,7 @@ import fs from 'node:fs/promises'
 import { buildTree, readDoc, existsInRepo } from '../server/docs.js'
 import { parseDiagrams } from '../server/diagram.js'
 import { REPO_ROOT } from '../server/config.js'
+import { maskFormattingArtifacts, stripInlineCode, maskQuotedSpans } from '../server/mask.js'
 
 // ---------------------------------------------------------------------------
 // 공통 유틸
@@ -29,20 +30,6 @@ function isQnaDoc(repoPath) {
 }
 
 /**
- * `99-practical-interview/`의 개념 문서(01~03) 셋은 「면접 포인트」의 'A.' 단락이
- * 다른 개념 문서들과 다른 장르다. 이 폴더 자체가 "면접을 어떻게 준비하는가"를
- * 다루므로, 'A.'는 소리 내어 말할 모범 답변이 아니라 답변을 어떻게 구성할지
- * 설명하는 3인칭 코칭 조언이다 (예: "강점 한 단어 + 그것을 증명하는 구체 사례
- * 순서로 답한다"). 실제로 소리 내어 말할 예시 문장은 그 안에 인용부호로 삽입되어
- * 있고, 그 인용된 부분은 이미 합니다체로 올바르게 쓰여 있으며 `maskQuotedSpans`가
- * 정확히 걸러낸다. 따라서 코칭 조언 문장 자체까지 합니다체로 바꾸면 오히려 어색해져,
- * register-plain-leak 검사에서 이 폴더의 개념 문서만 예외로 둔다.
- */
-function isCoachingAdviceDoc(repoPath) {
-  return repoPath.startsWith('99-practical-interview/')
-}
-
-/**
  * `STYLEGUIDE.md` 자신은 표기 규약 표에 비표준 표기(디렉토리, 쓰레드 …)를
  * 예시로 나열한다. 그 문장을 실제 위반으로 잡으면 규약 문서가 규약을 어긴
  * 것처럼 보이는 자기지시적 오탐이 생긴다 — 검사 대상(코퍼스 245편)이 아니라
@@ -50,53 +37,6 @@ function isCoachingAdviceDoc(repoPath) {
  */
 function isStyleguideItself(repoPath) {
   return repoPath === 'STYLEGUIDE.md'
-}
-
-/**
- * 펜스 코드 블록과 HTML 주석(다이어그램 마커·ASCII 보존 주석 포함)의 내용을
- * 공백으로 지운다. 줄 수·줄바꿈은 그대로 두므로 이후 어떤 검사도 줄 번호가
- * 틀어지지 않는다. register/spelling/translationese/template 이 공통으로
- * 쓰는 전처리 — 코드 예시나 주석 속 텍스트를 본문 위반으로 잘못 잡는 것을
- * 막는다.
- */
-function maskFormattingArtifacts(text) {
-  const blank = (s) => s.replace(/[^\n]/g, ' ')
-
-  // 1) HTML 주석. 코드 펜스보다 먼저 지운다 — ASCII 보존 주석 안에는 ``` 로
-  //    감싼 원본 ASCII 가 들어있는데, 이걸 먼저 지워둬야 아래 펜스 검사가
-  //    주석 속 ``` 를 진짜 펜스로 착각해 뒤쪽 내용까지 통째로 지우는 사고를
-  //    막을 수 있다.
-  let masked = text.replace(/<!--[\s\S]*?-->/g, blank)
-
-  // 2) 펜스 코드 블록 (```lang ... ```)
-  masked = masked.replace(/^([ \t]*```[^\n]*)\n([\s\S]*?)\n([ \t]*```[ \t]*)$/gm, (_m, open, body, close) => {
-    return blank(open) + '\n' + blank(body) + '\n' + blank(close)
-  })
-
-  return masked
-}
-
-/** 한 줄 안의 인라인 코드 스팬(`...`)을 지운다. */
-function stripInlineCode(line) {
-  return line.replace(/`[^`\n]*`/g, '')
-}
-
-/** 표 구분선(`|---|---|`)이나 빈 인용부호(`>`) 만 있는 줄 — 검사할 내용이 없다. */
-function isPureFormattingLine(line) {
-  if (/^\s*\|?[\s:|-]+\|?\s*$/.test(line) && /[-|]/.test(line)) return true
-  if (/^\s*>\s*$/.test(line)) return true
-  return false
-}
-
-/**
- * 마크다운 인용문(`>` 프리픽스, 중첩 인용 `>>` 포함) 줄인가.
- * 이 코퍼스는 "좋은 답변" 같은 모범 답변 예시를 문장 따옴표 대신 `>` 인용 블록으로
- * 옮기는 관례를 쓴다(예: STAR [S]/[T]/[A]/[R] 블록) — 다른 화자의 말을 그대로
- * 옮긴다는 점에서 `"..."`/`「...」` 로 감싼 인용과 의도가 같으므로 register-polite-leak
- * 에서 같은 취급을 한다.
- */
-function isBlockquoteLine(line) {
-  return /^\s{0,3}>+\s/.test(line) || /^\s{0,3}>+$/.test(line)
 }
 
 const HEADING_RE = /^(#{1,6})\s+(.*)$/
@@ -113,97 +53,60 @@ function h2Headings(maskedText) {
 }
 
 // ---------------------------------------------------------------------------
-// 규칙 1: register — 합니다체 구역 판정 (양방향)
+// 규칙 1: register — 합니다체 단일 규칙 (STYLEGUIDE.md 1절)
 // ---------------------------------------------------------------------------
 //
-// STYLEGUIDE.md 1절은 두 방향을 모두 규정한다.
-//   - register-polite-leak: '면접 포인트' 밖에서 합니다체(습니다/입니다/합니다/됩니다).
-//     단, 다른 화자의 말을 그대로 옮긴 인용(따옴표로 감싸거나 '라고/라는/라며'로
-//     이어지는 자리, 또는 `>` 인용 블록으로 옮긴 모범 답변 예시)은 문서 자신의
-//     목소리가 아니므로 대상에서 뺀다 — "자주 하는
-//     실수"/"실무에서는" 절이 안티패턴 예시("MongoDB는 CP입니다"라고 단정...)를
-//     인용하는 관용구가 매우 흔해서, 이걸 빼지 않으면 진짜 위반이 묻힌다.
-//   - register-plain-leak : '면접 포인트' 안, 그중에서도 'A. ...' 모범 답변 문단
-//                            안에서 한다체(다다/이다/한다/된다/있다/없다/아니다/같다)
-//     "- 꼬리 질문: ... → ... 답한다." 같은 해설 불릿은 모범 답변이 아니라 저자의
-//     설명이므로(문서 본문과 같은 한다체가 정상) 검사 대상에서 제외한다 — 'A.' 로
-//     시작해 다음 빈 줄/불릿/'Q.'/헤딩 전까지만 "답변 문단"으로 본다.
+// 문서 245편 전체에서 마침표로 끝나는 해라체 종결(~한다./~이다./~된다. 등)을 잡는다.
+// 문서 종류별 예외나 절 구분은 없다 — qna-*.md 도, README.md 도, 「면접 포인트」
+// 절 안팎도 똑같이 검사한다.
+//
+// 판정은 마침표 앞의 "한글 + 다" 패턴을 전부 찾은 뒤, 그 종결이 합쇼체(~니다)인지를
+// 종성으로 가려낸다. 'X니다'에서 X(니 바로 앞 음절)의 종성이 ㅂ(28종성 목록의
+// 인덱스 17)이면 합니다/입니다/습니다/됩니다 같은 합쇼체이므로 통과시킨다. 개별
+// 어미를 하드코딩하지 않고 종성으로 판정하므로 '갑니다', '옵니다', '먹습니다'처럼
+// STYLEGUIDE.md의 활용형 대응표에 없는 형태도 정확히 통과한다.
+//
+// 마침표를 필수로 요구하는 것이 핵심이다 — 이 저장소는 산문을 110자 안팎에서
+// 강제 개행하므로, 마침표 없이 '다'로 끝나는 줄에는 강제 개행으로 잘린 '~보다'
+// (비교 조사) 같은 오탐이 섞이고, 헤딩·체크리스트 항목(STYLEGUIDE.md 1.1 —
+// 규약 대상 밖)도 여기 걸린다.
+//
+// `>` 인용 블록은 더 이상 예외로 두지 않는다 — 실측 결과 이 저장소의 `>` 인용은
+// 리드문·비유 설명 등 문서 자신의 목소리가 대부분이고, 진짜 타인 발화는 큰따옴표
+// 안에 있어 maskQuotedSpans가 이미 걸러낸다.
 
-const POLITE_RE = /(습니다|입니다|합니다|됩니다)/
-const PLAIN_ENDING_RE = /(다다|이다|한다|된다|있다|없다|아니다|같다)\./
-const QUOTATIVE_AFTER_RE = /^["'」』)]{0,2}\s*(라고|라는|라며)/
+const SENTENCE_FINAL_RE = /([가-힣]+)다\.(?=\s|$)/g
 
-/** 인용부(" ... ", 「...」, 『...』)를 통째로 지운다 — 다른 화자의 말을 옮긴 자리는
- *  register 두 규칙 모두에서 "문서 자신의 목소리"로 보지 않는다. */
-function maskQuotedSpans(text) {
-  const blank = (s) => s.replace(/[^\n]/g, ' ')
-  return text
-    .replace(/"[\s\S]*?"/g, blank)
-    .replace(/「[\s\S]*?」/g, blank)
-    .replace(/『[\s\S]*?』/g, blank)
+/**
+ * 'X니다' 형태의 합쇼체 종결인가. word는 마지막 '다' 앞부분(예: 확인합니다의
+ * '확인합니'). word가 '니'로 끝나고, 그 앞 음절(X)의 종성이 ㅂ이면 합쇼체다.
+ */
+function isPoliteEnding(word) {
+  const n = word.length
+  if (n < 2 || word[n - 1] !== '니') return false
+  const c = word.charCodeAt(n - 2)
+  if (c < 0xac00 || c > 0xd7a3) return false
+  return (c - 0xac00) % 28 === 17 // 28종성 목록 인덱스 17 = ㅂ
 }
 
 function checkRegister(repoPath, maskedText) {
   const violations = []
-  if (!isConceptDoc(repoPath)) return violations // qna-*.md 전체 면제, README.md 대상 아님
+  if (isStyleguideItself(repoPath)) return violations // 활용형 대응표 자체가 '~한다' 등을 예시로 나열한다
 
-  const lines = maskedText.split('\n')
-  const quoteLines = maskQuotedSpans(maskedText).split('\n')
-  let inInterviewSection = false // '## N. 면접 포인트' 구역 안인가
-  let inAnswerParagraph = false // 'A. ...' 모범 답변 문단 안인가
-
+  const lines = maskQuotedSpans(maskedText).split('\n')
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]
-    const h = HEADING_RE.exec(line)
-    if (h && h[1].length === 2) {
-      inInterviewSection = h[2].includes('면접 포인트')
-      inAnswerParagraph = false
-      continue // 헤딩 줄 자체는 검사하지 않는다
-    }
-
-    if (!inInterviewSection) {
-      if (isPureFormattingLine(line)) continue
-      // `>` 인용 블록 — 문장부호 인용과 같은 취급으로 register-polite-leak 대상에서 뺀다.
-      if (isBlockquoteLine(line)) continue
-      // 인용부를 지운 텍스트에서 찾는다 — 인용된 합니다체는 이미 여기서 사라진다.
-      const stripped = stripInlineCode(quoteLines[i])
-      const m = POLITE_RE.exec(stripped)
-      if (m) {
-        // 따옴표 없이 그대로 옮긴 인용도 있다 — 어미 바로 뒤가 '라고/라는/라며'면
-        // 인용으로 보고 넘어간다.
-        const after = stripped.slice(m.index + m[0].length, m.index + m[0].length + 6)
-        if (!QUOTATIVE_AFTER_RE.test(after)) {
-          violations.push({
-            path: repoPath,
-            line: i + 1,
-            ruleId: 'register-polite-leak',
-            severity: 'error',
-            message: `'면접 포인트' 구역 밖에서 합니다체가 쓰였다: "${stripInlineCode(line).trim().slice(0, 60)}"`,
-          })
-        }
-      }
-      continue
-    }
-
-    // '면접 포인트' 구역 안 — 'A.' 답변 문단의 경계를 추적한다
-    const trimmed = line.trim()
-    if (trimmed === '' || /^-\s/.test(trimmed) || /^\*?\*?Q[.:]/.test(trimmed)) {
-      inAnswerParagraph = false
-    }
-    if (/^A\.\s/.test(trimmed)) {
-      inAnswerParagraph = true
-    }
-    if (!inAnswerParagraph) continue
-    if (isCoachingAdviceDoc(repoPath)) continue // 코칭 조언 장르 — 위 설명 참고
-
-    const stripped = stripInlineCode(quoteLines[i])
-    if (PLAIN_ENDING_RE.test(stripped)) {
+    if (HEADING_RE.test(lines[i])) continue // 헤딩은 제목 — STYLEGUIDE.md 1.1
+    const line = stripInlineCode(lines[i])
+    SENTENCE_FINAL_RE.lastIndex = 0
+    let m
+    while ((m = SENTENCE_FINAL_RE.exec(line)) !== null) {
+      if (isPoliteEnding(m[1])) continue
       violations.push({
         path: repoPath,
         line: i + 1,
         ruleId: 'register-plain-leak',
         severity: 'error',
-        message: `'면접 포인트' 답변 문단 안에서 한다체가 쓰였다: "${stripped.trim().slice(0, 60)}"`,
+        message: `해라체 종결이 남아 있다: "…${line.slice(Math.max(0, m.index - 24), SENTENCE_FINAL_RE.lastIndex)}"`,
       })
     }
   }
@@ -569,7 +472,6 @@ const RULE_IDS = [
   'diagram-triplet',
   'eol',
   'register-plain-leak',
-  'register-polite-leak',
   'spelling',
   'template',
   'translationese',
