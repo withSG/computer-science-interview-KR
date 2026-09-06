@@ -32,7 +32,7 @@ Java는 `malloc`/`free`가 없습니다. 그래서 "메모리는 JVM이 알아�
 
 ## 2. Runtime Data Area 전체 구조
 
-JVM이 프로그램을 실행할 때 쓰는 메모리는 다섯 영역으로 나뉩니다. 나누는 기준은 **스레드끼리 공유하는가입니다.
+JVM이 프로그램을 실행할 때 쓰는 메모리는 다섯 영역으로 나뉩니다. 나누는 기준은 **스레드끼리 공유하는가**입니다.
 
 <!-- diagram:be-memory-model-1 -->
 ![2. Runtime Data Area 전체 구조](../../assets/diagrams/be-memory-model-1.svg)
@@ -186,7 +186,7 @@ void method() {
 
 ### 흔한 오해 2 — "static 변수는 Method Area에 저장된다"
 
-Java 7부터 **static 필드의 실제 값은 힙에 있는 `java.lang.Class` 객체 안에** 저장됩니다. Method Area(Metaspace)에 있는 것은 "이 클래스에 이런 static 필드가 있다"는 **메타데이터입니다. 그래서 클래스가 언로드되면 static이 참조하던 객체도 GC 대상이 될 수 있습니다.
+Java 7부터 **static 필드의 실제 값은 힙에 있는 `java.lang.Class` 객체 안에** 저장됩니다. Method Area(Metaspace)에 있는 것은 "이 클래스에 이런 static 필드가 있다"는 **메타데이터**입니다. 그래서 클래스가 언로드되면 static이 참조하던 객체도 GC 대상이 될 수 있습니다.
 
 면접에서 "static은 Method Area"라고 답해도 대개 넘어가지만, 위 구분까지 말하면 확실히 깊이가 드러납니다.
 
@@ -368,7 +368,7 @@ list.stream().mapToInt(Item::getPrice).sum();
 | `OutOfMemoryError: Metaspace` | Metaspace | 동적 클래스 생성 폭주(프록시, 스크립트 엔진), 클래스로더 누수 | `-XX:MaxMetaspaceSize` 설정 후 원인 추적 |
 | `OutOfMemoryError: unable to create native thread` | OS | 스레드 수 한계 초과 | 스레드 풀 크기 조정, 가상 스레드 검토 |
 
-`Error`는 `Exception`과 달리 **잡아서 복구하려 들면 안 됩니다. `OutOfMemoryError`를 `catch`하고 계속 돌리면 그 뒤의 모든 동작이 신뢰할 수 없습니다. 프로세스를 재시작시키는 편이 낫습니다.
+`Error`는 `Exception`과 달리 **잡아서 복구하려 들면 안 됩니다**. `OutOfMemoryError`를 `catch`하고 계속 돌리면 그 뒤의 모든 동작이 신뢰할 수 없습니다. 프로세스를 재시작시키는 편이 낫습니다.
 
 ---
 

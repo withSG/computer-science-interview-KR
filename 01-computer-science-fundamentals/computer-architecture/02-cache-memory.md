@@ -12,7 +12,7 @@
 
 ## 선행 지식
 
-- [01-cpu-instruction-cycle.md](./01-cpu-instruction-cycle.md) - 명령어 사이클의 Fetch/Memory 단계를 알면 캐시가 왜 그 자리에 있는지 이해하기 쉽다
+- [01-cpu-instruction-cycle.md](./01-cpu-instruction-cycle.md) - 명령어 사이클의 Fetch/Memory 단계를 알면 캐시가 왜 그 자리에 있는지 이해하기 쉽습니다
 
 ---
 
@@ -20,11 +20,11 @@
 
 CPU는 빨라졌는데 메모리는 그만큼 빨라지지 못했습니다. 이 격차가 컴퓨터 구조 전체를 지배하는 문제입니다.
 
-대략적인 감을 잡아 보자. 3GHz CPU의 한 사이클은 약 0.33ns다. 그런데 DRAM 접근은 대략 100ns 안팎입니다. **CPU 사이클 기준으로 300번쯤 놀아야 데이터가 도착한다.** 이걸 그대로 두면 CPU가 아무리 빨라도 대부분의 시간을 대기로 소모합니다. 이 현상을 **메모리 장벽(memory wall)**이라 부릅니다.
+대략적인 감을 잡아 보자. 3GHz CPU의 한 사이클은 약 0.33ns입니다. 그런데 DRAM 접근은 대략 100ns 안팎입니다. **CPU 사이클 기준으로 300번쯤 놀아야 데이터가 도착합니다.** 이걸 그대로 두면 CPU가 아무리 빨라도 대부분의 시간을 대기로 소모합니다. 이 현상을 **메모리 장벽(memory wall)**이라 부릅니다.
 
 그러면 메모리를 SRAM처럼 빠른 소자로 전부 바꾸면 되지 않나? 안 됩니다. SRAM은 비트 하나에 트랜지스터가 6개쯤 필요해 밀도가 낮고 비싸며 전력을 많이 먹습니다. DRAM은 트랜지스터 1개 + 커패시터 1개로 비트를 저장해 훨씬 싸고 조밀하지만 느립니다. 16GB를 전부 SRAM으로 만들면 가격과 칩 면적이 감당이 안 됩니다.
 
-그래서 나온 절충이 **계층 구조입니다. 빠르고 작고 비싼 것을 CPU 가까이, 느리고 크고 싼 것을 멀리 둡니다. 그리고 지금 당장 쓸 데이터만 위쪽으로 끌어올립니다.
+그래서 나온 절충이 **계층 구조**입니다. 빠르고 작고 비싼 것을 CPU 가까이, 느리고 크고 싼 것을 멀리 둡니다. 그리고 지금 당장 쓸 데이터만 위쪽으로 끌어올립니다.
 
 **비유**: 책상 위(레지스터) → 책상 옆 책꽂이(L1/L2) → 방 안 책장(L3/DRAM) → 도서관(SSD). 지금 읽는 책만 책상에 올려두고, 다 보면 책꽂이로 돌려보냅니다.
 
@@ -249,7 +249,7 @@ C 계열 언어와 Java는 2차원 배열을 **행 우선(row-major)**으로 배
 
 - `int[]` > `Integer[]`, `ArrayList` > `LinkedList`
 - 큐가 필요하면 `LinkedList` 대신 `ArrayDeque`
-- 자주 함께 읽는 필드는 같은 객체에 모아 둔다
+- 자주 함께 읽는 필드는 같은 객체에 모아 둡니다
 
 ### False Sharing을 피한다
 
@@ -280,7 +280,7 @@ Core2의 라인 전체가 무효화(Invalidate)된다.
 
 ### 캐시 일관성은 언어 기능의 토대다
 
-멀티코어에서 각 코어는 자기 L1 캐시를 가집니다. 한 코어가 값을 바꿔도 다른 코어 캐시에는 옛날 값이 남습니다. 이걸 하드웨어가 정리해 주는 프로토콜이 **MESI**(Modified / Exclusive / Shared / Invalid)다.
+멀티코어에서 각 코어는 자기 L1 캐시를 가집니다. 한 코어가 값을 바꿔도 다른 코어 캐시에는 옛날 값이 남습니다. 이걸 하드웨어가 정리해 주는 프로토콜이 **MESI**(Modified / Exclusive / Shared / Invalid)입니다.
 
 Java의 `volatile`, `synchronized`, `AtomicInteger`가 보장하는 **메모리 가시성(memory visibility)**은 전부 이 하드웨어 메커니즘 위에 얹힌 추상화입니다. `volatile` 변수를 쓰면 다른 코어의 해당 캐시 라인에 무효화 신호가 가고, 읽는 쪽은 최신 값을 다시 가져옵니다. 다만 `volatile`은 가시성만 보장하고 원자성은 보장하지 않는다는 점을 기억해야 합니다. `count++`는 읽기-수정-쓰기 3단계라 여전히 경쟁 상태가 생깁니다.
 
@@ -343,7 +343,7 @@ A. 서로 다른 스레드가 논리적으로 무관한 서로 다른 변수를 
 - [01-cpu-instruction-cycle.md](./01-cpu-instruction-cycle.md) - 캐시가 메우려는 명령어 사이클의 메모리 대기
 - [04-error-detection-risc-cisc.md](./04-error-detection-risc-cisc.md) - 서버용 ECC 메모리와 아키텍처별 메모리 모델 차이
 - [qna-computer-architecture.md](./qna-computer-architecture.md) - 이 주제 면접 질문
-- [가상 메모리](../operating-system/05-virtual-memory.md) - TLB도 결국 주소 변환 결과를 담는 캐시다
+- [가상 메모리](../operating-system/05-virtual-memory.md) - TLB도 결국 주소 변환 결과를 담는 캐시입니다
 - [메모리 관리 (Stack vs Heap)](../operating-system/02-memory-management.md) - 스택과 힙의 캐시 친화성 차이
 - [컨텍스트 스위칭](../operating-system/03-context-switching.md) - 캐시 무효화라는 숨은 비용
 - [자료구조 QnA](../data-structure/qna-data-structure.md) - ArrayList와 LinkedList 비교

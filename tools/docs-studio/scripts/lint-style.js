@@ -75,19 +75,24 @@ function h2Headings(maskedText) {
 // 리드문·비유 설명 등 문서 자신의 목소리가 대부분이고, 진짜 타인 발화는 큰따옴표
 // 안에 있어 maskQuotedSpans가 이미 걸러낸다.
 
-// 볼드/이탤릭 마커(**, __, *, _)가 어간과 '다' 사이 또는 '다'와 마침표 사이에
-// 끼어들어도(예: "**주어**다.", "**중요하다**.") 종결로 인식해야 한다 —
-// convert-register.js의 같은 이름 상수와 반드시 동일하게 유지한다.
+// 볼드/이탤릭 마커(**, __, *, _)가 어간과 '다' 사이, '다'와 마침표 사이, 또는
+// 마침표 뒤에 끼어들어도(예: "**주어**다.", "**중요하다**.", "**프록시다.**")
+// 종결로 인식해야 한다 — convert-register.js의 같은 이름 상수와 반드시 동일하게
+// 유지한다.
 const EMPHASIS_RE = '(?:\\*{1,2}|_{1,2})?'
-const SENTENCE_FINAL_RE = new RegExp(`([가-힣]+)${EMPHASIS_RE}다${EMPHASIS_RE}\\.(?=\\s|$)`, 'g')
+const SENTENCE_FINAL_RE = new RegExp(`([가-힣]+)${EMPHASIS_RE}다${EMPHASIS_RE}\\.${EMPHASIS_RE}(?=\\s|$)`, 'g')
 
 /**
- * 'X니다' 형태의 합쇼체 종결인가. word는 마지막 '다' 앞부분(예: 확인합니다의
- * '확인합니'). word가 '니'로 끝나고, 그 앞 음절(X)의 종성이 ㅂ이면 합쇼체다.
+ * 'X니다' 또는 'X시다' 형태의 합쇼체 종결인가. word는 마지막 '다' 앞부분(예:
+ * 확인합니다의 '확인합니', 봅시다의 '봅시'). word가 '니' 또는 '시'로 끝나고,
+ * 그 앞 음절(X)의 종성이 ㅂ이면 합쇼체다 — '니'는 합니다/습니다/입니다/됩니다,
+ * '시'는 '-ㅂ시다/-읍시다' 청유형(갑시다, 봅시다, 합시다)이다. 우연히 '시'로
+ * 끝나는 명사(프록시다 등)는 그 앞 음절 종성이 ㅂ일 일이 거의 없어 오탐 위험이
+ * 낮다.
  */
 function isPoliteEnding(word) {
   const n = word.length
-  if (n < 2 || word[n - 1] !== '니') return false
+  if (n < 2 || (word[n - 1] !== '니' && word[n - 1] !== '시')) return false
   const c = word.charCodeAt(n - 2)
   if (c < 0xac00 || c > 0xd7a3) return false
   return (c - 0xac00) % 28 === 17 // 28종성 목록 인덱스 17 = ㅂ

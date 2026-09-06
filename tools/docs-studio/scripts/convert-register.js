@@ -45,11 +45,12 @@ import { maskFormattingArtifacts, maskQuotedSpans } from '../server/mask.js'
 import { APP_ROOT } from '../server/config.js'
 
 const HEADING_RE = /^(#{1,6})\s+(.*)$/
-// 볼드/이탤릭 마커(**, __, *, _)가 어간과 '다' 사이 또는 '다'와 마침표 사이에
-// 끼어들어도(예: "**주어**다.", "**중요하다**.") 종결로 인식해야 한다 — 마커는
-// 원문 위치 그대로 되살리므로 서식 범위가 바뀌지 않는다.
-const EMPHASIS_RE = '(?:\\*{1,2}|_{1,2})?'
-const SENTENCE_FINAL_RE = new RegExp(`([가-힣]+)${EMPHASIS_RE}다${EMPHASIS_RE}\\.(?=\\s|$)`, 'g')
+// 볼드/이탤릭 마커(**, __, *, _)가 어간과 '다' 사이, '다'와 마침표 사이, 또는
+// 마침표 뒤에 끼어들어도(예: "**주어**다.", "**중요하다**.", "**프록시다.**")
+// 종결로 인식해야 한다 — 마커는 원문 위치 그대로 되살리므로 서식 범위가
+// 바뀌지 않는다.
+const EMPHASIS_RE = '(\\*{1,2}|_{1,2})?'
+const SENTENCE_FINAL_RE = new RegExp(`([가-힣]+)${EMPHASIS_RE}다${EMPHASIS_RE}\\.${EMPHASIS_RE}(?=\\s|$)`, 'g')
 
 /** 한 줄 안의 인라인 코드 스팬(`...`)을 같은 길이의 공백으로 지운다.
  *  lint-style.js의 stripInlineCode와 달리 스팬을 제거하지 않고 블랭크 처리한다 —
@@ -59,9 +60,11 @@ function blankInlineCode(line) {
   return line.replace(/`[^`\n]*`/g, (m) => ' '.repeat(m.length))
 }
 
+/** 'X니다' 또는 'X시다'(청유형 '-ㅂ시다') 형태의 합쇼체 종결인가. lint-style.js의
+ *  같은 이름 함수와 반드시 동일하게 유지한다. */
 function isPoliteEnding(word) {
   const n = word.length
-  if (n < 2 || word[n - 1] !== '니') return false
+  if (n < 2 || (word[n - 1] !== '니' && word[n - 1] !== '시')) return false
   const c = word.charCodeAt(n - 2)
   if (c < 0xac00 || c > 0xd7a3) return false
   return (c - 0xac00) % 28 === 17
@@ -102,12 +105,15 @@ function transformEndingParts(word, t2Table) {
     return { stem: fuseLast(word), suffix: '니다' } // -ㄴ다 / -ㄹ다 → -ㅂ니다
   }
   if (jong === 0) {
-    if (last === '하' || last === '이') {
-      return { stem: fuseLast(word), suffix: '니다' } // -하다 / N-이다 → 항상 안전하게 융합
-    }
+    // '이'/'하'가 계사·용언 결합(것이다, 필요하다)이 아니라 명사 자체의 끝음절인
+    // 예외(차이, 손잡이, 깊이, 풀이, 사이 등)는 결정표가 우선한다 — 무조건 융합하면
+    // '차이다' → '차입니다'처럼 완전히 다른 단어가 된다.
     const verdict = t2Table[word]
-    if (verdict === 'verb') return { stem: fuseLast(word), suffix: '니다' }
     if (verdict === 'noun') return { stem: word, suffix: '입니다' }
+    if (verdict === 'verb') return { stem: fuseLast(word), suffix: '니다' }
+    if (last === '하' || last === '이') {
+      return { stem: fuseLast(word), suffix: '니다' } // 기본값: 대다수의 '-이다/-하다'는 계사·용언 결합이라 융합이 맞다
+    }
     return { unknown: true, reason: 'open-syllable-not-in-table' }
   }
   return { stem: word, suffix: '습니다' } // 그 밖의 자음 어간(과거형 포함)
@@ -158,13 +164,14 @@ function scanDoc(repoPath, text, t2Table) {
       const word = m[1]
       const markersA = m[2] || '' // 어간과 '다' 사이 (예: "**주어**다."의 "**")
       const markersB = m[3] || '' // '다'와 마침표 사이 (예: "**중요하다**."의 "**")
+      const markersC = m[4] || '' // 마침표 뒤 (예: "**프록시다.**"의 "**")
       const start = m.index
       const end = SENTENCE_FINAL_RE.lastIndex
       if (isPoliteEnding(word)) continue
       const result = transformEndingParts(word, t2Table)
       const before = originalLines[i].slice(start, end)
       if (!result.unknown) {
-        const after = result.stem + markersA + result.suffix + markersB + '.'
+        const after = result.stem + markersA + result.suffix + markersB + '.' + markersC
         edits.push({ lineIdx: i, start, end, before, after, word })
       } else {
         edits.push({ lineIdx: i, start, end, before, after: null, unknownReason: result.reason, word })

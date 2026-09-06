@@ -83,7 +83,7 @@ https://example.com:443/products/1?q=a#top
 | `https://api.example.com` | **다름** | 서브도메인도 다른 호스트다 |
 | `https://example.com:8443` | **다름** | 포트가 다르다 |
 
-세 번째 줄이 실무에서 가장 많이 걸립니다. **HTTP에서 HTTPS로 바꾸기만 해도 출처가 바뀐다.**
+세 번째 줄이 실무에서 가장 많이 걸립니다. **HTTP에서 HTTPS로 바꾸기만 해도 출처가 바뀝니다.**
 그리고 네 번째 줄 때문에 "프론트는 `www.myapp.com`, API는 `api.myapp.com`" 구성에서
 반드시 CORS 설정이 필요해집니다. 같은 회사 도메인이라는 사실은 브라우저에게 아무 의미가 없습니다.
 
@@ -97,7 +97,7 @@ https://example.com:443/products/1?q=a#top
 <!-- diagram:sec-sop-response-block -->
 ![SOP는 요청이 아니라 응답 읽기를 막는다](../assets/diagrams/sec-sop-response-block.svg)
 
-여기가 CORS 이해의 분수령입니다. **SOP는 요청을 막지 않습니다. 응답을 읽는 것을 막는다.**
+여기가 CORS 이해의 분수령입니다. **SOP는 요청을 막지 않습니다. 응답을 읽는 것을 막습니다.**
 
 ```
 [ evil.com의 JS가 bank.com/api/me 를 fetch 했을 때 ]
@@ -137,7 +137,7 @@ https://example.com:443/products/1?q=a#top
 - `<iframe src="https://other.com">` — 표시 (내부 DOM 접근은 못 함)
 - `<form action="https://other.com/transfer" method="post">` — **폼 전송**
 
-마지막 항목이 핵심입니다. **폼 전송은 SOP와 무관하게 나간다.**
+마지막 항목이 핵심입니다. **폼 전송은 SOP와 무관하게 나갑니다.**
 CSRF가 여전히 성립하는 이유가 바로 이것이고, "CORS 설정했으니 CSRF는 안전하다"가 틀린 이유입니다.
 
 ---
@@ -183,7 +183,7 @@ CSRF가 여전히 성립하는 이유가 바로 이것이고, "CORS 설정했으
 
 실무에서 Preflight가 발생하는 사유는 거의 항상 둘 중 하나입니다. `Content-Type: application/json`(조건 ③ 위반),
 그리고 `Authorization: Bearer ...`나 `X-CSRF-TOKEN` 같은 커스텀 헤더(조건 ② 위반).
-즉 **요즘 API 호출은 대부분 Preflight를 탄다.**
+즉 **요즘 API 호출은 대부분 Preflight를 탑니다.**
 
 ### Preflight 왕복
 
@@ -216,9 +216,9 @@ Browser                                              api.example.com
    │    Access-Control-Allow-Credentials: true              │
 ```
 
-주의할 점 두 가지. 첫째, **Preflight 요청에는 쿠키와 `Authorization` 헤더가 실리지 않는다.**
+주의할 점 두 가지. 첫째, **Preflight 요청에는 쿠키와 `Authorization` 헤더가 실리지 않습니다.**
 서버의 인증 필터가 OPTIONS를 401로 막으면 그 자리에서 실패합니다. 실무에서 가장 흔한 CORS 장애 원인입니다.
-둘째, **본 응답에도 CORS 헤더가 있어야 한다.** Preflight 통과는 "보내도 된다"까지고,
+둘째, **본 응답에도 CORS 헤더가 있어야 합니다.** Preflight 통과는 "보내도 된다"까지고,
 응답을 읽어도 되는지는 본 응답의 헤더가 다시 결정합니다.
 
 ---
@@ -384,7 +384,7 @@ export default {
 |------|------|
 | "CORS로 API를 보호한다" | CORS는 브라우저 JS만 통제합니다. `curl`, Postman, 서버 간 호출, 모바일 앱에는 적용되지 않는다 |
 | "CORS 에러가 났으니 서버는 요청을 거부했다" | 요청은 도달했고 처리됐을 수 있습니다. 브라우저가 응답을 안 넘겨준 것뿐 |
-| "CORS를 열면 서버가 위험해진다" | 위험해지는 것은 그 출처를 신뢰하는 **사용자입니다. 서버의 노출 면적은 그대로다 |
+| "CORS를 열면 서버가 위험해진다" | 위험해지는 것은 그 출처를 신뢰하는 **사용자**입니다. 서버의 노출 면적은 그대로다 |
 
 **CORS가 하는 일**은 크로스 오리진 응답을 JS에게 노출할지 결정하는 것(사용자 보호)이고,
 **서버를 보호하는 것**은 인증·인가·CSRF 방어·레이트 리밋입니다. CORS를 아무리 조여도 인증이 없는
@@ -394,15 +394,15 @@ API는 그냥 공개 API이고, 인증이 제대로 되어 있으면 넓게 열�
 
 ## 9. 실무에서는
 
-- **Spring Boot에서 `allowedOrigins("*")`와 `allowCredentials(true)`를 함께 쓰면 기동 시 예외가 난다.**
+- **Spring Boot에서 `allowedOrigins("*")`와 `allowCredentials(true)`를 함께 쓰면 기동 시 예외가 납니다.**
   스펙상 불가능한 조합이기 때문입니다. 패턴이 필요하면 `allowedOriginPatterns`를 쓰되,
   `https://*.example.com`은 서브도메인 전체를 신뢰하겠다는 선언이라 하나만 탈취돼도 통로가 열립니다.
   Origin을 직접 검사한다면 문자열 전체를 비교합니다. `startsWith`는 `https://app.example.com.evil.com`에 뚫립니다.
-- **Nginx와 애플리케이션에서 CORS를 이중으로 설정하는 사고가 잦다.** 헤더가 두 번 붙으면
+- **Nginx와 애플리케이션에서 CORS를 이중으로 설정하는 사고가 잦습니다.** 헤더가 두 번 붙으면
   브라우저가 "값이 여러 개"라며 거부합니다. 처리 지점을 한 곳으로 정합니다.
-- **CDN에 두는 정적 자원도 `Access-Control-Allow-Origin`이 필요할 수 있다.** 웹폰트와 `crossorigin`
+- **CDN에 두는 정적 자원도 `Access-Control-Allow-Origin`이 필요할 수 있습니다.** 웹폰트와 `crossorigin`
   속성을 붙인 스크립트(소스맵·에러 추적용)가 대표적입니다.
-- **가장 확실한 CORS 대책은 CORS를 안 만나는 것이다.** 리버스 프록시로 `app.example.com/api/*`를
+- **가장 확실한 CORS 대책은 CORS를 안 만나는 것입니다.** 리버스 프록시로 `app.example.com/api/*`를
   백엔드로 넘기면 브라우저 입장에서는 동일 출처라 CORS 자체가 발생하지 않고,
   쿠키의 `SameSite` 설정도 함께 단순해집니다.
 

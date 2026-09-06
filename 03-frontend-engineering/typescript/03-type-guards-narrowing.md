@@ -35,7 +35,7 @@ function format(value: string | number) {
 
 당연한 얘기입니다. 지금 이 순간 `value`가 문자열일 수도 있으니, `toFixed`를 부르게 놔두면 런타임에 터집니다. 컴파일러는 **가능한 모든 경우에 안전한 연산만** 허용합니다.
 
-그래서 유니온 타입은 선언만으로는 반쪽짜리입니다. **"지금 이 값은 실제로 무엇인가"를 런타임에 확인해서 컴파일러에게 알려주는 절차**가 반드시 붙어야 쓸 수 있습니다. 그 절차가 좁히기(narrowing)이고, 좁히기를 유발하는 검사가 타입 가드(type guard)다.
+그래서 유니온 타입은 선언만으로는 반쪽짜리입니다. **"지금 이 값은 실제로 무엇인가"를 런타임에 확인해서 컴파일러에게 알려주는 절차**가 반드시 붙어야 쓸 수 있습니다. 그 절차가 좁히기(narrowing)이고, 좁히기를 유발하는 검사가 타입 가드(type guard)입니다.
 
 ```ts
 function format(value: string | number) {
@@ -70,7 +70,7 @@ JavaScript 프로젝트를 TypeScript로 옮길 때 가장 먼저 쏟아지는 �
 
 ## 2. 제어 흐름 분석 — 컴파일러가 코드를 따라 걷는다
 
-TypeScript는 코드의 분기를 따라가면서 **각 지점마다 변수의 타입을 다시 계산한다.** 이걸 제어 흐름 분석(control flow analysis)이라고 합니다.
+TypeScript는 코드의 분기를 따라가면서 **각 지점마다 변수의 타입을 다시 계산합니다.** 이걸 제어 흐름 분석(control flow analysis)이라고 합니다.
 
 <!-- diagram:fe-type-guards-narrowing-1 -->
 ![2. 제어 흐름 분석](../../assets/diagrams/fe-type-guards-narrowing-1.svg)
@@ -100,7 +100,7 @@ function f(v: string | number | null)
 ```
 -->
 
-핵심은 마지막 줄입니다. **분기가 합쳐지면 좁혀졌던 타입도 다시 합쳐진다.** 좁히기는 특정 블록 안에서만 유효한 지역적 사실입니다.
+핵심은 마지막 줄입니다. **분기가 합쳐지면 좁혀졌던 타입도 다시 합쳐집니다.** 좁히기는 특정 블록 안에서만 유효한 지역적 사실입니다.
 
 이 분석 덕분에 `else` 없이도 좁혀집니다.
 
@@ -130,7 +130,7 @@ function describe(v: string | number | boolean | undefined) {
 
 `typeof`가 반환할 수 있는 문자열은 `"string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function"`이고, TypeScript는 이 값들만 비교 대상으로 허용합니다. `typeof v === "strnig"` 같은 오타는 컴파일러가 잡습니다.
 
-**함정 하나**: JavaScript에서 `typeof null`은 `"object"`다. 언어 초창기부터 있던 버그인데 호환성 때문에 고치지 못했습니다.
+**함정 하나**: JavaScript에서 `typeof null`은 `"object"`입니다. 언어 초창기부터 있던 버그인데 호환성 때문에 고치지 못했습니다.
 
 ```ts
 function handle(v: object | null) {
@@ -157,7 +157,7 @@ function report(e: Error | string) {
 }
 ```
 
-프로토타입 체인을 보는 검사라 **클래스나 생성자 함수로 만들어진 값**에만 쓸 수 있습니다. 인터페이스는 컴파일 후 사라지는 타입일 뿐 값이 아니므로, `x instanceof MyInterface`는 `'MyInterface' only refers to a type, but is being used as a value here.` 오류가 납니다. 배열은 `Array.isArray`를 쓴다(표준 라이브러리에 `arg is any[]` 타입 가드로 선언되어 있어 좁히기가 작동한다).
+프로토타입 체인을 보는 검사라 **클래스나 생성자 함수로 만들어진 값**에만 쓸 수 있습니다. 인터페이스는 컴파일 후 사라지는 타입일 뿐 값이 아니므로, `x instanceof MyInterface`는 `'MyInterface' only refers to a type, but is being used as a value here.` 오류가 납니다. 배열은 `Array.isArray`를 씁니다(표준 라이브러리에 `arg is any[]` 타입 가드로 선언되어 있어 좁히기가 작동합니다).
 
 ### `in` — 속성 존재 판별
 
@@ -171,7 +171,7 @@ function speak(pet: Cat | Dog) {
 }
 ```
 
-클래스가 아닌 순수 객체 타입에 쓸 수 있어 유용하지만, **선택적 속성이 섞이면 무너진다.**
+클래스가 아닌 순수 객체 타입에 쓸 수 있어 유용하지만, **선택적 속성이 섞이면 무너집니다.**
 
 ```ts
 interface Basic { id: string; premium?: boolean }
@@ -188,7 +188,7 @@ function f(p: Basic | Pro) {
 
 ### 진릿값과 동등 비교
 
-`if (value)`는 가장 짧은 좁히기지만, 여기 자주 나오는 버그가 있습니다. `undefined`뿐 아니라 **빈 문자열 `""`, 숫자 `0`, `NaN`도 함께 걸러낸다.**
+`if (value)`는 가장 짧은 좁히기지만, 여기 자주 나오는 버그가 있습니다. `undefined`뿐 아니라 **빈 문자열 `""`, 숫자 `0`, `NaN`도 함께 걸러냅니다.**
 
 ```ts
 // 안티패턴 — 수량 0이 "값 없음"으로 취급된다
@@ -225,7 +225,7 @@ interface State {
 }
 ```
 
-**왜 문제인가**: 이 타입은 **존재할 수 없는 상태를 표현할 수 있다.**
+**왜 문제인가**: 이 타입은 **존재할 수 없는 상태를 표현할 수 있습니다.**
 
 <!-- diagram:fe-type-guards-narrowing-2 -->
 ![문제: 불린 플래그로 상태를 표현하면](../../assets/diagrams/fe-type-guards-narrowing-2.svg)
@@ -296,7 +296,7 @@ function render(state: State): string {
 }
 ```
 
-`State`에 `{ status: "cancelled" }`를 추가하는 순간, `default` 블록의 `state`는 더 이상 `never`가 아니게 되어 **이 줄이 컴파일 오류를 낸다.** 상태를 추가한 사람이 처리를 빠뜨린 모든 `switch`를 컴파일러가 찾아줍니다. 상태 머신, 액션 리듀서, 이벤트 핸들러처럼 케이스가 늘어나는 코드에서 이 안전장치가 결정적입니다.
+`State`에 `{ status: "cancelled" }`를 추가하는 순간, `default` 블록의 `state`는 더 이상 `never`가 아니게 되어 **이 줄이 컴파일 오류를 냅니다.** 상태를 추가한 사람이 처리를 빠뜨린 모든 `switch`를 컴파일러가 찾아줍니다. 상태 머신, 액션 리듀서, 이벤트 핸들러처럼 케이스가 늘어나는 코드에서 이 안전장치가 결정적입니다.
 
 판별자로는 **리터럴 타입**을 써야 한다는 점이 중요합니다. `status: string`이면 좁혀지지 않습니다. 그래서 판별 유니온은 [01-why-typescript-types.md](./01-why-typescript-types.md)에서 본 리터럴 타입 위에 세워진 구조물입니다.
 
@@ -321,7 +321,7 @@ function handle(v: unknown) {
 }
 ```
 
-컴파일러 입장에서는 `isValidUser`가 `true`를 반환했다는 사실과 `v`의 타입 사이에 아무 연결 고리가 없습니다. **"이 함수가 true면 인자는 이 타입이다"를 명시적으로 알려주는 문법**이 타입 서술어(type predicate)다.
+컴파일러 입장에서는 `isValidUser`가 `true`를 반환했다는 사실과 `v`의 타입 사이에 아무 연결 고리가 없습니다. **"이 함수가 true면 인자는 이 타입이다"를 명시적으로 알려주는 문법**이 타입 서술어(type predicate)입니다.
 
 ```ts
 function isValidUser(v: unknown): v is { id: string } {
@@ -358,7 +358,7 @@ function isUser(v: unknown): v is User {
 }
 ```
 
-**왜 문제인가**: TypeScript는 함수 본문이 서술어를 실제로 보장하는지 **검사하지 않는다.** `v is User`라고 선언한 순간 그 말을 그대로 믿습니다. 잘못 구현한 타입 가드는 `as`와 똑같이 위험하고, 오히려 안전해 보이는 껍데기를 쓰고 있어서 더 나쁩니다.
+**왜 문제인가**: TypeScript는 함수 본문이 서술어를 실제로 보장하는지 **검사하지 않습니다.** `v is User`라고 선언한 순간 그 말을 그대로 믿습니다. 잘못 구현한 타입 가드는 `as`와 똑같이 위험하고, 오히려 안전해 보이는 껍데기를 쓰고 있어서 더 나쁩니다.
 
 ```ts
 // 개선 — 서술어가 주장하는 것을 전부 실제로 검사한다
@@ -372,7 +372,7 @@ function isUser(v: unknown): v is User {
 }
 ```
 
-필드가 많아지면 이 코드는 금방 감당하기 어려워집니다. 그래서 실무에서는 스키마 검증 라이브러리에 맡긴다(7절 참고).
+필드가 많아지면 이 코드는 금방 감당하기 어려워집니다. 그래서 실무에서는 스키마 검증 라이브러리에 맡깁니다(7절 참고).
 
 ### 단언 함수 — 좁히거나, 던지거나
 
@@ -393,13 +393,13 @@ function process(v: unknown) {
 
 `if` 블록으로 감싸지 않아도 되므로 들여쓰기가 줄어듭니다. `null` 배제용으로 `function assertDefined<T>(v: T): asserts v is NonNullable<T>`를 하나 만들어두면 프로젝트 전반에서 쓰입니다.
 
-한 가지 제약이 있습니다. **단언 함수는 호출 대상이 명시적 타입 표기를 가진 이름이어야 한다.** 화살표 함수를 `const`에 담으면 `Assertions require every name in the call target to be declared with an explicit type annotation.` 오류가 나므로, 변수 쪽에 타입을 직접 적거나 위 예시처럼 `function` 선언문을 쓰는 편이 편합니다.
+한 가지 제약이 있습니다. **단언 함수는 호출 대상이 명시적 타입 표기를 가진 이름이어야 합니다.** 화살표 함수를 `const`에 담으면 `Assertions require every name in the call target to be declared with an explicit type annotation.` 오류가 나므로, 변수 쪽에 타입을 직접 적거나 위 예시처럼 `function` 선언문을 쓰는 편이 편합니다.
 
 ---
 
 ## 6. 좁히기가 풀리는 상황
 
-좁힌 줄 알았는데 오류가 나는 순간들이 있습니다. 원리는 하나입니다. **컴파일러가 "그 사이에 값이 바뀌지 않았다"고 확신할 수 없으면 좁히기를 유지하지 않는다.**
+좁힌 줄 알았는데 오류가 나는 순간들이 있습니다. 원리는 하나입니다. **컴파일러가 "그 사이에 값이 바뀌지 않았다"고 확신할 수 없으면 좁히기를 유지하지 않습니다.**
 
 ### 콜백 안에서 (`let`)
 
@@ -462,7 +462,7 @@ if (isString) {
 | 조건을 `const`에 담아 재사용 | 유지(4.4+) | 그대로 쓴다 |
 | 조건을 `let`에 담아 재사용 | 풀림 | `const`로 바꾼다 |
 
-> 표 요약: **`const`와 얼리 리턴을 기본값으로 삼으면 좁히기가 풀리는 상황의 대부분을 애초에 만나지 않는다.**
+> 표 요약: **`const`와 얼리 리턴을 기본값으로 삼으면 좁히기가 풀리는 상황의 대부분을 애초에 만나지 않습니다.**
 
 ---
 
@@ -537,7 +537,7 @@ const input = document.querySelector(".search") as HTMLInputElement;
 const mockUser = { id: 1 } as User;
 ```
 
-기준은 이렇습니다. **`as`를 쓴 줄 옆에 "왜 안전한가"를 한 줄로 적을 수 있으면 써도 된다.** 적을 수 없으면 그것은 타입 오류를 이해하지 못한 채 덮은 것입니다.
+기준은 이렇습니다. **`as`를 쓴 줄 옆에 "왜 안전한가"를 한 줄로 적을 수 있으면 써도 됩니다.** 적을 수 없으면 그것은 타입 오류를 이해하지 못한 채 덮은 것입니다.
 
 ---
 
@@ -583,10 +583,10 @@ try {
 
 ## 9. 실무에서는
 
-- **API 경계에는 스키마 검증기를 둔다.** 손으로 쓴 `is` 가드는 필드가 늘어나면 유지가 안 되고, 무엇보다 서술어와 구현이 어긋나도 컴파일러가 잡지 않습니다. zod, valibot 같은 라이브러리는 스키마 하나로 런타임 검증과 정적 타입을 동시에 만들어내므로 이 둘이 어긋날 수 없습니다.
-- **비동기 상태와 액션 타입은 판별 유니온으로 모델링한다.** TanStack Query가 `status`와 `data`/`error`를 판별 유니온으로 노출하는 것, Redux 계열이 `type` 필드를 판별자로 삼아 리듀서 `switch`에서 `payload` 타입을 좁히는 것이 같은 패턴입니다. 여기에 `never` 완전성 검사를 붙여 처리를 빠뜨린 케이스를 잡습니다.
-- **`!`(non-null 단언) 사용을 린트 규칙으로 막는 팀이 많다.** ESLint의 `@typescript-eslint/no-non-null-assertion`이 그것입니다. 대신 실패 시 원인을 알려주는 명시적 예외를 던지도록 합니다.
-- **`strict`는 신규 프로젝트라면 무조건 처음부터 켠다.** 나중에 켜면 오류가 수천 개 뜨고, 그 압박 때문에 결국 `any`로 덮게 됩니다.
+- **API 경계에는 스키마 검증기를 둡니다.** 손으로 쓴 `is` 가드는 필드가 늘어나면 유지가 안 되고, 무엇보다 서술어와 구현이 어긋나도 컴파일러가 잡지 않습니다. zod, valibot 같은 라이브러리는 스키마 하나로 런타임 검증과 정적 타입을 동시에 만들어내므로 이 둘이 어긋날 수 없습니다.
+- **비동기 상태와 액션 타입은 판별 유니온으로 모델링합니다.** TanStack Query가 `status`와 `data`/`error`를 판별 유니온으로 노출하는 것, Redux 계열이 `type` 필드를 판별자로 삼아 리듀서 `switch`에서 `payload` 타입을 좁히는 것이 같은 패턴입니다. 여기에 `never` 완전성 검사를 붙여 처리를 빠뜨린 케이스를 잡습니다.
+- **`!`(non-null 단언) 사용을 린트 규칙으로 막는 팀이 많습니다.** ESLint의 `@typescript-eslint/no-non-null-assertion`이 그것입니다. 대신 실패 시 원인을 알려주는 명시적 예외를 던지도록 합니다.
+- **`strict`는 신규 프로젝트라면 무조건 처음부터 켭니다.** 나중에 켜면 오류가 수천 개 뜨고, 그 압박 때문에 결국 `any`로 덮게 됩니다.
 
 ---
 

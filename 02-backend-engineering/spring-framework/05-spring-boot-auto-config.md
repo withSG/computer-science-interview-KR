@@ -76,9 +76,9 @@ Spring Boot 이전에 "DB에 연결하고 JPA를 쓰고 웹 요청을 받는" �
 
 문제는 분량이 아니라 세 가지입니다.
 
-1. **프로젝트마다 거의 똑같다.** 위 XML의 90%는 어느 회사 어느 프로젝트에서든 동일합니다. 그런데 매번 손으로 복사합니다.
-2. **오타가 런타임에야 드러난다.** `transactionManager`를 `transacionManager`로 적어도 컴파일은 통과합니다. 서버를 띄워봐야 압니다.
-3. **버전 조합을 사람이 맞춰야 한다.** Spring 5.3에 어떤 Hibernate 버전이 맞는지, Jackson은 몇 번대여야 하는지를 개발자가 직접 조사했습니다.
+1. **프로젝트마다 거의 똑같습니다.** 위 XML의 90%는 어느 회사 어느 프로젝트에서든 동일합니다. 그런데 매번 손으로 복사합니다.
+2. **오타가 런타임에야 드러납니다.** `transactionManager`를 `transacionManager`로 적어도 컴파일은 통과합니다. 서버를 띄워봐야 압니다.
+3. **버전 조합을 사람이 맞춰야 합니다.** Spring 5.3에 어떤 Hibernate 버전이 맞는지, Jackson은 몇 번대여야 하는지를 개발자가 직접 조사했습니다.
 
 ### Spring Boot의 답: 설정보다 관례
 
@@ -102,7 +102,7 @@ spring:
     password: 1234
 ```
 
-위의 XML 전부가 이 몇 줄로 대체됩니다. **중요한 것은 이게 마법이 아니라는 점이다.** Spring Boot가 하는 일은 그 XML에 해당하는 `@Configuration` 클래스들을 미리 다 작성해두고, 조건에 맞을 때만 켜지도록 만든 것뿐입니다.
+위의 XML 전부가 이 몇 줄로 대체됩니다. **중요한 것은 이게 마법이 아니라는 점입니다.** Spring Boot가 하는 일은 그 XML에 해당하는 `@Configuration` 클래스들을 미리 다 작성해두고, 조건에 맞을 때만 켜지도록 만든 것뿐입니다.
 
 > 비유: 인테리어가 끝난 풀옵션 오피스텔. 냉장고, 세탁기, 에어컨이 이미 들어와 있어서 짐만 들고 오면 됩니다. 마음에 안 드는 가전은 내가 가져온 것으로 바꿔 넣을 수 있습니다.
 >
@@ -247,7 +247,7 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 
 ### 왜 덮어쓰기가 항상 이기나
 
-핵심은 **[4]번 단계의 순서입니다. `AutoConfigurationImportSelector`는 `DeferredImportSelector`라서, **사용자가 정의한 `@Configuration`과 컴포넌트 스캔이 전부 끝난 뒤에** 처리됩니다.
+핵심은 **[4]번 단계의 순서**입니다. `AutoConfigurationImportSelector`는 `DeferredImportSelector`라서, **사용자가 정의한 `@Configuration`과 컴포넌트 스캔이 전부 끝난 뒤에** 처리됩니다.
 
 <!-- diagram:be-spring-boot-auto-config-3 -->
 ![왜 덮어쓰기가 항상 이기나](../../assets/diagrams/be-spring-boot-auto-config-3.svg)
@@ -323,7 +323,7 @@ DB 없이 배치 애플리케이션만 띄우고 싶은데 `spring-boot-starter-
 | Bean 직접 등록 | 그 Bean 하나 | 자동 설정이 지원하지 않는 조립이 필요할 때 |
 | `exclude` | 자동 설정 클래스 전체 | 그 기능 자체가 필요 없을 때 |
 
-> 결론: **프로퍼티 → Bean 등록 → exclude 순으로 시도한다.** `exclude`는 그 클래스가 등록하던 다른 Bean들까지 같이 사라지므로 부작용을 확인해야 합니다.
+> 결론: **프로퍼티 → Bean 등록 → exclude 순으로 시도합니다.** `exclude`는 그 클래스가 등록하던 다른 Bean들까지 같이 사라지므로 부작용을 확인해야 합니다.
 
 ### 안티패턴: 왜 안 먹히는지 모른 채 설정을 늘리는 것
 
@@ -403,7 +403,7 @@ Unconditional classes:       ← 조건 없이 항상 적용되는 것
 ```
 -->
 
-`--debug`는 로그 레벨 전체를 DEBUG로 바꾸는 것이 아니라 **이 리포트를 켜는 스위치입니다. 문제 해결 순서는 이렇습니다.
+`--debug`는 로그 레벨 전체를 DEBUG로 바꾸는 것이 아니라 **이 리포트를 켜는 스위치**입니다. 문제 해결 순서는 이렇습니다.
 
 1. 기대한 Bean이 없다 → **Negative matches**에서 해당 자동 설정 클래스를 찾아 "왜 매칭되지 않았는지" 사유를 읽는다
 2. 예상치 못한 Bean이 있다 → **Positive matches**에서 어떤 자동 설정이 등록했는지 역추적한다
@@ -414,9 +414,9 @@ Unconditional classes:       ← 조건 없이 항상 적용되는 것
 ## 6. 실무에서는
 
 - **Starter는 의존성 묶음일 뿐**입니다. `spring-boot-starter-web`은 그 자체로 코드가 거의 없고, Spring MVC·내장 톰캣·Jackson을 함께 끌어오는 역할을 합니다. 실제 설정은 `spring-boot-autoconfigure`에 들어 있습니다.
-- **버전 관리는 부모 BOM이 한다.** `spring-boot-dependencies`가 수백 개 라이브러리의 검증된 버전 조합을 고정하기 때문에, 개발자가 버전을 적지 않아도 서로 호환되는 조합이 들어옵니다. 이 부분이 자동 설정만큼이나 실무 시간을 아껴줍니다.
+- **버전 관리는 부모 BOM이 합니다.** `spring-boot-dependencies`가 수백 개 라이브러리의 검증된 버전 조합을 고정하기 때문에, 개발자가 버전을 적지 않아도 서로 호환되는 조합이 들어옵니다. 이 부분이 자동 설정만큼이나 실무 시간을 아껴줍니다.
 - **회사 공통 모듈을 스타터로 만드는 경우**가 있습니다. 사내 인증 클라이언트나 로깅 규격을 자동 설정 클래스로 만들고 `AutoConfiguration.imports`에 등록하면, 다른 팀은 의존성만 추가하고 프로퍼티 몇 줄만 적으면 됩니다.
-- **기동이 느려졌다면 자동 설정 개수를 먼저 본다.** 쓰지 않는 스타터가 딸려 들어와 불필요한 자동 설정이 켜져 있는 경우가 흔합니다. `--debug` 리포트의 Positive matches 길이가 좋은 단서입니다.
+- **기동이 느려졌다면 자동 설정 개수를 먼저 봅니다.** 쓰지 않는 스타터가 딸려 들어와 불필요한 자동 설정이 켜져 있는 경우가 흔합니다. `--debug` 리포트의 Positive matches 길이가 좋은 단서입니다.
 
 ---
 

@@ -52,8 +52,8 @@ public class OrderListServlet extends HttpServlet {
 
 문제는 두 가지입니다.
 
-1. **공통 처리가 모든 서블릿에 복사된다.** 인코딩, 로그인 확인, 로깅, 예외 처리. 하나만 빠뜨려도 그 URL만 한글이 깨집니다.
-2. **응답 방식이 코드에 박혀 있다.** JSP로 포워드하는 코드가 서블릿 안에 있으니, 같은 데이터를 JSON으로도 주려면 서블릿을 하나 더 만들어야 합니다.
+1. **공통 처리가 모든 서블릿에 복사됩니다.** 인코딩, 로그인 확인, 로깅, 예외 처리. 하나만 빠뜨려도 그 URL만 한글이 깨집니다.
+2. **응답 방식이 코드에 박혀 있습니다.** JSP로 포워드하는 코드가 서블릿 안에 있으니, 같은 데이터를 JSON으로도 주려면 서블릿을 하나 더 만들어야 합니다.
 
 ### 프론트 컨트롤러 패턴
 
@@ -195,7 +195,7 @@ DispatcherServlet은 두 인터페이스만 알면 되고, 새로운 형태의 �
 
 ## 3. @Controller와 @RestController의 갈림길
 
-두 방식은 **6단계 이후가 완전히 다르다.**
+두 방식은 **6단계 이후가 완전히 다릅니다.**
 
 <!-- diagram:be-spring-mvc-flow-2 -->
 ![3. @Controller와 @RestController의 갈림길](../../assets/diagrams/be-spring-mvc-flow-2.svg)
@@ -392,7 +392,7 @@ public void afterCompletion(HttpServletRequest req, HttpServletResponse res,
 
 ## 6. 실무에서는
 
-- **Spring Boot에서는 `web.xml`이 없다.** 내장 톰캣이 뜨면서 `DispatcherServlet`을 자동 등록하고 `/`에 매핑합니다. 예전에는 `ContextLoaderListener`가 만드는 루트 컨테이너와 `DispatcherServlet`이 만드는 서블릿 컨테이너가 부모-자식으로 나뉘어 있었는데, Boot에서는 사실상 하나로 통합돼 신경 쓸 일이 없어졌습니다.
+- **Spring Boot에서는 `web.xml`이 없습니다.** 내장 톰캣이 뜨면서 `DispatcherServlet`을 자동 등록하고 `/`에 매핑합니다. 예전에는 `ContextLoaderListener`가 만드는 루트 컨테이너와 `DispatcherServlet`이 만드는 서블릿 컨테이너가 부모-자식으로 나뉘어 있었는데, Boot에서는 사실상 하나로 통합돼 신경 쓸 일이 없어졌습니다.
 - **요청 추적 ID는 Filter + MDC 조합**이 표준적입니다. Filter 진입 시 UUID를 만들어 `MDC`에 넣고, 로그 패턴에 `%X{traceId}`를 넣으면 한 요청의 로그를 전부 묶어 볼 수 있습니다. 반드시 `finally`에서 `MDC.clear()`를 해야 합니다. 톰캣이 스레드를 재사용하기 때문에 정리하지 않으면 다음 요청에 이전 ID가 딸려갑니다.
 - **인증은 Spring Security의 Filter 체인**이 사실상 표준입니다. Security가 붙으면 `DelegatingFilterProxy`를 통해 Spring Bean인 필터들이 서블릿 필터 체인에 끼어 들어옵니다. 인가되지 않은 요청은 DispatcherServlet에 닿기도 전에 차단됩니다.
 - **404가 나는데 컨트롤러는 분명히 있다**면 HandlerMapping 단계에서 매칭에 실패한 것입니다. 경로 변수 패턴, HTTP 메서드, `produces`/`consumes` 조건을 순서대로 확인합니다. 애플리케이션 기동 로그에 매핑 목록이 출력되므로 거기서 비교하는 것이 빠릅니다.
