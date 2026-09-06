@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">비용, 그리고 줄이는 방법 - 전통적 SSR 및 하이드레이션의 문제점</title>
+  <desc id="d">전통적인 SSR과 하이드레이션이 가지는 All-or-Nothing 방식의 두 가지 문제점을 보여주는 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 문제 1 섹션 -->
+  <g id="problem-1">
+    <!-- 섹션 헤딩 -->
+    <text x="30" y="44" font-size="16" font-weight="bold" fill="#1f2933">문제 1 — 서버가 전부 끝나야 보낸다</text>
+    
+    <!-- 흐름 박스들 -->
+    <!-- [DB 조회 완료 대기] -->
+    <rect x="30" y="65" width="160" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="110" y="89" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">DB 조회 완료 대기</text>
+
+    <!-- 화살표 1 -->
+    <path d="M190,85 L220,85" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- [전체 HTML 생성] -->
+    <rect x="220" y="65" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="290" y="89" font-size="13" fill="#1f2933" text-anchor="middle">전체 HTML 생성</text>
+
+    <!-- 화살표 2 -->
+    <path d="M360,85 L390,85" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- [전송] -->
+    <rect x="390" y="65" width="80" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="430" y="89" font-size="13" fill="#1f2933" text-anchor="middle">전송</text>
+
+    <!-- 화살표 3 -->
+    <path d="M470,85 L500,85" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- [표시] -->
+    <rect x="500" y="65" width="80" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="540" y="89" font-size="13" fill="#1f2933" text-anchor="middle">표시</text>
+
+    <!-- 주석 (Up arrow + Text) -->
+    <path d="M110,135 L110,105" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    <text x="125" y="130" font-size="11.5" fill="#dc2626">느린 쿼리 하나가 페이지 전체의 TTFB를 잡아먹는다</text>
+  </g>
+
+  <!-- 구분선 -->
+  <line x1="30" y1="165" x2="850" y2="165" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 문제 2 섹션 -->
+  <g id="problem-2">
+    <!-- 섹션 헤딩 -->
+    <text x="30" y="199" font-size="16" font-weight="bold" fill="#1f2933">문제 2 — 클라이언트가 전부 받아야 동작한다</text>
+
+    <!-- 흐름 박스들 -->
+    <!-- [JS 번들 전부 다운로드] -->
+    <rect x="30" y="220" width="180" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="120" y="244" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">JS 번들 전부 다운로드</text>
+
+    <!-- 화살표 1 -->
+    <path d="M210,240 L240,240" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+    <!-- [트리 전체 하이드레이션] -->
+    <rect x="240" y="220" width="170" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="325" y="244" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">트리 전체 하이드레이션</text>
+
+    <!-- 화살표 2 -->
+    <path d="M410,240 L440,240" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+    <!-- [인터랙티브] -->
+    <rect x="440" y="220" width="100" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="490" y="244" font-size="13" fill="#1f2933" text-anchor="middle">인터랙티브</text>
+
+    <!-- 주석 (Up arrow + Text) -->
+    <path d="M325,290 L325,260" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+    <text x="340" y="285" font-size="11.5" fill="#d97706">페이지 맨 아래 댓글 위젯 때문에 맨 위 검색창이 안 눌린다</text>
+  </g>
+</svg>

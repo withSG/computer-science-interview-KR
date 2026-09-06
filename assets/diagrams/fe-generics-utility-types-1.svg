@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">선택지가 둘뿐이던 시절</title>
+  <desc id="d">any 방식과 제네릭 방식을 비교하여 입력 타입과 출력 타입 간의 관계 소실 및 보존을 보여주는 다이어그램</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마커 (잉크/기본) -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커 (빨강 / any 방식 / 관계 소실) -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <!-- 화살표 마커 (파랑 / 제네릭 방식 / 관계 보존) -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 좌측 영역: any 방식 (경고/위험/소실 - 빨강 계열 배경) -->
+  <rect x="30" y="30" width="390" height="320" rx="12" fill="#fef2f2" stroke="#fee2e2" stroke-width="1"/>
+  
+  <!-- 우측 영역: 제네릭 방식 (안전/보존 - 파랑 계열 배경) -->
+  <rect x="460" y="30" width="390" height="320" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1"/>
+
+  <!-- 제목 헤더 -->
+  <text x="225" y="65" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[any 방식]</text>
+  <text x="655" y="65" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[제네릭 방식]</text>
+
+  <!-- ==================== [any 방식] 요소를 좌표에 구성 ==================== -->
+
+  <!-- 입력: User[] -->
+  <rect x="165" y="90" width="120" height="36" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="225" y="113" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">User[]</text>
+
+  <!-- 함수 박스: first() -->
+  <rect x="155" y="180" width="140" height="44" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="225" y="207" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">first()</text>
+
+  <!-- 출력: any -->
+  <rect x="175" y="270" width="100" height="36" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="225" y="293" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">any</text>
+
+  <!-- 연결 화살표: User[] -> first() -->
+  <path d="M225,126 L225,180" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 화살표 라벨: 관계 소실 -->
+  <rect x="235" y="143" width="72" height="20" fill="#ffffff" rx="3" stroke="#fee2e2" stroke-width="1"/>
+  <text x="271" y="157" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">관계 소실</text>
+
+  <!-- 연결 화살표: first() -> any -->
+  <path d="M225,224 L225,270" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 부가 설명 라벨: ← 무엇이든 될 수 있음 -->
+  <text x="285" y="293" font-size="12" fill="#52606d" text-anchor="start">← 무엇이든 될 수 있음</text>
+
+
+  <!-- ==================== [제네릭 방식] 요소를 좌표에 구성 ==================== -->
+
+  <!-- 입력: User[] -->
+  <rect x="595" y="90" width="120" height="36" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="655" y="113" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">User[]</text>
+
+  <!-- 함수 박스: first<T>() -->
+  <rect x="575" y="180" width="160" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="655" y="207" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">first&lt;T&gt;()</text>
+
+  <!-- 출력: User | undefined -->
+  <rect x="570" y="270" width="170" height="36" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="655" y="293" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">User | undefined</text>
+
+  <!-- 연결 화살표: User[] -> first<T>() -->
+  <path d="M655,126 L655,180" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 화살표 부가 설명: T = User 로 기억 & 관계 보존 -->
+  <text x="665" y="147" font-size="11.5" fill="#52606d" text-anchor="start">T = User 로 기억</text>
+
+  <rect x="665" y="208" width="72" height="20" fill="#ffffff" rx="3" stroke="#dbeafe" stroke-width="1"/>
+  <text x="701" y="222" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">관계 보존</text>
+
+  <!-- 연결 화살표: first<T>() -> User | undefined -->
+  <path d="M655,224 L655,270" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+</svg>

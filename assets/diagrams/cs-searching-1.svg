@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동작 원리 - 이진 탐색</title>
+  <desc id="d">정렬된 배열에서 38을 이진 탐색으로 찾는 과정을 3단계로 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="620" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">정렬된 배열에서 38을 찾는다</text>
+
+  <!-- Step 1 Group -->
+  <g id="step1">
+    <!-- Index Row -->
+    <text x="50" y="90" font-size="13" font-weight="bold" fill="#52606d">idx :</text>
+    <text x="130" y="90" font-size="13" text-anchor="middle" fill="#52606d">0</text>
+    <text x="180" y="90" font-size="13" text-anchor="middle" fill="#52606d">1</text>
+    <text x="230" y="90" font-size="13" text-anchor="middle" fill="#52606d">2</text>
+    <text x="280" y="90" font-size="13" text-anchor="middle" fill="#52606d">3</text>
+    <text x="330" y="90" font-size="13" text-anchor="middle" fill="#52606d">4</text>
+    <text x="380" y="90" font-size="13" text-anchor="middle" fill="#52606d">5</text>
+    <text x="430" y="90" font-size="13" text-anchor="middle" fill="#52606d">6</text>
+    <text x="480" y="90" font-size="13" text-anchor="middle" fill="#52606d">7</text>
+    <text x="530" y="90" font-size="13" text-anchor="middle" fill="#52606d">8</text>
+
+    <!-- Array Row -->
+    <text x="50" y="125" font-size="13" font-weight="bold" fill="#52606d">arr : [</text>
+    <rect x="105" y="102" width="48" height="34" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="130" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">2</text>
+
+    <rect x="155" y="102" width="48" height="34" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="180" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">5</text>
+
+    <rect x="205" y="102" width="48" height="34" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="230" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">8</text>
+
+    <rect x="255" y="102" width="48" height="34" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="280" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">12</text>
+
+    <rect x="305" y="102" width="48" height="34" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <text x="330" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#d97706">13</text>
+
+    <rect x="355" y="102" width="48" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="380" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">17</text>
+
+    <rect x="405" y="102" width="48" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="430" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">23</text>
+
+    <rect x="455" y="102" width="48" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="480" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">38</text>
+
+    <rect x="505" y="102" width="48" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="530" y="123" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">56</text>
+    <text x="560" y="125" font-size="13" font-weight="bold" fill="#52606d">]</text>
+
+    <!-- Pointers -->
+    <path d="M130,158 L130,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="130" y="173" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">lo=0</text>
+
+    <path d="M330,158 L330,140" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="330" y="173" font-size="13" font-weight="bold" text-anchor="middle" fill="#d97706">mid=4</text>
+
+    <path d="M530,158 L530,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="530" y="173" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">hi=8</text>
+
+    <!-- Description -->
+    <text x="50" y="205" font-size="13" fill="#1f2933">1) arr[4] = 13 &lt; 38</text>
+    <path d="M175,201 L200,201" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="210" y="205" font-size="13" fill="#dc2626">왼쪽 절반은 전부 탈락. lo = 5</text>
+  </g>
+
+  <!-- Step 2 Group -->
+  <g id="step2">
+    <!-- Array Row -->
+    <text x="50" y="275" font-size="13" font-weight="bold" fill="#52606d">arr : [</text>
+    <rect x="105" y="252" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="130" y="273" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="155" y="252" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="180" y="273" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="205" y="252" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="230" y="273" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="255" y="252" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="280" y="273" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="305" y="252" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="330" y="273" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="355" y="252" width="48" height="34" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="380" y="273" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">17</text>
+
+    <rect x="405" y="252" width="48" height="34" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <text x="430" y="273" font-size="13" font-weight="bold" text-anchor="middle" fill="#d97706">23</text>
+
+    <rect x="455" y="252" width="48" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="480" y="273" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">38</text>
+
+    <rect x="505" y="252" width="48" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="530" y="273" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">56</text>
+    <text x="560" y="275" font-size="13" font-weight="bold" fill="#52606d">]</text>
+
+    <!-- Pointers -->
+    <path d="M380,308 L380,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="380" y="323" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">lo=5</text>
+
+    <path d="M430,308 L430,290" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="430" y="323" font-size="13" font-weight="bold" text-anchor="middle" fill="#d97706">mid=6</text>
+
+    <path d="M530,308 L530,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="530" y="323" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">hi=8</text>
+
+    <!-- Description -->
+    <text x="50" y="355" font-size="13" fill="#1f2933">2) arr[6] = 23 &lt; 38</text>
+    <path d="M175,351 L200,351" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="210" y="355" font-size="13" fill="#dc2626">또 절반 탈락. lo = 7</text>
+  </g>
+
+  <!-- Step 3 Group -->
+  <g id="step3">
+    <!-- Array Row -->
+    <text x="50" y="425" font-size="13" font-weight="bold" fill="#52606d">arr : [</text>
+    <rect x="105" y="402" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="130" y="423" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="155" y="402" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="180" y="423" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="205" y="402" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="230" y="423" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="255" y="402" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="280" y="423" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="305" y="402" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="330" y="423" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="355" y="402" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="380" y="423" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="405" y="402" width="48" height="34" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-dasharray="3 3"/>
+    <text x="430" y="423" font-size="13" text-anchor="middle" fill="#9aa5b1">x</text>
+
+    <rect x="455" y="402" width="48" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+    <text x="480" y="423" font-size="13" font-weight="bold" text-anchor="middle" fill="#059669">38</text>
+
+    <rect x="505" y="402" width="48" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="530" y="423" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">56</text>
+    <text x="560" y="425" font-size="13" font-weight="bold" fill="#52606d">]</text>
+
+    <!-- Pointers -->
+    <path d="M465,458 L475,440" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="455" y="473" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">lo=7</text>
+
+    <path d="M480,458 L480,440" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+    <text x="495" y="473" font-size="13" font-weight="bold" text-anchor="middle" fill="#059669">mid=7</text>
+
+    <path d="M530,458 L530,440" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="530" y="473" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">hi=8</text>
+
+    <!-- Description -->
+    <text x="50" y="505" font-size="13" fill="#1f2933">3) arr[7] = 38</text>
+    <path d="M145,501 L170,501" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="180" y="505" font-size="13" font-weight="bold" fill="#059669">발견. 인덱스 7 반환</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="40" y1="535" x2="840" y2="535" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Footer Info -->
+  <rect x="40" y="555" width="480" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="60" y="578" font-size="13" font-weight="bold" fill="#1f2933">후보 개수 : 9</text>
+  <path d="M155,574 L175,574" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="185" y="578" font-size="13" font-weight="bold" fill="#1f2933">4</text>
+  <path d="M200,574 L220,574" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="230" y="578" font-size="13" font-weight="bold" fill="#1f2933">2</text>
+  <path d="M245,574 L265,574" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="275" y="578" font-size="13" font-weight="bold" fill="#059669">1</text>
+  <text x="305" y="578" font-size="13" fill="#52606d">(매 단계 절반)</text>
+</svg>

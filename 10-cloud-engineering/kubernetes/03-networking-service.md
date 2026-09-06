@@ -62,6 +62,11 @@ spec:
 
 이후 흐름은 컨트롤 플레인이 처리한다.
 
+<!-- diagram:cloud-networking-service-1 -->
+![2. Service는 어떻게 Pod를 찾는가](../../assets/diagrams/cloud-networking-service-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ① Service 생성
         ↓
@@ -75,6 +80,7 @@ spec:
         ↓
 ⑤ Pod가 죽거나 늘면 ②로 돌아가 목록이 갱신되고 규칙도 다시 깔린다
 ```
+-->
 
 여기서 꼭 기억할 것이 **"Ready 상태인 Pod만 엔드포인트에 들어간다"** 는 점이다. readiness probe가 실패하는 Pod는 자동으로 목록에서 빠진다. 이게 무중단 배포가 성립하는 실질적인 근거다. 반대로 readiness probe를 잘못 설정하면 멀쩡한 Pod가 전부 목록에서 빠져 서비스가 통째로 죽는 사고가 난다.
 
@@ -91,6 +97,11 @@ kubectl get pods -l app=user -o wide       # 라벨이 실제로 붙었는지 �
 
 ## 3. Service 타입 네 가지
 
+<!-- diagram:cloud-networking-service-2 -->
+![3. Service 타입 네 가지](../../assets/diagrams/cloud-networking-service-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                        인터넷
                           │
@@ -115,6 +126,7 @@ kubectl get pods -l app=user -o wide       # 라벨이 실제로 붙었는지 �
   위 세 타입은 계단식이다. NodePort는 ClusterIP를 포함하고,
   LoadBalancer는 NodePort를 포함한다.
 ```
+-->
 
 | 타입 | 접근 범위 | 동작 | 언제 쓰나 |
 |---|---|---|---|
@@ -156,6 +168,11 @@ spec:
 
 세부 동작 중 하나 알아 둘 만한 것이 `externalTrafficPolicy`다.
 
+<!-- diagram:cloud-networking-service-3 -->
+![LoadBalancer](../../assets/diagrams/cloud-networking-service-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Cluster (기본) : 어느 노드로 들어와도 클러스터 전체 Pod에 분산
                  → 부하는 고르지만 노드 간 홉이 한 번 더 생기고
@@ -165,6 +182,7 @@ Local          : 들어온 노드에 있는 Pod로만 전달
                  → 원본 IP가 보존되고 홉이 없지만,
                    노드별 Pod 개수가 다르면 부하가 치우친다
 ```
+-->
 
 접속자 IP로 로그를 남기거나 IP 기반 제한을 걸어야 한다면 `Local`이 필요하다. 대신 Pod가 노드에 고르게 퍼져 있는지 확인해야 한다.
 
@@ -190,6 +208,11 @@ selector도 포트도 없다. 순수한 DNS 별칭이라 TLS 인증서 검증이
 
 ClusterIP는 실체 없는 주소라고 했다. 그럼 실제로 패킷은 어떻게 Pod까지 갈까. 각 노드의 kube-proxy가 커널에 규칙을 심어 두고, 패킷이 나갈 때 목적지 주소를 바꿔치기(DNAT)한다.
 
+<!-- diagram:cloud-networking-service-4 -->
+![4. kube-proxy: iptables와 IPVS](../../assets/diagrams/cloud-networking-service-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Pod A 안의 애플리케이션
    │ "http://user-service" 로 요청
@@ -210,6 +233,7 @@ CoreDNS 조회 → 10.96.0.42 (ClusterIP)
                         ▼
                   Pod 2 (10.244.2.3)
 ```
+-->
 
 두 가지 모드를 이해해 두면 좋다.
 
@@ -277,6 +301,11 @@ kubectl exec -it <pod> -- cat /etc/resolv.conf
 
 대부분의 웹 트래픽은 **경로나 호스트만 보고 어느 서비스로 보낼지 정할 수 있다.** `shop.example.com/api/v1/cart`로 온 요청은 장바구니 서비스로, 나머지 경로는 화면을 그리는 스토어프론트로 보내면 그만이다. 그렇다면 LB 하나를 앞에 두고 그 뒤에서 HTTP 헤더를 읽어 분기하면 된다. 이게 Ingress다.
 
+<!-- diagram:cloud-networking-service-5 -->
+![왜 필요한가](../../assets/diagrams/cloud-networking-service-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     인터넷
                        │
@@ -299,6 +328,7 @@ kubectl exec -it <pod> -- cat /etc/resolv.conf
               ▼                ▼
            [Pods]           [Pods]
 ```
+-->
 
 ### Ingress와 Ingress Controller는 다르다
 

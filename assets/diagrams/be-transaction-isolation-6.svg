@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">격리 수준으로는 안 풀리는 문제</title>
+  <desc id="d">재고 10개에서 두 사용자가 동시에 주문할 때 갱신 손실이 발생하는 과정을 나타낸 시퀀스 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="540" fill="#ffffff"/>
+  
+  <!-- Header Title (From Section Heading) -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">6.1 격리 수준으로는 안 풀리는 문제</text>
+  <text x="40" y="70" font-size="13" fill="#52606d">재고 10개, 두 사용자가 동시에 1개씩 주문</text>
+
+  <!-- Swimlane Header Boxes -->
+  <!-- Transaction A Box -->
+  <rect x="180" y="95" width="220" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="290" y="120" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">트랜잭션 A</text>
+
+  <!-- Transaction B Box -->
+  <rect x="480" y="95" width="220" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="590" y="120" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">트랜잭션 B</text>
+
+  <!-- Lifelines -->
+  <path d="M 290 135 L 290 420" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <path d="M 590 135 L 590 420" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+
+  <!-- Step 1: Transaction A SELECT stock -->
+  <path d="M 290 170 L 400 170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="300" y="156" width="130" height="22" fill="#ffffff"/>
+  <text x="305" y="172" font-size="13" fill="#1f2933">SELECT stock → 10</text>
+
+  <!-- Step 2: Transaction B SELECT stock -->
+  <path d="M 590 220 L 480 220" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="450" y="206" width="130" height="22" fill="#ffffff"/>
+  <text x="455" y="222" font-size="13" fill="#1f2933">SELECT stock → 10</text>
+
+  <!-- Step 3: Transaction A UPDATE stock = 9 -->
+  <path d="M 290 270 L 400 270" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="300" y="256" width="200" height="22" fill="#ffffff"/>
+  <text x="305" y="272" font-size="13" fill="#1f2933">UPDATE stock = 9   (10 - 1)</text>
+
+  <!-- Step 4: Transaction B UPDATE stock = 9 + Lost Update Warning -->
+  <path d="M 590 330 L 480 330" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="380" y="316" width="200" height="22" fill="#ffffff"/>
+  <text x="385" y="332" font-size="13" fill="#dc2626" font-weight="bold">UPDATE stock = 9   (10 - 1)</text>
+
+  <!-- Callout Annotation for Lost Update -->
+  <rect x="580" y="360" width="240" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <path d="M 590 330 L 610 360" stroke="#dc2626" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+  <text x="590" y="381" font-size="12" fill="#dc2626" font-weight="bold">← A의 차감이 덮어써졌다</text>
+
+  <!-- Footer Result Box -->
+  <rect x="40" y="440" width="800" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="440" y="471" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">2개 팔렸는데 재고는 1개만 줄었다</text>
+</svg>

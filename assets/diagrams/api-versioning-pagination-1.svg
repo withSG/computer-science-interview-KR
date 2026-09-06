@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이미 나간 API는 되돌릴 수 없다</title>
+  <desc id="d">서버에서 응답 필드명을 변경했을 때 업데이트하지 않은 기존 앱 버전에서 오류가 발생하고 업데이트된 버전에서만 정상 작동함을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Title / Section Header -->
+  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">이미 나간 API는 되돌릴 수 없다</text>
+
+  <!-- Top Node: Server -->
+  <rect x="140" y="60" width="600" height="54" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="82" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서버: 응답에서 user_name 필드를 name으로 바꿈 (배포 완료)</text>
+
+  <!-- Downward Arrows from Server -->
+  <path d="M280,114 L280,162" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <path d="M600,114 L600,162" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Bottom Left Node: App v1.2 (Error / Broken) -->
+  <rect x="30" y="170" width="500" height="130" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="200" font-size="14" font-weight="bold" fill="#dc2626">앱 v1.2 (사용자 40%):</text>
+  <text x="210" y="200" font-size="13" font-family="monospace" fill="#1f2933">response.get("user_name")</text>
+  <path d="M395,195 L415,195" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="425" y="200" font-size="13" font-weight="bold" fill="#dc2626">null</text>
+  <path d="M460,195 L480,195" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="50" y="245" font-size="13" font-weight="bold" fill="#dc2626">화면에 이름 안 뜸</text>
+  <text x="50" y="275" font-size="11.5" fill="#52606d">(하위 호환성 파괴로 인한 클라이언트 정상 작동 불가)</text>
+
+  <!-- Bottom Right Node: App v2.0 (Success) -->
+  <rect x="550" y="170" width="300" height="130" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="570" y="200" font-size="14" font-weight="bold" fill="#059669">앱 v2.0 (사용자 60%):</text>
+  <text x="735" y="200" font-size="14" font-weight="bold" fill="#059669">정상</text>
+  <text x="570" y="245" font-size="13" fill="#1f2933">변경된 필드명(name) 반영됨</text>
+  <text x="570" y="275" font-size="11.5" fill="#52606d">(새로운 API 규격과 정상 동기화)</text>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">템플릿 메서드 패턴과 전략 패턴 비교</title>
+  <desc id="d">상속을 통해 흐름을 고정하고 빈칸을 채우는 Template Method 패턴과 합성을 통해 런타임에 부품을 교체하는 Strategy 패턴의 구조 비교 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Left Container: Template Method -->
+  <rect x="24" y="24" width="400" height="292" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  
+  <!-- Section Title Left -->
+  <text x="44" y="58" font-size="14" font-weight="bold" fill="#1f2933">[Template Method] 상속으로 "빈칸"을 채운다</text>
+
+  <!-- Node 1: DataImporter.run() -->
+  <rect x="44" y="80" width="200" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="144" y="105" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">DataImporter.run()</text>
+
+  <!-- Arrow & Label for 흐름 고정 -->
+  <path d="M 334 100 L 244 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="252" y="90" width="74" height="20" fill="#ffffff" rx="2"/>
+  <text x="289" y="104" font-size="11.5" fill="#2563eb" text-anchor="middle">← 흐름 고정</text>
+
+  <!-- Tree Structure Lines -->
+  <path d="M 64 120 L 64 240" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 64 150 L 84 150" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 64 195 L 84 195" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 64 240 L 84 240" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <!-- Leaf 1: validateFile() -->
+  <rect x="84" y="132" width="130" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="149" y="155" font-size="13" fill="#1f2933" text-anchor="middle">validateFile()</text>
+
+  <!-- Leaf 2: parse() -->
+  <rect x="84" y="177" width="90" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="129" y="200" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">parse()</text>
+
+  <!-- Arrow & Label for 서브클래스가 채움 -->
+  <path d="M 334 195 L 174 195" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="182" y="185" width="144" height="20" fill="#ffffff" rx="2"/>
+  <text x="254" y="199" font-size="11.5" fill="#d97706" text-anchor="middle">← 서브클래스가 채움</text>
+
+  <!-- Leaf 3: saveAll() -->
+  <rect x="84" y="222" width="110" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="139" y="245" font-size="13" fill="#1f2933" text-anchor="middle">saveAll()</text>
+
+
+  <!-- Right Container: Strategy -->
+  <rect x="456" y="24" width="400" height="292" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- Section Title Right -->
+  <text x="476" y="58" font-size="14" font-weight="bold" fill="#1f2933">[Strategy] 합성으로 "부품"을 갈아 끼운다</text>
+
+  <!-- Strategy Node 1: ShippingCalculator -->
+  <rect x="556" y="90" width="200" height="44" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="656" y="117" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">ShippingCalculator</text>
+
+  <!-- Downward Arrow with Label: 보유 -->
+  <path d="M 656 134 L 656 190" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="664" y="152" width="36" height="20" fill="#ffffff" rx="2"/>
+  <text x="682" y="166" font-size="11.5" fill="#52606d" text-anchor="middle">│ 보유</text>
+  <text x="656" y="166" font-size="11.5" fill="#52606d" text-anchor="middle">▼</text>
+
+  <!-- Strategy Node 2: ShippingPolicy -->
+  <rect x="526" y="190" width="260" height="44" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="656" y="217" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">ShippingPolicy</text>
+
+  <!-- Annotation for 런타임 교체 가능 -->
+  <rect x="576" y="250" width="160" height="24" fill="#ffffff" stroke="#059669" stroke-width="1" stroke-dasharray="3 3" rx="4"/>
+  <text x="656" y="266" font-size="11.5" fill="#059669" text-anchor="middle">← 런타임 교체 가능</text>
+</svg>

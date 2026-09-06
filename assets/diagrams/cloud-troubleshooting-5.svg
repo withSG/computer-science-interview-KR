@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">시나리오 1 — 배포했더니 절반이 CrashLoopBackOff</title>
+  <desc id="d">배포 후 Pod 절반이 CrashLoopBackOff되는 장애의 증상, 진단, 원인, 대응 과정을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="780" fill="#ffffff"/>
+
+  <!-- 제목 -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">시나리오 1 — 배포했더니 절반이 CrashLoopBackOff</text>
+
+  <!-- 1. 증상 Section -->
+  <g transform="translate(40, 70)">
+    <!-- 섹션 배경 -->
+    <rect x="0" y="0" width="800" height="150" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <!-- 라벨 -->
+    <rect x="20" y="20" width="60" height="28" rx="4" fill="#dc2626"/>
+    <text x="50" y="39" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">증상</text>
+    
+    <!-- 명령어 -->
+    <text x="100" y="39" font-size="13" font-weight="bold" fill="#1f2933">kubectl get pods</text>
+
+    <!-- 결과 표/데이터 -->
+    <rect x="100" y="55" width="680" height="75" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    
+    <!-- CrashPod Row (실패) -->
+    <rect x="110" y="65" width="660" height="26" rx="4" fill="#fef2f2"/>
+    <text x="120" y="82" font-size="13" font-family="monospace" fill="#dc2626" font-weight="bold">web-7f8-abc</text>
+    <text x="280" y="82" font-size="13" font-family="monospace" fill="#dc2626">0/1</text>
+    <text x="360" y="82" font-size="13" font-family="monospace" fill="#dc2626" font-weight="bold">CrashLoopBackOff</text>
+    <text x="560" y="82" font-size="13" font-family="monospace" fill="#dc2626">5</text>
+    <text x="640" y="82" font-size="13" font-family="monospace" fill="#dc2626">3m</text>
+
+    <!-- NormalPod Row (정상) -->
+    <rect x="110" y="96" width="660" height="26" rx="4" fill="#ecfdf5"/>
+    <text x="120" y="113" font-size="13" font-family="monospace" fill="#059669">web-7f8-def</text>
+    <text x="280" y="113" font-size="13" font-family="monospace" fill="#059669">1/1</text>
+    <text x="360" y="113" font-size="13" font-family="monospace" fill="#059669" font-weight="bold">Running</text>
+    <text x="560" y="113" font-size="13" font-family="monospace" fill="#059669">0</text>
+    <text x="640" y="113" font-size="13" font-family="monospace" fill="#059669">3m</text>
+  </g>
+
+  <!-- 2. 진단 Section -->
+  <g transform="translate(40, 240)">
+    <rect x="0" y="0" width="800" height="210" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    
+    <rect x="20" y="20" width="60" height="28" rx="4" fill="#2563eb"/>
+    <text x="50" y="39" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">진단</text>
+
+    <!-- Step 1 -->
+    <text x="100" y="38" font-size="13" font-weight="bold" fill="#2563eb">①</text>
+    <text x="120" y="38" font-size="13" font-weight="bold" fill="#1f2933">kubectl describe pod web-7f8-abc</text>
+    <path d="M 130 46 L 130 58 L 142 58" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    <rect x="150" y="48" width="520" height="22" rx="3" fill="#fef2f2"/>
+    <text x="155" y="63" font-size="12" font-family="monospace" fill="#dc2626">Last State: Terminated, Exit Code 137, Reason OOMKilled</text>
+
+    <!-- Step 2 -->
+    <text x="100" y="98" font-size="13" font-weight="bold" fill="#2563eb">②</text>
+    <text x="120" y="98" font-size="13" font-weight="bold" fill="#1f2933">kubectl top pod --containers</text>
+    <path d="M 130 106 L 130 118 L 142 118" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="150" y="108" width="340" height="22" rx="3" fill="#fffbeb"/>
+    <text x="155" y="123" font-size="12" fill="#d97706">정상 Pod의 사용량이 limit에 거의 붙어 있음</text>
+
+    <!-- Step 3 -->
+    <text x="100" y="158" font-size="13" font-weight="bold" fill="#2563eb">③</text>
+    <text x="120" y="158" font-size="13" font-weight="bold" fill="#1f2933">kubectl describe pod web-7f8-abc | grep -A 4 Limits</text>
+    <path d="M 130 166 L 130 178 L 142 178" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="150" y="168" width="180" height="22" rx="3" fill="#eff6ff"/>
+    <text x="155" y="183" font-size="12" font-family="monospace" fill="#2563eb">memory limit 512Mi</text>
+  </g>
+
+  <!-- 3. 원인 Section -->
+  <g transform="translate(40, 470)">
+    <rect x="0" y="0" width="800" height="110" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    
+    <rect x="20" y="20" width="60" height="28" rx="4" fill="#d97706"/>
+    <text x="50" y="39" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">원인</text>
+
+    <text x="100" y="39" font-size="13" fill="#1f2933">새 버전에서 캐시 크기가 늘어 피크 사용량이 limit을 넘김.</text>
+    <text x="100" y="67" font-size="13" fill="#1f2933">요청이 몰린 Pod만 먼저 한계를 넘어 절반만 죽은 것.</text>
+  </g>
+
+  <!-- 4. 대응 Section -->
+  <g transform="translate(40, 600)">
+    <rect x="0" y="0" width="800" height="140" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    
+    <rect x="20" y="20" width="60" height="28" rx="4" fill="#059669"/>
+    <text x="50" y="39" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">대응</text>
+
+    <!-- 즉시 -->
+    <text x="100" y="39" font-size="13" font-weight="bold" fill="#059669">즉시:</text>
+    <text x="140" y="39" font-size="13" fill="#1f2933">limit 상향 후 롤아웃, 또는 이전 버전으로 rollout undo</text>
+
+    <!-- 근본 -->
+    <text x="100" y="75" font-size="13" font-weight="bold" fill="#059669">근본:</text>
+    <text x="140" y="75" font-size="13" fill="#1f2933">부하 테스트로 실사용량 측정 → requests/limits 재산정,</text>
+    <text x="140" y="101" font-size="13" fill="#1f2933">메모리 사용량 알림 추가</text>
+  </g>
+</svg>

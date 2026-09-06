@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">직렬 및 병렬 구성의 가용성 비교</title>
+  <desc id="d">직렬 구성에서는 가용성이 곱해져 전체 가용성이 떨어지고, 병렬 구성에서는 이중화를 통해 가용성이 높아짐을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    </marker>
+  </defs>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- [ 직렬 ] 섹션 -->
+  <rect x="24" y="20" width="832" height="165" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
+  <rect x="40" y="32" width="68" height="26" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
+  <text x="74" y="49.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[ 직렬 ]</text>
+
+  <!-- 직렬 박스 3개 -->
+  <!-- 웹 99.9% -->
+  <rect x="130" y="30" width="130" height="40" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="195" y="54.55" font-size="13" fill="#1f2933" text-anchor="middle">웹 99.9%</text>
+
+  <!-- 화살표 1 -->
+  <path d="M260,50 L340,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- API 99.9% -->
+  <rect x="340" y="30" width="130" height="40" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="405" y="54.55" font-size="13" fill="#1f2933" text-anchor="middle">API 99.9%</text>
+
+  <!-- 화살표 2 -->
+  <path d="M470,50 L550,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- DB 99.9% -->
+  <rect x="550" y="30" width="130" height="40" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="615" y="54.55" font-size="13" fill="#1f2933" text-anchor="middle">DB 99.9%</text>
+
+  <!-- 직렬 계산식 & 수식 -->
+  <text x="130" y="104.55" font-size="13" font-weight="bold" fill="#dc2626">0.999 × 0.999 × 0.999 = 0.997</text>
+  <path d="M375,100 L415,100" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-gray)"/>
+  <text x="430" y="104.55" font-size="13" font-weight="bold" fill="#dc2626">99.7%</text>
+
+  <!-- 직렬 설명 글 -->
+  <text x="130" y="144.55" font-size="13" fill="#52606d">연간 다운타임 약 26시간. 각 요소는 "3 나인"인데 전체는 아니다.</text>
+
+
+  <!-- [ 병렬 ] 섹션 -->
+  <rect x="24" y="205" width="832" height="165" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
+  <rect x="40" y="217" width="68" height="26" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
+  <text x="74" y="234.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[ 병렬 ]</text>
+
+  <!-- 병렬 설명 텍스트들 -->
+  <text x="130" y="234.55" font-size="13" fill="#1f2933">같은 역할 서버 2대, 각각 99%</text>
+  <text x="130" y="274.55" font-size="13" fill="#1f2933">둘 다 죽어야 장애 = 0.01 × 0.01 = 0.0001</text>
+  <text x="130" y="314.55" font-size="13" font-weight="bold" fill="#059669">가용성 = 1 - 0.0001 = 99.99%</text>
+</svg>

@@ -69,6 +69,11 @@
 
 명령어 한 개를 처리하는 과정은 보통 5단계로 나눈다. 고전 교과서는 Fetch/Decode/Execute 3단계만 말하지만, 실제 파이프라인 설계는 메모리 접근과 결과 기록을 따로 뗀다.
 
+<!-- diagram:cs-cpu-instruction-cycle-1 -->
+![동작 원리](../../assets/diagrams/cs-cpu-instruction-cycle-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         ┌──────────────────────────────────────────────┐
         │                                              │
@@ -81,6 +86,7 @@
     메모리→IR     제어신호 생성   주소 계산      만 사용        결과 저장
     PC 증가
 ```
+-->
 
 각 단계에서 벌어지는 일을 레지스터 수준으로 보면 이렇다.
 
@@ -108,6 +114,11 @@ ALU가 실제 연산을 한다. `LOAD`/`STORE` 명령어라면 여기서 접근�
 
 `ADD R1, R2, R3` (R1 = R2 + R3) 한 줄이 주소 100번지에 있다고 하자. 명령어 길이는 4바이트다.
 
+<!-- diagram:cs-cpu-instruction-cycle-2 -->
+![코드로 보기](../../assets/diagrams/cs-cpu-instruction-cycle-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [초기 상태]  PC = 100
 
@@ -127,9 +138,15 @@ ALU가 실제 연산을 한다. `LOAD`/`STORE` 명령어라면 여기서 접근�
 
 ⑤ Writeback R1 ← ALU 출력
 ```
+-->
 
 이번엔 `JUMP 300`이다. 여기서 PC와 IR의 역할 차이가 극적으로 드러난다.
 
+<!-- diagram:cs-cpu-instruction-cycle-3 -->
+![코드로 보기](../../assets/diagrams/cs-cpu-instruction-cycle-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ① Fetch     IR ← MEM[100] (= JUMP 300)
             PC ← 104        ← 일단 습관적으로 +4 해둔다
@@ -140,6 +157,7 @@ ALU가 실제 연산을 한다. `LOAD`/`STORE` 명령어라면 여기서 접근�
 
 다음 사이클의 Fetch는 300번지에서 시작한다.
 ```
+-->
 
 Fetch에서 무심코 올려둔 PC를 Execute에서 되돌리는 이 구조가, 뒤에서 볼 **제어 해저드**의 원인이다.
 
@@ -163,6 +181,11 @@ Fetch에서 무심코 올려둔 PC를 Execute에서 되돌리는 이 구조가, 
 
 ### 동작 원리
 
+<!-- diagram:cs-cpu-instruction-cycle-4 -->
+![동작 원리](../../assets/diagrams/cs-cpu-instruction-cycle-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [파이프라인 없음]
 사이클  1    2    3    4    5    6    7    8    9   10
@@ -180,6 +203,7 @@ Fetch에서 무심코 올려둔 PC를 Execute에서 되돌리는 이 구조가, 
                 → 명령어 5개에 9 사이클
                 → 파이프라인이 채워진 뒤로는 매 사이클 1개씩 완료
 ```
+-->
 
 여기서 반드시 짚고 갈 것이 있다. **명령어 하나가 처리되는 시간(latency)은 여전히 5 사이클로 똑같다.** 줄어든 것은 없다. 오히려 단계 사이에 값을 저장할 래치가 추가되어 아주 조금 늘어난다.
 
@@ -195,6 +219,11 @@ Fetch에서 무심코 올려둔 PC를 Execute에서 되돌리는 이 구조가, 
 
 앞 명령어의 결과를 뒤 명령어가 필요로 하는데, 아직 준비되지 않은 상황이다.
 
+<!-- diagram:cs-cpu-instruction-cycle-5 -->
+![데이터 해저드](../../assets/diagrams/cs-cpu-instruction-cycle-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ADD R1, R2, R3    ; R1 = R2 + R3
 SUB R4, R1, R5    ; R4 = R1 - R5   ← R1이 필요하다
@@ -205,6 +234,7 @@ SUB          IF   ID   EX   MEM  WB
                   ↑
                   3사이클에 R1을 읽어야 하는데 아직 없다
 ```
+-->
 
 **해결 1 — 포워딩(Forwarding, 우회 전달)**: R1의 값은 사실 3사이클 ALU 출력에 이미 존재한다. 레지스터에 기록될 때까지 기다리지 말고, ALU 출력을 다음 명령어의 ALU 입력으로 직접 배선해 넘겨준다. 대부분의 데이터 해저드가 이걸로 해결된다.
 

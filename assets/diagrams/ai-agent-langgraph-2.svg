@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ReAct 루프 세 단계</title>
+  <desc id="d">사용자 질문에 대해 Thought, Action, Observation을 거쳐 Answer에 도달하는 ReAct 루프 과정을 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="730" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 사용자 질문 -->
+  <rect x="230" y="30" width="420" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자: "서울과 부산 중 지금 더 따뜻한 곳은?"</text>
+
+  <!-- 화살표 0: 사용자 -> Step 1 -->
+  <path d="M440,70 L440,100" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 1 Box -->
+  <rect x="190" y="100" width="500" height="150" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  
+  <!-- Step 1 Thought -->
+  <text x="215" y="136" font-size="13" font-weight="bold" fill="#2563eb">Thought</text>
+  <text x="305" y="136" font-size="13" fill="#1f2933">두 도시 날씨를 각각 알아야 한다</text>
+  
+  <!-- Step 1 Action -->
+  <text x="215" y="176" font-size="13" font-weight="bold" fill="#d97706">Action</text>
+  <text x="305" y="176" font-size="13" font-family="monospace" fill="#1f2933">get_weather(city="서울")</text>
+  
+  <!-- Step 1 Observation -->
+  <text x="215" y="216" font-size="13" font-weight="bold" fill="#059669">Observation</text>
+  <text x="305" y="216" font-size="13" font-family="monospace" fill="#1f2933">{"temp": 23, "sky": "맑음"}</text>
+
+  <!-- 화살표 1: Step 1 -> Step 2 -->
+  <path d="M440,250 L440,310" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="300" y="268" width="280" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="440" y="284" font-size="11.5" fill="#52606d" text-anchor="middle">결과를 컨텍스트에 붙이고 다시 모델로</text>
+
+  <!-- Step 2 Box -->
+  <rect x="190" y="310" width="500" height="150" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  
+  <!-- Step 2 Thought -->
+  <text x="215" y="346" font-size="13" font-weight="bold" fill="#2563eb">Thought</text>
+  <text x="305" y="346" font-size="13" fill="#1f2933">부산도 확인해야 한다</text>
+  
+  <!-- Step 2 Action -->
+  <text x="215" y="386" font-size="13" font-weight="bold" fill="#d97706">Action</text>
+  <text x="305" y="386" font-size="13" font-family="monospace" fill="#1f2933">get_weather(city="부산")</text>
+  
+  <!-- Step 2 Observation -->
+  <text x="215" y="426" font-size="13" font-weight="bold" fill="#059669">Observation</text>
+  <text x="305" y="426" font-size="13" font-family="monospace" fill="#1f2933">{"temp": 26, "sky": "흐림"}</text>
+
+  <!-- 화살표 2: Step 2 -> Step 3 -->
+  <path d="M440,460 L440,520" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step 3 Box (최종 답변) -->
+  <rect x="190" y="520" width="500" height="110" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  
+  <!-- Step 3 Thought -->
+  <text x="215" y="556" font-size="13" font-weight="bold" fill="#7c3aed">Thought</text>
+  <text x="305" y="556" font-size="13" fill="#1f2933">둘 다 확인했으니 답할 수 있다</text>
+  
+  <!-- Step 3 Answer -->
+  <text x="215" y="596" font-size="13" font-weight="bold" fill="#059669">Answer</text>
+  <text x="305" y="596" font-size="13" font-weight="bold" fill="#1f2933">부산이 26도로 3도 더 따뜻합니다</text>
+</svg>

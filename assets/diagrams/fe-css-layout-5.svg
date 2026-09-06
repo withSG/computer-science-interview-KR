@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">안티패턴 — z-index 숫자 경쟁</title>
+  <desc id="d">z-index Stacking Context 트리 구조와 결과 판정을 나타내는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 제목 -->
+  <text x="30" y="42" font-size="16" font-weight="bold" fill="#1f2933">### 안티패턴 — z-index 숫자 경쟁</text>
+
+  <!-- 노드 1: 문서 루트 -->
+  <rect x="30" y="70" width="280" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="170" y="95" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">문서 루트 (stacking context)</text>
+
+  <!-- 트리 연결선 -->
+  <!-- 루트 -> .header 연결선 -->
+  <path d="M 60,110 L 60,160 L 90,160" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- .header -> .dropdown 연결선 -->
+  <path d="M 120,180 L 120,230 L 150,230" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 루트 -> .content 연결선 -->
+  <path d="M 60,160 L 60,300 L 90,300" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+
+  <!-- 노드 2: .header -->
+  <rect x="90" y="140" width="410" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="105" y="165" font-size="13" font-weight="bold" fill="#2563eb">.header</text>
+  <text x="165" y="165" font-size="13" fill="#1f2933">position:relative; z-index:10; opacity:0.99</text>
+
+  <!-- 주석: 새 stacking context 생성! -->
+  <rect x="520" y="145" width="210" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <path d="M 500,160 L 520,160" stroke="#dc2626" stroke-width="1.5" marker-end="url(#a-red)"/>
+  <text x="530" y="164" font-size="12" font-weight="bold" fill="#dc2626">← 새 stacking context 생성!</text>
+
+  <!-- 노드 3: .dropdown -->
+  <rect x="150" y="210" width="370" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="165" y="235" font-size="13" font-weight="bold" fill="#d97706">.dropdown</text>
+  <text x="245" y="235" font-size="13" fill="#1f2933">position:absolute; z-index:999999</text>
+
+  <!-- 주석: 이 값은 .header 안에서만 유효 -->
+  <rect x="540" y="215" width="235" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <path d="M 520,230 L 540,230" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <text x="550" y="234" font-size="12" fill="#52606d">← 이 값은 .header 안에서만 유효</text>
+
+  <!-- 노드 4: .content -->
+  <rect x="90" y="280" width="320" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="105" y="305" font-size="13" font-weight="bold" fill="#059669">.content</text>
+  <text x="175" y="305" font-size="13" fill="#1f2933">position:relative; z-index:20</text>
+
+  <!-- 결과 상자 -->
+  <rect x="30" y="370" width="820" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="416" font-size="14" font-weight="bold" fill="#dc2626">결과:</text>
+  <text x="95" y="416" font-size="14" fill="#1f2933">.content가 .dropdown 위로 온다 (.header=10 vs .content=20 으로 판정)</text>
+</svg>

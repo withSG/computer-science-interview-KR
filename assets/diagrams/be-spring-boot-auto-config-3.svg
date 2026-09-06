@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 덮어쓰기가 항상 이기나</title>
+  <desc id="d">개발자의 Configuration 및 Component 등록 후 자동 설정 평가가 진행되어 @ConditionalOnMissingBean이 정확히 판단하는 과정을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <rect width="880" height="330" fill="#ffffff"/>
+
+  <!-- 시간 축 -->
+  <text x="40" y="45" font-size="13" font-weight="bold" fill="#52606d">시간 축</text>
+  <path d="M95,41 L830,41" stroke="#52606d" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- [내 @Configuration, @Component 등록] -->
+  <rect x="40" y="85" width="310" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="195" y="120" font-size="14" font-weight="bold" fill="#1e40af" text-anchor="middle">[내 @Configuration, @Component 등록]</text>
+
+  <!-- 화살표: 내 등록 -> 자동 설정 평가 -->
+  <path d="M350,115 L430,115" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- [자동 설정 평가] -->
+  <rect x="430" y="85" width="180" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="520" y="120" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[자동 설정 평가]</text>
+
+  <!-- 연결선: [자동 설정 평가] 아래에서 오른쪽 설명 박스로 -->
+  <path d="M520,145 L520,180 L545,180" stroke="#52606d" stroke-width="1.5" fill="none"/>
+
+  <!-- 설명 텍스트 카드 -->
+  <rect x="545" y="158" width="295" height="135" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+
+  <text x="565" y="188" font-size="13" fill="#92400e">이 시점에는 내 Bean이</text>
+  <text x="565" y="213" font-size="13" fill="#92400e">이미 컨테이너에 있다</text>
+
+  <!-- 내부 화살표: -> @ConditionalOnMissingBean 이 -->
+  <path d="M565,233 L585,233" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="592" y="238" font-size="13" font-weight="bold" fill="#b45309">@ConditionalOnMissingBean 이</text>
+  <text x="592" y="263" font-size="13" font-weight="bold" fill="#b45309">정확히 판단할 수 있다</text>
+</svg>

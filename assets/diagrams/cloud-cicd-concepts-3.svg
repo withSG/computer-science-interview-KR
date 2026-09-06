@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">표준 순서와 그 이유</title>
+  <desc id="d">CI/CD 파이프라인의 5단계(빌드, 테스트, 정적 분석, 아티팩트, 배포) 흐름과 각 단계별 세부 작업, 소요 시간, 그리고 실패 시 이후 단계를 실행하지 않는 fail fast 원칙을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Step 1: 빌드 -->
+  <text x="100" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">① 빌드</text>
+  <rect x="25" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="100" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">컴파일</text>
+  <text x="100" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">의존성</text>
+  <text x="100" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">해결</text>
+  <text x="100" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~1분</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M175,115 L205,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 2: 테스트 -->
+  <text x="280" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">② 테스트</text>
+  <rect x="205" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="280" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">단위</text>
+  <text x="280" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">통합</text>
+  <text x="280" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">E2E</text>
+  <text x="280" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~5분</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M355,115 L385,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 3: 정적 분석 -->
+  <text x="460" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">③ 정적 분석</text>
+  <rect x="385" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="460" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">린트</text>
+  <text x="460" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">취약점</text>
+  <text x="460" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">커버리지</text>
+  <text x="460" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~2분</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M535,115 L565,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 4: 아티팩트 -->
+  <text x="640" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">④ 아티팩트</text>
+  <rect x="565" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="640" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">이미지</text>
+  <text x="640" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">레지스트리</text>
+  <text x="640" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">버전 태깅</text>
+  <text x="640" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~2분</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M715,115 L745,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 5: 배포 -->
+  <text x="820" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">⑤ 배포</text>
+  <rect x="745" y="60" width="110" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="800" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">스테이징</text>
+  <text x="800" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">운영</text>
+  <text x="800" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~수 분</text>
+
+  <!-- Fail Fast Lines and Label -->
+  <path d="M100,210 L100,255 L800,255 L800,210" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <rect x="180" y="242" width="520" height="26" fill="#ffffff"/>
+  <text x="440" y="259.025" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">여기서 실패하면 뒤 단계는 아예 실행하지 않는다 (fail fast)</text>
+</svg>

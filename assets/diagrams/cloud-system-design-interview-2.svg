@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">실제 계산: URL 단축기</title>
+  <desc id="d">하루 신규 URL 1,000만 개, 읽기:쓰기 비율 100:1, 5년 데이터 보관 전제하의 쓰기 QPS, 읽기 QPS, 저장량, 대역폭 계산 다이어그램</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
+
+  <!-- Top Banner: Premises -->
+  <rect x="30" y="30" width="820" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="61" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">전제: 하루 신규 URL 1,000만 개, 읽기:쓰기 = 100:1, 데이터 5년 보관</text>
+
+  <!-- Box 1: Write QPS (Orange) -->
+  <rect x="30" y="100" width="400" height="110" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="40" y="110" width="100" height="26" rx="4" fill="#d97706"/>
+  <text x="90" y="127" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[쓰기 QPS]</text>
+  <text x="50" y="158" font-size="13" fill="#1f2933">1,000만 / 10만 초 = 100 QPS</text>
+  <text x="50" y="188" font-size="13" fill="#d97706" font-weight="bold">피크는 평균의 2~5배로 잡는다 → 200~500 QPS</text>
+
+  <!-- Box 2: Read QPS (Blue) -->
+  <rect x="450" y="100" width="400" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="460" y="110" width="100" height="26" rx="4" fill="#2563eb"/>
+  <text x="510" y="127" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[읽기 QPS]</text>
+  <text x="470" y="163" font-size="13" fill="#1f2933">100 × 100 = 10,000 QPS <tspan fill="#2563eb" font-weight="bold">(피크 2만~5만)</tspan></text>
+
+  <!-- Box 3: Storage (Purple) -->
+  <rect x="30" y="230" width="820" height="200" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <rect x="40" y="240" width="90" height="26" rx="4" fill="#7c3aed"/>
+  <text x="85" y="257" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[저장량]</text>
+  
+  <text x="50" y="293" font-size="13" fill="#1f2933">레코드 하나 ≈ short_code(8B) + long_url(~500B) + 메타(~100B) ≈ 600B</text>
+  
+  <!-- Storage details table-like alignment -->
+  <text x="50" y="328" font-size="13" fill="#52606d">하루</text>
+  <text x="100" y="328" font-size="13" fill="#1f2933">1,000만 × 600B</text>
+  <text x="250" y="328" font-size="13" fill="#1f2933">=</text>
+  <text x="270" y="328" font-size="13" font-weight="bold" fill="#1f2933">6GB</text>
+
+  <text x="50" y="358" font-size="13" fill="#52606d">1년</text>
+  <text x="100" y="358" font-size="13" fill="#1f2933">6GB × 365</text>
+  <text x="250" y="358" font-size="13" fill="#1f2933">≈</text>
+  <text x="270" y="358" font-size="13" font-weight="bold" fill="#1f2933">2.2TB</text>
+
+  <text x="50" y="388" font-size="13" fill="#52606d">5년</text>
+  <text x="250" y="388" font-size="13" fill="#7c3aed">≈</text>
+  <text x="270" y="388" font-size="15" font-weight="bold" fill="#7c3aed">11TB</text>
+
+  <!-- Box 4: Bandwidth (Green) -->
+  <rect x="30" y="450" width="820" height="100" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <rect x="40" y="460" width="90" height="26" rx="4" fill="#059669"/>
+  <text x="85" y="477" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[대역폭]</text>
+  <text x="50" y="513" font-size="13" fill="#1f2933">읽기 10,000 QPS × 600B ≈ 6MB/s  <tspan fill="#059669">(리다이렉트라 응답 자체는 더 작다)</tspan></text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">디버깅 — 실무에서 가장 자주 쓰는 용도</title>
+  <desc id="d">실제로 자주 발견되는 XAI 디버깅 사례 4가지를 보여주는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Outer Container / Title Group -->
+  <rect x="24" y="24" width="832" height="452" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <rect x="40" y="40" width="800" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="67" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[실제로 자주 발견되는 것들]</text>
+
+  <!-- Item 1: Image Classifier -->
+  <g transform="translate(40, 100)">
+    <rect x="0" y="0" width="800" height="76" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <circle cx="28" cy="38" r="10" fill="#2563eb"/>
+    <text x="28" y="42" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="48" y="33" font-size="14" font-weight="bold" fill="#1f2933">- 이미지 분류기가 대상이 아니라 배경을 보고 있다</text>
+    <text x="60" y="55" font-size="13" fill="#52606d">(늑대 vs 개 분류기가 실은 '눈 덮인 배경'을 보고 있었다)</text>
+  </g>
+
+  <!-- Item 2: Document Classifier -->
+  <g transform="translate(40, 188)">
+    <rect x="0" y="0" width="800" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <circle cx="28" cy="30" r="10" fill="#2563eb"/>
+    <text x="28" y="34" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="48" y="35" font-size="14" font-weight="bold" fill="#1f2933">- 문서 분류기가 본문이 아니라 머리글의 부서 코드를 보고 있다</text>
+  </g>
+
+  <!-- Item 3: Churn Prediction Model (Highlighted - Data Leakage) -->
+  <g transform="translate(40, 260)">
+    <rect x="0" y="0" width="800" height="96" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <circle cx="28" cy="38" r="10" fill="#d97706"/>
+    <text x="28" y="42" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="48" y="33" font-size="14" font-weight="bold" fill="#1f2933">- 이탈 예측 모델이 '해지 처리일' 파생 컬럼에 거의 전부를 의존한다</text>
+    <rect x="56" y="48" width="720" height="34" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="70" y="70" font-size="13" font-weight="bold" fill="#dc2626">→ 데이터 누수의 발견. 지표만 봐서는 절대 안 보인다</text>
+  </g>
+
+  <!-- Item 4: Hiring Model (Fairness Issue) -->
+  <g transform="translate(40, 368)">
+    <rect x="0" y="0" width="800" height="92" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <circle cx="28" cy="36" r="10" fill="#7c3aed"/>
+    <text x="28" y="40" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+    <text x="48" y="31" font-size="14" font-weight="bold" fill="#1f2933">- 채용 모델이 특정 학교명이나 성별과 상관된 특성에 의존한다</text>
+    <rect x="56" y="46" width="720" height="34" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+    <text x="70" y="68" font-size="13" font-weight="bold" fill="#7c3aed">→ 공정성 문제</text>
+  </g>
+</svg>

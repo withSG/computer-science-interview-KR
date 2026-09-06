@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Git Flow 브랜치 전략 다이어그램</title>
+  <desc id="d">main, release, develop, feature, hotfix 브랜치 간의 병합 및 분기 흐름을 나타낸 Git Flow 다이어그램</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-main" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-release" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-develop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-hotfix" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Heading context -->
+  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">Git Flow</text>
+
+  <!-- Legend -->
+  <g transform="translate(480, 25)">
+    <rect x="0" y="0" width="360" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <circle cx="20" cy="15" r="5" fill="#2563eb"/>
+    <text x="30" y="19" font-size="11.5" fill="#52606d">main</text>
+    <circle cx="85" cy="15" r="5" fill="#059669"/>
+    <text x="95" y="19" font-size="11.5" fill="#52606d">release</text>
+    <circle cx="160" cy="15" r="5" fill="#7c3aed"/>
+    <text x="170" y="19" font-size="11.5" fill="#52606d">develop</text>
+    <circle cx="240" cy="15" r="5" fill="#d97706"/>
+    <text x="250" y="19" font-size="11.5" fill="#52606d">feature</text>
+    <circle cx="310" cy="15" r="5" fill="#dc2626"/>
+    <text x="320" y="19" font-size="11.5" fill="#52606d">hotfix</text>
+  </g>
+
+  <!-- Branch Track Background / Guide Lines -->
+  <!-- main Line -->
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#2563eb">main</text>
+  <path d="M110,90 L800,90" stroke="#2563eb" stroke-width="2.5" fill="none"/>
+
+  <!-- release Line -->
+  <text x="40" y="154" font-size="14" font-weight="bold" fill="#059669">release</text>
+  <path d="M110,150 L360,150" stroke="#059669" stroke-width="2" fill="none"/>
+
+  <!-- develop Line -->
+  <text x="40" y="214" font-size="14" font-weight="bold" fill="#7c3aed">develop</text>
+  <path d="M110,210 L800,210" stroke="#7c3aed" stroke-width="2" fill="none"/>
+
+  <!-- feature Line -->
+  <text x="40" y="274" font-size="14" font-weight="bold" fill="#d97706">feature</text>
+  <path d="M110,270 L260,270" stroke="#d97706" stroke-width="2" fill="none"/>
+
+  <!-- hotfix Line -->
+  <text x="40" y="334" font-size="14" font-weight="bold" fill="#dc2626">hotfix</text>
+  <path d="M110,330 L790,330" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M790,330 L800,330" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-main)"/>
+
+  <!-- Connections / Arrows from original diagram -->
+
+  <!-- 1. release -> main (upward arrow at release start region) -->
+  <path d="M220,150 L220,99" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-main)"/>
+
+  <!-- 2. develop -> release (upward arrow at develop to release start) -->
+  <path d="M160,210 L160,159" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-release)"/>
+
+  <!-- 3. release -> develop branch routing: release ──────┐ ┌────── ; down to develop -->
+  <!-- release line right end turns down and goes back to develop -->
+  <path d="M360,150 L360,201" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-develop)"/>
+
+  <!-- 4. release right continuation from main/develop: ┌────── back from main down to develop -->
+  <path d="M620,90 L620,201" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-develop)"/>
+
+  <!-- 5. release -> main second branch arrow (upward arrow to main near right merge) -->
+  <path d="M620,150 L620,99" stroke="#2563eb" stroke-width="1.5" opacity="0" fill="none"/> 
+  <!-- Upward arrow to main on right side -->
+  <path d="M620,150 L620,99" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-main)"/>
+
+  <!-- 6. develop -> feature connections (upward arrows feature ─────┘ to develop) -->
+  <path d="M190,270 L190,219" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-develop)"/>
+  <path d="M260,270 L260,219" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-develop)"/>
+
+  <!-- Connection Junction Nodes / Commit Points -->
+  <circle cx="220" cy="90" r="4" fill="#2563eb"/>
+  <circle cx="620" cy="90" r="4" fill="#2563eb"/>
+  <circle cx="800" cy="90" r="4" fill="#2563eb"/>
+
+  <circle cx="160" cy="150" r="4" fill="#059669"/>
+  <circle cx="220" cy="150" r="4" fill="#059669"/>
+
+  <circle cx="160" cy="210" r="4" fill="#7c3aed"/>
+  <circle cx="190" cy="210" r="4" fill="#7c3aed"/>
+  <circle cx="260" cy="210" r="4" fill="#7c3aed"/>
+  <circle cx="360" cy="210" r="4" fill="#7c3aed"/>
+  <circle cx="620" cy="210" r="4" fill="#7c3aed"/>
+
+  <circle cx="260" cy="270" r="4" fill="#d97706"/>
+
+</svg>

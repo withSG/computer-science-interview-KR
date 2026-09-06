@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">2. "싱글 스레드"의 정확한 의미</title>
+  <desc id="d">브라우저 프로세스 내의 메인 스레드, 네트워크 스레드, 타이머 스레드, 컴포지터 스레드, Web Worker 스레드의 구성을 보여주는 다이어그램</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 1. 브라우저 프로세스 (외곽 구역) -->
+  <rect x="24" y="24" width="832" height="342" rx="12" ry="12" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <text x="440" y="52" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">브라우저 프로세스</text>
+
+  <!-- 2. 메인(렌더러) 스레드 (주요 강조) -->
+  <rect x="48" y="76" width="410" height="190" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="68" y="103" fill="#2563eb" font-size="14" font-weight="bold">메인(렌더러) 스레드</text>
+  <text x="68" y="127" fill="#52606d" font-size="13">JS 실행 · 스타일 · 레이아웃</text>
+
+  <!-- 메인 스레드 내부: Call Stack -->
+  <rect x="68" y="146" width="170" height="96" rx="6" ry="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="153" y="200" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Call Stack</text>
+
+  <!-- 메인 스레드 내부: Heap -->
+  <rect x="268" y="146" width="170" height="96" rx="6" ry="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="353" y="200" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Heap</text>
+
+  <!-- 3. Web Worker 스레드(선택) -->
+  <rect x="48" y="280" width="410" height="66" rx="8" ry="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="68" y="307" fill="#1f2933" font-size="14" font-weight="bold">Web Worker 스레드(선택)</text>
+  <text x="68" y="331" fill="#52606d" font-size="13">DOM 접근 불가, 순수 계산 전용</text>
+
+  <!-- 4. 네트워크 스레드 -->
+  <rect x="482" y="76" width="350" height="72" rx="8" ry="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="502" y="103" fill="#059669" font-size="14" font-weight="bold">네트워크 스레드</text>
+  <text x="502" y="127" fill="#52606d" font-size="13">HTTP 요청/응답</text>
+
+  <!-- 5. 타이머 스레드 -->
+  <rect x="482" y="162" width="350" height="72" rx="8" ry="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="502" y="189" fill="#d97706" font-size="14" font-weight="bold">타이머 스레드</text>
+  <text x="502" y="213" fill="#52606d" font-size="13">setTimeout 계시</text>
+
+  <!-- 6. 컴포지터 스레드 -->
+  <rect x="482" y="248" width="350" height="98" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="502" y="278" fill="#7c3aed" font-size="14" font-weight="bold">컴포지터 스레드</text>
+  <text x="502" y="306" fill="#52606d" font-size="13">합성 · 스크롤</text>
+</svg>

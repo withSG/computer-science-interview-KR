@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">재귀 트리 시간 복잡도 분석</title>
+  <desc id="d">병합 정렬의 재귀 트리를 각 레벨별 비용과 트리 높이(log n)로 나누어 총비용 n log n을 계산하는 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">재귀는 재귀 트리로 센다</text>
+
+  <!-- Level 0 Section -->
+  <g id="level-0">
+    <!-- Level Label -->
+    <rect x="40" y="68" width="80" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="86.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">레벨 0 :</text>
+
+    <!-- Node -->
+    <rect x="300" y="62" width="60" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="330" y="86.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">n</text>
+
+    <!-- Cost Label -->
+    <text x="640" y="86.5" font-size="13" fill="#1f2933">비용 n</text>
+  </g>
+
+  <!-- Connecting Lines 0 to 1 -->
+  <path d="M310,102 L220,138" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M350,102 L440,138" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <!-- Level 1 Section -->
+  <g id="level-1">
+    <!-- Level Label -->
+    <rect x="40" y="148" width="80" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="166.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">레벨 1 :</text>
+
+    <!-- Nodes -->
+    <rect x="180" y="142" width="70" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="215" y="166.5" font-size="14" fill="#2563eb" text-anchor="middle">n/2</text>
+
+    <rect x="410" y="142" width="70" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="445" y="166.5" font-size="14" fill="#2563eb" text-anchor="middle">n/2</text>
+
+    <!-- Cost Label -->
+    <text x="640" y="166.5" font-size="13" fill="#1f2933">비용 n/2 + n/2 = n</text>
+  </g>
+
+  <!-- Connecting Lines 1 to 2 -->
+  <path d="M195,182 L145,218" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M235,182 L285,218" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M425,182 L375,218" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M465,182 L515,218" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <!-- Level 2 Section -->
+  <g id="level-2">
+    <!-- Level Label -->
+    <rect x="40" y="228" width="80" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="246.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">레벨 2 :</text>
+
+    <!-- Nodes -->
+    <rect x="110" y="222" width="70" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="145" y="246.5" font-size="14" fill="#2563eb" text-anchor="middle">n/4</text>
+
+    <rect x="250" y="222" width="70" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="285" y="246.5" font-size="14" fill="#2563eb" text-anchor="middle">n/4</text>
+
+    <rect x="340" y="222" width="70" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="375" y="246.5" font-size="14" fill="#2563eb" text-anchor="middle">n/4</text>
+
+    <rect x="480" y="222" width="70" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="515" y="246.5" font-size="14" fill="#2563eb" text-anchor="middle">n/4</text>
+
+    <!-- Cost Label -->
+    <text x="640" y="246.5" font-size="13" fill="#1f2933">비용 4 × n/4 = n</text>
+  </g>
+
+  <!-- Ellipsis Section (Vertical / Diagonal) -->
+  <g id="ellipsis-dots">
+    <text x="215" y="295" font-size="14" fill="#52606d" text-anchor="middle">...</text>
+    <text x="445" y="295" font-size="14" fill="#52606d" text-anchor="middle">...</text>
+  </g>
+
+  <!-- Level k Section -->
+  <g id="level-k">
+    <!-- Level Label -->
+    <rect x="40" y="328" width="80" height="28" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="80" y="346.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">레벨 k :</text>
+
+    <!-- Leaf Nodes -->
+    <rect x="110" y="322" width="40" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="130" y="346.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
+
+    <rect x="160" y="322" width="40" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="180" y="346.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
+
+    <rect x="210" y="322" width="40" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="230" y="346.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
+
+    <rect x="260" y="322" width="40" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="280" y="346.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
+
+    <text x="330" y="346.5" font-size="14" fill="#52606d" text-anchor="middle">...</text>
+
+    <rect x="380" y="322" width="40" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="400" y="346.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
+
+    <rect x="430" y="322" width="40" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="450" y="346.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
+
+    <!-- Cost Label -->
+    <text x="640" y="346.5" font-size="13" fill="#1f2933">비용 n × 1 = n</text>
+  </g>
+
+  <!-- Horizontal Separator Line -->
+  <line x1="40" y1="390" x2="840" y2="390" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Summary Box / Notes -->
+  <rect x="40" y="410" width="800" height="100" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+
+  <text x="60" y="438" font-size="13" fill="#059669" font-weight="bold">• 각 레벨의 총비용이 항상 n으로 같다.</text>
+
+  <text x="60" y="465" font-size="13" fill="#1f2933">• 레벨 수 = 크기가 n → 1이 될 때까지 반으로 나눈 횟수 = </text>
+  <text x="420" y="465" font-size="13" font-weight="bold" fill="#2563eb">log₂n</text>
+
+  <text x="60" y="492" font-size="13" fill="#1f2933">• 총비용 = n × log₂n  →</text>
+  <rect x="222" y="475" width="90" height="26" rx="4" fill="#2563eb"/>
+  <text x="267" y="492" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">O(n log n)</text>
+
+  <!-- Visual Bracket for Height (Tree Height Indicator) -->
+  <path d="M 580 82 L 600 82 L 600 342 L 580 342" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+  <rect x="555" y="200" width="90" height="24" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="600" y="216.5" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">높이 log₂n</text>
+</svg>

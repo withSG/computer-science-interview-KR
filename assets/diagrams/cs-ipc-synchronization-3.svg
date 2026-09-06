@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">카운팅 세마포어의 진짜 용도: 신호 보내기</title>
+  <desc id="d">생산자-소비자 문제에서 empty 및 full 세마포어를 이용해 스레드 간 신호를 주고받는 과정을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- 상단 개요 헤딩 및 설정 정보 -->
+  <rect x="24" y="20" width="832" height="74" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="440" y="47" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">버퍼 크기 N인 생산자-소비자</text>
+  <text x="440" y="74" font-size="13" fill="#52606d" text-anchor="middle">세마포어 empty = N (빈 칸 수) / full = 0 (채워진 칸 수) / 뮤텍스 mutex (버퍼 보호)</text>
+
+  <!-- 생산자 구역 -->
+  <text x="240" y="127" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">생산자</text>
+  <rect x="50" y="140" width="380" height="280" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+
+  <!-- 소비 자 구역 -->
+  <text x="640" y="127" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">소비자</text>
+  <rect x="450" y="140" width="380" height="280" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+
+  <!-- 생산자 코드 라인 -->
+  <text x="70" y="180" font-size="13" font-family="monospace" fill="#1f2933">empty.acquire()</text>
+  <text x="70" y="220" font-size="13" font-family="monospace" fill="#1f2933">mutex.lock()</text>
+  <text x="90" y="260" font-size="13" fill="#059669" font-weight="bold">버퍼에 넣기</text>
+  <text x="70" y="300" font-size="13" font-family="monospace" fill="#1f2933">mutex.unlock()</text>
+  <text x="70" y="340" font-size="13" font-family="monospace" fill="#2563eb" font-weight="bold">full.release()</text>
+
+  <!-- 소비자 코드 라인 -->
+  <text x="470" y="180" font-size="13" font-family="monospace" fill="#1f2933">full.acquire()</text>
+  <!-- 주석 : 빌 때까지 대기 -->
+  <rect x="635" y="166" width="110" height="20" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="3"/>
+  <text x="640" y="180" font-size="11.5" fill="#d97706">← 빌 때까지 대기</text>
+
+  <text x="470" y="220" font-size="13" font-family="monospace" fill="#1f2933">mutex.lock()</text>
+  <text x="490" y="260" font-size="13" fill="#dc2626" font-weight="bold">버퍼에서 꺼내기</text>
+  <text x="470" y="300" font-size="13" font-family="monospace" fill="#1f2933">mutex.unlock()</text>
+  <text x="470" y="380" font-size="13" font-family="monospace" fill="#7c3aed" font-weight="bold">empty.release()</text>
+
+  <!-- 신호 화살표 1: 생산자 full.release() -> 소비자 full.acquire() 알림 -->
+  <path d="M 230 336 L 470 180" stroke="#2563eb" stroke-width="2" fill="none" stroke-dasharray="5 4" marker-end="url(#a-blue)"/>
+  <rect x="330" y="246" width="40" height="20" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
+  <text x="350" y="260" font-size="11.5" fill="#2563eb" font-weight="bold" text-anchor="middle">알림</text>
+
+  <!-- 신호 화살표 2: 소비자 empty.release() -> 생산자 empty.acquire() 알림 -->
+  <path d="M 600 376 L 220 180" stroke="#7c3aed" stroke-width="2" fill="none" stroke-dasharray="5 4" marker-end="url(#a-purple)"/>
+  <rect x="390" y="266" width="40" height="20" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="3"/>
+  <text x="410" y="280" font-size="11.5" fill="#7c3aed" font-weight="bold" text-anchor="middle">알림</text>
+
+  <!-- 범례 및 하단 안내 -->
+  <rect x="24" y="440" width="832" height="60" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="465" font-size="12" fill="#52606d" text-anchor="middle">파란색/보라색 점선 화살표는 생산자와 소비자 간 세마포어(full / empty)를 이용한 알림(Signal) 전달 경로를 나타냅니다.</text>
+  <text x="440" y="487" font-size="11.5" fill="#d97706" text-anchor="middle">※ 주의: empty.acquire()와 mutex.lock()의 순서가 바뀌면 데드락이 발생할 수 있습니다.</text>
+</svg>

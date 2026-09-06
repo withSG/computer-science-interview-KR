@@ -347,6 +347,11 @@ AVL 트리는 **자가 균형 이진 탐색 트리**로, 모든 노드에서 왼
 
 ### BST의 문제점
 
+<!-- diagram:cs-qna-data-structure-1 -->
+![BST의 문제점](../../assets/diagrams/cs-qna-data-structure-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 // 정렬된 순서로 삽입 시 편향
 1 → 2 → 3 → 4 → 5
@@ -363,6 +368,7 @@ AVL 트리는 **자가 균형 이진 탐색 트리**로, 모든 노드에서 왼
 
 // 검색: O(n) - 연결 리스트와 동일
 ```
+-->
 
 ### AVL 트리의 균형 유지
 
@@ -427,6 +433,11 @@ Balance Factor (BF) = 왼쪽 높이 - 오른쪽 높이
 
 ### 탐색 순서 비교
 
+<!-- diagram:cs-qna-data-structure-2 -->
+![탐색 순서 비교](../../assets/diagrams/cs-qna-data-structure-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
        1
       /|\
@@ -437,6 +448,7 @@ Balance Factor (BF) = 왼쪽 높이 - 오른쪽 높이
 DFS: 1 → 2 → 5 → 6 → 3 → 4 → 7 (깊이 먼저)
 BFS: 1 → 2 → 3 → 4 → 5 → 6 → 7 (레벨 순서)
 ```
+-->
 
 ### 구현 (Java)
 
@@ -633,6 +645,11 @@ B-Tree는 **자가 균형을 유지하는 다원 탐색 트리**로, 하나의 �
 
 ### 왜 DB 인덱스에 B-Tree를 사용하나?
 
+<!-- diagram:cs-qna-data-structure-3 -->
+![왜 DB 인덱스에 B-Tree를 사용하나?](../../assets/diagrams/cs-qna-data-structure-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 디스크 읽기 단위 = 블록 (4KB~16KB)
 
@@ -647,9 +664,15 @@ n=1,000,000 레코드:
   BST 높이: ~20
   B-Tree 높이 (차수 1000): ~2~3
 ```
+-->
 
 ### B+ Tree (B-Tree의 변형 - 실제 DB에서 주로 사용)
 
+<!-- diagram:cs-qna-data-structure-4 -->
+![B+ Tree](../../assets/diagrams/cs-qna-data-structure-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 B-Tree 와의 차이:
   - 내부 노드: 키만 저장 (데이터 없음)
@@ -661,6 +684,7 @@ B-Tree 와의 차이:
 
 예: MySQL InnoDB 인덱스 = B+ Tree
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - B-Tree가 디스크 기반 시스템에 유리한 이유 (높은 팬아웃, 낮은 트리 높이)

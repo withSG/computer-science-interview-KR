@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Loki + Grafana (경량 대안)</title>
+  <desc id="d">Grafana, Loki, 그리고 Promtail 간의 데이터 흐름 및 수집 구조를 나타낸 시스템 아키텍처 다이어그램입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Grafana (UI Layer) -->
+  <rect x="200" y="40" width="480" height="90" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="78.2" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Grafana</text>
+  <text x="440" y="104.0" font-size="13" fill="#52606d" text-anchor="middle">(로그 검색/시각화)</text>
+
+  <!-- Grafana -> Loki Connection (LogQL) -->
+  <path d="M440,130 L440,210" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="408" y="159" width="64" height="22" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="174.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">LogQL</text>
+
+  <!-- Loki (Core Engine) -->
+  <rect x="200" y="210" width="480" height="90" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="440" y="248.2" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Loki</text>
+  <text x="440" y="274.0" font-size="13" fill="#52606d" text-anchor="middle">(인덱스: 라벨만, 저장: 압축)</text>
+
+  <!-- Loki -> Promtail Collectors Distribution Line -->
+  <path d="M440,300 L440,350 M220,350 L660,350 M220,350 L220,410 M440,350 L440,410 M660,350 L660,410" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Promtail 1 -->
+  <rect x="140" y="410" width="160" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="220" y="444.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Promtail</text>
+
+  <!-- Promtail 2 -->
+  <rect x="360" y="410" width="160" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="444.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Promtail</text>
+
+  <!-- Promtail 3 -->
+  <rect x="580" y="410" width="160" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="660" y="444.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Promtail</text>
+</svg>

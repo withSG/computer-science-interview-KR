@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">라운드 로빈의 함정</title>
+  <desc id="d">요청 처리 시간이 다른 무거운 요청과 가벼운 요청이 라운드 로빈 방식으로 서버에 분배될 때 한쪽 서버에 부하가 집중되는 현상을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 요청 섹션 -->
+  <g id="requests-section">
+    <text x="40" y="55.2" font-size="14" font-weight="bold" fill="#1f2933">요청:</text>
+
+    <!-- [무거움 3초] -->
+    <rect x="110" y="30" width="130" height="38" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="175" y="53.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">무거움 3초</text>
+
+    <!-- [가벼움 10ms] -->
+    <rect x="250" y="30" width="130" height="38" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="315" y="53.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">가벼움 10ms</text>
+
+    <!-- [무거움 3초] -->
+    <rect x="390" y="30" width="130" height="38" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="455" y="53.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">무거움 3초</text>
+
+    <!-- [가벼움 10ms] -->
+    <rect x="530" y="30" width="130" height="38" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="595" y="53.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">가벼움 10ms</text>
+
+    <!-- ... -->
+    <text x="675" y="53.55" font-size="16" font-weight="bold" fill="#52606d">...</text>
+  </g>
+
+  <!-- 구분선 -->
+  <line x1="40" y1="90" x2="840" y2="90" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 라운드 로빈 결과 -->
+  <text x="40" y="125.6" font-size="16" font-weight="bold" fill="#1f2933">라운드 로빈 결과</text>
+
+  <!-- 서버1 행 -->
+  <g id="server1-group">
+    <!-- 서버1 박스 -->
+    <rect x="40" y="150" width="100" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+    <text x="90" y="178.55" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">서버1</text>
+
+    <!-- 화살표 (왼쪽 가리킴) -->
+    <path d="M 280 174 L 149 174" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- 분배된 요청 텍스트 -->
+    <text x="290" y="178.55" font-size="13" font-weight="bold" fill="#dc2626">무거움, 무거움, 무거움 ...</text>
+
+    <!-- 화살표 (오른쪽 가리킴) -->
+    <path d="M 480 174 L 521 174" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- 결과 설명 -->
+    <rect x="530" y="155" width="220" height="38" rx="4" fill="#fef2f2" stroke="#fef2f2"/>
+    <text x="540" y="178.55" font-size="13" font-weight="bold" fill="#dc2626">큐가 계속 쌓인다</text>
+  </g>
+
+  <!-- 서버2 행 -->
+  <g id="server2-group">
+    <!-- 서버2 박스 -->
+    <rect x="40" y="230" width="100" height="48" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+    <text x="90" y="258.55" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">서버2</text>
+
+    <!-- 화살표 (왼쪽 가리킴) -->
+    <path d="M 280 254 L 149 254" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 분배된 요청 텍스트 -->
+    <text x="290" y="258.55" font-size="13" font-weight="bold" fill="#059669">가벼움, 가벼움, 가벼움 ...</text>
+
+    <!-- 화살표 (오른쪽 가리킴) -->
+    <path d="M 480 254 L 521 254" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 결과 설명 -->
+    <rect x="530" y="235" width="220" height="38" rx="4" fill="#ecfdf5" stroke="#ecfdf5"/>
+    <text x="540" y="258.55" font-size="13" font-weight="bold" fill="#059669">거의 놀고 있다</text>
+  </g>
+</svg>

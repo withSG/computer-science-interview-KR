@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500"
+     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
+     role="img" aria-labelledby="t d">
+  <title id="t">가상 스레드가 동작하는 방식</title>
+  <desc id="d">플랫폼 스레드(기존)의 1대1 매핑과 가상 스레드(Java 21)의 M대N 매핑 구조를 비교하는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Left Side: Platform Thread (Existing) Background / Group -->
+  <rect x="30" y="30" width="370" height="440" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="215" y="65" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2933">플랫폼 스레드 (기존)</text>
+
+  <!-- Left Diagram Content -->
+  <!-- Java Thread Box 1 & OS Thread Box 1 -->
+  <rect x="60" y="100" width="130" height="44" rx="6" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="125" y="126" text-anchor="middle" font-size="13" fill="#1f2933">Java Thread</text>
+
+  <path d="M190,122 L240,122" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <rect x="198" y="112" width="34" height="20" fill="#ffffff"/>
+  <text x="215" y="126" text-anchor="middle" font-size="11.5" fill="#52606d">1:1</text>
+
+  <rect x="240" y="100" width="130" height="44" rx="6" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="305" y="126" text-anchor="middle" font-size="13" fill="#1f2933">OS Thread</text>
+
+  <!-- Java Thread Box 2 & OS Thread Box 2 -->
+  <rect x="60" y="170" width="130" height="44" rx="6" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="125" y="196" text-anchor="middle" font-size="13" fill="#1f2933">Java Thread</text>
+
+  <path d="M190,192 L240,192" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <rect x="198" y="182" width="34" height="20" fill="#ffffff"/>
+  <text x="215" y="196" text-anchor="middle" font-size="11.5" fill="#52606d">1:1</text>
+
+  <rect x="240" y="170" width="130" height="44" rx="6" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="305" y="196" text-anchor="middle" font-size="13" fill="#1f2933">OS Thread</text>
+
+  <!-- Java Thread Box 3 & OS Thread Box 3 -->
+  <rect x="60" y="240" width="130" height="44" rx="6" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="125" y="266" text-anchor="middle" font-size="13" fill="#1f2933">Java Thread</text>
+
+  <path d="M190,262 L240,262" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <rect x="198" y="252" width="34" height="20" fill="#ffffff"/>
+  <text x="215" y="266" text-anchor="middle" font-size="11.5" fill="#52606d">1:1</text>
+
+  <rect x="240" y="240" width="130" height="44" rx="6" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="305" y="266" text-anchor="middle" font-size="13" fill="#1f2933">OS Thread</text>
+
+  <!-- Left Annotation -->
+  <text x="215" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">(수천 개가 한계)</text>
+
+
+  <!-- Right Side: Virtual Thread (Java 21) Background / Group -->
+  <rect x="430" y="30" width="420" height="440" rx="8" fill="#f5f3ff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="640" y="65" text-anchor="middle" font-size="16" font-weight="bold" fill="#7c3aed">가상 스레드 (Java 21)</text>
+
+  <!-- Virtual Threads Row -->
+  <rect x="460" y="95" width="50" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="485" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">VT1</text>
+
+  <rect x="520" y="95" width="50" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="545" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">VT2</text>
+
+  <rect x="580" y="95" width="50" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="605" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">VT3</text>
+
+  <text x="645" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#52606d">...</text>
+
+  <rect x="670" y="95" width="85" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="712.5" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">VT100000</text>
+
+  <text x="785" y="115" text-anchor="middle" font-size="13" fill="#52606d">(M개)</text>
+
+  <!-- Converging Arrows to ForkJoinPool -->
+  <path d="M510,127 L625,170" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M640,127 L640,168" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M710,127 L655,170" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+
+  <!-- ForkJoinPool Box -->
+  <rect x="500" y="180" width="280" height="36" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="640" y="202" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">ForkJoinPool (캐리어)</text>
+
+  <!-- Carrier Threads C1-C4 Box Grid -->
+  <rect x="500" y="225" width="280" height="40" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <line x1="570" y1="225" x2="570" y2="265" stroke="#7c3aed" stroke-width="1.5"/>
+  <line x1="640" y1="225" x2="640" y2="265" stroke="#7c3aed" stroke-width="1.5"/>
+  <line x1="710" y1="225" x2="710" y2="265" stroke="#7c3aed" stroke-width="1.5"/>
+
+  <text x="535" y="250" text-anchor="middle" font-size="13" fill="#1f2933">C1</text>
+  <text x="605" y="250" text-anchor="middle" font-size="13" fill="#1f2933">C2</text>
+  <text x="675" y="250" text-anchor="middle" font-size="13" fill="#1f2933">C3</text>
+  <text x="745" y="250" text-anchor="middle" font-size="13" fill="#1f2933">C4</text>
+
+  <text x="640" y="283" text-anchor="middle" font-size="11.5" fill="#52606d">(N개, 보통 코어 수)</text>
+
+  <!-- Vertical 1:1 Connections -->
+  <path d="M535,265 L535,320" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <rect x="520" y="283" width="30" height="18" fill="#f5f3ff"/>
+  <text x="535" y="296" text-anchor="middle" font-size="11.5" fill="#52606d">1:1</text>
+
+  <path d="M605,265 L605,320" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <rect x="590" y="283" width="30" height="18" fill="#f5f3ff"/>
+  <text x="605" y="296" text-anchor="middle" font-size="11.5" fill="#52606d">1:1</text>
+
+  <path d="M675,265 L675,320" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <rect x="660" y="283" width="30" height="18" fill="#f5f3ff"/>
+  <text x="675" y="296" text-anchor="middle" font-size="11.5" fill="#52606d">1:1</text>
+
+  <path d="M745,265 L745,320" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <rect x="730" y="283" width="30" height="18" fill="#f5f3ff"/>
+  <text x="745" y="296" text-anchor="middle" font-size="11.5" fill="#52606d">1:1</text>
+
+  <!-- OS Threads Box Grid -->
+  <rect x="500" y="320" width="280" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <line x1="570" y1="320" x2="570" y2="360" stroke="#9aa5b1" stroke-width="1.5"/>
+  <line x1="640" y1="320" x2="640" y2="360" stroke="#9aa5b1" stroke-width="1.5"/>
+  <line x1="710" y1="320" x2="710" y2="360" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <text x="535" y="345" text-anchor="middle" font-size="13" fill="#1f2933">OS</text>
+  <text x="605" y="345" text-anchor="middle" font-size="13" fill="#1f2933">OS</text>
+  <text x="675" y="345" text-anchor="middle" font-size="13" fill="#1f2933">OS</text>
+  <text x="745" y="345" text-anchor="middle" font-size="13" fill="#1f2933">OS</text>
+
+  <!-- Mapping Label -->
+  <text x="640" y="395" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">M : N 매핑</text>
+
+</svg>

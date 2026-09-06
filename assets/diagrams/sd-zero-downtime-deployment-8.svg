@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">원인 2를 막는 대기 구간</title>
+  <desc id="d">Pod 종료 과정에서 preStop sleep을 통한 비동기 전파 대기 시간 및 SIGTERM, SIGKILL 처리 타임라인 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 배경 가이드 / 타임라인 수직선 -->
+  <line x1="120" y1="50" x2="120" y2="350" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="120" y1="210" x2="840" y2="210" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- 시간 라벨 (t=0, t=0~15, t=15, t≤60) -->
+  <!-- t=0 -->
+  <rect x="30" y="55" width="70" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="65" y="74.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">t=0</text>
+
+  <!-- t=0~15 -->
+  <rect x="30" y="145" width="70" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="65" y="164.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">t=0~15</text>
+
+  <!-- t=15 -->
+  <rect x="30" y="235" width="70" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="65" y="254.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">t=15</text>
+
+  <!-- t≤60 -->
+  <rect x="30" y="315" width="70" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="65" y="334.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">t≤60</text>
+
+  <!-- 세션 1: t=0 -->
+  <rect x="140" y="40" width="700" height="80" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="160" y="62.55" font-size="14" font-weight="bold" fill="#1f2933">Pod가 Terminating 상태로 전환</text>
+  
+  <path d="M 170 70 L 170 82 L 182 82" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <text x="190" y="85.55" font-size="13" fill="#52606d">쿠버네티스가 Endpoints에서 이 Pod를 제거하기 시작 (비동기)</text>
+  
+  <path d="M 170 70 L 170 102 L 182 102" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <text x="190" y="105.55" font-size="13" fill="#52606d">preStop 훅 시작: sleep 15</text>
+
+  <!-- 세션 2: t=0~15 -->
+  <rect x="140" y="130" width="700" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="160" y="157.55" font-size="13" fill="#1e40af">애플리케이션은 아직 SIGTERM을 못 받았다 → 정상적으로 요청 처리 중</text>
+  <path d="M 526 153 L 536 153" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="160" y="187.55" font-size="13" fill="#1e40af">그동안 LB/kube-proxy가 이 Pod를 제외하는 작업이 전파된다</text>
+
+  <!-- 세션 3: t=15 -->
+  <rect x="140" y="220" width="700" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="160" y="247.55" font-size="13" fill="#5b21b6">preStop 종료 → 이제 SIGTERM 전송</text>
+  <path d="M 270 243 L 280 243" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M 170 255 L 170 272 L 182 272" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
+  <path d="M 182 272 L 188 272" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <text x="195" y="275.55" font-size="13" fill="#5b21b6">새 요청은 이미 오지 않는 상태. 진행 중인 것만 처리하고 종료</text>
+
+  <!-- 세션 4: t≤60 -->
+  <rect x="140" y="310" width="700" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="160" y="334.55" font-size="13" fill="#991b1b">terminationGracePeriodSeconds 안에 안 끝나면 SIGKILL</text>
+</svg>

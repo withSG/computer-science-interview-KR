@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">서버를 내릴 때: 우아한 종료와 커넥션 드레이닝</title>
+  <desc id="d">잘못된 순서로 인한 502 에러 발생과 올바른 순서를 통한 우아한 종료 프로세스를 비교하는 다이어그램</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="24" y="36" font-size="16" font-weight="bold" fill="#1f2933">서버를 내릴 때: 우아한 종료와 커넥션 드레이닝</text>
+
+  <!-- Left Column: [잘못된 순서] Container -->
+  <rect x="24" y="60" width="390" height="490" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <text x="219" y="92" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[잘못된 순서]</text>
+
+  <!-- Left Column Steps -->
+  <!-- Step L1 -->
+  <rect x="54" y="115" width="330" height="42" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="219" y="141" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">프로세스 종료</text>
+
+  <!-- Arrow L1 -> L2 -->
+  <path d="M219,157 L219,195" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step L2 -->
+  <rect x="54" y="196" width="330" height="54" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="219" y="219" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">LB: "어? 연결이 끊겼네"</text>
+  <text x="219" y="238" font-size="11.5" fill="#52606d" text-anchor="middle">(아직 모름)</text>
+
+  <!-- Arrow L2 -> L3 -->
+  <path d="M219,250 L219,289" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step L3 -->
+  <rect x="54" y="290" width="330" height="42" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="219" y="316" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">이 사이 도착한 요청 전부 실패</text>
+
+  <!-- Arrow L3 -> L4 -->
+  <path d="M219,332 L219,371" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step L4 -->
+  <rect x="54" y="372" width="330" height="42" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="219" y="398" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">502 Bad Gateway</text>
+
+
+  <!-- Right Column: [올바른 순서] Container -->
+  <rect x="444" y="60" width="412" height="490" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="650" y="92" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[올바른 순서]</text>
+
+  <!-- Right Column Steps -->
+  <!-- Step R1 -->
+  <rect x="464" y="115" width="372" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="139" font-size="13" fill="#1f2933" text-anchor="middle">① 종료 신호 수신 (SIGTERM)</text>
+
+  <!-- Arrow R1 -> R2 -->
+  <path d="M650,153 L650,179" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step R2 -->
+  <rect x="464" y="180" width="372" height="50" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="201" font-size="13" fill="#1f2933" text-anchor="middle">② 헬스체크를 즉시 실패로 전환</text>
+  <text x="650" y="220" font-size="11.5" fill="#52606d" text-anchor="middle">또는 preStop 훅에서 대기</text>
+
+  <!-- Arrow R2 -> R3 -->
+  <path d="M650,230 L650,259" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step R3 (Highlighted Core) -->
+  <rect x="464" y="260" width="372" height="52" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="650" y="281" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">③ LB가 목록에서 제외할 때까지 기다린다</text>
+  <text x="650" y="300" font-size="11.5" fill="#d97706" text-anchor="middle">← 여기가 핵심. 주기×임계값만큼</text>
+
+  <!-- Arrow R3 -> R4 -->
+  <path d="M650,312 L650,341" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step R4 -->
+  <rect x="464" y="342" width="372" height="50" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="363" font-size="13" fill="#1f2933" text-anchor="middle">④ 새 요청은 더 이상 오지 않음</text>
+  <text x="650" y="382" font-size="11.5" fill="#52606d" text-anchor="middle">진행 중인 요청만 끝까지 처리</text>
+
+  <!-- Arrow R4 -> R5 -->
+  <path d="M650,392 L650,421" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step R5 -->
+  <rect x="464" y="422" width="372" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="446" font-size="13" fill="#1f2933" text-anchor="middle">⑤ 커넥션 풀·컨슈머·스케줄러 정리</text>
+
+  <!-- Arrow R5 -> R6 -->
+  <path d="M650,460 L650,489" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step R6 -->
+  <rect x="464" y="490" width="372" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="514" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">⑥ 프로세스 종료</text>
+</svg>

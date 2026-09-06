@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">준비 상태와 생존 상태를 구분한다</title>
+  <desc id="d">Kubernetes의 Readiness Probe와 Liveness Probe의 차이점, 실패 시 동작, 주요 용도를 설명하는 다이어그램</desc>
+  
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- Section 1: Readiness Probe (Blue Theme) -->
+  <g>
+    <!-- Background Box -->
+    <rect x="30" y="30" width="820" height="150" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    
+    <!-- Header Badge & Text -->
+    <rect x="50" y="48" width="160" height="32" rx="4" fill="#2563eb"/>
+    <text x="130" y="68.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Readiness (준비됨)</text>
+    
+    <!-- Question Text -->
+    <text x="225" y="68.2" font-size="14" font-weight="bold" fill="#2563eb">"지금 트래픽을 받아도 되나?"</text>
+    
+    <!-- Consequence / Failure Handling -->
+    <g>
+      <text x="60" y="108.55" font-size="13" font-weight="bold" fill="#dc2626">실패하면 →</text>
+      <text x="145" y="108.55" font-size="13" font-weight="bold" fill="#1f2933">로드 밸런서 대상 목록에서 제외. 컨테이너는 그대로 둔다.</text>
+    </g>
+    
+    <!-- Usage -->
+    <g>
+      <text x="60" y="148.55" font-size="13" font-weight="bold" fill="#52606d">용도:</text>
+      <text x="105" y="148.55" font-size="13" fill="#1f2933">기동 중 (DB 커넥션 풀 초기화, 캐시 워밍업), 일시적 과부하</text>
+    </g>
+  </g>
+
+  <!-- Section 2: Liveness Probe (Purple Theme) -->
+  <g>
+    <!-- Background Box -->
+    <rect x="30" y="210" width="820" height="150" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    
+    <!-- Header Badge & Text -->
+    <rect x="50" y="228" width="160" height="32" rx="4" fill="#7c3aed"/>
+    <text x="130" y="248.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Liveness (살아있음)</text>
+    
+    <!-- Question Text -->
+    <text x="225" y="248.2" font-size="14" font-weight="bold" fill="#7c3aed">"이 프로세스를 죽이고 다시 띄워야 하나?"</text>
+    
+    <!-- Consequence / Failure Handling -->
+    <g>
+      <text x="60" y="288.55" font-size="13" font-weight="bold" fill="#dc2626">실패하면 →</text>
+      <text x="145" y="288.55" font-size="13" font-weight="bold" fill="#1f2933">컨테이너 재시작</text>
+    </g>
+    
+    <!-- Usage -->
+    <g>
+      <text x="60" y="328.55" font-size="13" font-weight="bold" fill="#52606d">용도:</text>
+      <text x="105" y="328.55" font-size="13" fill="#1f2933">데드락, 복구 불가능한 상태</text>
+    </g>
+  </g>
+</svg>

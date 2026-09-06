@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Canary 배포</title>
+  <desc id="d">Canary 배포 전략의 단계별 트래픽 분산 과정 다이어그램</desc>
+  
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">Canary 배포</text>
+
+  <!-- ==================== 단계 1 ==================== -->
+  <g id="step1">
+    <!-- Step 1 Label -->
+    <text x="30" y="75" font-size="14" font-weight="bold" fill="#1f2933">단계 1: 5% 트래픽으로 시작</text>
+    
+    <!-- Outer Group Container -->
+    <rect x="30" y="90" width="390" height="370" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
+
+    <!-- Load Balancer -->
+    <rect x="135" y="115" width="180" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+    <text x="225" y="140" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Load Balancer</text>
+
+    <!-- Branch Lines -->
+    <!-- Center stem down -->
+    <path d="M 225,155 L 225,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
+    <!-- Horizontal line -->
+    <path d="M 120,185 L 330,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
+    <!-- Vertical down to boxes -->
+    <path d="M 120,185 L 120,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <path d="M 330,185 L 330,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- Traffic Labels with background -->
+    <rect x="105" y="222" width="30" height="18" fill="#ffffff" rx="2"/>
+    <text x="120" y="235" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">95%</text>
+
+    <rect x="318" y="222" width="24" height="18" fill="#ffffff" rx="2"/>
+    <text x="330" y="235" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">5%</text>
+
+    <!-- v1.0 Box (Stable) -->
+    <rect x="50" y="290" width="140" height="120" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
+    <text x="120" y="340" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v1.0</text>
+    <text x="120" y="370" font-size="13" fill="#52606d" text-anchor="middle">(Stable)</text>
+
+    <!-- v2.0 Box (Canary) -->
+    <rect x="260" y="290" width="140" height="120" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="6"/>
+    <text x="330" y="340" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v2.0</text>
+    <text x="330" y="370" font-size="13" fill="#52606d" text-anchor="middle">Canary</text>
+  </g>
+
+  <!-- ==================== 단계 2 ==================== -->
+  <g id="step2">
+    <!-- Step 2 Label -->
+    <text x="460" y="75" font-size="14" font-weight="bold" fill="#1f2933">단계 2: 점진적 확대 (25% → 50% → 100%)</text>
+    
+    <!-- Outer Group Container -->
+    <rect x="460" y="90" width="390" height="370" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
+
+    <!-- Load Balancer -->
+    <rect x="565" y="115" width="180" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+    <text x="655" y="140" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Load Balancer</text>
+
+    <!-- Branch Lines -->
+    <!-- Center stem down -->
+    <path d="M 655,155 L 655,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
+    <!-- Horizontal line -->
+    <path d="M 550,185 L 760,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
+    <!-- Vertical down to boxes -->
+    <path d="M 550,185 L 550,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <path d="M 760,185 L 760,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- Traffic Labels with background -->
+    <rect x="535" y="222" width="30" height="18" fill="#ffffff" rx="2"/>
+    <text x="550" y="235" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">50%</text>
+
+    <rect x="745" y="222" width="30" height="18" fill="#ffffff" rx="2"/>
+    <text x="760" y="235" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">50%</text>
+
+    <!-- v1.0 Box -->
+    <rect x="480" y="290" width="140" height="120" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
+    <text x="550" y="355" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v1.0</text>
+
+    <!-- v2.0 Box -->
+    <rect x="690" y="290" width="140" height="120" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="6"/>
+    <text x="760" y="355" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v2.0</text>
+  </g>
+</svg>

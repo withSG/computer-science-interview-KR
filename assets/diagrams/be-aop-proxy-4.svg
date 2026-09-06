@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">무엇이 문제인가 - 정상 경로 vs self-invocation</title>
+  <desc id="d">정상 경로에서는 Controller가 Proxy를 거쳐 원본 processPayment를 호출하여 트랜잭션이 적용되지만, self-invocation에서는 Proxy가 createOrder에만 개입하고 내부 this.processPayment 호출 시 프록시를 안 거쳐 트랜잭션이 빠지는 문제를 설명하는 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 정상 경로 영역 -->
+  <rect x="24" y="24" width="400" height="292" fill="#eff6ff" rx="8" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="44" y="52" font-size="16" font-weight="bold" fill="#2563eb">정상 경로</text>
+  <line x1="44" y1="62" x2="404" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+
+  <!-- 정상 경로: Controller -->
+  <rect x="132" y="80" width="184" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="224" y="102" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Controller</text>
+
+  <!-- 정상 경로: Controller -> Proxy 화살표 -->
+  <path d="M224,116 L224,142" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 정상 경로: [Proxy] -->
+  <rect x="150" y="142" width="148" height="36" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="224" y="164" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[Proxy]</text>
+
+  <!-- 정상 경로: Proxy 지시선 & 트랜잭션 시작 -->
+  <path d="M298,160 L320,160" stroke="#52606d" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+  <polygon points="320,160 325,157 325,163" fill="#52606d"/>
+  <text x="330" y="164" font-size="11.5" fill="#52606d">트랜잭션 시작</text>
+
+  <!-- 정상 경로: Proxy -> 원본 화살표 -->
+  <path d="M224,178 L224,234" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 정상 경로: [원본] processPayment() -->
+  <rect x="108" y="234" width="232" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="224" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[원본] processPayment()</text>
+
+
+  <!-- self-invocation 영역 -->
+  <rect x="456" y="24" width="400" height="292" fill="#fef2f2" rx="8" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="476" y="52" font-size="16" font-weight="bold" fill="#dc2626">self-invocation</text>
+  <line x1="476" y1="62" x2="836" y2="62" stroke="#dc2626" stroke-width="1.5"/>
+
+  <!-- self-invocation: Controller -->
+  <rect x="564" y="80" width="184" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="656" y="102" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Controller</text>
+
+  <!-- self-invocation: Controller -> Proxy 화살표 -->
+  <path d="M656,116 L656,142" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- self-invocation: [Proxy] -->
+  <rect x="582" y="142" width="148" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="656" y="164" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[Proxy]</text>
+
+  <!-- self-invocation: Proxy 지시선 & 주석 -->
+  <path d="M730,160 L742,160" stroke="#52606d" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+  <polygon points="742,160 747,157 747,163" fill="#52606d"/>
+  <text x="856" y="164" font-size="11.5" fill="#52606d" text-anchor="end">createOrder에 대해서만 개입</text>
+
+  <!-- self-invocation: Proxy -> 원본 createOrder 화살표 -->
+  <path d="M656,178 L656,204" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- self-invocation: [원본] createOrder() -->
+  <rect x="556" y="204" width="200" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="656" y="226" font-size="13" fill="#1f2933" text-anchor="middle">[원본] createOrder()</text>
+
+  <!-- self-invocation: createOrder -> processPayment 화살표 & 라벨 -->
+  <path d="M656,240 L656,266" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="664" y="244" width="138" height="16" fill="#ffffff"/>
+  <text x="668" y="256" font-size="11.5" fill="#dc2626">this.processPayment()</text>
+
+  <!-- self-invocation: [원본] processPayment() 및 프록시를 안 거침 -->
+  <rect x="540" y="266" width="232" height="36" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="656" y="288" font-size="13" fill="#dc2626" text-anchor="middle">[원본] processPayment()</text>
+  <text x="780" y="288" font-size="11.5" fill="#dc2626">← 프록시를 안 거침</text>
+
+</svg>

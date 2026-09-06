@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Heap과 String Pool의 메모리 구조</title>
+  <desc id="d">String Pool 내부의 hello 문자열과 Heap 영역의 String 객체, 그리고 변수 a, b, c, d와의 참조 관계 및 intern() 메서드 호출 관계를 나타내는 메모리 구조도</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- Outer Boundary: Heap Area -->
+  <rect x="40" y="40" width="800" height="440" rx="8" ry="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <text x="60" y="74" font-size="16" font-weight="bold" fill="#1f2933">Heap</text>
+
+  <!-- String Pool Area (Inside Heap) -->
+  <rect x="80" y="100" width="460" height="150" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="310" y="129" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">String Pool</text>
+
+  <!-- "hello" String Literal inside String Pool -->
+  <rect x="230" y="150" width="160" height="60" rx="4" ry="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="310" y="185" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">"hello"</text>
+
+  <!-- String Object ("hello") in Heap -->
+  <rect x="180" y="340" width="260" height="100" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="310" y="375" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">String 객체</text>
+  <text x="310" y="415" font-size="13" fill="#52606d" text-anchor="middle">("hello")</text>
+
+  <!-- Variable References (a, b, d, c) -->
+  <text x="680" y="185" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">a</text>
+  <text x="680" y="235" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">b</text>
+  <text x="680" y="285" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">d</text>
+  <text x="680" y="395" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">c</text>
+
+  <!-- Reference Arrows to String Pool "hello" -->
+  <!-- Variable a -> "hello" -->
+  <path d="M660,180 L390,180" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- Variable b -> "hello" -->
+  <path d="M660,230 L510,230 L510,195 L390,195" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- Variable d -> "hello" -->
+  <path d="M660,280 L490,280 L490,210 L390,210" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Variable c -> String Object -->
+  <path d="M660,390 L440,390" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Arrow: String Object -> "hello" in String Pool via intern() -->
+  <path d="M310,340 L310,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <!-- Label for intern() with white background rectangle -->
+  <rect x="320" y="263" width="64" height="24" fill="#ffffff" rx="2" ry="2"/>
+  <text x="322" y="280" font-size="13" fill="#1f2933">intern()</text>
+</svg>

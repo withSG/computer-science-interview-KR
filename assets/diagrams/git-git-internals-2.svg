@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Git의 선택: 스냅샷</title>
+  <desc id="d">스냅샷 기반 커밋 구조에서 커밋마다 그 시점의 전체 파일 목록을 가리키며 바뀐 파일만 업데이트되고 안 바뀐 파일은 재사용됨을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 상단 제목 및 설명 -->
+  <text x="30" y="40" font-size="14" font-weight="bold" fill="#2563eb">[스냅샷 기반]</text>
+  <text x="140" y="40" font-size="14" fill="#52606d">커밋마다 그 시점의 전체 파일 목록을 가리킨다</text>
+
+  <!-- 커밋 1 행 -->
+  <!-- 커밋1 박스 -->
+  <rect x="30" y="70" width="90" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="75" y="94" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">커밋1</text>
+
+  <!-- 화살표 1 -->
+  <path d="M120,90 L160,90" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 스냅샷 1 그룹 컨테이너 -->
+  <rect x="160" y="70" width="370" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="175" y="94" font-size="13" font-weight="bold" fill="#1f2933">{</text>
+  
+  <!-- A.java -> 내용#a1 -->
+  <text x="195" y="94" font-size="13" fill="#1f2933">A.java</text>
+  <path d="M245,90 L260,90" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="270" y="94" font-size="13" fill="#52606d">내용#a1</text>
+  <text x="325" y="94" font-size="13" fill="#9aa5b1">,</text>
+
+  <!-- B.java -> 내용#b1 -->
+  <text x="350" y="94" font-size="13" fill="#1f2933">B.java</text>
+  <path d="M400,90 L415,90" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="425" y="94" font-size="13" fill="#52606d">내용#b1</text>
+  <text x="515" y="94" font-size="13" font-weight="bold" fill="#1f2933">}</text>
+
+
+  <!-- 커밋 2 행 -->
+  <!-- 커밋2 박스 -->
+  <rect x="30" y="140" width="90" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="75" y="164" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">커밋2</text>
+
+  <!-- 화살표 2 -->
+  <path d="M120,160 L160,160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 스냅샷 2 그룹 컨테이너 -->
+  <rect x="160" y="140" width="370" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="175" y="164" font-size="13" font-weight="bold" fill="#1f2933">{</text>
+  
+  <!-- A.java -> 내용#a2 -->
+  <text x="195" y="164" font-size="13" fill="#1f2933">A.java</text>
+  <path d="M245,160 L260,160" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="270" y="164" font-size="13" fill="#52606d">내용#a2</text>
+  <text x="325" y="164" font-size="13" fill="#9aa5b1">,</text>
+
+  <!-- B.java -> 내용#b1 (재사용 강조) -->
+  <text x="350" y="164" font-size="13" fill="#1f2933">B.java</text>
+  <path d="M400,160 L415,160" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="425" y="164" font-size="13" fill="#059669" font-weight="bold">내용#b1</text>
+  <text x="515" y="164" font-size="13" font-weight="bold" fill="#1f2933">}</text>
+
+  <!-- 화살표 (스냅샷2 -> 주석) -->
+  <path d="M540,160 L570,160" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  
+  <!-- B는 안 바뀜 주석 -->
+  <text x="580" y="164" font-size="13" fill="#059669">← B는 안 바뀜, 같은 것 재사용</text>
+
+
+  <!-- 커밋 3 행 -->
+  <!-- 커밋3 박스 -->
+  <rect x="30" y="210" width="90" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="75" y="234" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">커밋3</text>
+
+  <!-- 화살표 3 -->
+  <path d="M120,230 L160,230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 스냅샷 3 그룹 컨테이너 -->
+  <rect x="160" y="210" width="370" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="175" y="234" font-size="13" font-weight="bold" fill="#1f2933">{</text>
+  
+  <!-- A.java -> 내용#a2 -->
+  <text x="195" y="234" font-size="13" fill="#1f2933">A.java</text>
+  <path d="M245,230 L260,230" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="270" y="234" font-size="13" fill="#52606d">내용#a2</text>
+  <text x="325" y="234" font-size="13" fill="#9aa5b1">,</text>
+
+  <!-- B.java -> 내용#b2 -->
+  <text x="350" y="234" font-size="13" fill="#1f2933">B.java</text>
+  <path d="M400,230 L415,230" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="425" y="234" font-size="13" fill="#52606d">내용#b2</text>
+  <text x="515" y="234" font-size="13" font-weight="bold" fill="#1f2933">}</text>
+</svg>

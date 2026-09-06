@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 JWT는 취소하기 어려운가</title>
+  <desc id="d">세션과 JWT의 로그아웃 및 권한 검증 방식 차이를 비교하는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-subtle" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- [세션] 구역 -->
+  <rect x="24" y="24" width="832" height="128" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <!-- [세션] 요소들 -->
+  <rect x="44" y="66" width="90" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="89" y="93" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">[세션]</text>
+
+  <text x="189" y="92.55" font-size="13" fill="#1f2933" text-anchor="middle">로그아웃</text>
+  <path d="M140,88 L238,88" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <rect x="244" y="66" width="180" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="334" y="92.55" font-size="13" fill="#1f2933" text-anchor="middle">저장소에서 세션 삭제</text>
+
+  <text x="479" y="92.55" font-size="13" fill="#1f2933" text-anchor="middle">즉시 차단</text>
+  <path d="M430,88 L528,88" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- [세션] 주석/설명 -->
+  <path d="M334,116 L334,128" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-subtle)"/>
+  <text x="344" y="132" font-size="11.5" fill="#52606d" text-anchor="start">서버가 "권한의 원본"을 쥐고 있음</text>
+
+
+  <!-- [JWT] 구역 -->
+  <rect x="24" y="172" width="832" height="144" rx="8" fill="#fffbeb" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- [JWT] 요소들 -->
+  <rect x="44" y="200" width="90" height="44" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="89" y="227" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">[JWT]</text>
+
+  <text x="189" y="226.55" font-size="13" fill="#1f2933" text-anchor="middle">로그아웃</text>
+  <path d="M140,222 L238,222" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <rect x="244" y="200" width="180" height="44" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="334" y="226.55" font-size="13" fill="#1f2933" text-anchor="middle">클라이언트가 토큰 삭제</text>
+
+  <!-- [JWT] 주석/설명 -->
+  <path d="M334,250 L334,262" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-subtle)"/>
+  <text x="344" y="266" font-size="11.5" fill="#52606d" text-anchor="start">서버는 아무것도 안 함</text>
+  <text x="344" y="288" font-size="11.5" fill="#52606d" text-anchor="start">이미 복사해 둔 토큰이 있다면 만료 전까지 계속 유효</text>
+</svg>

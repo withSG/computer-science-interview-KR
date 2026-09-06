@@ -22,6 +22,11 @@
 
 ### 아키텍처 예시
 
+<!-- diagram:cloud-qna-aws-1 -->
+![아키텍처 예시](../../assets/diagrams/cloud-qna-aws-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                  Internet
                     │
@@ -49,9 +54,15 @@
 │(App)  │     │(App)  │         │ (DB)  │
 └───────┘     └───────┘         └───────┘
 ```
+-->
 
 ### 라우팅 테이블 차이
 
+<!-- diagram:cloud-qna-aws-2 -->
+![라우팅 테이블 차이](../../assets/diagrams/cloud-qna-aws-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Public Subnet:
 0.0.0.0/0 → igw-xxx (인터넷 게이트웨이)
@@ -59,6 +70,7 @@ Public Subnet:
 Private Subnet:
 0.0.0.0/0 → nat-xxx (NAT 게이트웨이)
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 3-tier 아키텍처 설계 경험
@@ -85,6 +97,11 @@ Private Subnet:
 
 ### Stateful vs Stateless
 
+<!-- diagram:cloud-qna-aws-3 -->
+![Stateful vs Stateless](../../assets/diagrams/cloud-qna-aws-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Security Group (Stateful):
 요청 허용 → 응답 자동 허용
@@ -92,6 +109,7 @@ Security Group (Stateful):
 NACL (Stateless):
 인바운드, 아웃바운드 규칙 각각 필요
 ```
+-->
 
 ### 사용 예시
 
@@ -177,6 +195,11 @@ IAM 정책:
 
 ### CloudWatch 연동
 
+<!-- diagram:cloud-qna-aws-4 -->
+![CloudWatch 연동](../../assets/diagrams/cloud-qna-aws-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 CloudWatch Alarm (CPU > 70%)
        │
@@ -189,6 +212,7 @@ EC2 인스턴스 추가
        ▼
 ALB에 자동 등록
 ```
+-->
 
 ### 면접 답변 예시
 

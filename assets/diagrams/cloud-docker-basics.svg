@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">유니온 파일시스템 동작 원리</title>
+  <desc id="d">Overlay2 유니온 파일시스템의 계층 구조와 겹쳐 보이기, copy-up, whiteout 동작 원리를 나타낸 다이어그램입니다.</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마크 정의 -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 제목 -->
+  <text x="440" y="34" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">유니온 파일시스템(overlay2) 동작 원리</text>
+
+  <!-- 메인 파일시스템 레이어 영역 (왼쪽) -->
+  <rect x="30" y="60" width="370" height="430" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="45" y="86" font-size="14" font-weight="600" fill="#1f2933">파일시스템 레이어 구조</text>
+
+  <!-- merged (컨테이너 뷰) -->
+  <rect x="50" y="100" width="330" height="90" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="65" y="122" font-size="13" font-weight="600" fill="#2563eb">merged (컨테이너가 실제로 보는 /)</text>
+  
+  <rect x="65" y="132" width="140" height="22" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="73" y="147" font-size="11.5" fill="#1f2933">a.txt (upper 적용)</text>
+
+  <rect x="215" y="132" width="150" height="22" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="223" y="147" font-size="11.5" fill="#1f2933">b.txt (copy-up 된 것)</text>
+
+  <rect x="65" y="160" width="140" height="22" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="73" y="175" font-size="11.5" fill="#1f2933">c.txt (lower2 것)</text>
+
+  <!-- 투영 화살표 -->
+  <path d="M215,200 L215,220" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-start="url(#a-blue)"/>
+  <rect x="155" y="202" width="120" height="16" fill="#ffffff"/>
+  <text x="215" y="214" font-size="11" fill="#2563eb" text-anchor="middle">단일 뷰로 겹쳐 보이기</text>
+
+  <!-- 디렉터리 레이어들 (중첩/포개짐 Expressing Overlay) -->
+  <rect x="50" y="230" width="330" height="245" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- upperdir -->
+  <rect x="65" y="245" width="300" height="45" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="75" y="262" font-size="13" font-weight="600" fill="#dc2626">upperdir (쓰기 가능, 컨테이너 전용)</text>
+  <text x="75" y="280" font-size="11.5" fill="#1f2933">a.txt (신규/수정)</text>
+  <text x="180" y="280" font-size="11.5" fill="#1f2933">b.txt (수정본)</text>
+  <text x="270" y="280" font-size="11.5" fill="#dc2626">d.txt (whiteout)</text>
+
+  <!-- lowerdir 3 -->
+  <rect x="65" y="300" width="300" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="75" y="317" font-size="13" font-weight="500" fill="#7c3aed">lowerdir3 (이미지 레이어 L3 - 읽기 전용)</text>
+  <text x="75" y="333" font-size="11.5" fill="#52606d">a.txt (원래 버전)</text>
+
+  <!-- lowerdir 2 -->
+  <rect x="65" y="350" width="300" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="75" y="367" font-size="13" font-weight="500" fill="#7c3aed">lowerdir2 (이미지 레이어 L2 - 읽기 전용)</text>
+  <text x="75" y="383" font-size="11.5" fill="#52606d">b.txt (원본)</text>
+  <text x="180" y="383" font-size="11.5" fill="#52606d">c.txt (원본)</text>
+
+  <!-- lowerdir 1 -->
+  <rect x="65" y="400" width="300" height="60" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="75" y="417" font-size="13" font-weight="500" fill="#7c3aed">lowerdir1 (이미지 레이어 L1 - 공유 베이스)</text>
+  <text x="75" y="433" font-size="11.5" fill="#52606d">d.txt (삭제 대상 원본)</text>
+  <text x="75" y="450" font-size="11" fill="#52606d">※ 여러 컨테이너가 lowerdir을 공유함</text>
+
+
+  <!-- 오른쪽 주요 동작 세 가지 사례 설명 패널 -->
+  <rect x="430" y="60" width="420" height="430" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="445" y="86" font-size="14" font-weight="600" fill="#1f2933">3가지 핵심 파일 시스템 동작</text>
+
+  <!-- 사례 1: 겹쳐 보이기 (Upper 우선) -->
+  <rect x="445" y="100" width="390" height="110" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="460" y="122" font-size="13" font-weight="600" fill="#2563eb">1. 겹쳐 보이기 (Upperdir 우선순위)</text>
+
+  <rect x="460" y="132" width="110" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="515" y="151" font-size="11.5" fill="#1f2933" text-anchor="middle">lower: a.txt (v1)</text>
+
+  <rect x="460" y="168" width="110" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="515" y="187" font-size="11.5" fill="#1f2933" text-anchor="middle">upper: a.txt (v2)</text>
+
+  <path d="M580,165 L630,165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <rect x="640" y="145" width="180" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="730" y="163" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">merged: a.txt (v2)</text>
+  <text x="730" y="178" font-size="11" fill="#52606d" text-anchor="middle">위층(upper) 파일이 아래층을 가림</text>
+
+
+  <!-- 사례 2: Copy-up (복사 후 수정) -->
+  <rect x="445" y="225" width="390" height="120" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="460" y="247" font-size="13" font-weight="600" fill="#d97706">2. Copy-up (읽기 전용 파일 수정 시)</text>
+
+  <rect x="460" y="258" width="120" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="520" y="277" font-size="11.5" fill="#1f2933" text-anchor="middle">lower: b.txt (원본)</text>
+
+  <path d="M520,294 L520,310" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="460" y="300" width="120" height="15" fill="#ffffff"/>
+  <text x="520" y="311" font-size="11" font-weight="600" fill="#d97706" text-anchor="middle">통째 복사 (Copy-Up)</text>
+
+  <rect x="640" y="258" width="180" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="730" y="277" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">upper: b.txt (수정본)</text>
+
+  <path d="M590,273 L630,273" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <text x="640" y="310" font-size="11" fill="#52606d">※ 대용량 파일 수정 시 복사 비용 발생</text>
+  <text x="640" y="328" font-size="11" fill="#52606d">(예: 1GB 파일 1줄 변경 시 1GB 복사)</text>
+
+
+  <!-- 사례 3: Whiteout (파일 삭제) -->
+  <rect x="445" y="360" width="390" height="115" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="460" y="382" font-size="13" font-weight="600" fill="#dc2626">3. Whiteout (파일 삭제 시)</text>
+
+  <rect x="460" y="393" width="120" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="520" y="412" font-size="11.5" fill="#1f2933" text-anchor="middle">lower: d.txt (원본 보존)</text>
+
+  <path d="M590,408 L630,408" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <rect x="640" y="393" width="180" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="730" y="412" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">upper: d.txt (whiteout 표식)</text>
+
+  <text x="460" y="445" font-size="11" fill="#dc2626">· lower의 원본은 삭제되지 않고 유지됨 (이미지 크기 미감소)</text>
+  <text x="460" y="462" font-size="11" fill="#52606d">· merged 뷰에서는 삭제된 것으로 처리되어 보이지 않음</text>
+
+
+  <!-- 하단 요약 캡션 -->
+  <text x="440" y="518" font-size="11.5" fill="#52606d" text-anchor="middle">결론: Overlay2는 읽기 전용 lowerdir을 공유하여 효율성을 높이고, 변경 사항은 upperdir에 copy-up 및 whiteout으로 기록한다.</text>
+</svg>

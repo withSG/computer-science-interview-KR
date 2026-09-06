@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Filter vs Interceptor vs AOP</title>
+  <desc id="d">요청이 Filter, DispatcherServlet, Interceptor, AOP Proxy를 거쳐 응답으로 이어지는 흐름을 표현한 다이어그램</desc>
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 범례 -->
+  <g transform="translate(40, 20)">
+    <rect x="0" y="0" width="800" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+    <circle cx="20" cy="20" r="6" fill="#2563eb"/>
+    <text x="32" y="24" font-size="12" fill="#1f2933">서블릿 컨테이너</text>
+
+    <circle cx="200" cy="20" r="6" fill="#059669"/>
+    <text x="212" y="24" font-size="12" fill="#1f2933">Spring MVC</text>
+
+    <circle cx="360" cy="20" r="6" fill="#7c3aed"/>
+    <text x="372" y="24" font-size="12" fill="#1f2933">Spring 컨테이너</text>
+  </g>
+
+  <!-- 요청 시작점 -->
+  <rect x="70" y="90" width="80" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="110" y="113" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">요청</text>
+
+  <!-- 메인 줄기 (요청 -> 응답) -->
+  <path d="M110,126 L110,634" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M110,634 L110,644" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- [1] Filter 연결선 -->
+  <path d="M110,170 L230,170" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M230,226 L230,250 L110,250" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- [1] Filter 박스 및 설명 -->
+  <rect x="230" y="145" width="580" height="81" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
+  <text x="250" y="173" font-size="14" font-weight="bold" fill="#2563eb">[1] Filter</text>
+  <text x="330" y="173" font-size="13" fill="#52606d">← 서블릿 컨테이너가 관리. 아직 Spring이 아니다</text>
+  <text x="330" y="203" font-size="13" fill="#52606d">HttpServletRequest/Response를 통째로 교체 가능</text>
+
+  <!-- DispatcherServlet -->
+  <rect x="180" y="275" width="200" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="280" y="300" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">DispatcherServlet</text>
+
+  <!-- [2] Interceptor 연결선 -->
+  <path d="M280,315 L280,350 L310,350" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M310,540 L280,540 L280,560 L110,560" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- [2] Interceptor 박스 및 설명 -->
+  <rect x="310" y="330" width="530" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="6"/>
+  <text x="325" y="355" font-size="14" font-weight="bold" fill="#059669">[2] Interceptor</text>
+  <text x="445" y="355" font-size="13" fill="#52606d">← Spring MVC가 관리. 핸들러가 누구인지 안다</text>
+
+  <!-- Interceptor 내부 연결선 (Interceptor -> [3] AOP Proxy) -->
+  <path d="M380,370 L380,410 L410,410" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+
+  <!-- [3] AOP Proxy 그룹 박스 -->
+  <rect x="410" y="390" width="410" height="130" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" rx="6"/>
+  <text x="425" y="418" font-size="14" font-weight="bold" fill="#7c3aed">[3] AOP Proxy</text>
+  <text x="535" y="418" font-size="13" fill="#52606d">← Spring 컨테이너가 관리. HTTP를 전혀 모른다</text>
+
+  <!-- Controller / Service / Repository 내부 박스 -->
+  <rect x="430" y="445" width="370" height="50" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="615" y="475" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">Controller / Service / Repository</text>
+
+  <!-- AOP Proxy -> Interceptor 리턴선 -->
+  <path d="M410,500 L380,500 L380,540" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+
+  <!-- 응답 생성 -->
+  <rect x="180" y="585" width="120" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="240" y="608" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">응답 생성</text>
+  <path d="M180,603 L110,603" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 응답 종료점 -->
+  <rect x="70" y="645" width="80" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="110" y="668" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">응답</text>
+</svg>

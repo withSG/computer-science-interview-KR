@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1160" width="880" height="1160" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">### 템플릿</title>
+  <desc id="d">SEV-2 주문 API 실패율 상승 사고 보고서 포스트모템 템플릿 다이어그램</desc>
+  <rect width="880" height="1160" fill="#ffffff"/>
+
+  <!-- 헤더 영역 (제목, 한줄요약, 영향) -->
+  <rect x="24" y="24" width="832" height="60" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="44" y="61" font-size="18" font-weight="bold" fill="#dc2626"># [SEV-2] 주문 API 실패율 상승 (2026-03-14)</text>
+
+  <!-- 한 줄 요약 -->
+  <rect x="24" y="98" width="832" height="84" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="44" y="125" font-size="14" font-weight="bold" fill="#2563eb">## 한 줄 요약</text>
+  <text x="44" y="148" font-size="13" fill="#1f2933">결제 확인 로직이 트랜잭션 안에서 외부 API를 호출해 커넥션 풀이 고갈됐고,</text>
+  <text x="44" y="168" font-size="13" fill="#1f2933">51분간 주문 생성 요청의 32%가 실패했다.</text>
+
+  <!-- 영향 -->
+  <rect x="24" y="196" width="832" height="110" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="44" y="223" font-size="14" font-weight="bold" fill="#1f2933">## 영향</text>
+  <text x="44" y="248" font-size="13" fill="#52606d">- 기간: 14:30 배포 ~ 15:24 지표 복귀. 사용자 영향은 14:33~15:24 (51분)</text>
+  <text x="44" y="268" font-size="13" fill="#52606d">- 범위: 주문 생성 요청의 32% 실패 (결제 이전 단계 → 이중 결제 없음)</text>
+  <text x="44" y="288" font-size="13" fill="#52606d">- 배포 시각 기준 탐지까지 8분 / 대응 착수까지 22분 / 복구까지 54분</text>
+
+  <!-- 타임라인 -->
+  <rect x="24" y="320" width="832" height="254" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="44" y="347" font-size="14" font-weight="bold" fill="#1f2933">## 타임라인 (해석 없이 사실만)</text>
+
+  <!-- 타임라인 항목들 -->
+  <line x1="110" y1="365" x2="110" y2="555" stroke="#cbd2d9" stroke-width="2"/>
+
+  <circle cx="110" cy="378" r="4" fill="#52606d"/>
+  <text x="44" y="382" font-size="13" font-weight="bold" fill="#52606d">14:30</text>
+  <text x="126" y="382" font-size="13" fill="#1f2933">v2.14.0 배포 완료</text>
+
+  <circle cx="110" cy="408" r="4" fill="#dc2626"/>
+  <text x="44" y="412" font-size="13" font-weight="bold" fill="#dc2626">14:33</text>
+  <text x="126" y="412" font-size="13" fill="#1f2933">5xx 비율 0.1% → 4.2%</text>
+
+  <circle cx="110" cy="438" r="4" fill="#d97706"/>
+  <text x="44" y="442" font-size="13" font-weight="bold" fill="#d97706">14:38</text>
+  <text x="126" y="442" font-size="13" fill="#1f2933">알림 발화</text>
+
+  <circle cx="110" cy="468" r="4" fill="#d97706"/>
+  <text x="44" y="472" font-size="13" font-weight="bold" fill="#d97706">14:52</text>
+  <text x="126" y="472" font-size="13" fill="#1f2933">1차 온콜 무응답, 2차 에스컬레이션</text>
+
+  <circle cx="110" cy="498" r="4" fill="#2563eb"/>
+  <text x="44" y="502" font-size="13" font-weight="bold" fill="#2563eb">15:04</text>
+  <text x="126" y="502" font-size="13" fill="#1f2933">커넥션 풀 대기 시간 급증 확인</text>
+
+  <circle cx="110" cy="528" r="4" fill="#059669"/>
+  <text x="44" y="532" font-size="13" font-weight="bold" fill="#059669">15:20</text>
+  <text x="126" y="532" font-size="13" fill="#1f2933">롤백 시작</text>
+
+  <circle cx="110" cy="558" r="4" fill="#059669"/>
+  <text x="44" y="562" font-size="13" font-weight="bold" fill="#059669">15:24</text>
+  <text x="126" y="562" font-size="13" fill="#1f2933">지표 정상 복귀 (실패 주문 재처리는 15:45 완료)</text>
+
+  <!-- 기여 요인 -->
+  <rect x="24" y="588" width="832" height="150" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="44" y="615" font-size="14" font-weight="bold" fill="#d97706">## 기여 요인 (근본 원인 하나가 아니라 여러 층)</text>
+  <text x="44" y="640" font-size="13" fill="#1f2933">1. 트랜잭션 안 외부 호출을 막는 리뷰 기준·정적 검사가 없었다</text>
+  <text x="44" y="662" font-size="13" fill="#1f2933">2. 스테이징의 외부 API는 목(mock)이라 응답이 5ms여서 재현되지 않았다</text>
+  <text x="44" y="684" font-size="13" fill="#1f2933">3. 커넥션 풀 대기 시간 지표가 대시보드에 없었다</text>
+  <text x="44" y="706" font-size="13" fill="#1f2933">4. 1차 온콜 알림이 전달되지 않아 14분이 소요됐다</text>
+
+  <!-- 잘 된 점 -->
+  <rect x="24" y="752" width="832" height="106" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="44" y="779" font-size="14" font-weight="bold" fill="#059669">## 잘 된 점</text>
+  <text x="44" y="804" font-size="13" fill="#1f2933">- 알림이 증상 발생 5분 만에 발화했다</text>
+  <text x="44" y="826" font-size="13" fill="#1f2933">- 롤백 절차가 문서화돼 있어 실행 시작 4분 만에 지표가 정상으로 돌아왔다</text>
+
+  <!-- 액션 아이템 표 -->
+  <rect x="24" y="872" width="832" height="264" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="44" y="899" font-size="14" font-weight="bold" fill="#1f2933">## 액션 아이템</text>
+
+  <!-- Table Header -->
+  <rect x="44" y="912" width="792" height="36" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
+  <line x1="484" y1="912" x2="484" y2="1116" stroke="#cbd2d9" stroke-width="1"/>
+  <line x1="604" y1="912" x2="604" y2="1116" stroke="#cbd2d9" stroke-width="1"/>
+  <line x1="704" y1="912" x2="704" y2="1116" stroke="#cbd2d9" stroke-width="1"/>
+
+  <text x="264" y="935" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">항목</text>
+  <text x="544" y="935" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">담당</text>
+  <text x="654" y="935" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">기한</text>
+  <text x="770" y="935" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">유형</text>
+
+  <!-- Row 1 -->
+  <rect x="44" y="948" width="792" height="42" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="56" y="974" font-size="13" fill="#1f2933">트랜잭션 내 외부 호출 정적 검사 규칙</text>
+  <text x="544" y="974" font-size="13" fill="#1f2933" text-anchor="middle">김OO</text>
+  <text x="654" y="974" font-size="13" fill="#1f2933" text-anchor="middle">3/28</text>
+  <rect x="740" y="958" width="60" height="22" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="770" y="974" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">예방</text>
+
+  <!-- Row 2 -->
+  <rect x="44" y="990" width="792" height="42" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="56" y="1016" font-size="13" fill="#1f2933">스테이징 외부 API에 지연 주입</text>
+  <text x="544" y="1016" font-size="13" fill="#1f2933" text-anchor="middle">이OO</text>
+  <text x="654" y="1016" font-size="13" fill="#1f2933" text-anchor="middle">4/04</text>
+  <rect x="740" y="1000" width="60" height="22" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="770" y="1016" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">예방</text>
+
+  <!-- Row 3 -->
+  <rect x="44" y="1032" width="792" height="42" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="56" y="1058" font-size="13" fill="#1f2933">커넥션 풀 대기 시간 대시보드·알림</text>
+  <text x="544" y="1058" font-size="13" fill="#1f2933" text-anchor="middle">박OO</text>
+  <text x="654" y="1058" font-size="13" fill="#1f2933" text-anchor="middle">3/21</text>
+  <rect x="740" y="1042" width="60" height="22" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="770" y="1058" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">탐지</text>
+
+  <!-- Row 4 -->
+  <rect x="44" y="1074" width="792" height="42" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="56" y="1100" font-size="13" fill="#1f2933">온콜 알림 전달 테스트 교대 시 필수화</text>
+  <text x="544" y="1100" font-size="13" fill="#1f2933" text-anchor="middle">최OO</text>
+  <text x="654" y="1100" font-size="13" fill="#1f2933" text-anchor="middle">3/21</text>
+  <rect x="740" y="1084" width="60" height="22" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="770" y="1100" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">대응</text>
+
+</svg>

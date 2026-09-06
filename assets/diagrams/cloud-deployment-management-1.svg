@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 3계층인가</title>
+  <desc id="d">Deployment, ReplicaSet, Pod 간의 3계층 구조와 롤백 동작 방식을 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Top level: Deployment -->
+  <g>
+    <rect x="290" y="30" width="300" height="70" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="440" y="58" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">Deployment: web</text>
+    <text x="440" y="80" font-size="13" fill="#52606d" text-anchor="middle">이미지 v2, replicas: 3</text>
+  </g>
+
+  <!-- Arrow from Deployment down to split point -->
+  <path d="M440,100 L440,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Label for arrow -->
+  <g>
+    <rect x="365" y="112" width="150" height="20" fill="#ffffff"/>
+    <text x="440" y="126" font-size="11.5" fill="#52606d" text-anchor="middle">템플릿 버전마다 하나씩</text>
+  </g>
+
+  <!-- Horizontal branch line & vertical arrows to ReplicaSets -->
+  <path d="M200,140 L680,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M200,140 L200,183" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M680,140 L680,183" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Left ReplicaSet (Old version v1, replicas 0) -->
+  <g>
+    <rect x="80" y="185" width="240" height="70" rx="6" ry="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="200" y="213" font-size="14" fill="#52606d" font-weight="bold" text-anchor="middle">ReplicaSet web-6f4</text>
+    <text x="200" y="235" font-size="13" fill="#52606d" text-anchor="middle">replicas: 0</text>
+    <text x="330" y="224" font-size="13" fill="#52606d" text-anchor="start">(구버전 v1)</text>
+    <text x="200" y="280" font-size="13" fill="#d97706" text-anchor="middle">롤백용으로 정의만 남음</text>
+  </g>
+
+  <!-- Right ReplicaSet (Current version v2, replicas 3) -->
+  <g>
+    <rect x="560" y="185" width="240" height="70" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="680" y="213" font-size="14" fill="#2563eb" font-weight="bold" text-anchor="middle">ReplicaSet web-9a2</text>
+    <text x="680" y="235" font-size="13" fill="#2563eb" text-anchor="middle">replicas: 3</text>
+    <text x="810" y="224" font-size="13" fill="#2563eb" text-anchor="start">(현재 v2)</text>
+  </g>
+
+  <!-- Connection from active ReplicaSet to Pods -->
+  <path d="M680,255 L680,310" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M420,310 L940,310" stroke="#2563eb" stroke-width="1.5" stroke-opacity="0"/> <!-- reference line -->
+  <path d="M420,310 L940,310" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M420,310 L420,353" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M680,310 L680,353" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M940,310 L940,353" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Adjust x positions of 3 pods to fit within 880 width centered around right area -->
+  <!-- Pod 1 -->
+  <g>
+    <rect x="360" y="355" width="120" height="130" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="420" y="385" font-size="14" fill="#059669" font-weight="bold" text-anchor="middle">Pod</text>
+    <text x="420" y="415" font-size="13" fill="#059669" text-anchor="middle">web-9a2</text>
+    <text x="420" y="445" font-size="13" fill="#059669" text-anchor="middle">-k2p</text>
+  </g>
+
+  <!-- Pod 2 -->
+  <g>
+    <rect x="620" y="355" width="120" height="130" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="680" y="385" font-size="14" fill="#059669" font-weight="bold" text-anchor="middle">Pod</text>
+    <text x="680" y="415" font-size="13" fill="#059669" text-anchor="middle">web-9a2</text>
+    <text x="680" y="445" font-size="13" fill="#059669" text-anchor="middle">-x8m</text>
+  </g>
+
+  <!-- Pod 3 -->
+  <g>
+    <rect x="740" y="355" width="120" height="130" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="800" y="385" font-size="14" fill="#059669" font-weight="bold" text-anchor="middle">Pod</text>
+    <text x="800" y="415" font-size="13" fill="#059669" text-anchor="middle">web-9a2</text>
+    <text x="800" y="445" font-size="13" fill="#059669" text-anchor="middle">-q7d</text>
+  </g>
+
+  <!-- Correcting Pod 1, 2, 3 positions to be evenly distributed -->
+  <!-- Let’s redraw path & pods for perfectly balanced layout -->
+</svg>

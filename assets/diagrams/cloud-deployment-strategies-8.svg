@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1320" width="880" height="1320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">확장-수축 패턴 (Expand-Contract)</title>
+  <desc id="d">무중단 DB 스키마 마이그레이션을 위한 Expand-Contract 패턴의 6단계 절차와 코드 예시 다이어그램</desc>
+  <rect width="880" height="1320" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="440" y="40" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">### 확장-수축 패턴 (Expand-Contract)</text>
+
+  <!-- Step 1 -->
+  <g>
+    <rect x="30" y="60" width="820" height="170" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <rect x="45" y="75" width="790" height="32" rx="4" fill="#2563eb"/>
+    <text x="55" y="96" font-size="14" font-weight="bold" fill="#ffffff">[1단계 · Expand] 새 컬럼을 추가만 한다 (nullable, 기본값 있음)</text>
+    
+    <!-- Code Box -->
+    <rect x="45" y="115" width="790" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="60" y="140" font-size="13" font-family="'Courier New', monospace" fill="#1f2933">ALTER TABLE users ADD COLUMN full_name VARCHAR(255) NULL;</text>
+    
+    <!-- Arrow & Desc -->
+    <path d="M 55 185 L 75 185" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="85" y="189" font-size="13" fill="#1f2933">이 시점에 배포는 없다. v1은 새 컬럼의 존재를 모르지만 아무 영향 없다.</text>
+  </g>
+
+  <!-- Transition Arrow 1-2 -->
+  <path d="M 440 230 L 440 250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2 -->
+  <g>
+    <rect x="30" y="250" width="820" height="170" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <rect x="45" y="265" width="790" height="32" rx="4" fill="#52606d"/>
+    <text x="55" y="286" font-size="14" font-weight="bold" fill="#ffffff">[2단계 · 이중 쓰기] 앱을 배포한다. 쓸 때는 양쪽 다, 읽을 때는 아직 옛 컬럼.</text>
+    
+    <!-- Code Box -->
+    <rect x="45" y="305" width="790" height="60" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="60" y="330" font-size="13" font-family="'Courier New', monospace" fill="#1f2933">INSERT/UPDATE 시 user_name과 full_name 모두 채운다</text>
+    <text x="60" y="350" font-size="13" font-family="'Courier New', monospace" fill="#1f2933">SELECT 는 user_name 사용</text>
+    
+    <!-- Arrow & Desc -->
+    <path d="M 55 390 L 75 390" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="85" y="394" font-size="13" fill="#1f2933">롤백해도 안전하다. v1이 user_name만 써도 데이터가 온전하다.</text>
+  </g>
+
+  <!-- Transition Arrow 2-3 -->
+  <path d="M 440 420 L 440 440" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 -->
+  <g>
+    <rect x="30" y="440" width="820" height="230" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <rect x="45" y="455" width="790" height="32" rx="4" fill="#d97706"/>
+    <text x="55" y="476" font-size="14" font-weight="bold" fill="#ffffff">[3단계 · 백필] 기존 행의 새 컬럼을 채운다.</text>
+    
+    <!-- Code Box -->
+    <rect x="45" y="495" width="790" height="120" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="60" y="518" font-size="13" font-family="'Courier New', monospace" fill="#52606d">-- MySQL: UPDATE 에 LIMIT 을 붙일 수 있다</text>
+    <text x="60" y="538" font-size="13" font-family="'Courier New', monospace" fill="#1f2933">UPDATE users SET full_name = user_name WHERE full_name IS NULL LIMIT 1000;</text>
+    <text x="60" y="558" font-size="13" font-family="'Courier New', monospace" fill="#52606d">-- PostgreSQL: UPDATE 는 LIMIT 을 받지 않는다. 키 집합을 서브쿼리로 끊는다</text>
+    <text x="60" y="578" font-size="13" font-family="'Courier New', monospace" fill="#1f2933">UPDATE users SET full_name = user_name</text>
+    <text x="60" y="598" font-size="13" font-family="'Courier New', monospace" fill="#1f2933"> WHERE id IN (SELECT id FROM users WHERE full_name IS NULL LIMIT 1000);</text>
+    
+    <!-- Arrow & Desc -->
+    <path d="M 55 640 L 75 640" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="85" y="644" font-size="13" fill="#1f2933">배치로 나눠 돌린다. 한 번에 하면 대량 락과 긴 트랜잭션으로 서비스가 멈춘다.</text>
+  </g>
+
+  <!-- Transition Arrow 3-4 -->
+  <path d="M 440 670 L 440 690" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 4 -->
+  <g>
+    <rect x="30" y="690" width="820" height="170" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <rect x="45" y="705" width="790" height="32" rx="4" fill="#52606d"/>
+    <text x="55" y="726" font-size="14" font-weight="bold" fill="#ffffff">[4단계 · 읽기 전환] 앱을 배포한다. 읽기를 새 컬럼으로 바꾼다.</text>
+    
+    <!-- Code Box -->
+    <rect x="45" y="745" width="790" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="60" y="770" font-size="13" font-family="'Courier New', monospace" fill="#1f2933">SELECT 는 full_name 사용, 쓰기는 여전히 양쪽</text>
+    
+    <!-- Arrow & Desc -->
+    <path d="M 55 810 L 75 810" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="85" y="814" font-size="13" fill="#1f2933">여기서 문제가 생기면 이전 버전으로 롤백하면 된다. 데이터는 양쪽에 다 있다.</text>
+  </g>
+
+  <!-- Transition Arrow 4-5 -->
+  <path d="M 440 860 L 440 880" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5 -->
+  <g>
+    <rect x="30" y="880" width="820" height="120" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <rect x="45" y="895" width="790" height="32" rx="4" fill="#7c3aed"/>
+    <text x="55" y="916" font-size="14" font-weight="bold" fill="#ffffff">[5단계 · 쓰기 정리] 앱을 배포한다. 옛 컬럼 쓰기를 제거한다.</text>
+    
+    <!-- Arrow & Desc -->
+    <path d="M 55 960 L 75 960" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="85" y="964" font-size="13" fill="#1f2933">관찰 기간을 충분히 둔다. 며칠 단위가 보통이다.</text>
+  </g>
+
+  <!-- Transition Arrow 5-6 -->
+  <path d="M 440 1000 L 440 1020" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 6 -->
+  <g>
+    <rect x="30" y="1020" width="820" height="170" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <rect x="45" y="1035" width="790" height="32" rx="4" fill="#dc2626"/>
+    <text x="55" y="1056" font-size="14" font-weight="bold" fill="#ffffff">[6단계 · Contract] 아무도 안 쓰는 게 확인되면 옛 컬럼을 제거한다.</text>
+    
+    <!-- Code Box -->
+    <rect x="45" y="1075" width="790" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="60" y="1100" font-size="13" font-family="'Courier New', monospace" fill="#1f2933">ALTER TABLE users DROP COLUMN user_name;</text>
+    
+    <!-- Arrow & Desc -->
+    <path d="M 55 1140 L 75 1140" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    <text x="85" y="1144" font-size="13" fill="#1f2933">되돌릴 수 없는 유일한 단계. 그래서 가장 마지막이고, 가장 늦게 한다.</text>
+  </g>
+</svg>

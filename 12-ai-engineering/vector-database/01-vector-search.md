@@ -69,6 +69,11 @@ LIKE 검색 결과: 0건
 
 ### 무엇이 다른가
 
+<!-- diagram:ai-vector-search-1 -->
+![무엇이 다른가](../../assets/diagrams/ai-vector-search-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         내적(Dot Product)              코사인(Cosine)              L2 거리(Euclidean)
       크기 × 크기 × cos θ                  cos θ                    두 점 사이 직선거리
@@ -83,6 +88,7 @@ LIKE 검색 결과: 0건
      길이가 길수록 큰 값             각도만 본다                 좌표 차이 그대로
      → 긴 문서가 유리해질 수 있음    → 문서 길이에 중립          → 크기 차이에 민감
 ```
+-->
 
 | 측정 | 범위 | 크기 영향 | 주로 쓰는 곳 |
 |------|------|----------|------------|
@@ -144,6 +150,11 @@ D, I = index.search(query_vec, k=5)
 
 가장 정직한 방법은 쿼리 벡터와 모든 벡터의 거리를 재는 것이다(brute force, 완전 탐색). 결과는 100% 정확하다. 문제는 비용이다.
 
+<!-- diagram:ai-vector-search-2 -->
+![계산량](../../assets/diagrams/ai-vector-search-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 벡터 1,000만 개 × 1,024 차원
 
@@ -153,6 +164,7 @@ D, I = index.search(query_vec, k=5)
 초당 100건의 검색 요청이 들어온다면?
 → 초당 1조 회. 이 규모에서는 감당할 방법이 없다
 ```
+-->
 
 메모리도 만만치 않다. 1,024차원 float32 벡터 하나가 4KB다. 1,000만 개면 벡터 데이터만 40GB다.
 
@@ -167,6 +179,9 @@ ANN(Approximate Nearest Neighbor, 근사 최근접 이웃)의 아이디어는 �
 ---
 
 ## 5. HNSW: 그래프를 타고 이동한다
+
+<!-- diagram:vec-hnsw-layers -->
+![HNSW 계층 그래프와 상위에서 하위로 내려오는 탐색 경로](../../assets/diagrams/vec-hnsw-layers.svg)
 
 ### 동작 원리
 
@@ -214,6 +229,9 @@ Layer 0 (전체)   [A][B][C][D][E][F][G][H]         이웃끼리만 연결
 ---
 
 ## 6. IVF: 구역을 나눠 일부만 본다
+
+<!-- diagram:ai-vector-search -->
+![IVF 클러스터 분할과 경계 건너편 정답을 놓치는 문제](../../assets/diagrams/ai-vector-search.svg)
 
 ### 동작 원리
 
@@ -283,6 +301,11 @@ IVF-PQ는 여기에 곱 양자화(Product Quantization)를 더해 **벡터 자�
 
 실무 검색에는 거의 항상 조건이 붙는다. "이 사용자가 접근 가능한 문서 중에서", "2024년 이후 문서 중에서". 문제는 **필터와 ANN 인덱스가 서로 잘 맞지 않는다**는 것이다.
 
+<!-- diagram:ai-vector-search-3 -->
+![7. 메타데이터 필터링의 함정](../../assets/diagrams/ai-vector-search-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Post-filtering (검색 먼저, 필터 나중)
 
@@ -299,6 +322,7 @@ Pre-filtering (필터 먼저, 검색 나중)
               5,000개 부분집합 안에서 그래프를 타면 길이 끊겨
               엉뚱한 곳에 갇히거나, 결국 5,000개를 다 비교하게 된다
 ```
+-->
 
 ### 안티패턴
 

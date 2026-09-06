@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">6. singleton에 prototype을 주입하면</title>
+  <desc id="d">singleton 빈에 prototype 빈을 주입했을 때 기대한 동작과 실제 동작의 차이를 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Left Column: 기대한 동작 -->
+  <rect x="40" y="30" width="380" height="280" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="230" y="65" text-anchor="middle" font-size="16" font-weight="bold" fill="#059669">기대한 동작</text>
+  <line x1="60" y1="80" x2="400" y2="80" stroke="#059669" stroke-width="2"/>
+
+  <!-- Expected Row A -->
+  <rect x="70" y="105" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="115" y="127.6" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">요청A</text>
+  
+  <path d="M160,123 L259,123" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <rect x="260" y="105" width="120" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="320" y="127.6" text-anchor="middle" font-size="13" fill="#1f2933">cart #1</text>
+
+  <!-- Expected Row B -->
+  <rect x="70" y="165" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="115" y="187.6" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">요청B</text>
+
+  <path d="M160,183 L259,183" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <rect x="260" y="165" width="120" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="320" y="187.6" text-anchor="middle" font-size="13" fill="#1f2933">cart #2</text>
+
+  <!-- Expected Row C -->
+  <rect x="70" y="225" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="115" y="247.6" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">요청C</text>
+
+  <path d="M160,243 L259,243" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <rect x="260" y="225" width="120" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="320" y="247.6" text-anchor="middle" font-size="13" fill="#1f2933">cart #3</text>
+
+
+  <!-- Right Column: 실제 동작 -->
+  <rect x="460" y="30" width="380" height="280" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="650" y="65" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">실제 동작</text>
+  <line x1="480" y1="80" x2="820" y2="80" stroke="#dc2626" stroke-width="2"/>
+
+  <!-- Actual Requests -->
+  <rect x="490" y="105" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="535" y="127.6" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">요청A</text>
+
+  <rect x="490" y="165" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="535" y="187.6" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">요청B</text>
+
+  <rect x="490" y="225" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="535" y="247.6" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">요청C</text>
+
+  <!-- Merging Paths -->
+  <path d="M580,123 L615,123 L615,183 M580,183 L615,183 M580,243 L615,243 L615,183" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+  <path d="M615,183 L679,183" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Actual Target Box (Single Shared Instance) -->
+  <rect x="680" y="165" width="140" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="750" y="187.6" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">cart #1</text>
+
+  <!-- Subtitle Text -->
+  <text x="650" y="247.6" text-anchor="middle" font-size="11.5" fill="#52606d">(전부 같은 객체)</text>
+</svg>

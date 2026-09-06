@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">3.2 조회 경로</title>
+  <desc id="d">email 보조 인덱스에서 PK 값인 42를 찾은 뒤, 42를 이용해 클러스터드 인덱스에서 실제 행 데이터를 탐색하는 2단계 조회 경로 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- SQL 쿼리문 및 설명 -->
+  <text x="40" y="38" font-size="14" font-weight="bold" fill="#1f2933">SELECT * FROM member WHERE email = 'kim@example.com';</text>
+  <text x="50" y="60" font-size="11.5" fill="#52606d">(email 에 보조 인덱스가 있고, 기본키는 id)</text>
+
+  <!-- Step 1: 보조 인덱스(email) 탐색 -->
+  <text x="180" y="98" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">① 보조 인덱스(email) 탐색</text>
+  <rect x="40" y="110" width="280" height="120" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="138" font-size="13" fill="#52606d">...</text>
+  <rect x="56" y="152" width="220" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="2"/>
+  <text x="64" y="169" font-size="13" fill="#1f2933">[kim@example.com → 42]</text>
+  <text x="60" y="208" font-size="13" fill="#52606d">...</text>
+  <text x="180" y="252" font-size="11.5" fill="#52606d" text-anchor="middle">리프에 PK 값만 있다</text>
+
+  <!-- 연결 화살표 및 라벨 '42' -->
+  <path d="M 320,165 L 530,165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="405" y="152" width="40" height="22" fill="#ffffff"/>
+  <text x="425" y="168" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">42</text>
+
+  <!-- Step 2: 클러스터드 인덱스(id) 탐색 -->
+  <text x="680" y="98" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">② 클러스터드 인덱스(id) 탐색</text>
+  <rect x="530" y="110" width="300" height="120" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="550" y="138" font-size="13" fill="#52606d">...</text>
+  <rect x="546" y="152" width="268" height="42" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="2"/>
+  <text x="554" y="169" font-size="13" fill="#1f2933">[42 → (42, 김개발,</text>
+  <text x="600" y="187" font-size="13" fill="#1f2933">kim@example.com)]</text>
+  <text x="550" y="215" font-size="13" fill="#52606d">...</text>
+  <text x="680" y="252" font-size="11.5" fill="#52606d" text-anchor="middle">리프에 행 전체가 있다</text>
+
+  <!-- 하단 결론 / 설명 -->
+  <text x="440" y="304" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">트리를 두 번 탄다 → 보조 인덱스 조회는 클러스터드보다 비싸다</text>
+</svg>

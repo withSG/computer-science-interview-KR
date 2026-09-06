@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">하이브리드 클라우드 연결 구조</title>
+  <desc id="d">온프레미스/프라이빗과 퍼블릭 클라우드 VPC가 전용선(주 경로) 및 IPsec VPN(백업 경로)으로 연결된 하이브리드 클라우드 네트워크 아키텍처 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    </marker>
+  </defs>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- [ 온프레미스 / 프라이빗 ] 상단 영역 -->
+  <rect x="40" y="30" width="360" height="200" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="220" y="65" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">[ 온프레미스 / 프라이빗 ]</text>
+  <line x1="60" y1="80" x2="380" y2="80" stroke="#9aa5b1" stroke-width="1"/>
+  
+  <text x="60" y="112" font-size="13" fill="#1f2933">코어 DB (규제 데이터)</text>
+  <text x="60" y="147" font-size="13" fill="#1f2933">기간계 시스템</text>
+  <text x="60" y="182" font-size="13" fill="#1f2933">사내 인증 (LDAP/AD)</text>
+
+  <!-- [ 퍼블릭 클라우드 VPC ] 상단 영역 -->
+  <rect x="480" y="30" width="360" height="200" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="660" y="65" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[ 퍼블릭 클라우드 VPC ]</text>
+  <line x1="500" y1="80" x2="840" y2="80" stroke="#9aa5b1" stroke-width="1"/>
+
+  <text x="500" y="112" font-size="13" fill="#1f2933">웹/API 서버 (오토스케일링)</text>
+  <text x="500" y="147" font-size="13" fill="#1f2933">배치·분석 클러스터</text>
+  <text x="500" y="182" font-size="13" fill="#1f2933">개발·테스트 환경</text>
+
+  <!-- 연결선 - 왼쪽 (온프레미스 분기선) -->
+  <path d="M 220,230 L 220,310 M 220,310 L 320,310 M 220,310 L 220,400 M 220,400 L 320,400" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 연결선 - 오른쪽 (퍼블릭 클라우드 분기선) -->
+  <path d="M 660,230 L 660,310 M 560,310 L 660,310 M 660,310 L 660,400 M 560,400 L 660,400" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 경로 1: 전용선 (Direct Connect 등) -->
+  <rect x="320" y="285" width="240" height="50" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="307" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">전용선 (Direct</text>
+  <text x="440" y="323" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Connect 등)</text>
+
+  <!-- 경로 1 부가설명 -->
+  <text x="575" y="314.5" font-size="11.5" fill="#2563eb" font-weight="bold">주 경로: 낮은 지연, 대역폭 보장</text>
+
+  <!-- 경로 2: IPsec VPN (인터넷) -->
+  <rect x="320" y="375" width="240" height="50" rx="4" ry="4" fill="#f8fafc" stroke="#52606d" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="440" y="404.5" font-size="13" fill="#1f2933" text-anchor="middle">IPsec VPN (인터넷)</text>
+
+  <!-- 경로 2 부가설명 -->
+  <text x="575" y="404.5" font-size="11.5" fill="#52606d">백업 경로: 지연·대역폭 열세</text>
+</svg>

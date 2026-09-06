@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">표준 절차</title>
+  <desc id="d">장애 대응 표준 절차 0단계부터 6단계까지의 흐름 및 세부 활동 다이어그램</desc>
+  <rect width="880" height="770" fill="#ffffff"/>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 전체 외곽 영역 (원본의 대형 박스) -->
+  <rect x="24" y="24" width="832" height="722" fill="#ffffff" stroke="#9aa5b1" stroke-width="2" rx="6"/>
+
+  <!-- 0단계: 상황 파악 (1분) -->
+  <rect x="36" y="36" width="808" height="90" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
+  <text x="52" y="61" fill="#d97706" font-size="14" font-weight="bold">0단계  상황 파악 (1분)</text>
+  <text x="68" y="86" fill="#1f2933" font-size="13">· 언제부터? 전체인가 일부인가? 특정 기능만인가?</text>
+  <text x="68" y="108" fill="#1f2933" font-size="13">· 최근 배포/설정 변경이 있었나?</text>
+  <!-- 지시선 및 주석 (← 있었다면 1순위 용의자) -->
+  <path d="M 320,104 L 285,104" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="328" y="108" fill="#dc2626" font-size="13" font-weight="bold">있었다면 1순위 용의자</text>
+
+  <!-- 구분선 1 -->
+  <line x1="24" y1="138" x2="856" y2="138" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 1단계: 영향 축소 (즉시) -->
+  <rect x="36" y="150" width="808" height="76" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+  <text x="52" y="175" fill="#dc2626" font-size="14" font-weight="bold">1단계  영향 축소 (즉시)</text>
+  <text x="68" y="200" fill="#1f2933" font-size="13">· 배포 직후면 원인 분석 전에 롤백</text>
+  <text x="68" y="222" fill="#1f2933" font-size="13">· 트래픽 급증이면 스케일 아웃 / 레이트 리밋</text>
+
+  <!-- 구분선 2 -->
+  <line x1="24" y1="238" x2="856" y2="238" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 2단계: 대시보드 (3분) -->
+  <rect x="36" y="250" width="808" height="76" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+  <text x="52" y="275" fill="#1f2933" font-size="14" font-weight="bold">2단계  대시보드 (3분)</text>
+  <text x="68" y="300" fill="#1f2933" font-size="13">· p95 지연, 에러율, RPS, 자원 사용률의 "꺾인 시각"을 찾는다</text>
+  <text x="68" y="322" fill="#1f2933" font-size="13">· 이 시각과 배포/배치 스케줄을 대조</text>
+
+  <!-- 구분선 3 -->
+  <line x1="24" y1="338" x2="856" y2="338" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 3단계: 서버 직접 확인 (5분) - 핵심 강조 구간 -->
+  <rect x="36" y="350" width="808" height="100" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="4"/>
+  <text x="52" y="375" fill="#2563eb" font-size="14" font-weight="bold">3단계  서버 직접 확인 (5분)</text>
+  <!-- 이 문서의 본론 (← 주석) -->
+  <path d="M 285,371 L 250,371" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="293" y="375" fill="#2563eb" font-size="13" font-weight="bold">이 문서의 본론</text>
+  
+  <rect x="68" y="388" width="530" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
+  <text x="80" y="405" fill="#1f2933" font-size="13" font-family="monospace" font-weight="bold">uptime → top → free -h → df -h → vmstat 1 → iostat -x 1</text>
+  <text x="68" y="437" fill="#1f2933" font-size="13">어느 자원이 포화됐는지 하나로 특정한다</text>
+
+  <!-- 구분선 4 -->
+  <line x1="24" y1="462" x2="856" y2="462" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 4단계: 프로세스 특정 -->
+  <rect x="36" y="474" width="808" height="68" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+  <text x="52" y="499" fill="#1f2933" font-size="14" font-weight="bold">4단계  프로세스 특정</text>
+  <text x="68" y="524" fill="#1f2933" font-size="13" font-family="monospace">ps aux --sort=-%cpu / -%mem, pidstat, iotop</text>
+
+  <!-- 구분선 5 -->
+  <line x1="24" y1="554" x2="856" y2="554" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 5단계: 로그 (5분) -->
+  <rect x="36" y="566" width="808" height="68" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+  <text x="52" y="591" fill="#1f2933" font-size="14" font-weight="bold">5단계  로그 (5분)</text>
+  <text x="68" y="616" fill="#1f2933" font-size="13">journalctl -u &lt;svc&gt;, dmesg -T, 애플리케이션 로그</text>
+
+  <!-- 구분선 6 -->
+  <line x1="24" y1="646" x2="856" y2="646" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 6단계: 근본 원인 + 재발 방지 -->
+  <rect x="36" y="658" width="808" height="68" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="52" y="683" fill="#059669" font-size="14" font-weight="bold">6단계  근본 원인 + 재발 방지</text>
+  <text x="68" y="708" fill="#1f2933" font-size="13">알람 추가, 임계치 조정, 코드 수정, 런북 갱신</text>
+</svg>

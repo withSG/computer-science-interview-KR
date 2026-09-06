@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">원인 3. 재사용되던 커넥션이 서버 쪽에서 먼저 끊긴다</title>
+  <desc id="d">서버의 keep-alive 타임아웃이 로드 밸런서의 유휴 타임아웃보다 짧아 연결이 상호 경쟁 상태에 빠져 ECONNRESET 및 502 에러가 발생하는 과정을 나타낸 시퀀스 다이어그램</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Top Config Cards -->
+  <rect x="40" y="30" width="380" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="54" y="57" font-size="14" fill="#1f2933" font-weight="bold">서버 keep-alive 타임아웃 = 5초</text>
+
+  <rect x="460" y="30" width="380" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="474" y="57" font-size="14" fill="#1f2933" font-weight="bold">로드 밸런서 유휴 타임아웃 = 60초</text>
+
+  <!-- Timeline Lifelines (Server / LB) -->
+  <line x1="230" y1="90" x2="230" y2="390" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="650" y1="90" x2="650" y2="390" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Timeline Node Headings -->
+  <rect x="170" y="90" width="120" height="32" rx="4" fill="#1f2933"/>
+  <text x="230" y="111" font-size="14" fill="#ffffff" font-weight="bold" text-anchor="middle">서버</text>
+
+  <rect x="590" y="90" width="120" height="32" rx="4" fill="#1f2933"/>
+  <text x="650" y="111" font-size="14" fill="#ffffff" font-weight="bold" text-anchor="middle">LB</text>
+
+  <!-- t=0 Row -->
+  <text x="50" y="159" font-size="13" fill="#2563eb" font-weight="bold">t=0</text>
+  <rect x="230" y="142" width="420" height="26" fill="#eff6ff" rx="4"/>
+  <text x="440" y="159" font-size="13" fill="#1f2933" text-anchor="middle">요청 처리 완료. 연결 유지.</text>
+
+  <!-- t=5.000 Row (Server sends FIN) -->
+  <text x="50" y="219" font-size="13" fill="#d97706" font-weight="bold">t=5.000</text>
+  <path d="M230,215 L650,215" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="250" y="202" width="380" height="26" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="440" y="219" font-size="13" fill="#1f2933" text-anchor="middle">서버: "5초 지났네" → FIN 전송 (연결 종료 시작)</text>
+
+  <!-- t=5.001 Row (LB sends New Request) -->
+  <text x="50" y="279" font-size="13" fill="#dc2626" font-weight="bold">t=5.001</text>
+  <path d="M650,275 L230,275" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="250" y="262" width="380" height="26" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
+  <text x="440" y="279" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">LB:   "이 연결 아직 살아있지" → 새 요청 전송</text>
+
+  <!-- Failure Details Box -->
+  <rect x="230" y="315" width="570" height="70" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="250" y="342" font-size="13" fill="#dc2626" font-weight="bold">└─ 이미 닫히는 중인 연결에 요청을 씀</text>
+  <text x="250" y="368" font-size="13" fill="#dc2626" font-weight="bold">└─ 서버는 RST 응답 → 클라이언트는 ECONNRESET / 502</text>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">드라이버, 익스큐터, 클러스터 매니저 구조도</title>
+  <desc id="d">Spark의 Driver, Cluster Manager, Executor 간의 인터랙션 및 관계를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-amber-rev" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M10,0 L0,5 L10,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <!-- 1. Driver Box -->
+  <rect x="100" y="30" width="680" height="170" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="120" y="65" font-size="16" font-weight="bold" fill="#1f2933">Driver (드라이버)</text>
+  <text x="120" y="95" font-size="13" fill="#52606d">- 내가 쓴 코드가 실행되는 곳</text>
+  <text x="120" y="122" font-size="13" fill="#52606d">- 논리 계획을 만들고 최적화해 Stage/Task로 쪼갠다</text>
+  <text x="120" y="149" font-size="13" fill="#52606d">- 각 Task를 어느 익스큐터에 보낼지 결정하고 진행을 추적</text>
+  <text x="120" y="176" font-size="13" fill="#52606d">- SparkSession(spark 변수)이 여기 산다</text>
+
+  <!-- Arrow 1: Driver -> Cluster Manager -->
+  <path d="M440,200 L440,260" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="390" y="217" width="100" height="24" fill="#ffffff" rx="3" ry="3"/>
+  <text x="440" y="233" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">① 자원 요청</text>
+
+  <!-- 2. Cluster Manager Box -->
+  <rect x="100" y="260" width="680" height="90" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="120" y="295" font-size="16" font-weight="bold" fill="#1f2933">Cluster Manager (YARN / Kubernetes / Standalone)</text>
+  <text x="120" y="325" font-size="13" fill="#52606d">- 클러스터의 CPU·메모리를 관리하고 익스큐터를 띄워 준다</text>
+
+  <!-- Arrow 2: Cluster Manager -> Executor Grid Top -->
+  <path d="M440,350 L440,410" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="382" y="367" width="116" height="24" fill="#ffffff" rx="3" ry="3"/>
+  <text x="440" y="383" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">② 익스큐터 기동</text>
+
+  <!-- Arrow 3 Annotations (Right side indicator) -->
+  <path d="M785,475 L800,475" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <text x="808" y="479" font-size="13" font-weight="bold" fill="#059669">← ③ Task 실행</text>
+
+  <!-- 3. Executors -->
+  <!-- Executor 1 -->
+  <rect x="70" y="410" width="220" height="130" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="180" y="440" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Executor 1</text>
+  <text x="180" y="470" font-size="13" fill="#52606d" text-anchor="middle">Task Task</text>
+  <rect x="90" y="488" width="180" height="34" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4" ry="4"/>
+  <text x="180" y="510" font-size="13" fill="#1f2933" text-anchor="middle">[캐시 메모리]</text>
+
+  <!-- Executor 2 -->
+  <rect x="330" y="410" width="220" height="130" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="440" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Executor 2</text>
+  <text x="440" y="470" font-size="13" fill="#52606d" text-anchor="middle">Task Task</text>
+  <rect x="350" y="488" width="180" height="34" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4" ry="4"/>
+  <text x="440" y="510" font-size="13" fill="#1f2933" text-anchor="middle">[캐시 메모리]</text>
+
+  <!-- Executor 3 -->
+  <rect x="590" y="410" width="220" height="130" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="690" y="440" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Executor 3</text>
+  <text x="690" y="470" font-size="13" fill="#52606d" text-anchor="middle">Task Task</text>
+  <rect x="610" y="488" width="180" height="34" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4" ry="4"/>
+  <text x="690" y="510" font-size="13" fill="#1f2933" text-anchor="middle">[캐시 메모리]</text>
+
+  <!-- Arrow 4: Shuffle Data Exchange between Executors -->
+  <path d="M180,540 L180,610 L700,610 L700,540" stroke="#d97706" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-start="url(#a-amber-rev)" marker-end="url(#a-amber)"/>
+  <path d="M440,540 L440,610" stroke="#d97706" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+  
+  <rect x="300" y="597" width="280" height="26" fill="#ffffff" rx="3" ry="3"/>
+  <text x="440" y="615" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">└──────── ④ 셔플 시 서로 데이터 교환 ────────┘</text>
+</svg>

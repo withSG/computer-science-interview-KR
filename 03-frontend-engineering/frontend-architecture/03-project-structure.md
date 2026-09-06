@@ -121,6 +121,11 @@ Brad Frost가 제안한 UI 구성 방법론으로, 화학의 원자·분자 비�
 
 기능별 구조를 규칙으로 정형화한 방법론이다. 세 축으로 코드를 나눈다.
 
+<!-- diagram:fe-project-structure-1 -->
+![FSD](../../assets/diagrams/fe-project-structure-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 레이어(layer)  ─ 위에서 아래로만 의존할 수 있다
 
@@ -141,6 +146,7 @@ Brad Frost가 제안한 UI 구성 방법론으로, 화학의 원자·분자 비�
 
 세그먼트(segment) ─ 슬라이스 안의 기술 구분 (ui, model, api, lib)
 ```
+-->
 
 핵심 규칙 두 개만 기억하면 된다. **위 레이어는 아래 레이어만 import한다. 같은 레이어의 형제 슬라이스끼리는 import하지 않는다.** 두 규칙을 지키면 레이어와 슬라이스 사이에는 순환이 생길 수 없다. 슬라이스 하나 안에서 파일끼리 순환하는 것까지 막아주지는 않으므로, 뒤에서 볼 `import/no-cycle`은 여전히 필요하다.
 
@@ -167,6 +173,11 @@ Brad Frost가 제안한 UI 구성 방법론으로, 화학의 원자·분자 비�
 
 ### 단방향 규칙
 
+<!-- diagram:fe-project-structure-2 -->
+![단방향 규칙](../../assets/diagrams/fe-project-structure-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         ┌───────────────────────────────────────────┐
         │                  app                      │  라우팅, 프로바이더
@@ -189,6 +200,7 @@ Brad Frost가 제안한 UI 구성 방법론으로, 화학의 원자·분자 비�
   아래 레이어는 위 레이어를 절대 모른다.
   shared/Button.tsx 안에 features/auth가 import돼 있다면 규칙 위반이다.
 ```
+-->
 
 형제 기능끼리 import를 금지하는 것이 처음엔 답답하게 느껴진다. 주문 화면에서 사용자 정보가 필요한 상황은 흔하기 때문이다. 해법은 두 가지다.
 
@@ -326,6 +338,11 @@ function UserProfile({ id }: { id: string }) {
 
 **BFF(Backend For Frontend)**는 그 앞에 클라이언트 전용 서버를 하나 두는 방식이다.
 
+<!-- diagram:fe-project-structure-3 -->
+![6. Monolithic, MSA, BFF가 프론트에 미치는 영향](../../assets/diagrams/fe-project-structure-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [BFF 없음]                             [BFF 있음]
 
@@ -342,6 +359,7 @@ function UserProfile({ id }: { id: string }) {
 
                                      프론트는 BFF만 안다
 ```
+-->
 
 BFF는 공짜가 아니다. **BFF가 죽으면 프론트 전체가 멈춘다(SPOF, 단일 장애점).** 완화 수단은 백엔드 쪽 관례를 그대로 따른다. 인스턴스를 여러 개 띄우고 로드 밸런서를 앞에 두기, health check로 비정상 인스턴스를 빼기, 배포 중 요청 유실을 막는 graceful shutdown, 하위 서비스 장애가 번지지 않도록 타임아웃·서킷 브레이커·폴백을 두기, 그리고 웹용·모바일용 BFF를 나눠 장애를 격리하기다.
 

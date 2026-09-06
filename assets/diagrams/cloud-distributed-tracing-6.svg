@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">OpenTelemetry가 해결한 문제</title>
+  <desc id="d">애플리케이션에서 OpenTelemetry Collector를 거쳐 다양한 백엔드로 데이터를 내보내는 아키텍처 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- Section Title -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">OpenTelemetry가 해결한 문제</text>
+
+  <!-- Top Box: Application -->
+  <rect x="40" y="65" width="800" height="70" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="108" font-size="14" font-weight="bold" fill="#1f2933">애플리케이션</text>
+  <text x="175" y="108" font-size="14" fill="#2563eb" font-weight="bold">OTel API/SDK (자동 계측 또는 수동 계측)</text>
+
+  <!-- Arrow 1: OTLP (gRPC / HTTP) -->
+  <path d="M440,135 L440,205" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="365" y="157" width="150" height="26" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4" ry="4"/>
+  <text x="440" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">OTLP (gRPC / HTTP)</text>
+
+  <!-- Middle Outer Box: OpenTelemetry Collector -->
+  <rect x="40" y="205" width="800" height="210" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="238" font-size="14" font-weight="bold" fill="#1f2933">OpenTelemetry Collector</text>
+
+  <!-- Inner Pipeline Components -->
+  <!-- Receivers -->
+  <rect x="60" y="260" width="220" height="130" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="75" y="288" font-size="13" font-weight="bold" fill="#1f2933">receivers</text>
+  <text x="75" y="315" font-size="12" fill="#52606d">(OTLP,</text>
+  <text x="75" y="338" font-size="12" fill="#52606d"> Jaeger,</text>
+  <text x="75" y="361" font-size="12" fill="#52606d"> Zipkin)</text>
+
+  <!-- Arrow: receivers -> processors -->
+  <path d="M280,325 L320,325" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Processors -->
+  <rect x="320" y="260" width="240" height="130" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="335" y="288" font-size="13" font-weight="bold" fill="#1f2933">processors</text>
+  <text x="335" y="315" font-size="12" fill="#52606d">(batch,</text>
+  <text x="335" y="338" font-size="12" fill="#52606d"> tail_sampling,</text>
+  <text x="335" y="361" font-size="12" fill="#52606d"> attributes)</text>
+
+  <!-- Arrow: processors -> exporters -->
+  <path d="M560,325 L600,325" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Exporters -->
+  <rect x="600" y="260" width="220" height="130" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="615" y="288" font-size="13" font-weight="bold" fill="#1f2933">exporters</text>
+  <text x="615" y="315" font-size="12" fill="#52606d">(Jaeger, Tempo,</text>
+  <text x="615" y="338" font-size="12" fill="#52606d"> Datadog, S3 …)</text>
+
+  <!-- Arrow 2: To Backends -->
+  <path d="M440,415 L440,470" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="290" y="432" width="300" height="26" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4" ry="4"/>
+  <text x="440" y="449" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">Jaeger / Grafana Tempo / SaaS APM</text>
+</svg>

@@ -75,6 +75,11 @@ public class CacheService {
 
 ## 2. 생명주기 전 과정
 
+<!-- diagram:be-bean-lifecycle-1 -->
+![2. 생명주기 전 과정](../../assets/diagrams/be-bean-lifecycle-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌───────────────────────────────────────────────────────────────┐
 │ [1] 컨테이너 기동    클래스 스캔 → BeanDefinition(설계도) 등록 │
@@ -104,6 +109,7 @@ public class CacheService {
 │     (컨테이너 종료)     → @Bean(destroyMethod = "...")         │
 └───────────────────────────────────────────────────────────────┘
 ```
+-->
 
 ### [7]번을 기억해야 하는 이유
 
@@ -180,6 +186,11 @@ public class PoolConfig {
 
 "애플리케이션 시작할 때 이 코드를 돌리고 싶다"는 요구는 흔한데, 선택지가 여럿이라 헷갈린다.
 
+<!-- diagram:be-bean-lifecycle-2 -->
+![4. 언제 실행되는가](../../assets/diagrams/be-bean-lifecycle-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 컨테이너 기동
   │
@@ -193,6 +204,7 @@ public class PoolConfig {
   │
   └── ApplicationReadyEvent 발행                     ← Runner까지 끝난 상태
 ```
+-->
 
 | 시점 | 보장되는 것 | 적합한 작업 |
 |------|-----------|-----------|
@@ -292,6 +304,11 @@ public class OrderService {          // singleton
 
 **왜 문제인가**: 주입은 `OrderService`가 **만들어질 때 딱 한 번** 일어난다. 그 순간 `ShoppingCart` 하나가 생성되어 필드에 들어가고, 이후로는 영원히 그 인스턴스가 쓰인다. prototype이라고 선언했지만 **실질적으로 singleton처럼 동작**한다. 게다가 이 장바구니는 모든 사용자가 공유한다.
 
+<!-- diagram:be-bean-lifecycle-3 -->
+![6. singleton에 prototype을 주입하면](../../assets/diagrams/be-bean-lifecycle-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 기대한 동작                          실제 동작
 ──────────                          ─────────
@@ -299,6 +316,7 @@ public class OrderService {          // singleton
 요청B → cart #2                     요청B ─┼─> cart #1 (전부 같은 객체)
 요청C → cart #3                     요청C ─┘
 ```
+-->
 
 ### 해법 세 가지
 

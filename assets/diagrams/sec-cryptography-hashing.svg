@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">방어층을 쌓을 때마다 줄어드는 공격자의 초당 시도 횟수</title>
+  <desc id="d">SHA-256, Salt 추가, bcrypt cost 12 적용 단계에 따른 공격자의 초당 시도 횟수 감소와 정상 사용자의 로그인 1회 비용을 비교하는 로그 스케일 시각화 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <rect width="880" height="500" fill="#ffffff"/>
+  
+  <text x="440" y="42" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">방어층을 쌓을 때마다 줄어드는 공격자의 초당 시도 횟수</text>
+  
+  <line x1="440" y1="70" x2="440" y2="430" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  
+  <!-- Left Side: Attacker -->
+  <rect x="30" y="70" width="390" height="35" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="225" y="92" font-size="14" font-weight="600" fill="#dc2626" text-anchor="middle">공격자 (전수조사 / GPU 병렬화)</text>
+  
+  <text x="40" y="145" font-size="13" font-weight="500" fill="#1f2933">1. SHA-256 단독</text>
+  <rect x="40" y="155" width="370" height="26" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="172" font-size="11.5" font-weight="500" fill="#dc2626">초당 수십억 번 시도 가능 (마이크로초 단위)</text>
+  
+  <text x="40" y="235" font-size="13" font-weight="500" fill="#1f2933">2. SHA-256 + Salt</text>
+  <rect x="40" y="245" width="370" height="26" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="50" y="262" font-size="11.5" font-weight="500" fill="#d97706">레인보우 테이블 무효화</text>
+  <text x="40" y="288" font-size="11.5" font-weight="400" fill="#52606d">(단일 대상 공격은 여전히 가능)</text>
+  
+  <text x="40" y="325" font-size="13" font-weight="500" fill="#1f2933">3. bcrypt cost 12 (2^12 반복)</text>
+  <rect x="40" y="335" width="30" height="26" rx="3" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="80" y="352" font-size="11.5" font-weight="500" fill="#059669">수백만 분의 1로 급감 (치명적 비용)</text>
+  
+  <!-- Right Side: Normal User -->
+  <rect x="460" y="70" width="390" height="35" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="655" y="92" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">정상 사용자 (로그인 1회 비용)</text>
+  
+  <text x="470" y="145" font-size="13" font-weight="500" fill="#1f2933">1. SHA-256 단독</text>
+  <rect x="470" y="155" width="10" height="26" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="490" y="172" font-size="11.5" font-weight="400" fill="#52606d">1회 = 마이크로초 단위</text>
+  
+  <text x="470" y="235" font-size="13" font-weight="500" fill="#1f2933">2. SHA-256 + Salt</text>
+  <rect x="470" y="245" width="10" height="26" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="490" y="262" font-size="11.5" font-weight="400" fill="#52606d">1회 = 마이크로초 단위 (차이 없음)</text>
+  
+  <text x="470" y="325" font-size="13" font-weight="500" fill="#1f2933">3. bcrypt cost 12 (2^12 반복)</text>
+  <rect x="470" y="335" width="45" height="26" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="525" y="352" font-size="11.5" font-weight="500" fill="#2563eb">수십~수백 밀리초 (체감 안 되는 지연)</text>
+  
+  <line x1="30" y1="395" x2="850" y2="395" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <!-- Footer Note -->
+  <text x="440" y="420" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">비대칭성: 정상 사용자에게는 무시할 수 있는 지연이, 전수조사하는 공격자에게는 치명적인 비용이 된다.</text>
+  <text x="440" y="450" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">※ 기준: 사용자 체감을 해치지 않는 선에서 가장 높은 work factor를 적용해야 함</text>
+</svg>

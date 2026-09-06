@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">그래프 구성</title>
+  <desc id="d">LangGraph의 ReAct 루프 구조를 나타낸 흐름도로, START에서 model 노드를 거쳐 conditional edge로 tools 노드 또는 END로 분기하는 순환 흐름을 보여줍니다.</desc>
+
+  <defs>
+    <!-- Arrowhead Markers -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- Legend / Note Container for ReAct Loop Description -->
+  <rect x="40" y="380" width="800" height="100" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  
+  <text x="60" y="415" font-size="13" font-weight="bold" fill="#1f2933">이 순환이 ReAct 루프다. add_edge는 무조건 가는 길,</text>
+  <text x="60" y="445" font-size="13" font-weight="bold" fill="#1f2933">add_conditional_edges는 State를 보고 갈림길을 고르는 길이다.</text>
+
+  <!-- Flow Edges & Paths -->
+
+  <!-- 1. START -> model -->
+  <path d="M280,70 L280,102" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 2. model -> tools (도구 호출 있음) -->
+  <path d="M350,135 L522,135" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- Label background & text -->
+  <rect x="382" y="121" width="108" height="24" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="4"/>
+  <text x="436" y="138" font-size="12" fill="#2563eb" text-anchor="middle">도구 호출 있음</text>
+
+  <!-- 3. model -> END (도구 호출 없음) -->
+  <path d="M280,165 L280,242" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Label background & text -->
+  <rect x="226" y="191" width="108" height="24" fill="#ffffff" stroke="#52606d" stroke-width="1" rx="4"/>
+  <text x="280" y="208" font-size="12" fill="#52606d" text-anchor="middle">도구 호출 없음</text>
+
+  <!-- 4. tools -> END / Return path to model (결과를 State에 넣고 다시 model로) -->
+  <path d="M600,165 L600,315 L280,315 L280,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- Label background & text for loop back -->
+  <rect x="340" y="302" width="220" height="26" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="4"/>
+  <text x="450" y="319" font-size="12" fill="#7c3aed" text-anchor="middle">결과를 State에 넣고 다시 model로</text>
+
+  <!-- Nodes / Elements -->
+
+  <!-- START Node -->
+  <rect x="230" y="30" width="100" height="40" rx="20" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="280" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">START</text>
+
+  <!-- model Node -->
+  <rect x="210" y="105" width="140" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="280" y="140" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">model</text>
+
+  <!-- tools Node -->
+  <rect x="530" y="105" width="140" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="600" y="140" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">tools</text>
+
+  <!-- END Node -->
+  <rect x="230" y="245" width="100" height="40" rx="20" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="280" y="270" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">END</text>
+
+</svg>

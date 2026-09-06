@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">NAT Gateway</title>
+  <desc id="d">NAT Gateway의 아웃바운드 인터넷 접속 및 트래픽 흐름 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="730" fill="#ffffff"/>
+
+  <!-- 메인 인터넷 영역 -->
+  <text x="440" y="34.55" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2933">인터넷</text>
+  <path d="M440,45 L440,65" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- IGW 박스 -->
+  <rect x="320" y="65" width="240" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="440" y="89.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">IGW</text>
+  
+  <path d="M440,105 L440,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Public Subnet (AZ-a) -->
+  <rect x="200" y="140" width="480" height="130" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4" rx="6"/>
+  <text x="220" y="161.55" font-size="13" font-weight="bold" fill="#52606d">Public Subnet (AZ-a)</text>
+  
+  <!-- NAT Gateway Box & Arrow -->
+  <rect x="270" y="175" width="340" height="75" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="440" y="204.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">NAT Gateway</text>
+  <text x="440" y="229.55" text-anchor="middle" font-size="13" fill="#52606d">(AZ에 묶인 리소스)</text>
+  
+  <!-- 화살표 및 부가 설명 (퍼블릭 IP(EIP)를 가짐) -->
+  <text x="625" y="217.025" font-size="11.5" fill="#52606d">← 퍼블릭 IP(EIP)를 가짐</text>
+
+  <!-- Subnet 간 화살표 (아웃바운드만 통과) -->
+  <path d="M440,310 L440,250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="448" y="271" width="105" height="18" fill="#ffffff"/>
+  <text x="450" y="284.025" font-size="11.5" fill="#52606d">아웃바운드만 통과</text>
+
+  <!-- Private Subnet (AZ-a) -->
+  <rect x="200" y="310" width="480" height="110" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4" rx="6"/>
+  <text x="220" y="331.55" font-size="13" font-weight="bold" fill="#52606d">Private Subnet (AZ-a)</text>
+  
+  <!-- App 서버 Box -->
+  <rect x="270" y="345" width="340" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="440" y="374.55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">App 서버 (사설 IP만)</text>
+
+  <!-- 구분선 -->
+  <line x1="40" y1="445" x2="840" y2="445" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 하단 트래픽 흐름 섹션 -->
+  <!-- 1. 나가는 방향 -->
+  <text x="50" y="489.55" font-size="13" font-weight="bold" fill="#1f2933">나가는 방향:</text>
+  <text x="160" y="489.55" font-size="13" fill="#1f2933">App</text>
+  <path d="M192,485 L212,485" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="220" y="489.55" font-size="13" fill="#1f2933">NAT</text>
+  <path d="M255,485 L275,485" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="283" y="489.55" font-size="13" fill="#1f2933">IGW</text>
+  <path d="M315,485 L335,485" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="343" y="489.55" font-size="13" fill="#1f2933">인터넷</text>
+  <text x="500" y="489.55" font-size="13" font-weight="bold" fill="#059669">(가능)</text>
+
+  <!-- 2. 응답 트래픽 -->
+  <text x="50" y="549.55" font-size="13" font-weight="bold" fill="#1f2933">응답 트래픽:</text>
+  <text x="160" y="549.55" font-size="13" fill="#1f2933">인터넷</text>
+  <path d="M205,545 L225,545" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="233" y="549.55" font-size="13" fill="#1f2933">IGW</text>
+  <path d="M265,545 L285,545" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="293" y="549.55" font-size="13" fill="#1f2933">NAT</text>
+  <path d="M328,545 L348,545" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="356" y="549.55" font-size="13" fill="#1f2933">App</text>
+  <text x="500" y="549.55" font-size="13" font-weight="bold" fill="#059669">(가능, 연결 추적으로 되돌려줌)</text>
+
+  <!-- 3. 외부가 먼저 시작 -->
+  <text x="50" y="609.55" font-size="13" font-weight="bold" fill="#1f2933">외부가 먼저 시작:</text>
+  <text x="160" y="609.55" font-size="13" fill="#1f2933">인터넷</text>
+  <path d="M205,605 L225,605" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-red)"/>
+  <text x="233" y="609.55" font-size="13" fill="#1f2933">NAT</text>
+  <path d="M268,605 L288,605" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-red)"/>
+  <text x="296" y="609.55" font-size="13" fill="#1f2933">App</text>
+  <text x="500" y="609.55" font-size="13" font-weight="bold" fill="#dc2626">(불가능)</text>
+
+  <!-- 범례 (Legend) -->
+  <rect x="50" y="660" width="780" height="40" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <circle cx="70" cy="680" r="5" fill="#2563eb"/>
+  <text x="82" y="684.025" font-size="11.5" fill="#52606d">아웃바운드 요청</text>
+  <circle cx="210" cy="680" r="5" fill="#059669"/>
+  <text x="222" y="684.025" font-size="11.5" fill="#52606d">정상 응답</text>
+  <circle cx="330" cy="680" r="5" fill="#dc2626"/>
+  <text x="342" y="684.025" font-size="11.5" fill="#52606d">차단된 외부 접근</text>
+</svg>

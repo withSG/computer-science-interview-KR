@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">index vs unique id key reconciliation comparison</title>
+  <desc id="d">React reconciliation comparison showing state mismatch when using index as key vs correct state preservation when using id as key when prepending an item.</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Diagram Title -->
+  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">index를 key로 쓸 때 체크 상태가 엉뚱한 항목으로 옮겨가는 과정</text>
+
+  <!-- Center Divider Line -->
+  <line x1="440" y1="55" x2="440" y2="485" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- LEFT PANEL: key = index (Problem) -->
+  <text x="220" y="65" font-size="14" font-weight="600" fill="#dc2626" text-anchor="middle">문제가 발생하는 경우: key={index}</text>
+
+  <!-- Left Pre-Insertion Subtitle -->
+  <text x="50" y="95" font-size="11.5" font-weight="600" fill="#52606d">[추가 전]</text>
+  
+  <!-- Left Pre-Insertion Boxes -->
+  <!-- Box 1 (Index 0) -->
+  <rect x="50" y="105" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="129" font-size="13" font-weight="500" fill="#1f2933">key 0: "우유 사기"</text>
+  <rect x="200" y="105" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="250" y="129" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
+
+  <!-- Box 2 (Index 1) -->
+  <rect x="50" y="155" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="179" font-size="13" font-weight="500" fill="#1f2933">key 1: "설거지"</text>
+  <rect x="200" y="155" width="100" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="250" y="179" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">done=true [v]</text>
+
+  <!-- Left Action Label -->
+  <text x="170" y="222" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">맨 앞에 "운동하기" 삽입</text>
+
+  <!-- Left Post-Insertion Subtitle -->
+  <text x="50" y="245" font-size="11.5" font-weight="600" fill="#52606d">[추가 후 - 재조정 과정]</text>
+
+  <!-- Left Post-Insertion Boxes -->
+  <!-- Box 1 (Index 0 reused) -->
+  <rect x="50" y="255" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="279" font-size="13" font-weight="500" fill="#1f2933">key 0: "운동하기"</text>
+  <rect x="200" y="255" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="250" y="279" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
+
+  <!-- Box 2 (Index 1 reused - BUG) -->
+  <rect x="50" y="305" width="140" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="60" y="329" font-size="13" font-weight="500" fill="#dc2626">key 1: "우유 사기"</text>
+  <rect x="200" y="305" width="100" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="250" y="329" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">done=true [v]</text>
+
+  <!-- Box 3 (Index 2 new - BUG) -->
+  <rect x="50" y="355" width="140" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="60" y="379" font-size="13" font-weight="500" fill="#dc2626">key 2: "설거지"</text>
+  <rect x="200" y="355" width="100" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="250" y="379" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">done=false</text>
+
+  <!-- Left Arrows -->
+  <path d="M120,145 L120,250" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="75" y="190" width="90" height="18" fill="#ffffff"/>
+  <text x="120" y="203" font-size="11.5" fill="#2563eb" text-anchor="middle">기존 컴포넌트</text>
+
+  <path d="M250,195 L250,300" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <rect x="205" y="228" width="90" height="18" fill="#ffffff"/>
+  <text x="250" y="241" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">상태 유지(버그!)</text>
+
+  <!-- Left Result Render Block -->
+  <rect x="50" y="415" width="250" height="60" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="60" y="435" font-size="11.5" font-weight="600" fill="#dc2626">[화면 렌더링 결과]</text>
+  <text x="60" y="453" font-size="11.5" fill="#1f2933">[ ] 운동하기</text>
+  <text x="60" y="468" font-size="11.5" font-weight="600" fill="#dc2626">[v] 우유 사기   (체크 옮겨감!)</text>
+
+
+  <!-- RIGHT PANEL: key = todo.id (Correct) -->
+  <text x="660" y="65" font-size="14" font-weight="600" fill="#059669" text-anchor="middle">올바른 해결책: key={todo.id}</text>
+
+  <!-- Right Pre-Insertion Subtitle -->
+  <text x="490" y="95" font-size="11.5" font-weight="600" fill="#52606d">[추가 전]</text>
+
+  <!-- Right Pre-Insertion Boxes -->
+  <!-- Box 1 (ID 1) -->
+  <rect x="490" y="105" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="500" y="129" font-size="13" font-weight="500" fill="#1f2933">key 1: "우유 사기"</text>
+  <rect x="640" y="105" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="690" y="129" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
+
+  <!-- Box 2 (ID 2) -->
+  <rect x="490" y="155" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="500" y="179" font-size="13" font-weight="500" fill="#1f2933">key 2: "설거지"</text>
+  <rect x="640" y="155" width="100" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="690" y="179" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">done=true [v]</text>
+
+  <!-- Right Action Label -->
+  <text x="610" y="222" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">맨 앞에 "운동하기" (id: 3) 삽입</text>
+
+  <!-- Right Post-Insertion Subtitle -->
+  <text x="490" y="245" font-size="11.5" font-weight="600" fill="#52606d">[추가 후 - 재조정 과정]</text>
+
+  <!-- Right Post-Insertion Boxes -->
+  <!-- Box 1 (ID 3 new) -->
+  <rect x="490" y="255" width="140" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="500" y="279" font-size="13" font-weight="500" fill="#059669">key 3: "운동하기"</text>
+  <rect x="640" y="255" width="100" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="690" y="279" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">done=false</text>
+
+  <!-- Box 2 (ID 1 moved) -->
+  <rect x="490" y="305" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="500" y="329" font-size="13" font-weight="500" fill="#1f2933">key 1: "우유 사기"</text>
+  <rect x="640" y="305" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="690" y="329" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
+
+  <!-- Box 3 (ID 2 moved) -->
+  <rect x="490" y="355" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="500" y="379" font-size="13" font-weight="500" fill="#1f2933">key 2: "설거지"</text>
+  <rect x="640" y="355" width="100" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="690" y="379" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">done=true [v]</text>
+
+  <!-- Right Matching Arrows -->
+  <path d="M530,145 L530,300" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M690,195 L690,350" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+  
+  <rect x="700" y="260" width="115" height="18" fill="#ffffff"/>
+  <text x="705" y="273" font-size="11.5" font-weight="600" fill="#059669">상태 정확히 보존</text>
+
+  <!-- Right Result Render Block -->
+  <rect x="490" y="415" width="250" height="60" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="500" y="435" font-size="11.5" font-weight="600" fill="#059669">[화면 렌더링 결과]</text>
+  <text x="500" y="453" font-size="11.5" fill="#1f2933">[ ] 운동하기</text>
+  <text x="500" y="468" font-size="11.5" font-weight="600" fill="#059669">[v] 설거지      (체크 상태 유지!)</text>
+
+  <!-- Bottom Conclusion Caption -->
+  <text x="440" y="515" font-size="11.5" fill="#52606d" text-anchor="middle">결론: index를 key로 쓰면 순서 변경 시 내부 상태(State)가 엉뚱한 항목에 남으므로, 고유 ID를 key로 지정해야 한다.</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">렌더링과 requestAnimationFrame</title>
+  <desc id="d">이벤트 루프의 한 사이클 내에서 매크로태스크, 마이크로태스크, 렌더링 단계의 실행 순서를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- Outer Container Box: 한 사이클 -->
+  <rect x="40" y="30" width="800" height="460" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="62" font-size="16" font-weight="bold" fill="#1f2933">한 사이클</text>
+
+  <!-- Step 1: 매크로태스크 1개 실행 -->
+  <rect x="230" y="80" width="420" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="109" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">매크로태스크 1개 실행</text>
+
+  <!-- Arrow 1 -->
+  <path d="M440,128 L440,162" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2: 마이크로태스크 전부 소진 -->
+  <rect x="230" y="170" width="420" height="48" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="199" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">마이크로태스크 전부 소진</text>
+
+  <!-- Arrow 2 -->
+  <path d="M440,218 L440,252" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3: 렌더링 기회 Group Box -->
+  <rect x="180" y="260" width="520" height="210" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="290" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">── 렌더링 기회 (매 사이클마다 오지 않는다) ──</text>
+
+  <!-- Sub-steps inside Rendering Opportunity -->
+  <rect x="210" y="308" width="460" height="32" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="230" y="329" font-size="13" fill="#1f2933">① requestAnimationFrame 콜백 실행</text>
+
+  <rect x="210" y="348" width="460" height="32" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="230" y="369" font-size="13" fill="#1f2933">② 스타일 계산</text>
+
+  <rect x="210" y="388" width="460" height="32" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="230" y="409" font-size="13" fill="#1f2933">③ 레이아웃</text>
+
+  <rect x="210" y="428" width="460" height="32" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="230" y="449" font-size="13" fill="#1f2933">④ 페인트 · 합성</text>
+</svg>

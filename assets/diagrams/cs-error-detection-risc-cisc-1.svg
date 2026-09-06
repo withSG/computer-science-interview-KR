@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">짝수 패리티(even parity)</title>
+  <desc id="d">짝수 패리티 생성 과정 및 수신 측의 오류 검출 원리를 보여주는 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Diagram Title -->
+  <text x="40" y="44" font-size="16" font-weight="bold" fill="#1f2933">[짝수 패리티(even parity)]</text>
+
+  <!-- Section 1: Even Case (2563eb / eff6ff) -->
+  <g transform="translate(40, 70)">
+    <!-- Main Box -->
+    <rect x="0" y="0" width="800" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    
+    <!-- Row 1: Data -> 1's count -> Parity -->
+    <!-- Data -->
+    <text x="30" y="41.2" font-size="13" font-weight="bold" fill="#1f2933">데이터</text>
+    <rect x="80" y="20" width="85" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+    <text x="122.5" y="39.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101001</text>
+    
+    <!-- Arrow 1 -->
+    <path d="M175,35 L215,35" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- Count -->
+    <rect x="225" y="20" width="200" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+    <text x="325" y="39.2" font-size="13" fill="#1f2933" text-anchor="middle">1의 개수 4개(이미 짝수)</text>
+    
+    <!-- Arrow 2 -->
+    <path d="M435,35 L475,35" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- Parity -->
+    <rect x="485" y="20" width="90" height="30" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="530" y="39.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">패리티 0</text>
+    
+    <!-- Row 2: Transmission -->
+    <text x="30" y="81.2" font-size="13" font-weight="bold" fill="#1f2933">전송</text>
+    <rect x="80" y="60" width="110" height="30" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="125" y="79.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101001</text>
+    <text x="158" y="79.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">|</text>
+    <text x="168" y="79.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">0</text>
+  </g>
+
+  <!-- Section 2: Odd Case (d97706 / fffbeb) -->
+  <g transform="translate(40, 200)">
+    <!-- Main Box -->
+    <rect x="0" y="0" width="800" height="110" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    
+    <!-- Row 1: Data -> 1's count -> Parity -->
+    <!-- Data -->
+    <text x="30" y="41.2" font-size="13" font-weight="bold" fill="#1f2933">데이터</text>
+    <rect x="80" y="20" width="85" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+    <text x="122.5" y="39.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101011</text>
+    
+    <!-- Arrow 1 -->
+    <path d="M175,35 L215,35" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+    
+    <!-- Count -->
+    <rect x="225" y="20" width="200" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
+    <text x="325" y="39.2" font-size="13" fill="#1f2933" text-anchor="middle">1의 개수 5개(홀수)</text>
+    
+    <!-- Arrow 2 -->
+    <path d="M435,35 L475,35" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+    
+    <!-- Parity -->
+    <rect x="485" y="20" width="90" height="30" fill="#ffffff" stroke="#d97706" stroke-width="1.5" rx="4"/>
+    <text x="530" y="39.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">패리티 1</text>
+    
+    <!-- Row 2: Transmission -->
+    <text x="30" y="81.2" font-size="13" font-weight="bold" fill="#1f2933">전송</text>
+    <rect x="80" y="60" width="110" height="30" fill="#ffffff" stroke="#d97706" stroke-width="1.5" rx="4"/>
+    <text x="125" y="79.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101011</text>
+    <text x="158" y="79.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">|</text>
+    <text x="168" y="79.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">1</text>
+  </g>
+
+  <!-- Section 3: Receiver Logic (dc2626 / fef2f2) -->
+  <g transform="translate(40, 330)">
+    <!-- Receiver Box -->
+    <rect x="0" y="0" width="800" height="130" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    
+    <!-- Receiver Line 1 -->
+    <text x="30" y="41.2" font-size="13" fill="#1f2933">수신 측은 받은 8비트의 1을 세어 본다.</text>
+    
+    <!-- Receiver Line 2 with Arrow -->
+    <text x="30" y="86.2" font-size="13" font-weight="bold" fill="#1f2933">홀수면</text>
+    
+    <!-- Arrow -->
+    <path d="M80,82 L120,82" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+    
+    <!-- Error Text Label Box -->
+    <rect x="130" y="67" width="240" height="30" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="250" y="86.2" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">전송 중 무언가 뒤집혔다.</text>
+  </g>
+</svg>

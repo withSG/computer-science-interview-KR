@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TLB 동작 과정</title>
+  <desc id="d">가상 주소 접근 시 TLB 조회 후 Hit와 Miss 경로에 따라 물리 주소를 반환하거나 페이지 테이블을 조회하는 과정을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="380" fill="#ffffff"/>
+
+  <!-- 1. Start Node: 가상 주소 접근 -->
+  <rect x="360" y="30" width="160" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="54" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">가상 주소 접근</text>
+
+  <!-- Arrow 1: 가상 주소 접근 -> TLB 조회 -->
+  <path d="M440,70 L440,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 2. Decision Node: TLB 조회 -->
+  <rect x="360" y="100" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="124" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">TLB 조회</text>
+
+  <!-- Branch Lines from TLB 조회 -->
+  <!-- Split down to Y=170 -->
+  <path d="M440,140 L440,170" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- Branch Horizontal Split -->
+  <path d="M260,170 L620,170" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- Left Branch Down to Hit Target -->
+  <path d="M260,170 L260,200" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- Right Branch Down to Miss Target -->
+  <path d="M620,170 L620,200" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- Branch Label: Hit -->
+  <rect x="235" y="159" width="50" height="22" fill="#ffffff"/>
+  <text x="260" y="174" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Hit</text>
+
+  <!-- Branch Label: Miss -->
+  <rect x="595" y="159" width="50" height="22" fill="#ffffff"/>
+  <text x="620" y="174" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">Miss</text>
+
+  <!-- 3. Left Result (Hit): 물리주소 반환 -->
+  <rect x="180" y="200" width="160" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="260" y="224" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">물리주소 반환</text>
+
+  <!-- 4. Right Result Group (Miss): 페이지 테이블 조회 및 후속 동작 -->
+  <!-- Box: 페이지 테이블 조회 -->
+  <rect x="530" y="200" width="180" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="620" y="224" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">페이지 테이블 조회</text>
+
+  <!-- Arrow: 페이지 테이블 조회 -> TLB 업데이트 -->
+  <path d="M620,240 L620,265" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Text / Step: → TLB 업데이트 -->
+  <text x="620" y="284" font-size="13" fill="#1f2933" text-anchor="middle">→ TLB 업데이트</text>
+
+  <!-- Arrow: TLB 업데이트 -> 물리주소 반환 -->
+  <path d="M620,295 L620,320" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Text / Step: → 물리주소 반환 -->
+  <text x="620" y="339" font-size="13" fill="#1f2933" text-anchor="middle">→ 물리주소 반환</text>
+</svg>

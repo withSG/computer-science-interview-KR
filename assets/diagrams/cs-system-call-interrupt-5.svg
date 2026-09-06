@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">두 방식 (폴링 vs 인터럽트)</title>
+  <desc id="d">폴링과 인터럽트 방식의 CPU 및 장치 동작 차이를 나타낸 비교 다이어그램</desc>
+  <defs>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 제목 -->
+  <text x="30" y="41" font-size="16" font-weight="bold" fill="#1f2933">두 방식</text>
+
+  <!-- 폴링 섹션 -->
+  <rect x="30" y="60" width="820" height="195" rx="8" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="50" y="93" font-size="14" font-weight="bold" fill="#d97706">폴링</text>
+
+  <!-- 폴링 1~3번째 줄 -->
+  <text x="70" y="126" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="110" y="126" font-size="13" fill="#1f2933">준비됐니?</text>
+  <path d="M175,122 L195,122" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <text x="205" y="126" font-size="13" fill="#1f2933">아니</text>
+
+  <text x="70" y="156" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="110" y="156" font-size="13" fill="#1f2933">준비됐니?</text>
+  <path d="M175,152 L195,152" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <text x="205" y="156" font-size="13" fill="#1f2933">아니</text>
+
+  <text x="70" y="186" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="110" y="186" font-size="13" fill="#1f2933">준비됐니?</text>
+  <path d="M175,182 L195,182" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <text x="205" y="186" font-size="13" fill="#1f2933">아니</text>
+
+  <!-- 주석 (left arrow + text) -->
+  <path d="M280,182 L260,182" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)" />
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <text x="290" y="186" font-size="11.5" font-weight="bold" fill="#dc2626">묻는 동안 다른 일을 못 한다</text>
+
+  <!-- 폴링 4번째 줄 -->
+  <text x="70" y="226" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="110" y="226" font-size="13" fill="#1f2933">준비됐니?</text>
+  <path d="M175,222 L195,222" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <text x="205" y="226" font-size="13" fill="#059669" font-weight="bold">응! 데이터 받기</text>
+
+
+  <!-- 인터럽트 섹션 -->
+  <rect x="30" y="270" width="820" height="195" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="50" y="303" font-size="14" font-weight="bold" fill="#7c3aed">인터럽트</text>
+
+  <!-- 인터럽트 1~2번째 줄 -->
+  <text x="70" y="336" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="110" y="336" font-size="13" fill="#52606d">(다른 작업 수행 중)</text>
+
+  <text x="70" y="366" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="110" y="366" font-size="13" fill="#52606d">(다른 작업 수행 중)</text>
+
+  <!-- 인터럽트 3번째 줄 (장치 -> CPU) -->
+  <text x="70" y="396" font-size="13" font-weight="bold" fill="#1f2933">장치:</text>
+  <text x="110" y="396" font-size="13" fill="#1f2933">준비됐어!</text>
+
+  <!-- 인터럽트 신호 선 + 라벨 -->
+  <path d="M185,392 L315,392" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <rect x="210" y="380" width="80" height="22" fill="#ffffff" rx="4" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="250" y="395" font-size="11.5" fill="#7c3aed" font-weight="bold" text-anchor="middle">인터럽트</text>
+  <path d="M315,392 L335,392" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <text x="345" y="396" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="385" y="396" font-size="13" fill="#1f2933">하던 일 저장하고 처리</text>
+
+  <!-- 인터럽트 4번째 줄 -->
+  <text x="70" y="436" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
+  <text x="110" y="436" font-size="13" fill="#52606d">(하던 작업 재개)</text>
+</svg>

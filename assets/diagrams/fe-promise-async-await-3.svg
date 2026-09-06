@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">안티패턴 1 — 독립적인 요청을 하나씩 await</title>
+  <desc id="d">독립적인 요청을 순차적으로 처리할 때(900ms)와 병렬로 처리할 때(400ms)의 소요 시간 비교 다이어그램</desc>
+  <rect width="880" height="320" fill="#ffffff"/>
+
+  <!-- 순차 구역 (왼쪽) -->
+  <rect x="24" y="24" width="404" height="272" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="226" y="58" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">순차</text>
+
+  <!-- 순차 라벨 -->
+  <text x="56" y="99" font-size="13" fill="#1f2933">user</text>
+  <text x="56" y="139" font-size="13" fill="#1f2933">orders</text>
+  <text x="56" y="179" font-size="13" fill="#1f2933">notices</text>
+
+  <!-- 순차 막대 (300ms, 400ms, 200ms) -->
+  <rect x="120" y="84" width="90" height="22" rx="3" fill="#dc2626"/>
+  <rect x="210" y="124" width="120" height="22" rx="3" fill="#dc2626"/>
+  <rect x="330" y="164" width="60" height="22" rx="3" fill="#dc2626"/>
+
+  <!-- 순차 시간 브래킷 -->
+  <path d="M120,208 L120,218 L390,218 L390,208" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <rect x="210" y="228" width="90" height="24" fill="#ffffff"/>
+  <text x="255" y="244" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">900ms</text>
+
+  <!-- 병렬 구역 (오른쪽) -->
+  <rect x="452" y="24" width="404" height="272" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="654" y="58" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">병렬</text>
+
+  <!-- 병렬 라벨 -->
+  <text x="484" y="99" font-size="13" fill="#1f2933">user</text>
+  <text x="484" y="139" font-size="13" fill="#1f2933">orders</text>
+  <text x="484" y="179" font-size="13" fill="#1f2933">notices</text>
+
+  <!-- 병렬 막대 (300ms, 400ms, 200ms 동시 시작) -->
+  <rect x="548" y="84" width="90" height="22" rx="3" fill="#059669"/>
+  <rect x="548" y="124" width="120" height="22" rx="3" fill="#059669"/>
+  <rect x="548" y="164" width="60" height="22" rx="3" fill="#059669"/>
+
+  <!-- 병렬 시간 브래킷 -->
+  <path d="M548,208 L548,218 L668,218 L668,208" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <rect x="563" y="228" width="90" height="24" fill="#ffffff"/>
+  <text x="608" y="244" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">400ms</text>
+</svg>

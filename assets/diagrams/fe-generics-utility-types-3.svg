@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">유니온에 적용하면 분배된다</title>
+  <desc id="d">NoString 유니온 타입이 개별 타입으로 분배되어 조건부 평가 후 최종 타입으로 합쳐지는 과정을 보여주는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 1. Start Box: Input Union Type -->
+  <rect x="250" y="30" width="380" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="58.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">NoString&lt;string | number | boolean&gt;</text>
+
+  <!-- Down Arrow 1: Distribution -->
+  <path d="M440,76 L440,118" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="415" y="87" width="50" height="20" fill="#ffffff"/>
+  <text x="440" y="101" text-anchor="middle" font-size="13" font-weight="bold" fill="#52606d">↓ 분배</text>
+
+  <!-- 2. Distributed Branches Container -->
+  <rect x="30" y="130" width="820" height="230" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Branch 1: string -->
+  <rect x="50" y="150" width="460" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="280" y="180.2" text-anchor="middle" font-size="14" fill="#dc2626">(string extends string ? never : string)</text>
+
+  <path d="M510,175 L572,175" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <rect x="580" y="150" width="250" height="50" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="705" y="180.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">never</text>
+
+  <!-- Branch 2: number -->
+  <text x="35" y="245.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#52606d">|</text>
+
+  <rect x="50" y="220" width="460" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="280" y="250.2" text-anchor="middle" font-size="14" fill="#059669">(number extends string ? never : number)</text>
+
+  <path d="M510,245 L572,245" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <rect x="580" y="220" width="250" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="705" y="250.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">number</text>
+
+  <!-- Branch 3: boolean -->
+  <text x="35" y="315.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#52606d">|</text>
+
+  <rect x="50" y="290" width="460" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="280" y="320.2" text-anchor="middle" font-size="14" fill="#7c3aed">(boolean extends string ? never : boolean)</text>
+
+  <path d="M510,315 L572,315" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <rect x="580" y="290" width="250" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="705" y="320.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">boolean</text>
+
+  <!-- Down Arrow 2: Merge -->
+  <path d="M440,360 L440,412" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="280" y="376" width="320" height="20" fill="#ffffff"/>
+  <text x="440" y="390" text-anchor="middle" font-size="13" font-weight="bold" fill="#52606d">↓ 합침 (never는 유니온에서 사라진다)</text>
+
+  <!-- 3. Final Result Box -->
+  <rect x="250" y="420" width="380" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="450.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">number | boolean</text>
+</svg>

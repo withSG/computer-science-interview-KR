@@ -144,6 +144,11 @@ async function Page() {
 
 ### 하이드레이션 과정
 
+<!-- diagram:fe-qna-nextjs-1 -->
+![하이드레이션 과정](../../assets/diagrams/fe-qna-nextjs-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 서버: HTML 렌더링 → 클라이언트 전송
 2. 브라우저: HTML 표시 (정적, 클릭 안됨)
@@ -151,7 +156,13 @@ async function Page() {
 4. React 하이드레이션: DOM에 이벤트 연결
 5. 페이지 인터랙티브 (TTI)
 ```
+-->
 
+<!-- diagram:fe-qna-nextjs-2 -->
+![하이드레이션 과정](../../assets/diagrams/fe-qna-nextjs-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │ FCP (First Contentful Paint)                        │
@@ -164,6 +175,7 @@ async function Page() {
 │ 페이지가 완전히 인터랙티브                            │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 하이드레이션 문제점
 
@@ -449,6 +461,11 @@ Streaming SSR은 **HTML을 청크 단위로 점진적으로 전송**하여 사�
 
 ### 기존 SSR vs Streaming SSR
 
+<!-- diagram:fe-qna-nextjs-3 -->
+![기존 SSR vs Streaming SSR](../../assets/diagrams/fe-qna-nextjs-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 기존 SSR:
 [데이터 로딩 완료] → [전체 HTML 생성] → [전송] → [표시]
@@ -460,6 +477,7 @@ Streaming SSR:
 [Main 전송] → [표시]
 [데이터 로딩 완료] → [Comments 전송] → [표시]
 ```
+-->
 
 ### Next.js에서 Streaming
 

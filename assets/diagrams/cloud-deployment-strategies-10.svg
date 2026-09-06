@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 필요한가</title>
+  <desc id="d">전통적 방식과 Feature Flag 방식의 배포 및 기능 공개 과정을 비교한 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 영역 1: 전통적 방식 -->
+  <rect x="40" y="40" width="800" height="90" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="60" y="65" width="220" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="170" y="90" font-size="13" fill="#1f2933" text-anchor="middle">전통적 방식</text>
+  <text x="300" y="90" font-size="13" fill="#1f2933" text-anchor="start">코드 배포 = 기능 공개</text>
+  <text x="560" y="90" font-size="13" fill="#52606d" text-anchor="start">배포 시점과 공개 시점이 묶여 있다</text>
+
+  <!-- 영역 2: Feature Flag 방식 -->
+  <rect x="40" y="160" width="800" height="300" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="60" y="180" width="220" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="170" y="205" font-size="13" fill="#1f2933" text-anchor="middle">Feature Flag 방식</text>
+
+  <!-- 단계 1: 플래그 off -->
+  <rect x="60" y="240" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="170" y="265" font-size="13" fill="#1f2933" text-anchor="middle">코드 배포 (플래그 off)</text>
+
+  <path d="M280,260 L480,260" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="500" y="265" font-size="13" fill="#52606d" text-anchor="start">운영에 코드가 있지만 아무도 못 본다</text>
+
+  <!-- 화살표 1 -> 2 (며칠 뒤, 배포 없이) -->
+  <path d="M170,280 L170,320" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="180" y="291" width="128" height="18" fill="#ffffff"/>
+  <text x="184" y="304" font-size="11.5" fill="#52606d">며칠 뒤, 배포 없이</text>
+
+  <!-- 단계 2: 플래그 on -->
+  <rect x="60" y="320" width="410" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="265" y="345" font-size="13" fill="#1f2933" text-anchor="middle">플래그 on (내부 직원 → 1% → 10% → 100%)</text>
+
+  <!-- 화살표 2 -> 3 (문제 발견) -->
+  <path d="M170,360 L170,400" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="180" y="371" width="70" height="18" fill="#ffffff"/>
+  <text x="184" y="384" font-size="11.5" fill="#dc2626">문제 발견</text>
+
+  <!-- 단계 3: 플래그 off (킬 스위치) -->
+  <rect x="60" y="400" width="220" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="170" y="425" font-size="13" fill="#1f2933" text-anchor="middle">플래그 off (킬 스위치)</text>
+
+  <path d="M280,420 L480,420" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="500" y="425" font-size="13" fill="#52606d" text-anchor="start">롤백보다 빠르다. 초 단위.</text>
+</svg>

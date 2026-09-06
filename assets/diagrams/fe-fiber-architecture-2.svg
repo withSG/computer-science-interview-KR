@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Fiber 트리의 포인터 연결 구조</title>
+  <desc id="d">App, Header, List, Footer, Item 1, Item 2 Fiber 노드 간의 child, sibling, return 포인터 관계를 나타낸 다이어그램</desc>
+  
+  <defs>
+    <!-- Dark Ink Arrow for child & sibling pointers -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- Blue Arrow for child pointers -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- Purple Arrow for sibling pointers -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <!-- Orange Arrow for return pointers -->
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="380" fill="#ffffff"/>
+
+  <!-- Legend -->
+  <rect x="520" y="24" width="320" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <circle cx="540" cy="44" r="5" fill="#2563eb"/>
+  <text x="550" y="48" font-size="11.5" fill="#1f2933">child (첫째 자식)</text>
+  <circle cx="650" cy="44" r="5" fill="#7c3aed"/>
+  <text x="660" y="48" font-size="11.5" fill="#1f2933">sibling (다음 형제)</text>
+  <circle cx="760" cy="44" r="5" fill="#d97706"/>
+  <text x="770" y="48" font-size="11.5" fill="#1f2933">return (부모)</text>
+
+  <!-- Node 1: App (Root) -->
+  <g>
+    <rect x="230" y="20" width="120" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="290" y="48" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
+  </g>
+
+  <!-- Vertical Connection (App <-> Header) -->
+  <!-- App -> Header (child) -->
+  <path d="M 275,66 L 275,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="248" y="93" width="36" height="18" fill="#ffffff"/>
+  <text x="266" y="106" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">child</text>
+
+  <!-- Header -> App (return) -->
+  <path d="M 305,140 L 305,68" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="298" y="93" width="48" height="18" fill="#ffffff"/>
+  <text x="322" y="106" font-size="11.5" fill="#d97706" text-anchor="middle" font-weight="bold">return</text>
+
+  <!-- Row 1 Nodes: Header, List, Footer -->
+  <!-- Header -->
+  <g>
+    <rect x="230" y="140" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="290" y="168" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Header</text>
+  </g>
+
+  <!-- Header -> List (sibling) -->
+  <path d="M 350,163 L 478,163" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="390" y="154" width="48" height="18" fill="#ffffff"/>
+  <text x="414" y="167" font-size="11.5" fill="#7c3aed" text-anchor="middle" font-weight="bold">sibling</text>
+
+  <!-- List -->
+  <g>
+    <rect x="480" y="140" width="120" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="540" y="168" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">List</text>
+  </g>
+
+  <!-- List -> Footer (sibling) -->
+  <path d="M 600,163 L 728,163" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="640" y="154" width="48" height="18" fill="#ffffff"/>
+  <text x="664" y="167" font-size="11.5" fill="#7c3aed" text-anchor="middle" font-weight="bold">sibling</text>
+
+  <!-- Footer -->
+  <g>
+    <rect x="730" y="140" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="790" y="168" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Footer</text>
+  </g>
+
+  <!-- Vertical Connection (List <-> Item 1) -->
+  <!-- List -> Item 1 (child) -->
+  <path d="M 525,186 L 525,258" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="498" y="213" width="36" height="18" fill="#ffffff"/>
+  <text x="516" y="226" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">child</text>
+
+  <!-- Item 1 -> List (return) -->
+  <path d="M 555,260 L 555,188" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="548" y="213" width="48" height="18" fill="#ffffff"/>
+  <text x="572" y="226" font-size="11.5" fill="#d97706" text-anchor="middle" font-weight="bold">return</text>
+
+  <!-- Row 2 Nodes: Item 1, Item 2 -->
+  <!-- Item 1 -->
+  <g>
+    <rect x="480" y="260" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="540" y="288" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Item 1</text>
+  </g>
+
+  <!-- Item 1 -> Item 2 (sibling) -->
+  <path d="M 600,283 L 728,283" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="640" y="274" width="48" height="18" fill="#ffffff"/>
+  <text x="664" y="287" font-size="11.5" fill="#7c3aed" text-anchor="middle" font-weight="bold">sibling</text>
+
+  <!-- Item 2 -->
+  <g>
+    <rect x="730" y="260" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="790" y="288" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Item 2</text>
+  </g>
+</svg>

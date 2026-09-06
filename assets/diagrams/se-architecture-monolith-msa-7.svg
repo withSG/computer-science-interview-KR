@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">두 가지 구현 방식 - 오케스트레이션(Orchestration)</title>
+  <desc id="d">오케스트레이션 방식의 주문 Saga 조정자와 각 서비스 간의 관계 및 장단점을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="370" fill="#ffffff"/>
+
+  <!-- 메인 영역 테두리 / 배경 -->
+  <rect x="24" y="24" width="832" height="322" rx="8" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 1. 주문 Saga 조정자 박스 (중앙 조정자: 보라색 강조) -->
+  <!-- 글자 폭: "  주문 Saga 조정자     " 약 210px -> 박스 너비 240px -->
+  <rect x="320" y="48" width="240" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="440" y="78" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">주문 Saga 조정자</text>
+
+  <!-- 주석 라벨 (주정자 오른쪽) -->
+  <text x="580" y="78" font-size="13" fill="#52606d">← 전체 흐름이 여기 한 곳에 적혀 있다</text>
+
+  <!-- 연결선 (조정자 -> 서비스 3개) -->
+  <!-- 조정자 하단 연결점: (380, 98), (440, 98), (500, 98) -->
+  <!-- 결제 서비스 상단: (210, 150) -->
+  <!-- 재고 서비스 상단: (440, 150) -->
+  <!-- 배송 서비스 상단: (670, 150) -->
+  
+  <path d="M380,98 L380,124 L210,124 L210,150" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M440,98 L440,150" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M500,98 L500,124 L670,124 L670,150" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 하위 서비스 3개 박스 -->
+  <!-- 결제 서비스 -->
+  <rect x="135" y="150" width="150" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="210" y="177" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">결제 서비스</text>
+
+  <!-- 재고 -->
+  <rect x="365" y="150" width="150" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="177" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">재고</text>
+
+  <!-- 배송 -->
+  <rect x="595" y="150" width="150" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="670" y="177" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">배송</text>
+
+  <!-- 2. 장점 / 단점 텍스트 섹션 -->
+  <line x1="48" y1="222" x2="832" y2="222" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 장점 (초록색 강조) -->
+  <rect x="48" y="238" width="784" height="38" rx="4" fill="#ecfdf5"/>
+  <text x="60" y="262" font-size="13" fill="#059669" font-weight="bold">장점:</text>
+  <text x="102" y="262" font-size="13" fill="#1f2933">흐름이 한 곳에 있어 읽기 쉽고 실패 처리를 명시적으로 짤 수 있다</text>
+
+  <!-- 단점 (주황색/붉은색 강조) -->
+  <rect x="48" y="286" width="784" height="38" rx="4" fill="#fffbeb"/>
+  <text x="60" y="310" font-size="13" fill="#d97706" font-weight="bold">단점:</text>
+  <text x="102" y="310" font-size="13" fill="#1f2933">조정자가 단일 장애점이 될 수 있고, 로직이 조정자에 몰릴 수 있다</text>
+
+</svg>

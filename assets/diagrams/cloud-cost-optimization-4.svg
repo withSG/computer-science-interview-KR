@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">2분 동안 해야 할 일</title>
+  <desc id="d">중단 예고 감지 후 1단계부터 5단계까지 순차적으로 진행되는 Graceful Shutdown 절차 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 메인 흐름 박스 (중단 예고 감지) -->
+  <rect x="290" y="30" width="300" height="44" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="440" y="56.6" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">중단 예고 감지</text>
+
+  <!-- 메인 하향 화살표 -->
+  <path d="M440,74 L440,110" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 단계별 연결 세로 줄 -->
+  <line x1="100" y1="120" x2="100" y2="430" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 메인선에서 단계 세로줄로 연결하는 가로선 -->
+  <line x1="100" y1="120" x2="440" y2="120" stroke="#9aa5b1" stroke-width="2"/>
+
+  <!-- 1) 로드 밸런서 대상 그룹에서 스스로 등록 해제 → 새 요청 유입 차단 -->
+  <line x1="100" y1="150" x2="130" y2="150" stroke="#9aa5b1" stroke-width="2"/>
+  <rect x="130" y="126" width="700" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="150" y="154.55" font-size="13" font-weight="bold" fill="#1f2933">1) 로드 밸런서 대상 그룹에서 스스로 등록 해제</text>
+  <path d="M525,150 L545,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="555" y="154.55" font-size="13" font-weight="bold" fill="#2563eb">새 요청 유입 차단</text>
+
+  <!-- 2) 큐 컨슈머라면 새 메시지 수신 중단 -->
+  <line x1="100" y1="220" x2="130" y2="220" stroke="#9aa5b1" stroke-width="2"/>
+  <rect x="130" y="196" width="700" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="150" y="224.55" font-size="13" fill="#1f2933">2) 큐 컨슈머라면 새 메시지 수신 중단</text>
+
+  <!-- 3) 처리 중이던 작업의 체크포인트를 외부 저장소에 저장 -->
+  <line x1="100" y1="290" x2="130" y2="290" stroke="#9aa5b1" stroke-width="2"/>
+  <rect x="130" y="266" width="700" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="150" y="294.55" font-size="13" fill="#1f2933">3) 처리 중이던 작업의 체크포인트를 외부 저장소에 저장</text>
+
+  <!-- 4) 진행 중 요청이 끝날 때까지 대기 (드레이닝) -->
+  <line x1="100" y1="360" x2="130" y2="360" stroke="#9aa5b1" stroke-width="2"/>
+  <rect x="130" y="336" width="700" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="150" y="364.55" font-size="13" fill="#1f2933">4) 진행 중 요청이 끝날 때까지 대기 (드레이닝)</text>
+
+  <!-- 5) 정상 종료 -->
+  <line x1="100" y1="430" x2="130" y2="430" stroke="#9aa5b1" stroke-width="2"/>
+  <rect x="130" y="406" width="700" height="48" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="150" y="434.55" font-size="13" font-weight="bold" fill="#059669">5) 정상 종료</text>
+</svg>

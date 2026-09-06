@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720"
+     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
+     role="img" aria-labelledby="t d">
+  <title id="t">2의 보수의 발상</title>
+  <desc id="d">8비트 2의 보수 가산 연산 예제 및 캐리 처리와 보수 확인 과정 다이어그램</desc>
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: (+5) + (-5) -->
+  <rect x="30" y="30" width="820" height="250" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
+
+  <g font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold">
+    <!-- Number Row 1 -->
+    <text x="75" y="72" fill="#52606d">+</text>
+    <text x="110" y="72" fill="#1f2933">0000 0101</text>
+    <text x="210" y="72" fill="#059669" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(+5)</text>
+
+    <!-- Number Row 2 -->
+    <text x="75" y="97" fill="#52606d">+</text>
+    <text x="110" y="97" fill="#1f2933">1111 1011</text>
+    <text x="210" y="97" fill="#dc2626" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(-5)</text>
+
+    <!-- Divider line -->
+    <line x1="70" y1="110" x2="250" y2="110" stroke="#1f2933" stroke-width="1.5"/>
+
+    <!-- Carry row -->
+    <text x="92" y="142" fill="#dc2626">1</text>
+    <text x="110" y="142" fill="#1f2933">0000 0000</text>
+
+    <!-- Result row -->
+    <text x="110" y="202" fill="#1f2933">0000 0000</text>
+  </g>
+
+  <!-- Carry arrow & description -->
+  <path d="M 270,138 L 305,138" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="315" y="123" width="515" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="4"/>
+  <text x="325" y="142" font-size="13" fill="#dc2626">9번째 비트(캐리)는 8비트 공간 밖이라 그냥 버려진다</text>
+
+  <!-- Zero result arrow & description -->
+  <path d="M 270,198 L 305,198" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="315" y="183" width="515" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
+  <text x="325" y="202" font-size="13" fill="#059669">0. 부호-절댓값에서 실패했던 계산이 그대로 맞는다</text>
+
+  <!-- Middle Transition Text -->
+  <text x="40" y="312" font-size="13" font-weight="bold" fill="#52606d">캐리가 안 생기는 경우도 똑같다.</text>
+
+  <!-- Section 2: (+3) + (-5) -->
+  <rect x="30" y="335" width="820" height="355" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
+
+  <g font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold">
+    <!-- Number Row 1 -->
+    <text x="75" y="377" fill="#52606d">+</text>
+    <text x="110" y="377" fill="#1f2933">0000 0011</text>
+    <text x="210" y="377" fill="#059669" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(+3)</text>
+
+    <!-- Number Row 2 -->
+    <text x="75" y="402" fill="#52606d">+</text>
+    <text x="110" y="402" fill="#1f2933">1111 1011</text>
+    <text x="210" y="402" fill="#dc2626" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(-5)</text>
+
+    <!-- Divider line -->
+    <line x1="70" y1="415" x2="250" y2="415" stroke="#1f2933" stroke-width="1.5"/>
+
+    <!-- Result row -->
+    <text x="110" y="447" fill="#1f2933">1111 1110</text>
+  </g>
+
+  <!-- Result arrow & description -->
+  <path d="M 270,443 L 305,443" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="315" y="428" width="515" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="325" y="447" font-size="13" fill="#d97706">캐리 없음. 이게 -2인가?</text>
+
+  <!-- Inner Verification Box -->
+  <rect x="70" y="485" width="760" height="180" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="6"/>
+
+  <text x="90" y="514" font-size="13" font-weight="bold" fill="#1f2933">확인:  1111 1110 을 다시 2의 보수로 뒤집으면</text>
+
+  <g font-size="13">
+    <text x="135" y="547" fill="#52606d">비트 반전</text>
+    <path d="M 195,543 L 225,543" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="235" y="547" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">0000 0001</text>
+
+    <text x="135" y="577" fill="#52606d">+1</text>
+    <path d="M 195,573 L 225,573" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="235" y="577" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">0000 0010</text>
+    <text x="325" y="577" font-family="'Courier New', Courier, monospace" fill="#1f2933">= 2</text>
+
+    <text x="135" y="627" font-weight="bold" fill="#059669">따라서 1111 1110 = -2. 맞다.</text>
+  </g>
+</svg>

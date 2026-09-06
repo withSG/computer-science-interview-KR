@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">컨테이너 라이프사이클</title>
+  <desc id="d">Dockerfile에서 시작해 이미지 생성, 컨테이너 실행, 정지, 삭제로 이어지는 Docker 컨테이너 라이프사이클 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="320" fill="#ffffff"/>
+
+  <!-- Dockerfile Node -->
+  <rect x="40" y="80" width="120" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="100" y="109.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Dockerfile</text>
+
+  <!-- 이미지 Node -->
+  <rect x="250" y="80" width="110" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="305" y="109.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">이미지</text>
+
+  <!-- 실행 중 Node -->
+  <rect x="520" y="80" width="110" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="575" y="109.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">실행 중</text>
+
+  <!-- 정지됨 Node -->
+  <rect x="730" y="80" width="110" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="785" y="109.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">정지됨</text>
+
+  <!-- 삭제 Node -->
+  <rect x="490" y="230" width="170" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="575" y="259.55" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">삭제 (쓰기 레이어도 소멸)</text>
+
+  <!-- Flow 1: Dockerfile -> 이미지 (docker build) -->
+  <path d="M160,105 L250,105" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="165" y="88" width="80" height="18" fill="#ffffff"/>
+  <text x="205" y="101.03" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">docker build</text>
+
+  <!-- Flow 2: 이미지 -> 실행 중 (docker run (= create + start)) -->
+  <path d="M360,105 L520,105" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="368" y="88" width="144" height="18" fill="#ffffff"/>
+  <text x="440" y="101.03" font-size="11.5" font-weight="500" fill="#059669" text-anchor="middle">docker run (= create + start)</text>
+
+  <!-- Flow 3: 실행 중 -> 정지됨 (docker stop) -->
+  <path d="M630,105 L730,105" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="643" y="88" width="74" height="18" fill="#ffffff"/>
+  <text x="680" y="101.03" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">docker stop</text>
+
+  <!-- Flow 4: 정지됨 -> 실행 중 (docker start) -->
+  <path d="M785,130 L785,170 L575,170 L575,130" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="635" y="161" width="90" height="18" fill="#ffffff"/>
+  <text x="680" y="174.03" font-size="11.5" font-weight="500" fill="#059669" text-anchor="middle">docker start</text>
+
+  <!-- Flow 5: 정지됨 -> 삭제 (docker rm) -->
+  <path d="M785,130 L785,255 L660,255" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="690" y="211" width="70" height="18" fill="#ffffff"/>
+  <text x="725" y="224.03" font-size="11.5" font-weight="500" fill="#dc2626" text-anchor="middle">docker rm</text>
+</svg>

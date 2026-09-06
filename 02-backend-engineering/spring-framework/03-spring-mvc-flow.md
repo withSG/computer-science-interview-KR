@@ -59,6 +59,11 @@ public class OrderListServlet extends HttpServlet {
 
 해법은 단순하다. **모든 요청을 하나의 입구로 모은 뒤, 거기서 공통 처리를 다 하고, 나머지만 각 컨트롤러에 나눠주는 것**이다.
 
+<!-- diagram:be-spring-mvc-flow-1 -->
+![프론트 컨트롤러 패턴](../../assets/diagrams/be-spring-mvc-flow-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Before] 서블릿마다 입구가 따로
 
@@ -81,6 +86,7 @@ public class OrderListServlet extends HttpServlet {
             OrderController  OrderController  ProductController
               .list()          .detail()        .list()
 ```
+-->
 
 이 "하나뿐인 입구"가 **DispatcherServlet**이다. Spring MVC의 거의 모든 구성 요소는 이 클래스 하나가 조율하는 부품이라고 봐도 된다.
 
@@ -91,6 +97,9 @@ public class OrderListServlet extends HttpServlet {
 ---
 
 ## 2. 요청 하나가 지나는 전 경로
+
+<!-- diagram:be-spring-mvc-flow -->
+![HTTP 요청 한 건이 지나는 계층](../../assets/diagrams/be-spring-mvc-flow.svg)
 
 ### 전체 그림
 
@@ -188,6 +197,11 @@ DispatcherServlet은 두 인터페이스만 알면 되고, 새로운 형태의 �
 
 두 방식은 **6단계 이후가 완전히 다르다.**
 
+<!-- diagram:be-spring-mvc-flow-2 -->
+![3. @Controller와 @RestController의 갈림길](../../assets/diagrams/be-spring-mvc-flow-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [@Controller + 뷰 이름 반환]
 
@@ -213,6 +227,7 @@ DispatcherServlet은 두 인터페이스만 알면 되고, 새로운 형태의 �
         ▼
    JSON 문자열이 응답 본문에 직접 기록됨   ← ViewResolver를 거치지 않는다
 ```
+-->
 
 ```java
 @Controller
@@ -256,12 +271,18 @@ public class GlobalExceptionHandler {
 
 여기서 **중요한 경계**가 하나 있다. `@ControllerAdvice`는 DispatcherServlet 안쪽에서 발생한 예외만 잡는다.
 
+<!-- diagram:be-spring-mvc-flow-3 -->
+![4. 예외는 어디서 처리되나](../../assets/diagrams/be-spring-mvc-flow-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Filter에서 던진 예외  ──> DispatcherServlet의 예외 처리 구간 밖
                           ──> @ControllerAdvice가 못 잡는다
                           ──> 서블릿 컨테이너가 에러 페이지 경로로 다시 디스패치
                               (Spring Boot는 /error → BasicErrorController)
 ```
+-->
 
 여기서 나오는 응답은 내가 만든 `@ExceptionHandler`가 아니라 Spring Boot의 기본 에러 응답이다. `timestamp`, `status`, `error`, `path` 필드가 담긴 그 JSON이 바로 그것이다.
 
@@ -273,6 +294,11 @@ JWT 검증을 Filter에서 하는 구조라면 토큰 만료 예외를 `@Control
 
 세 가지 모두 "공통 로직을 밖에서 끼워 넣는" 도구지만 사는 층이 다르다.
 
+<!-- diagram:be-spring-mvc-flow-4 -->
+![5. Filter vs Interceptor vs AOP](../../assets/diagrams/be-spring-mvc-flow-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 요청
  │
@@ -292,6 +318,7 @@ JWT 검증을 Filter에서 하는 구조라면 토큰 만료 예외를 `@Control
  ▼
 응답
 ```
+-->
 
 | 구분 | Filter | Interceptor | AOP |
 |------|--------|-------------|-----|

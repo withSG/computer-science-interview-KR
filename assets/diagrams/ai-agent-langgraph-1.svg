@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">언제 에이전트를 쓰나</title>
+  <desc id="d">작업 조건에 따라 단순 LLM 호출, RAG, 워크플로우, 에이전트 중 적절한 방식을 선택하는 의사결정 흐름도</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Top start node -->
+  <rect x="360" y="20" width="160" height="36" rx="18" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="42.2" font-size="13" fill="#1f2933" text-anchor="middle" font-weight="bold">작업이 들어온다</text>
+
+  <!-- Line 1: Top to Question 1 -->
+  <path d="M440,56 L440,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Question 1 -->
+  <rect x="300" y="80" width="280" height="36" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="102.2" font-size="13" fill="#1f2933" text-anchor="middle">모델이 이미 아는 지식으로 되나?</text>
+
+  <!-- Q1 -> Box 1 (Left branch: 예) -->
+  <path d="M370,116 L370,165 L200,165 L200,190" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="300" y="125" width="24" height="18" fill="#ffffff"/>
+  <text x="312" y="138" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">예</text>
+
+  <!-- Box 1: 단순 LLM 호출 -->
+  <rect x="110" y="190" width="180" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="200" y="214.5" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="bold">단순 LLM 호출</text>
+  <text x="200" y="255.2" font-size="11.5" fill="#52606d" text-anchor="middle">분류·요약·추출</text>
+  <text x="200" y="275.2" font-size="11.5" fill="#52606d" text-anchor="middle">1회, 빠르고 저렴</text>
+
+  <!-- Q1 -> Right branch: 아니오 -->
+  <path d="M510,116 L510,135 L580,135" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="522" y="126" width="40" height="18" fill="#ffffff"/>
+  <text x="542" y="139" font-size="11.5" fill="#52606d" text-anchor="middle">아니오</text>
+
+  <!-- Question 2: 외부 지식이 필요한가? -->
+  <text x="590" y="139.2" font-size="13" fill="#1f2933">외부 지식이 필요한가?</text>
+  
+  <!-- Q2 -> Box 2 (Down branch: 예) -->
+  <path d="M720,135 L760,135 L760,190" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="730" y="126" width="24" height="18" fill="#ffffff"/>
+  <text x="742" y="139" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">예</text>
+
+  <!-- Box 2: RAG -->
+  <rect x="670" y="190" width="180" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="760" y="214.5" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="bold">RAG</text>
+
+  <!-- Box 2 -> Line down: 여전히 부족 -->
+  <path d="M760,230 L760,310 L580,310" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="700" y="260" width="76" height="18" fill="#ffffff"/>
+  <text x="738" y="273" font-size="11.5" fill="#52606d" text-anchor="middle">여전히 부족</text>
+
+  <!-- Question 3 -->
+  <rect x="290" y="292" width="290" height="36" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="435" y="314.2" font-size="13" fill="#1f2933" text-anchor="middle">절차를 코드로 다 적을 수 있나?</text>
+
+  <!-- Q3 -> Box 3 (Left branch: 예) -->
+  <path d="M360,328 L360,375 L200,375 L200,400" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="290" y="337" width="24" height="18" fill="#ffffff"/>
+  <text x="302" y="350" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">예</text>
+
+  <!-- Q3 -> Box 4 (Right branch: 아니오) -->
+  <path d="M510,328 L510,375 L670,375 L670,400" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="556" y="337" width="40" height="18" fill="#ffffff"/>
+  <text x="576" y="350" font-size="11.5" fill="#7c3aed" text-anchor="middle" font-weight="bold">아니오</text>
+
+  <!-- Box 3: 워크플로우 -->
+  <rect x="110" y="400" width="180" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="200" y="424.5" font-size="14" fill="#2563eb" text-anchor="middle" font-weight="bold">워크플로우</text>
+  <text x="200" y="465.2" font-size="11.5" fill="#52606d" text-anchor="middle">흐름은 개발자가</text>
+  <text x="200" y="483.2" font-size="11.5" fill="#52606d" text-anchor="middle">정하고 각 단계에</text>
+  <text x="200" y="501.2" font-size="11.5" fill="#52606d" text-anchor="middle">LLM을 쓴다</text>
+
+  <!-- Box 4: 에이전트 -->
+  <rect x="580" y="400" width="180" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="670" y="424.5" font-size="14" fill="#7c3aed" text-anchor="middle" font-weight="bold">에이전트</text>
+  <text x="670" y="465.2" font-size="11.5" fill="#52606d" text-anchor="middle">경로를 모델이 결정</text>
+  <text x="670" y="483.2" font-size="11.5" fill="#52606d" text-anchor="middle">비싸고 느리고</text>
+  <text x="670" y="501.2" font-size="11.5" fill="#52606d" text-anchor="middle">디버깅이 어렵다</text>
+</svg>

@@ -91,6 +91,11 @@ Logs, Metrics, Traces를 흔히 "3대 축(Three Pillars)"이라 부른다. 중�
 
 ### 실제 장애에서 셋이 이어지는 방식
 
+<!-- diagram:cloud-observability-concepts-1 -->
+![실제 장애에서 셋이 이어지는 방식](../../assets/diagrams/cloud-observability-concepts-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  [알림]  주문 API 5xx 비율 0.2% → 4.1% (Metrics)
     │
@@ -108,6 +113,7 @@ Logs, Metrics, Traces를 흔히 "3대 축(Three Pillars)"이라 부른다. 중�
     ▼
  [원인]  결제 트랜잭션 안에서 외부 PG 호출 → 커넥션 점유 시간 증가 → 풀 고갈
 ```
+-->
 
 세 축은 대체재가 아니라 **좁혀 들어가는 순서**다. 메트릭은 무엇이(what), 트레이스는 어디서(where),
 로그는 왜(why)에 답한다. 이 세 데이터가 `trace_id` 같은 공통 키로 연결되어 있지 않으면 각 단계
@@ -123,6 +129,11 @@ Logs, Metrics, Traces를 흔히 "3대 축(Three Pillars)"이라 부른다. 중�
 카디널리티는 **한 메트릭 이름 아래 존재하는 서로 다른 라벨 조합의 개수**, 즉 시계열의 개수다.
 핵심은 이것이 덧셈이 아니라 **곱셈**이라는 점이다.
 
+<!-- diagram:cloud-observability-concepts-2 -->
+![3. 카디널리티](../../assets/diagrams/cloud-observability-concepts-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 http_requests_total{method, status, endpoint, pod}
 
@@ -136,6 +147,7 @@ http_requests_total{method, status, endpoint, pod}
   여기에 user_id 라벨을 추가하면? (사용자 100만 명)
   시계열 수 = 30,000 × 1,000,000                   =  300억
 ```
+-->
 
 Prometheus 같은 시계열 DB는 **각 시계열마다 별도의 메모리 인덱스와 청크를 유지**한다. 비용은
 데이터 포인트의 개수가 아니라 시계열의 개수에 비례한다. 30,000개는 노트북에서도 돌지만
@@ -229,6 +241,11 @@ SLO가 깨지기 시작하는 시점이 SLA 위반보다 앞서 오게 만드는
 SLO를 99.9%로 잡았다는 말은 곧 **0.1%까지는 실패해도 된다고 합의했다**는 뜻이다. 이 0.1%가
 에러 버짓(Error Budget)이다.
 
+<!-- diagram:cloud-observability-concepts-3 -->
+![에러 버짓](../../assets/diagrams/cloud-observability-concepts-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 SLO 99.9%, 30일 기준
 
@@ -240,6 +257,7 @@ SLO 99.9%, 30일 기준
 └──────────────────────────────────────────────────┘
    28%                                          72%
 ```
+-->
 
 앞에서 SLI를 비율로 정의했으므로 **버짓의 원래 단위도 요청 수**다. "43분"이라는 시간 환산은
 감을 잡기에 편해서 널리 쓰이지만 **트래픽이 하루 종일 균일하다는 가정**이 깔려 있다. 실제로는

@@ -79,6 +79,11 @@ GC는 JVM이 힙 메모리에서 더 이상 참조되지 않는 객체를 자동
 | ZGC | 초저지연 | <10ms | 대용량 힙 |
 
 ### 힙 메모리 구조
+<!-- diagram:be-qna-java-1 -->
+![힙 메모리 구조](../../assets/diagrams/be-qna-java-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Heap
 ├── Young Generation
@@ -86,6 +91,7 @@ Heap
 │   └── Survivor (S0, S1)
 └── Old Generation
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - GC 튜닝 경험 (구체적 수치)
@@ -157,6 +163,11 @@ Virtual Threads는 JVM 내부에서 관리되는 경량 스레드로, 다수의 
 - 동기식 코드 스타일 유지 (WebFlux 콜백 지옥 없음)
 
 ### 동작 원리
+<!-- diagram:be-qna-java-2 -->
+![동작 원리](../../assets/diagrams/be-qna-java-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Virtual Thread가 I/O 대기
     ↓
@@ -166,6 +177,7 @@ Carrier Thread가 다른 Virtual Thread 실행
     ↓
 I/O 완료 시 다시 Mount
 ```
+-->
 
 ### WebFlux vs Virtual Threads
 
@@ -322,6 +334,11 @@ CompletableFuture.allOf(future1, future2).join();
 
 ### 핵심 답변
 
+<!-- diagram:be-qna-java-3 -->
+![핵심 답변](../../assets/diagrams/be-qna-java-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Throwable
 ├── Error (심각, 복구 불가)
@@ -340,6 +357,7 @@ Throwable
         ├── ArrayIndexOutOfBoundsException
         └── IllegalArgumentException
 ```
+-->
 
 ### Checked vs Unchecked Exception
 
@@ -418,7 +436,7 @@ ConcurrentHashMap<String, String> concurrentMap = new ConcurrentHashMap<>();
 
 ---
 
-## Q12. Thread-safe(쓰레드 세이프)란 무엇인가요? ⭐⭐
+## Q12. Thread-safe(스레드 세이프)란 무엇인가요? ⭐⭐
 
 <details>
 <summary>답변 보기</summary>
@@ -488,6 +506,11 @@ JVM은 Java 프로그램을 실행하는 가상 머신으로, **클래스 로더
 
 ### JVM 구조
 
+<!-- diagram:be-qna-java-4 -->
+![JVM 구조](../../assets/diagrams/be-qna-java-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────┐
 │                    JVM                       │
@@ -506,13 +529,14 @@ JVM은 Java 프로그램을 실행하는 가상 머신으로, **클래스 로더
 │      (Interpreter, JIT Compiler, GC)        │
 └─────────────────────────────────────────────┘
 ```
+-->
 
 ### 클래스 로더 종류
 
 | 클래스 로더 | 역할 |
 |------------|------|
 | Bootstrap | 핵심 Java API (rt.jar) 로드 |
-| Extension | 확장 클래스 로드 (ext 디렉토리) |
+| Extension | 확장 클래스 로드 (ext 디렉터리) |
 | Application | 애플리케이션 클래스패스 로드 |
 
 ### 클래스 로딩 과정
@@ -949,6 +973,11 @@ try (ObjectInputStream ois = new ObjectInputStream(
 
 ### 구성 관계
 
+<!-- diagram:be-qna-java-5 -->
+![구성 관계](../../assets/diagrams/be-qna-java-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 JDK
 ├── JRE
@@ -963,6 +992,7 @@ JDK
     ├── jar (아카이브)
     └── javadoc (문서화)
 ```
+-->
 
 ### 언제 무엇을 사용?
 - **JDK**: 개발자 - 코드 작성, 컴파일 필요

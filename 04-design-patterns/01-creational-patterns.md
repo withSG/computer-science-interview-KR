@@ -32,6 +32,11 @@ public class OrderService {
 
 한 줄뿐이지만 세 가지를 동시에 떠안고 있다. **무엇을 만들지**(결제사가 카카오로 고정), **어떻게 만들지**(API 키와 타임아웃을 주문 로직이 안다), **몇 개 만들지**(호출할 때마다 새 인스턴스). 그리고 이 지식은 한 곳에 머물지 않는다.
 
+<!-- diagram:dp-creational-patterns-1 -->
+![1. 왜 필요한가](../assets/diagrams/dp-creational-patterns-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [생성 패턴 없이]                      [생성 책임을 분리하면]
 
@@ -41,6 +46,7 @@ public class OrderService {
 
  생성 방법을 아는 곳이 세 군데         아는 곳은 Factory 하나
 ```
+-->
 
 생성 패턴은 위 세 결정 중 무엇을 떼어내느냐로 갈린다.
 
@@ -75,6 +81,11 @@ public static ConnectionPool getInstance() {
 
 검사와 생성 사이에 다른 스레드가 끼어들 수 있다.
 
+<!-- diagram:dp-creational-patterns-2 -->
+![가장 단순한 구현이 깨지는 지점](../assets/diagrams/dp-creational-patterns-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 시간 ──────────────────────────────────────────────>
 
@@ -87,10 +98,14 @@ public static ConnectionPool getInstance() {
 결과: 커넥션 40개. 게다가 나중 것이 static 필드를 덮어써서
       먼저 만들어진 풀의 커넥션 20개는 아무도 반납하지 않는 미아가 된다
 ```
+-->
 
 검사-후-행동(check-then-act)이 원자적이지 않아 생기는 경쟁 상태(race condition)다.
 
 ### 구현 1. Double-Checked Locking
+
+<!-- diagram:dp-dcl-reordering -->
+![volatile 없는 DCL](../assets/diagrams/dp-dcl-reordering.svg)
 
 `getInstance()` 전체에 `synchronized`를 걸면 안전하지만 인스턴스가 만들어진 뒤에도 모든 호출이 락을 기다린다. 락을 꼭 필요할 때만 걸자는 것이 DCL이다.
 
@@ -114,6 +129,11 @@ public class ConnectionPool {
 
 `volatile`이 빠지면 왜 깨지는가. `instance = new ConnectionPool()`은 한 덩어리가 아니다.
 
+<!-- diagram:dp-creational-patterns-3 -->
+![구현 1. Double-Checked Locking](../assets/diagrams/dp-creational-patterns-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ① 힙에 메모리 할당  ② 생성자 실행  ③ instance에 주소 대입
 
@@ -121,6 +141,7 @@ JIT/CPU는 성능을 위해 ②와 ③의 순서를 바꿀 수 있다.
   ① → ③ → ②  가 되면, 그 틈에 다른 스레드가 1차 검사를 통과해
   instance != null 이지만 커넥션은 아직 안 열린 객체를 받는다.
 ```
+-->
 
 `volatile`은 한 스레드가 쓴 값을 다른 스레드가 반드시 최신으로 보게 하는 **가시성(visibility)** 과 위와 같은 **명령어 재배치 방지**를 함께 보장한다. Java 5에서 메모리 모델(JSR-133)이 정비되면서 `volatile`을 붙인 DCL이 비로소 안전해졌다.
 
@@ -386,6 +407,11 @@ copy.getItems().add(new Item("추가상품"));
 origin.getItems().size();          // 원본에도 추가돼 있다
 ```
 
+<!-- diagram:dp-creational-patterns-4 -->
+![5. 프로토타입](../assets/diagrams/dp-creational-patterns-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [얕은 복사]                       [깊은 복사]
 
@@ -394,6 +420,7 @@ origin.getItems().size();          // 원본에도 추가돼 있다
  copy ────┘                        copy ────> List(B) ──> Item
    같은 리스트를 공유                 리스트를 새로 만들었다
 ```
+-->
 
 개선의 기준은 "그 필드를 나중에 바꿀 수 있는가"다. 주문 번호 같은 `String` 필드는 불변이라 참조만 복사해도 안전하지만, 리스트는 `new ArrayList<>(other.items)`로 새로 만들어야 한다. `items` 안의 `Item`까지 바꿀 수 있다면 `Item`도 복제해야 한다. 그래서 실무에서는 **복제 대상을 가능한 한 불변으로 설계하는 것**이 가장 안전한 답이 된다. 자바의 `Cloneable`/`clone()`은 이 패턴의 언어 지원처럼 보이지만 `Cloneable`에는 `clone()`이 없고 생성자를 거치지 않아 `final` 필드를 다루기 까다롭다. 새로 짠다면 위처럼 복사 생성자나 정적 복사 팩토리를 쓴다.
 

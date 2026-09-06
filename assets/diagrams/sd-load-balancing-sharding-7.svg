@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">레플리카와 읽기 분산</title>
+  <desc id="d">프라이머리 노드에서 쓰기가 발생하고 비동기 복제를 거쳐 레플리카 1, 2, 3으로 읽기 트래픽이 분산되는 구조도입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="260" fill="#ffffff"/>
+
+  <!-- 1. 쓰기 트래픽 및 프라이머리 노드 -->
+  <text x="64" y="134" font-size="14" fill="#2563eb" font-weight="bold">쓰기</text>
+  <path d="M100,130 L160,130" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <rect x="170" y="105" width="130" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="235" y="135" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">프라이머리</text>
+
+  <!-- 2. 비동기 복제 분기선 -->
+  <!-- 메인 복제 선 -->
+  <path d="M300,130 L460,130" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  
+  <!-- 복제 라벨 배경 및 텍스트 -->
+  <rect x="340" y="118" width="80" height="24" rx="4" fill="#ffffff"/>
+  <text x="380" y="134" font-size="12" fill="#7c3aed" text-anchor="middle" font-weight="bold">비동기 복제</text>
+
+  <!-- 분기 세로선 및 레플리카 분기 화살표 -->
+  <path d="M460,50 L460,210" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  
+  <path d="M460,50 L500,50" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M460,130 L500,130" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M460,210 L500,210" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 3. 레플리카 노드들 -->
+  <!-- 레플리카1 -->
+  <rect x="510" y="25" width="120" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="570" y="55" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">레플리카1</text>
+
+  <!-- 레플리카2 -->
+  <rect x="510" y="105" width="120" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="570" y="135" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">레플리카2</text>
+
+  <!-- 레플리카3 -->
+  <rect x="510" y="185" width="120" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="570" y="215" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">레플리카3</text>
+
+  <!-- 4. 읽기 트래픽 집합선 및 라벨 -->
+  <path d="M630,50 L670,50" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M630,130 L670,130" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M630,210 L670,210" stroke="#059669" stroke-width="1.5" fill="none"/>
+  
+  <path d="M670,50 L670,210" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M670,130 L730,130" stroke="#059669" stroke-width="1.5" fill="none"/>
+
+  <text x="740" y="134" font-size="14" fill="#059669" font-weight="bold">읽기 트래픽</text>
+</svg>

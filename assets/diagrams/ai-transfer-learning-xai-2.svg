@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">특징 추출 vs 파인튜닝 구조 비교</title>
+  <desc id="d">특징 추출과 파인튜닝 두 방식의 층별 동결/학습 상태 및 학습 대상 파라미터 수 비교 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: [특징 추출 Feature Extraction] -->
+  <g id="feature-extraction">
+    <!-- Section Title -->
+    <text x="40" y="48" font-size="16" font-weight="bold" fill="#1f2933">[특징 추출 Feature Extraction]</text>
+
+    <!-- Frozen Block -->
+    <rect x="40" y="70" width="380" height="80" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="230" y="103.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">사전학습 층 (동결)</text>
+    <text x="230" y="128.5" font-size="13" fill="#52606d" text-anchor="middle">가중치가 절대 안 바뀜</text>
+
+    <!-- Side annotation 1 -->
+    <text x="432" y="103.5" font-size="11.5" fill="#52606d">requires_grad = False</text>
+    <text x="432" y="128.5" font-size="11.5" fill="#52606d">→ 사실상 고정된 특징 변환기</text>
+
+    <!-- Arrow -->
+    <path d="M230,150 L230,178" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- Trainable Block -->
+    <rect x="40" y="180" width="380" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="230" y="209.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">새 분류 층 (학습)</text>
+
+    <!-- Side annotation 2 -->
+    <text x="432" y="209.5" font-size="11.5" fill="#2563eb">이 층만 역전파로 갱신</text>
+
+    <!-- Bottom Note -->
+    <text x="40" y="261.5" font-size="11.5" fill="#1f2933">학습 대상 파라미터: 수천 개 → 데이터 400장으로도 과적합이 잘 안 난다</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="40" y1="285" x2="840" y2="285" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Section 2: [파인튜닝 Fine-tuning] -->
+  <g id="fine-tuning">
+    <!-- Section Title -->
+    <text x="40" y="328" font-size="16" font-weight="bold" fill="#1f2933">[파인튜닝 Fine-tuning]</text>
+
+    <!-- Combined Block Outer Container -->
+    <!-- Initial Layer (Frozen) -->
+    <path d="M 40,350 L 420,350 L 420,400 L 40,400 Z" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="230" y="379.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">초기 층 (동결)</text>
+
+    <!-- Later Layer (Unfrozen, Low lr) -->
+    <path d="M 40,400 L 420,400 L 420,450 L 40,450 Z" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="230" y="429.5" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">후반 층 (해동, 낮은 lr)</text>
+
+    <!-- New Classification Layer (High lr) -->
+    <path d="M 40,450 L 420,450 L 420,500 L 40,500 Z" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="230" y="479.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">새 분류 층 (높은 lr)</text>
+
+    <!-- Side annotations -->
+    <text x="432" y="429.5" font-size="11.5" fill="#d97706">requires_grad = True, lr = 1e-4</text>
+    <text x="432" y="479.5" font-size="11.5" fill="#2563eb">lr = 1e-3</text>
+
+    <!-- Bottom Note -->
+    <text x="40" y="526.5" font-size="11.5" fill="#1f2933">학습 대상 파라미터: 수백만 개 → 데이터가 어느 정도 있어야 안전하다</text>
+  </g>
+</svg>

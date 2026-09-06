@@ -69,6 +69,11 @@
 
 쿠버네티스의 모든 오브젝트는 `spec`(원하는 상태)과 `status`(관측된 실제 상태)를 가진다. 컨트롤러는 이 둘을 비교하는 무한 루프다.
 
+<!-- diagram:cloud-architecture-concepts-1 -->
+![조정 루프(Reconciliation Loop)](../../assets/diagrams/cloud-architecture-concepts-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         ┌────────────────────────────────┐
         │  spec  (원하는 상태)           │
@@ -87,6 +92,7 @@
                         │
                         └────► 다시 비교 (끝나지 않음)
 ```
+-->
 
 여기서 놓치기 쉬운 점 두 가지가 있다.
 
@@ -134,6 +140,11 @@ kubectl get pods               # 잠시 뒤 다시 3개
 
 클러스터는 **컨트롤 플레인(Control Plane)** 과 **워커 노드(Node)** 로 나뉜다. 컨트롤 플레인은 "무엇을 어디에 둘지 결정하는 두뇌"이고, 노드는 "실제로 컨테이너를 돌리는 손발"이다.
 
+<!-- diagram:cloud-architecture-concepts-2 -->
+![3. 컨트롤 플레인 구성요소](../../assets/diagrams/cloud-architecture-concepts-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────────────── Control Plane ───────────────────────┐
 │                                                            │
@@ -162,6 +173,7 @@ kubectl get pods               # 잠시 뒤 다시 3개
   │ 런타임    │      │ 런타임    │      │ 런타임    │
   └───────────┘      └───────────┘      └───────────┘
 ```
+-->
 
 ### 3-1. kube-apiserver — 유일한 관문
 
@@ -192,6 +204,11 @@ etcd에 직접 접근하는 컴포넌트는 API 서버뿐이다. 컨트롤러가
 
 결정은 두 단계로 이뤄진다.
 
+<!-- diagram:cloud-architecture-concepts-3 -->
+![3-3. kube-scheduler](../../assets/diagrams/cloud-architecture-concepts-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [전체 노드 5개]
       │
@@ -210,6 +227,7 @@ etcd에 직접 접근하는 컴포넌트는 API 서버뿐이다. 컨트롤러가
       ▼
 [node-3 선택] → spec.nodeName = node-3
 ```
+-->
 
 필터링을 통과한 노드가 **0개면 Pod는 `Pending` 상태로 남는다.** 이때 `kubectl describe pod`의 이벤트에 `0/5 nodes are available: 3 Insufficient cpu, 2 node(s) had untolerated taint...` 같은 메시지가 뜬다. Pending 진단은 [05-troubleshooting.md](./05-troubleshooting.md)에서 자세히 다룬다.
 
@@ -274,6 +292,11 @@ Service로 들어온 트래픽을 실제 Pod로 보내는 규칙을 노드 커�
 
 ### 무엇을 공유하고 무엇을 공유하지 않나
 
+<!-- diagram:cloud-architecture-concepts-4 -->
+![무엇을 공유하고 무엇을 공유하지 않나](../../assets/diagrams/cloud-architecture-concepts-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌───────────────── Pod (IP 10.244.1.7) ──────────────────┐
 │                                                        │
@@ -291,6 +314,7 @@ Service로 들어온 트래픽을 실제 Pod로 보내는 규칙을 노드 커�
 │                  └──────────────────────────────┘      │
 └────────────────────────────────────────────────────────┘
 ```
+-->
 
 - **공유한다**: 네트워크 네임스페이스(같은 IP, `localhost` 통신, **포트 공간도 공유**), IPC 네임스페이스, 지정한 볼륨
 - **공유하지 않는다**: 각 컨테이너의 이미지 파일시스템, 기본적으로 PID 네임스페이스
@@ -306,6 +330,9 @@ Service로 들어온 트래픽을 실제 Pod로 보내는 규칙을 노드 커�
 ---
 
 ## 6. Pod 하나가 만들어지는 전체 흐름
+
+<!-- diagram:k8s-pod-creation -->
+![Pod 하나가 만들어지기까지](../../assets/diagrams/k8s-pod-creation.svg)
 
 지금까지의 구성요소가 실제로 어떻게 이어지는지 한 번에 따라가 보자.
 

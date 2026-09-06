@@ -23,6 +23,11 @@
 
 ### 관계
 
+<!-- diagram:cloud-qna-docker-1 -->
+![관계](../../../assets/diagrams/cloud-qna-docker-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Image (읽기 전용)
    │
@@ -35,6 +40,7 @@ Image (읽기 전용)
    └── Container 3 (정지됨)
           └── Writable Layer
 ```
+-->
 
 ### 이미지 레이어 구조
 
@@ -45,6 +51,11 @@ COPY app.py /app/      # Layer 3
 CMD ["python", "app.py"]
 ```
 
+<!-- diagram:cloud-qna-docker-2 -->
+![이미지 레이어 구조](../../../assets/diagrams/cloud-qna-docker-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────┐
 │ Layer 3: COPY app.py│
@@ -54,6 +65,7 @@ CMD ["python", "app.py"]
 │ Layer 1: ubuntu     │
 └─────────────────────┘
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 레이어 개념 이해

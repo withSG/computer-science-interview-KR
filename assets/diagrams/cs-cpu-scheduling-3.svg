@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">SRTF (Shortest Remaining Time First) — 선점</title>
+  <desc id="d">SRTF CPU 스케줄링의 간트 차트와 시간대별 실행 흐름, 대기 시간 및 평균 대기 시간 계산 과정</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: Gantt Chart -->
+  <!-- Scale: 0 to 16 mapped onto x = 50 to 830 (Width = 780, 1 unit = 48.75px) -->
+  <!-- Timeline markers & axis -->
+  <line x1="50" y1="90" x2="830" y2="90" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- T ticks & labels -->
+  <!-- t=0 (x=50) -->
+  <line x1="50" y1="45" x2="50" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="50" y="37" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">0</text>
+
+  <!-- t=2 (x=147.5) -->
+  <line x1="147.5" y1="45" x2="147.5" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="147.5" y="37" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
+
+  <!-- t=4 (x=245) -->
+  <line x1="245" y1="45" x2="245" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="245" y="37" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
+
+  <!-- t=5 (x=293.75) -->
+  <line x1="293.75" y1="45" x2="293.75" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="293.75" y="37" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
+
+  <!-- t=7 (x=391.25) -->
+  <line x1="391.25" y1="45" x2="391.25" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="391.25" y="37" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">7</text>
+
+  <!-- t=11 (x=586.25) -->
+  <line x1="586.25" y1="45" x2="586.25" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="586.25" y="37" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">11</text>
+
+  <!-- t=16 (x=830) -->
+  <line x1="830" y1="45" x2="830" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="830" y="37" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">16</text>
+
+  <!-- Process Blocks -->
+  <!-- P1 (0..2) width = 97.5 -->
+  <rect x="50" y="50" width="97.5" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="98.75" y="74.2" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
+
+  <!-- P2 (2..4) width = 97.5 -->
+  <rect x="147.5" y="50" width="97.5" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="196.25" y="74.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">P2</text>
+
+  <!-- P3 (4..5) width = 48.75 -->
+  <rect x="245" y="50" width="48.75" height="40" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="269.375" y="74.2" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">P3</text>
+
+  <!-- P2 (5..7) width = 97.5 -->
+  <rect x="293.75" y="50" width="97.5" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="342.5" y="74.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">P2</text>
+
+  <!-- P4 (7..11) width = 195 -->
+  <rect x="391.25" y="50" width="195" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="488.75" y="74.2" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">P4</text>
+
+  <!-- P1 (11..16) width = 243.75 -->
+  <rect x="586.25" y="50" width="243.75" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="708.125" y="74.2" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
+
+
+  <!-- Section 2: Time Execution Log -->
+  <rect x="50" y="125" width="780" height="235" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Entry 1: t=2 -->
+  <text x="75" y="160.025" font-size="13" font-weight="bold" fill="#1f2933">t=2 :</text>
+  <text x="115" y="160.025" font-size="13" fill="#1f2933">P2(4) &lt; P1 남은시간(5)</text>
+  <path d="M260,156 L285,156" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  <text x="295" y="160.025" font-size="13" font-weight="bold" fill="#dc2626">P1 선점</text>
+
+  <!-- Entry 2: t=4 -->
+  <text x="75" y="200.025" font-size="13" font-weight="bold" fill="#1f2933">t=4 :</text>
+  <text x="115" y="200.025" font-size="13" fill="#1f2933">P3(1) &lt; P2 남은시간(2)</text>
+  <path d="M260,196 L285,196" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  <text x="295" y="200.025" font-size="13" font-weight="bold" fill="#dc2626">P2 선점</text>
+
+  <!-- Entry 3: t=5 -->
+  <text x="75" y="240.025" font-size="13" font-weight="bold" fill="#1f2933">t=5 :</text>
+  <text x="115" y="240.025" font-size="13" fill="#1f2933">P3 종료, 남은 것 P2(2) P4(4) P1(5)</text>
+  <path d="M345,236 L370,236" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="380" y="240.025" font-size="13" font-weight="bold" fill="#059669">P2</text>
+
+  <!-- Entry 4: t=7 -->
+  <text x="75" y="280.025" font-size="13" font-weight="bold" fill="#1f2933">t=7 :</text>
+  <text x="115" y="280.025" font-size="13" fill="#1f2933">P2 종료</text>
+  <path d="M175,276 L200,276" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="210" y="280.025" font-size="13" font-weight="bold" fill="#7c3aed">P4(4)</text>
+
+  <!-- Entry 5: t=11 -->
+  <text x="75" y="320.025" font-size="13" font-weight="bold" fill="#1f2933">t=11:</text>
+  <text x="115" y="320.025" font-size="13" fill="#1f2933">P4 종료</text>
+  <path d="M175,316 L200,316" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="210" y="320.025" font-size="13" font-weight="bold" fill="#2563eb">P1(5)</text>
+
+
+  <!-- Section 3: Waiting Time & Calculations -->
+  <rect x="50" y="380" width="780" height="120" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Waiting Time Formulas -->
+  <text x="75" y="420.025" font-size="13" font-weight="bold" fill="#1f2933">대기 시간:</text>
+  
+  <text x="150" y="420.025" font-size="13" fill="#52606d">
+    <tspan fill="#2563eb" font-weight="bold">P1</tspan>=(16-0)-7=9,  
+    <tspan fill="#059669" font-weight="bold">P2</tspan>=(7-2)-4=1,  
+    <tspan fill="#d97706" font-weight="bold">P3</tspan>=(5-4)-1=0,  
+    <tspan fill="#7c3aed" font-weight="bold">P4</tspan>=(11-5)-4=2
+  </text>
+
+  <line x1="75" y1="445" x2="805" y2="445" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Average Waiting Time -->
+  <text x="75" y="478.025" font-size="14" font-weight="bold" fill="#1f2933">평균 대기 시간 = (9+1+0+2)/4 = 3.0</text>
+
+</svg>

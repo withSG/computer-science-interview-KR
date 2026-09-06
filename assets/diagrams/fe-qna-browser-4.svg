@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">렌더링 파이프라인</title>
+  <desc id="d">일반 속성 변경 시 Layout, Paint, Composite의 모든 단계가 실행되고, transform 및 opacity 변경 시 GPU에서 Composite 단계만 처리되는 과정을 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="280" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="30" y="32" font-size="16" font-weight="bold" fill="#1f2933">렌더링 파이프라인</text>
+
+  <!-- Flow 1: 일반 속성 변경 -->
+  <g>
+    <text x="30" y="78" font-size="14" font-weight="bold" fill="#1f2933">일반 속성 변경:</text>
+
+    <!-- Layout Box -->
+    <rect x="180" y="55" width="130" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="245" y="79" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Layout</text>
+
+    <!-- Arrow 1-1 -->
+    <path d="M310,75 L340,75" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- Paint Box -->
+    <rect x="350" y="55" width="130" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="415" y="79" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Paint</text>
+
+    <!-- Arrow 1-2 -->
+    <path d="M480,75 L510,75" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- Composite Box -->
+    <rect x="520" y="55" width="130" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="585" y="79" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Composite</text>
+
+    <!-- Note 1 -->
+    <text x="670" y="79" font-size="13" fill="#52606d">(모든 단계 실행)</text>
+  </g>
+
+  <!-- Flow 2: transform/opacity 변경 -->
+  <g>
+    <text x="30" y="188" font-size="14" font-weight="bold" fill="#1f2933">transform/opacity 변경:</text>
+
+    <!-- Skipped Layout (Dashed/Grayed out indication implied by bypass arrow) -->
+    <!-- Composite Only Box -->
+    <rect x="250" y="165" width="150" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="325" y="189" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Composite만</text>
+
+    <!-- Note 2 -->
+    <text x="420" y="189" font-size="13" fill="#52606d">(GPU에서 처리)</text>
+  </g>
+
+</svg>

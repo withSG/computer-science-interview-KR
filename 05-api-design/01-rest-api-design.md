@@ -63,23 +63,34 @@ REST(REpresentational State Transfer)는 Roy Fielding이 2000년 박사 논문�
 
 ### Stateless가 진짜로 사주는 것
 
+<!-- diagram:api-rest-api-design-1 -->
+![Stateless가 진짜로 사주는 것](../assets/diagrams/api-rest-api-design-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII (원본의 화살표 꼬리는 주석이 조기 종료되지 않도록 `--&gt;`로 표기).
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Stateful — 서버 메모리에 세션]
-   요청 --> [LB] --> 서버A (김씨 세션 보관)
-   재요청 --> [LB] --> 서버B  ← 세션 없음. 로그인 풀림
+   요청 --&gt; [LB] --&gt; 서버A (김씨 세션 보관)
+   재요청 --&gt; [LB] --&gt; 서버B  ← 세션 없음. 로그인 풀림
    해결하려면 LB에 "김씨는 항상 A로" 고정(sticky session)
    → A가 죽으면 A에 붙은 사용자 전원 로그아웃
 
 [Stateless — 요청이 신원 증명을 들고 옴]
-   요청 + 토큰 --> [LB] --> 서버A  (토큰 검증 후 처리)
-   재요청 + 토큰 --> [LB] --> 서버B  (똑같이 검증. 문제 없음)
+   요청 + 토큰 --&gt; [LB] --&gt; 서버A  (토큰 검증 후 처리)
+   재요청 + 토큰 --&gt; [LB] --&gt; 서버B  (똑같이 검증. 문제 없음)
    → 서버를 아무 때나 늘리고 줄여도 된다
 ```
+-->
 
 주의할 점은 **"상태를 저장하지 마라"가 아니라 "세션 상태를 서버 메모리에 두지 마라"**라는 것이다. 사용자 데이터는 당연히 DB에 있다. Stateless가 금지하는 것은 *이 클라이언트가 지금 어느 단계까지 왔는지*를 서버가 기억하는 일이다.
 
 ### Layered System — 클라이언트가 몰라도 되는 것들
 
+<!-- diagram:api-rest-api-design-2 -->
+![Layered System](../assets/diagrams/api-rest-api-design-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client
   │  https://api.example.com/users/1  이것만 안다
@@ -89,6 +100,7 @@ Client
 └──────┘   └──────────────┘   └─────────────┘   └────────┘
  캐시 응답    트래픽 분산        인증·Rate Limit     비즈니스 로직
 ```
+-->
 
 중간에 무엇이 몇 개 끼든 클라이언트 코드는 한 줄도 안 바뀐다. 캐싱 계층을 새로 넣거나 게이트웨이에서 인증을 앞당겨 처리하는 일이 가능한 이유가 이 제약조건이다.
 
@@ -195,6 +207,11 @@ DELETE /articles/1/likes    # 좋아요 취소
 
 POST가 멱등이 아니라는 사실이 실제 사고로 드러나는 대표 사례가 결제다.
 
+<!-- diagram:api-rest-api-design-3 -->
+![POST 중복과 Idempotency-Key](../assets/diagrams/api-rest-api-design-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 클라이언트 ──POST /payments (50,000원)──> 서버
                                             │
@@ -207,6 +224,7 @@ POST가 멱등이 아니라는 사실이 실제 사고로 드러나는 대표 �
                                             │
                                      또 결제 처리  ← 10만원 나감
 ```
+-->
 
 해결책은 **요청마다 고유 키를 붙여 서버가 중복을 판별하게 하는 것**이다.
 
@@ -247,6 +265,11 @@ Stripe, 토스페이먼츠 등 결제 API가 이 방식을 쓴다. HTTP 표준�
 
 ### 401 vs 403
 
+<!-- diagram:api-rest-api-design-4 -->
+![401 vs 403](../assets/diagrams/api-rest-api-design-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 401 Unauthorized  → "당신이 누군지 모르겠습니다"
                      토큰 없음 / 만료 / 위조
@@ -256,6 +279,7 @@ Stripe, 토스페이먼츠 등 결제 API가 이 방식을 쓴다. HTTP 표준�
                      일반 회원이 관리자 API 호출
                      → 클라이언트가 할 일: 없음. 다시 로그인해도 소용없다
 ```
+-->
 
 이름이 반대로 붙어 있어서(401이 Unauthorized인데 실제로는 인증 문제) 계속 헷갈린다. **"다시 로그인하면 해결되는가"**로 외우면 편하다. 해결되면 401, 안 되면 403이다.
 
@@ -263,6 +287,11 @@ Stripe, 토스페이먼츠 등 결제 API가 이 방식을 쓴다. HTTP 표준�
 
 ### 400 vs 422
 
+<!-- diagram:api-rest-api-design-5 -->
+![400 vs 422](../assets/diagrams/api-rest-api-design-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 POST /users
 { "age": "스물" }        → 400. JSON 문법은 멀쩡하지만 age가 숫자 필드라
@@ -275,6 +304,7 @@ POST /orders
 { "couponId": 7, "amount": 3000 }
                          → 422. 형식은 완벽하다. 이 쿠폰의 최소 주문금액이 5000원일 뿐
 ```
+-->
 
 경계는 **"요청을 이해했는가"**다. 이해조차 못 했으면 400, 이해는 했는데 받아들일 수 없으면 422다. 다만 422를 아예 안 쓰고 400으로 통일하는 팀도 많다. 어느 쪽이든 **팀 안에서 일관되면 된다**. 면접에서는 둘의 차이를 알고 있다는 것만 보이면 충분하다.
 
@@ -364,6 +394,11 @@ Uniform Interface의 네 번째 세부 규칙이 **HATEOAS**(Hypermedia As The E
 
 이 개념까지 포함해 REST의 단계를 나눈 것이 리처드슨 성숙도 모델(Richardson Maturity Model)이다.
 
+<!-- diagram:api-rest-api-design-6 -->
+![7. HATEOAS와 리처드슨 성숙도 모델](../assets/diagrams/api-rest-api-design-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Level 3  하이퍼미디어(HATEOAS)      응답에 다음 행동 링크 포함
   ▲                                 └ 극소수. Spring HATEOAS 등을 써야 함
@@ -377,6 +412,7 @@ Level 1  자원(Resource)              /users/1 처럼 URI가 자원을 가리�
 Level 0  단일 엔드포인트             POST /api 하나에 body로 명령을 담아 보냄
                                     └ SOAP·구식 RPC. "POX의 늪"
 ```
+-->
 
 **Level 3까지 가는 프로젝트는 거의 없다.** 이유는 분명하다. 링크를 따라가는 클라이언트를 만드는 비용이 URI를 하드코딩하는 비용보다 훨씬 크고, 응답 크기도 커지고, 결정적으로 클라이언트 팀이 어차피 API 문서를 보고 개발하기 때문이다. Fielding 본인은 하이퍼미디어가 빠진 것을 REST라 부르면 안 된다는 입장을 여러 차례 밝혔지만, 업계 용어로서의 "REST API"는 사실상 Level 2를 가리킨다.
 

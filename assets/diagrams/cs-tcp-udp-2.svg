@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">연결 종료 — 4-way 핸드셰이크</title>
+  <desc id="d">Client와 Server 간의 TCP 연결 종료 4-way 핸드셰이크 과정과 각 상태 변화를 나타낸 시퀀스 다이어그램</desc>
+  <rect width="880" height="620" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrowhead Markers -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Headers -->
+  <!-- Client Header Box -->
+  <rect x="140" y="30" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="250" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Client (먼저 닫는 쪽)</text>
+
+  <!-- Server Header Box -->
+  <rect x="520" y="30" width="220" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="630" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Server</text>
+
+  <!-- Vertical Lifelines -->
+  <line x1="250" y1="70" x2="250" y2="580" stroke="#cbd2d9" stroke-width="2"/>
+  <line x1="630" y1="70" x2="630" y2="580" stroke="#cbd2d9" stroke-width="2"/>
+
+  <!-- Initial State: ESTABLISHED -->
+  <rect x="190" y="85" width="120" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="250" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">ESTABLISHED</text>
+
+  <rect x="570" y="85" width="120" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="630" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">ESTABLISHED</text>
+
+  <!-- Step 1: FIN -->
+  <line x1="250" y1="135" x2="630" y2="135" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <rect x="410" y="123" width="60" height="22" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
+  <text x="440" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">FIN</text>
+
+  <!-- Client State: FIN_WAIT_1 -->
+  <rect x="190" y="150" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="250" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">FIN_WAIT_1</text>
+
+  <!-- Server State: CLOSE_WAIT -->
+  <rect x="570" y="150" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="630" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">CLOSE_WAIT</text>
+
+  <!-- Step 2: ACK -->
+  <line x1="630" y1="215" x2="250" y2="215" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+  <rect x="410" y="203" width="60" height="22" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="3"/>
+  <text x="440" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">ACK</text>
+
+  <!-- Server Note: "알겠다. 근데 아직 보낼 게 남았다" -->
+  <text x="660" y="208" text-anchor="start" font-size="11.5" fill="#52606d">"알겠다. 근데 아직</text>
+  <text x="665" y="226" text-anchor="start" font-size="11.5" fill="#52606d">보낼 게 남았다"</text>
+
+  <!-- Client State: FIN_WAIT_2 -->
+  <rect x="190" y="230" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="250" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">FIN_WAIT_2</text>
+
+  <!-- Step 3: (남은 데이터 전송) -->
+  <line x1="630" y1="295" x2="250" y2="295" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-amber)"/>
+  <rect x="360" y="283" width="160" height="22" fill="#ffffff" stroke="#d97706" stroke-width="1" rx="3"/>
+  <text x="440" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">(남은 데이터 전송)</text>
+
+  <!-- Step 4: FIN -->
+  <line x1="630" y1="365" x2="250" y2="365" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+  <rect x="410" y="353" width="60" height="22" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="3"/>
+  <text x="440" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">FIN</text>
+
+  <!-- Server State: LAST_ACK -->
+  <rect x="570" y="350" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="630" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">LAST_ACK</text>
+
+  <!-- Step 5: ACK -->
+  <line x1="250" y1="435" x2="630" y2="435" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <rect x="410" y="423" width="60" height="22" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
+  <text x="440" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">ACK</text>
+
+  <!-- Client State: TIME_WAIT -->
+  <rect x="190" y="450" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="250" y="467" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">TIME_WAIT</text>
+
+  <!-- Server State: CLOSED -->
+  <rect x="570" y="450" width="120" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="630" y="467" text-anchor="middle" font-size="12" font-weight="bold" fill="#52606d">CLOSED</text>
+
+  <!-- Sub-transition under TIME_WAIT: └─ 2MSL 대기 후 ─► CLOSED -->
+  <path d="M 250,476 L 250,520 L 310,520" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <rect x="202" y="508" width="96" height="22" fill="#ffffff"/>
+  <text x="250" y="523" text-anchor="middle" font-size="11.5" fill="#1f2933">2MSL 대기 후</text>
+
+  <!-- Final Client State: CLOSED -->
+  <rect x="315" y="507" width="90" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="360" y="524" text-anchor="middle" font-size="12" font-weight="bold" fill="#52606d">CLOSED</text>
+</svg>

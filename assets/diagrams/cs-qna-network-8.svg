@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">I/O Multiplexing (동기 + 이벤트 대기)</title>
+  <desc id="d">I/O Multiplexing 모델의 호출 흐름, 특징, 핵심 시스템 콜 및 활용 예시를 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">#### 3. I/O Multiplexing (동기 + 이벤트 대기)</text>
+
+  <!-- Flow Section -->
+  <g>
+    <!-- Node 1: 호출자 -->
+    <rect x="30" y="65" width="80" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="70" y="89" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">호출자</text>
+
+    <!-- Arrow 1 -->
+    <path d="M110,85 L130,85" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- Node 2: select()/epoll() 호출 -->
+    <rect x="130" y="65" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="210" y="89" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">select()/epoll() 호출</text>
+
+    <!-- Arrow 2 -->
+    <path d="M290,85 L310,85" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- Node 3: [다수 fd 동시 대기] -->
+    <rect x="310" y="65" width="165" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="392.5" y="89" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">[다수 fd 동시 대기]</text>
+
+    <!-- Connector: Line from Row 1 to Row 2 -->
+    <path d="M475,85 L500,85 L500,120 L50,120 L50,135" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- Node 4: 준비된 fd 알림 -->
+    <rect x="30" y="135" width="135" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="97.5" y="159" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">준비된 fd 알림</text>
+
+    <!-- Arrow 3 -->
+    <path d="M165,155 L185,155" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- Node 5: read() 호출 (즉시 데이터 있음) -->
+    <rect x="185" y="135" width="245" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="307.5" y="159" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">read() 호출 (즉시 데이터 있음)</text>
+  </g>
+
+  <!-- Section Divider -->
+  <line x1="30" y1="200" x2="850" y2="200" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Features Section -->
+  <g>
+    <rect x="30" y="215" width="820" height="100" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="45" y="238" font-size="14" font-weight="bold" fill="#1f2933">특징:</text>
+    <text x="60" y="261" font-size="13" fill="#1f2933">- 하나의 스레드로 다수 I/O 소켓 관리</text>
+    <text x="60" y="281" font-size="13" fill="#1f2933">- Blocking이지만 여러 fd를 동시에 감시</text>
+    <text x="60" y="301" font-size="13" fill="#1f2933">- Non-blocking보다 효율적</text>
+  </g>
+
+  <!-- System Calls Section -->
+  <g>
+    <rect x="30" y="330" width="820" height="120" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+    <text x="45" y="353" font-size="14" font-weight="bold" fill="#7c3aed">핵심 시스템 콜:</text>
+    <text x="60" y="376" font-size="13" fill="#1f2933">- select(): 최대 1024 fd, 모든 fd 순회</text>
+    <text x="60" y="396" font-size="13" fill="#1f2933">- poll(): fd 수 제한 없음, 역시 순회</text>
+    <text x="60" y="416" font-size="13" fill="#1f2933">- epoll() (Linux): O(1) 이벤트 감지, 대규모에 적합</text>
+  </g>
+
+  <!-- Examples Section -->
+  <g>
+    <rect x="30" y="465" width="820" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="45" y="495" font-size="13" fill="#1f2933"><tspan font-weight="bold" fill="#2563eb">예:</tspan> Redis (싱글 스레드 + epoll), Nginx</text>
+  </g>
+</svg>

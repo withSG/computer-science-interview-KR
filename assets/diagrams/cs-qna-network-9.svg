@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">4. Asynchronous I/O (비동기 논블로킹)</title>
+  <desc id="d">Asynchronous I/O 흐름과 특징, 그리고 적용 예시를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- 헤딩 / 제목 -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">4. Asynchronous I/O (비동기 논블로킹)</text>
+
+  <!-- Flow Area Container -->
+  <rect x="40" y="70" width="800" height="190" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="6"/>
+
+  <!-- Node 1: 호출자 -->
+  <rect x="70" y="100" width="90" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="115" y="124" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">호출자</text>
+
+  <!-- Arrow 1: 호출자 -> aio_read() 호출 -->
+  <path d="M160,120 L200,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Node 2: aio_read() 호출 -->
+  <rect x="201" y="100" width="140" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="271" y="124" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">aio_read() 호출</text>
+
+  <!-- Arrow 2: aio_read() 호출 -> 즉시 반환 -->
+  <path d="M341,120 L381,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Node 3: 즉시 반환 -->
+  <rect x="382" y="100" width="110" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="437" y="124" font-size="13" fill="#1f2933" text-anchor="middle">즉시 반환</text>
+
+  <!-- Arrow 3: 즉시 반환 -> 다른 작업 계속 -->
+  <path d="M437,140 L437,170 L200,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Node 4: 다른 작업 계속 -->
+  <rect x="70" y="150" width="130" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="135" y="174" font-size="13" fill="#1f2933" text-anchor="middle">다른 작업 계속</text>
+
+  <!-- Arrow 4: 다른 작업 계속 -> OS가 I/O 완료 후 콜백 호출 -->
+  <path d="M135,190 L135,220 L220,220" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Node 5: OS가 I/O 완료 후 콜백 호출 -->
+  <rect x="221" y="200" width="220" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+  <text x="331" y="224" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">OS가 I/O 완료 후 콜백 호출</text>
+
+
+  <!-- 특징 Section -->
+  <rect x="40" y="280" width="800" height="130" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="6"/>
+  <text x="60" y="310" font-size="14" font-weight="bold" fill="#1f2933">특징:</text>
+  
+  <text x="75" y="340" font-size="13" fill="#1f2933">- 완전한 비동기: 호출자가 I/O를 신경 쓰지 않음</text>
+  <text x="75" y="375" font-size="13" fill="#1f2933">- 가장 효율적이지만 구현 복잡</text>
+
+  <!-- 예 Section -->
+  <rect x="40" y="430" width="800" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="6"/>
+  <text x="60" y="471" font-size="13" font-weight="bold" fill="#d97706">예:</text>
+  <text x="90" y="471" font-size="13" fill="#1f2933">Node.js (libuv), Java NIO.2 (AIO)</text>
+</svg>

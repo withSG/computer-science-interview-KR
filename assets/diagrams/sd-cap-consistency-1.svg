@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">노드가 하나일 때는 없던 질문</title>
+  <desc id="d">정상 상태에서의 데이터 복제 과정과 네트워크 분할 발생 시 각각의 노드에 들어오는 요청을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="320" fill="#ffffff"/>
+
+  <!-- 구역 배경: 정상 -->
+  <rect x="30" y="30" width="390" height="260" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="50" y="60" font-size="14" font-weight="bold" fill="#059669">정상</text>
+
+  <!-- 구역 배경: 네트워크 분할 발생 -->
+  <rect x="460" y="30" width="390" height="260" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="480" y="60" font-size="14" font-weight="bold" fill="#dc2626">네트워크 분할 발생</text>
+
+  <!-- [정상] 노드 A -->
+  <rect x="70" y="90" width="120" height="70" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="130" y="119.5" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">노드 A</text>
+  <text x="130" y="141.5" text-anchor="middle" font-size="13" fill="#52606d">x = 1</text>
+
+  <!-- [정상] 복제 화살표 -->
+  <path d="M190,125 L250,125" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="202" y="103" width="36" height="18" fill="#ffffff"/>
+  <text x="220" y="115.5" text-anchor="middle" font-size="11.5" fill="#2563eb">복제</text>
+
+  <!-- [정상] 노드 B -->
+  <rect x="250" y="90" width="120" height="70" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="310" y="119.5" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">노드 B</text>
+  <text x="310" y="141.5" text-anchor="middle" font-size="13" fill="#52606d">x = 1</text>
+
+  <!-- [분할] 노드 A -->
+  <rect x="500" y="90" width="120" height="70" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="560" y="119.5" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">노드 A</text>
+  <text x="560" y="141.5" text-anchor="middle" font-size="13" fill="#52606d">x = 1</text>
+
+  <!-- [분할] 네트워크 끊김 표시 -->
+  <text x="655" y="129.5" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">╳╳╳</text>
+  <text x="655" y="105.5" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#dc2626">끊김</text>
+
+  <!-- [분할] 노드 B -->
+  <rect x="690" y="90" width="120" height="70" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="750" y="119.5" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">노드 B</text>
+  <text x="750" y="141.5" text-anchor="middle" font-size="13" fill="#52606d">x = 1</text>
+
+  <!-- [분할] 요청 1: "x를 2로 바꿔줘" -> 노드 A -->
+  <path d="M560,230 L560,160" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="495" y="235" width="130" height="24" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="560" y="250.5" text-anchor="middle" font-size="13" fill="#7c3aed">"x를 2로 바꿔줘"</text>
+
+  <!-- [분할] 요청 2: "x가 뭐야?" -> 노드 B -->
+  <path d="M750,230 L750,160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="700" y="235" width="100" height="24" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="750" y="250.5" text-anchor="middle" font-size="13" fill="#2563eb">"x가 뭐야?"</text>
+</svg>

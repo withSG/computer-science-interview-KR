@@ -71,6 +71,11 @@ public class SameDayShipping implements ShippingPolicy {
 }
 ```
 
+<!-- diagram:dp-behavioral-patterns-1 -->
+![1단계](../assets/diagrams/dp-behavioral-patterns-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [적용 전]                        [적용 후]
 
@@ -83,6 +88,7 @@ public class SameDayShipping implements ShippingPolicy {
   계속 자란다                         └ SameDayShipping
                                    새 방식 = 클래스 1개. 기존 파일은 안 연다
 ```
+-->
 
 ### 2단계 — 그런데 "어떤 전략을 고르나"가 남는다
 
@@ -162,6 +168,11 @@ public class CsvImporter extends DataImporter {
 
 `run()`을 `final`로 막는 것이 중요하다. 서브클래스가 흐름 자체를 바꿔버리면 "공통 흐름을 보장한다"는 목적이 사라진다. Spring의 `JdbcTemplate`, `RestTemplate`에 붙은 Template이 이 뜻이다. 커넥션 획득 → 실행 → 예외 변환 → 자원 반납은 프레임워크가 쥐고, 개발자는 SQL과 결과 매핑만 채운다. 다만 이 클래스들은 빈칸을 상속으로 채우게 하지 않고 `RowMapper` 같은 콜백 객체로 받는다. 흐름의 주인이 프레임워크라는 발상은 같지만 구현은 합성 쪽이다.
 
+<!-- diagram:dp-behavioral-patterns-2 -->
+![3. 템플릿 메서드](../assets/diagrams/dp-behavioral-patterns-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Template Method] 상속으로 "빈칸"을 채운다   [Strategy] 합성으로 "부품"을 갈아 끼운다
 
@@ -170,6 +181,7 @@ public class CsvImporter extends DataImporter {
     ├ parse()  ← 서브클래스가 채움                    ▼
     └ saveAll()                              ShippingPolicy ← 런타임 교체 가능
 ```
+-->
 
 | 기준 | Template Method | Strategy |
 |------|----------------|----------|
@@ -199,6 +211,11 @@ public void register(User user) {
 
 **왜 문제인가**: 회원가입의 본질은 저장 한 줄인데 나머지가 그것을 가린다. 후속 처리가 늘 때마다 이 클래스를 수정하므로 영원히 커진다. `emailService`가 예외를 던지면 회원가입 전체가 실패하는데, 이메일이 안 나갔다고 가입을 취소하는 게 맞는지도 의심스럽다. 테스트하려면 안 쓰는 서비스 목(mock)까지 전부 준비해야 한다.
 
+<!-- diagram:dp-behavioral-patterns-3 -->
+![없으면 어떻게 되나](../assets/diagrams/dp-behavioral-patterns-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [직접 호출]                        [옵저버]
 
@@ -209,6 +226,7 @@ public void register(User user) {
                                                    Email Point Stats Coupon
  추가될 때마다 UserService가 커진다                   발행자는 구독자를 모른다
 ```
+-->
 
 ```java
 public record UserRegisteredEvent(Long userId, String email) { }
@@ -371,6 +389,11 @@ public class AuthenticationFilter implements Filter {
 
 `chain.doFilter()`의 위치가 이 패턴의 전부다.
 
+<!-- diagram:dp-behavioral-patterns-4 -->
+![7. 책임 연쇄](../assets/diagrams/dp-behavioral-patterns-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 요청 ──> [인코딩] ──> [CORS] ──> [인증] ──> [로깅] ──> Controller
                                                           │
@@ -379,6 +402,7 @@ public class AuthenticationFilter implements Filter {
   chain.doFilter() 앞의 코드 = 들어갈 때 실행
   chain.doFilter() 뒤의 코드 = 나올 때 실행 (양파를 벗듯 역순)
 ```
+-->
 
 필터는 서로를 모른 채 순서만 바꿔 재배치할 수 있고, 인증 필터가 체인을 끊으면 뒤쪽은 아예 실행되지 않는다. Spring Security가 수십 개의 필터를 체인으로 조립해 동작하는 것도 이 패턴이다. 프록시 체인과 헷갈리기 쉬운데, 프록시는 **한 대상의 접근을 통제**하는 것이고 책임 연쇄는 **여러 처리기 중 누가 처리할지를 순서대로 묻는 것**이다.
 

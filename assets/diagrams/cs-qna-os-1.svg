@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DMA가 필요한 이유</title>
+  <desc id="d">기존 PIO 방식과 DMA 방식을 비교하여 DMA가 필요한 이유를 보여주는 다이어그램</desc>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 제목 헤딩 -->
+  <text x="24" y="38" font-size="16" font-weight="bold" fill="#1f2933">DMA가 필요한 이유</text>
+
+  <!-- ================= 기존 방식 - PIO (Programmed I/O) 그룹 ================= -->
+  <g id="pio-group">
+    <!-- 배경 박스 -->
+    <rect x="24" y="60" width="404" height="410" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    
+    <!-- 그룹 타이틀 -->
+    <rect x="24" y="60" width="404" height="42" rx="8" fill="#fef2f2"/>
+    <path d="M24,102 L428,102" stroke="#dc2626" stroke-width="1"/>
+    <text x="226" y="86" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">[기존 방식 - PIO (Programmed I/O)]</text>
+
+    <!-- 단계 1 -->
+    <rect x="48" y="120" width="356" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="64" y="150" font-size="13" font-weight="bold" fill="#2563eb">1.</text>
+    <text x="84" y="150" font-size="13" fill="#1f2933">CPU가 I/O 장치에서 데이터 읽기</text>
+
+    <!-- 화살표 1 -> 2 -->
+    <path d="M226,170 L226,190" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- 단계 2 -->
+    <rect x="48" y="190" width="356" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="64" y="220" font-size="13" font-weight="bold" fill="#2563eb">2.</text>
+    <text x="84" y="220" font-size="13" fill="#1f2933">CPU가 메모리에 데이터 쓰기</text>
+
+    <!-- 화살표 2 -> 3 -->
+    <path d="M226,240 L226,260" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- 단계 3 -->
+    <rect x="48" y="260" width="356" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="64" y="290" font-size="13" font-weight="bold" fill="#2563eb">3.</text>
+    <text x="84" y="290" font-size="13" fill="#1f2933">모든 데이터 전송에 CPU 사용</text>
+
+    <!-- 화살표 3 -> 결과 -->
+    <path d="M226,310 L226,340" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- 결과 박스 -->
+    <rect x="48" y="340" width="356" height="100" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="64" y="395" font-size="14" font-weight="bold" fill="#dc2626">→ CPU가 I/O 작업에 묶임</text>
+  </g>
+
+  <!-- ================= DMA 방식 그룹 ================= -->
+  <g id="dma-group">
+    <!-- 배경 박스 -->
+    <rect x="452" y="60" width="404" height="410" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    
+    <!-- 그룹 타이틀 -->
+    <rect x="452" y="60" width="404" height="42" rx="8" fill="#ecfdf5"/>
+    <path d="M452,102 L856,102" stroke="#059669" stroke-width="1"/>
+    <text x="654" y="86" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[DMA 방식]</text>
+
+    <!-- 단계 1 -->
+    <rect x="476" y="120" width="356" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="492" y="150" font-size="13" font-weight="bold" fill="#2563eb">1.</text>
+    <text x="512" y="150" font-size="13" fill="#1f2933">CPU가 DMA 컨트롤러에 전송 요청</text>
+
+    <!-- 화살표 1 -> 2 -->
+    <path d="M654,170 L654,190" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 단계 2 -->
+    <rect x="476" y="190" width="356" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="492" y="220" font-size="13" font-weight="bold" fill="#2563eb">2.</text>
+    <text x="512" y="220" font-size="13" fill="#1f2933">DMA가 I/O → 메모리 직접 전송</text>
+
+    <!-- 화살표 2 -> 3 -->
+    <path d="M654,240 L654,260" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 단계 3 -->
+    <rect x="476" y="260" width="356" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="492" y="290" font-size="13" font-weight="bold" fill="#2563eb">3.</text>
+    <text x="512" y="290" font-size="13" fill="#1f2933">전송 완료 시 인터럽트로 CPU에 알림</text>
+
+    <!-- 화살표 3 -> 결과 -->
+    <path d="M654,310 L654,340" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- 결과 박스 -->
+    <rect x="476" y="340" width="356" height="100" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+    <text x="492" y="395" font-size="14" font-weight="bold" fill="#059669">→ CPU가 다른 작업 수행 가능</text>
+  </g>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">벽 2. 용량 산정 — 미래 트래픽을 오늘 맞혀야 한다</title>
+  <desc id="d">구매한 고정 서버 용량과 실제 트래픽 변동 간의 차이로 발생하는 자원 낭비(돈 내고 놀리는 자원)와 용량 초과로 인한 장애 발생을 보여주는 그래프</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <!-- Dark Ink Arrowhead for Axis -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/>
+    </marker>
+    <!-- Red Arrowhead for Peak Callout -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"/>
+    </marker>
+
+    <!-- Pattern for Wasted Resources (돈 내고 놀리는 자원: ▒) -->
+    <pattern id="waste-pattern" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M-2,2 L2,-2 M0,8 L8,0 M6,10 L10,6" stroke="#9aa5b1" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+
+  <!-- Title / Heading -->
+  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">벽 2. 용량 산정 — 미래 트래픽을 오늘 맞혀야 한다</text>
+
+  <!-- Legend / Area Indicators -->
+  <!-- Wasted Resources Legend Area -->
+  <rect x="520" y="25" width="320" height="34" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="532" y="34" width="24" height="16" fill="url(#waste-pattern)" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="564" y="46" font-size="12" font-weight="bold" fill="#52606d">▒ = 돈 내고 놀리는 자원</text>
+
+  <!-- Graph Plot Area Bounds & Coordinates -->
+  <!-- Y Axis: x=80, y: 100 to 440 -->
+  <!-- X Axis: y=440, x: 80 to 820 -->
+
+  <!-- Wasted Capacity Shading (Regions under Fixed Capacity but above Actual Traffic) -->
+  <!-- Left Wasted Area -->
+  <path d="M 90 220 L 220 220 L 220 330 L 250 330 L 250 360 L 300 360 L 370 220 Z" fill="url(#waste-pattern)" opacity="0.75"/>
+  <!-- Right Wasted Area -->
+  <path d="M 530 220 L 530 360 L 580 360 L 580 330 L 630 330 L 630 360 L 810 360 L 810 220 Z" fill="url(#waste-pattern)" opacity="0.75"/>
+
+  <!-- Excess Traffic / Over-Capacity Area (Red Highlight) -->
+  <polygon points="370,220 450,60 530,220" fill="#fef2f2" opacity="0.9"/>
+
+  <!-- Fixed Purchased Server Capacity Line (═══ 구매한 서버 용량 (고정)) -->
+  <line x1="80" y1="220" x2="820" y2="220" stroke="#2563eb" stroke-width="3" stroke-dasharray="8 4"/>
+  
+  <!-- Actual Traffic Line (─── 실제 트래픽) -->
+  <path d="M 90 360 L 220 360 L 220 330 L 250 330 L 250 360 L 300 360 L 450 60 L 580 360 L 580 330 L 630 330 L 630 360 L 810 360" fill="none" stroke="#059669" stroke-width="3"/>
+
+  <!-- Peak Callout Point / Indicator Line -->
+  <line x1="450" y1="60" x2="450" y2="105" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
+  
+  <!-- Text Label for Excess / Over-Capacity Incident (▲ 이벤트/입소문: 구매 용량 초과 → 장애) -->
+  <rect x="230" y="85" width="410" height="30" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="435" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">▲ 이벤트/입소문: 구매 용량 초과 → 장애</text>
+
+  <!-- Labels attached to lines -->
+  <!-- Capacity Line Label -->
+  <rect x="580" y="206" width="220" height="26" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+  <text x="690" y="223" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">구매한 서버 용량 (고정)</text>
+
+  <!-- Actual Traffic Line Label -->
+  <rect x="710" y="346" width="100" height="26" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1"/>
+  <text x="760" y="363" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">실제 트래픽</text>
+
+  <!-- Main Axes (Y: 용량, X: 시간) -->
+  <!-- Y Axis -->
+  <line x1="80" y1="440" x2="80" y2="70" stroke="#1f2933" stroke-width="2" marker-end="url(#a-ink)"/>
+  <text x="80" y="52" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">용량</text>
+
+  <!-- X Axis -->
+  <line x1="80" y1="440" x2="835" y2="440" stroke="#1f2933" stroke-width="2" marker-end="url(#a-ink)"/>
+  <text x="850" y="444" font-size="14" font-weight="bold" fill="#1f2933">시간</text>
+
+  <!-- Origin / Axis Base Marker -->
+  <circle cx="80" cy="440" r="3" fill="#1f2933"/>
+</svg>

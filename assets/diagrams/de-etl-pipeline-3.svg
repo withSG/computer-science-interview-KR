@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">구조로 방어하기: 레이어를 나눈다</title>
+  <desc id="d">raw, staging, mart 3단계 레이어 구조와 레이어 간 흐름을 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  <rect width="880" height="500" fill="#ffffff"/>
+  
+  <!-- Outer Container Box -->
+  <rect x="30" y="30" width="820" height="440" rx="8" ry="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Layer 1: raw (원본) -->
+  <rect x="50" y="55" width="780" height="100" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="70" y="93.9" font-size="16" font-weight="bold" fill="#d97706">raw (원본)</text>
+  <text x="210" y="88.55" font-size="13" fill="#1f2933">소스에서 받은 그대로. 타입 변환도 하지 않음.</text>
+  <text x="210" y="118.55" font-size="13" fill="#1f2933">수집 시각과 소스 파일명을 함께 기록.</text>
+
+  <!-- Arrow 1: raw -> staging -->
+  <path d="M 230 155 L 230 185" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="245" y="161" width="220" height="18" fill="#ffffff" rx="3" ry="3"/>
+  <text x="250" y="174.025" font-size="11.5" font-weight="bold" fill="#dc2626">여기까지는 절대 수정하지 않는다</text>
+
+  <!-- Layer 2: staging (정제) -->
+  <rect x="50" y="195" width="780" height="100" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="70" y="233.9" font-size="16" font-weight="bold" fill="#2563eb">staging (정제)</text>
+  <text x="210" y="228.55" font-size="13" fill="#1f2933">타입 캐스팅, 컬럼명 표준화, 중복 제거,</text>
+  <text x="210" y="258.55" font-size="13" fill="#1f2933">널 처리. 1:1 대응 관계 유지.</text>
+
+  <!-- Arrow 2: staging -> mart -->
+  <path d="M 230 295 L 230 325" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Layer 3: mart (집계) -->
+  <rect x="50" y="335" width="780" height="100" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="70" y="373.9" font-size="16" font-weight="bold" fill="#059669">mart (집계)</text>
+  <text x="210" y="368.55" font-size="13" fill="#1f2933">비즈니스 로직 적용. 조인, 집계, 지표 정의.</text>
+  <text x="210" y="398.55" font-size="13" fill="#1f2933">BI와 ML이 바라보는 계층.</text>
+</svg>

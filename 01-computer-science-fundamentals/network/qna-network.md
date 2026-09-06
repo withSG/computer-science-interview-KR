@@ -80,6 +80,11 @@ HTTPS는 HTTP에 SSL/TLS 암호화를 추가한 프로토콜입니다. 데이터
 <summary>답변 보기</summary>
 
 ### 3-way Handshake (연결 수립)
+<!-- diagram:cs-qna-network-1 -->
+![3-way Handshake](../../assets/diagrams/cs-qna-network-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client              Server
   │                   │
@@ -90,8 +95,14 @@ Client              Server
   │──── ACK ─────────►│  3. 연결 확립
   │                   │
 ```
+-->
 
 ### 4-way Handshake (연결 종료)
+<!-- diagram:cs-qna-network-2 -->
+![4-way Handshake](../../assets/diagrams/cs-qna-network-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client              Server
   │                   │
@@ -104,6 +115,7 @@ Client              Server
   │──── ACK ─────────►│  4. 확인, 연결 종료
   │                   │
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 왜 3단계/4단계가 필요한지
@@ -397,6 +409,11 @@ DELETE /users/1 → 첫 번째만 삭제, 이후 404 (결과 동일 → 멱등)
 ### 흐름제어 (Flow Control)
 
 **슬라이딩 윈도우**
+<!-- diagram:cs-qna-network-3 -->
+![흐름제어](../../assets/diagrams/cs-qna-network-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 송신자: [1][2][3][4][5][6][7][8]...
          └──윈도우──┘
@@ -404,6 +421,7 @@ DELETE /users/1 → 첫 번째만 삭제, 이후 404 (결과 동일 → 멱등)
 수신자: Window Size = 4
         "한 번에 4개까지 받을 수 있어요"
 ```
+-->
 - 수신자의 버퍼 오버플로우 방지
 - 수신자가 Window Size를 통보
 
@@ -441,6 +459,11 @@ DELETE /users/1 → 첫 번째만 삭제, 이후 404 (결과 동일 → 멱등)
 DNS(Domain Name System)는 도메인 이름을 IP 주소로 변환하는 분산형 데이터베이스 시스템입니다.
 
 ### DNS 조회 과정
+<!-- diagram:cs-qna-network-4 -->
+![DNS 조회 과정](../../assets/diagrams/cs-qna-network-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 브라우저 캐시 확인
 2. OS 캐시 확인 (/etc/hosts)
@@ -451,6 +474,7 @@ DNS(Domain Name System)는 도메인 이름을 IP 주소로 변환하는 분산�
       └─► TLD DNS (example.com 안내)
          └─► Authoritative DNS (IP 반환)
 ```
+-->
 
 ### DNS 서버 유형
 
@@ -502,6 +526,11 @@ SSE는 서버에서 클라이언트로의 단방향 실시간 통신 기술입�
 | 재연결 | 자동 |
 | 사용 사례 | 알림, 실시간 피드, AI 스트리밍 |
 
+<!-- diagram:cs-qna-network-5 -->
+![특징](../../assets/diagrams/cs-qna-network-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 특징:
 - HTTP 기반 (방화벽 친화적)
@@ -509,6 +538,7 @@ SSE는 서버에서 클라이언트로의 단방향 실시간 통신 기술입�
 - 자동 재연결
 - 텍스트 데이터
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - HTTP 기반이라 방화벽 친화적임
@@ -672,6 +702,11 @@ Synchronous vs Asynchronous: 결과를 누가 어떻게 처리하는가?
 
 #### 1. Blocking I/O (동기 블로킹)
 
+<!-- diagram:cs-qna-network-6 -->
+![1. Blocking I/O](../../assets/diagrams/cs-qna-network-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 호출자 → read() 호출 → [대기 대기 대기...] → 데이터 수신 → 처리
 
@@ -686,9 +721,15 @@ Synchronous vs Asynchronous: 결과를 누가 어떻게 처리하는가?
 
 예: 전통적인 Java I/O (InputStream.read())
 ```
+-->
 
 #### 2. Non-blocking I/O (동기 논블로킹)
 
+<!-- diagram:cs-qna-network-7 -->
+![2. Non-blocking I/O](../../assets/diagrams/cs-qna-network-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 호출자 → read() 호출 → 즉시 반환 (EAGAIN/EWOULDBLOCK)
        → 다른 작업
@@ -702,9 +743,15 @@ Synchronous vs Asynchronous: 결과를 누가 어떻게 처리하는가?
 
 예: Unix Non-blocking 소켓 + select/poll
 ```
+-->
 
 #### 3. I/O Multiplexing (동기 + 이벤트 대기)
 
+<!-- diagram:cs-qna-network-8 -->
+![3. I/O Multiplexing](../../assets/diagrams/cs-qna-network-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 호출자 → select()/epoll() 호출 → [다수 fd 동시 대기]
        → 준비된 fd 알림 → read() 호출 (즉시 데이터 있음)
@@ -721,9 +768,15 @@ Synchronous vs Asynchronous: 결과를 누가 어떻게 처리하는가?
 
 예: Redis (싱글 스레드 + epoll), Nginx
 ```
+-->
 
 #### 4. Asynchronous I/O (비동기 논블로킹)
 
+<!-- diagram:cs-qna-network-9 -->
+![4. Asynchronous I/O](../../assets/diagrams/cs-qna-network-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 호출자 → aio_read() 호출 → 즉시 반환
        → 다른 작업 계속
@@ -735,6 +788,7 @@ Synchronous vs Asynchronous: 결과를 누가 어떻게 처리하는가?
 
 예: Node.js (libuv), Java NIO.2 (AIO)
 ```
+-->
 
 ### 4가지 조합 비교
 

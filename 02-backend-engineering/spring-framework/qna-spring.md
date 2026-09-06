@@ -155,6 +155,11 @@ public void saveLog() {
 
 ### 핵심 답변
 
+<!-- diagram:be-qna-spring-1 -->
+![핵심 답변](../../assets/diagrams/be-qna-spring-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. Request → DispatcherServlet
 2. HandlerMapping → Controller 조회
@@ -163,8 +168,14 @@ public void saveLog() {
 5. ViewResolver → View 객체 조회
 6. View → 렌더링 후 Response
 ```
+-->
 
 ### 상세 흐름도
+<!-- diagram:be-qna-spring-2 -->
+![상세 흐름도](../../assets/diagrams/be-qna-spring-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client
    │
@@ -190,6 +201,7 @@ HandlerMapping  HandlerAdapter
            ▼
         Client
 ```
+-->
 
 ### Filter vs Interceptor
 
@@ -410,12 +422,18 @@ public class SingletonService {
 
 ### 주입 순서
 
+<!-- diagram:be-qna-spring-3 -->
+![주입 순서](../../assets/diagrams/be-qna-spring-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 타입 매칭 → 하나면 주입
 2. 타입이 여러 개 → 필드/파라미터 이름으로 매칭
 3. @Qualifier로 명시적 지정
 4. @Primary로 우선순위 지정
 ```
+-->
 
 ### 동일 타입 여러 빈 처리
 
@@ -460,6 +478,11 @@ DispatcherServlet은 **Spring MVC의 프론트 컨트롤러**로, 모든 요청�
 
 ### 프론트 컨트롤러 패턴
 
+<!-- diagram:be-qna-spring-4 -->
+![프론트 컨트롤러 패턴](../../assets/diagrams/be-qna-spring-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
        ┌──────────────────────┐
        │   DispatcherServlet   │  ← 모든 요청의 진입점
@@ -469,9 +492,15 @@ DispatcherServlet은 **Spring MVC의 프론트 컨트롤러**로, 모든 요청�
     ▼             ▼             ▼
 Controller1  Controller2  Controller3
 ```
+-->
 
 ### 처리 흐름
 
+<!-- diagram:be-qna-spring-5 -->
+![처리 흐름](../../assets/diagrams/be-qna-spring-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 클라이언트 요청
        ↓
@@ -489,6 +518,7 @@ Controller1  Controller2  Controller3
        ↓
 8. 클라이언트 응답
 ```
+-->
 
 ### 주요 구성요소
 

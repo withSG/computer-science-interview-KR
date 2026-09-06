@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">종료 시점의 시차 - 502 구멍과 preStop 해결 방식</title>
+  <desc id="d">애플리케이션 종료 시 로드밸런서의 헬스체크 지연으로 발생하는 502 에러 구간과 preStop 훅을 적용하여 502 에러를 방지하는 무중단 배포 메커니즘 비교 타임라인</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 제목 -->
+  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">종료 시점의 시차: 502 구멍과 preStop 해결 방식</text>
+
+  <!-- 범례 -->
+  <rect x="520" y="45" width="335" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="530" y="55" width="12" height="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="548" y="65" font-size="11" font-weight="400" fill="#1f2933">502 에러 발생 구간</text>
+  <rect x="660" y="55" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="678" y="65" font-size="11" font-weight="400" fill="#1f2933">안전한 처리/대기 구간</text>
+
+  <!-- ==================== Section 1: preStop 미적용 ==================== -->
+  <text x="24" y="92" font-size="14" font-weight="600" fill="#dc2626">[문제 상황] preStop 미적용 시 (502 에러 발생)</text>
+
+  <!-- 시간 세로 점선 및 기준 축 (x: 210~850 => 0.0s=210, 0.6s=246, 5.0s=510, 10.0s=810) -->
+  <line x1="210" y1="100" x2="210" y2="270" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="210" y="112" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">0.0초</text>
+
+  <line x1="246" y1="100" x2="246" y2="270" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="246" y="112" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">0.6초</text>
+
+  <line x1="510" y1="100" x2="510" y2="270" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="510" y="112" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">5.0초</text>
+
+  <line x1="810" y1="100" x2="810" y2="270" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="810" y="112" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">10.0초</text>
+
+  <!-- Track 1-1: 애플리케이션 상태 -->
+  <rect x="24" y="125" width="170" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="109" y="149" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">애플리케이션 상태</text>
+
+  <!-- 0.0초 SIGTERM -->
+  <circle cx="210" cy="145" r="4" fill="#dc2626"/>
+  <text x="210" y="122" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">SIGTERM 수신</text>
+
+  <rect x="210" y="130" width="36" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="228" y="149" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">처리</text>
+
+  <rect x="246" y="130" width="604" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="548" y="149" font-size="13" font-weight="500" fill="#dc2626" text-anchor="middle">프로세스 종료 (새 요청 거부 / 연결 실패)</text>
+
+  <!-- Track 1-2: 로드 밸런서가 아는 상태 -->
+  <rect x="24" y="175" width="170" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="109" y="199" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">로드 밸런서 상태</text>
+
+  <rect x="210" y="180" width="600" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="510" y="199" font-size="13" font-weight="500" fill="#dc2626" text-anchor="middle">정상 서버로 인식하여 계속 요청 전송 (LB 전달 지연)</text>
+
+  <rect x="810" y="180" width="40" height="30" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="830" y="199" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">제외</text>
+
+  <text x="510" y="222" font-size="11" font-weight="400" fill="#dc2626" text-anchor="middle">헬스체크 1회 실패(5.0초)</text>
+  <text x="810" y="222" font-size="11" font-weight="400" fill="#dc2626" text-anchor="middle">2회 실패 후 목록 제외(10.0초)</text>
+
+  <!-- Track 1-3: 도착 요청 결과 -->
+  <rect x="24" y="230" width="170" height="35" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="109" y="252" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">도착 요청 결과</text>
+
+  <rect x="210" y="235" width="600" height="25" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="510" y="251" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">502 Bad Gateway 및 연결 실패 발생 구간 (최대 10초 구멍)</text>
+
+  <!-- 구분선 -->
+  <line x1="24" y1="285" x2="856" y2="285" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- ==================== Section 2: preStop 적용 ==================== -->
+  <text x="24" y="312" font-size="14" font-weight="600" fill="#059669">[처방 적용] preStop 훅 대기 적용 시 (무중단 종료)</text>
+
+  <!-- 시간 세로 점선 및 기준 축 (x: 210~850 => 0.0s=210, 10.0s=810, 10.6s=846) -->
+  <line x1="210" y1="320" x2="210" y2="490" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="210" y="332" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">0.0초</text>
+
+  <line x1="810" y1="320" x2="810" y2="490" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="810" y="332" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">10.0초</text>
+
+  <!-- Track 2-1: 애플리케이션 상태 -->
+  <rect x="24" y="345" width="170" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="109" y="369" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">애플리케이션 상태</text>
+
+  <!-- 0.0초 SIGTERM -->
+  <circle cx="210" cy="365" r="4" fill="#2563eb"/>
+  <text x="210" y="342" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">SIGTERM 수신</text>
+
+  <rect x="210" y="350" width="600" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="510" y="369" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">① 준비 상태 false 전환 / preStop 훅 N초 대기 (기존 요청 정상 처리)</text>
+
+  <rect x="810" y="350" width="36" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="828" y="369" font-size="11" font-weight="500" fill="#d97706" text-anchor="middle">정리</text>
+
+  <rect x="846" y="350" width="10" height="30" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Track 2-2: 로드 밸런서가 아는 상태 -->
+  <rect x="24" y="395" width="170" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="109" y="419" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">로드 밸런서 상태</text>
+
+  <rect x="210" y="400" width="600" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="510" y="419" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">② LB 목록 반영 대기 (대기 시간 ≥ 헬스체크 주기 × 실패 임계값)</text>
+
+  <rect x="810" y="400" width="46" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="833" y="419" font-size="11" font-weight="500" fill="#059669" text-anchor="middle">제외완료</text>
+
+  <text x="810" y="442" font-size="11" font-weight="400" fill="#059669" text-anchor="middle">LB 목록에서 제외 완료</text>
+
+  <!-- Track 2-3: 도착 요청 결과 -->
+  <rect x="24" y="450" width="170" height="35" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="109" y="472" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">도착 요청 결과</text>
+
+  <rect x="210" y="455" width="600" height="25" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="510" y="471" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">기존 요청 성공적 처리 (모든 유입 트래픽 정상 응답)</text>
+
+  <rect x="810" y="455" width="46" height="25" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="833" y="471" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">③없음</text>
+
+  <text x="833" y="492" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">⑤ 종료</text>
+
+  <!-- 하단 화살표 흐름 라벨 -->
+  <path d="M 210 510 L 810 510" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="510" y="505" font-size="11.5" font-weight="500" fill="#059669" text-anchor="middle">순서: ①준비상태 false/preStop 대기 → ②LB 목록 제외 → ③새 요청 차단/진행 중 처리 → ④자원 정리 → ⑤종료</text>
+
+  <!-- 결론 캡션 -->
+  <text x="440" y="545" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: SIGTERM 수신 후 LB에서 완전히 제외될 때까지 preStop 훅으로 종료를 지연시켜야 502 구멍을 막을 수 있다.</text>
+</svg>

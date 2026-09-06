@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">전체 흐름</title>
+  <desc id="d">Spring Boot 자동 설정이 실행되는 전체 흐름 다이어그램</desc>
+  <rect width="880" height="770" fill="#ffffff"/>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Start Point 1 -->
+  <rect x="330" y="30" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="55" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">SpringApplication.run()</text>
+
+  <!-- Arrow 1 -->
+  <path d="M440,70 L440,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Start Point 2 -->
+  <rect x="300" y="100" width="280" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="125" fill="#2563eb" font-size="14" font-weight="bold" text-anchor="middle">@EnableAutoConfiguration</text>
+
+  <!-- Arrow 2 with note -->
+  <path d="M440,140 L440,200" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="235" y="160" width="410" height="20" fill="#ffffff"/>
+  <text x="440" y="174" fill="#52606d" font-size="11.5" text-anchor="middle">내부적으로 @Import(AutoConfigurationImportSelector.class)</text>
+
+  <!-- Step 1 Box -->
+  <rect x="40" y="200" width="800" height="145" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="60" y="228" fill="#1f2933" font-size="14" font-weight="bold">[1] 후보 수집</text>
+  <text x="80" y="253" fill="#52606d" font-size="13">클래스패스의 모든 JAR에서 아래 파일을 읽는다</text>
+  <text x="80" y="275" fill="#1f2933" font-size="13" font-weight="bold">META-INF/spring/</text>
+  <text x="95" y="295" fill="#1f2933" font-size="13" font-weight="bold">org.springframework.boot.autoconfigure</text>
+  <text x="110" y="315" fill="#1f2933" font-size="13" font-weight="bold">.AutoConfiguration.imports</text>
+  <text x="80" y="333" fill="#2563eb" font-size="13">→ "이 프로젝트에서 켤 수 있는 자동 설정 클래스 전체 목록"</text>
+
+  <!-- Arrow 3 -->
+  <path d="M440,345 L440,375" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2 Box -->
+  <rect x="40" y="375" width="800" height="75" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="60" y="403" fill="#1f2933" font-size="14" font-weight="bold">[2] 제외 처리</text>
+  <text x="80" y="428" fill="#52606d" font-size="13">exclude 속성, spring.autoconfigure.exclude 로 뺀 것 제거</text>
+
+  <!-- Arrow 4 -->
+  <path d="M440,450 L440,480" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 Box -->
+  <rect x="40" y="480" width="800" height="95" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="60" y="508" fill="#d97706" font-size="14" font-weight="bold">[3] 조건 평가</text>
+  <text x="80" y="533" fill="#52606d" font-size="13">각 클래스의 @ConditionalOnXxx 를 하나씩 검사</text>
+  <text x="80" y="555" fill="#dc2626" font-size="13">조건 불만족 → 아예 로드하지 않고 버린다</text>
+
+  <!-- Arrow 5 -->
+  <path d="M440,575 L440,605" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 4 Box -->
+  <rect x="40" y="605" width="800" height="95" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="60" y="633" fill="#059669" font-size="14" font-weight="bold">[4] 등록</text>
+  <text x="80" y="658" fill="#52606d" font-size="13">살아남은 설정 클래스의 @Bean 들이 컨테이너에 등록</text>
+  <text x="80" y="680" fill="#059669" font-size="13">이 단계는 사용자 정의 Bean 등록이 끝난 뒤에 수행된다</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">시나리오 3 — 특정 노드에서만 Pod가 사라진다</title>
+  <desc id="d">특정 노드에서 Pod가 Evicted되는 증상, 진단 단계, 원인 및 즉시/근본 대응 방안을 설명하는 트러블슈팅 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 제목 -->
+  <text x="24" y="32" font-size="16" font-weight="bold" fill="#1f2933">시나리오 3 — 특정 노드에서만 Pod가 사라진다</text>
+
+  <!-- 1. 증상 Section (Red) -->
+  <rect x="24" y="50" width="100" height="54" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="74" y="82" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">증상</text>
+
+  <rect x="144" y="50" width="712" height="54" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="164" y="82" font-size="13" fill="#1f2933">node-3에 배치된 Pod들이 주기적으로 Evicted</text>
+
+  <!-- Connection Line 1 -->
+  <path d="M74,104 L74,124" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 2. 진단 Section (Blue) -->
+  <rect x="24" y="124" width="100" height="136" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="74" y="197" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">진단</text>
+
+  <rect x="144" y="124" width="712" height="136" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <text x="164" y="149" font-size="13" font-weight="bold" fill="#1f2933">① kubectl describe node node-3 | grep -A 10 Conditions</text>
+  <text x="184" y="171" font-size="13" fill="#2563eb">→ DiskPressure True</text>
+
+  <text x="164" y="196" font-size="13" font-weight="bold" fill="#1f2933">② kubectl describe pod &lt;evicted-pod&gt; | grep -i message</text>
+  <text x="184" y="218" font-size="13" fill="#2563eb">→ "The node was low on resource: ephemeral-storage"</text>
+
+  <text x="164" y="243" font-size="13" font-weight="bold" fill="#1f2933">③ 노드에서 디스크 사용량 확인</text>
+
+  <!-- Connection Line 2 -->
+  <path d="M74,260 L74,280" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 3. 원인 Section (Amber) -->
+  <rect x="24" y="280" width="100" height="64" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="74" y="317" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">원인</text>
+
+  <rect x="144" y="280" width="712" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="164" y="306" font-size="13" fill="#1f2933">한 애플리케이션이 컨테이너 안에 파일 로그를 무한 누적.</text>
+  <text x="164" y="328" font-size="13" fill="#1f2933">노드 디스크가 차자 kubelet이 BestEffort Pod부터 축출.</text>
+
+  <!-- Connection Line 3 -->
+  <path d="M74,344 L74,364" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- 4. 대응 Section (Green) -->
+  <rect x="24" y="364" width="100" height="110" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="74" y="424" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">대응</text>
+
+  <rect x="144" y="364" width="712" height="110" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <text x="164" y="389" font-size="13" font-weight="bold" fill="#059669">즉시:</text>
+  <text x="204" y="389" font-size="13" fill="#1f2933">문제 Pod 정리, 오래된 이미지·로그 회수로 공간 확보</text>
+
+  <text x="164" y="420" font-size="13" font-weight="bold" fill="#059669">근본:</text>
+  <text x="204" y="420" font-size="13" fill="#1f2933">로그를 표준 출력으로 전환해 수집기가 가져가도록 변경,</text>
+  <text x="204" y="442" font-size="13" fill="#1f2933">emptyDir에 sizeLimit 지정, 노드 디스크 사용률 알림 추가</text>
+</svg>

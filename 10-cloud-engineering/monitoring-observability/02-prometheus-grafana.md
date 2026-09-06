@@ -41,6 +41,11 @@ CNCF를 졸업한 프로젝트다. Grafana는 여러 데이터 소스를 한 화
 Prometheus는 **자기가 직접 각 대상에 HTTP 요청을 보내 메트릭을 긁어온다(scrape).** 애플리케이션은
 `/metrics` 경로에 현재 값을 텍스트로 노출해두기만 하면 된다.
 
+<!-- diagram:cloud-prometheus-grafana-1 -->
+![동작 원리](../../assets/diagrams/cloud-prometheus-grafana-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     ┌──────────────────────────────┐
     Grafana ───────▶│  Prometheus                  │
@@ -56,6 +61,7 @@ Prometheus는 **자기가 직접 각 대상에 HTTP 요청을 보내 메트릭�
       │ /metrics    │       │ /metrics    │       │ /metrics    │
       └─────────────┘       └─────────────┘       └─────────────┘
 ```
+-->
 
 노출 형식은 사람이 읽을 수 있는 텍스트다(OpenMetrics로 표준화되었다).
 
@@ -111,6 +117,11 @@ http_requests_total{method="POST",status="500",handler="/orders"} 17
 응답 시간처럼 **분포를 알아야 하는 값**. 미리 정한 경계값(bucket)마다 "그 이하인 관측치가 몇
 개였나"를 누적 카운터로 센다.
 
+<!-- diagram:cloud-prometheus-grafana-2 -->
+![Histogram](../../assets/diagrams/cloud-prometheus-grafana-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  ..._bucket{le="0.1"}   1200   ← 0.1초 이하 1200건       0 ─ 0.1초 ████████████ 1200
  ..._bucket{le="0.3"}   1850   ← 0.3초 이하 (누적)     0.1 ─ 0.3초 ██████        650
@@ -119,6 +130,7 @@ http_requests_total{method="POST",status="500",handler="/orders"} 17
  ..._sum               412.7   ← 관측치 합                          ▲
  ..._count              2000   ← 관측치 개수              이 20건이 p99를 만든다
 ```
+-->
 
 버킷이 **누적(cumulative)** 이라는 점이 핵심이다. `le="0.3"`은 "0.1~0.3 사이"가 아니라 "0.3 이하
 전부"다. 이 구조 덕분에 여러 인스턴스의 버킷을 그냥 더할 수 있고, 그래서 **여러 파드를 합친

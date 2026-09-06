@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">우아한 종료(Graceful Shutdown)</title>
+  <desc id="d">SIGTERM 수신 후 준비 상태 변경, 기존 요청 처리, 자원 정리, 프로세스 종료로 이어지는 우아한 종료 절차 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- 메인 줄기 (Trunk line) -->
+  <path d="M 60,75 L 60,455 L 90,455" stroke="#1f2933" stroke-width="2" fill="none"/>
+  
+  <!-- 가지 선 (Branch lines) -->
+  <path d="M 60,150 L 90,150" stroke="#1f2933" stroke-width="2" fill="none"/>
+  <path d="M 60,265 L 90,265" stroke="#1f2933" stroke-width="2" fill="none"/>
+  <path d="M 60,360 L 90,360" stroke="#1f2933" stroke-width="2" fill="none"/>
+
+  <!-- 시작 노드: 종료 신호 수신 -->
+  <rect x="40" y="24" width="230" height="42" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="155" y="50" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">종료 신호(SIGTERM) 수신</text>
+
+  <!-- Step 1 Group -->
+  <g>
+    <!-- Step 1 main box -->
+    <rect x="90" y="125" width="480" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="105" y="155" font-size="13" font-weight="bold" fill="#2563eb">① 준비 상태를 즉시 false로 바꾼다</text>
+    
+    <!-- 화살표 -->
+    <path d="M 570,150 L 610,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    
+    <!-- Step 1 target box -->
+    <rect x="610" y="125" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="720" y="155" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">LB가 새 요청을 안 보낸다</text>
+
+    <!-- Step 1 note -->
+    <rect x="130" y="187" width="550" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="142" y="207" font-size="11.5" fill="#52606d">※ LB가 제외를 반영하는 데 시간이 걸린다. 여기서 몇 초 기다려야 한다.</text>
+  </g>
+
+  <!-- Step 2 -->
+  <g>
+    <rect x="90" y="240" width="370" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="105" y="270" font-size="13" font-weight="bold" fill="#d97706">② 이미 받은 요청은 끝까지 처리한다</text>
+  </g>
+
+  <!-- Step 3 -->
+  <g>
+    <rect x="90" y="335" width="460" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="105" y="365" font-size="13" font-weight="bold" fill="#7c3aed">③ 커넥션 풀, 메시지 컨슈머, 스케줄러를 정리하고 닫는다</text>
+  </g>
+
+  <!-- Step 4 -->
+  <g>
+    <rect x="90" y="430" width="160" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="105" y="460" font-size="13" font-weight="bold" fill="#dc2626">④ 프로세스 종료</text>
+  </g>
+</svg>

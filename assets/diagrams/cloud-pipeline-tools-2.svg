@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">실행 격리 모델 — 초심자가 가장 많이 넘어지는 지점</title>
+  <desc id="d">GitHub Actions의 워크플로 실행 시 job 간 실행 격리 모델과 아티팩트/캐시를 통한 데이터 전달 방식을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- Outer Boundary: Workflow Run -->
+  <rect x="24" y="24" width="832" height="292" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="50" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">워크플로 실행 (Run)</text>
+
+  <!-- Left Box: job: build -->
+  <rect x="54" y="70" width="350" height="150" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="229" y="97" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">job: build</text>
+  <text x="229" y="125" font-size="13" fill="#1f2933" text-anchor="middle">새 VM (빈 상태)</text>
+  
+  <!-- Step Arrow inside job: build -->
+  <text x="145" y="157" font-size="13" fill="#1f2933" text-anchor="end">step 1</text>
+  <path d="M153,153 L185,153" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="none" marker-end="url(#a-blue)"/>
+  <text x="193" y="157" font-size="13" fill="#1f2933" text-anchor="start">step 2</text>
+  
+  <text x="229" y="195" font-size="13" fill="#52606d" text-anchor="middle">같은 디스크 공유</text>
+
+  <!-- Right Box: job: test -->
+  <rect x="476" y="70" width="350" height="150" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="651" y="97" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">job: test</text>
+  <text x="651" y="125" font-size="13" fill="#1f2933" text-anchor="middle">또 다른 새 VM</text>
+
+  <!-- Step Arrow inside job: test -->
+  <text x="567" y="157" font-size="13" fill="#1f2933" text-anchor="end">step 1</text>
+  <path d="M575,153 L607,153" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="none" marker-end="url(#a-purple)"/>
+  <text x="615" y="157" font-size="13" fill="#1f2933" text-anchor="start">step 2</text>
+
+  <text x="651" y="195" font-size="13" fill="#52606d" text-anchor="middle">같은 디스크 공유</text>
+
+  <!-- Inter-Job Connection Line -->
+  <path d="M229,220 L229,280 L651,280 L651,220" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Connection Line Labels -->
+  <rect x="250" y="238" width="280" height="22" fill="#ffffff" rx="3"/>
+  <text x="254" y="253" font-size="11.5" fill="#dc2626">build의 파일은 test에서 안 보인다</text>
+
+  <rect x="250" y="269" width="380" height="22" fill="#ffffff" rx="3"/>
+  <text x="254" y="284" font-size="11.5" fill="#1f2933">upload-artifact / cache 로만 전달 가능</text>
+</svg>

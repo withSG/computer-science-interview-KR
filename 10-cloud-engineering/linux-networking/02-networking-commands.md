@@ -37,6 +37,11 @@
 
 ## 2. 진단 순서 — 아래에서 위로
 
+<!-- diagram:cloud-networking-commands-1 -->
+![2. 진단 순서](../../assets/diagrams/cloud-networking-commands-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │ 0. 대상이 살아 있나          ping / 콘솔 접속 / 클라우드 상태  │
@@ -63,6 +68,7 @@
 │    패킷 실체                  패킷은 거짓말하지 않는다           │
 └──────────────────────────────────────────────────────────────┘
 ```
+-->
 
 핵심 원칙 하나. **서버 쪽과 클라이언트 쪽 양쪽에서 봐야 한다.** 클라이언트에서 SYN을 보냈는데 서버 tcpdump에 SYN이 안 보이면 중간(보안 그룹, 방화벽, 라우팅)이 범인이고, SYN은 도착했는데 SYN-ACK가 안 나가면 서버 자체의 문제다. 이 한 가지 구분만으로 책임 범위가 갈린다.
 
@@ -316,6 +322,11 @@ ip:       %{remote_ip}\n' https://api.example.com/health
 
 각 값은 **요청 시작부터의 누적 시간**이다. 그래서 구간별 소요는 뺄셈으로 구한다.
 
+<!-- diagram:cloud-networking-commands-2 -->
+![-w 로 시간 분해하기](../../assets/diagrams/cloud-networking-commands-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 0 ────► time_namelookup ────► time_connect ────► time_appconnect ────► time_starttransfer ────► time_total
    DNS 조회        TCP 핸드셰이크       TLS 핸드셰이크        서버 처리(TTFB)          본문 전송
@@ -327,6 +338,7 @@ ip:       %{remote_ip}\n' https://api.example.com/health
   time_starttransfer - time_appconnect 가 크다 → 서버 애플리케이션이 느림 ← 대부분 여기
   time_total - time_starttransfer 가 크다     → 응답 본문이 크거나 대역폭 부족
 ```
+-->
 
 이 한 줄이면 "우리 서버가 느린 건지 네트워크가 느린 건지"를 논쟁 없이 가른다. 배포 전후 비교, 리전 간 비교에도 그대로 쓸 수 있다.
 
@@ -358,6 +370,11 @@ tcpdump -i eth0 -A -nn port 80                   # 페이로드를 ASCII로 (평
 
 ### 출력 읽기
 
+<!-- diagram:cloud-networking-commands-3 -->
+![출력 읽기](../../assets/diagrams/cloud-networking-commands-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 14:23:01.123456 IP 10.0.0.42.54321 > 10.0.5.20.8080: Flags [S], seq 1, win 64240
 14:23:01.125001 IP 10.0.5.20.8080 > 10.0.0.42.54321: Flags [S.], seq 9, ack 2, win 65160
@@ -365,6 +382,7 @@ tcpdump -i eth0 -A -nn port 80                   # 페이로드를 ASCII로 (평
                 └────┬────┘             └────┬────┘
                   출발지:포트              목적지:포트
 ```
+-->
 
 플래그 표기: `[S]` SYN, `[S.]` SYN+ACK, `[.]` ACK, `[P.]` PSH+ACK(데이터), `[F.]` FIN+ACK, `[R]` RST.
 

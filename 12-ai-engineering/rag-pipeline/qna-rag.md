@@ -17,6 +17,11 @@ RAG는 **외부 지식 베이스에서 관련 정보를 검색하여 LLM의 생�
 
 ### RAG가 필요한 이유
 
+<!-- diagram:ai-qna-rag-1 -->
+![RAG가 필요한 이유](../../assets/diagrams/ai-qna-rag-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 LLM의 한계:
 1. 학습 데이터 이후 정보 모름 (지식 컷오프)
@@ -30,9 +35,15 @@ RAG로 해결:
 3. 검색된 문서 기반으로 답변 → 정확성 향상
 4. 출처 제공 가능
 ```
+-->
 
 ### RAG 파이프라인
 
+<!-- diagram:ai-qna-rag-2 -->
+![RAG 파이프라인](../../assets/diagrams/ai-qna-rag-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌───────────────────────────────────────────────────────┐
 │                    Indexing (색인)                     │
@@ -49,6 +60,7 @@ RAG로 해결:
 │  [Query + Retrieved Context] → LLM → Answer          │
 └───────────────────────────────────────────────────────┘
 ```
+-->
 
 ### RAG 프롬프트 예시
 
@@ -179,6 +191,11 @@ def semantic_chunk(text, threshold=0.5):
 
 ### 임베딩의 원리
 
+<!-- diagram:ai-qna-rag-3 -->
+![임베딩의 원리](../../assets/diagrams/ai-qna-rag-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "고양이는 귀엽다" → [0.2, 0.8, -0.3, ...]
 "강아지는 사랑스럽다" → [0.3, 0.7, -0.2, ...]  (유사)
@@ -186,6 +203,7 @@ def semantic_chunk(text, threshold=0.5):
 
 유사도 = 코사인 유사도(벡터1, 벡터2)
 ```
+-->
 
 ### 임베딩 모델 종류
 
@@ -263,6 +281,11 @@ similarities = cosine_similarity([query_embedding], doc_embeddings)
 
 ### 하이브리드 검색의 필요성
 
+<!-- diagram:ai-qna-rag-4 -->
+![하이브리드 검색의 필요성](../../assets/diagrams/ai-qna-rag-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Dense만 사용:
 쿼리: "iPhone 15 Pro Max 가격"
@@ -278,6 +301,7 @@ Sparse만 사용:
 Dense로 의미 유사 문서 + Sparse로 키워드 매칭
 → 두 장점 결합
 ```
+-->
 
 ### 하이브리드 검색 구현
 
@@ -304,6 +328,11 @@ def hybrid_search(query, k=10, alpha=0.5):
 
 ### Re-ranking
 
+<!-- diagram:ai-qna-rag-5 -->
+![Re-ranking](../../assets/diagrams/ai-qna-rag-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 초기 검색 → Top-N 후보 → Re-ranker → Top-K 최종
 
@@ -312,6 +341,7 @@ Re-ranker 모델:
 - Cohere Rerank
 - BGE Reranker
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - Dense/Sparse의 장단점

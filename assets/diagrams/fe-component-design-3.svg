@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Context가 맞는 경우와 안 맞는 경우</title>
+  <desc id="d">하나의 큰 Context 사용 시 전체 컴포넌트가 리렌더링되는 문제와 Context를 분리하여 필요한 컴포넌트만 리렌더링되도록 개선한 구조 비교 다이어그램</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Left Side: [하나의 큰 Context] Section -->
+  <text x="215" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[하나의 큰 Context]</text>
+  
+  <!-- Left Box: AppContext -->
+  <rect x="50" y="60" width="330" height="44" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="215" y="87" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">AppContext = { user, theme, cart }</text>
+
+  <!-- Left Children Boxes -->
+  <!-- Header -->
+  <rect x="110" y="130" width="130" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="175" y="153" font-size="13" fill="#1f2933" text-anchor="middle">Header</text>
+  <text x="252" y="153" font-size="11.5" fill="#52606d">(user만 씀)</text>
+
+  <!-- ProductList -->
+  <rect x="110" y="180" width="130" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="175" y="203" font-size="13" fill="#1f2933" text-anchor="middle">ProductList</text>
+  <text x="252" y="203" font-size="11.5" fill="#52606d">(안 씀)</text>
+
+  <!-- CartBadge -->
+  <rect x="110" y="230" width="130" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="175" y="253" font-size="13" fill="#1f2933" text-anchor="middle">CartBadge</text>
+  <text x="252" y="253" font-size="11.5" fill="#52606d">(cart만 씀)</text>
+
+  <!-- Footer -->
+  <rect x="110" y="280" width="130" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="175" y="303" font-size="13" fill="#1f2933" text-anchor="middle">Footer</text>
+  <text x="252" y="303" font-size="11.5" fill="#52606d">(theme만 씀)</text>
+
+  <!-- Tree Lines (Left) -->
+  <path d="M 80,104 L 80,298 L 110,298" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+  <path d="M 80,148 L 110,148" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M 80,198 L 110,198" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M 80,248 L 110,248" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M 100,298 L 110,298" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Left Bottom Note -->
+  <text x="215" y="358" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">cart가 바뀌면 넷 다 리렌더</text>
+
+  <!-- Divider Line -->
+  <line x1="430" y1="40" x2="430" y2="380" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Right Side: [분리된 Context] Section -->
+  <text x="655" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[분리된 Context]</text>
+
+  <!-- Right Context Boxes & Arrows -->
+  <!-- UserContext -->
+  <rect x="470" y="126" width="130" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="535" y="153" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">UserContext</text>
+  <path d="M 600,148 L 680,148" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="680" y="130" width="130" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="745" y="153" font-size="13" fill="#1f2933" text-anchor="middle">Header</text>
+
+  <!-- ThemeContext -->
+  <rect x="470" y="201" width="130" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="535" y="228" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">ThemeContext</text>
+  <path d="M 600,223 L 680,223" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="680" y="205" width="130" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="745" y="228" font-size="13" fill="#1f2933" text-anchor="middle">Footer</text>
+
+  <!-- CartContext -->
+  <rect x="470" y="276" width="130" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="535" y="303" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">CartContext</text>
+  <path d="M 600,298 L 680,298" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="680" y="280" width="130" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="745" y="303" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">CartBadge</text>
+
+  <!-- Bracket Lines between Left and Right Contexts -->
+  <path d="M 328,148 L 348,148 L 348,223 L 340,223" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <path d="M 328,298 L 348,298 L 348,223" stroke="#52606d" stroke-width="1.5" fill="none"/>
+
+  <!-- Center Arrow Text Block -->
+  <rect x="352" y="208" width="106" height="40" rx="4" fill="#ffffff"/>
+  <text x="405" y="224" font-size="12" fill="#059669" text-anchor="middle" font-weight="bold">cart가 바뀌면</text>
+  <text x="405" y="240" font-size="12" fill="#059669" text-anchor="middle" font-weight="bold">CartBadge만 리렌더</text>
+
+  <!-- Right Bottom Subtext -->
+  <text x="655" y="358" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">cart가 바뀌면 CartBadge만 리렌더</text>
+</svg>

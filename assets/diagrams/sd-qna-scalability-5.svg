@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Sticky Session</title>
+  <desc id="d">Sticky Session의 정의, 방법, 문제점 및 해결 방안 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 상단 정의 박스 -->
+  <rect x="40" y="30" width="800" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="61" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">같은 클라이언트를 같은 서버로 라우팅</text>
+
+  <!-- 좌측: 방법 영역 -->
+  <rect x="40" y="105" width="385" height="185" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="60" y="134" text-anchor="start" font-size="14" font-weight="bold" fill="#1f2933">방법:</text>
+  
+  <!-- 방법 1 -->
+  <rect x="60" y="150" width="345" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="75" y="183" text-anchor="start" font-size="13" fill="#1f2933">1. 쿠키 기반: LB가 세션 쿠키 삽입</text>
+
+  <!-- 방법 2 -->
+  <rect x="60" y="220" width="345" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="75" y="253" text-anchor="start" font-size="13" fill="#1f2933">2. IP 기반: 클라이언트 IP로 서버 결정</text>
+
+  <!-- 우측: 문제점 영역 -->
+  <rect x="455" y="105" width="385" height="185" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="475" y="134" text-anchor="start" font-size="14" font-weight="bold" fill="#dc2626">문제점:</text>
+  
+  <!-- 문제점 1 -->
+  <rect x="475" y="150" width="345" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="490" y="183" text-anchor="start" font-size="13" fill="#1f2933">- 서버 장애 시 세션 손실</text>
+
+  <!-- 문제점 2 -->
+  <rect x="475" y="220" width="345" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="490" y="253" text-anchor="start" font-size="13" fill="#1f2933">- 부하 불균형 가능</text>
+
+  <!-- 연결 화살표 (문제점 -> 권장) -->
+  <path d="M647.5,290 L647.5,312" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 하단: 권장 영역 -->
+  <rect x="455" y="315" width="385" height="45" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="647.5" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">→ 외부 세션 저장소 권장 (Redis)</text>
+</svg>

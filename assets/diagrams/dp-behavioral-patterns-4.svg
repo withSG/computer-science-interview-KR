@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">책임 연쇄 (Chain of Responsibility) 필터 흐름</title>
+  <desc id="d">요청이 인코딩, CORS, 인증, 로깅 필터를 거쳐 Controller로 전달되고, 응답이 역순으로 되돌아오는 과정을 나타낸 다이어그램입니다.</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="340" fill="#ffffff"/>
+  
+  <defs>
+    <!-- 화살표 마커 (요청 - 파랑) -->
+    <marker id="a-req" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- 화살표 마커 (응답 - 초록) -->
+    <marker id="a-res" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <!-- 화살표 마커 (내부 - 보라) -->
+    <marker id="a-ctrl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- 1. 외부 라벨 & Controller -->
+  <!-- 요청 라벨 -->
+  <text x="50" y="74.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청</text>
+  
+  <!-- 응답 라벨 -->
+  <text x="50" y="154.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">응답</text>
+
+  <!-- Controller 박스 -->
+  <!-- Center: x=770, y=110, Width=120, Height=120 -->
+  <rect x="710" y="50" width="120" height="120" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="770" y="114.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">Controller</text>
+
+  <!-- 2. 필터 박스들 (상단: 요청 / 하단: 응답) -->
+  <!-- 인코딩 Filter -->
+  <rect x="90" y="50" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="140" y="74.55" font-size="13" fill="#1f2933" text-anchor="middle">인코딩</text>
+
+  <rect x="90" y="130" width="100" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="140" y="154.55" font-size="13" fill="#1f2933" text-anchor="middle">인코딩</text>
+
+  <!-- CORS Filter -->
+  <rect x="240" y="50" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="290" y="74.55" font-size="13" fill="#1f2933" text-anchor="middle">CORS</text>
+
+  <rect x="240" y="130" width="100" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="290" y="154.55" font-size="13" fill="#1f2933" text-anchor="middle">CORS</text>
+
+  <!-- 인증 Filter -->
+  <rect x="390" y="50" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="74.55" font-size="13" fill="#1f2933" text-anchor="middle">인증</text>
+
+  <rect x="390" y="130" width="100" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="154.55" font-size="13" fill="#1f2933" text-anchor="middle">인증</text>
+
+  <!-- 로깅 Filter -->
+  <rect x="540" y="50" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="590" y="74.55" font-size="13" fill="#1f2933" text-anchor="middle">로깅</text>
+
+  <rect x="540" y="130" width="100" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="590" y="154.55" font-size="13" fill="#1f2933" text-anchor="middle">로깅</text>
+
+  <!-- 3. 요청 화살표 (상단, 파랑) -->
+  <!-- 요청 ──> [인코딩] -->
+  <path d="M68,70 L90,70" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-req)"/>
+  <!-- [인코딩] ──> [CORS] -->
+  <path d="M190,70 L240,70" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-req)"/>
+  <!-- [CORS] ──> [인증] -->
+  <path d="M340,70 L390,70" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-req)"/>
+  <!-- [인증] ──> [로깅] -->
+  <path d="M490,70 L540,70" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-req)"/>
+  <!-- [로깅] ──> Controller -->
+  <path d="M640,70 L710,70" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-req)"/>
+
+  <!-- 4. Controller 내부 턴어라운드 화살표 (보라) -->
+  <!-- Controller 내부: y=70에서 y=150으로 -->
+  <path d="M710,150 L640,150" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-res)"/>
+  <path d="M710,70 L730,70 Q740,70 740,80 L740,140 Q740,150 730,150 L710,150" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+
+  <!-- 5. 응답 화살표 (하단, 초록) -->
+  <!-- [로깅] <── [인증] -->
+  <path d="M540,150 L490,150" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-res)"/>
+  <!-- [인증] <── [CORS] -->
+  <path d="M390,150 L340,150" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-res)"/>
+  <!-- [CORS] <── [인코딩] -->
+  <path d="M240,150 L190,150" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-res)"/>
+  <!-- [인코딩] <── 응답 -->
+  <path d="M90,150 L68,150" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-res)"/>
+
+  <!-- 6. 하단 설명 텍스트 (각주 영역) -->
+  <rect x="90" y="210" width="700" height="80" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="110" y="244.025" font-size="11.5" fill="#52606d">chain.doFilter() 앞의 코드 = 들어갈 때 실행</text>
+  <text x="110" y="268.025" font-size="11.5" fill="#52606d">chain.doFilter() 뒤의 코드 = 나올 때 실행 (양파를 벗듯 역순)</text>
+</svg>

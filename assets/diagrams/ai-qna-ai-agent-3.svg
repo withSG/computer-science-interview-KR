@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">플로우 엔지니어링 예시</title>
+  <desc id="d">계획 수립부터 코드 생성, 테스트 실행 후 성공 또는 실패 결과에 따라 수정 및 재실행을 거쳐 완료로 이어지는 플로우 엔지니어링 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 상단 워크플로우 노드 (파란색) -->
+  <!-- 1. [계획 수립] (중심: x=100, y=80) -->
+  <rect x="30" y="55" width="140" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="100" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">계획 수립</text>
+
+  <!-- 2. [코드 생성] (중심: x=320, y=80) -->
+  <rect x="250" y="55" width="140" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="320" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">코드 생성</text>
+
+  <!-- 3. [테스트 실행] (중심: x=540, y=80) -->
+  <rect x="470" y="55" width="140" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="540" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">테스트 실행</text>
+
+  <!-- 상단 진행 화살표 -->
+  <path d="M170,80 L250,80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M390,80 L470,80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 분기 경로 (수정/재실행: 주황색, 완료: 초록색) -->
+  <!-- 4. [수정] (중심: x=430, y=200) -->
+  <rect x="370" y="175" width="120" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="430" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">수정</text>
+
+  <!-- 5. [재실행] (중심: x=580, y=200) -->
+  <rect x="520" y="175" width="120" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="580" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">재실행</text>
+
+  <!-- 6. [완료] (중심: x=750, y=280) -->
+  <rect x="690" y="255" width="120" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="750" y="285" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">완료</text>
+
+  <!-- 실패 분기선: 테스트 실행 하단 -> 왼쪽 축 -> 아래 수정 박스 -->
+  <path d="M540,105 L540,140 L430,140 L430,175" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- 실패 라벨 배경 및 텍스트 -->
+  <rect x="440" y="130" width="40" height="20" fill="#ffffff"/>
+  <text x="460" y="144" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">실패</text>
+
+  <!-- [수정] -> [재실행] 연결 -->
+  <path d="M490,200 L520,200" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 재실행 -> 테스트 실행 루프 백 (재실행 상단 -> 테스트 실행 오른쪽) -->
+  <path d="M580,175 L580,140 L640,140 L640,80 L610,80" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 성공 분기선: 재실행 하단 -> 완료 박스 -->
+  <path d="M580,225 L580,280 L690,280" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- 성공 라벨 배경 및 텍스트 -->
+  <rect x="595" y="270" width="40" height="20" fill="#ffffff"/>
+  <text x="615" y="284" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">성공</text>
+</svg>

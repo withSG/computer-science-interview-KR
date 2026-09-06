@@ -68,6 +68,11 @@ select m.id, m.name, m.team_id from member m where m.team_id = 10;
 
 ### 1.2 정확히 어느 순간에 터지는가
 
+<!-- diagram:be-n-plus-one-problem-1 -->
+![1.2 정확히 어느 순간에 터지는가](../../assets/diagrams/be-n-plus-one-problem-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 teamRepository.findAll()
       │
@@ -84,6 +89,7 @@ for (Team team : teams)
                    │
                    └─▶ select * from member where team_id = ?   ← 쿼리 2 ~ 11
 ```
+-->
 
 즉 N+1은 **조회 시점이 아니라 연관 데이터에 처음 접근하는 시점**에 발생한다. `findAll()` 한 줄만 보면 문제를 찾을 수 없고, 그 뒤에 있는 `getMembers()` 호출이 원인이다.
 
@@ -145,6 +151,11 @@ inner join member m on m.team_id = t.id;
 List<Team> findAllWithMembers(Pageable pageable);
 ```
 
+<!-- diagram:be-n-plus-one-problem-2 -->
+![3. 컬렉션 fetch join과 페이징을 같이 쓰면 안 되는 이유](../../assets/diagrams/be-n-plus-one-problem-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 데이터 상태
 team              member
@@ -170,6 +181,7 @@ JOIN 결과 (5행)
 │ C팀   │ 정     │
 └───────┴────────┘
 ```
+-->
 
 **원하는 것은 "팀 단위 페이징"인데, DB는 "조인 결과 행 단위"로 자를 수밖에 없다.** `LIMIT 2`는 팀 2개가 아니라 조인 결과 2행을 의미하고, 그 결과 A팀은 멤버 3명 중 2명만 가진 반쪽짜리 객체가 된다. 데이터가 조용히 틀리는, 가장 나쁜 종류의 버그다.
 
@@ -336,6 +348,11 @@ logging:
 
 **판단은 대체로 이 순서를 따른다.**
 
+<!-- diagram:be-n-plus-one-problem-3 -->
+![8. 실무에서는](../../assets/diagrams/be-n-plus-one-problem-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 연관 데이터가 필요한가?
  ├── 아니오 → LAZY 그대로 둔다. 문제 없음.
@@ -347,6 +364,7 @@ logging:
       ├── 컬렉션이 두 개 이상이다             → 하나만 fetch join + 나머지 batch size
       └── 읽기 전용이고 필드 몇 개만 필요하다 → DTO 직접 조회
 ```
+-->
 
 ---
 

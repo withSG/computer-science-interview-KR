@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">흐름 제어 - 송신 측이 보는 바이트 스트림 (슬라이딩 윈도우)</title>
+  <desc id="d">TCP 슬라이딩 윈도우 메커니즘을 나타낸 다이어그램으로, ACK 수신에 따라 윈도우가 오른쪽으로 이동하는 과정을 보여줍니다.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Section Header -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">송신 측이 보는 바이트 스트림</text>
+
+  <!-- STATE 1 -->
+  <g transform="translate(40, 60)">
+    <!-- Column Category Labels -->
+    <rect x="0" y="10" width="220" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="110" y="30.2" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">이미 ACK 받음</text>
+
+    <rect x="225" y="10" width="170" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="310" y="30.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">보냈지만 ACK 대기</text>
+
+    <rect x="400" y="10" width="140" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="470" y="30.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">보낼 수 있음</text>
+
+    <rect x="545" y="10" width="255" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="672.5" y="30.2" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">아직 못 보냄</text>
+
+    <!-- Byte Grid -->
+    <rect x="0" y="48" width="220" height="44" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="110" y="74.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1  2  3  4  5  6  7</text>
+
+    <rect x="225" y="48" width="170" height="44" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="310" y="74.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">8   9   10   11</text>
+
+    <rect x="400" y="48" width="140" height="44" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+    <text x="470" y="74.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">12   13   14</text>
+
+    <rect x="545" y="48" width="255" height="44" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="672.5" y="74.55" font-size="14" fill="#52606d" text-anchor="middle">15   16   17   ...</text>
+
+    <!-- Window Bracket -->
+    <path d="M 225,102 L 225,114 L 382.5,114 L 382.5,120 L 382.5,114 L 540,114 L 540,102" stroke="#2563eb" stroke-width="2" fill="none"/>
+    <rect x="300" y="122" width="165" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="382.5" y="139.05" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">윈도우 (크기 7)</text>
+  </g>
+
+  <!-- TRANSITION -->
+  <g transform="translate(40, 240)">
+    <rect x="180" y="0" width="440" height="38" rx="19" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="400" y="23.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">ACK(8번까지 수신) 도착  →  윈도우가 오른쪽으로 미끄러진다</text>
+    <path d="M 400,38 L 400,60" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  </g>
+
+  <!-- STATE 2 -->
+  <g transform="translate(40, 320)">
+    <!-- Column Category Labels -->
+    <rect x="0" y="10" width="285" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="142.5" y="30.2" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">이미 ACK 받음</text>
+
+    <rect x="290" y="10" width="135" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="357.5" y="30.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">보냈지만 ACK 대기</text>
+
+    <rect x="430" y="10" width="180" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+    <text x="520" y="30.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">보낼 수 있음</text>
+
+    <rect x="615" y="10" width="185" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="707.5" y="30.2" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">아직 못 보냄</text>
+
+    <!-- Byte Grid -->
+    <rect x="0" y="48" width="285" height="44" fill="#f1f5f9" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="142.5" y="74.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1  2  3  4  5  6  7  8  9</text>
+
+    <rect x="290" y="48" width="135" height="44" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+    <text x="357.5" y="74.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">10   11   12</text>
+
+    <rect x="430" y="48" width="180" height="44" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+    <text x="520" y="74.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">13   14   15   16</text>
+
+    <rect x="615" y="48" width="185" height="44" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="707.5" y="74.55" font-size="14" fill="#52606d" text-anchor="middle">17   ...</text>
+
+    <!-- Window Bracket -->
+    <path d="M 290,102 L 290,114 L 450,114 L 450,120 L 450,114 L 610,114 L 610,102" stroke="#2563eb" stroke-width="2" fill="none"/>
+    <rect x="380" y="122" width="140" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="450" y="139.05" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">윈도우</text>
+  </g>
+</svg>

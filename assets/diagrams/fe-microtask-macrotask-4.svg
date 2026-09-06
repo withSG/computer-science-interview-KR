@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">퀴즈 2 — async/await가 섞이면</title>
+  <desc id="d">async/await 실행 순서와 마이크로태스크 큐 상태 변화를 보여주는 흐름도</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="560" fill="#ffffff"/>
+
+  <!-- 메인 헤딩 -->
+  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">퀴즈 2 — async/await가 섞이면</text>
+
+  <!-- Step 1: 'start' 출력 -->
+  <g>
+    <rect x="30" y="65" width="220" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="140" y="91" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">'start' 출력</text>
+  </g>
+
+  <path d="M140,107 L140,129" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2: run() 호출 → 'A' 출력 -->
+  <g>
+    <rect x="30" y="130" width="220" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="140" y="156" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">run() 호출 → 'A' 출력</text>
+  </g>
+
+  <path d="M140,172 L140,194" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3: await null 만남 그룹 -->
+  <g>
+    <rect x="30" y="195" width="820" height="110" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="50" y="225" font-size="13" font-weight="bold" fill="#d97706">await null 만남 → 함수 실행 중단, 나머지(console.log('C'))를 마이크로태스크로 예약</text>
+    
+    <!-- Sub box: 마이크로 큐 상태 -->
+    <rect x="50" y="240" width="220" height="30" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+    <text x="60" y="260" font-size="12" fill="#1f2933">마이크로 큐: <tspan font-weight="bold" fill="#d97706">[resumeRun]</tspan></text>
+    
+    <text x="50" y="291" font-size="12.5" font-style="italic" fill="#52606d">run()은 여기서 즉시 반환된다</text>
+  </g>
+
+  <path d="M140,305 L140,324" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 4: 'B' 출력 -->
+  <g>
+    <rect x="30" y="325" width="220" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="140" y="351" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">'B' 출력</text>
+  </g>
+
+  <path d="M140,367 L140,389" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5: Promise.resolve().then(D) 등록 -->
+  <g>
+    <rect x="30" y="390" width="560" height="42" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="45" y="416" font-size="13" font-weight="bold" fill="#7c3aed">Promise.resolve().then(D) 등록</text>
+    <text x="275" y="416" font-size="13" fill="#1f2933">→</text>
+    <rect x="300" y="396" font-size="13" width="275" height="30" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+    <text x="310" y="416" font-size="12" fill="#1f2933">마이크로 큐: <tspan font-weight="bold" fill="#7c3aed">[resumeRun, D]</tspan></text>
+  </g>
+
+  <path d="M140,432 L140,454" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 6: 'end' 출력 -->
+  <g>
+    <rect x="30" y="455" width="220" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="140" y="481" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">'end' 출력</text>
+  </g>
+
+  <path d="M250,476 L299,476" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 7: 콜 스택 비었음 & 마이크로태스크 소진 -->
+  <g>
+    <rect x="305" y="455" width="545" height="75" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="320" y="480" font-size="13.5" font-weight="bold" fill="#059669">콜 스택 비었음</text>
+    <text x="320" y="508" font-size="13.5" font-weight="bold" fill="#1f2933">마이크로태스크 소진: <tspan fill="#d97706">resumeRun → 'C'</tspan>, 그다음 <tspan fill="#7c3aed">D</tspan></text>
+  </g>
+</svg>

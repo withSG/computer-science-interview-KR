@@ -42,6 +42,11 @@
 
 ### 요구사항 정리
 
+<!-- diagram:cloud-qna-architecture-1 -->
+![요구사항 정리](../../assets/diagrams/cloud-qna-architecture-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 기능적 요구사항:
 - 긴 URL → 짧은 URL 변환
@@ -54,9 +59,15 @@
 - 가용성 99.9%
 - 낮은 지연시간 (< 100ms)
 ```
+-->
 
 ### 대략적 설계
 
+<!-- diagram:cloud-qna-architecture-2 -->
+![대략적 설계](../../assets/diagrams/cloud-qna-architecture-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    Client                            │
@@ -85,6 +96,7 @@
 │            short_url → long_url 매핑                 │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### Short URL 생성 방법
 
@@ -180,6 +192,11 @@ Redis 캐싱:
 
 ### 대략적 설계
 
+<!-- diagram:cloud-qna-architecture-3 -->
+![대략적 설계](../../assets/diagrams/cloud-qna-architecture-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    Clients                           │
@@ -211,6 +228,7 @@ Redis 캐싱:
 │  (Cassandra)│             │   Presence) │
 └─────────────┘             └─────────────┘
 ```
+-->
 
 ### 핵심 컴포넌트
 
@@ -237,6 +255,11 @@ Redis 캐싱:
 
 ### 메시지 전송 흐름
 
+<!-- diagram:cloud-qna-architecture-4 -->
+![메시지 전송 흐름](../../assets/diagrams/cloud-qna-architecture-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1:1 채팅:
 ┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐
@@ -256,6 +279,7 @@ Redis 캐싱:
 - 각 멤버의 Gateway 서버 확인
 - 병렬로 메시지 전달
 ```
+-->
 
 ### 오프라인 메시지 처리
 
@@ -272,6 +296,11 @@ Redis 캐싱:
 
 ### 데이터베이스 설계
 
+<!-- diagram:cloud-qna-architecture-5 -->
+![데이터베이스 설계](../../assets/diagrams/cloud-qna-architecture-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Cassandra (메시지 저장):
 - 파티션 키: chat_room_id
@@ -283,6 +312,7 @@ Redis:
 - 온라인 상태 (SET)
 - 최근 메시지 캐시
 ```
+-->
 
 </details>
 
@@ -311,6 +341,11 @@ Redis:
 
 ### 대략적 설계
 
+<!-- diagram:cloud-qna-architecture-6 -->
+![대략적 설계](../../assets/diagrams/cloud-qna-architecture-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │              서비스들 (주문, 결제, 마케팅...)         │
@@ -333,6 +368,7 @@ Redis:
     │  (FCM)   │ │ (Twilio) │ │   (SES)  │
     └──────────┘ └──────────┘ └──────────┘
 ```
+-->
 
 ### 핵심 컴포넌트
 
@@ -375,6 +411,11 @@ Redis:
 
 ### 재시도 전략
 
+<!-- diagram:cloud-qna-architecture-7 -->
+![재시도 전략](../../assets/diagrams/cloud-qna-architecture-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 실패 시 재시도:
 - 1차: 즉시
@@ -388,6 +429,7 @@ Redis:
 - 유효하지 않은 토큰 → 토큰 삭제, 재시도 안함
 - Rate limit → 백오프 후 재시도
 ```
+-->
 
 ### 모니터링 지표
 
@@ -426,6 +468,11 @@ Redis:
 
 ### 대략적 설계
 
+<!-- diagram:cloud-qna-architecture-8 -->
+![대략적 설계](../../assets/diagrams/cloud-qna-architecture-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    Client                            │
@@ -451,9 +498,15 @@ Redis:
     │  (메타데이터) │       │  (파일 저장)  │
     └──────────────┘       └──────────────┘
 ```
+-->
 
 ### 대용량 파일 업로드
 
+<!-- diagram:cloud-qna-architecture-9 -->
+![대용량 파일 업로드](../../assets/diagrams/cloud-qna-architecture-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Multipart Upload:
 1. 클라이언트가 업로드 시작 요청
@@ -475,6 +528,7 @@ Multipart Upload:
 - 병렬 업로드로 속도 향상
 - 중간 상태 저장 가능
 ```
+-->
 
 ### 메타데이터 설계
 
@@ -563,6 +617,11 @@ CREATE TABLE share_links (
 
 ### 대략적 설계
 
+<!-- diagram:cloud-qna-architecture-10 -->
+![대략적 설계](../../assets/diagrams/cloud-qna-architecture-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    Client                            │
@@ -587,6 +646,7 @@ CREATE TABLE share_links (
 │   (역인덱스, 검색)       │  │ (자동완성) │
 └─────────────────────────┘  └────────────┘
 ```
+-->
 
 ### Elasticsearch 인덱스 설계
 

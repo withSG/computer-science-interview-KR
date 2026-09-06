@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 350" width="880" height="350"
+     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
+     role="img" aria-labelledby="t d">
+  <title id="t">오류는 언제 발견되는가</title>
+  <desc id="d">JavaScript와 TypeScript의 오류 발견 시점 및 수정 비용 비교 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="350" fill="#ffffff"/>
+
+  <!-- Top Stages Header / Column Labels -->
+  <!-- Col 1: Center 110 -->
+  <text x="110" y="38.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">작성 중</text>
+  <path d="M110,48 L110,72" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Col 2: Center 260 -->
+  <text x="260" y="38.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">빌드</text>
+  <path d="M260,48 L260,72" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Col 3: Center 410 -->
+  <text x="410" y="38.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">테스트</text>
+  <path d="M410,48 L410,72" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Col 4: Center 560 -->
+  <text x="560" y="38.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">배포</text>
+  <path d="M560,48 L560,72" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Col 5: Center 720 -->
+  <text x="720" y="38.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">운영 장애</text>
+  <path d="M720,48 L720,72" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Boxes (y: 75 to 145, h: 70) -->
+  <!-- Box 1: 에디터 / 빨간줄 -->
+  <rect x="45" y="75" width="130" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="110" y="101.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">에디터</text>
+  <text x="110" y="123.55" font-size="13" fill="#059669" text-anchor="middle">빨간줄</text>
+
+  <!-- Box 2: tsc / 컴파일 -->
+  <rect x="195" y="75" width="130" height="70" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="260" y="101.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">tsc</text>
+  <text x="260" y="123.55" font-size="13" fill="#52606d" text-anchor="middle">컴파일</text>
+
+  <!-- Box 3: 유닛/E2E / 테스트 -->
+  <rect x="345" y="75" width="130" height="70" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="410" y="101.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">유닛/E2E</text>
+  <text x="410" y="123.55" font-size="13" fill="#52606d" text-anchor="middle">테스트</text>
+
+  <!-- Box 4: 스테이징 / QA -->
+  <rect x="495" y="75" width="130" height="70" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="560" y="101.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">스테이징</text>
+  <text x="560" y="123.55" font-size="13" fill="#52606d" text-anchor="middle">QA</text>
+
+  <!-- Box 5: 사용자 / 신고·롤백 -->
+  <rect x="650" y="75" width="140" height="70" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="720" y="101.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">사용자</text>
+  <text x="720" y="123.55" font-size="13" fill="#dc2626" text-anchor="middle">신고·롤백</text>
+
+  <!-- Line: 수정 비용 ────────────────────────────────────────────▶ 커진다 -->
+  <text x="45" y="183.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="start">수정 비용</text>
+  <path d="M115,180 L720,180" stroke="#52606d" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <text x="730" y="183.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="start">커진다</text>
+
+  <!-- JavaScript row -->
+  <text x="45" y="243.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="start">JavaScript</text>
+  <path d="M125,240 L640,240" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="648" y="226" width="88" height="26" rx="3" fill="#fef2f2"/>
+  <text x="652" y="243.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="start">여기서 발견</text>
+
+  <!-- TypeScript row -->
+  <text x="45" y="293.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="start">TypeScript</text>
+  <path d="M125,290 L170,290" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="178" y="276" width="88" height="26" rx="3" fill="#ecfdf5"/>
+  <text x="182" y="293.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="start">여기서 발견</text>
+</svg>

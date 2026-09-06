@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">실행 시점 — 브라우저 페인트를 기준으로</title>
+  <desc id="d">React의 render 단계, commit 단계(useLayoutEffect), 브라우저 페인트, 그리고 useEffect 실행 시점을 나타낸 흐름도입니다.</desc>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="780" fill="#ffffff"/>
+
+  <!-- 문서 헤딩 / 제목 -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">## 2. 실행 시점 — 브라우저 페인트를 기준으로</text>
+
+  <!-- 1. 상태 변경 -->
+  <rect x="360" y="70" width="160" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="92" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">상태 변경</text>
+
+  <!-- 화살표 1 -->
+  <path d="M440,106 L440,136" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 2. render 단계 -->
+  <rect x="80" y="140" width="720" height="64" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="104" y="166" font-size="14" font-weight="bold" fill="#1f2933">render 단계 — 컴포넌트 실행, 재조정</text>
+  <text x="124" y="188" font-size="13" fill="#52606d">실제 DOM도 화면도 아직 그대로</text>
+
+  <!-- 화살표 2 -->
+  <path d="M440,204 L440,224" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 3. commit 단계 -->
+  <rect x="80" y="228" width="720" height="236" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="104" y="254" font-size="14" font-weight="bold" fill="#7c3aed">commit 단계 (동기, 중단 불가)</text>
+  
+  <text x="124" y="280" font-size="13" fill="#1f2933">① 실제 DOM 삽입·수정·삭제</text>
+  <text x="124" y="304" font-size="13" fill="#1f2933">② 이전 useLayoutEffect의 cleanup</text>
+  <text x="144" y="326" font-size="12" fill="#52606d">(①과 ②는 같은 mutation 구간에서 함께 처리된다)</text>
+  <text x="124" y="350" font-size="13" fill="#1f2933">③ ref 연결</text>
+  
+  <!-- ④ useLayoutEffect 강조 라인 -->
+  <rect x="120" y="362" font-size="13" width="656" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="128" y="382" font-size="13" font-weight="bold" fill="#1f2933">④ useLayoutEffect</text>
+  
+  <!-- Pointer Arrow ◄── -->
+  <path d="M280,378 L250,378" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <text x="286" y="382" font-size="13" font-weight="bold" fill="#dc2626">◄── 여기! 화면은 아직 안 그려짐</text>
+  
+  <text x="144" y="416" font-size="12" fill="#52606d">(여기서 setState하면 페인트 전에 render부터 다시)</text>
+
+  <!-- 화살표 3 -->
+  <path d="M440,464 L440,494" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 4. 브라우저 페인트 -->
+  <rect x="180" y="498" width="520" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="522" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">브라우저 페인트 — 사용자가 처음으로 새 화면을 본다</text>
+
+  <!-- 화살표 4 -->
+  <path d="M440,538 L440,568" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 5. useEffect 단계 -->
+  <rect x="80" y="572" width="720" height="152" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  
+  <text x="124" y="602" font-size="13" fill="#1f2933">⑤ 이전 useEffect의 cleanup</text>
+  
+  <!-- ⑥ useEffect 강조 라인 -->
+  <rect x="120" y="614" font-size="13" width="656" height="32" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
+  <text x="128" y="634" font-size="13" font-weight="bold" fill="#1f2933">⑥ useEffect</text>
+
+  <!-- Pointer Arrow ◄── -->
+  <path d="M230,634 L200,634" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <text x="236" y="634" font-size="13" font-weight="bold" fill="#2563eb">◄── 여기! 이미 화면이 그려진 뒤</text>
+
+  <text x="144" y="670" font-size="12" fill="#52606d">(여기서 setState하면 화면이 한 번 더 바뀐다)</text>
+</svg>

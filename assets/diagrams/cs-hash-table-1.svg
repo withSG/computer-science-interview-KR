@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">해시 테이블 기본 구조</title>
+  <desc id="d">키에서 해시 함수를 거쳐 버킷 배열 인덱스로 매핑되는 해시 테이블의 동작 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  <!-- Headers -->
+  <text x="110" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">key</text>
+  <text x="330" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">해시 함수</text>
+  <text x="590" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">버킷 배열</text>
+  <!-- Key Boxes -->
+  <rect x="35" y="90" width="150" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="110" y="114" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"alice@ex.com"</text>
+  <rect x="35" y="210" width="150" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="110" y="234" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"bob@ex.com"</text>
+  <!-- Arrows: Key -> Hash -->
+  <path d="M185,110 L250,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M185,230 L250,230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- Hash Function Boxes -->
+  <rect x="250" y="90" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="330" y="114" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">hash() % 8</text>
+  <rect x="250" y="210" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="330" y="234" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">hash() % 8</text>
+  <!-- Arrows: Hash -> Index -->
+  <path d="M410,110 L460,110" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M410,230 L460,230" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- Index Badges -->
+  <text x="475" y="114" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">3</text>
+  <text x="475" y="234" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">6</text>
+  <!-- Arrows: Index -> Bucket -->
+  <path d="M490,110 L540,110" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M490,230 L540,230" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- Bucket Array Cells -->
+  <rect x="540" y="70" width="100" height="30" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="655" y="89" font-size="13" fill="#52606d">0</text>
+  <rect x="540" y="100" width="100" height="25" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="590" y="116" font-size="13" fill="#52606d" text-anchor="middle">⋮</text>
+  <rect x="540" y="125" width="100" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="655" y="144" font-size="13" font-weight="bold" fill="#059669">3</text>
+  <rect x="540" y="155" width="100" height="60" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="590" y="189" font-size="13" fill="#52606d" text-anchor="middle">⋮</text>
+  <rect x="540" y="215" width="100" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="655" y="234" font-size="13" font-weight="bold" fill="#059669">6</text>
+  <rect x="540" y="245" width="100" height="30" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="655" y="264" font-size="13" fill="#52606d">7</text>
+  <!-- Right Labels and Arrows -->
+  <text x="760" y="144" font-size="13" font-weight="bold" fill="#1f2933">alice</text>
+  <path d="M750,140 L675,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="760" y="234" font-size="13" font-weight="bold" fill="#1f2933">bob</text>
+  <path d="M750,230 L675,230" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+</svg>

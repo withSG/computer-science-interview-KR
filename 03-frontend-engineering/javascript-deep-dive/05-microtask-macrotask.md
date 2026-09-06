@@ -52,6 +52,11 @@ fetchData().then(() => { element.textContent = '완료'; });
 
 ## 2. 규칙은 두 줄이 전부다
 
+<!-- diagram:fe-microtask-macrotask-1 -->
+![2. 규칙은 두 줄이 전부다](../../assets/diagrams/fe-microtask-macrotask-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  1. 매크로태스크는 한 사이클에 딱 하나만 꺼내 실행한다        │
@@ -59,9 +64,15 @@ fetchData().then(() => { element.textContent = '완료'; });
 │     (비우는 도중 추가된 마이크로태스크도 이번에 처리한다)     │
 └─────────────────────────────────────────────────────────────┘
 ```
+-->
 
 그림으로 보면 이렇다.
 
+<!-- diagram:fe-microtask-macrotask-2 -->
+![2. 규칙은 두 줄이 전부다](../../assets/diagrams/fe-microtask-macrotask-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   매크로태스크 큐        마이크로태스크 큐
   ┌───┬───┬───┐         ┌───┬───┬───┐
@@ -76,6 +87,7 @@ fetchData().then(() => { element.textContent = '완료'; });
  │  (렌더링 기회)                        │
  └──────────────────────────────────────┘
 ```
+-->
 
 "마이크로태스크가 우선순위가 높다"는 표현보다 **"마이크로태스크는 현재 태스크의 마무리 작업이다"** 라고 이해하는 편이 정확하다. 별도 순번을 기다리는 게 아니라, 지금 하던 일에 딸린 뒷정리이기 때문에 먼저 끝나는 것이다.
 
@@ -124,6 +136,11 @@ console.log('7');
 
 한 줄씩 따라가 보자.
 
+<!-- diagram:fe-microtask-macrotask-3 -->
+![퀴즈 1](../../assets/diagrams/fe-microtask-macrotask-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [동기 실행 구간]
   '1' 출력
@@ -147,6 +164,7 @@ console.log('7');
 [다음 사이클]
   6 실행 → '6' 출력
 ```
+-->
 
 **출력: 1 → 7 → 3 → 4 → 5 → 2 → 6**
 
@@ -168,6 +186,11 @@ Promise.resolve().then(() => console.log('D'));
 console.log('end');
 ```
 
+<!-- diagram:fe-microtask-macrotask-4 -->
+![퀴즈 2](../../assets/diagrams/fe-microtask-macrotask-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 'start' 출력
 run() 호출 → 'A' 출력
@@ -180,6 +203,7 @@ Promise.resolve().then(D) 등록 → 마이크로 큐: [resumeRun, D]
 콜 스택 비었음
 마이크로태스크 소진: resumeRun → 'C', 그다음 D
 ```
+-->
 
 **출력: start → A → B → end → C → D**
 
@@ -196,6 +220,11 @@ Promise.resolve().then(D) 등록 → 마이크로 큐: [resumeRun, D]
 
 `requestAnimationFrame`을 "매크로태스크"라고 설명하는 자료가 많지만 정확하지 않다. rAF 콜백은 태스크 큐에서 꺼내지는 것이 아니라, **이벤트 루프의 렌더링 단계 안에서** 실행된다.
 
+<!-- diagram:fe-microtask-macrotask-5 -->
+![5. 렌더링과 requestAnimationFrame](../../assets/diagrams/fe-microtask-macrotask-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 한 사이클
 ┌───────────────────────────────────────────────────────────┐
@@ -210,6 +239,7 @@ Promise.resolve().then(D) 등록 → 마이크로 큐: [resumeRun, D]
 │    ④ 페인트 · 합성                                        │
 └───────────────────────────────────────────────────────────┘
 ```
+-->
 
 이 위치 때문에 rAF는 다음 성질을 가진다.
 
@@ -268,12 +298,18 @@ function starve() {
 starve();
 ```
 
+<!-- diagram:fe-microtask-macrotask-6 -->
+![6. 마이크로태스크 기아](../../assets/diagrams/fe-microtask-macrotask-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 매크로태스크 큐   [클릭, 타이머, ...]   ← 영원히 대기
                         ✕ 도달 불가
 마이크로태스크 큐 [starve, starve, starve, ...]  ← 계속 채워짐
 렌더링                  ✕ 도달 불가
 ```
+-->
 
 무한 `setTimeout` 재귀는 이렇게까지 심각하지 않다. 매크로태스크는 한 사이클에 하나만 처리되므로 그 사이에 렌더링과 입력 처리가 끼어들 수 있다. CPU는 많이 쓰지만 탭이 완전히 얼지는 않는다.
 

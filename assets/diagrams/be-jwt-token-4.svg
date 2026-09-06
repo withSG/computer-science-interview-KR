@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Refresh Token Rotation Diagram</title>
+  <desc id="d">Refresh Token Rotation의 정상 흐름과 탈취 발생 시 토큰 계보 무효화 동작 과정 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Section Header -->
+  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">Refresh Token Rotation</text>
+
+  <!-- Top Group: Normal Flow (정상) -->
+  <rect x="30" y="60" width="820" height="130" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="50" y="95" font-size="14" font-weight="bold" fill="#059669">정상:</text>
+
+  <!-- RT1 Token Box (Normal) -->
+  <rect x="110" y="78" width="100" height="36" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="160" y="101" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">RT1</text>
+
+  <!-- Arrow RT1 -> RT2 -->
+  <path d="M210,96 L310,96" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="232" y="85" width="56" height="20" fill="#ecfdf5"/>
+  <text x="260" y="99" font-size="12" fill="#059669" text-anchor="middle">재발급</text>
+
+  <!-- RT2 Token Box (Normal) -->
+  <rect x="310" y="78" width="100" height="36" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="360" y="101" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">RT2</text>
+
+  <!-- Arrow RT2 -> RT3 -->
+  <path d="M410,96 L510,96" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="432" y="85" width="56" height="20" fill="#ecfdf5"/>
+  <text x="460" y="99" font-size="12" fill="#059669" text-anchor="middle">재발급</text>
+
+  <!-- RT3 Token Box (Normal) -->
+  <rect x="510" y="78" width="100" height="36" rx="6" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="560" y="101" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">RT3</text>
+
+  <!-- Status note for Normal Flow -->
+  <text x="630" y="101" font-size="13" fill="#52606d">(RT1, RT2는 폐기됨)</text>
+
+
+  <!-- Bottom Group: Stolen / Attack Flow (탈취) -->
+  <rect x="30" y="210" width="820" height="300" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="50" y="245" font-size="14" font-weight="bold" fill="#dc2626">탈취:</text>
+
+  <!-- Sequence Step 1 -->
+  <text x="110" y="245" font-size="13" fill="#1f2933">공격자가 RT2를 훔쳐 먼저 사용</text>
+  
+  <path d="M315,240 L345,240" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <text x="355" y="245" font-size="13" fill="#d97706" font-weight="bold">RT3 발급, RT2 폐기</text>
+
+  <!-- Flow Visual for Attack Steps -->
+  <!-- Base Tokens -->
+  <!-- RT2 Stolen Box -->
+  <rect x="110" y="270" width="110" height="36" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="165" y="293" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">RT2 (훔침)</text>
+
+  <!-- Arrow to Attacker's RT3 -->
+  <path d="M220,288 L310,288" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="237" y="277" width="56" height="20" fill="#fef2f2"/>
+  <text x="265" y="291" font-size="11.5" fill="#d97706" text-anchor="middle">공격자</text>
+
+  <!-- RT3 Issued Box -->
+  <rect x="310" y="270" width="110" height="36" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="365" y="293" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">RT3 (발급됨)</text>
+
+  <text x="435" y="293" font-size="12" fill="#52606d">(이 시점에 RT2는 폐기 상태)</text>
+
+  <!-- Sequence Step 2 -->
+  <text x="110" y="340" font-size="13" fill="#1f2933">정상 사용자가 나중에 RT2로 재발급 시도</text>
+
+  <!-- Legitimate User Retry path -->
+  <rect x="110" y="360" width="150" height="36" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="185" y="383" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">정상 사용자 (RT2)</text>
+
+  <path d="M260,378 L340,378" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <rect x="272" y="367" width="56" height="20" fill="#fef2f2"/>
+  <text x="300" y="381" font-size="11.5" fill="#dc2626" text-anchor="middle">재발급</text>
+
+  <!-- Detection & Action Block -->
+  <!-- Bullet Line 1 -->
+  <path d="M110,425 L125,425" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <text x="135" y="429" font-size="13" font-weight="bold" fill="#dc2626">"이미 폐기된 토큰이 다시 왔다" = 탈취 발생 신호</text>
+
+  <!-- Bullet Line 2 -->
+  <path d="M110,460 L125,460" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <text x="135" y="464" font-size="13" font-weight="bold" fill="#dc2626">해당 사용자의 토큰 계보 전체를 무효화하고 재로그인 요구</text>
+
+</svg>

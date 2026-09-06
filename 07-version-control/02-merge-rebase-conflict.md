@@ -38,6 +38,11 @@
 
 `main`에서 `feature`를 딴 뒤 **`main`에는 아무 커밋도 추가되지 않은 경우**를 보자.
 
+<!-- diagram:git-merge-rebase-conflict-1 -->
+![경우 1: Fast-forward](../assets/diagrams/git-merge-rebase-conflict-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    실행 전                        실행 후 (git merge feature)
 
@@ -46,6 +51,7 @@
         main                              main feature
    main이 feature의 조상            새 커밋 없이 포인터만 전진
 ```
+-->
 
 `main`이 가리키는 커밋 `c2`가 `feature`의 커밋 `c3`의 조상이므로, 합칠 것이 없다. Git은 **`main` 포인터를 `c3`로 옮기기만 한다.** 이것이 fast-forward(빨리 감기)다. 새 커밋이 생기지 않으므로 히스토리는 완전히 직선으로 남는다. 문제는 이때 **"어디서 어디까지가 하나의 기능 브랜치였는지"가 그래프에서 사라진다**는 것이다. 나중에 이 기능을 통째로 되돌리려 해도 그래프만 봐서는 범위를 알 수 없어, 커밋 메시지나 PR 기록을 뒤져 직접 찾아내야 한다.
 
@@ -53,11 +59,17 @@
 git merge --no-ff feature   # fast-forward가 가능해도 병합 커밋을 강제로 만든다
 ```
 
+<!-- diagram:git-merge-rebase-conflict-2 -->
+![경우 1: Fast-forward](../assets/diagrams/git-merge-rebase-conflict-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    c1 ── c2 ─────────── M       ← 병합 커밋. 부모가 c2와 c3 둘
           \            /
            c3 ────────┘         (기능 브랜치의 범위가 그래프에 남는다)
 ```
+-->
 
 GitHub의 "Create a merge commit" 옵션이 하는 일이 `--no-ff` 머지다. 기능 단위를 히스토리에 남기고 싶은 팀이 이 방식을 고른다.
 
@@ -65,6 +77,11 @@ GitHub의 "Create a merge commit" 옵션이 하는 일이 `--no-ff` 머지다. �
 
 양쪽 모두 커밋이 쌓인 경우다. 여기서 fast-forward는 불가능하다.
 
+<!-- diagram:git-merge-rebase-conflict-3 -->
+![경우 2: 3-way merge](../assets/diagrams/git-merge-rebase-conflict-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                 c3 ── c4         feature
                /
@@ -72,9 +89,15 @@ GitHub의 "Create a merge commit" 옵션이 하는 일이 `--no-ff` 머지다. �
                \
                 c5 ── c6         main
 ```
+-->
 
 Git은 세 지점을 본다. **공통 조상 c2, 내 쪽 끝 c6, 상대 쪽 끝 c4.** 그래서 3-way merge다. 왜 조상까지 봐야 하는지는 예로 보면 명확하다.
 
+<!-- diagram:git-merge-rebase-conflict-4 -->
+![경우 2: 3-way merge](../assets/diagrams/git-merge-rebase-conflict-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 어떤 파일의 7번째 줄:
 
@@ -84,9 +107,15 @@ Git은 세 지점을 본다. **공통 조상 c2, 내 쪽 끝 c6, 상대 쪽 끝 
 
   → 조상과 비교하면 "feature만 바꿨다"가 확정된다. 60을 채택.
 ```
+-->
 
 만약 조상 없이 c6와 c4만 비교하면 `30`과 `60`이 다르다는 사실만 알 뿐, 누가 무엇을 바꿨는지 알 수 없어 매번 사람에게 물어야 한다. 공통 조상이 있어야 **"변경한 쪽"과 "가만히 있던 쪽"을 구분**할 수 있고, 이 구분 덕분에 대부분의 병합이 자동으로 끝난다. 공통 조상은 `git merge-base main feature`로 직접 확인할 수 있다.
 
+<!-- diagram:git-merge-rebase-conflict-5 -->
+![경우 2: 3-way merge](../assets/diagrams/git-merge-rebase-conflict-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    병합 결과 — 부모가 둘인 커밋 M이 생기고 main이 그리로 이동한다
 
@@ -96,6 +125,7 @@ Git은 세 지점을 본다. **공통 조상 c2, 내 쪽 끝 c6, 상대 쪽 끝 
                \               /
                 c5 ── c6 ─────┘
 ```
+-->
 
 ---
 
@@ -105,6 +135,11 @@ Git은 세 지점을 본다. **공통 조상 c2, 내 쪽 끝 c6, 상대 쪽 끝 
 
 rebase는 "합친다"기보다 **"내 커밋들을 상대 브랜치 끝에 하나씩 다시 적용한다"**에 가깝다.
 
+<!-- diagram:git-merge-rebase-conflict-6 -->
+![동작](../assets/diagrams/git-merge-rebase-conflict-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    git switch feature; git rebase main   실행 전
 
@@ -123,6 +158,7 @@ rebase는 "합친다"기보다 **"내 커밋들을 상대 브랜치 끝에 하�
 
    (c3, c4는 어떤 브랜치도 가리키지 않게 되어 나중에 정리된다)
 ```
+-->
 
 핵심은 `c3'`가 `c3`가 아니라는 점이다. 부모가 `c2`에서 `c6`로 바뀌었으니 커밋 객체의 내용이 달라졌고, [01-git-internals.md](./01-git-internals.md)에서 본 대로 **내용이 다르면 해시도 다르다.** 변경 내용과 메시지가 같아도 Git 입장에서는 완전히 별개의 커밋이다.
 
@@ -130,6 +166,11 @@ rebase는 "합친다"기보다 **"내 커밋들을 상대 브랜치 끝에 하�
 
 원칙은 흔히 "공유 브랜치 금지"로 요약되지만, 더 정확한 표현은 **"내 저장소 밖에 이미 존재하는 커밋은 rebase하지 않는다"**다. 이유를 그림으로 보자.
 
+<!-- diagram:git-merge-rebase-conflict-7 -->
+![황금률: 공유된 브랜치는 rebase하지 않는다](../assets/diagrams/git-merge-rebase-conflict-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    1) 출발     나:   c1 ── c2 ── c3     (feature, push 완료)
               동료:  c1 ── c2 ── c3     (pull 받아둠)
@@ -145,6 +186,7 @@ rebase는 "합친다"기보다 **"내 커밋들을 상대 브랜치 끝에 하�
       → 같은 변경이 두 번 적용되며 곳곳에서 충돌하고
       → 동료가 --force로 밀면 내 rebase 결과가 사라진다
 ```
+-->
 
 정리하면 rebase는 **다른 사람이 이미 갖고 있는 커밋의 정체성(해시)을 일방적으로 바꾸는 행위**다. 나만 갖고 있는 커밋이면 아무 문제가 없고, 남이 갖고 있으면 그 사람의 히스토리와 어긋난다. 그래서 판단 기준은 브랜치 이름이 아니라 **"이 커밋을 다른 사람이 받아 갔는가"**다. push한 적 없는 개인 브랜치는 마음껏 rebase해도 되고, 반대로 `feature/xxx`라도 동료가 같이 작업 중이면 건드리면 안 된다.
 
@@ -159,6 +201,9 @@ git push --force-with-lease origin feature
 `--force`는 원격이 무슨 상태든 무조건 덮어쓴다. `--force-with-lease`는 **"내가 마지막으로 확인한 원격 상태와 지금 원격 상태가 같을 때만"** 덮어쓴다. 그 사이에 누가 push했다면 거부된다. 남의 커밋을 모르고 날리는 사고를 막아준다.
 
 ### merge vs rebase
+
+<!-- diagram:git-merge-vs-rebase -->
+![같은 분기, 다른 결과](../assets/diagrams/git-merge-vs-rebase.svg)
 
 | 기준 | merge | rebase |
 |------|-------|--------|
@@ -332,18 +377,21 @@ git cherry-pick a3d0e54      # main의 핫픽스 커밋 하나만 가져온다
 
 ## 6. 되돌리기 — reset / revert / restore
 
+<!-- diagram:git-merge-rebase-conflict -->
+![reset --soft / --mixed / --hard 의 도달 범위](../assets/diagrams/git-merge-rebase-conflict.svg)
+
 셋 다 "되돌린다"고 부르지만 대상이 다르다.
 
 | 명령 | 무엇을 되돌리나 | 히스토리 | 공유된 커밋에 사용 | 주 용도 |
 |------|----------------|---------|------------------|--------|
-| `git restore <파일>` | 파일 하나의 작업 디렉토리 내용 | 그대로 | 무관 | 편집하다 만 파일 버리기 |
+| `git restore <파일>` | 파일 하나의 작업 디렉터리 내용 | 그대로 | 무관 | 편집하다 만 파일 버리기 |
 | `git restore --staged <파일>` | 스테이징만 해제 | 그대로 | 무관 | 잘못 `add`한 것 빼기 |
 | `git reset --soft <커밋>` | 브랜치 포인터만 | **변경** | 금지 | 커밋 여러 개를 하나로 다시 묶기 |
 | `git reset --mixed <커밋>` | 포인터 + 스테이징 | **변경** | 금지 | 커밋 취소 후 다시 나눠 담기 |
 | `git reset --hard <커밋>` | 포인터 + 스테이징 + 작업 파일 | **변경** | 금지 | 로컬 작업 통째로 폐기 |
 | `git revert <커밋>` | 해당 커밋의 변경을 상쇄하는 **새 커밋 생성** | 보존 | **안전** | push된 커밋 되돌리기 |
 
-세 reset 옵션의 차이는 "어디까지 따라오는가"로 외우면 된다. `--soft`는 브랜치 포인터만 옮기고, `--mixed`(기본값)는 스테이징까지 초기화하며, `--hard`는 작업 디렉토리까지 되돌린다. 그래서 `--hard`만 되돌릴 수 없는 손실을 낸다. 커밋된 것은 reflog로 복구되지만, **커밋한 적 없는 작업 디렉토리 변경은 객체로 저장된 적이 없어 영원히 사라진다.**
+세 reset 옵션의 차이는 "어디까지 따라오는가"로 외우면 된다. `--soft`는 브랜치 포인터만 옮기고, `--mixed`(기본값)는 스테이징까지 초기화하며, `--hard`는 작업 디렉터리까지 되돌린다. 그래서 `--hard`만 되돌릴 수 없는 손실을 낸다. 커밋된 것은 reflog로 복구되지만, **커밋한 적 없는 작업 디렉터리 변경은 객체로 저장된 적이 없어 영원히 사라진다.**
 
 ### revert가 왜 안전한가
 

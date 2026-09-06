@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 960" width="880" height="960" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">3-tier 아키텍처 조립하기</title>
+  <desc id="d">Route 53, CloudFront, Multi-AZ VPC 및 S3로 구성된 3-tier 아키텍처 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="880" height="960" fill="#ffffff"/>
+
+  <!-- 1. [ 사용자 ] -->
+  <rect x="365" y="30" width="150" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="54.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">[ 사용자 ]</text>
+
+  <!-- Line: 사용자 -> Route 53 -->
+  <path d="M440,70 L440,100" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 2. Route 53 (DNS + 헬스 체크) -->
+  <rect x="300" y="100" width="280" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="124.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Route 53 (DNS + 헬스 체크)</text>
+
+  <!-- Line: Route 53 -> CloudFront -->
+  <path d="M440,140 L440,170" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 3. CloudFront (엣지 캐시, 정적 자산) -->
+  <rect x="280" y="170" width="320" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="194.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">CloudFront (엣지 캐시, 정적 자산)</text>
+
+  <!-- Line: CloudFront -> VPC -->
+  <path d="M440,210 L440,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 4. VPC Boundary -->
+  <rect x="40" y="250" width="800" height="580" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="60" y="275" fill="#1f2933" font-size="14" font-weight="bold">VPC</text>
+
+  <!-- ================= AZ-a Column (Left: x=60 to 420) ================= -->
+
+  <!-- Public Subnet (AZ-a) Outer Container -->
+  <rect x="60" y="300" width="360" height="130" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="75" y="324.55" fill="#52606d" font-size="13" font-weight="bold">── Public Subnet (AZ-a) ──</text>
+
+  <!-- Inside Public Subnet AZ-a -->
+  <rect x="80" y="340" width="150" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="155" y="374.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">ALB</text>
+
+  <rect x="250" y="340" width="150" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="325" y="374.55" fill="#1f2933" font-size="13" opacity="0.9" text-anchor="middle">NAT GW</text>
+
+  <!-- Vertical Line between Public Subnet and Private Subnet (App) AZ-a -->
+  <path d="M155,430 L155,480" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Private Subnet (App) (AZ-a) Outer Container -->
+  <rect x="60" y="480" width="360" height="150" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="75" y="504.55" fill="#52606d" font-size="13" font-weight="bold">── Private Subnet(App) ──</text>
+
+  <!-- Inside Private Subnet (App) AZ-a -->
+  <rect x="80" y="520" width="320" height="85" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="240" y="552.025" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">EC2 / ECS Task</text>
+  <text x="240" y="576.025" fill="#52606d" font-size="13" text-anchor="middle">(Auto Scaling Group)</text>
+
+  <!-- Vertical Line between Private Subnet (App) and Private Subnet (DB) AZ-a -->
+  <path d="M155,630 L155,680" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Private Subnet (DB) (AZ-a) Outer Container -->
+  <rect x="60" y="680" width="360" height="125" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="75" y="704.55" fill="#52606d" font-size="13" font-weight="bold">── Private Subnet(DB) ────</text>
+
+  <!-- Inside Private Subnet (DB) AZ-a -->
+  <rect x="80" y="720" width="320" height="65" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="240" y="747.025" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">RDS Primary</text>
+  <text x="240" y="767.025" fill="#52606d" font-size="13" text-anchor="middle">ElastiCache</text>
+
+
+  <!-- ================= AZ-c Column (Right: x=460 to 820) ================= -->
+
+  <!-- Public Subnet (AZ-c) Outer Container -->
+  <rect x="460" y="300" width="360" height="130" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="475" y="324.55" fill="#52606d" font-size="13" font-weight="bold">── Public Subnet (AZ-c) ──</text>
+
+  <!-- Inside Public Subnet AZ-c -->
+  <rect x="480" y="340" width="150" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="555" y="374.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">ALB</text>
+
+  <rect x="650" y="340" width="150" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="725" y="374.55" fill="#1f2933" font-size="13" opacity="0.9" text-anchor="middle">NAT GW</text>
+
+  <!-- Vertical Line between Public Subnet and Private Subnet (App) AZ-c -->
+  <path d="M555,430 L555,480" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Private Subnet (App) (AZ-c) Outer Container -->
+  <rect x="460" y="480" width="360" height="150" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="475" y="504.55" fill="#52606d" font-size="13" font-weight="bold">── Private Subnet(App) ──</text>
+
+  <!-- Inside Private Subnet (App) AZ-c -->
+  <rect x="480" y="520" width="320" height="85" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="640" y="552.025" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">EC2 / ECS Task</text>
+  <text x="640" y="576.025" fill="#52606d" font-size="13" text-anchor="middle">(Auto Scaling Group)</text>
+
+  <!-- Vertical Line between Private Subnet (App) and Private Subnet (DB) AZ-c -->
+  <path d="M555,630 L555,680" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Private Subnet (DB) (AZ-c) Outer Container -->
+  <rect x="460" y="680" width="360" height="125" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="475" y="704.55" fill="#52606d" font-size="13" font-weight="bold">── Private Subnet(DB) ───</text>
+
+  <!-- Inside Private Subnet (DB) AZ-c -->
+  <rect x="480" y="720" width="320" height="65" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="640" y="747.025" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">RDS Standby</text>
+  <text x="640" y="767.025" fill="#52606d" font-size="13" text-anchor="middle">(자동 페일오버 대상)</text>
+
+  <!-- ================= External Connections & S3 ================= -->
+
+  <!-- Branch lines from CloudFront to ALBs -->
+  <path d="M440,230 L155,230 L155,340" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M440,230 L555,230 L555,340" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- VPC to S3 connection line -->
+  <path d="M240,830 L240,880 L368,880" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 5. S3 Box -->
+  <rect x="375" y="855" width="330" height="50" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="540" y="884.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">S3 (정적 파일, 업로드, 로그 보관)</text>
+
+</svg>

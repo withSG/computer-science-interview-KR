@@ -22,6 +22,11 @@
 
 ### 3가지 요소의 역할
 
+<!-- diagram:cloud-qna-monitoring-1 -->
+![3가지 요소의 역할](../../assets/diagrams/cloud-qna-monitoring-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                  Observability                       │
@@ -36,9 +41,15 @@
 │ 감사 추적   │ 알림 설정   │ 서비스 의존성           │
 └─────────────┴─────────────┴─────────────────────────┘
 ```
+-->
 
 ### 실제 장애 대응 예시
 
+<!-- diagram:cloud-qna-monitoring-2 -->
+![실제 장애 대응 예시](../../assets/diagrams/cloud-qna-monitoring-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. Alert 발생: "API 응답시간 > 2초" (Metrics)
        │
@@ -54,6 +65,7 @@
        ▼
 5. 원인 파악: 인덱스 없는 테이블 풀 스캔
 ```
+-->
 
 ### Monitoring vs Observability
 
@@ -88,6 +100,11 @@ Observability (관측가능성):
 
 ### 아키텍처
 
+<!-- diagram:cloud-qna-monitoring-3 -->
+![아키텍처](../../assets/diagrams/cloud-qna-monitoring-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    Grafana                           │
@@ -109,6 +126,7 @@ Observability (관측가능성):
    │ metrics │ │ metrics │ │ :9100   │
    └─────────┘ └─────────┘ └─────────┘
 ```
+-->
 
 ### Prometheus 메트릭 타입
 
@@ -183,6 +201,11 @@ receivers:
 
 ### ELK Stack
 
+<!-- diagram:cloud-qna-monitoring-4 -->
+![ELK Stack](../../assets/diagrams/cloud-qna-monitoring-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    Kibana                            │
@@ -206,9 +229,15 @@ receivers:
    └─────────┘ └─────────┘ └─────────┘
    (경량 수집기)
 ```
+-->
 
 ### Loki + Grafana (경량 대안)
 
+<!-- diagram:cloud-qna-monitoring-5 -->
+![Loki + Grafana](../../assets/diagrams/cloud-qna-monitoring-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                   Grafana                            │
@@ -226,6 +255,7 @@ receivers:
    │Promtail │ │Promtail │ │Promtail │
    └─────────┘ └─────────┘ └─────────┘
 ```
+-->
 
 ### ELK vs Loki 비교
 
@@ -269,6 +299,11 @@ receivers:
 
 ### 핵심 개념
 
+<!-- diagram:cloud-qna-monitoring-6 -->
+![핵심 개념](../../assets/diagrams/cloud-qna-monitoring-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Trace: 전체 요청의 여정 (하나의 요청)
   │
@@ -284,9 +319,15 @@ Trace: 전체 요청의 여정 (하나의 요청)
   │
   Total: 130ms
 ```
+-->
 
 ### Trace 시각화 예시
 
+<!-- diagram:cloud-qna-monitoring-7 -->
+![Trace 시각화 예시](../../assets/diagrams/cloud-qna-monitoring-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [API Gateway] ████████░░░░░░░░░░░░░░░░░░░░░░░░  10ms
               │
@@ -301,6 +342,7 @@ Trace: 전체 요청의 여정 (하나의 요청)
 총 소요시간: 130ms
 병목 구간: Payment API (50ms)
 ```
+-->
 
 ### 주요 도구
 
@@ -336,6 +378,11 @@ span.end();
 
 ### Context Propagation
 
+<!-- diagram:cloud-qna-monitoring-8 -->
+![Context Propagation](../../assets/diagrams/cloud-qna-monitoring-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 서비스 A → 서비스 B → 서비스 C
 
@@ -346,6 +393,7 @@ tracestate: vendor=value
 예시:
 traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 ```
+-->
 
 </details>
 
@@ -366,6 +414,11 @@ traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 
 ### 관계도
 
+<!-- diagram:cloud-qna-monitoring-9 -->
+![관계도](../../assets/diagrams/cloud-qna-monitoring-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │                      SLA                             │
@@ -383,6 +436,7 @@ traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 │  └───────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### SLI 측정 지표 예시
 
@@ -448,6 +502,11 @@ Error Budget이 소진되면 신규 기능 대신
 
 ### 좋은 알림의 조건
 
+<!-- diagram:cloud-qna-monitoring-10 -->
+![좋은 알림의 조건](../../assets/diagrams/cloud-qna-monitoring-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │              좋은 알림 체크리스트                    │
@@ -459,9 +518,15 @@ Error Budget이 소진되면 신규 기능 대신
 │ ☑ 중복 알림이 아닌가?                               │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 알림 계층화
 
+<!-- diagram:cloud-qna-monitoring-11 -->
+![알림 계층화](../../assets/diagrams/cloud-qna-monitoring-11.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────────────────────┐
 │  P1 Critical - 즉시 대응             │
@@ -481,6 +546,7 @@ Error Budget이 소진되면 신규 기능 대신
 │  예: 배포 완료, 스케일링 이벤트      │
 └──────────────────────────────────────┘
 ```
+-->
 
 ### 알림 개선 전략
 
@@ -532,6 +598,11 @@ Runbook: https://wiki/cpu-high
 
 ### 장애 대응 단계
 
+<!-- diagram:cloud-qna-monitoring-12 -->
+![장애 대응 단계](../../assets/diagrams/cloud-qna-monitoring-12.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 1. 탐지 (Detect)                                    │
@@ -565,6 +636,7 @@ Runbook: https://wiki/cpu-high
 │    - 재발 방지 Action Items                         │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### On-call 역할 분담
 
@@ -587,6 +659,11 @@ Subject Matter Expert (SME):
 
 ### Postmortem 템플릿
 
+<!-- diagram:cloud-qna-monitoring-13 -->
+![Postmortem 템플릿](../../assets/diagrams/cloud-qna-monitoring-13.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```markdown
 ## 장애 보고서
 
@@ -612,6 +689,7 @@ Subject Matter Expert (SME):
 | 연결 풀 모니터링 추가 | 박운영 | 1/22 |
 | DB 타임아웃 설정 리뷰 | 이DBA | 1/25 |
 ```
+-->
 
 </details>
 

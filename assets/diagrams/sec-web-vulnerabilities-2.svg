@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CSRF 성립 조건 세 가지 Sequence Diagram</title>
+  <desc id="d">피해자 브라우저와 bank.com 간의 CSRF 공격 시나리오 시퀀스 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- Actor Lifelines -->
+  <line x1="220" y1="90" x2="220" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="660" y1="90" x2="660" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- Actor Boxes -->
+  <rect x="120" y="30" width="200" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="220" y="60" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[피해자 브라우저]</text>
+
+  <rect x="560" y="30" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="660" y="60" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[bank.com]</text>
+
+  <!-- Message 1: Normal Login Response (Arrow pointing Left) -->
+  <path d="M660,120 L220,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="348" y="105" width="184" height="22" fill="#ffffff"/>
+  <text x="440" y="120" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">① 로그인 → 세션 쿠키 보관</text>
+
+  <!-- Message 2: Internal Malicious Execution (Self/Evil Site Box) -->
+  <g transform="translate(140, 155)">
+    <rect x="0" y="0" width="450" height="155" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="16" y="24" font-size="13" font-weight="bold" fill="#d97706">② evil.com 방문 (다른 탭이어도 무방)</text>
+    <rect x="28" y="36" width="394" height="104" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="40" y="56" font-family="monospace" font-size="12" fill="#1f2933">&lt;form action="https://bank.com/transfer"</text>
+    <text x="40" y="74" font-family="monospace" font-size="12" fill="#1f2933">      method="POST" id="f"&gt;</text>
+    <text x="40" y="92" font-family="monospace" font-size="12" fill="#1f2933">  &lt;input name="to" value="attacker"&gt;</text>
+    <text x="40" y="110" font-family="monospace" font-size="12" fill="#1f2933">  &lt;input name="amount" value="1000000"&gt;</text>
+    <text x="40" y="128" font-family="monospace" font-size="12" fill="#1f2933">&lt;/form&gt;  &lt;script&gt;f.submit()&lt;/script&gt;</text>
+  </g>
+
+  <!-- Message 3: CSRF Request (Arrow pointing Right) -->
+  <path d="M220,350 L660,350" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="300" y="335" width="280" height="22" fill="#ffffff"/>
+  <text x="440" y="350" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">③ 브라우저가 bank.com 쿠키를 자동 첨부해 전송</text>
+
+  <!-- Message 4: Server Processing -->
+  <g transform="translate(560, 395)">
+    <rect x="0" y="0" width="200" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="100" y="24" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">④ 세션 유효 → 송금 처리</text>
+  </g>
+</svg>

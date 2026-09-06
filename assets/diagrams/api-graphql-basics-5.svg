@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DataLoader — 모았다가 한 번에</title>
+  <desc id="d">DataLoader 미사용 시 4회의 DB 쿼리 호출과 DataLoader 사용 시 키 수집 및 중복 제거를 거쳐 1회의 Batch DB 쿼리로 처리하는 과정 비교</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 세로 중앙 구분선 -->
+  <line x1="430" y1="30" x2="430" y2="430" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ================= LEFT: [DataLoader 없음] ================= -->
+  <!-- 헤더 -->
+  <rect x="135" y="30" width="170" height="36" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="220" y="52.9" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">[DataLoader 없음]</text>
+
+  <!-- 1행: author(3) -->
+  <rect x="40" y="95" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="90" y="116.55" font-size="13" fill="#1f2933" text-anchor="middle">author(3)</text>
+  <path d="M140,112 L200,112" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="200" y="95" width="170" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="285" y="116.55" font-size="13" fill="#1f2933" text-anchor="middle">SELECT ... id=3</text>
+
+  <!-- 2행: author(7) -->
+  <rect x="40" y="145" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="90" y="166.55" font-size="13" fill="#1f2933" text-anchor="middle">author(7)</text>
+  <path d="M140,162 L200,162" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="200" y="145" width="170" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="285" y="166.55" font-size="13" fill="#1f2933" text-anchor="middle">SELECT ... id=7</text>
+
+  <!-- 3행: author(3) -->
+  <rect x="40" y="195" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="90" y="216.55" font-size="13" fill="#1f2933" text-anchor="middle">author(3)</text>
+  <path d="M140,212 L200,212" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="200" y="195" width="170" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="285" y="216.55" font-size="13" fill="#1f2933" text-anchor="middle">SELECT ... id=3</text>
+
+  <!-- 4행: author(5) -->
+  <rect x="40" y="245" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="90" y="266.55" font-size="13" fill="#1f2933" text-anchor="middle">author(5)</text>
+  <path d="M140,262 L200,262" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="200" y="245" width="170" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="285" y="266.55" font-size="13" fill="#1f2933" text-anchor="middle">SELECT ... id=5</text>
+
+  <!-- 왼쪽 하단 결론 -->
+  <rect x="160" y="370" width="120" height="32" rx="16" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="220" y="390.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">쿼리 4번</text>
+
+
+  <!-- ================= RIGHT: [DataLoader 있음] ================= -->
+  <!-- 헤더 -->
+  <rect x="565" y="30" width="170" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="52.9" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[DataLoader 있음]</text>
+
+  <!-- author 호출 (우측) -->
+  <rect x="460" y="95" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="510" y="116.55" font-size="13" fill="#1f2933" text-anchor="middle">author(3)</text>
+
+  <rect x="460" y="145" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="510" y="166.55" font-size="13" fill="#1f2933" text-anchor="middle">author(7)</text>
+
+  <rect x="460" y="195" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="510" y="216.55" font-size="13" fill="#1f2933" text-anchor="middle">author(3)</text>
+
+  <rect x="460" y="245" width="100" height="34" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="510" y="266.55" font-size="13" fill="#1f2933" text-anchor="middle">author(5)</text>
+
+  <!-- 묶는 대괄호 선 -->
+  <path d="M560,112 L582,112 L582,187 L595,187" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M560,162 L582,162" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M560,212 L582,212" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M560,262 L582,262 L582,187" stroke="#059669" stroke-width="1.5" fill="none"/>
+
+  <!-- 주석: 같은 틱 동안 키를 모은다 -->
+  <text x="726" y="181.05" font-size="12.5" fill="#52606d" text-anchor="start">같은 틱 동안</text>
+  <text x="726" y="199.05" font-size="12.5" fill="#52606d" text-anchor="start">키를 모은다</text>
+
+  <!-- 키 모음 박스 -->
+  <rect x="595" y="170" width="118" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="654" y="191.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[3, 7, 3, 5]</text>
+
+  <!-- 화살표 1: [3, 7, 3, 5] -> 중복 제거 -->
+  <path d="M654,204 L654,230" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 중복 제거 박스 -->
+  <rect x="571.5" y="235" width="165" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="654" y="256.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">중복 제거 [3, 7, 5]</text>
+
+  <!-- 화살표 2: 중복 제거 -> SELECT ... -->
+  <path d="M654,269 L654,305" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 쿼리 실행 박스 -->
+  <rect x="460" y="310" width="388" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="654" y="332.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">SELECT * FROM users WHERE id IN (3,7,5)</text>
+
+  <!-- 오른쪽 하단 결론 -->
+  <rect x="594" y="370" width="120" height="32" rx="16" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="654" y="390.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">쿼리 1번</text>
+</svg>

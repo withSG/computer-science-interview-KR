@@ -28,6 +28,11 @@
 
 또 하나 알아 둘 것은 **원인이 어느 층에 있는지 층위가 정해져 있다**는 점이다.
 
+<!-- diagram:cloud-troubleshooting-1 -->
+![1. 왜 필요한가: 상태 이름은 원인이 아니라 증상이다](../../assets/diagrams/cloud-troubleshooting-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Pod가 아예 안 뜬다        → 스케줄링 층 (Pending)
 컨테이너가 안 만들어진다  → 이미지 / 설정 / 볼륨 층 (ImagePullBackOff, CreateContainerConfigError)
@@ -35,6 +40,7 @@ Pod가 아예 안 뜬다        → 스케줄링 층 (Pending)
 살아 있는데 트래픽이 안 온다 → 네트워크 / Probe 층 (Endpoints 비어 있음)
 잘 돌다가 사라진다        → 노드 층 (Evicted, NotReady)
 ```
+-->
 
 증상을 보고 어느 층인지 먼저 정하면 확인할 명령이 절반 이하로 줄어든다.
 
@@ -44,6 +50,11 @@ Pod가 아예 안 뜬다        → 스케줄링 층 (Pending)
 
 무슨 장애든 이 순서를 벗어나지 않는다.
 
+<!-- diagram:cloud-troubleshooting-2 -->
+![2. 진단의 기본 순서](../../assets/diagrams/cloud-troubleshooting-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ① kubectl get pods -o wide
       "무엇이 이상한가" — 상태, RESTARTS, 어느 노드에 있나
@@ -60,6 +71,7 @@ Pod가 아예 안 뜬다        → 스케줄링 층 (Pending)
 ⑤ kubectl exec -it <pod> -- sh
       "안에서 직접 확인" — DNS, 환경변수, 파일, 네트워크 도달성
 ```
+-->
 
 ②를 건너뛰고 ③으로 가는 실수를 특히 조심한다. **컨테이너가 아직 만들어지지도 않은 상태라면 로그는 애초에 존재하지 않는다.** `ImagePullBackOff`나 `CreateContainerConfigError`에서 `kubectl logs`를 아무리 쳐도 아무것도 나오지 않는다. 그런데 그 이유가 `describe`에는 한 줄로 적혀 있다.
 
@@ -242,6 +254,11 @@ kubectl drain <node> --ignore-daemonsets --delete-emptydir-data   # 기존 Pod �
 
 Probe는 실무 장애의 단골 원인이면서, 동시에 잘 설정하면 대부분의 장애를 자동으로 흡수해 주는 장치다. 세 개의 역할이 완전히 다르다.
 
+<!-- diagram:cloud-troubleshooting-3 -->
+![8. Probe 세 종류와 오설정이 만드는 장애](../../assets/diagrams/cloud-troubleshooting-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │ startup probe   "아직 부팅 중인가?"                          │
@@ -259,11 +276,17 @@ Probe는 실무 장애의 단골 원인이면서, 동시에 잘 설정하면 대
 │   → 데드락처럼 프로세스는 살아 있으나 응답 불능일 때만        │
 └──────────────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 오설정이 만드는 두 가지 대표 장애
 
 **장애 A: 기동이 느린 앱에 liveness만 걸었다**
 
+<!-- diagram:cloud-troubleshooting-4 -->
+![오설정이 만드는 두 가지 대표 장애](../../assets/diagrams/cloud-troubleshooting-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 앱 부팅에 60초 필요
 liveness: initialDelaySeconds 10, periodSeconds 5, failureThreshold 3
@@ -273,6 +296,7 @@ t=15s  실패
 t=20s  실패 → 임계치 도달 → 컨테이너 재시작
 t=30s  다시 부팅 시작... 무한 반복
 ```
+-->
 
 증상은 `CrashLoopBackOff`인데 로그에는 애플리케이션 오류가 전혀 없다. 정상 기동 로그만 반복해서 찍힌다. **이럴 때는 앱을 의심하기 전에 probe 설정을 본다.** 해결은 startup probe를 두어 부팅 구간을 보호하는 것이다.
 
@@ -314,6 +338,11 @@ kubectl get endpoints <service>          # 비어 있으면 readiness 실패 의
 
 ### 시나리오 1 — 배포했더니 절반이 CrashLoopBackOff
 
+<!-- diagram:cloud-troubleshooting-5 -->
+![시나리오 1](../../assets/diagrams/cloud-troubleshooting-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 증상   kubectl get pods
        web-7f8-abc  0/1  CrashLoopBackOff  5  3m
@@ -333,9 +362,15 @@ kubectl get endpoints <service>          # 비어 있으면 readiness 실패 의
        근본: 부하 테스트로 실사용량 측정 → requests/limits 재산정,
              메모리 사용량 알림 추가
 ```
+-->
 
 ### 시나리오 2 — Service에 접속이 안 된다
 
+<!-- diagram:cloud-troubleshooting-6 -->
+![시나리오 2](../../assets/diagrams/cloud-troubleshooting-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 증상   Pod는 Running인데 Service로 요청하면 연결 거부
 
@@ -354,9 +389,15 @@ kubectl get endpoints <service>          # 비어 있으면 readiness 실패 의
        근본: containerPort / targetPort / probe port가 한 값을 참조하도록
              매니페스트 템플릿 정리
 ```
+-->
 
 ### 시나리오 3 — 특정 노드에서만 Pod가 사라진다
 
+<!-- diagram:cloud-troubleshooting-7 -->
+![시나리오 3](../../assets/diagrams/cloud-troubleshooting-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 증상   node-3에 배치된 Pod들이 주기적으로 Evicted
 
@@ -373,6 +414,7 @@ kubectl get endpoints <service>          # 비어 있으면 readiness 실패 의
        근본: 로그를 표준 출력으로 전환해 수집기가 가져가도록 변경,
              emptyDir에 sizeLimit 지정, 노드 디스크 사용률 알림 추가
 ```
+-->
 
 ---
 

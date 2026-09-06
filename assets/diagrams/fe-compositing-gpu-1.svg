@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">페인트와 래스터, 그리고 합성</title>
+  <desc id="d">Layout 결과에서 시작하여 Paint 기록, Raster 래스터화, Composite 합성 단계로 이어지는 브라우저 렌더링 파이프라인 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Top Input: Layout 결과 -->
+  <text x="440" y="40" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Layout 결과</text>
+
+  <!-- Arrow 1: Layout -> Paint -->
+  <path d="M440,48 L440,82" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 1. Paint Box -->
+  <rect x="100" y="86" width="680" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="120" y="117" font-size="14" font-weight="bold" fill="#2563eb">Paint (기록)</text>
+  
+  <text x="140" y="148" font-size="13" fill="#1f2933">"여기에 반경 8px 둥근 사각형, 색 #333"</text>
+  <text x="140" y="174" font-size="13" fill="#1f2933">"여기에 텍스트 '확인', 폰트 16px"</text>
+
+  <!-- Right side notes for Paint -->
+  <path d="M580,140 L600,140" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <text x="610" y="144" font-size="11.5" fill="#52606d">← 그리기 명령 목록</text>
+  <text x="625" y="170" font-size="11.5" fill="#52606d">아직 픽셀 아님</text>
+
+  <!-- Arrow 2: Paint -> Raster -->
+  <path d="M440,196 L440,230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 2. Raster Box -->
+  <rect x="100" y="234" width="680" height="110" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="120" y="265" font-size="14" font-weight="bold" fill="#059669">Raster (래스터화)</text>
+  
+  <text x="140" y="296" font-size="13" fill="#1f2933">명령을 실제 비트맵(픽셀 배열)으로 변환</text>
+  <text x="140" y="322" font-size="13" fill="#1f2933">레이어별 · 타일 단위로 수행</text>
+
+  <!-- Right side note for Raster -->
+  <path d="M580,292 L600,292" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <text x="610" y="296" font-size="11.5" fill="#52606d">← 여기서 픽셀이 생긴다</text>
+
+  <!-- Arrow 3: Raster -> Composite -->
+  <path d="M440,344 L440,378" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 3. Composite Box -->
+  <rect x="100" y="382" width="680" height="110" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="120" y="413" font-size="14" font-weight="bold" fill="#7c3aed">Composite (합성)</text>
+  
+  <text x="140" y="444" font-size="13" fill="#1f2933">레이어 비트맵들을 정해진 순서·위치·투명도로</text>
+  <text x="140" y="470" font-size="13" fill="#1f2933">겹쳐서 최종 화면 한 장을 만든다</text>
+</svg>

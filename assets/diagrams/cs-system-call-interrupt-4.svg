@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 ISR은 짧아야 하는가</title>
+  <desc id="d">장치 인터럽트 발생 시 상반부(ISR)와 하반부(softirq/tasklet/workqueue)로 나뉘어 처리되는 과정을 보여주는 다이어그램</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 1. Start trigger label -->
+  <text x="440" y="32" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">장치 인터럽트 발생</text>
+
+  <!-- Arrow from trigger to Top Half -->
+  <path d="M440,42 L440,68" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 2. Top Half Box (Red tint: Interrupts disabled / time-critical) -->
+  <g id="top-half">
+    <rect x="190" y="70" width="500" height="135" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="210" y="96" font-size="14" font-weight="bold" fill="#dc2626">상반부 (top half) — ISR</text>
+    
+    <text x="210" y="121" font-size="13" fill="#1f2933">- 인터럽트를 받았다고 장치에 응답</text>
+    <text x="210" y="143" font-size="13" fill="#1f2933">- 데이터를 커널 버퍼로 옮기는 등 최소 작업</text>
+    <text x="210" y="165" font-size="13" fill="#1f2933">- "나머지 일은 나중에" 예약</text>
+    
+    <!-- Arrow indicator in original -->
+    <text x="210" y="188" font-size="13" font-weight="bold" fill="#dc2626">→ 매우 짧게, 인터럽트 막힌 상태</text>
+  </g>
+
+  <!-- Arrow from Top Half to Bottom Half -->
+  <path d="M440,205 L440,238" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 3. Bottom Half Box (Blue tint: Interrupts enabled / extended work) -->
+  <g id="bottom-half">
+    <rect x="140" y="240" width="600" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="160" y="266" font-size="14" font-weight="bold" fill="#2563eb">하반부 (bottom half) — softirq/tasklet/workqueue</text>
+    
+    <text x="160" y="293" font-size="13" fill="#1f2933">- 프로토콜 처리, 상위 계층 전달 등 무거운 작업</text>
+    
+    <!-- Arrow indicator in original -->
+    <text x="160" y="323" font-size="13" font-weight="bold" fill="#2563eb">→ 인터럽트가 열린 상태에서 처리</text>
+  </g>
+</svg>

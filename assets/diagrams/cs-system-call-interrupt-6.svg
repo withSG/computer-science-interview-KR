@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 필요한가</title>
+  <desc id="d">PIO 방식과 DMA 방식의 데이터 전송 흐름을 비교한 다이어그램</desc>
+  
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <!-- Dark Ink Arrowhead -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- Blue Arrowhead -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- Green Arrowhead -->
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <!-- Purple Arrowhead -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: PIO 방식 -->
+  <g id="pio-section">
+    <!-- Outer Group Container -->
+    <rect x="24" y="20" width="832" height="180" rx="8" ry="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    
+    <!-- Title -->
+    <text x="44" y="52" font-size="16" font-weight="bold" fill="#1f2933">PIO 방식</text>
+
+    <!-- Box: 디스크 -->
+    <rect x="80" y="80" width="120" height="50" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="140" y="109.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">디스크</text>
+
+    <!-- Arrow 1: ① 읽기 -->
+    <path d="M200,105 L360,105" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <rect x="245" y="84" width="70" height="20" fill="#ffffff" rx="2" ry="2"/>
+    <text x="280" y="98.025" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">① 읽기</text>
+
+    <!-- Box: CPU -->
+    <rect x="360" y="80" width="120" height="50" rx="4" ry="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="420" y="109.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">CPU</text>
+
+    <!-- Arrow 2: ② 쓰기 -->
+    <path d="M480,105 L640,105" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <rect x="525" y="84" width="70" height="20" fill="#ffffff" rx="2" ry="2"/>
+    <text x="560" y="98.025" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">② 쓰기</text>
+
+    <!-- Box: 메모리 -->
+    <rect x="640" y="80" width="120" height="50" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="700" y="109.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">메모리</text>
+
+    <!-- Subtext -->
+    <text x="440" y="169.025" font-size="13" fill="#52606d" text-anchor="middle">모든 바이트가 CPU 레지스터를 한 번씩 거쳐 간다</text>
+  </g>
+
+  <!-- Section 2: DMA 방식 -->
+  <g id="dma-section">
+    <!-- Outer Group Container -->
+    <rect x="24" y="220" width="832" height="260" rx="8" ry="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+    <!-- Title -->
+    <text x="44" y="252" font-size="16" font-weight="bold" fill="#1f2933">DMA 방식</text>
+
+    <!-- Box: CPU -->
+    <rect x="80" y="280" width="120" height="140" rx="4" ry="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="140" y="354.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">CPU</text>
+
+    <!-- Arrow 1: 1. "이만큼 옮겨줘" (CPU -> DMA 컨트롤러) -->
+    <path d="M200,305 L520,305" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <rect x="300" y="284" width="140" height="20" fill="#ffffff" rx="2" ry="2"/>
+    <text x="370" y="298.025" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">1. "이만큼 옮겨줘"</text>
+
+    <!-- Box: DMA 컨트롤러 -->
+    <rect x="520" y="280" width="150" height="50" rx="4" ry="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="595" y="309.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">DMA 컨트롤러</text>
+
+    <!-- Arrow 2: 2. 직접 전송 (DMA 컨트롤러 -> 디스크/메모리) -->
+    <path d="M595,330 L595,365" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+    <rect x="605" y="338" width="90" height="20" fill="#ffffff" rx="2" ry="2"/>
+    <text x="610" y="352.025" font-size="13" fill="#7c3aed" font-weight="bold" text-anchor="start">2. 직접 전송</text>
+
+    <!-- Path & Arrow: 디스크 -> 메모리 -->
+    <path d="M595,395 L640,395" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <!-- Box: 디스크 -->
+    <rect x="475" y="370" width="120" height="50" rx="4" ry="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="535" y="399.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">디스크</text>
+
+    <!-- Box: 메모리 -->
+    <rect x="640" y="370" width="120" height="50" rx="4" ry="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="700" y="399.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">메모리</text>
+
+    <!-- Arrow 4: 4. 완료 인터럽트 (DMA 컨트롤러/디스크 영역 -> CPU) -->
+    <path d="M475,380 L200,380" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="290" y="359" width="120" height="20" fill="#ffffff" rx="2" ry="2"/>
+    <text x="350" y="373.025" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">4. 완료 인터럽트</text>
+
+    <!-- Subtext: 3. CPU는 그동안 다른 작업 -->
+    <text x="260" y="449.025" font-size="13" fill="#52606d" text-anchor="middle">3. CPU는 그동안 다른 작업</text>
+  </g>
+</svg>

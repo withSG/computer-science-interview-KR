@@ -1,0 +1,339 @@
+:root {
+  --bg: #ffffff;
+  --bg-sub: #f8fafc;
+  --bg-raise: #ffffff;
+  --ink: #1f2933;
+  --ink-mute: #52606d;
+  --ink-faint: #7b8794;
+  --line: #e4e7eb;
+  --line-strong: #cbd2d9;
+  --accent: #2563eb;
+  --accent-soft: #eff6ff;
+  --danger: #dc2626;
+  --danger-soft: #fef2f2;
+  --ok: #059669;
+  --ok-soft: #ecfdf5;
+  --warn: #d97706;
+  --warn-soft: #fffbeb;
+  --shadow: 0 1px 2px rgba(31, 41, 51, 0.06), 0 8px 24px rgba(31, 41, 51, 0.08);
+  --mono: 'Consolas', 'D2Coding', 'Courier New', monospace;
+  --sans: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --bg: #12161c;
+  --bg-sub: #171c24;
+  --bg-raise: #1c222b;
+  --ink: #e4e7eb;
+  --ink-mute: #9aa5b1;
+  --ink-faint: #7b8794;
+  --line: #2a323d;
+  --line-strong: #3e4c59;
+  --accent: #6098f5;
+  --accent-soft: #1a2740;
+  --danger: #f87171;
+  --danger-soft: #341b1b;
+  --ok: #34d399;
+  --ok-soft: #12291f;
+  --warn: #fbbf24;
+  --warn-soft: #2e2411;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-raise);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 5px 11px;
+  transition: background 0.12s, border-color 0.12s;
+}
+button:hover:not(:disabled) { background: var(--bg-sub); border-color: var(--ink-faint); }
+button:disabled { opacity: 0.45; cursor: default; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.primary:hover:not(:disabled) { filter: brightness(1.08); background: var(--accent); }
+button.ghost { border-color: transparent; background: transparent; color: var(--ink-mute); }
+button.ghost:hover:not(:disabled) { background: var(--bg-sub); }
+
+input, textarea {
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 7px 10px;
+  width: 100%;
+}
+input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: transparent; }
+
+/* ─────────────────────────────────────────── 레이아웃 */
+
+.app { display: grid; grid-template-columns: 290px minmax(0, 1fr); height: 100%; }
+.app.with-panel { grid-template-columns: 290px minmax(0, 1fr) 420px; }
+
+.sidebar {
+  border-right: 1px solid var(--line);
+  background: var(--bg-sub);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.brand {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.brand h1 { font-size: 14px; margin: 0; letter-spacing: -0.01em; }
+.brand .sub { font-size: 11px; color: var(--ink-faint); }
+
+.search-box { padding: 10px 12px; border-bottom: 1px solid var(--line); }
+
+.tree { overflow-y: auto; flex: 1; padding: 8px 6px 40px; min-height: 0; }
+.tree-dir > .row { color: var(--ink-mute); font-weight: 600; font-size: 12.5px; }
+.tree .row {
+  display: flex; align-items: center; gap: 6px;
+  padding: 3px 8px; border-radius: 5px; cursor: pointer;
+  font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tree .row:hover { background: var(--bg-raise); }
+.tree .row.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.tree .kids { margin-left: 11px; border-left: 1px solid var(--line); padding-left: 5px; }
+.tree .caret { width: 10px; color: var(--ink-faint); flex: none; font-size: 10px; }
+.tree .badge { margin-left: auto; font-size: 10px; color: var(--ink-faint); flex: none; }
+
+.main { overflow-y: auto; min-width: 0; }
+
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 24px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .path { font-size: 12px; color: var(--ink-faint); font-family: var(--mono); }
+.topbar .spacer { flex: 1; }
+
+.pill {
+  font-size: 11px; padding: 2px 8px; border-radius: 999px;
+  border: 1px solid var(--line-strong); color: var(--ink-mute);
+}
+.pill.ok { color: var(--ok); border-color: var(--ok); background: var(--ok-soft); }
+.pill.off { color: var(--warn); border-color: var(--warn); background: var(--warn-soft); }
+
+/* ─────────────────────────────────────────── 문서 */
+
+.doc { max-width: 900px; margin: 0 auto; padding: 28px 24px 50vh; }
+.doc h1 { font-size: 27px; line-height: 1.35; margin: 0 0 20px; letter-spacing: -0.02em; }
+.doc h2 {
+  font-size: 20px; margin: 44px 0 14px; padding-bottom: 7px;
+  border-bottom: 1px solid var(--line); letter-spacing: -0.01em;
+}
+.doc h3 { font-size: 16.5px; margin: 30px 0 10px; }
+.doc h4 { font-size: 15px; margin: 22px 0 8px; color: var(--ink-mute); }
+.doc p { margin: 0 0 14px; }
+.doc ul, .doc ol { margin: 0 0 14px; padding-left: 22px; }
+.doc li { margin: 3px 0; }
+.doc a { color: var(--accent); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc blockquote {
+  margin: 0 0 16px; padding: 2px 16px;
+  border-left: 3px solid var(--line-strong); color: var(--ink-mute);
+}
+.doc hr { border: none; border-top: 1px solid var(--line); margin: 32px 0; }
+.doc code {
+  font-family: var(--mono); font-size: 0.87em;
+  background: var(--bg-sub); border: 1px solid var(--line);
+  border-radius: 4px; padding: 1px 5px;
+}
+.doc pre {
+  background: var(--bg-sub); border: 1px solid var(--line); border-radius: 8px;
+  padding: 13px 15px; overflow-x: auto; margin: 0 0 16px; line-height: 1.6;
+}
+.doc pre code { background: none; border: none; padding: 0; font-size: 12.5px; }
+
+/* 학습 체크리스트 — 체크는 localStorage 에만 남고 md 파일은 건드리지 않는다 */
+.doc li.task-item { list-style: none; margin-left: -20px; }
+.doc input.task {
+  width: 15px; height: 15px; margin: 0 8px 0 0; padding: 0;
+  vertical-align: -2px; accent-color: var(--accent); cursor: pointer; flex: none;
+}
+.doc input.task:checked + * , .doc li.task-item:has(input.task:checked) {
+  color: var(--ink-faint);
+}
+.doc li.task-item:has(input.task:checked) > * { text-decoration: none; }
+
+.doc table {
+  border-collapse: collapse; width: 100%; margin: 0 0 18px; font-size: 14px;
+  display: block; overflow-x: auto;
+}
+.doc th, .doc td { border: 1px solid var(--line); padding: 7px 11px; text-align: left; }
+.doc th { background: var(--bg-sub); font-weight: 600; }
+
+/* 그림 — 저장소의 SVG 는 밝은 팔레트 전용이라 다크에서도 흰 면을 깔아준다 */
+figure.diagram {
+  margin: 22px 0; padding: 10px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: #ffffff;
+  transition: border-color 0.12s, box-shadow 0.12s;
+  position: relative;
+}
+figure.diagram:hover, figure.diagram:focus-visible {
+  border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); outline: none;
+}
+figure.diagram::after {
+  content: '클릭해서 다시 그리기';
+  position: absolute; top: 8px; right: 10px;
+  font-size: 11px; color: var(--accent); background: var(--accent-soft);
+  border: 1px solid var(--accent); border-radius: 999px; padding: 1px 8px;
+  opacity: 0; transition: opacity 0.12s; pointer-events: none;
+}
+figure.diagram:hover::after, figure.diagram:focus-visible::after { opacity: 1; }
+figure.diagram svg { width: 100%; height: auto; display: block; }
+figure.diagram figcaption {
+  margin-top: 8px; text-align: center; font-size: 12px; color: #52606d;
+}
+figure.diagram.busy { opacity: 0.55; pointer-events: none; }
+
+.diagram-missing { color: var(--danger); font-size: 13px; font-family: var(--mono); }
+
+/* 선택 스냅 하이라이트 */
+.sel-block {
+  background: var(--accent-soft);
+  box-shadow: -6px 0 0 var(--accent-soft), 6px 0 0 var(--accent-soft);
+  border-radius: 2px;
+}
+
+/* ─────────────────────────────────────────── inline chat */
+
+.inline-chat {
+  position: fixed; z-index: 60; width: 460px; max-width: calc(100vw - 32px);
+  background: var(--bg-raise); border: 1px solid var(--line-strong);
+  border-radius: 10px; box-shadow: var(--shadow); overflow: hidden;
+}
+.inline-chat .head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 11px; border-bottom: 1px solid var(--line);
+  background: var(--bg-sub); font-size: 11.5px; color: var(--ink-mute);
+}
+.inline-chat .head .spacer { flex: 1; }
+.inline-chat .body { padding: 10px 11px; }
+.inline-chat textarea { resize: vertical; min-height: 62px; }
+.inline-chat .actions {
+  display: flex; gap: 7px; align-items: center; margin-top: 8px;
+}
+.inline-chat .actions .spacer { flex: 1; }
+.inline-chat .hint { font-size: 11px; color: var(--ink-faint); }
+.inline-chat .out {
+  margin-top: 9px; padding: 9px 11px; border-radius: 7px;
+  background: var(--bg-sub); border: 1px solid var(--line);
+  font-family: var(--mono); font-size: 12px; line-height: 1.55;
+  max-height: 240px; overflow-y: auto; white-space: pre-wrap; word-break: break-word;
+}
+
+/* ─────────────────────────────────────────── 우측 패널 */
+
+.panel {
+  border-left: 1px solid var(--line); background: var(--bg-sub);
+  display: flex; flex-direction: column; min-height: 0; overflow: hidden;
+}
+.panel .head {
+  padding: 11px 15px; border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 8px;
+}
+.panel .head h2 { font-size: 13.5px; margin: 0; }
+.panel .head .spacer { flex: 1; }
+.panel .scroll { overflow-y: auto; padding: 14px 15px 40px; flex: 1; min-height: 0; }
+
+.panel .label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--ink-faint); margin: 16px 0 6px;
+}
+.panel .label:first-child { margin-top: 0; }
+
+/* 다이어그램 id 는 대소문자가 의미를 갖는다 —
+   fe-useEffect-vs-useLayoutEffect-1 같은 이름이 7개 있고,
+   대소문자를 구분하지 않는 Windows 에서 뭉개지면 GitHub 에서만 링크가 깨진다. */
+.panel .label.id {
+  text-transform: none; letter-spacing: 0; font-family: var(--mono);
+  font-size: 12px; color: var(--ink-mute);
+}
+
+.preview {
+  background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 8px;
+}
+.preview svg { width: 100%; height: auto; display: block; }
+
+.ascii {
+  font-family: var(--mono); font-size: 11px; line-height: 1.45;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 7px;
+  padding: 9px 11px; overflow-x: auto; white-space: pre; margin: 0;
+  color: var(--ink-mute);
+}
+
+.notice { border-radius: 7px; padding: 9px 11px; font-size: 12.5px; margin: 10px 0; }
+.notice.err { background: var(--danger-soft); border: 1px solid var(--danger); color: var(--danger); }
+.notice.warn { background: var(--warn-soft); border: 1px solid var(--warn); color: var(--warn); }
+.notice.ok { background: var(--ok-soft); border: 1px solid var(--ok); color: var(--ok); }
+.notice ul { margin: 5px 0 0; padding-left: 18px; }
+
+.hist { list-style: none; margin: 0; padding: 0; }
+.hist li {
+  border: 1px solid var(--line); border-radius: 7px; padding: 8px 10px;
+  margin-bottom: 7px; background: var(--bg); font-size: 12.5px;
+}
+.hist li.undone { opacity: 0.5; }
+.hist .meta { display: flex; gap: 7px; align-items: center; color: var(--ink-faint); font-size: 11px; }
+.hist .meta .spacer { flex: 1; }
+.hist .what { font-family: var(--mono); font-size: 11px; color: var(--ink-mute); word-break: break-all; }
+.hist .instr { margin-top: 3px; }
+
+/* ─────────────────────────────────────────── 기타 */
+
+.toast-wrap { position: fixed; right: 18px; bottom: 18px; z-index: 90; display: grid; gap: 8px; }
+.toast {
+  background: var(--bg-raise); border: 1px solid var(--line-strong);
+  border-radius: 8px; box-shadow: var(--shadow); padding: 10px 13px;
+  font-size: 13px; display: flex; align-items: center; gap: 11px; max-width: 440px;
+}
+.toast.err { border-color: var(--danger); background: var(--danger-soft); color: var(--danger); }
+.toast.ok { border-color: var(--ok); }
+
+.empty { color: var(--ink-faint); text-align: center; padding: 80px 20px; font-size: 14px; }
+
+.search-results { padding: 6px; }
+.search-results .hit { padding: 7px 9px; border-radius: 6px; cursor: pointer; }
+.search-results .hit:hover { background: var(--bg-raise); }
+.search-results .hit .p { font-size: 11.5px; color: var(--accent); font-family: var(--mono); }
+.search-results .hit .t {
+  font-size: 12px; color: var(--ink-mute); overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap;
+}
+
+.spin {
+  width: 12px; height: 12px; border-radius: 50%; flex: none;
+  border: 2px solid var(--line-strong); border-top-color: var(--accent);
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

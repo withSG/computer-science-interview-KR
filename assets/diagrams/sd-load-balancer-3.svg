@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">헬스체크 깊이 차이가 실제로 만드는 사고</title>
+  <desc id="d">L4 헬스체크와 L7 헬스체크의 동작 방식 차이 및 애플리케이션 데드락 상황에서의 판정 결과를 비교하는 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 문서 헤딩 (원본 절 제목) -->
+  <text x="30" y="42" font-size="16" font-weight="bold" fill="#1f2933">헬스체크 깊이 차이가 실제로 만드는 사고</text>
+
+  <!-- 상단 상자: L4 헬스체크 정의 -->
+  <rect x="30" y="65" width="820" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="89" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">L4 헬스체크 통과 = "TCP 3-way handshake가 됐다"</text>
+
+  <!-- 중앙 [상황] 경고/설명 영역 -->
+  <rect x="30" y="125" width="820" height="90" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="50" y="156" font-size="13" font-weight="bold" fill="#d97706">[상황]</text>
+  <text x="100" y="156" font-size="13" fill="#1f2933">애플리케이션이 데드락에 걸려 모든 요청에 500을 반환 중.</text>
+  <text x="100" y="186" font-size="13" fill="#1f2933">하지만 OS의 TCP 스택은 멀쩡해서 연결은 계속 받아준다.</text>
+
+  <!-- 하단 비교 영역: L4 LB vs L7 LB -->
+
+  <!-- 1. L4 LB 실패 케이스 카드 -->
+  <rect x="30" y="240" width="820" height="100" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <!-- L4 LB 배지 -->
+  <rect x="50" y="260" width="80" height="28" rx="4" fill="#dc2626"/>
+  <text x="90" y="278" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">L4 LB:</text>
+  
+  <!-- L4 메시지 및 화살표 -->
+  <text x="150" y="298" font-size="13" font-weight="bold" fill="#dc2626">"연결 성공 → 정상!"</text>
+  
+  <path d="M305,294 L375,294" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  
+  <text x="390" y="298" font-size="13" fill="#1f2933">→ 죽은 서버로 계속 트래픽을 보낸다</text>
+
+  <!-- 2. L7 LB 성공 케이스 카드 -->
+  <rect x="30" y="360" width="820" height="100" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <!-- L7 LB 배지 -->
+  <rect x="50" y="380" width="80" height="28" rx="4" fill="#059669"/>
+  <text x="90" y="398" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">L7 LB:</text>
+
+  <!-- L7 메시지 및 화살표 -->
+  <text x="150" y="418" font-size="13" font-weight="bold" fill="#059669">"GET /health → 500"</text>
+  
+  <path d="M315,414 L375,414" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+  
+  <text x="390" y="418" font-size="13" fill="#1f2933">→ 즉시 제외</text>
+
+  <!-- 범례 (Legend) -->
+  <rect x="680" y="20" width="170" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="692" y="31" width="10" height="10" fill="#dc2626" rx="2"/>
+  <text x="708" y="40" font-size="11.5" fill="#52606d">위험/장애</text>
+  <rect x="772" y="31" width="10" height="10" fill="#059669" rx="2"/>
+  <text x="788" y="40" font-size="11.5" fill="#52606d">정상 감지</text>
+</svg>

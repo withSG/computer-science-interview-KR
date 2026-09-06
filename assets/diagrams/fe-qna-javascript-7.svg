@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이벤트 전파 3단계</title>
+  <desc id="d">Window에서 Target으로 내려가는 캡처링 단계, button 요소에 도달하는 타깃 단계, 그리고 다시 Target에서 Window로 올라가는 버블링 단계를 설명하는 이벤트 전파 다이어그램</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrowhead markers -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Main Background Container -->
+  <rect x="24" y="24" width="832" height="472" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- Left Window Block -->
+  <rect x="60" y="60" width="120" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="120" y="84" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Window</text>
+
+  <rect x="60" y="420" width="120" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="120" y="444" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Window</text>
+
+  <!-- Vertical connector on the left side representing the Window context frame -->
+  <path d="M120,100 L120,420" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Right Target Block -->
+  <rect x="700" y="60" width="120" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="760" y="84" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">Target</text>
+
+  <rect x="700" y="420" width="120" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="760" y="444" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">Target</text>
+
+  <!-- Vertical connector on the right side representing the Target flow context -->
+  <path d="M760,100 L760,230" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+  <path d="M760,250 L760,420" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- DOM Tree Container (Center) -->
+  <rect x="230" y="120" width="420" height="280" rx="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- DOM Tree Node Hierarchy -->
+  <!-- Document -->
+  <rect x="260" y="150" width="120" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="320" y="172" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Document</text>
+
+  <!-- Tree Lines -->
+  <!-- Document -> body -->
+  <path d="M290,186 L290,218 L310,218" fill="none" stroke="#52606d" stroke-width="1.5"/>
+  <!-- body -->
+  <rect x="310" y="200" width="100" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="360" y="222" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">body</text>
+
+  <!-- body -> div -->
+  <path stroke="#52606d" stroke-width="1.5" fill="none" d="M340,236 L340,268 L360,268"/>
+  <!-- div -->
+  <rect x="360" y="250" width="100" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="410" y="272" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">div</text>
+
+  <!-- div -> button -->
+  <path stroke="#52606d" stroke-width="1.5" fill="none" d="M390,286 L390,318 L410,318"/>
+  <!-- button (Target Element) -->
+  <rect x="410" y="300" width="110" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="465" y="322" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">button</text>
+
+  <!-- Phase 1: Capturing (① 캡처링 (위 → 아래)) -->
+  <path d="M180,80 L700,80" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- Label Background + Text -->
+  <rect x="380" y="66" width="160" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="4"/>
+  <text x="460" y="83" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">① 캡처링 (위 → 아래)</text>
+
+  <!-- Phase 2: Target (② 타깃) -->
+  <path d="M760,240 L520,318" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-amber)"/>
+  <!-- Label Background + Text -->
+  <rect x="580" y="260" width="80" height="26" fill="#ffffff" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="620" y="277" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">② 타깃</text>
+
+  <!-- Phase 3: Bubbling (③ 버블링 (아래 → 위)) -->
+  <path d="M700,440 L180,440" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <!-- Label Background + Text -->
+  <rect x="380" y="426" width="160" height="26" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="4"/>
+  <text x="460" y="443" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">③ 버블링 (아래 → 위)</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세 가지 검사를 구분한다</title>
+  <desc id="d">쿠버네티스의 Startup, Readiness, Liveness 세 가지 헬스 체크 검사의 질문, 실패 시 동작, 적용 상황을 비교 설명하는 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 제목 (주어진 문서 헤딩) -->
+  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">세 가지 검사를 구분한다</text>
+
+  <!-- Row 1: Startup -->
+  <g transform="translate(30, 60)">
+    <!-- 검사 이름 박스 -->
+    <rect x="0" y="0" width="120" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="60" y="40" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Startup</text>
+
+    <!-- 질문 라벨 -->
+    <rect x="135" y="17" width="180" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="225" y="40" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"기동이 끝났나?"</text>
+
+    <!-- 화살표 (질문 -> 설명) -->
+    <path d="M315,35 L335,35" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+    <!-- 설명 카드 -->
+    <rect x="340" y="0" width="480" height="70" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="360" y="30" font-size="13" fill="#1f2933">통과 전까지 다른 검사는 쉬어간다</text>
+    <text x="360" y="52" font-size="11.5" fill="#52606d">기동이 오래 걸리는 애플리케이션용</text>
+  </g>
+
+  <!-- Row 2: Readiness -->
+  <g transform="translate(30, 145)">
+    <!-- 검사 이름 박스 -->
+    <rect x="0" y="0" width="120" height="70" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="60" y="40" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">Readiness</text>
+
+    <!-- 질문 라벨 -->
+    <rect x="135" y="17" width="180" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="225" y="40" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"지금 트래픽을 받아도 되나?"</text>
+
+    <!-- 설명 카드 -->
+    <rect x="340" y="0" width="480" height="70" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="360" y="30" font-size="13" font-weight="bold" fill="#d97706">실패 → LB 대상에서만 제외</text>
+    <text x="360" y="52" font-size="11.5" fill="#52606d">기동 중, 일시적 과부하, 종료 시작 시점</text>
+  </g>
+
+  <!-- Row 3: Liveness -->
+  <g transform="translate(30, 230)">
+    <!-- 검사 이름 박스 -->
+    <rect x="0" y="0" width="120" height="70" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="60" y="40" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">Liveness</text>
+
+    <!-- 질문 라벨 -->
+    <rect x="135" y="17" width="180" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="225" y="40" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"죽이고 다시 띄워야 하나?"</text>
+
+    <!-- 설명 카드 -->
+    <rect x="340" y="0" width="480" height="70" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="360" y="30" font-size="13" font-weight="bold" fill="#dc2626">실패 → 컨테이너 재시작</text>
+    <text x="360" y="52" font-size="11.5" fill="#52606d">데드락처럼 스스로 회복 불가능한 상태</text>
+  </g>
+</svg>

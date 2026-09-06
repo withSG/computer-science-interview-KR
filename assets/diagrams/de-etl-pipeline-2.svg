@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">파이프라인의 구성 요소</title>
+  <desc id="d">수집, 저장, 변환, 적재, 서빙 단계와 이를 받치는 오케스트레이션 및 관측 레이어로 구성된 데이터 파이프라인 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- Top 5 Main Stages -->
+  <!-- 1. 수집 / Ingest -->
+  <g>
+    <rect x="30" y="30" width="140" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="100" y="52.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">수집</text>
+    <text x="100" y="73.2" font-size="13" fill="#52606d" text-anchor="middle">Ingest</text>
+    
+    <text x="30" y="117.0" font-size="11.5" fill="#52606d">DB 스냅샷</text>
+    <text x="30" y="137.0" font-size="11.5" fill="#52606d">CDC</text>
+    <text x="30" y="157.0" font-size="11.5" fill="#52606d">이벤트 스트림</text>
+    <text x="30" y="177.0" font-size="11.5" fill="#52606d">외부 API</text>
+  </g>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M170,60 L198,60" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 2. 저장 / Storage -->
+  <g>
+    <rect x="200" y="30" width="140" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="270" y="52.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">저장</text>
+    <text x="270" y="73.2" font-size="13" fill="#52606d" text-anchor="middle">Storage</text>
+    
+    <text x="200" y="117.0" font-size="11.5" fill="#52606d">S3 / GCS</text>
+    <text x="200" y="137.0" font-size="11.5" fill="#52606d">HDFS</text>
+    <text x="200" y="157.0" font-size="11.5" fill="#52606d">원본 그대로</text>
+  </g>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M340,60 L368,60" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 3. 변환 / Transform -->
+  <g>
+    <rect x="370" y="30" width="140" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="440" y="52.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">변환</text>
+    <text x="440" y="73.2" font-size="13" fill="#52606d" text-anchor="middle">Transform</text>
+    
+    <text x="370" y="117.0" font-size="11.5" fill="#52606d">Spark</text>
+    <text x="370" y="137.0" font-size="11.5" fill="#52606d">dbt(SQL)</text>
+    <text x="370" y="157.0" font-size="11.5" fill="#52606d">품질 검증</text>
+  </g>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M510,60 L538,60" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 4. 적재 / Load -->
+  <g>
+    <rect x="540" y="30" width="140" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="610" y="52.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">적재</text>
+    <text x="610" y="73.2" font-size="13" fill="#52606d" text-anchor="middle">Load</text>
+    
+    <text x="540" y="117.0" font-size="11.5" fill="#52606d">MERGE /</text>
+    <text x="540" y="137.0" font-size="11.5" fill="#52606d">파티션 교체</text>
+    <text x="540" y="157.0" font-size="11.5" fill="#52606d">집계 테이블</text>
+  </g>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M680,60 L708,60" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 5. 서빙 / Serving -->
+  <g>
+    <rect x="710" y="30" width="140" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="780" y="52.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서빙</text>
+    <text x="780" y="73.2" font-size="13" fill="#52606d" text-anchor="middle">Serving</text>
+    
+    <text x="710" y="117.0" font-size="11.5" fill="#52606d">BI 대시보드</text>
+    <text x="710" y="137.0" font-size="11.5" fill="#52606d">ML 피처</text>
+    <text x="710" y="157.0" font-size="11.5" fill="#52606d">역방향 동기화</text>
+    <text x="710" y="177.0" font-size="11.5" fill="#52606d">(Reverse ETL)</text>
+  </g>
+
+  <!-- Bottom Horizontal Supports / Brackets -->
+  <!-- Bracket 1: Orchestration -->
+  <g>
+    <path d="M 120,240 L 100,240 L 100,260 L 780,260 L 780,240 L 760,240" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    <rect x="294" y="248" width="292" height="24" fill="#ffffff"/>
+    <text x="440" y="264.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">오케스트레이션 (Airflow 등)</text>
+  </g>
+
+  <!-- Bracket 2: Observability -->
+  <g>
+    <path d="M 120,310 L 100,310 L 100,330 L 780,330 L 780,310 L 760,310" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    <rect x="260" y="318" width="360" height="24" fill="#ffffff"/>
+    <text x="440" y="334.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">관측: 로그 / 지표 / 데이터 품질 알림</text>
+  </g>
+</svg>

@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Major GC와 Full GC - Mark-Sweep-Compact</title>
+  <desc id="d">Mark, Sweep, Compact 단계에 대한 설명과 Sweep 직후 단편화된 상태 및 Compact 후 연속 공간 확보 상태를 비교하는 다이어그램</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 1. Description List Section (Mark, Sweep, Compact) -->
+  <g>
+    <!-- Mark Row -->
+    <rect x="40" y="30" width="90" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="85" y="51" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Mark</text>
+    <text x="140" y="51" font-size="14" fill="#1f2933">:</text>
+    <text x="155" y="51" font-size="14" fill="#1f2933">루트에서 탐색해 살아있는 객체에 표시</text>
+
+    <!-- Sweep Row -->
+    <rect x="40" y="74" width="90" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="85" y="95" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">Sweep</text>
+    <text x="140" y="95" font-size="14" fill="#1f2933">:</text>
+    <text x="155" y="95" font-size="14" fill="#1f2933">표시 안 된 영역을 가용 리스트에 반환</text>
+
+    <!-- Compact Row -->
+    <rect x="40" y="118" width="90" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="85" y="139" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Compact</text>
+    <text x="140" y="139" font-size="14" fill="#1f2933">:</text>
+    <text x="155" y="139" font-size="14" fill="#1f2933">살아있는 객체를 한쪽으로 밀어 붙여 단편화 제거</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="40" y1="175" x2="840" y2="175" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 2. Memory Visualizations Section -->
+
+  <!-- Sweep 직후 Row -->
+  <g>
+    <!-- Memory Slots -->
+    <rect x="40" y="200" width="60" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="70" y="231" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
+
+    <rect x="100" y="200" width="60" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+    <rect x="160" y="200" width="60" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="190" y="231" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">B</text>
+
+    <rect x="220" y="200" width="60" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+    <rect x="280" y="200" width="60" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+    <rect x="340" y="200" width="60" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="370" y="231" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">C</text>
+
+    <rect x="400" y="200" width="60" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+    <!-- Arrow & Label -->
+    <path d="M480,225 L500,225" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="515" y="230" font-size="14" fill="#1f2933">Sweep 직후: 구멍이 흩어짐(단편화)</text>
+  </g>
+
+  <!-- Compact 후 Row -->
+  <g>
+    <!-- Memory Slots -->
+    <rect x="40" y="290" width="60" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="70" y="321" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">A</text>
+
+    <rect x="100" y="290" width="60" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="130" y="321" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">B</text>
+
+    <rect x="160" y="290" width="60" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="190" y="321" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">C</text>
+
+    <rect x="220" y="290" width="240" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+    <!-- Arrow & Label -->
+    <path d="M480,315 L500,315" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="515" y="320" font-size="14" fill="#1f2933">Compact 후: 큰 연속 공간 확보</text>
+  </g>
+</svg>

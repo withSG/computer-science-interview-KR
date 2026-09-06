@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">4. 환경변수와 .env</title>
+  <desc id="d">.env 파일에서 compose 파일의 ${VAR} 치환을 거쳐 컨테이너 안 환경변수로 이어지는 흐름도</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+  <rect width="880" height="260" fill="#ffffff"/>
+
+  <!-- Section 1 -->
+  <rect x="24" y="24" width="250" height="212" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="149" y="58" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">① .env 파일</text>
+  <line x1="44" y1="75" x2="254" y2="75" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="40" y="95" width="218" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="149" y="125" font-size="13" font-family="monospace" fill="#1f2933" text-anchor="middle">DB_PASSWORD=devpw</text>
+  <text x="149" y="180" font-size="11.5" fill="#52606d" text-anchor="middle">(Compose가 읽는다)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M274,120 L318,120" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Section 2 -->
+  <rect x="318" y="24" width="260" height="212" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="448" y="58" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">② compose 파일의 ${VAR} 치환</text>
+  <line x1="338" y1="75" x2="558" y2="75" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="334" y="95" width="228" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="448" y="125" font-size="13" font-family="monospace" fill="#1f2933" text-anchor="middle">password: ${DB_PASSWORD}</text>
+  <text x="448" y="180" font-size="11.5" fill="#52606d" text-anchor="middle">(파일이 렌더링됨)</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M578,120 L622,120" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Section 3 -->
+  <rect x="622" y="24" width="234" height="212" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="739" y="58" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">③ 컨테이너 안 환경변수</text>
+  <line x1="642" y1="75" x2="836" y2="75" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="638" y="95" width="202" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="739" y="125" font-size="13" font-family="monospace" fill="#1f2933" text-anchor="middle">environment / env_file</text>
+  <text x="739" y="180" font-size="11.5" fill="#52606d" text-anchor="middle">(앱이 읽는다)</text>
+</svg>

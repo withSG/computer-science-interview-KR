@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">narrow와 wide</title>
+  <desc id="d">Spark의 Narrow 및 Wide Transformation 데이터 이동 차이 비교 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Narrow Group Box -->
+  <rect x="24" y="20" width="832" height="135" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <text x="44" y="50.6" font-size="16" font-weight="bold" fill="#2563eb">[Narrow]</text>
+  <text x="125" y="49.55" font-size="13" fill="#1f2933">파티션 간 데이터 이동 없음 — 각자 자기 몫만 처리</text>
+
+  <!-- Narrow Diagram Elements -->
+  <!-- Left Partitions -->
+  <rect x="70" y="65" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="95" y="81.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P0</text>
+
+  <rect x="70" y="95" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="95" y="111.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P1</text>
+
+  <rect x="70" y="125" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="95" y="141.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P2</text>
+
+  <!-- Arrows -->
+  <path d="M120,77 L200,77" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M120,107 L200,107" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M120,137 L200,137" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Right Partitions -->
+  <rect x="200" y="65" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="225" y="81.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P0'</text>
+
+  <rect x="200" y="95" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="225" y="111.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P1'</text>
+
+  <rect x="200" y="125" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="225" y="141.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P2'</text>
+
+  <!-- Narrow Functions Label -->
+  <text x="280" y="111.55" font-size="13" font-family="monospace" fill="#52606d">filter, map, select, withColumn</text>
+
+
+  <!-- Wide Group Box -->
+  <rect x="24" y="175" width="832" height="145" rx="8" fill="#fffbeb" stroke="#cbd2d9" stroke-width="1"/>
+
+  <text x="44" y="205.6" font-size="16" font-weight="bold" fill="#d97706">[Wide]</text>
+  <text x="105" y="204.55" font-size="13" fill="#1f2933">파티션 간 재배치 필요 — 셔플 발생</text>
+
+  <!-- Wide Diagram Elements -->
+  <!-- Left Partitions -->
+  <rect x="70" y="220" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="95" y="236.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P0</text>
+
+  <rect x="70" y="250" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="95" y="266.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P1</text>
+
+  <rect x="70" y="280" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="95" y="296.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P2</text>
+
+  <!-- Wide Cross Paths / Shuffle Arrows -->
+  <path d="M120,232 L145,232 L145,262 L200,262" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <path d="M120,232 L155,232 L155,292 L200,292" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  
+  <path d="M120,262 L200,262" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <path d="M120,262 L165,262 L165,232 L200,232" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <path d="M120,292 L175,292 L175,232 L200,232" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <path d="M120,292 L185,292 L185,262 L200,262" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- Right Partitions -->
+  <rect x="200" y="220" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="225" y="236.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P0'</text>
+
+  <rect x="200" y="250" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="225" y="266.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P1'</text>
+
+  <rect x="200" y="280" width="50" height="24" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="225" y="296.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">P2'</text>
+
+  <!-- Wide Functions Label -->
+  <text x="280" y="266.55" font-size="13" font-family="monospace" fill="#52606d">groupBy, join, distinct, repartition, orderBy</text>
+</svg>

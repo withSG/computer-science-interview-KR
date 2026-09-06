@@ -38,6 +38,11 @@
 
 가상화는 **물리 하드웨어 자원을 추상화해** 한 장비 위에 여러 개의 독립된 실행 환경을 만드는 기술이다. 각 환경은 자기만의 OS를 갖고, 자기가 전용 하드웨어 위에서 도는 줄로 안다.
 
+<!-- diagram:cloud-virtualization-hypervisor-1 -->
+![2. 가상화(Virtualization)란](../../assets/diagrams/cloud-virtualization-hypervisor-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────┐
 │            물리 서버 (1대)               │
@@ -52,6 +57,7 @@
 │    Hardware (CPU, Memory, Storage)      │
 └─────────────────────────────────────────┘
 ```
+-->
 
 ### 2.1 무엇을 가상화하는가
 
@@ -77,6 +83,11 @@
 
 하이퍼바이저는 게스트가 실제 하드웨어를 건드리는 명령을 실행하려는 순간 제어권을 가져온다(트랩). 그 요청을 자기가 관리하는 가상 자원에 대해 대신 처리한 뒤 결과만 돌려준다. 게스트는 요청이 통했다고 믿지만, 실제로 만진 것은 하이퍼바이저가 만들어 준 가상 하드웨어다.
 
+<!-- diagram:cloud-virtualization-hypervisor-2 -->
+![3.1 하는 일](../../assets/diagrams/cloud-virtualization-hypervisor-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 게스트 OS: "인터럽트 끄고 페이지 테이블 바꿀게"
         │
@@ -90,11 +101,17 @@
         ▼
    실제 하드웨어에는 하이퍼바이저만 접근
 ```
+-->
 
 초기에는 이 가로채기를 순수 소프트웨어로 구현하느라 비용이 컸고, 지금은 CPU가 게스트 전용 실행 모드를 따로 제공해 훨씬 싸게 처리한다(4절). 여기에 CPU·메모리 시분할, 가상 NIC과 가상 디스크 제공, VM별 자원 상한 관리가 얹힌다.
 
 ### 3.2 Type 1: Bare-metal Hypervisor
 
+<!-- diagram:cloud-virtualization-hypervisor-3 -->
+![3.2 Type 1: Bare-metal Hypervisor](../../assets/diagrams/cloud-virtualization-hypervisor-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────┐ ┌─────────┐ ┌─────────┐
 │  VM 1   │ │  VM 2   │ │  VM 3   │
@@ -109,6 +126,7 @@
 │           Hardware              │
 └─────────────────────────────────┘
 ```
+-->
 
 **특징:**
 - 하드웨어 위에 직접 설치
@@ -128,6 +146,11 @@
 
 ### 3.3 Type 2: Hosted Hypervisor
 
+<!-- diagram:cloud-virtualization-hypervisor-4 -->
+![3.3 Type 2: Hosted Hypervisor](../../assets/diagrams/cloud-virtualization-hypervisor-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────┐ ┌─────────┐
 │  VM 1   │ │  VM 2   │
@@ -148,6 +171,7 @@
 │      Hardware       │
 └─────────────────────┘
 ```
+-->
 
 **특징:**
 - 기존 OS 위에 설치
@@ -200,6 +224,11 @@
 
 구분이 사라진 게 아니라 **계층별로 나뉘어 정착했다.**
 
+<!-- diagram:cloud-virtualization-hypervisor-5 -->
+![4.2 그래서 지금은 어떻게 도는가](../../assets/diagrams/cloud-virtualization-hypervisor-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 CPU / 메모리  ──▶ 하드웨어 지원 가상화 (VT-x, AMD-V, EPT/NPT)
                  게스트를 네이티브에 가까운 속도로 실행
@@ -208,6 +237,7 @@ CPU / 메모리  ──▶ 하드웨어 지원 가상화 (VT-x, AMD-V, EPT/NPT)
                  게스트가 "나는 가상 환경이다"를 알고,
                  흉내 낸 가짜 장치 대신 전용 통로로 데이터를 넘긴다
 ```
+-->
 
 리눅스 게스트에 virtio 드라이버가 없으면 하이퍼바이저는 실제로 존재했던 옛 NIC이나 디스크 컨트롤러를 소프트웨어로 흉내 내야 한다. 동작은 하지만 처리량이 크게 떨어진다. 클라우드용 이미지에 virtio 계열 드라이버가 기본으로 들어 있는 이유다.
 
@@ -215,6 +245,11 @@ CPU / 메모리  ──▶ 하드웨어 지원 가상화 (VT-x, AMD-V, EPT/NPT)
 
 ## 5. 가상화 vs 컨테이너
 
+<!-- diagram:cloud-virtualization-hypervisor-6 -->
+![5. 가상화 vs 컨테이너](../../assets/diagrams/cloud-virtualization-hypervisor-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 가상화 (VM):                    컨테이너:
 ┌─────────┐ ┌─────────┐        ┌─────────┐ ┌─────────┐
@@ -233,6 +268,7 @@ CPU / 메모리  ──▶ 하드웨어 지원 가상화 (VT-x, AMD-V, EPT/NPT)
 └─────────────────────┘        │       Hardware      │
                                └─────────────────────┘
 ```
+-->
 
 차이는 한 문장으로 줄어든다. **VM은 커널을 따로 띄우고, 컨테이너는 호스트 커널을 빌려 쓴다.** 아래 항목은 전부 이 한 문장에서 파생된 결과다.
 

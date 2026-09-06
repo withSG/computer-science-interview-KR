@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동작 원리: 읽기 전용 레이어 + 쓰기 가능 레이어</title>
+  <desc id="d">Docker 이미지의 읽기 전용 레이어와 각 컨테이너의 쓰기 가능 레이어 간의 구성을 보여주는 다이어그램</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="400" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 이미지 상단 제목 라벨 -->
+  <text x="440" y="45.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">이미지 nginx:1.27-alpine (읽기 전용, 공유됨)</text>
+
+  <!-- 이미지 전체 테두리 및 영역 -->
+  <rect x="150" y="60" width="580" height="150" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="6"/>
+
+  <!-- 레이어 L3 -->
+  <rect x="160" y="70" width="560" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="180" y="94.55" font-size="13" font-weight="bold" fill="#2563eb">L3</text>
+  <text x="210" y="94.55" font-size="13" fill="#1f2933">nginx 설정 파일 복사</text>
+
+  <!-- 레이어 L2 -->
+  <rect x="160" y="115" width="560" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="180" y="139.55" font-size="13" font-weight="bold" fill="#2563eb">L2</text>
+  <text x="210" y="139.55" font-size="13" fill="#1f2933">nginx 패키지 설치</text>
+
+  <!-- 레이어 L1 -->
+  <rect x="160" y="160" width="560" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
+  <text x="180" y="184.55" font-size="13" font-weight="bold" fill="#2563eb">L1</text>
+  <text x="210" y="184.55" font-size="13" fill="#1f2933">alpine 베이스 루트 파일시스템</text>
+
+  <!-- 연결 화살표 (위쪽을 향함) -->
+  <path d="M 240,280 L 240,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M 440,280 L 440,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M 640,280 L 640,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 컨테이너 1: web1 -->
+  <rect x="170" y="280" width="140" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+  <text x="240" y="309.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">web1</text>
+  <text x="240" y="334.55" font-size="13" fill="#d97706" text-anchor="middle">쓰기레이어</text>
+
+  <!-- 컨테이너 2: web2 -->
+  <rect x="370" y="280" width="140" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+  <text x="440" y="309.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">web2</text>
+  <text x="440" y="334.55" font-size="13" fill="#d97706" text-anchor="middle">쓰기레이어</text>
+
+  <!-- 컨테이너 3: web3 -->
+  <rect x="570" y="280" width="140" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
+  <text x="640" y="309.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">web3</text>
+  <text x="640" y="334.55" font-size="13" fill="#d97706" text-anchor="middle">쓰기레이어</text>
+
+  <!-- 우측 설명 주석 -->
+  <text x="730" y="32" font-size="13" fill="#52606d">
+    <tspan x="730" y="319.55">← 컨테이너마다 자기 것</tspan>
+  </text>
+</svg>

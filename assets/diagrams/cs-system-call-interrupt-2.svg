@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1140" width="880" height="1140" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">시스템 콜 동작 절차</title>
+  <desc id="d">사용자 모드와 커널 모드 간의 시스템 콜 처리 흐름 및 단계별 상세 동작 절차 다이어그램</desc>
+  <rect width="880" height="1140" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title Background & Text -->
+  <rect x="24" y="24" width="832" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="49" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">동작 절차</text>
+
+  <!-- SECTION 1: 사용자 모드 (상단) -->
+  <rect x="24" y="80" width="832" height="270" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="40" y="96" width="110" height="28" rx="4" fill="#2563eb"/>
+  <text x="95" y="114" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[사용자 모드]</text>
+
+  <!-- Step 1 -->
+  <text x="50" y="150" font-size="13" font-weight="bold" fill="#1f2933">1. 애플리케이션이 라이브러리 함수 호출</text>
+  <rect x="70" y="162" width="762" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="451" y="182" font-size="13" font-family="monospace" fill="#2563eb" text-anchor="middle">FileInputStream.read()  →  libc의 read()</text>
+
+  <!-- Step 2 -->
+  <text x="50" y="222" font-size="13" font-weight="bold" fill="#1f2933">2. libc가 시스템 콜 번호를 레지스터에 넣고</text>
+  <text x="68" y="242" font-size="13" fill="#1f2933">인자(파일 디스크립터, 버퍼 주소, 길이)도 레지스터에 배치</text>
+
+  <!-- Step 3 -->
+  <text x="50" y="280" font-size="13" font-weight="bold" fill="#1f2933">3. 트랩 명령어 실행 (x86-64 리눅스에서는 syscall 명령어)</text>
+
+  <!-- Flow Arrow 1: User to Kernel -->
+  <path d="M440,295 L440,375" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- MODE BOUNDARY 1 -->
+  <line x1="24" y1="335" x2="856" y2="335" stroke="#dc2626" stroke-width="2" stroke-dasharray="8 4"/>
+  <rect x="720" y="323" width="120" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="780" y="339" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">모드 경계</text>
+
+  <!-- SECTION 2: 커널 모드 (중앙) -->
+  <rect x="24" y="380" width="832" height="570" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <rect x="40" y="396" width="100" height="28" rx="4" fill="#7c3aed"/>
+  <text x="90" y="414" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[커널 모드]</text>
+
+  <!-- Step 4 -->
+  <text x="50" y="445" font-size="13" font-weight="bold" fill="#1f2933">4. CPU가 자동으로 모드 비트를 커널로 바꾸고</text>
+  <text x="68" y="465" font-size="13" fill="#1f2933">미리 등록된 진입점으로 점프, 사용자 컨텍스트 저장</text>
+
+  <!-- Step 5 -->
+  <text x="50" y="505" font-size="13" font-weight="bold" fill="#1f2933">5. 시스템 콜 번호로 시스템 콜 테이블을 조회해 핸들러 결정</text>
+
+  <!-- Step 6 -->
+  <text x="50" y="545" font-size="13" font-weight="bold" fill="#1f2933">6. 인자 검증</text>
+  <text x="68" y="567" font-size="13" fill="#52606d">- 파일 디스크립터가 이 프로세스의 것이 맞는가</text>
+  <text x="68" y="587" font-size="13" fill="#52606d">- 버퍼 주소가 이 프로세스의 유효한 쓰기 가능 영역인가</text>
+  
+  <rect x="68" y="598" width="764" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="78" y="616" font-size="11.5" fill="#d97706">※ 검증을 건너뛰면 커널 임의 메모리 덮어쓰기 취약점이 된다</text>
+
+  <!-- Step 7 -->
+  <text x="50" y="656" font-size="13" font-weight="bold" fill="#1f2933">7. 실제 작업 수행</text>
+  <text x="68" y="678" font-size="13" fill="#52606d">- 페이지 캐시에 있으면 즉시 복사하고 반환</text>
+  <text x="68" y="698" font-size="13" fill="#52606d">- 없으면 디스크 I/O 요청 후 이 스레드를 Waiting 상태로</text>
+  <text x="80" y="718" font-size="11.5" fill="#52606d">(여기서 비로소 컨텍스트 스위칭 발생)</text>
+
+  <!-- Step 8 -->
+  <text x="50" y="758" font-size="13" font-weight="bold" fill="#1f2933">8. 반환값을 레지스터에 넣고 사용자 컨텍스트 복원</text>
+
+  <!-- Flow Arrow 2: Kernel to User -->
+  <path d="M440,770 L440,995" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- MODE BOUNDARY 2 -->
+  <line x1="24" y1="965" x2="856" y2="965" stroke="#dc2626" stroke-width="2" stroke-dasharray="8 4"/>
+
+  <!-- SECTION 3: 사용자 모드 (하단) -->
+  <rect x="24" y="1000" width="832" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="40" y="1016" width="110" height="28" rx="4" fill="#2563eb"/>
+  <text x="95" y="1034" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[사용자 모드]</text>
+
+  <!-- Step 9 -->
+  <text x="50" y="1075" font-size="13" font-weight="bold" fill="#1f2933">9. libc가 반환값을 확인하고 필요시 errno 설정 후 호출자에게 리턴</text>
+
+</svg>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">그래서 실제 선택은 CP냐 AP냐</title>
+  <desc id="d">네트워크 분할 발생 시 CP 선택과 AP 선택의 동작 방식, 영향, 유스케이스를 비교하는 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Root: 분할 발생 -->
+  <rect x="365" y="24" width="150" height="44" rx="6" fill="#1f2933"/>
+  <text x="440" y="51" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">분할 발생</text>
+
+  <!-- Branch lines from root -->
+  <path d="M440,68 L440,90 L240,90 L240,110" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M440,68 L440,90 L640,90 L640,110" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Left Column: CP 선택 -->
+  <!-- Header Card -->
+  <rect x="40" y="110" width="400" height="54" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="240" y="142" fill="#2563eb" font-size="16" font-weight="bold" text-anchor="middle">CP 선택: 소수파는 응답을 거부한다</text>
+
+  <!-- Quote Box -->
+  <rect x="40" y="174" width="400" height="48" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="240" y="203" fill="#52606d" font-size="13" font-style="italic" text-anchor="middle">"지금 최신인지 확신할 수 없으니 답하지 않겠다"</text>
+
+  <!-- Impact / Characteristics -->
+  <rect x="40" y="232" width="400" height="68" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="56" y="261" fill="#1f2933" font-size="13">→ 그 지역 사용자는 서비스를 못 쓴다.</text>
+  <text x="56" y="283" fill="#2563eb" font-size="13" font-weight="bold">대신 틀린 값은 절대 안 나온다</text>
+
+  <!-- Use Cases -->
+  <rect x="40" y="310" width="400" height="54" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="56" y="342" fill="#1f2933" font-size="13">→ 잔액, 재고, 좌석, 분산 락, 리더 선출</text>
+
+  <!-- Right Column: AP 선택 -->
+  <!-- Header Card -->
+  <rect x="480" y="110" width="360" height="54" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="660" y="142" fill="#7c3aed" font-size="16" font-weight="bold" text-anchor="middle">AP 선택: 소수파도 계속 응답한다</text>
+
+  <!-- Quote Box -->
+  <rect x="480" y="174" width="360" height="48" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="660" y="203" fill="#52606d" font-size="13" font-style="italic" text-anchor="middle">"지금 아는 값으로 답하고, 나중에 합치겠다"</text>
+
+  <!-- Impact / Characteristics -->
+  <rect x="480" y="232" width="360" height="68" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="496" y="261" fill="#1f2933" font-size="13">→ 서비스는 계속된다.</text>
+  <text x="496" y="283" fill="#7c3aed" font-size="13" font-weight="bold">대신 잠깐 낡거나 충돌한 값이 보인다</text>
+
+  <!-- Use Cases -->
+  <rect x="480" y="310" width="360" height="54" rx="4" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="496" y="342" fill="#1f2933" font-size="13">→ 장바구니, 타임라인, 추천, 좋아요 수, 조회수</text>
+
+  <!-- Tree connectors between cards -->
+  <path d="M240,164 L240,174" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M240,222 L240,232" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M240,300 L240,310" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+
+  <path d="M660,164 L660,174" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+  <path d="M660,222 L660,232" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+  <path d="M660,300 L660,310" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+</svg>

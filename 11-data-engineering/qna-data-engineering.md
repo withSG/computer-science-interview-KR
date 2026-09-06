@@ -17,6 +17,11 @@
 
 ### ETL vs ELT
 
+<!-- diagram:de-qna-data-engineering-1 -->
+![ETL vs ELT](../assets/diagrams/de-qna-data-engineering-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ETL (Extract → Transform → Load)
 소스 → 추출 → [변환 서버에서 가공] → DW 적재
@@ -26,6 +31,7 @@ ELT (Extract → Load → Transform)
 소스 → 추출 → DW/Lake 적재 → [DW 안에서 변환]
 - 일단 원본 적재 후 변환 (대용량/클라우드 DW에 적합)
 ```
+-->
 
 | 구분 | ETL | ELT |
 |------|-----|-----|
@@ -60,6 +66,11 @@ Airflow는 **데이터 파이프라인(워크플로우)을 코드로 정의하�
 
 ### DAG (Directed Acyclic Graph)
 
+<!-- diagram:de-qna-data-engineering-2 -->
+![DAG](../assets/diagrams/de-qna-data-engineering-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 방향성 있고 순환하지 않는 그래프 = 작업 간 실행 순서/의존성
 
@@ -70,6 +81,7 @@ Airflow는 **데이터 파이프라인(워크플로우)을 코드로 정의하�
 - 방향성: 실행 순서 (extract 다음 transform)
 - 비순환: 사이클 없음 (무한 루프 방지)
 ```
+-->
 
 ### 핵심 개념
 
@@ -103,6 +115,11 @@ with DAG(
 
 ### 멱등성(Idempotency)과 백필(Backfill)
 
+<!-- diagram:de-qna-data-engineering-3 -->
+![멱등성(Idempotency)과 백필(Backfill)](../assets/diagrams/de-qna-data-engineering-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 멱등성: 같은 작업을 여러 번 실행해도 결과가 동일해야 함
         (재시도/재실행 시 데이터 중복 방지) → 날짜 파티션 덮어쓰기 등으로 구현
@@ -110,6 +127,7 @@ with DAG(
 백필(Backfill): 과거 기간에 대해 DAG를 소급 실행
         (start_date~현재의 누락된 실행을 채움)
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - DAG가 왜 비순환이어야 하는지
@@ -141,6 +159,11 @@ Kafka는 **분산 이벤트 스트리밍 플랫폼**으로, 대용량 실시간 
 
 ### 구조 다이어그램
 
+<!-- diagram:de-qna-data-engineering-4 -->
+![구조 다이어그램](../assets/diagrams/de-qna-data-engineering-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Producer ──→ [ Topic: orders ]
                 ├── Partition 0 ──→ Consumer A ┐
@@ -150,15 +173,22 @@ Producer ──→ [ Topic: orders ]
 - 파티션 수만큼 컨슈머가 병렬 소비 (처리량 확장)
 - 같은 파티션 내에서는 순서 보장
 ```
+-->
 
 ### 왜 빠르고 확장성이 좋은가
 
+<!-- diagram:de-qna-data-engineering-5 -->
+![왜 빠르고 확장성이 좋은가](../assets/diagrams/de-qna-data-engineering-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 파티션으로 수평 확장 (병렬 처리)
 2. 디스크 순차 쓰기 + 페이지 캐시 → 높은 처리량
 3. 메시지를 디스크에 보관(retention) → 재처리 가능
 4. 복제(replication)로 내구성/장애 대응
 ```
+-->
 
 ### 메시지 전달 보장(Delivery Semantics)
 
@@ -243,6 +273,11 @@ result.show()  # 이때 실제 실행 (Action) → 전체 계획을 최적화해
 
 ### 람다 아키텍처 (Lambda)
 
+<!-- diagram:de-qna-data-engineering-6 -->
+![람다 아키텍처](../assets/diagrams/de-qna-data-engineering-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
             ┌─→ 배치 레이어 (정확, 느림) ─┐
 소스 데이터 ─┤                            ├→ 서빙 레이어 → 조회
@@ -251,6 +286,7 @@ result.show()  # 이때 실제 실행 (Action) → 전체 계획을 최적화해
 장점: 정확성 + 실시간 모두
 단점: 배치/스트리밍 두 코드베이스 유지 (복잡)
 ```
+-->
 
 ### 카파 아키텍처 (Kappa)
 

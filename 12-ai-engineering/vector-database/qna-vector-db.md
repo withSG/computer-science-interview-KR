@@ -80,6 +80,11 @@ ANN (근사):
 
 ### HNSW (Hierarchical Navigable Small World)
 
+<!-- diagram:ai-qna-vector-db-1 -->
+![HNSW](../../assets/diagrams/ai-qna-vector-db-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 계층적 그래프 구조로 검색
 
@@ -95,6 +100,7 @@ Layer 0:  [A][D][F][C][E][G][B]    (밀집)
 장점: 빠른 검색 (log n), 높은 정확도
 단점: 메모리 사용량 많음
 ```
+-->
 
 ### IVF (Inverted File Index)
 

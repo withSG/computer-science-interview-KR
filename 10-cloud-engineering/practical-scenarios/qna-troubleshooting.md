@@ -14,6 +14,11 @@
 
 ### 진단 순서
 
+<!-- diagram:cloud-qna-troubleshooting-1 -->
+![진단 순서](../../assets/diagrams/cloud-qna-troubleshooting-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 1. 현상 파악                                         │
@@ -44,6 +49,7 @@
 │    - 캐시 히트율                                     │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 실제 진단 명령어
 
@@ -133,6 +139,11 @@ SHOW VARIABLES LIKE 'slow_query_log%';
 
 ### 주요 원인과 해결
 
+<!-- diagram:cloud-qna-troubleshooting-2 -->
+![주요 원인과 해결](../../assets/diagrams/cloud-qna-troubleshooting-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 원인 1: 슬로우 쿼리
 ┌─────────────────────────────────────────┐
@@ -158,6 +169,7 @@ SHOW VARIABLES LIKE 'slow_query_log%';
 │ 해결: 트랜잭션 범위 최소화               │
 └─────────────────────────────────────────┘
 ```
+-->
 
 ### 설정 예시 (HikariCP)
 
@@ -175,6 +187,11 @@ spring:
 
 ### 면접 답변 예시
 
+<!-- diagram:cloud-qna-troubleshooting-3 -->
+![면접 답변 예시](../../assets/diagrams/cloud-qna-troubleshooting-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "결제 API에서 간헐적으로 타임아웃이 발생했습니다.
 
@@ -194,6 +211,7 @@ spring:
 결과:
 커넥션 고갈 재발 없음, 조회 성능 200배 개선"
 ```
+-->
 
 </details>
 
@@ -231,6 +249,11 @@ jmap -dump:live,format=b,file=heap.hprof <pid>
 
 ### 흔한 원인
 
+<!-- diagram:cloud-qna-troubleshooting-4 -->
+![흔한 원인](../../assets/diagrams/cloud-qna-troubleshooting-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 캐시 무한 증가
 ┌─────────────────────────────────────────┐
@@ -256,9 +279,15 @@ jmap -dump:live,format=b,file=heap.hprof <pid>
 │ 해결: try-with-resources 사용          │
 └─────────────────────────────────────────┘
 ```
+-->
 
 ### 면접 답변 예시
 
+<!-- diagram:cloud-qna-troubleshooting-5 -->
+![면접 답변 예시](../../assets/diagrams/cloud-qna-troubleshooting-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "서비스가 배포 후 3일이 지나면 느려지는 현상이 있었습니다.
 
@@ -279,6 +308,7 @@ Redis 세션 저장 로직에서 예외 발생 시
 결과:
 메모리 안정적 유지, OOMKilled 재발 없음"
 ```
+-->
 
 </details>
 
@@ -291,6 +321,11 @@ Redis 세션 저장 로직에서 예외 발생 시
 
 ### 대응 프로세스
 
+<!-- diagram:cloud-qna-troubleshooting-6 -->
+![대응 프로세스](../../assets/diagrams/cloud-qna-troubleshooting-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 1. 롤백 먼저! (원인 분석은 나중)                     │
@@ -324,6 +359,7 @@ Redis 세션 저장 로직에서 예외 발생 시
 │    - 재발 방지 Action Items                         │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 롤백 명령어
 
@@ -356,6 +392,11 @@ aws ecs update-service --cluster prod --service myapp \
 
 ### 면접 답변 예시
 
+<!-- diagram:cloud-qna-troubleshooting-7 -->
+![면접 답변 예시](../../assets/diagrams/cloud-qna-troubleshooting-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "신규 기능 배포 직후 에러율이 30%로 급증한 적이 있습니다.
 
@@ -376,6 +417,7 @@ aws ecs update-service --cluster prod --service myapp \
 결과:
 MTTR 5분 → 업무 시간 서비스 영향 최소화"
 ```
+-->
 
 </details>
 
@@ -388,6 +430,11 @@ MTTR 5분 → 업무 시간 서비스 영향 최소화"
 
 ### 대응 전략
 
+<!-- diagram:cloud-qna-troubleshooting-8 -->
+![대응 전략](../../assets/diagrams/cloud-qna-troubleshooting-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │              트래픽 급증 대응 전략                   │
@@ -410,6 +457,7 @@ MTTR 5분 → 업무 시간 서비스 영향 최소화"
 │                                                      │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### Auto Scaling 설정
 
@@ -437,6 +485,11 @@ spec:
 
 ### 캐싱 전략
 
+<!-- diagram:cloud-qna-troubleshooting-9 -->
+![캐싱 전략](../../assets/diagrams/cloud-qna-troubleshooting-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────┬──────────────┬───────────────────┐
 │    레벨      │    도구      │      용도          │
@@ -448,9 +501,15 @@ spec:
 │ Database     │ Query Cache  │ 쿼리 결과          │
 └──────────────┴──────────────┴───────────────────┘
 ```
+-->
 
 ### 면접 답변 예시
 
+<!-- diagram:cloud-qna-troubleshooting-10 -->
+![면접 답변 예시](../../assets/diagrams/cloud-qna-troubleshooting-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "이벤트 프로모션 때 평소 대비 10배 트래픽이 예상되었습니다.
 
@@ -474,6 +533,7 @@ spec:
 - 평균 응답시간 150ms 유지
 - 장애 없이 이벤트 종료"
 ```
+-->
 
 </details>
 
@@ -496,6 +556,11 @@ spec:
 
 ### 대응 프로세스
 
+<!-- diagram:cloud-qna-troubleshooting-11 -->
+![대응 프로세스](../../assets/diagrams/cloud-qna-troubleshooting-11.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌─────────────────────────────────────────────────────┐
 │ 1. 탐지 (Detection)                                 │
@@ -530,9 +595,15 @@ spec:
 │    - 보안 강화 조치                                  │
 └─────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 면접 답변 예시
 
+<!-- diagram:cloud-qna-troubleshooting-12 -->
+![면접 답변 예시](../../assets/diagrams/cloud-qna-troubleshooting-12.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "로그인 API에서 특정 IP 대역의 비정상적인 요청이 탐지되었습니다.
 
@@ -554,6 +625,7 @@ spec:
 결과:
 동일 유형 공격 자동 차단, 사용자 계정 안전 확보"
 ```
+-->
 
 </details>
 

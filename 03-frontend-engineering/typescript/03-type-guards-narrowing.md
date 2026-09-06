@@ -72,6 +72,11 @@ JavaScript 프로젝트를 TypeScript로 옮길 때 가장 먼저 쏟아지는 �
 
 TypeScript는 코드의 분기를 따라가면서 **각 지점마다 변수의 타입을 다시 계산한다.** 이걸 제어 흐름 분석(control flow analysis)이라고 한다.
 
+<!-- diagram:fe-type-guards-narrowing-1 -->
+![2. 제어 흐름 분석](../../assets/diagrams/fe-type-guards-narrowing-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 function f(v: string | number | null)
 
@@ -93,6 +98,7 @@ function f(v: string | number | null)
                                      ▼
                           (합류 지점) v: string | number
 ```
+-->
 
 핵심은 마지막 줄이다. **분기가 합쳐지면 좁혀졌던 타입도 다시 합쳐진다.** 좁히기는 특정 블록 안에서만 유효한 지역적 사실이다.
 
@@ -221,6 +227,11 @@ interface State {
 
 **왜 문제인가**: 이 타입은 **존재할 수 없는 상태를 표현할 수 있다.**
 
+<!-- diagram:fe-type-guards-narrowing-2 -->
+![문제: 불린 플래그로 상태를 표현하면](../../assets/diagrams/fe-type-guards-narrowing-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  isLoading   data     error    │ 의미
  ─────────────────────────────┼──────────────────────────
@@ -236,6 +247,7 @@ interface State {
  ─────────────────────────────┴──────────────────────────
     2 × 2 × 2 = 8가지 조합 중 4가지만 유효하다
 ```
+-->
 
 유효하지 않은 4가지 조합을 컴파일러가 막아주지 못하므로, 방어 코드가 컴포넌트 곳곳에 흩어진다. 게다가 `data`가 `User | undefined`라 성공 분기에서도 매번 `data?.name`을 써야 한다.
 
@@ -466,6 +478,11 @@ const value: unknown = fetchSomething();
 
 `as`는 컴파일러에게 **"내가 책임질 테니 검사하지 마라"**라고 말하는 문법이다. 코드를 한 줄도 생성하지 않고, 런타임에 아무 일도 하지 않는다.
 
+<!-- diagram:fe-type-guards-narrowing-3 -->
+![단언은 검사가 아니라 선언이다](../../assets/diagrams/fe-type-guards-narrowing-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [타입 가드]                        [타입 단언]
 
@@ -480,6 +497,7 @@ const value: unknown = fetchSomething();
       ▼                                ▼
   런타임에도 안전                 틀렸으면 런타임에 폭발
 ```
+-->
 
 ### 특히 위험한 두 가지 형태
 

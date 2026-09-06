@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">파이프라인의 어디서부터 다시 도는가</title>
+  <desc id="d">변경 발생 종류에 따라 Style, Layout, Paint, Composite 단계 중 어디부터 다시 수행되는지 보여주는 파이프라인 흐름도</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-emerald" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 범례 (Legend) -->
+  <g transform="translate(680, 20)">
+    <rect x="0" y="0" width="160" height="80" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="12" y="20" font-size="11.5" font-weight="bold" fill="#1f2933">비용 구분</text>
+    <circle cx="20" cy="36" r="5" fill="#dc2626"/>
+    <text x="32" y="40" font-size="11" fill="#52606d">가장 비쌈 (Reflow)</text>
+    <circle cx="20" cy="52" r="5" fill="#d97706"/>
+    <text x="32" y="56" font-size="11" fill="#52606d">중간 (Repaint)</text>
+    <circle cx="20" cy="68" r="5" fill="#059669"/>
+    <text x="32" y="72" font-size="11" fill="#52606d">가장 쌈 (Composite)</text>
+  </g>
+
+  <!-- 변경 발생 Node -->
+  <rect x="40" y="30" width="130" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="105" y="54.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">변경 발생</text>
+
+  <!-- Main Trunk Line -->
+  <path d="M105,70 L105,290" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- Condition 1 Path -->
+  <path d="M105,110 L140,110" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <rect x="140" y="93" width="220" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="150" y="114.2" font-size="13" fill="#1f2933">기하(geometry)가 바뀌었나?</text>
+
+  <!-- Condition 1 Arrow & Label -->
+  <path d="M360,110 L410,110" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="367" y="100" width="32" height="18" fill="#ffffff"/>
+  <text x="383" y="113" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">YES</text>
+
+  <!-- Pipeline 1 Boxes (High Cost) -->
+  <g transform="translate(410, 90)">
+    <rect x="0" y="0" width="70" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="35" y="24.6" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Style</text>
+
+    <path d="M70,20 L85,20" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-red)"/>
+
+    <rect x="85" y="0" width="80" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="125" y="24.6" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Layout</text>
+
+    <path d="M165,20 L180,20" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-red)"/>
+
+    <rect x="180" y="0" width="70" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="215" y="24.6" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Paint</text>
+
+    <path d="M250,20 L265,20" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-red)"/>
+
+    <rect x="265" y="0" width="105" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="317.5" y="24.6" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Composite</text>
+
+    <text x="382" y="24.6" font-size="13" font-weight="bold" fill="#dc2626">(가장 비쌈)</text>
+  </g>
+
+  <!-- Condition 2 Path -->
+  <path d="M105,200 L140,200" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <rect x="140" y="183" width="280" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="150" y="204.2" font-size="13" fill="#1f2933">색·그림자처럼 보이는 것만 바뀌었나?</text>
+
+  <!-- Condition 2 Arrow & Label -->
+  <path d="M420,200 L470,200" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="427" y="190" width="32" height="18" fill="#ffffff"/>
+  <text x="443" y="203" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">YES</text>
+
+  <!-- Pipeline 2 Boxes (Medium Cost) -->
+  <g transform="translate(470, 180)">
+    <rect x="0" y="0" width="70" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="35" y="24.6" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">Style</text>
+
+    <path d="M70,20 L120,20" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-amber)"/>
+
+    <rect x="120" y="0" width="70" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="155" y="24.6" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">Paint</text>
+
+    <path d="M190,20 L205,20" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-amber)"/>
+
+    <rect x="205" y="0" width="105" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="257.5" y="24.6" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">Composite</text>
+
+    <text x="322" y="24.6" font-size="13" font-weight="bold" fill="#d97706">(중간)</text>
+  </g>
+
+  <!-- Condition 3 Path -->
+  <path d="M105,290 L140,290" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <rect x="140" y="273" width="370" height="34" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="150" y="294.2" font-size="13" fill="#1f2933">transform/opacity처럼 레이어 합성만으로 끝나나?</text>
+
+  <!-- Condition 3 Arrow & Label -->
+  <path d="M510,290 L560,290" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-emerald)"/>
+  <rect x="517" y="280" width="32" height="18" fill="#ffffff"/>
+  <text x="533" y="293" font-size="11.5" font-weight="bold" fill="#059669" text-anchor="middle">YES</text>
+
+  <!-- Pipeline 3 Boxes (Low Cost) -->
+  <g transform="translate(560, 270)">
+    <rect x="0" y="0" width="70" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="35" y="24.6" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Style</text>
+
+    <path d="M70,20 L115,20" stroke="#059669" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-emerald)"/>
+
+    <rect x="115" y="0" width="105" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="167.5" y="24.6" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Composite</text>
+
+    <text x="232" y="24.6" font-size="13" font-weight="bold" fill="#059669">(가장 쌈)</text>
+  </g>
+</svg>

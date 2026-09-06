@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">주소창 입력부터 IP를 얻기까지</title>
+  <desc id="d">사용자가 URL을 입력했을 때 브라우저, OS, 리졸버, DNS 서버를 거쳐 IP를 확보하고 다음 단계로 이어지는 순차적 프로세스 다이어그램</desc>
+  
+  <rect width="880" height="770" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">7. 주소창 입력부터 IP를 얻기까지</text>
+
+  <!-- Step 0: Input -->
+  <rect x="40" y="60" width="800" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="56" y="85" font-size="14" font-weight="bold" fill="#1f2933">사용자: "https://www.example.com" 입력</text>
+
+  <!-- Vertical Trunk Line -->
+  <path d="M70,100 L70,720" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+
+  <!-- Step 1: URL Parsing -->
+  <path d="M70,135 L90,135" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="90" y="115" width="750" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="106" y="140" font-size="13" font-weight="bold" fill="#1f2933">1. URL 파싱</text>
+  <text x="195" y="140" font-size="13" fill="#52606d">→  스킴(https) / 호스트([www.example.com](https://www.example.com)) / 경로(/)</text>
+
+  <!-- Step 2: Browser DNS Cache -->
+  <path d="M70,195 L90,195" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="90" y="175" width="480" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="106" y="200" font-size="13" font-weight="bold" fill="#1f2933">2. 브라우저 DNS 캐시 조회</text>
+  
+  <path d="M570,195 L720,195" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="730" y="175" width="110" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="785" y="200" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">hit이면 끝</text>
+
+  <!-- Step 3: OS Lookup -->
+  <path d="M70,255 L90,255" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="90" y="235" width="480" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="106" y="260" font-size="13" font-weight="bold" fill="#1f2933">3. OS 조회</text>
+  <text x="185" y="260" font-size="13" fill="#52606d">(hosts 파일 우선 → OS 캐시)</text>
+  
+  <path d="M570,255 L720,255" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="730" y="235" width="110" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="785" y="260" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">hit이면 끝</text>
+
+  <!-- Step 4: Stub Resolver -->
+  <path d="M70,335 L90,335" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="90" y="295" width="750" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="106" y="325" font-size="13" font-weight="bold" fill="#1f2933">4. 스텁 리졸버가 재귀 리졸버로 질의</text>
+  <text x="328" y="325" font-size="13" fill="#d97706" font-weight="bold">(UDP 53번 포트)</text>
+  
+  <path d="M120,335 L120,352 L135,352" stroke="#d97706" stroke-width="1.5" fill="none"/>
+  <rect x="140" y="338" width="220" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="150" y="356" font-size="12" font-weight="bold" fill="#059669">재귀 리졸버 캐시 hit이면 끝</text>
+
+  <!-- Step 5: Iterative Query -->
+  <path d="M70,445 L90,445" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="90" y="395" width="750" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="106" y="425" font-size="13" font-weight="bold" fill="#1f2933">5. 재귀 리졸버의 반복 질의</text>
+  
+  <path d="M120,435 L120,465 L135,465" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+  <rect x="140" y="445" width="42" rx="4" height="36" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="161" y="468" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">루트</text>
+  
+  <path d="M182,465 L260,465" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="187" y="450" width="68" height="18" fill="#ffffff"/>
+  <text x="189" y="463" font-size="11.5" fill="#52606d">"com은 저기"</text>
+  
+  <rect x="260" y="445" width="42" height="36" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="281" y="468" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">TLD</text>
+  
+  <path d="M302,465 L445,465" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="307" y="450" width="133" height="18" fill="#ffffff"/>
+  <text x="309" y="463" font-size="11.5" fill="#52606d">"example.com은 ns1이"</text>
+  
+  <rect x="445" y="445" width="70" height="36" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="480" y="468" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">권한 서버</text>
+  
+  <path d="M515,465 L590,465" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  
+  <rect x="590" y="445" width="70" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="625" y="468" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">A 레코드</text>
+
+  <!-- Step 6: Cache and Respond -->
+  <path d="M70,535 L90,535" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="90" y="515" width="750" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="106" y="540" font-size="13" font-weight="bold" fill="#1f2933">6. 재귀 리졸버가 TTL만큼 캐시하고 응답</text>
+
+  <!-- Step 7: Final Handshake & HTTP -->
+  <path d="M70,615 L90,615" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="90" y="575" width="750" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="106" y="605" font-size="13" font-weight="bold" fill="#1f2933">7. IP 확보</text>
+  <path d="M165,600 L185,600" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="195" y="605" font-size="13" font-weight="bold" fill="#1f2933">TCP 3-way 핸드셰이크(443)</text>
+  <path d="M375,600 L395,600" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="405" y="605" font-size="13" font-weight="bold" fill="#1f2933">TLS 핸드셰이크</text>
+  <path d="M510,600 L530,600" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="540" y="605" font-size="13" font-weight="bold" fill="#1f2933">HTTP 요청</text>
+
+  <!-- Contextual note inside Step 7 -->
+  <rect x="106" y="620" width="718" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="116" y="636" font-size="11.5" fill="#52606d">※ 여기서부터 이어지는 흐름은 TCP/UDP 및 SSL/TLS 핸드셰이크 문서에서 다룹니다.</text>
+</svg>

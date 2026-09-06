@@ -33,6 +33,11 @@
 
 ## 2. 파이프라인의 어디서부터 다시 도는가
 
+<!-- diagram:fe-reflow-repaint-1 -->
+![2. 파이프라인의 어디서부터 다시 도는가](../../assets/diagrams/fe-reflow-repaint-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 변경 발생
    │
@@ -45,6 +50,7 @@
    └─ transform/opacity처럼 레이어 합성만으로 끝나나?
          YES ─► Style ───────────────────► Composite   (가장 쌈)
 ```
+-->
 
 | 구분 | 다시 계산하는 것 | 비용 | 대표 속성 |
 |------|----------------|------|----------|
@@ -136,6 +142,11 @@ for (const card of cards) {
 그 레이아웃 결과가 무효(dirty)가 된다. 두 번째 반복에서 다시 `offsetWidth`를 읽는 순간
 브라우저는 **또 레이아웃을 처음부터 돌려야 한다.** 카드가 500개면 레이아웃이 500번 돈다.
 
+<!-- diagram:fe-reflow-repaint-2 -->
+![안티패턴: 읽기와 쓰기를 번갈아 반복](../../assets/diagrams/fe-reflow-repaint-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [안티패턴]
 읽기 ─► [레이아웃 계산] ─► 쓰기(무효화)
@@ -143,6 +154,7 @@ for (const card of cards) {
 읽기 ─► [레이아웃 계산] ─► 쓰기(무효화)
         ↑ 매 반복마다 전체 재계산
 ```
+-->
 
 ### 개선 1: 읽기를 밖으로 빼기
 
@@ -235,6 +247,11 @@ parent.insertBefore(list, next);   // 되돌리기
 
 ### 프레임 안에서 rAF의 위치
 
+<!-- diagram:fe-reflow-repaint-3 -->
+![프레임 안에서 rAF의 위치](../../assets/diagrams/fe-reflow-repaint-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ── 한 프레임 (약 16.7ms @ 60Hz) ────────────────────────────►
 
@@ -249,6 +266,7 @@ parent.insertBefore(list, next);   // 되돌리기
       ▼
  (남는 시간) requestIdleCallback
 ```
+-->
 
 `rAF` 콜백은 **레이아웃이 시작되기 직전**에 실행된다. 여기서 DOM을 바꾸면 바로 이어지는 레이아웃 한 번에 반영된다.
 반면 `setTimeout`은 화면 갱신 주기와 무관하게 발화하므로, 프레임 중간에 변경이 들어가 한 프레임을 놓치거나

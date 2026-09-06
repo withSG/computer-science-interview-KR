@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">토큰 대체 공격 — OAuth만으로 로그인을 만들었을 때</title>
+  <desc id="d">공격자가 획득한 액세스 토큰을 피해 서비스에 제출하여 타인의 계정으로 잘못 로그인되는 토큰 대체 공격 과정을 나타낸 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- 메인 박스 (다이어그램 전체 외곽 border & 헤더) -->
+  <rect x="24" y="24" width="832" height="472" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  
+  <!-- 제목 -->
+  <rect x="24" y="24" width="832" height="48" rx="8" fill="#fef2f2"/>
+  <path d="M 24,72 L 856,72" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="440" y="53.6" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[토큰 대체 공격 — OAuth만으로 로그인을 만들었을 때]</text>
+
+  <!-- Step 1: 공격자 로그인 -->
+  <rect x="50" y="100" width="780" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="70" y="135.2" font-size="14" font-weight="bold" fill="#1f2933">공격자가 자기 구글 계정으로 정상 로그인</text>
+  <path d="M 335,130 L 375,130" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="385" y="135.2" font-size="14" font-weight="bold" fill="#d97706">유효한 Access Token 획득</text>
+
+  <!-- 연결 화살표 1 -> 2 -->
+  <path d="M 90,160 L 90,190 L 110,190" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2: 토큰 제출 -->
+  <rect x="120" y="175" width="710" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="140" y="205.2" font-size="13.5" font-weight="bold" fill="#2563eb">피해 서비스에 "이 토큰으로 로그인해줘"라고 제출</text>
+
+  <!-- 연결 화살표 2 -> 3 -->
+  <path d="M 160,225 L 160,255 L 180,255" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3: 서비스 처리 -->
+  <rect x="190" y="240" width="640" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="210" y="270.2" font-size="13.5" fill="#1f2933">서비스: <tspan font-weight="bold" fill="#059669">"토큰이 유효하네"</tspan> → <tspan font-weight="bold" fill="#2563eb">UserInfo 호출</tspan> → <tspan font-weight="bold" fill="#dc2626">로그인 처리</tspan></text>
+
+  <!-- 연결 화살표 3 -> 문제 영역 -->
+  <path d="M 230,290 L 230,320 L 250,320" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 문제 영역 (문제 상황 강조 박스) -->
+  <rect x="260" y="305" width="570" height="165" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
+  
+  <text x="280" y="340.2" font-size="14" font-weight="bold" fill="#dc2626">문제:</text>
+  <text x="330" y="340.2" font-size="13.5" font-weight="bold" fill="#1f2933">토큰의 발급 대상을 확인할 표준 수단이 없어</text>
+  <text x="330" y="375.2" font-size="13.5" font-weight="bold" fill="#dc2626">다른 앱용으로 발급된 토큰도 그대로 통과한다</text>
+
+  <!-- 부가 설명 상자 -->
+  <rect x="280" y="395" width="530" height="60" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="295" y="420.2" font-size="12" fill="#52606d">※ Access Token은 "누구인가(인증)"가 아닌 "무엇을 할 수 있는가(인가)"만을 담음</text>
+  <text x="295" y="440.2" font-size="12" fill="#52606d">※ 클라이언트 ID(Audience) 검증 불가로 인한 Confused Deputy 문제 발생</text>
+</svg>

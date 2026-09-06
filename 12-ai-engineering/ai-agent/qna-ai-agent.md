@@ -17,6 +17,11 @@ AI Agent는 **LLM이 스스로 목표 달성을 위해 추론(Reasoning)하고, 
 
 ### 단순 LLM 호출 vs Agent
 
+<!-- diagram:ai-qna-ai-agent-1 -->
+![단순 LLM 호출 vs Agent](../../assets/diagrams/ai-qna-ai-agent-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 단순 LLM 호출:
 질문 → LLM → 답변  (1회성, 외부 상호작용 없음)
@@ -25,6 +30,7 @@ AI Agent:
 질문 → [추론 → 도구 호출 → 결과 관찰] 반복 → 답변
        (목표 달성까지 루프)
 ```
+-->
 
 ### ReAct 패턴 (Reasoning + Acting)
 
@@ -113,12 +119,18 @@ result = app.invoke({"messages": [("user", "안녕")], "step_count": 0})
 
 ### LangGraph를 쓰는 이유
 
+<!-- diagram:ai-qna-ai-agent-2 -->
+![LangGraph를 쓰는 이유](../../assets/diagrams/ai-qna-ai-agent-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 - 순환(loop) 표현 가능 → 에이전트 반복 루프에 적합
 - 상태 기반 → 복잡한 워크플로우의 데이터 흐름 명확
 - 조건부 분기 → 동적 라우팅
 - 체크포인트 → 중단/재개, Human-in-the-Loop 지원
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - State/Node/Edge의 역할 구분
@@ -296,6 +308,11 @@ except GraphRecursionError:
 
 ### 플로우 엔지니어링 예시
 
+<!-- diagram:ai-qna-ai-agent-3 -->
+![플로우 엔지니어링 예시](../../assets/diagrams/ai-qna-ai-agent-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [계획 수립] → [코드 생성] → [테스트 실행]
                                   │
@@ -305,6 +322,7 @@ except GraphRecursionError:
                                   │
                         성공 ─────→ [완료]
 ```
+-->
 
 단일 프롬프트로 "완벽한 코드를 써줘"라고 하는 대신, 생성-테스트-수정 루프로 신뢰성을 높입니다.
 
@@ -416,6 +434,11 @@ BMAD(Breakthrough Method of Agile AI-Driven Development)는 **애자일 방법�
 
 ### 두 가지 핵심 아이디어
 
+<!-- diagram:ai-qna-ai-agent-4 -->
+![두 가지 핵심 아이디어](../../assets/diagrams/ai-qna-ai-agent-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 에이전트 기반 계획 (Agentic Planning)
    Analyst / PM / Architect 에이전트가 협업해
@@ -425,6 +448,7 @@ BMAD(Breakthrough Method of Agile AI-Driven Development)는 **애자일 방법�
    Scrum Master 에이전트가 계획을 "필요한 모든 컨텍스트가
    담긴" 상세 개발 스토리로 변환 → Dev 에이전트가 추측 없이 구현
 ```
+-->
 
 ### 해결하려는 문제
 

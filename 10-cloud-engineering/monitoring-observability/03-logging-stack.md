@@ -148,6 +148,11 @@ Loki는 정반대 선택을 했다. 색인하는 건 `{app="order-service", name
 검색은 두 단계다. 먼저 라벨로 후보 청크를 좁히고, 그 청크들을 **병렬로 압축 해제하며 훑는다**.
 사실상 분산 grep이다. 색인이 없으니 저장 비용이 낮다. 대신 **라벨로 좁히지 못하면 느리다.**
 
+<!-- diagram:cloud-logging-stack-1 -->
+![Loki](../../assets/diagrams/cloud-logging-stack-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ELK — 쓸 때 비싸고 읽을 때 싸다
   로그 ──▶ [토큰화 + 역색인 생성] ──▶ 디스크(색인 + 원본)  →  임의 단어도 즉시
@@ -155,6 +160,7 @@ ELK — 쓸 때 비싸고 읽을 때 싸다
 Loki — 쓸 때 싸고 읽을 때 범위에 비례한다
   로그 ──▶ [라벨만 색인, 본문 압축] ──▶ 오브젝트 스토리지  →  라벨로 좁힌 뒤 병렬 스캔
 ```
+-->
 
 ### 비교
 
@@ -180,6 +186,11 @@ Kubernetes처럼 네임스페이스·앱 라벨이 자연스럽게 붙는 곳에
 
 ## 5. 수집 파이프라인
 
+<!-- diagram:cloud-logging-stack-2 -->
+![5. 수집 파이프라인](../../assets/diagrams/cloud-logging-stack-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │ 애플리케이션 컨테이너                                          │
@@ -203,6 +214,7 @@ Kubernetes처럼 네임스페이스·앱 라벨이 자연스럽게 붙는 곳에
                         ▼
    저장소 Elasticsearch / Loki / S3(장기)  ──▶  Kibana / Grafana
 ```
+-->
 
 ### 각 단계의 설계 포인트
 
@@ -275,6 +287,11 @@ log.info("payment requested",
 수천 건 중에서 어느 것이 내 요청인지 골라야 하는데, 사실상 불가능하다. 해법은 요청 진입점에서
 **고유 ID를 발급하고, 모든 하위 호출과 모든 로그에 그 ID를 붙이는 것**이다.
 
+<!-- diagram:cloud-logging-stack-3 -->
+![7. 상관관계 ID](../../assets/diagrams/cloud-logging-stack-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [Gateway]  trace_id 생성 후 헤더로 전달
      │     traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
@@ -289,6 +306,7 @@ log.info("payment requested",
 검색:  {namespace="prod"} |= "4bf92f3577b34da6"
        → 4개 서비스의 로그가 시간순으로 한 화면에
 ```
+-->
 
 **ID는 새로 만들지 말고 트레이싱 표준을 재사용하는 게 좋다.** W3C Trace Context의 `traceparent`
 헤더에 이미 trace ID가 들어 있으므로 이걸 로그 필드로 꺼내 쓰면 로그와 트레이스가 자동으로

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Runtime Data Area 전체 구조</title>
+  <desc id="d">JVM 프로세스 내의 공유 영역인 Method Area와 Heap, 그리고 스레드별 독립 영역인 JVM Stack, PC Register, Native Method Stack의 구조를 나타낸 다이어그램</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- 1. 최외곽: JVM 프로세스 -->
+  <rect x="20" y="20" width="840" height="500" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <text x="440" y="48.5" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">JVM 프로세스</text>
+
+  <!-- 2. 모든 스레드가 공유 영역 -->
+  <rect x="40" y="70" width="800" height="200" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="440" y="98.5" fill="#2563eb" font-size="14" font-weight="bold" text-anchor="middle">모든 스레드가 공유</text>
+
+  <!-- 2-1. Method Area -->
+  <rect x="60" y="115" width="350" height="135" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="235" y="141.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Method Area</text>
+  <text x="235" y="161.55" fill="#52606d" font-size="13" text-anchor="middle">(Metaspace)</text>
+  <text x="235" y="191.55" fill="#1f2933" font-size="13" text-anchor="middle">클래스 메타데이터</text>
+  <text x="235" y="211.55" fill="#1f2933" font-size="13" text-anchor="middle">메서드 바이트코드</text>
+  <text x="235" y="231.55" fill="#1f2933" font-size="13" text-anchor="middle">런타임 상수 풀</text>
+
+  <!-- 2-2. Heap Area -->
+  <rect x="470" y="115" width="350" height="135" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="645" y="141.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Heap</text>
+  <text x="645" y="181.55" fill="#1f2933" font-size="13" text-anchor="middle">new로 만든</text>
+  <text x="645" y="201.55" fill="#1f2933" font-size="13" text-anchor="middle">모든 객체/배열</text>
+  <text x="645" y="231.55" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">← GC 대상</text>
+
+
+  <!-- 3. 스레드마다 독립 영역 -->
+  <rect x="40" y="290" width="800" height="210" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="440" y="318.5" fill="#059669" font-size="14" font-weight="bold" text-anchor="middle">스레드마다 독립 (스레드 생성 시 함께 생성)</text>
+
+  <!-- 3-1. Thread-1 -->
+  <text x="180" y="348.55" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">Thread-1</text>
+  <rect x="70" y="360" width="220" height="120" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  
+  <!-- Thread-1: JVM Stack -->
+  <text x="180" y="386.55" fill="#1f2933" font-size="13" text-anchor="middle">JVM Stack</text>
+  <line x1="70" y1="400" x2="290" y2="400" stroke="#059669" stroke-width="1"/>
+  
+  <!-- Thread-1: PC Register -->
+  <text x="180" y="416.55" fill="#1f2933" font-size="13" text-anchor="middle">PC Register</text>
+  <line x1="70" y1="430" x2="290" y2="430" stroke="#059669" stroke-width="1"/>
+  
+  <!-- Thread-1: Native Method Stack -->
+  <text x="180" y="448.55" fill="#1f2933" font-size="13" text-anchor="middle">Native</text>
+  <text x="180" y="463.55" fill="#1f2933" font-size="13" text-anchor="middle">Method</text>
+  <text x="180" y="478.55" fill="#1f2933" font-size="13" text-anchor="middle">Stack</text>
+
+
+  <!-- 3-2. Thread-2 -->
+  <text x="440" y="348.55" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">Thread-2</text>
+  <rect x="330" y="360" width="220" height="120" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  
+  <!-- Thread-2: JVM Stack -->
+  <text x="440" y="386.55" fill="#1f2933" font-size="13" text-anchor="middle">JVM Stack</text>
+  <line x1="330" y1="400" x2="550" y2="400" stroke="#059669" stroke-width="1"/>
+  
+  <!-- Thread-2: PC Register -->
+  <text x="440" y="416.55" fill="#1f2933" font-size="13" text-anchor="middle">PC Register</text>
+  <line x1="330" y1="430" x2="550" y2="430" stroke="#059669" stroke-width="1"/>
+  
+  <!-- Thread-2: Native Method Stack -->
+  <text x="440" y="448.55" fill="#1f2933" font-size="13" text-anchor="middle">Native</text>
+  <text x="440" y="463.55" fill="#1f2933" font-size="13" text-anchor="middle">Method</text>
+  <text x="440" y="478.55" fill="#1f2933" font-size="13" text-anchor="middle">Stack</text>
+
+
+  <!-- 3-3. Thread-3 -->
+  <text x="700" y="348.55" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">Thread-3</text>
+  <rect x="590" y="360" width="220" height="120" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  
+  <!-- Thread-3: JVM Stack -->
+  <text x="700" y="386.55" fill="#1f2933" font-size="13" text-anchor="middle">JVM Stack</text>
+  <line x1="590" y1="400" x2="810" y2="400" stroke="#059669" stroke-width="1"/>
+  
+  <!-- Thread-3: PC Register -->
+  <text x="700" y="416.55" fill="#1f2933" font-size="13" text-anchor="middle">PC Register</text>
+  <line x1="590" y1="430" x2="810" y2="430" stroke="#059669" stroke-width="1"/>
+  
+  <!-- Thread-3: Native Method Stack -->
+  <text x="700" y="448.55" fill="#1f2933" font-size="13" text-anchor="middle">Native</text>
+  <text x="700" y="463.55" fill="#1f2933" font-size="13" text-anchor="middle">Method</text>
+  <text x="700" y="478.55" fill="#1f2933" font-size="13" text-anchor="middle">Stack</text>
+</svg>

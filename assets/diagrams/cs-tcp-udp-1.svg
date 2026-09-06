@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">연결 수립 — 3-way 핸드셰이크</title>
+  <desc id="d">Client와 Server 간의 TCP 3-way 핸드셰이크 과정과 데이터 송수신 상태를 나타낸 시퀀스 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Lifeline Header Boxes & Background Columns -->
+  <!-- Client Column Header -->
+  <rect x="160" y="30" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="240" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+
+  <!-- Server Column Header -->
+  <rect x="560" y="30" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="640" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+
+  <!-- Lifelines -->
+  <path d="M240,70 L240,490" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M640,70 L640,490" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- Client States -->
+  <rect x="180" y="85" width="120" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="240" y="102" font-size="13" font-weight="600" fill="#52606d" text-anchor="middle">CLOSED</text>
+
+  <rect x="170" y="185" width="140" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="240" y="202" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">SYN_SENT</text>
+
+  <rect x="160" y="355" width="160" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="240" y="374" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">ESTABLISHED</text>
+
+  <!-- Server States -->
+  <rect x="580" y="85" width="120" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="640" y="102" font-size="13" font-weight="600" fill="#52606d" text-anchor="middle">LISTEN</text>
+
+  <rect x="560" y="185" width="160" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="640" y="202" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">SYN_RECEIVED</text>
+
+  <rect x="560" y="355" width="160" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="640" y="374" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">ESTABLISHED</text>
+
+  <!-- Messages / Handshake Arrows -->
+
+  <!-- 1. SYN -->
+  <path d="M240,140 L640,170" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="361" y="138" width="158" height="24" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="154" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">SYN, seq=x</text>
+
+  <!-- 2. SYN+ACK -->
+  <path d="M640,225 L240,255" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="303" y="223" width="274" height="24" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="239" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">SYN+ACK, seq=y, ack=x+1</text>
+
+  <!-- 3. ACK -->
+  <path d="M240,310 L640,340" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="323" y="308" width="234" height="24" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="324" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">ACK, seq=x+1, ack=y+1</text>
+
+  <!-- Data Exchange Area -->
+  <rect x="200" y="420" width="480" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <path d="M240,445 L640,445" stroke="#059669" stroke-width="3" marker-start="url(#a-green)" marker-end="url(#a-green)"/>
+  <rect x="375" y="433" width="130" height="24" rx="3" fill="#ffffff" stroke="#059669" stroke-width="1"/>
+  <text x="440" y="449" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">데이터 송수신</text>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">제어 흐름 분석 — 컴파일러가 코드를 따라 걷는다</title>
+  <desc id="d">TypeScript 제어 흐름 분석을 통해 조건문 분기 및 합류 지점에 따라 변수 v의 타입이 string, number, null 등으로 좁혀지고 다듬어지는 과정을 나타낸 다이어그램입니다.</desc>
+
+  <rect width="880" height="570" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마커 정의 -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 상단 함수 선언 헤더 -->
+  <rect x="290" y="24" width="300" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="46" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">function f(v: string | number | null)</text>
+
+  <!-- [노드 1] 초기 타입: v: string | number | null -->
+  <rect x="300" y="80" width="280" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="104" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">v: string | number | null</text>
+
+  <!-- 분기 1: v === null? -->
+  <path d="M440,120 L440,150" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  
+  <polygon points="440,150 560,180 440,210 320,180" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="184" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">v === null?</text>
+
+  <!-- v === null? Yes 분기 -> v: null -->
+  <path d="M320,180 L200,180 L200,223" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="220" y="167" width="38" height="20" fill="#ffffff" rx="3"/>
+  <text x="239" y="181" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">yes</text>
+
+  <rect x="135" y="230" width="130" height="38" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="200" y="253" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">v: null</text>
+
+  <path d="M200,268 L200,300" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <rect x="145" y="300" width="110" height="32" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="200" y="320" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">return</text>
+
+  <!-- v === null? No 분기 -> v: string | number -->
+  <path d="M560,180 L680,180 L680,223" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="618" y="167" width="30" height="20" fill="#ffffff" rx="3"/>
+  <text x="633" y="181" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">no</text>
+
+  <rect x="575" y="230" width="210" height="38" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="680" y="253" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v: string | number</text>
+
+  <!-- 분기 2: typeof v === "string"? -->
+  <path d="M680,268 L680,290" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <polygon points="680,290 825,325 680,360 535,325" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="680" y="329" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">typeof v === "string"?</text>
+
+  <!-- typeof v === "string"? Yes 분기 -> v: string -->
+  <path d="M535,325 L440,325 L440,368" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="460" y="312" width="38" height="20" fill="#ffffff" rx="3"/>
+  <text x="479" y="326" font-size="11.5" font-weight="bold" fill="#059669" text-anchor="middle">yes</text>
+
+  <rect x="375" y="375" width="130" height="38" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="398" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v: string</text>
+
+  <!-- typeof v === "string"? No 분기 -> v: number -->
+  <path d="M825,325 L840,325 L840,368" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="825" y="312" width="30" height="20" fill="#ffffff" rx="3"/>
+  <text x="840" y="326" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">no</text>
+
+  <rect x="775" y="375" width="130" height="38" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="840" y="398" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">v: number</text>
+
+  <!-- 합류 경로 -->
+  <path d="M440,413 L440,470 L633,470" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M840,413 L840,470 L647,470" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M640,470 L640,498" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- [노드 4] (합류 지점) v: string | number -->
+  <rect x="480" y="505" width="320" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="640" y="530" font-size="13.5" font-weight="bold" fill="#1f2933" text-anchor="middle">(합류 지점) <tspan fill="#2563eb">v: string | number</tspan></text>
+</svg>

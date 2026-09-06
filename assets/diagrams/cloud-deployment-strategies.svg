@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">확장-수축 패턴 (Expand-Contract Pattern)</title>
+  <desc id="d">6단계의 DB 스키마 변경 동안 애플리케이션 버전별 읽기와 쓰기 방향, DB 컬럼 상태 및 롤백 가능 여부를 나타낸 타임라인 다이어그램</desc>
+  
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Legend Header -->
+  <text x="30" y="38" font-size="17" font-weight="600" fill="#1f2933">확장-수축 패턴 (Expand-Contract) — 무중단 DB 스키마 변경 6단계</text>
+  
+  <!-- Legend -->
+  <rect x="520" y="20" width="12" height="12" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="538" y="30" font-size="11.5" fill="#1f2933">v1 동작 (기존)</text>
+  
+  <rect x="630" y="20" width="12" height="12" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="648" y="30" font-size="11.5" fill="#1f2933">v2 동작 (신규)</text>
+  
+  <rect x="740" y="20" width="12" height="12" rx="2" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="758" y="30" font-size="11.5" fill="#1f2933">파괴적 변경</text>
+
+  <!-- Step Vertical Grid Lines & Step Headers -->
+  <!-- Timeline Steps: Step 1 (160), Step 2 (280), Step 3 (400), Step 4 (520), Step 5 (640), Step 6 (760) -->
+  
+  <!-- Step Column Headers Background -->
+  <rect x="160" y="55" width="110" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="215" y="73" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">1단계 · Expand</text>
+  <text x="215" y="88" font-size="11.5" fill="#52606d" text-anchor="middle">새 컬럼 추가만</text>
+
+  <rect x="280" y="55" width="110" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="335" y="73" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">2단계 · 이중 쓰기</text>
+  <text x="335" y="88" font-size="11.5" fill="#52606d" text-anchor="middle">쓰기 양쪽 / 읽기 옛것</text>
+
+  <rect x="400" y="55" width="110" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="455" y="73" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">3단계 · 백필</text>
+  <text x="455" y="88" font-size="11.5" fill="#52606d" text-anchor="middle">기존 데이터 채움</text>
+
+  <rect x="520" y="55" width="110" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="575" y="73" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">4단계 · 읽기 전환</text>
+  <text x="575" y="88" font-size="11.5" fill="#52606d" text-anchor="middle">쓰기 양쪽 / 읽기 새것</text>
+
+  <rect x="640" y="55" width="110" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="695" y="73" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">5단계 · 쓰기 정리</text>
+  <text x="695" y="88" font-size="11.5" fill="#52606d" text-anchor="middle">옛 컬럼 쓰기 제거</text>
+
+  <rect x="760" y="55" width="100" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="810" y="73" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">6단계 · Contract</text>
+  <text x="810" y="88" font-size="11.5" fill="#dc2626" text-anchor="middle">옛 컬럼 제거</text>
+
+  <!-- Vertical Divider Lines -->
+  <line x1="275" y1="100" x2="275" y2="455" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="395" y1="100" x2="395" y2="455" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="515" y1="100" x2="515" y2="455" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="635" y1="100" x2="635" y2="455" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="755" y1="100" x2="755" y2="455" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Row 1: App Version Row -->
+  <rect x="20" y="110" width="130" height="70" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="85" y="142" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">애플리케이션</text>
+  <text x="85" y="160" font-size="11.5" fill="#52606d" text-anchor="middle">배포 버전</text>
+
+  <!-- v1 App Span (Step 1 ~ Step 4) -->
+  <rect x="160" y="120" width="350" height="24" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="335" y="136" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">v1 애플리케이션 실행 구간</text>
+
+  <!-- Transition App Span (Step 2 ~ Step 5) -->
+  <rect x="280" y="150" width="470" height="24" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="515" y="166" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">앱 재배포 구간 (2·4·5단계 각 1회)</text>
+
+
+  <!-- Row 2: App Data Operations -->
+  <rect x="20" y="195" width="130" height="85" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="85" y="232" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">앱 데이터 동작</text>
+  <text x="85" y="250" font-size="11.5" fill="#52606d" text-anchor="middle">(읽기 / 쓰기)</text>
+
+  <!-- Step 1 Ops -->
+  <rect x="160" y="205" width="110" height="65" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="215" y="230" font-size="11.5" fill="#1f2933" text-anchor="middle">읽기: user_name</text>
+  <text x="215" y="250" font-size="11.5" fill="#1f2933" text-anchor="middle">쓰기: user_name</text>
+
+  <!-- Step 2 Ops -->
+  <rect x="280" y="205" width="110" height="65" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="335" y="222" font-size="11.5" fill="#2563eb" text-anchor="middle">읽기: user_name</text>
+  <text x="335" y="242" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">쓰기: 양쪽 모두</text>
+  <text x="335" y="258" font-size="11" fill="#52606d" text-anchor="middle">(이중 쓰기)</text>
+
+  <!-- Step 3 Ops -->
+  <rect x="400" y="205" width="110" height="65" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="455" y="222" font-size="11.5" fill="#2563eb" text-anchor="middle">읽기: user_name</text>
+  <text x="455" y="240" font-size="11.5" fill="#059669" text-anchor="middle">쓰기: 양쪽 모두</text>
+  <text x="455" y="258" font-size="11.5" font-weight="600" fill="#d97706" text-anchor="middle">배치 백필 실행</text>
+
+  <!-- Step 4 Ops -->
+  <rect x="520" y="205" width="110" height="65" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="575" y="222" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">읽기: full_name</text>
+  <text x="575" y="242" font-size="11.5" fill="#059669" text-anchor="middle">쓰기: 양쪽 모두</text>
+
+  <!-- Step 5 Ops -->
+  <rect x="640" y="205" width="110" height="65" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="695" y="230" font-size="11.5" fill="#059669" text-anchor="middle">읽기: full_name</text>
+  <text x="695" y="250" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">쓰기: full_name</text>
+
+  <!-- Step 6 Ops -->
+  <rect x="760" y="205" width="100" height="65" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="810" y="230" font-size="11.5" fill="#059669" text-anchor="middle">읽기: full_name</text>
+  <text x="810" y="250" font-size="11.5" fill="#059669" text-anchor="middle">쓰기: full_name</text>
+
+
+  <!-- Row 3: DB Schema State Row -->
+  <rect x="20" y="295" width="130" height="75" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="85" y="332" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">DB 스키마 상태</text>
+  <text x="85" y="350" font-size="11.5" fill="#52606d" text-anchor="middle">(컬럼 구조)</text>
+
+  <!-- Step 1 DB -->
+  <rect x="160" y="305" width="110" height="55" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="215" y="327" font-size="11.5" fill="#1f2933" text-anchor="middle">user_name</text>
+  <text x="215" y="345" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">+ full_name (NULL)</text>
+
+  <!-- Step 2 DB -->
+  <rect x="280" y="305" width="110" height="55" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="335" y="327" font-size="11.5" fill="#1f2933" text-anchor="middle">user_name</text>
+  <text x="335" y="345" font-size="11.5" fill="#1f2933" text-anchor="middle">+ full_name</text>
+
+  <!-- Step 3 DB -->
+  <rect x="400" y="305" width="110" height="55" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="455" y="327" font-size="11.5" fill="#1f2933" text-anchor="middle">user_name</text>
+  <text x="455" y="345" font-size="11.5" font-weight="600" fill="#d97706" text-anchor="middle">full_name 백필 완료</text>
+
+  <!-- Step 4 DB -->
+  <rect x="520" y="305" width="110" height="55" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="575" y="327" font-size="11.5" fill="#1f2933" text-anchor="middle">user_name</text>
+  <text x="575" y="345" font-size="11.5" fill="#1f2933" text-anchor="middle">+ full_name</text>
+
+  <!-- Step 5 DB -->
+  <rect x="640" y="305" width="110" height="55" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="695" y="327" font-size="11.5" fill="#52606d" text-anchor="middle">user_name (방치)</text>
+  <text x="695" y="345" font-size="11.5" fill="#1f2933" text-anchor="middle">+ full_name</text>
+
+  <!-- Step 6 DB -->
+  <rect x="760" y="305" width="100" height="55" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="810" y="327" font-size="11.5" fill="#dc2626" font-weight="600" text-anchor="middle">DROP COLUMN</text>
+  <text x="810" y="345" font-size="11.5" fill="#059669" text-anchor="middle">full_name 만 남음</text>
+
+
+  <!-- Row 4: Rollback Possibility Row -->
+  <rect x="20" y="385" width="130" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="85" y="420" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">롤백 가능 여부</text>
+
+  <!-- Safe Rollback Zone (Step 1 ~ Step 5) -->
+  <rect x="160" y="392" width="590" height="46" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="455" y="412" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">✓ 롤백 가능 구간 (안전)</text>
+  <text x="455" y="428" font-size="11.5" fill="#059669" text-anchor="middle">v1과 v2 애플리케이션 모두 데이터 손실 없이 호환 동작함</text>
+
+  <!-- Unsafe Zone (Step 6) -->
+  <rect x="760" y="392" width="100" height="46" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="810" y="412" font-size="12" font-weight="600" fill="#dc2626" text-anchor="middle">✕ 롤백 불가</text>
+  <text x="810" y="428" font-size="11" fill="#dc2626" text-anchor="middle">Contract 완료</text>
+
+
+  <!-- Flow Arrows (Connecting Key Actions) -->
+  <!-- Expand Arrow -->
+  <path d="M 215,360 L 215,385" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- Backfill Flow Arrow -->
+  <path d="M 455,270 L 455,305" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Contract Red Arrow -->
+  <path d="M 810,360 L 810,392" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+
+  <!-- Bottom Conclusion Caption -->
+  <text x="440" y="495" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 1~5단계까지는 언제든 롤백 가능하며, 6단계(Contract)만 되돌릴 수 없으므로 충분한 관찰 후 마지막에 수행한다.</text>
+
+</svg>

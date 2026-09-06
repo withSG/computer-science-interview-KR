@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">리랭커: 순위가 어긋나는 문제</title>
+  <desc id="d">Bi-encoder 검색 방식과 Cross-encoder 재순위화 방식의 구조 및 특징 비교 다이어그램</desc>
+  
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <!-- 화살표 마커 (검정/잉크) -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커 (파랑) -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- 화살표 마커 (보라) -->
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- ==================== LEFT SIDE: Bi-encoder ==================== -->
+  <!-- 영역 배경: Bi-encoder (파란색 계열) -->
+  <rect x="24" y="20" width="400" height="350" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <!-- 타이틀 -->
+  <text x="40" y="50" font-size="16" font-weight="bold" fill="#2563eb">Bi-encoder</text>
+  <text x="135" y="50" font-size="13" fill="#52606d">(검색용, 빠름)</text>
+
+  <!-- 질문 -->
+  <text x="48" y="104" font-size="13" font-weight="bold" fill="#1f2933">질문</text>
+  <path d="M78,100 L106,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- 상단 [모델] -->
+  <rect x="114" y="80" width="60" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="144" y="104" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">모델</text>
+  <path d="M174,100 L202,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- 상단 벡터 -->
+  <text x="210" y="104" font-size="13" fill="#1f2933">벡터</text>
+
+  <!-- 문서 -->
+  <text x="48" y="174" font-size="13" font-weight="bold" fill="#1f2933">문서</text>
+  <path d="M78,170 L106,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- 하단 [모델] -->
+  <rect x="114" y="150" width="60" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="144" y="174" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">모델</text>
+  <path d="M174,170 L202,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <!-- 하단 벡터 -->
+  <text x="210" y="174" font-size="13" fill="#1f2933">벡터</text>
+
+  <!-- 병합 꺾쇠 경로 -> 거리 -->
+  <path d="M242,100 L256,100 L256,135 L272,135" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M242,170 L256,170 L256,135" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  
+  <!-- 거리 -->
+  <text x="280" y="139" font-size="13" font-weight="bold" fill="#1f2933">거리</text>
+
+  <!-- 구분선 -->
+  <line x1="44" y1="210" x2="404" y2="210" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 하단 설명 -->
+  <text x="44" y="240" font-size="13" fill="#1f2933">문서 벡터는 미리 계산 가능</text>
+  <text x="44" y="265" font-size="13" font-weight="bold" fill="#2563eb">─▶ 100만 건도 즉시 검색</text>
+
+
+  <!-- ==================== RIGHT SIDE: Cross-encoder ==================== -->
+  <!-- 영역 배경: Cross-encoder (보라색 계열) -->
+  <rect x="456" y="20" width="400" height="350" rx="8" fill="#f5f3ff" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <!-- 타이틀 -->
+  <text x="472" y="50" font-size="16" font-weight="bold" fill="#7c3aed">Cross-encoder</text>
+  <text x="592" y="50" font-size="13" fill="#52606d">(재순위용, 정확)</text>
+
+  <!-- 질문/문서 그룹 박스 (입력 결합) -->
+  <rect x="480" y="80" width="64" height="110" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="492" y="112" font-size="13" font-weight="bold" fill="#1f2933">질문</text>
+  <text x="492" y="162" font-size="13" font-weight="bold" fill="#1f2933">문서</text>
+
+  <!-- 병합 꺾쇠 경로 -> [모델] -->
+  <path d="M544,108 L560,108 L560,135 L572,135" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M544,158 L560,158 L560,135" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+
+  <!-- [모델] -->
+  <rect x="580" y="115" width="60" height="40" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="610" y="139" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">모델</text>
+  <path d="M640,135 L668,135" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 관련성 점수 -->
+  <text x="676" y="139" font-size="13" font-weight="bold" fill="#1f2933">관련성 점수</text>
+
+  <!-- 구분선 -->
+  <line x1="476" y1="210" x2="836" y2="210" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 하단 설명 -->
+  <text x="476" y="240" font-size="13" fill="#1f2933">매 쌍마다 모델 실행 필요</text>
+  <text x="476" y="265" font-size="13" font-weight="bold" fill="#dc2626">─▶ 수십 건이 한계</text>
+
+</svg>

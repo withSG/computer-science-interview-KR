@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동작 원리</title>
+  <desc id="d">LLM이 입력 텍스트를 바탕으로 다음 토큰의 확률 분포를 계산하고 하나를 선택하여 다시 입력에 붙여 반복하는 과정을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- ==================== Step 1 Group ==================== -->
+  <g>
+    <!-- 입력 1 -->
+    <text x="280" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">입력:</text>
+    <rect x="295" y="32" width="180" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="385" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">"대한민국의 수도는"</text>
+
+    <!-- 화살표: 입력1 -> LLM1 -->
+    <path d="M385,68 L385,92" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- LLM 박스 1 -->
+    <rect x="315" y="94" width="140" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="385" y="121" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">LLM</text>
+
+    <!-- 화살표: LLM1 -> 확률 분포 테이블 1 -->
+    <path d="M385,138 L385,172" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="393" y="145" width="135" height="20" fill="#ffffff"/>
+    <text x="401" y="159" font-size="11.5" fill="#52606d">다음 토큰 확률 분포</text>
+
+    <!-- 확률 분포 테이블 1 -->
+    <rect x="315" y="174" width="140" height="110" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    
+    <!-- 서울 (최고 확률 선택 행) -->
+    <rect x="317" y="176" width="136" height="24" fill="#ecfdf5"/>
+    <text x="345" y="192" font-size="13" font-weight="bold" fill="#059669">서울</text>
+    <text x="425" y="192" font-size="13" font-weight="bold" fill="#059669" text-anchor="end">0.87</text>
+
+    <text x="345" y="216" font-size="13" fill="#1f2933">부산</text>
+    <text x="425" y="216" font-size="13" fill="#52606d" text-anchor="end">0.04</text>
+
+    <text x="345" y="240" font-size="13" fill="#1f2933">한국</text>
+    <text x="425" y="240" font-size="13" fill="#52606d" text-anchor="end">0.03</text>
+
+    <text x="345" y="264" font-size="13" fill="#52606d">...</text>
+    <text x="425" y="264" font-size="13" fill="#52606d" text-anchor="end">...</text>
+
+    <!-- 하나 선택 -> "서울" 라벨 및 화살표 -->
+    <path d="M315,188 L255,188 L255,300 L385,300 L385,308" stroke="#059669" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+    <text x="245" y="240" font-size="13" font-weight="bold" fill="#059669" text-anchor="end">하나 선택 → "서울"</text>
+  </g>
+
+  <!-- 구분선/연결선 -->
+  <path d="M385,300 L385,348" stroke="#2563eb" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#a-blue)"/>
+
+  <!-- ==================== Step 2 Group ==================== -->
+  <g>
+    <!-- 입력 2 -->
+    <text x="280" y="375" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">입력:</text>
+    <rect x="295" y="352" width="220" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="405" y="375" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">"대한민국의 수도는 서울"</text>
+
+    <!-- 오른쪽 설명 주석 -->
+    <path d="M523,370 L545,370" stroke="#52606d" stroke-width="1"/>
+    <text x="553" y="375" font-size="13" fill="#52606d">← 방금 뽑은 토큰을 붙여서 다시 처음부터</text>
+
+    <!-- 화살표: 입력2 -> 확률 분포 테이블 2 -->
+    <path d="M405,388 L405,412" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- 확률 분포 테이블 2 -->
+    <rect x="335" y="414" width="140" height="90" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+
+    <!-- 입니다 (최고 확률 행) -->
+    <rect x="337" y="416" width="136" height="24" fill="#ecfdf5"/>
+    <text x="365" y="432" font-size="13" font-weight="bold" fill="#059669">입니다</text>
+    <text x="445" y="432" font-size="13" font-weight="bold" fill="#059669" text-anchor="end">0.62</text>
+
+    <text x="365" y="456" font-size="13" fill="#1f2933">이다</text>
+    <text x="445" y="456" font-size="13" fill="#52606d" text-anchor="end">0.21</text>
+
+    <text x="365" y="480" font-size="13" fill="#52606d">...</text>
+    <text x="445" y="480" font-size="13" fill="#52606d" text-anchor="end">...</text>
+  </g>
+</svg>

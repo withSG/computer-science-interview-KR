@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">테스트 피라미드 vs 아이스크림 콘</title>
+  <desc id="d">권장 형태인 테스트 피라미드와 안티패턴인 아이스크림 콘의 구조, 속도, 비용, 안정성을 비교하는 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 메인 제목 -->
+  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">테스트 피라미드 vs 아이스크림 콘 구조 비교</text>
+
+  <!-- 중앙 구분선 -->
+  <line x1="440" y1="50" x2="440" y2="480" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- ==================== 왼쪽: 테스트 피라미드 ==================== -->
+  <text x="210" y="65" font-size="14" font-weight="600" fill="#059669" text-anchor="middle">권장: 테스트 피라미드</text>
+
+  <!-- 축 및 척도 표시 (왼쪽 영역 안 x=40~100) -->
+  <path d="M50,400 L50,110" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="50" y="98" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">비용/시간</text>
+
+  <path d="M50,110 L50,400" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="50" y="418" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">속도/안정성</text>
+
+  <!-- 피라미드 레이어 (중심 x=250) -->
+  <!-- E2E 층 (상단) -->
+  <polygon points="250,110 190,180 310,180" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="250" y="159" font-size="13" font-weight="500" fill="#dc2626" text-anchor="middle">E2E 테스트</text>
+
+  <!-- 통합 층 (중간) -->
+  <polygon points="190,184 310,184 350,270 150,270" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="250" y="232" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">통합 테스트</text>
+
+  <!-- 단위 층 (하단) -->
+  <polygon points="150,274 350,274 410,400 90,400" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="250" y="342" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">단위 테스트</text>
+
+  <!-- 왼쪽 상세 특징 및 속도 -->
+  <rect x="90" y="420" width="320" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="100" y="441" font-size="11.5" fill="#1f2933">• 전체 실행 시간: 수 초 ~ 수십 초</text>
+  <text x="100" y="459" font-size="11.5" fill="#1f2933">• 실패 시: 원인이 바로 보임 (빠른 피드백)</text>
+
+
+  <!-- ==================== 오른쪽: 아이스크림 콘 ==================== -->
+  <text x="650" y="65" font-size="14" font-weight="600" fill="#dc2626" text-anchor="middle">안티패턴: 아이스크림 콘</text>
+
+  <!-- 수동 테스트 (최상단) -->
+  <rect x="490" y="110" width="320" height="55" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="650" y="133" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">수동 테스트</text>
+  <text x="650" y="151" font-size="11.5" fill="#52606d" text-anchor="middle">사람이 직접 실행 / 비쌈 / 느림</text>
+
+  <!-- E2E 다수 (상단) -->
+  <rect x="520" y="173" width="260" height="65" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="650" y="200" font-size="13" font-weight="500" fill="#dc2626" text-anchor="middle">E2E 다수</text>
+  <text x="650" y="220" font-size="11.5" fill="#52606d" text-anchor="middle">느리고 자주 깨짐</text>
+
+  <!-- 통합 (중간) -->
+  <rect x="560" y="246" width="180" height="65" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="650" y="283" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">통합 테스트</text>
+
+  <!-- 단위 (하단 역삼각형) -->
+  <polygon points="600,319 700,319 650,400" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="650" y="347" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">단위</text>
+  <text x="650" y="365" font-size="11.5" fill="#059669" text-anchor="middle">(거의 없음)</text>
+
+  <!-- 오른쪽 상세 특징 및 속도 -->
+  <rect x="490" y="420" width="320" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="500" y="441" font-size="11.5" fill="#1f2933">• 전체 실행 시간: 수십 분</text>
+  <text x="500" y="459" font-size="11.5" fill="#1f2933">• 실패 시: 원인 추적에 반나절 소요</text>
+
+  <!-- ==================== 하단 결론 캡션 ==================== -->
+  <line x1="40" y1="490" x2="840" y2="490" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="440" y="515" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 아래층(단위)에서 잡을 수 있는 버그를 위층(E2E/수동)에서 잡으려 하면 검증 비용과 시간이 급격히 증가한다.</text>
+</svg>

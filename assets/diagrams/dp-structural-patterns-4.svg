@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">브릿지 (Bridge)</title>
+  <desc id="d">상속만 사용했을 때와 브릿지 패턴을 사용했을 때의 클래스 구조 비교 다이어그램</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: Inheritance Only -->
+  <rect x="30" y="30" width="380" height="320" fill="#f8fafc" rx="8" stroke="#cbd2d9" stroke-width="1"/>
+  
+  <!-- Header 1 -->
+  <rect x="50" y="45" width="100" height="30" fill="#fffbeb" rx="4" stroke="#d97706" stroke-width="1"/>
+  <text x="100" y="64.5" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">[상속만]</text>
+  <text x="165" y="64.5" font-size="14" font-weight="bold" fill="#1f2933">n × m 개</text>
+
+  <!-- Left Tree Structure -->
+  <!-- Parent Node: Shape -->
+  <rect x="50" y="95" width="130" height="36" fill="#ffffff" rx="4" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="115" y="117.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Shape</text>
+
+  <!-- Tree Lines Left -->
+  <path d="M 70,131 L 70,290" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 70,160 L 90,160" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 70,200 L 90,200" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 70,240 L 90,240" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 70,280 L 90,280" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <!-- Child Nodes Left (Labels: VectorCircle, RasterCircle, VectorSquare, RasterSquare) -->
+  <rect x="90" y="142" width="160" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="170" y="163.5" font-size="13" fill="#1f2933" text-anchor="middle">VectorCircle</text>
+
+  <rect x="90" y="182" width="160" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="170" y="203.5" font-size="13" fill="#1f2933" text-anchor="middle">RasterCircle</text>
+
+  <rect x="90" y="222" width="160" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="170" y="243.5" font-size="13" fill="#1f2933" text-anchor="middle">VectorSquare</text>
+
+  <rect x="90" y="262" width="160" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="170" y="283.5" font-size="13" fill="#1f2933" text-anchor="middle">RasterSquare</text>
+
+
+  <!-- Section 2: Bridge Pattern -->
+  <rect x="430" y="30" width="420" height="320" fill="#eff6ff" rx="8" stroke="#2563eb" stroke-width="1"/>
+
+  <!-- Header 2 -->
+  <rect x="450" y="45" width="100" height="30" fill="#ecfdf5" rx="4" stroke="#059669" stroke-width="1"/>
+  <text x="500" y="64.5" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[브릿지]</text>
+  <text x="565" y="64.5" font-size="14" font-weight="bold" fill="#1f2933">n + m 개</text>
+
+  <!-- Left Hierarchy (Abstraction) -->
+  <rect x="450" y="95" width="130" height="36" fill="#ffffff" rx="4" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="515" y="117.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Shape</text>
+
+  <path d="M 470,131 L 470,250" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 470,160 L 490,160" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 470,200 L 490,200" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 470,240 L 490,240" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <rect x="490" y="142" width="110" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="545" y="163.5" font-size="13" fill="#1f2933" text-anchor="middle">Circle</text>
+
+  <rect x="490" y="182" width="110" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="545" y="203.5" font-size="13" fill="#1f2933" text-anchor="middle">Square</text>
+
+  <rect x="490" y="222" width="110" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="545" y="243.5" font-size="13" fill="#1f2933" text-anchor="middle">Triangle</text>
+
+  <!-- Bridge Connection (Arrow) -->
+  <path d="M 580,113 L 650,113" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="588" y="99" width="54" height="20" fill="#ffffff" rx="3"/>
+  <text x="615" y="113" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">다리</text>
+
+  <!-- Right Hierarchy (Implementation) -->
+  <!-- VectorRenderer width calculation: 14 chars * ~13px * 0.55 = ~100px text width. Box width = 160px >= 100 + 24 -->
+  <rect x="650" y="95" width="170" height="36" fill="#ffffff" rx="4" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="735" y="117.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Renderer</text>
+
+  <path d="M 670,131 L 670,210" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 670,160 L 690,160" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 670,200 L 690,200" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <rect x="690" y="142" width="140" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="760" y="163.5" font-size="13" fill="#1f2933" text-anchor="middle">VectorRenderer</text>
+
+  <rect x="690" y="182" width="140" height="34" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="760" y="203.5" font-size="13" fill="#1f2933" text-anchor="middle">RasterRenderer</text>
+
+  <!-- Subtext Annotation -->
+  <rect x="450" y="300" width="380" height="32" fill="#ffffff" rx="4" stroke="#9aa5b1" stroke-dasharray="4 3"/>
+  <text x="640" y="320" font-size="13" fill="#52606d" text-anchor="middle">두 축이 서로를 모른 채 각자 늘어난다</text>
+</svg>

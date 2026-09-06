@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">안티패턴: 공유 데이터베이스</title>
+  <desc id="d">주문 서비스, 재고 서비스, 배송 서비스가 하나의 공유 DB에 연결되어 있는 안티패턴 구조를 나타냅니다.</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+  
+  <!-- Outer Context Area / Warning Background -->
+  <rect x="24" y="24" width="832" height="292" rx="12" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5" stroke-dasharray="6 4"/>
+  
+  <!-- Title Badge inside visual area -->
+  <rect x="44" y="44" width="310" height="32" rx="6" fill="#dc2626"/>
+  <text x="199" y="65" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">안티패턴 - 서비스는 나눴는데 DB는 하나</text>
+  
+  <!-- Left Side: Independent Services -->
+  <!-- 주문 서비스 -->
+  <g transform="translate(60, 104)">
+    <rect x="0" y="0" width="180" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="90" y="31" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">주문 서비스</text>
+  </g>
+  
+  <!-- 재고 서비스 -->
+  <g transform="translate(60, 174)">
+    <rect x="0" y="0" width="180" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="90" y="31" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">재고 서비스</text>
+  </g>
+  
+  <!-- 배송 서비스 -->
+  <g transform="translate(60, 244)">
+    <rect x="0" y="0" width="180" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="90" y="31" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">배송 서비스</text>
+  </g>
+  
+  <!-- Connection Lines & Arrow -->
+  <!-- Top line from 주문 서비스: (240, 129) -> (310, 129) -> (310, 199) -->
+  <path d="M 240 129 L 310 129 L 310 199" fill="none" stroke="#dc2626" stroke-width="2"/>
+  
+  <!-- Bottom line from 배송 서비스: (240, 269) -> (310, 269) -> (310, 199) -->
+  <path d="M 240 269 L 310 269 L 310 199" fill="none" stroke="#dc2626" stroke-width="2"/>
+  
+  <!-- Middle line from 재고 서비스: (240, 199) -> (310, 199) -->
+  <path d="M 240 199 L 310 199" fill="none" stroke="#dc2626" stroke-width="2"/>
+  
+  <!-- Combined main arrow to Shared DB: (310, 199) -> (450, 199) -->
+  <path d="M 310 199 L 450 199" fill="none" stroke="#dc2626" stroke-width="2.5" marker-end="url(#a-red)"/>
+  
+  <!-- Right Side: Shared Database -->
+  <g transform="translate(450, 149)">
+    <rect x="0" y="0" width="370" height="100" rx="10" fill="#ffffff" stroke="#dc2626" stroke-width="2.5"/>
+    <text x="185" y="58" font-size="18" font-weight="bold" fill="#dc2626" text-anchor="middle">하나의 공유 DB</text>
+  </g>
+</svg>

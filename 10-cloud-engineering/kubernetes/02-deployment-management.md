@@ -48,6 +48,11 @@ Pod를 YAML로 직접 정의해 배포할 수는 있다. 하지만 배포한 뒤
 
 ReplicaSet은 "이 템플릿의 Pod를 N개 유지하라"만 담당한다. 버전 개념이 없다. 그래서 Deployment는 **템플릿이 바뀔 때마다 새 ReplicaSet을 만든다.** 이전 ReplicaSet은 복제본 0개인 상태로 남겨 둔다.
 
+<!-- diagram:cloud-deployment-management-1 -->
+![왜 3계층인가](../../assets/diagrams/cloud-deployment-management-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
              ┌──────────────────────────────┐
              │        Deployment: web       │
@@ -69,6 +74,7 @@ ReplicaSet은 "이 템플릿의 Pod를 N개 유지하라"만 담당한다. 버�
                                 │ -k2p  │    │ -x8m  │    │ -q7d  │
                                 └───────┘    └───────┘    └───────┘
 ```
+-->
 
 롤백은 이 구조 덕분에 단순한 연산이 된다. **"현재 ReplicaSet의 replicas를 0으로 내리고, 이전 ReplicaSet을 3으로 올린다."** 이미지 태그를 기억할 필요도, 예전 YAML을 찾을 필요도 없다.
 
@@ -109,6 +115,11 @@ spec:
 
 `maxUnavailable: 0`으로 두면 용량이 절대 줄지 않지만, 노드 여유가 없으면 새 Pod가 Pending에 걸려 배포가 멈춘다. 반대로 `maxSurge: 0`으로 두면 추가 자원이 필요 없지만 배포 중 처리 용량이 줄어든다. 둘을 동시에 0으로 둘 수는 없다. 그러면 Pod를 만들 여유도 없애 버릴 여유도 없어 배포가 진행될 수 없으니 검증 단계에서 거부된다. 트래픽이 빠듯한 서비스라면 `maxSurge`를 열어 두는 편이 안전하다.
 
+<!-- diagram:cloud-deployment-management-2 -->
+![롤링 업데이트가 진행되는 순서](../../assets/diagrams/cloud-deployment-management-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 시간 →
 
@@ -122,6 +133,7 @@ t4  [v1][v1]    [v2][v2]
 ...
 t8          [v2][v2][v2][v2]    완료
 ```
+-->
 
 핵심은 **"새 Pod가 Ready가 되어야 다음 단계로 넘어간다"** 는 점이다. 그래서 readiness probe가 없으면 롤링 업데이트가 안전장치를 잃는다. 컨테이너가 뜨자마자 Ready로 간주되어, 실제로는 아직 초기화 중인 Pod에 트래픽이 들어간다. Probe 이야기는 [05-troubleshooting.md](./05-troubleshooting.md)에서 더 다룬다.
 
@@ -152,6 +164,11 @@ StatefulSet은 이 세 가지를 보장한다.
 
 ### 무엇이 달라지는가
 
+<!-- diagram:cloud-deployment-management-3 -->
+![무엇이 달라지는가](../../assets/diagrams/cloud-deployment-management-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────── StatefulSet: mysql (replicas: 3) ────────────────┐
 │                                                                  │
@@ -173,6 +190,7 @@ StatefulSet은 이 세 가지를 보장한다.
       mysql-0.mysql-headless.default.svc.cluster.local
       mysql-1.mysql-headless.default.svc.cluster.local
 ```
+-->
 
 **안정적 네트워크 ID.** StatefulSet은 `serviceName`으로 지정한 헤드리스 Service와 짝을 이뤄, Pod마다 고정된 DNS 이름을 만든다. 애플리케이션 설정에 `mysql-0.mysql-headless`라고 적어 두면 Pod가 몇 번을 재시작해도 그 이름은 그대로다.
 
@@ -385,6 +403,11 @@ spec:
 
 **HPA로 늘려도 노드가 없으면 소용없다.** 새 Pod가 Pending에 걸린다. 노드 자체를 늘리는 것은 Cluster Autoscaler(또는 Karpenter 같은 도구)의 역할이다. **Pod 오토스케일링과 노드 오토스케일링은 다른 층위**라는 점을 면접에서 자주 확인한다.
 
+<!-- diagram:cloud-deployment-management-4 -->
+![전제 조건과 함정](../../assets/diagrams/cloud-deployment-management-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 트래픽 증가
     ↓
@@ -398,6 +421,7 @@ HPA: replicas 4 → 8
                   ↓
             Pod 배치 완료
 ```
+-->
 
 CPU 말고 다른 축이 필요할 때도 있다. 큐 대기 길이나 초당 요청 수처럼 애플리케이션 지표로 스케일하려면 커스텀/외부 메트릭 어댑터를 붙이거나 KEDA 같은 프로젝트를 쓴다. Pod 개수가 아니라 컨테이너의 requests/limits 자체를 조정하는 VerticalPodAutoscaler도 있는데, HPA와 같은 자원을 동시에 건드리면 충돌하므로 함께 쓸 때는 대상 지표를 분리해야 한다.
 

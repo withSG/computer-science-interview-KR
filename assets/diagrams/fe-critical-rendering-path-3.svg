@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">async와 defer</title>
+  <desc id="d">기본, async, defer 스크립트의 파싱, 다운로드, 실행 타임라인 비교 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="440" fill="#ffffff"/>
+
+  <!-- 상단 타임라인 축 (파싱) -->
+  <text x="130" y="44" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">파싱</text>
+  <path d="M145,40 L810,40" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 범례 -->
+  <g transform="translate(145, 65)">
+    <rect x="0" y="0" width="16" height="16" rx="2" fill="#2563eb"/>
+    <text x="24" y="13" font-size="12" fill="#52606d">HTML 파싱</text>
+
+    <rect x="120" y="0" width="16" height="16" rx="2" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="144" y="13" font-size="12" fill="#52606d">다운로드</text>
+
+    <rect x="230" y="0" width="16" height="16" rx="2" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="254" y="13" font-size="12" fill="#52606d">실행</text>
+  </g>
+
+  <!-- 구분선 -->
+  <line x1="40" y1="95" x2="840" y2="95" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 1. 기본 -->
+  <g transform="translate(0, 110)">
+    <text x="110" y="32" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">기본</text>
+    
+    <!-- 파싱 1 -->
+    <rect x="145" y="15" width="100" height="26" rx="3" fill="#2563eb"/>
+    
+    <!-- [다운로드] -->
+    <rect x="250" y="15" width="90" height="26" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="295" y="32" font-size="12.5" font-weight="bold" fill="#d97706" text-anchor="middle">[다운로드]</text>
+    
+    <!-- [실행] -->
+    <rect x="345" y="15" width="65" height="26" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="377.5" y="32" font-size="12.5" font-weight="bold" fill="#dc2626" text-anchor="middle">[실행]</text>
+    
+    <!-- 파싱 2 -->
+    <rect x="415" y="15" width="380" height="26" rx="3" fill="#2563eb"/>
+
+    <!-- 주석 및 화살표 -->
+    <path d="M295,62 L295,46" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="235" y="63" width="120" height="20" fill="#ffffff"/>
+    <text x="295" y="77" font-size="12" fill="#dc2626" font-weight="bold" text-anchor="middle">↑ 파싱 완전 정지</text>
+  </g>
+
+  <!-- 2. async -->
+  <g transform="translate(0, 215)">
+    <text x="110" y="32" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">async</text>
+    
+    <!-- 파싱 1 -->
+    <rect x="145" y="15" width="310" height="26" rx="3" fill="#2563eb"/>
+    
+    <!-- 다운로드 (병행) - 아래 배치 -->
+    <rect x="145" y="46" width="310" height="22" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="300" y="61" font-size="11.5" fill="#d97706" text-anchor="middle">└[다운로드는 병행]┘</text>
+
+    <!-- [실행] -->
+    <rect x="460" y="15" width="65" height="26" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="492.5" y="32" font-size="12.5" font-weight="bold" fill="#dc2626" text-anchor="middle">[실행]</text>
+    
+    <!-- 파싱 2 -->
+    <rect x="530" y="15" width="265" height="26" rx="3" fill="#2563eb"/>
+
+    <!-- 주석 및 화살표 -->
+    <path d="M460,78 L460,46" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="400" y="79" width="350" height="20" fill="#ffffff"/>
+    <text x="460" y="93" font-size="12" fill="#52606d" text-anchor="start">↑ 준비되는 순간 끼어들어 파싱을 잠깐 멈춤</text>
+  </g>
+
+  <!-- 3. defer -->
+  <g transform="translate(0, 335)">
+    <text x="110" y="32" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">defer</text>
+    
+    <!-- 파싱 전체 -->
+    <rect x="145" y="15" width="510" height="26" rx="3" fill="#2563eb"/>
+    
+    <!-- 다운로드 (병행) - 아래 배치 -->
+    <rect x="145" y="46" width="510" height="22" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="400" y="61" font-size="11.5" fill="#d97706" text-anchor="middle">└[다운로드는 병행]────────┘</text>
+
+    <!-- [실행] -->
+    <rect x="660" y="15" width="65" height="26" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="692.5" y="32" font-size="12.5" font-weight="bold" fill="#dc2626" text-anchor="middle">[실행]</text>
+
+    <!-- 주석 및 화살표 -->
+    <path d="M660,78 L660,46" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="650" y="79" width="220" height="20" fill="#ffffff"/>
+    <text x="665" y="93" font-size="12" fill="#52606d" text-anchor="start">↑ 파싱 끝난 뒤, 작성 순서대로</text>
+  </g>
+</svg>

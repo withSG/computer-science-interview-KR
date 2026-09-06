@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">단순 LLM 호출 vs Agent</title>
+  <desc id="d">단순 LLM 호출과 AI Agent의 동작 구조 비교 다이어그램</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Section 1: 단순 LLM 호출 -->
+  <g id="section-simple-llm">
+    <rect x="30" y="25" width="820" height="120" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="50" y="55" font-size="16" font-weight="bold" fill="#1f2933">단순 LLM 호출:</text>
+
+    <!-- Node: 질문 -->
+    <rect x="70" y="70" width="100" height="42" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="120" y="96" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">질문</text>
+
+    <!-- Arrow 1 -->
+    <path d="M170,91 L250,91" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-gray)"/>
+
+    <!-- Node: LLM -->
+    <rect x="250" y="70" width="110" height="42" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="305" y="96" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">LLM</text>
+
+    <!-- Arrow 2 -->
+    <path d="M360,91 L440,91" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-gray)"/>
+
+    <!-- Node: 답변 -->
+    <rect x="440" y="70" width="100" height="42" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="490" y="96" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">답변</text>
+
+    <!-- Note -->
+    <text x="560" y="95" font-size="13" fill="#52606d">(1회성, 외부 상호작용 없음)</text>
+  </g>
+
+  <!-- Section 2: AI Agent -->
+  <g id="section-ai-agent">
+    <rect x="30" y="165" width="820" height="190" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" stroke-dasharray="none"/>
+    <text x="50" y="195" font-size="16" font-weight="bold" fill="#7c3aed">AI Agent:</text>
+
+    <!-- Node: 질문 -->
+    <rect x="70" y="215" width="100" height="42" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="120" y="241" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">질문</text>
+
+    <!-- Arrow 1 -->
+    <path d="M170,236 L210,236" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- Loop Group Outer Area -->
+    <rect x="210" y="200" width="370" height="100" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- Inside Loop: 추론 -->
+    <rect x="225" y="230" width="90" height="40" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="270" y="255" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">추론</text>
+
+    <!-- Loop Arrow 1 -->
+    <path d="M315,250 L340,250" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- Inside Loop: 도구 호출 -->
+    <rect x="340" y="230" width="105" height="40" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="392.5" y="255" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">도구 호출</text>
+
+    <!-- Loop Arrow 2 -->
+    <path d="M445,250 L470,250" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- Inside Loop: 결과 관찰 -->
+    <rect x="470" y="230" width="95" height="40" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="517.5" y="255" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">결과 관찰</text>
+
+    <!-- Loop Back Arrow -->
+    <path d="M517.5,230 C 517.5,210 270,210 270,230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <!-- Loop Label (반복) -->
+    <rect x="585" y="227" width="36" height="18" fill="#eff6ff"/>
+    <text x="585" y="240" font-size="13" font-weight="bold" fill="#2563eb">반복</text>
+
+    <!-- Arrow 2 -->
+    <path d="M580,236 L640,236" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+    <!-- Node: 답변 -->
+    <rect x="640" y="215" width="100" height="42" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="690" y="241" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">답변</text>
+
+    <!-- Note -->
+    <text x="395" y="325" font-size="13" fill="#7c3aed" text-anchor="middle">(목표 달성까지 루프)</text>
+  </g>
+</svg>

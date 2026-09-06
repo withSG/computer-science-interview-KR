@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동작 원리 — 스택 프레임</title>
+  <desc id="d">c 함수 실행 시점의 스택 프레임 메모리 구조와 스택 포인터 위치를 보여주는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="620" fill="#ffffff"/>
+
+  <!-- Document Header / Title -->
+  <text x="40" y="45.6" font-size="16" font-weight="bold" fill="#1f2933">동작 원리 — 스택 프레임</text>
+
+  <!-- Code Context Box -->
+  <rect x="40" y="65" width="800" height="85" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="60" y="91.2" font-size="12" font-family="monospace" fill="#1f2933">int a(int x) { return b(x) + 1; }</text>
+  <text x="60" y="111.2" font-size="12" font-family="monospace" fill="#1f2933">int b(int y) { return c(y) * 2; }</text>
+  <text x="60" y="131.2" font-size="12" font-family="monospace" fill="#1f2933">int c(int z) { return z;        }</text>
+
+  <!-- Subtitle / Context Label -->
+  <rect x="40" y="165" width="800" height="32" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="52" y="185.55" font-size="13" font-weight="bold" fill="#1e40af">a(5) 호출 중 c 실행 시점의 Stack</text>
+
+  <!-- High Address Label -->
+  <text x="180" y="222.2" font-size="12" font-weight="bold" fill="#52606d">높은 주소</text>
+
+  <!-- Stack Box Group -->
+  <!-- Stack Container Border -->
+  <rect x="180" y="235" width="380" height="280" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Frame 1: main 프레임 -->
+  <rect x="181" y="236" width="378" height="68" fill="#f8fafc" rx="3"/>
+  <line x1="180" y1="305" x2="560" y2="305" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="200" y="260.55" font-size="13" font-weight="bold" fill="#1f2933">main 프레임</text>
+  <text x="200" y="284.2" font-size="12" fill="#52606d">- 지역변수, 리턴주소</text>
+
+  <!-- Frame 2: a 프레임 -->
+  <rect x="181" y="306" width="378" height="68" fill="#f8fafc"/>
+  <line x1="180" y1="375" x2="560" y2="375" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="200" y="330.55" font-size="13" font-weight="bold" fill="#1f2933">a 프레임   (x=5)</text>
+  <text x="200" y="354.2" font-size="12" fill="#52606d">- 리턴주소 → main</text>
+
+  <!-- Frame 3: b 프레임 -->
+  <rect x="181" y="376" width="378" height="68" fill="#f8fafc"/>
+  <line x1="180" y1="445" x2="560" y2="445" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="200" y="400.55" font-size="13" font-weight="bold" fill="#1f2933">b 프레임   (y=5)</text>
+  <text x="200" y="424.2" font-size="12" fill="#52606d">- 리턴주소 → a</text>
+
+  <!-- Frame 4: c 프레임 (Active / Highlights) -->
+  <rect x="181" y="446" width="378" height="68" fill="#eff6ff" rx="3"/>
+  <text x="200" y="470.55" font-size="13" font-weight="bold" fill="#1e40af">c 프레임   (z=5)</text>
+
+  <!-- SP Pointer Arrow & Label -->
+  <path d="M 620,480 L 568,480" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="625" y="468" width="32" height="24" rx="3" fill="#2563eb"/>
+  <text x="641" y="484.2" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SP</text>
+  <text x="668" y="484.2" font-size="12" fill="#1e40af" font-weight="bold">스택 포인터가 여기를 가리킴</text>
+
+  <!-- Low Address Label & Growth Direction Indicator -->
+  <text x="180" y="537.2" font-size="12" font-weight="bold" fill="#52606d">낮은 주소</text>
+  <text x="240" y="537.2" font-size="12" fill="#52606d">(아래로 자란다)</text>
+  <path d="M 160,240 L 160,510" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#a-muted)"/>
+
+  <!-- Bottom Note Box -->
+  <rect x="40" y="555" width="800" height="36" rx="4" fill="#fffbeb" stroke="#fef3c7" stroke-width="1"/>
+  <text x="56" y="577.2" font-size="12" fill="#d97706" font-weight="bold">c가 리턴하면 SP를 b 프레임 끝으로 되돌린다. 그게 전부다.</text>
+</svg>

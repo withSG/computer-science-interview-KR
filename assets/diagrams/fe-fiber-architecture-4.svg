@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">커밋은 다시 세 조각으로 나뉜다</title>
+  <desc id="d">React fiber architecture의 commit 단계 sub-phases(mutation 이전, mutation, layout), 브라우저 페인트, useEffect 실행 과정을 나타낸 다이어그램</desc>
+  
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="620" fill="#ffffff"/>
+
+  <!-- Title Section Header -->
+  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">커밋은 다시 세 조각으로 나뉜다</text>
+
+  <!-- Main Container: commit phase -->
+  <rect x="40" y="65" width="800" height="345" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="40" y="65" width="800" height="40" rx="8" fill="#dbeafe"/>
+  <!-- Sub-rect to sharpen bottom corners of header background -->
+  <rect x="40" y="95" width="800" height="10" fill="#dbeafe"/>
+  <text x="60" y="90" font-size="14" font-weight="bold" fill="#1e40af">commit 단계 (전 구간 동기, 중단 불가)</text>
+
+  <!-- Tree Structure Lines inside commit phase -->
+  <!-- Main vertical branch -->
+  <path d="M 80 105 L 80 345" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  
+  <!-- Branch 1: mutation 이전 -->
+  <path d="M 80 145 L 105 145" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <!-- Branch 2: mutation -->
+  <path d="M 80 235 L 105 235" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <!-- Branch 3: layout -->
+  <path d="M 80 345 L 105 345" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+
+  <!-- Node 1: mutation 이전 -->
+  <rect x="105" y="115" width="715" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="125" y="141" font-size="13" font-weight="bold" fill="#1f2933">mutation 이전</text>
+  <text x="220" y="141" font-size="13" fill="#52606d">: 변경 직전의 DOM 상태를 읽는다</text>
+  <text x="125" y="161" font-size="11.5" fill="#52606d">(예: 스크롤 위치 저장)</text>
+
+  <!-- Node 2: mutation -->
+  <rect x="105" y="200" width="715" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="125" y="228" font-size="13" font-weight="bold" fill="#1f2933">mutation</text>
+  <text x="190" y="228" font-size="13" fill="#52606d">: 실제 DOM 삽입·수정·삭제</text>
+  <text x="125" y="251" font-size="11.5" fill="#52606d">이전 레이아웃 effect의 cleanup도 여기서 실행</text>
+
+  <!-- Node 3: layout -->
+  <rect x="105" y="305" width="715" height="80" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="125" y="333" font-size="13" font-weight="bold" fill="#1f2933">layout</text>
+  <text x="170" y="333" font-size="13" fill="#52606d">: DOM은 바뀌었지만 아직 화면에 안 그려진 시점</text>
+  <text x="125" y="362" font-size="11.5" fill="#52606d">useLayoutEffect, ref 연결이 여기서 실행</text>
+
+  <!-- Arrow 1: commit -> Browser Paint -->
+  <path d="M 440 410 L 440 448" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step: Browser Paint -->
+  <rect x="40" y="455" width="800" height="45" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="482" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">브라우저 페인트 (사용자가 처음 보는 시점)</text>
+
+  <!-- Arrow 2: Browser Paint -> useEffect -->
+  <path d="M 440 500 L 440 538" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step: useEffect -->
+  <rect x="40" y="545" width="800" height="45" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="572" font-size="14" font-weight="bold" fill="#6d28d9" text-anchor="middle">useEffect (비동기로 이후에 실행)</text>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">데드락 예시</title>
+  <desc id="d">Thread 1이 Lock B를 대기하고, Lock B는 Thread 2가 보유하며, Thread 2는 Lock A를 대기하고, Lock A는 Thread 1이 보유하는 순환 대기 상황을 나타내는 데드락 다이어그램입니다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 상단 원본 설명 텍스트 -->
+  <text x="440" y="45" font-size="14" fill="#52606d" text-anchor="middle">Thread 1: Lock A 획득 → Lock B 대기</text>
+  <text x="440" y="70" font-size="14" fill="#52606d" text-anchor="middle">Thread 2: Lock B 획득 → Lock A 대기</text>
+
+  <!-- 
+    박스 좌표 세팅 (Center-based logic for clean symmetric layout)
+    Center-X: Left = 260, Right = 620
+    Center-Y: Top = 180, Bottom = 380
+    Box Width: 200, Box Height: 80
+  -->
+
+  <!-- Top Left: Thread 1 -->
+  <rect x="160" y="140" width="200" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="260" y="172" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Thread 1</text>
+  <text x="260" y="197" font-size="13" fill="#52606d" text-anchor="middle">(A 보유)</text>
+
+  <!-- Top Right: Lock B -->
+  <rect x="520" y="140" width="200" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="620" y="172" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Lock B</text>
+  <text x="620" y="197" font-size="13" fill="#52606d" text-anchor="middle">(T2 보유)</text>
+
+  <!-- Bottom Left: Lock A -->
+  <rect x="160" y="340" width="200" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="260" y="372" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Lock A</text>
+  <text x="260" y="397" font-size="13" fill="#52606d" text-anchor="middle">(T1 보유)</text>
+
+  <!-- Bottom Right: Thread 2 -->
+  <rect x="520" y="340" width="200" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="620" y="372" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Thread 2</text>
+  <text x="620" y="397" font-size="13" fill="#52606d" text-anchor="middle">(B 보유)</text>
+
+  <!-- 순환 대기 화살표 (Circular Wait Arrows) -->
+
+  <!-- 1. Thread 1 -> Lock B (Top horizontal arrow: (360, 180) -> (520, 180)) -->
+  <path d="M360,180 L520,180" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 2. Lock B -> Thread 2 (Right vertical arrow: (620, 220) -> (620, 340)) -->
+  <path d="M620,220 L620,340" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 3. Thread 2 -> Lock A (Bottom horizontal arrow: (520, 380) -> (360, 380)) -->
+  <path d="M520,380 L360,380" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 4. Lock A -> Thread 1 (Left vertical arrow: (260, 340) -> (260, 220)) -->
+  <path d="M260,340 L260,220" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+</svg>

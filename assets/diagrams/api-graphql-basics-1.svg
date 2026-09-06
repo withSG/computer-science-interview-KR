@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">화면 하나에 요청 세 번</title>
+  <desc id="d">REST API에서 사용자 정보를 조회하기 위해 세 번의 HTTP GET 요청과 응답이 발생하는 과정을 보여주는 다이어그램입니다.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Row 1: GET /users/1 -->
+  <!-- Box 1a: Request -->
+  <rect x="30" y="30" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="110" y="55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">GET /users/1</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 190 50 L 222 50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Box 1b: Response Data -->
+  <rect x="230" y="20" width="370" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="245" y="45" font-size="13" fill="#1f2933">→ { id, name, email, phone, address, bio, profileImage,</text>
+  <text x="261" y="65" font-size="13" fill="#1f2933">createdAt, updatedAt, lastLoginAt, ... }</text>
+
+  <!-- Arrow 1 Notice -->
+  <path d="M 610 50 L 632 50" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Annotation 1 -->
+  <rect x="640" y="30" width="210" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="745" y="55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">이름만 필요한데 전부 옴</text>
+
+
+  <!-- Row 2: GET /users/1/posts -->
+  <!-- Box 2a: Request -->
+  <rect x="30" y="130" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="110" y="155" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">GET /users/1/posts</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 190 150 L 222 150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Box 2b: Response Data -->
+  <rect x="230" y="130" width="370" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="245" y="155" font-size="13" fill="#1f2933">→ [{ id, title, content, imageUrls, likeCount, ... }]</text>
+
+  <!-- Arrow 2 Notice -->
+  <path d="M 610 150 L 632 150" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Annotation 2 -->
+  <rect x="640" y="130" width="210" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="745" y="155" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">제목만 필요한데 본문까지</text>
+
+
+  <!-- Row 3: GET /users/1/followers -->
+  <!-- Box 3a: Request -->
+  <rect x="30" y="210" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="110" y="235" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">GET /users/1/followers</text>
+
+  <!-- Arrow 3 -->
+  <path d="M 190 230 L 222 230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Box 3b: Response Data -->
+  <rect x="230" y="210" width="370" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="245" y="235" font-size="13" fill="#1f2933">→ [{ id, name, email, ... }]</text>
+
+
+  <!-- Separator Line -->
+  <line x1="30" y1="290" x2="850" y2="290" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Summary Footer -->
+  <rect x="340" y="315" width="200" height="45" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="343" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">총 3번의 왕복</text>
+</svg>

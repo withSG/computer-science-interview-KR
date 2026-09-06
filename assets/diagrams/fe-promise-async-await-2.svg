@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">에러는 아래로 흐른다</title>
+  <desc id="d">Promise 체인에서 에러가 발생했을 때 then 단계를 건너뛰고 catch에서 처리된 후 다시 then으로 복귀하는 과정을 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <defs>
+    <!-- Normal Arrow Marker (Blue) -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <!-- Skipped/Dashed Arrow Marker (Gray) -->
+    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/>
+    </marker>
+    <!-- Error Arrow Marker (Red) -->
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">에러는 아래로 흐른다</text>
+
+  <!-- Main Chain Flow -->
+
+  <!-- 1. getUser() -->
+  <rect x="230" y="80" width="150" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="305" y="104" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">getUser()</text>
+
+  <!-- Error Marker Next to getUser() -->
+  <path d="M380,100 L400,100" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="408" y="104" font-size="13" font-weight="bold" fill="#dc2626">✕ 실패</text>
+
+  <!-- Flow 1 -> 2 -->
+  <path d="M305,120 L305,160" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 2. .then(A) -->
+  <rect x="230" y="160" width="150" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="305" y="184" font-size="13" fill="#52606d" text-anchor="middle">.then(A)</text>
+
+  <!-- Note for .then(A) -->
+  <text x="395" y="184" font-size="12" fill="#52606d">← 건너뜀 (거부 상태는 이행 핸들러를 실행하지 않는다)</text>
+
+  <!-- Flow 2 -> 3 -->
+  <path d="M305,200 L305,240" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-gray)"/>
+
+  <!-- 3. .then(B) -->
+  <rect x="230" y="240" width="150" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <text x="305" y="264" font-size="13" fill="#52606d" text-anchor="middle">.then(B)</text>
+
+  <!-- Note for .then(B) -->
+  <text x="395" y="264" font-size="12" fill="#52606d">← 건너뜀</text>
+
+  <!-- Flow 3 -> 4 -->
+  <path d="M305,280 L305,320" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 4. .catch(H) -->
+  <rect x="230" y="320" width="150" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="305" y="344" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">.catch(H)</text>
+
+  <!-- Note for .catch(H) -->
+  <text x="395" y="344" font-size="12" fill="#d97706" font-weight="bold">← 여기서 처리</text>
+
+  <!-- Flow 4 -> 5 -->
+  <path d="M305,360 L305,400" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 5. .then(C) -->
+  <rect x="230" y="400" width="150" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="305" y="424" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">.then(C)</text>
+
+  <!-- Note for .then(C) -->
+  <text x="395" y="424" font-size="12" fill="#2563eb">← 실행됨 (catch가 값을 반환했으면 이행 상태로 복귀)</text>
+
+  <!-- Legend / Footnote Box -->
+  <rect x="40" y="470" width="800" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <circle cx="60" cy="490" r="5" fill="#dc2626"/>
+  <text x="72" y="494" font-size="11.5" fill="#52606d">에러(거부) 상태 흐름</text>
+  <circle cx="210" cy="490" r="5" fill="#9aa5b1"/>
+  <text x="222" y="494" font-size="11.5" fill="#52606d">건너뜀 (실행 안 됨)</text>
+  <circle cx="360" cy="490" r="5" fill="#059669"/>
+  <text x="372" y="494" font-size="11.5" fill="#52606d">정상(이행) 상태 복귀</text>
+</svg>

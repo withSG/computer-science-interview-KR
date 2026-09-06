@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">훅은 fiber에 붙은 링크드 리스트에 저장된다</title>
+  <desc id="d">fiber 노드의 memoizedState 필드가 첫 번째 훅 객체를 가리키고, 각 훅 객체들이 next 포인터로 연결된 링크드 리스트 구조</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Fiber Group/Box -->
+  <g id="fiber-node">
+    <rect x="240" y="30" width="300" height="110" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="390" y="55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">fiber (Counter 컴포넌트)</text>
+    <line x1="240" y1="68" x2="540" y2="68" stroke="#cbd2d9" stroke-width="1"/>
+    
+    <text x="260" y="93" font-size="13" fill="#1f2933">type: Counter</text>
+    <text x="260" y="121" font-size="13" fill="#1f2933">memoizedState:</text>
+  </g>
+
+  <!-- Fiber to Hook #0 Arrow -->
+  <path d="M380,117 L490,117 L490,170 L110,170 L110,190" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+
+  <!-- Hook #0 -->
+  <g id="hook-0">
+    <rect x="24" y="200" width="220" height="110" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="40" y="225" font-size="13" font-weight="bold" fill="#1f2933">Hook #0</text>
+    <text x="40" y="250" font-size="13" fill="#52606d">useState</text>
+    <text x="40" y="285" font-size="13" fill="#1f2933">state: 1</text>
+  </g>
+
+  <!-- Arrow: Hook #0 -> Hook #1 -->
+  <path d="M244,255 L300,255" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <rect x="254" y="235" width="36" height="18" fill="#ffffff"/>
+  <text x="272" y="248" font-size="11.5" fill="#52606d" text-anchor="middle">next</text>
+
+  <!-- Hook #1 -->
+  <g id="hook-1">
+    <rect x="310" y="200" width="220" height="110" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="326" y="225" font-size="13" font-weight="bold" fill="#1f2933">Hook #1</text>
+    <text x="326" y="250" font-size="13" fill="#52606d">useRef</text>
+    <text x="326" y="285" font-size="13" fill="#1f2933">current: dom</text>
+  </g>
+
+  <!-- Arrow: Hook #1 -> Hook #2 -->
+  <path d="M530,255 L586,255" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <rect x="540" y="235" width="36" height="18" fill="#ffffff"/>
+  <text x="558" y="248" font-size="11.5" fill="#52606d" text-anchor="middle">next</text>
+
+  <!-- Hook #2 -->
+  <g id="hook-2">
+    <rect x="596" y="200" width="220" height="110" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="612" y="225" font-size="13" font-weight="bold" fill="#1f2933">Hook #2</text>
+    <text x="612" y="250" font-size="13" fill="#52606d">useEffect</text>
+    <text x="612" y="285" font-size="13" fill="#1f2933">deps: [1]</text>
+  </g>
+
+  <!-- Arrow: Hook #2 -> null -->
+  <path d="M816,255 L836,255" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <text x="846" y="259" font-size="13" fill="#52606d">null</text>
+</svg>

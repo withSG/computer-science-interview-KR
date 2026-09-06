@@ -247,6 +247,11 @@ MVC는 애플리케이션을 **Model, View, Controller** 세 부분으로 분리
 | Controller | 요청 처리, 흐름 제어 | @Controller |
 
 ### 동작 흐름
+<!-- diagram:dp-qna-design-patterns-1 -->
+![동작 흐름](../assets/diagrams/dp-qna-design-patterns-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 사용자 요청
        ↓
@@ -260,6 +265,7 @@ MVC는 애플리케이션을 **Model, View, Controller** 세 부분으로 분리
        ↓
 6. 사용자 응답
 ```
+-->
 
 ### Spring MVC 예시
 ```java
@@ -425,6 +431,11 @@ User user = User.builder()
 
 ### 구조
 
+<!-- diagram:dp-qna-design-patterns-2 -->
+![구조](../assets/diagrams/dp-qna-design-patterns-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 클라이언트
     │
@@ -439,6 +450,7 @@ User user = User.builder()
 │ A │ │ B │ │ C │  ← 복잡한 서브시스템
 └───┘ └───┘ └───┘
 ```
+-->
 
 ### 예시: 주문 처리
 
@@ -502,6 +514,11 @@ orderFacade.placeOrder(order);  // 한 줄로 끝
 
 ### 문제 상황
 
+<!-- diagram:dp-qna-design-patterns-3 -->
+![문제 상황](../assets/diagrams/dp-qna-design-patterns-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Shape
 ├── RedCircle
@@ -510,15 +527,22 @@ Shape
 ├── BlueSquare
 └── ... (조합 폭발!)
 ```
+-->
 
 ### 브릿지 패턴 적용
 
+<!-- diagram:dp-qna-design-patterns-4 -->
+![브릿지 패턴 적용](../assets/diagrams/dp-qna-design-patterns-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Shape (추상화)           Color (구현)
 ├── Circle    ─────────►  ├── Red
 ├── Square                └── Blue
 └── Triangle
 ```
+-->
 
 ### 구현 예시
 

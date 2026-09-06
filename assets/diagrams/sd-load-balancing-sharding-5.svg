@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">리샤딩 문제</title>
+  <desc id="d">샤드 수가 3개에서 4개로 늘어날 때 키 배정이 변경되어 데이터 이동이 발생하는 리샤딩 문제를 설명하는 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 메인 박스 (다이어그램 영역) -->
+  <rect x="24" y="24" width="832" height="292" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- 첫 번째 케이스: 샤드 3개일 때 -->
+  <g stroke="#9aa5b1" stroke-width="1.5" fill="#ffffff">
+    <!-- 라벨: 샤드 3개일 때: -->
+    <text x="50" y="60.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="start">샤드 3개일 때:</text>
+    
+    <!-- key=100 -->
+    <rect x="170" y="40" width="90" height="30" rx="4" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="215" y="59.55" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">key=100</text>
+
+    <!-- 화살표 1 -->
+    <path d="M260,55 L300,55" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- hash(100) % 3 = 1 -->
+    <rect x="300" y="40" width="165" height="30" rx="4"/>
+    <text x="382.5" y="59.55" fill="#1f2933" font-size="13" text-anchor="middle">hash(100) % 3 = 1</text>
+
+    <!-- 화살표 2 -->
+    <path d="M465,55 L505,55" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- 샤드1 -->
+    <rect x="505" y="40" width="80" height="30" rx="4" fill="#ecfdf5" stroke="#059669"/>
+    <text x="545" y="59.55" fill="#059669" font-size="13" font-weight="bold" text-anchor="middle">샤드1</text>
+  </g>
+
+  <!-- 두 번째 케이스: 샤드 4개로: -->
+  <g stroke="#9aa5b1" stroke-width="1.5" fill="#ffffff">
+    <!-- 라벨: 샤드 4개로: -->
+    <text x="50" y="115.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="start">샤드 4개로:</text>
+    
+    <!-- key=100 -->
+    <rect x="170" y="95" width="90" height="30" rx="4" fill="#eff6ff" stroke="#2563eb"/>
+    <text x="215" y="114.55" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">key=100</text>
+
+    <!-- 화살표 1 -->
+    <path d="M260,110 L300,110" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- hash(100) % 4 = 0 -->
+    <rect x="300" y="95" width="165" height="30" rx="4"/>
+    <text x="382.5" y="114.55" fill="#1f2933" font-size="13" text-anchor="middle">hash(100) % 4 = 0</text>
+
+    <!-- 화살표 2 -->
+    <path d="M465,110 L505,110" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+    <!-- 샤드0 -->
+    <rect x="505" y="95" width="80" height="30" rx="4" fill="#fef2f2" stroke="#dc2626"/>
+    <text x="545" y="114.55" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">샤드0</text>
+
+    <!-- (이사해야 함) -->
+    <text x="605" y="114.55" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="start">(이사해야 함)</text>
+  </g>
+
+  <!-- 경고/설명 영역 -->
+  <rect x="50" y="155" width="780" height="135" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  
+  <text x="70" y="200.55" fill="#dc2626" font-size="14" font-weight="bold" text-anchor="start">
+    샤드 수가 3→4로 바뀌면 전체 키의 약 75%가 자리를 옮긴다.
+  </text>
+  
+  <text x="70" y="240.55" fill="#1f2933" font-size="14" text-anchor="start">
+    데이터가 수 테라바이트라면 이 작업 중에 서비스를 어떻게 할 것인가?
+  </text>
+</svg>

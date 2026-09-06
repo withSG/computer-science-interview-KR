@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">3. DI: 컨테이너는 실제로 무엇을 하나</title>
+  <desc id="d">Spring DI 컨테이너가 애플리케이션 시작 시 수행하는 6단계 라이프사이클 절차 (스캔, 등록, 순서 결정, 생성 및 주입, 초기화, 보관)</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="770" fill="#ffffff"/>
+
+  <!-- 전체 외곽 바운딩 영역 (원본 ASCII의 가장자리 ┌┐└┘ 틀 구현) -->
+  <rect x="40" y="30" width="800" height="710" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- Step 1: 스캔 -->
+  <g transform="translate(70, 50)">
+    <rect x="0" y="0" width="740" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="30" y="35" font-size="16" font-weight="bold" fill="#2563eb">1. 스캔</text>
+    <text x="130" y="35" font-size="14" fill="#1f2933">@Component/@Service/@Repository 붙은</text>
+    <text x="130" y="59" font-size="14" fill="#1f2933">클래스와 @Bean 메서드를 전부 찾는다</text>
+  </g>
+
+  <!-- 화살표 1 -> 2 -->
+  <path d="M440,130 L440,152" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 2: 등록 -->
+  <g transform="translate(70, 160)">
+    <rect x="0" y="0" width="740" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="30" y="35" font-size="16" font-weight="bold" fill="#2563eb">2. 등록</text>
+    <text x="130" y="35" font-size="14" fill="#1f2933">찾은 것들을 BeanDefinition(설계도)으로</text>
+    <text x="130" y="59" font-size="14" fill="#1f2933">변환해 컨테이너에 저장</text>
+  </g>
+
+  <!-- 화살표 2 -> 3 -->
+  <path d="M440,240 L440,262" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-amber)"/>
+
+  <!-- Step 3: 순서 결정 (핵심 단계 강조) -->
+  <g transform="translate(70, 270)">
+    <rect x="0" y="0" width="740" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+    <text x="30" y="35" font-size="16" font-weight="bold" fill="#d97706">3. 순서 결정</text>
+    <text x="150" y="35" font-size="14" fill="#1f2933">의존 그래프를 보고 무엇부터 만들지 정한다</text>
+    <text x="150" y="59" font-size="14" font-weight="bold" fill="#d97706">PaymentService → OrderService 순</text>
+  </g>
+
+  <!-- 화살표 3 -> 4 -->
+  <path d="M440,350 L440,372" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 4: 생성 + 주입 -->
+  <g transform="translate(70, 380)">
+    <rect x="0" y="0" width="740" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="30" y="35" font-size="16" font-weight="bold" fill="#2563eb">4. 생성 + 주입</text>
+    <text x="170" y="35" font-size="14" fill="#1f2933">설계도대로 인스턴스를 만들고,</text>
+    <text x="170" y="59" font-size="14" fill="#1f2933">생성자/필드에 다른 Bean을 꽂아 넣는다</text>
+  </g>
+
+  <!-- 화살표 4 -> 5 -->
+  <path d="M440,460 L440,482" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5: 초기화 -->
+  <g transform="translate(70, 490)">
+    <rect x="0" y="0" width="740" height="80" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="30" y="46" font-size="16" font-weight="bold" fill="#1f2933">5. 초기화</text>
+    <text x="130" y="46" font-size="14" fill="#1f2933">@PostConstruct 등 초기화 콜백 실행</text>
+  </g>
+
+  <!-- 화살표 5 -> 6 -->
+  <path d="M440,570 L440,592" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 6: 보관 -->
+  <g transform="translate(70, 600)">
+    <rect x="0" y="0" width="740" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="30" y="46" font-size="16" font-weight="bold" fill="#059669">6. 보관</text>
+    <text x="130" y="46" font-size="14" fill="#1f2933">싱글톤 레지스트리에 담아두고 요청 시 제공</text>
+  </g>
+</svg>

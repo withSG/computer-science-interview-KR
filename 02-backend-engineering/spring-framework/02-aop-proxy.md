@@ -110,6 +110,11 @@ Spring AOP가 런타임 위빙을 택한 이유는 **별도 컴파일러나 JVM 
 
 ### 컨테이너에 등록되는 것은 원본이 아니다
 
+<!-- diagram:be-aop-proxy-1 -->
+![컨테이너에 등록되는 것은 원본이 아니다](../../assets/diagrams/be-aop-proxy-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [AOP 적용 전]  컨테이너 ──> OrderService (원본)  <── 주입받는 쪽
 
@@ -118,11 +123,17 @@ Spring AOP가 런타임 위빙을 택한 이유는 **별도 컴파일러나 JVM 
                                   ▼
                             OrderService (원본, target)
 ```
+-->
 
 핵심은 이것이다. **`@Autowired`로 주입받는 객체는 원본이 아니라 프록시다.** 개발자가 눈치채지 못하는 이유는 프록시가 원본과 같은 타입이라 구분이 안 되기 때문이다.
 
 ### 호출 한 번의 전체 경로
 
+<!-- diagram:be-aop-proxy-2 -->
+![호출 한 번의 전체 경로](../../assets/diagrams/be-aop-proxy-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Controller
     │ orderService.order(...)   ← 실제로는 프록시의 메서드
@@ -145,6 +156,7 @@ Controller
     ▼ 결과 반환
 Controller
 ```
+-->
 
 ### 코드로 보기
 
@@ -207,6 +219,11 @@ public Object advice(ProceedingJoinPoint pjp) throws Throwable { ... }
 
 프록시를 만드는 방법은 두 가지다. 둘의 차이는 "원본과 같은 타입"을 어떻게 만족시키느냐에서 갈린다.
 
+<!-- diagram:be-aop-proxy-3 -->
+![4. JDK 동적 프록시 vs CGLIB](../../assets/diagrams/be-aop-proxy-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [JDK 동적 프록시 - 인터페이스 구현]
 
@@ -224,6 +241,7 @@ public Object advice(ProceedingJoinPoint pjp) throws Throwable { ... }
    KakaoPayService$$SpringCGLIB$$0
           (프록시, 오버라이드 가능한 메서드를 전부 재정의)
 ```
+-->
 
 생성되는 클래스 이름은 Spring 5.3을 기준으로 바뀌었다. 그 이전에는 `KakaoPayService$$EnhancerBySpringCGLIB$$...` 형태였고, 지금은 `$$SpringCGLIB$$`가 들어간다. 스택 트레이스에서 둘 중 어느 이름이 보이든 CGLIB 프록시라는 뜻이다.
 
@@ -307,6 +325,11 @@ public class OrderService {
 
 **왜 문제인가**: 앞에서 봤듯 부가 기능은 프록시에 있고, 원본 객체에는 없다. `createOrder`가 실행되는 시점에 이미 프록시를 통과해 **원본 객체 안**에 들어와 있으므로, 거기서 부르는 `this.processPayment()`는 원본의 메서드를 직접 호출한다. 프록시를 다시 거치지 않으니 `@Transactional`이 개입할 틈이 없다.
 
+<!-- diagram:be-aop-proxy-4 -->
+![무엇이 문제인가](../../assets/diagrams/be-aop-proxy-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 정상 경로                              self-invocation
 ─────────                              ───────────────
@@ -321,6 +344,7 @@ Controller                             Controller
                                           ▼
                                        [원본] processPayment()  ← 프록시를 안 거침
 ```
+-->
 
 컴파일 에러도, 런타임 예외도, 경고 로그도 없다. **아무 일도 일어나지 않는 것**이 이 버그의 가장 무서운 점이다.
 

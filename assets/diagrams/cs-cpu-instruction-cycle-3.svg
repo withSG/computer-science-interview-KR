@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">코드로 보기 - JUMP 명령어 실행 흐름</title>
+  <desc id="d">JUMP 300 명령어의 Fetch, Decode, Execute 단계별 PC와 IR 변동 과정을 나타낸 다이어그램</desc>
+
+  <defs>
+    <!-- 화살표 마커: 기본(잉크) -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <!-- 화살표 마커: 주황(변경/덮어쓰기) -->
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <!-- 화살표 마커: 파랑(이동/시작) -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 전체 배경 -->
+  <rect width="880" height="380" fill="#ffffff"/>
+
+  <!-- 메인 콘테이너 박스 -->
+  <rect x="24" y="24" width="832" height="332" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- ① Fetch 단계 카드 -->
+  <rect x="44" y="44" width="792" height="72" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="54" y="54" width="100" height="28" rx="4" fill="#2563eb"/>
+  <text x="104" y="72.05" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">① Fetch</text>
+
+  <!-- Fetch 내용 -->
+  <text x="174" y="72.05" fill="#1f2933" font-size="13" font-weight="bold" font-family="monospace, sans-serif">IR  ← MEM[100] (= JUMP 300)</text>
+  <text x="174" y="98.05" fill="#1f2933" font-size="13" font-weight="bold" font-family="monospace, sans-serif">PC  ← 104</text>
+  
+  <!-- Fetch 주석 (습관적 +4) -->
+  <path d="M 330 94 L 370 94" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="376" y="82" width="220" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="384" y="98.05" fill="#52606d" font-size="11.5">일단 습관적으로 +4 해둔다</text>
+
+
+  <!-- ② Decode 단계 카드 -->
+  <rect x="44" y="128" width="792" height="52" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <rect x="54" y="140" width="100" height="28" rx="4" fill="#52606d"/>
+  <text x="104" y="158.05" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">② Decode</text>
+
+  <!-- Decode 내용 -->
+  <text x="174" y="158.05" fill="#1f2933" font-size="13">"분기 명령어이고 목적지는 300"</text>
+
+
+  <!-- ③ Execute 단계 카드 -->
+  <rect x="44" y="192" width="792" height="72" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="54" y="202" width="100" height="28" rx="4" fill="#d97706"/>
+  <text x="104" y="220.05" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">③ Execute</text>
+
+  <!-- Execute 내용 -->
+  <text x="174" y="220.05" fill="#1f2933" font-size="13" font-weight="bold" font-family="monospace, sans-serif">PC  ← 300</text>
+  
+  <!-- Execute 주석 (104 덮어쓰기) -->
+  <path d="M 330 216 L 370 216" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="376" y="204" width="220" height="24" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="384" y="220.05" fill="#d97706" font-size="11.5" font-weight="bold">방금 넣은 104를 덮어쓴다</text>
+
+
+  <!-- 하단 결과 알림 상자 -->
+  <rect x="44" y="280" width="792" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <path d="M 64 308 L 94 308" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <text x="108" y="312.05" fill="#059669" font-size="14" font-weight="bold">다음 사이클의 Fetch는 300번지에서 시작한다.</text>
+
+</svg>

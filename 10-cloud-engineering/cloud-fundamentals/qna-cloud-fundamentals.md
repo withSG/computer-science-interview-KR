@@ -67,6 +67,11 @@ SaaS: 즉시 사용, 커스터마이징 제한적
 
 ### 구조 비교
 
+<!-- diagram:cloud-qna-cloud-fundamentals-1 -->
+![구조 비교](../../assets/diagrams/cloud-qna-cloud-fundamentals-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Type 1:                          Type 2:
 ┌─────────┐ ┌─────────┐         ┌─────────┐ ┌─────────┐
@@ -82,6 +87,7 @@ Type 1:                          Type 2:
                                 │      Hardware       │
                                 └─────────────────────┘
 ```
+-->
 
 ### 클라우드에서의 사용
 
@@ -119,6 +125,11 @@ GCP: KVM - Type 1
 
 ### 구조 비교
 
+<!-- diagram:cloud-qna-cloud-fundamentals-2 -->
+![구조 비교](../../assets/diagrams/cloud-qna-cloud-fundamentals-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 VM:                              Container:
 ┌─────────┐ ┌─────────┐         ┌─────────┐ ┌─────────┐
@@ -134,6 +145,7 @@ VM:                              Container:
 │      Hardware       │         │       Hardware      │
 └─────────────────────┘         └─────────────────────┘
 ```
+-->
 
 ### 언제 무엇을 사용하나?
 
@@ -304,6 +316,11 @@ AWS Auto Scaling: Scale-out 자동화
 
 ### AWS 3-tier HA 아키텍처
 
+<!-- diagram:cloud-qna-cloud-fundamentals-3 -->
+![AWS 3-tier HA 아키텍처](../../assets/diagrams/cloud-qna-cloud-fundamentals-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
            Internet
                │
@@ -323,6 +340,7 @@ AWS Auto Scaling: Scale-out 자동화
     │   RDS (Multi-AZ)  │  ← DB 이중화
     └───────────────────┘
 ```
+-->
 
 ### 가용성 계산
 

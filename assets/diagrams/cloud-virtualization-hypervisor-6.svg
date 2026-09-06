@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">가상화 vs 컨테이너</title>
+  <desc id="d">가상화(VM)와 컨테이너 스택 구조를 비교하는 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- 제목 헤딩 -->
+  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">가상화 (VM):</text>
+  <text x="480" y="40" font-size="16" font-weight="bold" fill="#1f2933">컨테이너:</text>
+
+  <!-- 왼쪽: 가상화 (VM) 그룹 -->
+  <!-- App A & Guest OS (왼쪽) -->
+  <rect x="60" y="70" width="130" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="125" y="94.7" font-size="13" text-anchor="middle" fill="#1f2933">App A</text>
+  
+  <rect x="60" y="110" width="130" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="125" y="134.7" font-size="13" text-anchor="middle" fill="#1f2933">Guest OS</text>
+
+  <!-- App B & Guest OS (오른쪽) -->
+  <rect x="230" y="70" width="130" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="295" y="94.7" font-size="13" text-anchor="middle" fill="#1f2933">App B</text>
+
+  <rect x="230" y="110" width="130" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+  <text x="295" y="134.7" font-size="13" text-anchor="middle" fill="#1f2933">Guest OS</text>
+
+  <!-- 연결선: Guest OS -> Hypervisor -->
+  <path d="M125,150 L125,185 L210,185 L210,210" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M295,150 L295,185 L210,185" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+
+  <!-- Hypervisor -->
+  <rect x="60" y="210" width="300" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="210" y="239.55" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">Hypervisor</text>
+
+  <!-- 연결선: Hypervisor -> Host OS -->
+  <path d="M210,260 L210,300" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Host OS (VM) -->
+  <rect x="60" y="300" width="300" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="210" y="329.55" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">Host OS</text>
+
+  <!-- 연결선: Host OS -> Hardware -->
+  <path d="M210,350 L210,390" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Hardware (VM) -->
+  <rect x="60" y="390" width="300" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="210" y="419.55" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">Hardware</text>
+
+
+  <!-- 오른쪽: 컨테이너 그룹 -->
+  <!-- App A & Bins (왼쪽) -->
+  <rect x="500" y="70" width="130" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="565" y="94.7" font-size="13" text-anchor="middle" fill="#1f2933">App A</text>
+
+  <rect x="500" y="110" width="130" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="565" y="134.7" font-size="13" text-anchor="middle" fill="#1f2933">Bins</text>
+
+  <!-- App B & Bins (오른쪽) -->
+  <rect x="670" y="70" width="130" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="735" y="94.7" font-size="13" text-anchor="middle" fill="#1f2933">App B</text>
+
+  <rect x="670" y="110" width="130" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="735" y="134.7" font-size="13" text-anchor="middle" fill="#1f2933">Bins</text>
+
+  <!-- 연결선: Bins -> Container Engine -->
+  <path d="M565,150 L565,185 L650,185 L650,210" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M735,150 L735,185 L650,185" stroke="#059669" stroke-width="1.5" fill="none"/>
+
+  <!-- Container Engine (Docker) -->
+  <rect x="500" y="210" width="300" height="60" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="650" y="238.05" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">Container Engine</text>
+  <text x="650" y="256.025" font-size="11.5" text-anchor="middle" fill="#52606d">(Docker)</text>
+
+  <!-- 연결선: Container Engine -> Host OS -->
+  <path d="M650,270 L650,300" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Host OS (Container) -->
+  <rect x="500" y="300" width="300" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="650" y="329.55" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">Host OS</text>
+
+  <!-- 연결선: Host OS -> Hardware -->
+  <path d="M650,350 L650,390" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Hardware (Container) -->
+  <rect x="500" y="390" width="300" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
+  <text x="650" y="419.55" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">Hardware</text>
+</svg>

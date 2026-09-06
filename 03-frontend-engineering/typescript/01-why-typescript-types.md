@@ -34,6 +34,11 @@ function getDisplayName(user) {
 
 버그를 발견하는 시점이 뒤로 갈수록 고치는 비용은 계단식으로 뛴다.
 
+<!-- diagram:fe-why-typescript-types-1 -->
+![오류는 언제 발견되는가](../../assets/diagrams/fe-why-typescript-types-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    작성 중        빌드         테스트        배포        운영 장애
      │            │             │            │             │
@@ -47,6 +52,7 @@ function getDisplayName(user) {
  JavaScript ─────────────────────────────────────────────▶ 여기서 발견
  TypeScript ─▶ 여기서 발견
 ```
+-->
 
 오른쪽으로 갈수록 재현·원인 추적·배포 절차가 통째로 다시 필요해진다. 에디터에서 고치는 일은 커서를 옮기고 글자를 지우는 것으로 끝난다.
 
@@ -97,6 +103,11 @@ TypeScript는 **구조적 타이핑(structural typing)**을 쓴다. 두 타입�
 
 반대편에 있는 것이 Java, C#이 쓰는 **명목적 타이핑(nominal typing)**이다. 구조가 똑같아도 `implements`로 선언하지 않았으면 남남이다.
 
+<!-- diagram:fe-why-typescript-types-2 -->
+![정의](../../assets/diagrams/fe-why-typescript-types-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [명목적 타이핑 — Java]              [구조적 타이핑 — TypeScript]
 
@@ -110,6 +121,7 @@ TypeScript는 **구조적 타이핑(structural typing)**을 쓴다. 두 타입�
    { x, y }                           const p: Point = new Vector();  // OK
                                       const q: Point = { x: 1, y: 2 }; // OK
 ```
+-->
 
 ### 코드로 보기
 
@@ -352,6 +364,11 @@ x.id;   // 오류 없이 통과. 타입은 never — number이면서 string인 �
 
 세 타입은 셋 다 "특별한 타입"이라 뭉뚱그려 외우기 쉬운데, 타입 계층에 그려보면 역할이 또렷해진다.
 
+<!-- diagram:fe-why-typescript-types-3 -->
+![5. `any`, `unknown`, `never`의 자리](../../assets/diagrams/fe-why-typescript-types-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         ┌─────────────────────────┐
         │        unknown          │  ← 최상위(top). 모든 값을 받는다
@@ -369,6 +386,7 @@ x.id;   // 오류 없이 통과. 타입은 never — number이면서 string인 �
         │          any            │  ← 계층 바깥. never만 빼면 위아래 모두와
         └─────────────────────────┘     자유롭게 오간다 = 타입 검사를 끄는 스위치
 ```
+-->
 
 ### `any` — 검사기를 끄는 스위치
 

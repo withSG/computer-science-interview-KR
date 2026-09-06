@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">fail2ban 동작 방식</title>
+  <desc id="d">sshd 로그인 시도가 로그 파일에 기록되고 fail2ban이 이를 감시하여 방화벽에 차단 규칙을 추가하고 제거하는 과정을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- Vertical lifeline columns / headers -->
+  <!-- Column 1: 인증 실패 로그 -->
+  <rect x="50" y="40" width="220" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="160" y="65" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">인증 실패 로그</text>
+
+  <!-- Column 2: fail2ban -->
+  <rect x="350" y="40" width="180" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="65" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">fail2ban</text>
+
+  <!-- Column 3: 방화벽 -->
+  <rect x="630" y="40" width="180" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="720" y="65" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">방화벽</text>
+
+  <!-- Lifelines -->
+  <line x1="160" y1="80" x2="160" y2="440" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="440" y1="80" x2="440" y2="440" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="720" y1="80" x2="720" y2="440" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- Row 1: sshd -> /var/log -->
+  <rect x="60" y="130" width="60" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="90" y="151" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">sshd</text>
+
+  <rect x="180" y="130" width="90" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="225" y="151" font-size="13" fill="#1f2933" text-anchor="middle">/var/log</text>
+
+  <!-- Vertical merge from sshd to lifeline then horizontal to /var/log -->
+  <path d="M 120,146 L 160,146" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M 160,146 L 180,146" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- /var/log ──감시──┤ fail2ban -->
+  <line x1="270" y1="146" x2="440" y2="146" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="315" y="134" width="40" height="22" fill="#ffffff"/>
+  <text x="335" y="149" font-size="13" fill="#2563eb" text-anchor="middle">감시</text>
+
+  <!-- Internal fail2ban logic box (findtime 안에 / maxretry 초과 감지) -->
+  <rect x="360" y="195" width="160" height="60" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="219" font-size="13" fill="#d97706" text-anchor="middle">findtime 안에</text>
+  <text x="440" y="239" font-size="13" fill="#d97706" text-anchor="middle">maxretry 초과 감지</text>
+
+  <!-- Row 2: fail2ban ├───── 차단 규칙 추가 ──► 방화벽 -->
+  <path d="M 440,285 L 720,285" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-red)"/>
+  <rect x="520" y="272" width="115" height="24" fill="#ffffff"/>
+  <text x="577" y="289" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">차단 규칙 추가</text>
+
+  <!-- Annotation at Firewall: bantime 동안 DROP -->
+  <rect x="640" y="315" width="160" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="720" y="334" font-size="12" fill="#dc2626" text-anchor="middle">bantime 동안 DROP</text>
+
+  <!-- Row 3: fail2ban ├───── 규칙 제거 ─────► 방화벽 -->
+  <path d="M 440,380 L 720,380" stroke="#059669" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="535" y="367" width="85" height="24" fill="#ffffff"/>
+  <text x="577" y="384" font-size="13" fill="#059669" text-anchor="middle">규칙 제거</text>
+
+</svg>

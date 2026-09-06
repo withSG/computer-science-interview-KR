@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">생성 단계와 실행 단계</title>
+  <desc id="d">생성 단계 종료 시점의 VariableEnvironment와 LexicalEnvironment 상태, 그리고 실행 단계 진행에 따른 값 할당과 TDZ 종료 과정을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <!-- 헤더 / 제목 -->
+  <text x="24" y="35" font-size="16" font-weight="bold" fill="#1f2933">생성 단계 종료 시점</text>
+
+  <!-- 메인 환경 박스 (Container) -->
+  <rect x="24" y="50" width="832" height="230" rx="8" ry="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="2"/>
+
+  <!-- Section 1: VariableEnvironment -->
+  <path d="M24,58 A8,8 0 0,1 32,50 L848,50 A8,8 0 0,1 856,58 L856,86 L24,86 Z" fill="#eff6ff"/>
+  <text x="40" y="73" font-size="14" font-weight="bold" fill="#2563eb">VariableEnvironment</text>
+  
+  <!-- VariableEnvironment Items -->
+  <text x="56" y="113" font-size="13" font-family="monospace" font-weight="bold" fill="#1f2933">a</text>
+  <text x="76" y="113" font-size="13" font-family="monospace" fill="#52606d">:</text>
+  <text x="92" y="113" font-size="13" font-family="monospace" fill="#2563eb">undefined</text>
+  
+  <path d="M200,109 L230,109" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)" stroke-dasharray="none"/>
+  <!-- Arrow marker definition for orange if needed, using custom inline path or marker -->
+  <text x="200" y="113" font-size="13" fill="#d97706">←</text>
+  <text x="220" y="113" font-size="13" fill="#d97706">var는 초기화까지</text>
+
+  <text x="56" y="143" font-size="13" font-family="monospace" font-weight="bold" fill="#1f2933">fn</text>
+  <text x="76" y="143" font-size="13" font-family="monospace" fill="#52606d">:</text>
+  <text x="92" y="143" font-size="13" font-family="monospace" fill="#2563eb">&lt;function&gt;</text>
+  
+  <text x="200" y="143" font-size="13" fill="#d97706">←</text>
+  <text x="220" y="143" font-size="13" fill="#d97706">함수 선언문은 통째로</text>
+
+  <!-- Divider Line -->
+  <line x1="24" y1="165" x2="856" y2="165" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Section 2: LexicalEnvironment -->
+  <rect x="24" y="165" width="832" height="36" fill="#f5f3ff"/>
+  <text x="40" y="188" font-size="14" font-weight="bold" fill="#7c3aed">LexicalEnvironment</text>
+
+  <!-- LexicalEnvironment Items -->
+  <text x="56" y="228" font-size="13" font-family="monospace" font-weight="bold" fill="#1f2933">b</text>
+  <text x="76" y="228" font-size="13" font-family="monospace" fill="#52606d">:</text>
+  <text x="92" y="228" font-size="13" font-family="monospace" fill="#dc2626">&lt;uninitialized&gt;</text>
+  
+  <text x="235" y="228" font-size="13" fill="#dc2626">←</text>
+  <text x="255" y="228" font-size="13" fill="#dc2626">접근하면 TDZ 에러</text>
+
+  <!-- 하단 섹션: 실행 단계 진행 -->
+  <text x="24" y="320" font-size="16" font-weight="bold" fill="#1f2933">실행 단계 진행</text>
+
+  <!-- Step 1 -->
+  <rect x="40" y="338" width="80" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="80" y="356" font-size="13" font-family="monospace" fill="#1f2933" text-anchor="middle">a = 1</text>
+  
+  <path d="M130,352 L160,352" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  
+  <rect x="170" y="338" width="70" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="205" y="356" font-size="13" font-family="monospace" font-weight="bold" fill="#2563eb" text-anchor="middle">a: 1</text>
+
+  <!-- Step 2 -->
+  <rect x="40" y="378" width="80" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="80" y="396" font-size="13" font-family="monospace" fill="#1f2933" text-anchor="middle">b = 2</text>
+  
+  <path d="M130,392 L160,392" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  
+  <rect x="170" y="378" width="70" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="205" y="396" font-size="13" font-family="monospace" font-weight="bold" fill="#059669" text-anchor="middle">b: 2</text>
+
+  <text x="250" y="396" font-size="13" fill="#059669">(여기서 초기화, TDZ 종료)</text>
+</svg>

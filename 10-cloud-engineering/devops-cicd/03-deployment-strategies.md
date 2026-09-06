@@ -23,6 +23,11 @@
 
 한 시간의 다운타임이 매출 손실이라는 건 누구나 안다. 그런데 더 깊은 비용이 따로 있다.
 
+<!-- diagram:cloud-deployment-strategies-1 -->
+![1. 왜 필요한가](../../assets/diagrams/cloud-deployment-strategies-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 다운타임이 필요한 배포
         ↓
@@ -36,6 +41,7 @@
         ↓
         (악순환)
 ```
+-->
 
 무중단 배포는 "사용자가 안 끊기게 하는 기술"이면서 동시에 **이 악순환을 끊는 장치**다. 배포가 싸지면 배포 단위가 작아지고, 작아지면 장애 반경과 복구 시간이 같이 줄어든다.
 
@@ -63,6 +69,11 @@ Kubernetes Deployment에서 `strategy.type: Recreate`로 지정한다.
 
 ### Rolling Update — 한 대씩 갈아탄다
 
+<!-- diagram:cloud-deployment-strategies-2 -->
+![Rolling Update](../../assets/diagrams/cloud-deployment-strategies-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    LB
     │  트래픽은 항상 흐른다
@@ -75,6 +86,7 @@ Kubernetes Deployment에서 `strategy.type: Recreate`로 지정한다.
 
 배포 중 상태: v1과 v2가 동시에 트래픽을 받는다  ← 이게 이 전략의 전제이자 위험
 ```
+-->
 
 Kubernetes Deployment의 기본 전략이다. 두 개의 손잡이로 속도와 안전성을 조절한다.
 
@@ -95,6 +107,11 @@ spec:
 
 ### Blue-Green — 통째로 하나 더 만들고 스위치를 넘긴다
 
+<!-- diagram:cloud-deployment-strategies-3 -->
+![Blue-Green](../../assets/diagrams/cloud-deployment-strategies-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1단계 (현재)
         LB ──100%──▶ ┌──── Blue (v1) ────┐        Green: 없음
@@ -116,12 +133,18 @@ spec:
 
 4단계 : 일정 시간 관찰 후 Blue 회수. 문제가 생기면 LB를 Blue로 되돌린다.
 ```
+-->
 
 **장점**: 롤백이 트래픽 전환 한 번이라 가장 빠르다. 전환 전에 실제와 동일한 환경에서 검증할 수 있다.
 **단점**: 전환 직전 잠깐이지만 인프라를 두 벌 유지해야 한다. 그리고 **상태를 가진 것**이 걸린다. 두 환경이 같은 DB를 보므로 스키마 호환 문제는 그대로 남고, 인메모리 세션을 쓰면 전환 순간 사용자가 로그아웃된다.
 
 ### Canary — 소수에게 먼저 보내고 지켜본다
 
+<!-- diagram:cloud-deployment-strategies-4 -->
+![Canary](../../assets/diagrams/cloud-deployment-strategies-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
       LB (가중치 라우팅)
        ├──── 95% ───▶ [v1][v1][v1][v1]   Stable
@@ -139,6 +162,7 @@ spec:
      25% ▶ 50% ▶ 100%          즉시 0%로 되돌림
                                 (영향받은 사용자는 5%)
 ```
+-->
 
 이름은 탄광의 카나리아에서 왔다. 유독 가스에 사람보다 먼저 반응하는 새를 앞세워 위험을 감지하던 방식이다.
 
@@ -176,6 +200,11 @@ Kubernetes 기본 기능만으로는 부족해서 Argo Rollouts나 Flagger 같�
 
 ### 준비 상태와 생존 상태를 구분한다
 
+<!-- diagram:cloud-deployment-strategies-5 -->
+![준비 상태와 생존 상태를 구분한다](../../assets/diagrams/cloud-deployment-strategies-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Readiness (준비됨)  "지금 트래픽을 받아도 되나?"
    실패하면 → 로드 밸런서 대상 목록에서 제외. 컨테이너는 그대로 둔다.
@@ -185,6 +214,7 @@ Liveness (살아있음)  "이 프로세스를 죽이고 다시 띄워야 하나?
    실패하면 → 컨테이너 재시작
    용도: 데드락, 복구 불가능한 상태
 ```
+-->
 
 이 둘을 같은 엔드포인트로 붙이는 실수가 매우 흔하다. 일시적으로 느려졌을 때 준비 상태만 빠져야 하는데 생존 검사까지 실패하면 프로세스가 재시작되고, 재시작 폭풍이 시작된다.
 
@@ -192,6 +222,11 @@ Liveness (살아있음)  "이 프로세스를 죽이고 다시 띄워야 하나?
 
 ### 우아한 종료(Graceful Shutdown)
 
+<!-- diagram:cloud-deployment-strategies-6 -->
+![우아한 종료(Graceful Shutdown)](../../assets/diagrams/cloud-deployment-strategies-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 종료 신호(SIGTERM) 수신
    │
@@ -204,6 +239,7 @@ Liveness (살아있음)  "이 프로세스를 죽이고 다시 띄워야 하나?
    │
    └─ ④ 프로세스 종료
 ```
+-->
 
 이 절차가 없으면 배포할 때마다 처리 중이던 요청이 잘려 사용자에게 오류가 간다. Kubernetes에서는 `terminationGracePeriodSeconds`로 강제 종료까지의 유예 시간을 주고, `preStop` 훅으로 ①의 대기 구간을 만든다.
 
@@ -220,6 +256,9 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 
 ## 5. DB 스키마 변경이 무중단 배포를 깨뜨리는 이유
 
+<!-- diagram:cloud-deployment-strategies -->
+![확장-수축 패턴](../../assets/diagrams/cloud-deployment-strategies.svg)
+
 ### 문제의 구조
 
 애플리케이션 인스턴스는 여러 개고 배포 중에 버전이 섞이지만, **DB는 하나다.** 애플리케이션은 롤백하면 되돌아가지만 데이터는 되돌아가지 않는다. 이 비대칭이 문제의 뿌리다.
@@ -235,6 +274,11 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 
 구체적으로 무슨 일이 나는지 보자. `user_name` 컬럼을 `full_name`으로 바꾸는 작업을 "그냥" 했다고 하자.
 
+<!-- diagram:cloud-deployment-strategies-7 -->
+![문제의 구조](../../assets/diagrams/cloud-deployment-strategies-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 마이그레이션 실행: user_name → full_name 이름 변경
 2. Rolling Update 시작
@@ -242,6 +286,7 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 4. 놀라서 롤백 → v2를 전부 내림 → 그런데 스키마는 이미 바뀐 상태
 5. v1 전체가 죽는다. 서비스 전면 장애.
 ```
+-->
 
 핵심 교훈: **롤백 가능한 배포를 하려면 스키마 변경도 롤백 가능해야 하는데, 파괴적 변경은 롤백이 안 된다.** 그래서 파괴적 변경 자체를 하지 않는 방법이 필요하다.
 
@@ -249,6 +294,11 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 
 하나의 파괴적 변경을 여러 번의 비파괴적 변경으로 쪼갠다. 각 단계 사이에 배포가 들어가고, 각 단계는 앞뒤 버전과 모두 호환된다.
 
+<!-- diagram:cloud-deployment-strategies-8 -->
+![확장-수축 패턴](../../assets/diagrams/cloud-deployment-strategies-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [1단계 · Expand] 새 컬럼을 추가만 한다 (nullable, 기본값 있음)
     ALTER TABLE users ADD COLUMN full_name VARCHAR(255) NULL;
@@ -278,6 +328,7 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
     ALTER TABLE users DROP COLUMN user_name;
     → 되돌릴 수 없는 유일한 단계. 그래서 가장 마지막이고, 가장 늦게 한다.
 ```
+-->
 
 번거로워 보이지만 원리는 하나다. **어느 시점에 멈춰도, 어느 버전으로 롤백해도 시스템이 동작한다.**
 
@@ -289,6 +340,11 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 
 ### 장애 시나리오 — 롤백했는데 더 나빠졌다
 
+<!-- diagram:cloud-deployment-strategies-9 -->
+![장애 시나리오](../../assets/diagrams/cloud-deployment-strategies-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 증상   : v2 배포 후 에러율 급증 → 롤백 → 그런데 에러율이 더 올라감
 진단   : 1) 배포 파이프라인에서 마이그레이션 단계가 있었는지 확인
@@ -303,6 +359,7 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
          근본 - 스키마 변경을 앱 배포와 같은 릴리스에 묶지 않는다.
                 확장-수축 패턴으로 단계를 분리한다.
 ```
+-->
 
 **여기서 얻는 원칙**: 스키마 변경이 포함된 배포는 "롤백"이 항상 답이 아니다. 배포 전에 "이 배포는 롤백 가능한가, 아니면 롤포워드만 가능한가"를 미리 정해두고 그에 맞는 대응 절차를 준비한다.
 
@@ -323,6 +380,11 @@ return legacyCheckoutFlow(order);
 
 플래그 값을 설정 저장소나 전용 서비스에 두면, **재배포 없이 값만 바꿔서** 기능을 켜고 끌 수 있다.
 
+<!-- diagram:cloud-deployment-strategies-10 -->
+![왜 필요한가](../../assets/diagrams/cloud-deployment-strategies-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 전통적 방식
   코드 배포 = 기능 공개        배포 시점과 공개 시점이 묶여 있다
@@ -336,6 +398,7 @@ Feature Flag 방식
         ▼
   플래그 off (킬 스위치)      ─▶  롤백보다 빠르다. 초 단위.
 ```
+-->
 
 ### Canary와 무엇이 다른가
 

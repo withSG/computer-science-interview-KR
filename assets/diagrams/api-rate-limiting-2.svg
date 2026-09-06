@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Sliding Window Log — 정확하지만 비싸다</title>
+  <desc id="d">Sliding Window Log 알고리즘의 요청 처리 과정을 보여주는 다이어그램입니다. 저장된 기록에서 범위 밖 항목을 제거하고 새 요청을 추가하는 절차를 나타냅니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <!-- 메인 컨테이너 영역 -->
+  <rect x="24" y="20" width="832" height="350" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 1. 초기 상태: 저장된 기록 -->
+  <g>
+    <text x="50" y="62.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="start">저장된 기록:</text>
+    <rect x="135" y="42" width="695" height="36" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="145" y="64.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">[</text>
+    
+    <!-- 타임스탬프 1: 12:00:10 (제거될 예정) -->
+    <rect x="155" y="47" width="80" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <text x="195" y="63.5" font-size="12" font-family="monospace" fill="#dc2626" text-anchor="middle">12:00:10</text>
+    <text x="240" y="64.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">,</text>
+
+    <!-- 타임스탬프 2: 12:00:35 -->
+    <rect x="252" y="47" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="292" y="63.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:00:35</text>
+    <text x="337" y="64.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">,</text>
+
+    <!-- 타임스탬프 3: 12:00:58 -->
+    <rect x="349" y="47" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="389" y="63.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:00:58</text>
+    <text x="434" y="64.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">,</text>
+
+    <!-- 타임스탬프 4: 12:01:01 -->
+    <rect x="446" y="47" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="486" y="63.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:01:01</text>
+    <text x="531" y="64.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">,</text>
+
+    <!-- 타임스탬프 5: 12:01:20 -->
+    <rect x="543" y="47" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+    <text x="583" y="63.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:01:20</text>
+    <text x="628" y="64.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">]</text>
+  </g>
+
+  <!-- 연결 화살표 1: 요청 도착 -->
+  <path d="M50,110 L50,128" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 2. 이벤트 발생: 지금 12:01:30에 요청이 왔다 -->
+  <g>
+    <rect x="50" y="130" width="780" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="70" y="154.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="start">지금 12:01:30에 요청이 왔다</text>
+  </g>
+
+  <!-- 연결 화살표 2: 단계 1 (오래된 기록 제거) -->
+  <path d="M80,180 L80,208" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 3. 단계 1: 12:00:30 이전 기록 제거 -->
+  <g>
+    <rect x="80" y="210" width="750" height="65" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="100" y="235.5" font-size="13" font-weight="bold" fill="#d97706" text-anchor="start">→ 12:00:30 이전 기록 제거 →</text>
+    
+    <!-- 남은 배열 표시 -->
+    <g>
+      <rect x="300" y="225" width="510" height="36" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+      <text x="310" y="247.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">[</text>
+
+      <rect x="320" y="230" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+      <text x="360" y="246.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:00:35</text>
+      <text x="405" y="247.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">,</text>
+
+      <rect x="417" y="230" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+      <text x="457" y="246.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:00:58</text>
+      <text x="502" y="247.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">,</text>
+
+      <rect x="514" y="230" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+      <text x="554" y="246.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:01:01</text>
+      <text x="599" y="247.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">,</text>
+
+      <rect x="611" y="230" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+      <text x="651" y="246.5" font-size="12" font-family="monospace" fill="#2563eb" text-anchor="middle">12:01:20</text>
+      <text x="696" y="247.5" font-size="13" font-family="monospace" fill="#52606d" text-anchor="start">]</text>
+    </g>
+  </g>
+
+  <!-- 연결 화살표 3: 단계 2 (한도 확인 및 요청 허용/추가) -->
+  <path d="M80,285 L80,308" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 4. 단계 2: 4개. 한도 5 미만이므로 허용하고 12:01:30을 추가 -->
+  <g>
+    <rect x="80" y="310" width="750" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="100" y="334.5" font-size="13" font-weight="bold" fill="#059669" text-anchor="start">→ 4개. 한도 5 미만이므로 허용하고 12:01:30을 추가</text>
+  </g>
+</svg>

@@ -24,6 +24,11 @@
 
 브라우저는 **여러 사이트를 동시에 열어두고, 각 사이트의 자격 증명(쿠키)을 대신 보관하는** 특이한 실행 환경이다.
 
+<!-- diagram:sec-cors-same-origin-1 -->
+![1. 왜 필요한가](../assets/diagrams/sec-cors-same-origin-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         브라우저 하나 안에서
 ┌──────────────────────────────────────────────────┐
@@ -35,6 +40,7 @@ evil.com의 JS가 fetch('https://bank.com/api/accounts') 를 호출한다면?
 브라우저는 bank.com용 쿠키를 자동으로 붙이고, 서버는 정상 사용자로 인식한다.
 응답을 evil.com의 JS가 읽을 수 있다면 → 잔액, 계좌번호가 그대로 넘어간다.
 ```
+-->
 
 `curl`에는 이런 일이 없다. 남의 세션 쿠키를 갖고 있지도 않고 누가 몰래 스크립트를 실행시키지도 못한다.
 **Same-Origin Policy(SOP, 동일 출처 정책)는 이 브라우저 고유의 위험을 막는 기본 규칙**이다.
@@ -51,6 +57,11 @@ evil.com의 JS가 fetch('https://bank.com/api/accounts') 를 호출한다면?
 
 **출처 = 스킴(프로토콜) + 호스트 + 포트**. 셋 중 하나라도 다르면 다른 출처다.
 
+<!-- diagram:sec-cors-same-origin-2 -->
+![2. 출처(Origin)란 정확히 무엇인가](../assets/diagrams/sec-cors-same-origin-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 https://example.com:443/products/1?q=a#top
 ─┬───   ─────┬─────  ─┬─
@@ -60,6 +71,7 @@ https://example.com:443/products/1?q=a#top
 
 경로(/products/1), 쿼리(?q=a), 프래그먼트(#top)는 출처에 포함되지 않는다.
 ```
+-->
 
 기준이 `https://example.com`일 때:
 
@@ -81,6 +93,9 @@ https://example.com:443/products/1?q=a#top
 ---
 
 ## 3. SOP가 막는 것과 막지 않는 것
+
+<!-- diagram:sec-sop-response-block -->
+![SOP는 요청이 아니라 응답 읽기를 막는다](../assets/diagrams/sec-sop-response-block.svg)
 
 여기가 CORS 이해의 분수령이다. **SOP는 요청을 막지 않는다. 응답을 읽는 것을 막는다.**
 
@@ -139,6 +154,11 @@ CSRF가 여전히 성립하는 이유가 바로 이것이고, "CORS 설정했으
 `<form>`이나 `<img>`로 이미 보낼 수 있던 종류의 요청이라면 CORS 이전에도 나가던 것이므로
 사전 확인이 무의미하다. 그래서 그런 요청은 그냥 보낸다.
 
+<!-- diagram:sec-cors-same-origin-3 -->
+![Simple Request vs Preflight](../assets/diagrams/sec-cors-same-origin-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     요청이 아래 조건을 "모두" 만족하는가?
 
@@ -159,12 +179,16 @@ CSRF가 여전히 성립하는 이유가 바로 이것이고, "CORS 설정했으
     │ 바로 본 요청 전송│                  │ OPTIONS로 허가 확인   │
     └────────────────┘                  └──────────────────────┘
 ```
+-->
 
 실무에서 Preflight가 발생하는 사유는 거의 항상 둘 중 하나다. `Content-Type: application/json`(조건 ③ 위반),
 그리고 `Authorization: Bearer ...`나 `X-CSRF-TOKEN` 같은 커스텀 헤더(조건 ② 위반).
 즉 **요즘 API 호출은 대부분 Preflight를 탄다.**
 
 ### Preflight 왕복
+
+<!-- diagram:sec-cors-same-origin -->
+![Preflight 2왕복](../assets/diagrams/sec-cors-same-origin.svg)
 
 ```
 Browser                                              api.example.com
@@ -308,6 +332,11 @@ Spring Security의 CORS 필터는 자동으로 붙이지만 직접 헤더를 세
 
 진단 순서로 정리하면 이렇다.
 
+<!-- diagram:sec-cors-same-origin-4 -->
+![7. 에러 메시지별 원인 진단](../assets/diagrams/sec-cors-same-origin-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 네트워크 탭에 OPTIONS 요청이 있는가?
    └ 있는데 200/204가 아니다 → 인증 필터 또는 리다이렉트 문제
@@ -318,6 +347,7 @@ Spring Security의 CORS 필터는 자동으로 붙이지만 직접 헤더를 세
 3. 쿠키를 보내야 하는가?
    └ 예 → credentials:'include' + Allow-Credentials:true + 정확한 Allow-Origin, 셋 다 확인
 ```
+-->
 
 ### 해서는 안 되는 "해결"
 

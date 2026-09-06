@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">아키텍처</title>
+  <desc id="d">Grafana, Prometheus, TSDB 및 App/NodeExporter 간의 메트릭 수집 및 쿼리 구조를 나타낸 아키텍처 다이어그램</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-emerald" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Grafana Box -->
+  <rect x="220" y="40" width="440" height="90" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="75.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Grafana</text>
+  <text x="440" y="104.6" font-size="13" fill="#52606d" text-anchor="middle">(시각화/대시보드)</text>
+
+  <!-- Arrow 1: Grafana -> Prometheus -->
+  <path d="M440,130 L440,198" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="382" y="151" width="116" height="24" fill="#ffffff"/>
+  <text x="440" y="167.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Query (PromQL)</text>
+
+  <!-- Prometheus Outer Box (Main Component + TSDB) -->
+  <rect x="220" y="200" width="440" height="150" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="238.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Prometheus</text>
+  <text x="440" y="267.6" font-size="13" fill="#52606d" text-anchor="middle">(메트릭 저장소)</text>
+  
+  <!-- Prometheus Inner TSDB Divider & Box -->
+  <line x1="220" y1="290" x2="660" y2="290" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="322.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">TSDB (Time Series DB)</text>
+
+  <!-- Main Vertical Line Down from TSDB -->
+  <line x1="440" y1="350" x2="440" y2="390" stroke="#059669" stroke-width="1.5"/>
+  
+  <!-- Horizontal Branch Line -->
+  <line x1="270" y1="390" x2="610" y2="390" stroke="#059669" stroke-width="1.5"/>
+  
+  <!-- Branch Arrows Down to Targets -->
+  <path d="M270,390 L270,428" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-emerald)"/>
+  <path d="M440,390 L440,428" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-emerald)"/>
+  <path d="M610,390 L610,428" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-emerald)"/>
+
+  <!-- Pull (scrape) Label -->
+  <rect x="395" y="363" width="90" height="22" fill="#ffffff"/>
+  <text x="440" y="378.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Pull (scrape)</text>
+
+  <!-- Target Box 1: App :8080/metrics -->
+  <rect x="200" y="430" width="140" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="270" y="455.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
+  <text x="270" y="475.55" font-size="13" fill="#52606d" text-anchor="middle">:8080/</text>
+  <text x="270" y="495.55" font-size="13" fill="#52606d" text-anchor="middle">metrics</text>
+
+  <!-- Target Box 2: App :8081/metrics -->
+  <rect x="370" y="430" width="140" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="455.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
+  <text x="440" y="475.55" font-size="13" fill="#52606d" text-anchor="middle">:8081/</text>
+  <text x="440" y="495.55" font-size="13" fill="#52606d" text-anchor="middle">metrics</text>
+
+  <!-- Target Box 3: NodeExporter :9100 -->
+  <rect x="540" y="430" width="140" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="610" y="465.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Node</text>
+  <text x="610" y="483.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Exporter</text>
+  <text x="610" y="501.55" font-size="13" fill="#52606d" text-anchor="middle">:9100</text>
+</svg>

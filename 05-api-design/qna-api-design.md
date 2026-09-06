@@ -87,6 +87,11 @@ GET    /user/delete/1
 
 ### Over-fetching / Under-fetching
 
+<!-- diagram:api-qna-api-design-1 -->
+![Over-fetching / Under-fetching](../assets/diagrams/api-qna-api-design-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 REST:
 GET /users/1
@@ -105,6 +110,7 @@ query {
 }
 → 필요한 필드만 한 번에
 ```
+-->
 
 ### 선택 기준
 

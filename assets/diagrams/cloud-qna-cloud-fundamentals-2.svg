@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">구조 비교</title>
+  <desc id="d">VM과 Container의 구조적 차이를 나타낸 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+
+  <!-- Left Column: VM -->
+  <text x="60" y="52" font-size="16" font-weight="bold" fill="#1f2933">VM:</text>
+
+  <!-- VM: App A & B Group -->
+  <g>
+    <!-- App A Box -->
+    <rect x="60" y="80" width="150" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="135" y="104.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App A</text>
+
+    <!-- Bins/Libs Box (Attached) -->
+    <rect x="60" y="120" width="150" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="135" y="144.6" font-size="13" fill="#1f2933" text-anchor="middle">Bins/Libs</text>
+
+    <!-- Guest OS Box (Attached) -->
+    <rect x="60" y="160" width="150" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="135" y="184.6" font-size="13" fill="#1f2933" text-anchor="middle">Guest OS</text>
+  </g>
+
+  <g>
+    <!-- App B Box -->
+    <rect x="230" y="80" width="150" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="305" y="104.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App B</text>
+
+    <!-- Bins/Libs Box (Attached) -->
+    <rect x="230" y="120" width="150" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="305" y="144.6" font-size="13" fill="#1f2933" text-anchor="middle">Bins/Libs</text>
+
+    <!-- Guest OS Box (Attached) -->
+    <rect x="230" y="160" width="150" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="305" y="184.6" font-size="13" fill="#1f2933" text-anchor="middle">Guest OS</text>
+  </g>
+
+  <!-- Connectors from VM Guest OS to Hypervisor -->
+  <path d="M135,200 L135,240 L220,240" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+  <path d="M305,200 L305,240 L220,240" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+  <path d="M220,240 L220,260" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+
+  <!-- Hypervisor Box -->
+  <rect x="60" y="260" width="320" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="220" y="289.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Hypervisor</text>
+
+  <!-- Connector from Hypervisor to Hardware -->
+  <path d="M220,310 L220,350" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+
+  <!-- Hardware Box (Left) -->
+  <rect x="60" y="350" width="320" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="220" y="379.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Hardware</text>
+
+
+  <!-- Right Column: Container -->
+  <text x="500" y="52" font-size="16" font-weight="bold" fill="#1f2933">Container:</text>
+
+  <!-- Container: App A -->
+  <rect x="500" y="80" width="150" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="575" y="104.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App A</text>
+
+  <!-- Container: App B -->
+  <rect x="670" y="80" width="150" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="745" y="104.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App B</text>
+
+  <!-- Connectors from App A/B to Container Engine -->
+  <path d="M575,120 L575,150 L660,150" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+  <path d="M745,120 L745,150 L660,150" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+  <path d="M660,150 L660,170" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+
+  <!-- Container Engine Box -->
+  <rect x="500" y="170" width="320" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="660" y="199.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Container Engine</text>
+
+  <!-- Connector from Container Engine to Host OS -->
+  <path d="M660,220 L660,260" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+
+  <!-- Host OS Box -->
+  <rect x="500" y="260" width="320" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="660" y="289.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Host OS</text>
+
+  <!-- Connector from Host OS to Hardware -->
+  <path d="M660,310 L660,350" fill="none" stroke="#1f2933" stroke-width="1.5"/>
+
+  <!-- Hardware Box (Right) -->
+  <rect x="500" y="350" width="320" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="660" y="379.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Hardware</text>
+</svg>

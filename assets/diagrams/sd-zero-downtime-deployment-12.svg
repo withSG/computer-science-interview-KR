@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">개선: 확장-수축 패턴 (Expand and Contract)</title>
+  <desc id="d">무중단 스키마 변경을 위한 5단계 확장-수축 마이그레이션 절차 다이어그램</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">개선: 확장-수축 패턴 (Expand and Contract)</text>
+
+  <!-- Step 1 -->
+  <rect x="80" y="60" width="720" height="50" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="90" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 새 컬럼 phone_number 추가 (nullable)</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M440,110 L440,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step 2 -->
+  <rect x="80" y="140" width="720" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="170" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">2. v2 배포: 두 컬럼 모두에 쓴다(이중 쓰기).</text>
+  <text x="440" y="197" font-size="13" fill="#52606d" text-anchor="middle">읽기는 phone_number 우선, NULL이면 phone으로 폴백</text>
+  <rect x="230" y="209" width="420" height="24" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="440" y="225" font-size="12.5" fill="#d97706" text-anchor="middle">→ 이 시점에 v1으로 롤백해도 phone이 최신이라 안전하다</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M440,250 L440,278" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step 3 -->
+  <rect x="80" y="280" width="720" height="50" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="310" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">3. 백필: 기존 행의 phone → phone_number 복사 (청크 단위)</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M440,330 L440,358" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step 4 -->
+  <rect x="80" y="360" width="720" height="50" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="390" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">4. v3 배포: phone_number만 읽고 쓴다</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M440,410 L440,438" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Step 5 -->
+  <rect x="80" y="440" width="720" height="50" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="440" y="470" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">5. 안정화 후 phone DROP</text>
+</svg>

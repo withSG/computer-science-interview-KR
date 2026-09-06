@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Blocking I/O (동기 블로킹)</title>
+  <desc id="d">Blocking I/O의 시퀀스 플로우, 특징, 문제점, 예시를 나타낸 기술 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 메인 흐름 박스 (시퀀스 플로우) -->
+  <rect x="24" y="24" width="832" height="110" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+
+  <!-- 노드 1: 호출자 -->
+  <rect x="40" y="59" width="80" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="80" y="83" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">호출자</text>
+
+  <!-- 화살표 1: read() 호출 -->
+  <path d="M120,79 L200,79" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="127" y="55" width="66" height="18" fill="#ffffff"/>
+  <text x="160" y="68" font-size="11.5" fill="#2563eb" text-anchor="middle">read() 호출</text>
+
+  <!-- 노드 2: 대기 대기 대기... -->
+  <rect x="200" y="59" width="180" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="290" y="83" font-size="13" fill="#d97706" text-anchor="middle">[대기 대기 대기...]</text>
+
+  <!-- 화살표 2 -->
+  <path d="M380,79 L430,79" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 노드 3: 데이터 수신 -->
+  <rect x="430" y="59" width="110" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="485" y="83" font-size="13" fill="#059669" text-anchor="middle">데이터 수신</text>
+
+  <!-- 화살표 3 -->
+  <path d="M540,79 L590,79" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 노드 4: 처리 -->
+  <rect x="590" y="59" width="70" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="625" y="83" font-size="13" fill="#2563eb" text-anchor="middle">처리</text>
+
+  <!-- 섹션 1: 특징 -->
+  <rect x="24" y="150" width="832" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="44" y="177" font-size="14" font-weight="bold" fill="#2563eb">특징:</text>
+  <text x="56" y="202" font-size="13" fill="#1f2933">- 가장 단순한 모델</text>
+  <text x="56" y="222" font-size="13" fill="#1f2933">- I/O 완료까지 스레드 블로킹</text>
+  <text x="56" y="242" font-size="13" fill="#1f2933">- 멀티스레드로 동시성 처리 (스레드당 1 I/O)</text>
+
+  <!-- 섹션 2: 문제 -->
+  <rect x="24" y="274" width="832" height="90" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+  <text x="44" y="301" font-size="14" font-weight="bold" fill="#dc2626">문제:</text>
+  <text x="56" y="326" font-size="13" fill="#1f2933">- 스레드 수 = 동시 연결 수 → 스레드 폭발 위험</text>
+  <text x="56" y="346" font-size="13" fill="#1f2933">- 컨텍스트 스위칭 오버헤드</text>
+
+  <!-- 섹션 3: 예 -->
+  <rect x="24" y="378" width="832" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="44" y="413" font-size="13" font-weight="bold" fill="#1f2933">예:</text>
+  <text x="68" y="413" font-size="13" fill="#52606d">전통적인 Java I/O (InputStream.read())</text>
+</svg>

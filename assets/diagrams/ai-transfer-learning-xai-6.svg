@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">안티패턴 → 개선</title>
+  <desc id="d">안티패턴 사례, 문제 원인 분석, 그리고 올바른 개선 방향을 비교하여 설명하는 다이어그램입니다.</desc>
+  <rect width="880" height="770" fill="#ffffff"/>
+
+  <defs>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- [안티패턴] 섹션 -->
+  <g id="section-antipattern">
+    <rect x="24" y="24" width="832" height="230" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="44" y="55" font-size="16" font-weight="bold" fill="#dc2626">[안티패턴]</text>
+
+    <!-- 안티패턴 Step 1 -->
+    <rect x="44" y="70" width="792" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="60" y="94" font-size="13" fill="#1f2933">SHAP 결과에서 '앱 접속 빈도'의 기여가 크게 나왔다</text>
+
+    <!-- 화살표 1 -->
+    <path d="M440,110 L440,122" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#arrow-red)"/>
+
+    <!-- 안티패턴 Step 2 -->
+    <rect x="44" y="124" width="792" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="60" y="148" font-size="13" fill="#1f2933">"접속을 늘리는 캠페인을 하면 이탈이 줄겠다"고 결론</text>
+
+    <!-- 화살표 2 -->
+    <path d="M440,164 L440,176" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#arrow-red)"/>
+
+    <!-- 안티패턴 Step 3 -->
+    <rect x="44" y="178" width="792" height="60" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="60" y="213" font-size="13" font-weight="bold" fill="#dc2626">푸시 알림을 대량 발송. 접속 수는 늘었지만 이탈률은 그대로</text>
+  </g>
+
+  <!-- [왜 문제인가] 섹션 -->
+  <g id="section-why-problem">
+    <rect x="24" y="274" width="832" height="190" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="44" y="305" font-size="16" font-weight="bold" fill="#d97706">[왜 문제인가]</text>
+
+    <text x="44" y="340" font-size="13" fill="#1f2933">모델이 학습한 것은 "이탈할 사람은 접속을 안 한다"는 상관이다.</text>
+    <text x="44" y="375" font-size="13" fill="#1f2933">접속 감소는 이탈의 원인이 아니라 증상(선행 지표)일 수 있다.</text>
+    <text x="44" y="410" font-size="13" font-weight="bold" fill="#1f2933">증상을 인위적으로 없앤다고 원인이 사라지지 않는다.</text>
+  </g>
+
+  <!-- [개선] 섹션 -->
+  <g id="section-improvement">
+    <rect x="24" y="484" width="832" height="262" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="44" y="515" font-size="16" font-weight="bold" fill="#059669">[개선]</text>
+
+    <!-- 개선 항목 1 -->
+    <rect x="44" y="530" width="792" height="50" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="60" y="559" font-size="13" fill="#1f2933">1. 설명은 '가설 생성'까지만 쓴다. 결론이 아니라 실험 후보 목록이다</text>
+
+    <!-- 개선 항목 2 -->
+    <rect x="44" y="594" width="792" height="50" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="60" y="623" font-size="13" fill="#1f2933">2. A/B 테스트로 개입 효과를 실제로 측정한다</text>
+
+    <!-- 개선 항목 3 -->
+    <rect x="44" y="658" width="792" height="50" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="60" y="687" font-size="13" fill="#1f2933">3. 실험이 불가능하면 인과추론 기법을 쓰되, 가정이 무엇인지 명시한다</text>
+  </g>
+</svg>

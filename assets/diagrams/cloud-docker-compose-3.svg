@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">depends_on이 보장하는 것과 못 하는 것</title>
+  <desc id="d">depends_on 사용 시 시간 흐름에 따른 MySQL과 backend 컨테이너의 기동 및 연결 실패 과정을 나타낸 다이어그램</desc>
+  <rect width="880" height="310" fill="#ffffff"/>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Vertical Timeline Guides -->
+  <line x1="90" y1="50" x2="90" y2="290" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="250" y1="50" x2="250" y2="290" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="410" y1="50" x2="410" y2="290" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="730" y1="50" x2="730" y2="290" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Time Labels -->
+  <rect x="65" y="24" width="50" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="90" y="40.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">t=0s</text>
+
+  <rect x="225" y="24" width="50" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="250" y="40.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">t=1s</text>
+
+  <rect x="385" y="24" width="50" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="410" y="40.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">t=3s</text>
+
+  <rect x="700" y="24" width="60" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="730" y="40.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">t=25s</text>
+
+  <!-- Branches and Events -->
+  <!-- t=0s: mysql start -->
+  <path d="M90,50 L90,80 L110,80" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <text x="115" y="84.55" font-size="13" font-weight="bold" fill="#1f2933">mysql 컨테이너 start</text>
+
+  <!-- t=1s: backend start -->
+  <path d="M250,50 L250,125 L270,125" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <text x="275" y="129.55" font-size="13" font-weight="bold" fill="#1f2933">backend 컨테이너 start</text>
+
+  <!-- t=3s: backend DB connection attempt -->
+  <path d="M410,50 L410,270" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M410,170 L430,170" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <text x="435" y="174.55" font-size="13" fill="#1f2933">backend가 DB 커넥션 시도</text>
+
+  <!-- Arrow & Refused text -->
+  <line x1="605" y1="170" x2="645" y2="170" stroke="#dc2626" stroke-width="1.5" marker-end="url(#a-red)"/>
+  <text x="655" y="174.55" font-size="13" font-weight="bold" fill="#dc2626">✗ Connection refused</text>
+
+  <!-- Subtext -->
+  <text x="435" y="202.025" font-size="11.5" fill="#52606d">(MySQL은 아직 초기화 중)</text>
+
+  <!-- t=25s: MySQL ready -->
+  <path d="M730,50 L730,225 L750,225" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <text x="755" y="229.55" font-size="13" font-weight="bold" fill="#059669">MySQL 준비 완료</text>
+
+  <!-- t=3s: backend died -->
+  <path d="M410,270 L430,270" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <text x="435" y="274.55" font-size="13" font-weight="bold" fill="#dc2626">backend는 이미 죽었다</text>
+</svg>

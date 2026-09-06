@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430"
+     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
+     role="img" aria-labelledby="t d">
+  <title id="t">문제 상황: 툴팁 위치 잡기 (useLayoutEffect)</title>
+  <desc id="d">useLayoutEffect를 사용하여 툴팁 위치를 잡을 때의 실행 순서와 깜빡임이 없는 과정을 보여주는 흐름도</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title from Heading -->
+  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">문제 상황: 툴팁 위치 잡기</text>
+
+  <!-- Timeline Vertical Connector -->
+  <path d="M 70 100 L 70 370" stroke="#cbd2d9" stroke-width="2" fill="none"/>
+
+  <!-- Step 1 -->
+  <g transform="translate(0, 0)">
+    <circle cx="70" cy="100" r="14" fill="#2563eb"/>
+    <text x="70" y="104.5.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+    
+    <!-- Step Header -->
+    <rect x="100" y="80" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="180" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 렌더:</text>
+
+    <!-- Content Label Box -->
+    <rect x="270" y="80" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="380" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">height = 0 (틀린 위치)</text>
+  </g>
+
+  <!-- Step Arrow 1 -> 2 -->
+  <path d="M 70 114 L 70 156" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 2 -->
+  <g transform="translate(0, 67)">
+    <circle cx="70" cy="100" r="14" fill="#2563eb"/>
+    <text x="70" y="104.55" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+    
+    <rect x="100" y="80" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="180" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">2. 커밋:</text>
+
+    <rect x="270" y="80" width="310" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="425" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">DOM에 반영 (아직 화면에는 안 보임)</text>
+  </g>
+
+  <!-- Step Arrow 2 -> 3 -->
+  <path d="M 70 181 L 70 223" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 3 -->
+  <g transform="translate(0, 134)">
+    <circle cx="70" cy="100" r="14" fill="#7c3aed"/>
+    <text x="70" y="104.55" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+    
+    <rect x="100" y="80" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="180" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">3. useLayoutEffect:</text>
+
+    <rect x="270" y="80" width="280" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="410" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">높이 측정 → setHeight(32)</text>
+  </g>
+
+  <!-- Step Arrow 3 -> 4 -->
+  <path d="M 70 248 L 70 290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step 4 -->
+  <g transform="translate(0, 201)">
+    <circle cx="70" cy="100" r="14" fill="#2563eb"/>
+    <text x="70" y="104.55" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+    
+    <rect x="100" y="80" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="180" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">4. 렌더 + 커밋:</text>
+
+    <rect x="270" y="80" width="370" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="455" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">올바른 위치로 갱신 (아직 화면에는 안 보임)</text>
+  </g>
+
+  <!-- Step Arrow 4 -> 5 -->
+  <path d="M 70 315 L 70 357" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Step 5 -->
+  <g transform="translate(0, 268)">
+    <circle cx="70" cy="100" r="14" fill="#059669"/>
+    <text x="70" y="104.55" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+    
+    <rect x="100" y="80" width="160" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="180" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">5. 페인트:</text>
+
+    <rect x="270" y="80" width="360" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="450" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">사용자는 처음부터 올바른 위치만 본다</text>
+
+    <!-- Side Note / Annotation Arrow -->
+    <path d="M 640 100 L 670 100" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-green)"/>
+
+    <rect x="680" y="80" width="140" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="750" y="104.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">← 깜빡임 없음</text>
+  </g>
+</svg>

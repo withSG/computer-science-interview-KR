@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Canary — 일부에게만 먼저 보낸다</title>
+  <desc id="d">Load Balancer에서 v1(안정)에 95%, v2(카나리)에 5% 트래픽을 전달하고, 메트릭 비교 결과에 따라 정상 시 트래픽을 늘리거나 이상 시 즉시 0%로 롤백하는 Canary 배포 구조도입니다.</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="440" fill="#ffffff"/>
+
+  <!-- Load Balancer -->
+  <rect x="350" y="30" width="180" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="60.5" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">Load Balancer</text>
+
+  <!-- LB -> v1 (95%) Line -->
+  <path d="M 440,80 L 440,110 L 260,110 L 260,150" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="325" y="99" width="40" height="22" fill="#ffffff"/>
+  <text x="345" y="114.5" font-size="13" fill="#1f2933" text-anchor="middle" font-weight="bold">95%</text>
+
+  <!-- LB -> v2 (5%) Line -->
+  <path d="M 440,80 L 440,110 L 620,110 L 620,150" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="515" y="99" width="30" height="22" fill="#ffffff"/>
+  <text x="530" y="114.5" font-size="13" fill="#1f2933" text-anchor="middle" font-weight="bold">5%</text>
+
+  <!-- v1 (안정) -->
+  <rect x="180" y="150" width="160" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="260" y="180.5" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">v1 (안정)</text>
+
+  <!-- v2 (카나리) -->
+  <rect x="540" y="150" width="160" height="50" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="620" y="180.5" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">v2 (카나리)</text>
+
+  <!-- v2 -> 메트릭 비교 Line -->
+  <path d="M 620,200 L 620,230" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 메트릭 비교 라벨 -->
+  <text x="620" y="248.5" font-size="13" fill="#52606d" text-anchor="middle">메트릭 비교: 에러율, P99 지연, 비즈니스 지표</text>
+
+  <!-- 메트릭 비교 -> 결정 분기 Line -->
+  <path d="M 620,260 L 620,290 L 440,290" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 정상 분기 Line -->
+  <path d="M 440,290 L 260,290 L 260,340" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 이상 분기 Line -->
+  <path d="M 440,290 L 620,290 L 620,340" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- 정상 결과 -->
+  <rect x="80" y="340" width="360" height="50" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="260" y="370.5" font-size="14" fill="#059669" text-anchor="middle" font-weight="bold">정상 → 25% → 50% → 100%</text>
+
+  <!-- 이상 결과 -->
+  <rect x="510" y="340" width="220" height="50" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="620" y="370.5" font-size="14" fill="#dc2626" text-anchor="middle" font-weight="bold">이상 → 즉시 0%로</text>
+</svg>

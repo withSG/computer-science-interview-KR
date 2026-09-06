@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이벤트 루프의 구성 요소와 순환 흐름</title>
+  <desc id="d">JavaScript 엔진, 호스트 환경, 태스크 큐 및 이벤트 루프의 구성 요소 간의 데이터 흐름과 비동기 콜백 순환 흐름을 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+  <rect width="880" height="720" fill="#ffffff"/>
+  <text x="440" y="45" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">이벤트 루프의 구성 요소와 순환 흐름</text>
+
+  <!-- Legend (범례) -->
+  <rect x="50" y="65" width="780" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="65" y="87" font-size="11.5" font-weight="600" fill="#1f2933">범례:</text>
+
+  <line x1="120" y1="83" x2="150" y2="83" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <text x="156" y="87" font-size="11" fill="#52606d">① 비동기 API 호출</text>
+
+  <line x1="280" y1="83" x2="310" y2="83" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-amber)"/>
+  <text x="316" y="87" font-size="11" fill="#52606d">② 콜백 적재</text>
+
+  <line x1="410" y1="83" x2="440" y2="83" stroke="#7c3aed" stroke-width="2" marker-end="url(#a-purple)"/>
+  <text x="446" y="87" font-size="11" fill="#52606d">③ 마이크로태스크(전부 비움)</text>
+
+  <line x1="620" y1="83" x2="650" y2="83" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
+  <text x="656" y="87" font-size="11" fill="#52606d">③ 태스크(하나만)</text>
+
+  <!-- JavaScript Engine Group -->
+  <rect x="50" y="120" width="380" height="230" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="70" y="145" font-size="14" font-weight="600" fill="#1f2933">JavaScript 엔진</text>
+
+  <!-- Call Stack Box -->
+  <rect x="70" y="165" width="160" height="160" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="150" y="190" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">Call Stack</text>
+  <text x="150" y="210" font-size="11.5" fill="#52606d" text-anchor="middle">(실행 중 / 하나뿐임)</text>
+
+  <rect x="85" y="225" width="130" height="30" rx="3" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="150" y="244" font-size="11.5" fill="#1f2933" text-anchor="middle">console.log('A')</text>
+
+  <rect x="85" y="260" width="130" height="30" rx="3" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="150" y="279" font-size="11.5" fill="#1f2933" text-anchor="middle">Global Context</text>
+
+  <!-- Heap Box -->
+  <rect x="250" y="165" width="160" height="160" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="330" y="190" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Heap</text>
+  <text x="330" y="210" font-size="11.5" fill="#52606d" text-anchor="middle">(객체 저장 메모리)</text>
+  <circle cx="300" cy="255" r="18" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <circle cx="360" cy="245" r="22" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <circle cx="325" cy="290" r="15" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+
+  <!-- Host Environment Group -->
+  <rect x="470" y="120" width="360" height="230" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="490" y="145" font-size="14" font-weight="600" fill="#d97706">호스트 환경 (Web API / libuv)</text>
+  <text x="490" y="165" font-size="11.5" fill="#52606d">타이머 · 네트워크 · 파일 I/O · DOM 이벤트 (다른 스레드)</text>
+
+  <rect x="490" y="185" width="150" height="40" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="565" y="209" font-size="13" fill="#1f2933" text-anchor="middle">타이머 (setTimeout)</text>
+
+  <rect x="660" y="185" width="150" height="40" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="735" y="209" font-size="13" fill="#1f2933" text-anchor="middle">네트워크 (Fetch / XHR)</text>
+
+  <rect x="490" y="235" width="150" height="40" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="565" y="259" font-size="13" fill="#1f2933" text-anchor="middle">파일 I/O</text>
+
+  <rect x="660" y="235" width="150" height="40" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="735" y="259" font-size="13" fill="#1f2933" text-anchor="middle">DOM 이벤트 리스너</text>
+
+  <!-- Flow ①: Call Stack -> Host API -->
+  <path d="M230,245 L470,245" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="260" y="230" width="190" height="18" fill="#ffffff"/>
+  <text x="355" y="243" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">① 비동기 API 호출</text>
+
+  <!-- Queues Area -->
+  <rect x="220" y="410" width="610" height="230" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- Microtask Queue Box -->
+  <rect x="240" y="430" width="570" height="90" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="260" y="455" font-size="13" font-weight="600" fill="#7c3aed">Microtask Queue (우선 처리)</text>
+  <text x="260" y="475" font-size="11.5" fill="#52606d">Promise 반응, queueMicrotask, MutationObserver</text>
+
+  <rect x="580" y="445" width="100" height="35" rx="3" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="630" y="466" font-size="11.5" fill="#1f2933" text-anchor="middle">Promise 콜백</text>
+
+  <rect x="690" y="445" width="100" height="35" rx="3" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="740" y="466" font-size="11.5" fill="#1f2933" text-anchor="middle">microtask</text>
+
+  <text x="260" y="505" font-size="11" font-weight="600" fill="#7c3aed">※ 콜 스택이 비면 큐가 완전히 비워질 때까지 모두 처리함</text>
+
+  <!-- Task Queue Box -->
+  <rect x="240" y="535" width="570" height="90" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="260" y="560" font-size="13" font-weight="600" fill="#059669">Task Queue (매크로태스크)</text>
+  <text x="260" y="580" font-size="11.5" fill="#52606d">setTimeout, 이벤트 콜백, I/O 완료</text>
+
+  <rect x="580" y="550" width="100" height="35" rx="3" fill="#ffffff" stroke="#059669" stroke-width="1"/>
+  <text x="630" y="571" font-size="11.5" fill="#1f2933" text-anchor="middle">timer 콜백</text>
+
+  <rect x="690" y="550" width="100" height="35" rx="3" fill="#ffffff" stroke="#059669" stroke-width="1"/>
+  <text x="740" y="571" font-size="11.5" fill="#1f2933" text-anchor="middle">event 콜백</text>
+
+  <text x="260" y="610" font-size="11" font-weight="600" fill="#059669">※ 이벤트 루프 주기마다 하나씩만 꺼내어 콜 스택으로 이동</text>
+
+  <!-- Flow ②: Host API -> Queues -->
+  <path d="M650,350 L650,410" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="560" y="370" width="180" height="18" fill="#ffffff"/>
+  <text x="650" y="383" font-size="11.5" font-weight="600" fill="#d97706" text-anchor="middle">② 완료되면 콜백을 큐에 넣는다</text>
+
+  <!-- Event Loop Center Node -->
+  <circle cx="120" cy="525" r="45" fill="#ffffff" stroke="#1f2933" stroke-width="2"/>
+  <text x="120" y="520" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">이벤트 루프</text>
+  <text x="120" y="538" font-size="11.5" fill="#52606d" text-anchor="middle">(Event Loop)</text>
+
+  <!-- Circular Arrow on Event Loop -->
+  <path d="M100,490 A 35 35 0 0 1 145,500" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Flow ③-1: Microtask -> Event Loop -> Call Stack -->
+  <path d="M240,475 L150,475 L150,335" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="155" y="415" width="130" height="18" fill="#ffffff"/>
+  <text x="220" y="428" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">③ Microtask 전부 이동</text>
+
+  <!-- Flow ③-2: Task Queue -> Event Loop -> Call Stack -->
+  <path d="M240,580 L110,580 L110,335" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="15" y="445" width="120" height="18" fill="#ffffff"/>
+  <text x="75" y="458" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">③ Task 1개 이동</text>
+
+  <!-- Check Stack Empty Label -->
+  <rect x="55" y="350" width="150" height="22" rx="3" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="130" y="365" font-size="11" font-weight="600" fill="#1f2933" text-anchor="middle">콜 스택이 비어있는지 확인</text>
+
+  <!-- Caption -->
+  <text x="440" y="690" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 이벤트 루프는 콜 스택이 비면 마이크로태스크 큐를 완전히 비운 뒤, 태스크 큐에서 콜백을 하나씩 올리는 순환을 반복한다.</text>
+</svg>

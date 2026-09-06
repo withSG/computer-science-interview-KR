@@ -35,6 +35,11 @@ React 컴포넌트 함수는 **순수해야 한다.** 같은 props와 state에 �
 
 ## 2. 실행 시점 — 브라우저 페인트를 기준으로
 
+<!-- diagram:fe-useEffect-vs-useLayoutEffect-1 -->
+![2. 실행 시점](../../assets/diagrams/fe-useEffect-vs-useLayoutEffect-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  상태 변경
       │
@@ -62,6 +67,7 @@ React 컴포넌트 함수는 **순수해야 한다.** 같은 props와 state에 �
 │      (여기서 setState하면 화면이 한 번 더 바뀐다)        │
 └──────────────────────────────────────────────────────────┘
 ```
+-->
 
 핵심은 **`useLayoutEffect`는 페인트를 막고, `useEffect`는 막지 않는다**는 것이다.
 
@@ -102,6 +108,11 @@ function Tooltip({ targetRect, children }) {
 
 **왜 문제인가**: 실행 순서를 따라가 보자.
 
+<!-- diagram:fe-useEffect-vs-useLayoutEffect-2 -->
+![문제 상황: 툴팁 위치 잡기](../../assets/diagrams/fe-useEffect-vs-useLayoutEffect-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 렌더:      height = 0  →  top 계산이 틀림 (엉뚱한 위치)
 2. 커밋:      DOM에 반영
@@ -110,11 +121,17 @@ function Tooltip({ targetRect, children }) {
 5. 렌더:      height = 32  →  top이 올바르게 계산됨
 6. 커밋 + 페인트: 사용자가 "제자리로 점프하는 툴팁"을 본다
 ```
+-->
 
 한 프레임이지만 사람 눈에 확실히 보인다. 툴팁이 순간적으로 튀는 것처럼 느껴진다.
 
 개선은 간단하다. **위 코드에서 `useEffect`를 `useLayoutEffect`로 바꾸기만 하면 된다.** 그러면 순서가 이렇게 달라진다.
 
+<!-- diagram:fe-useEffect-vs-useLayoutEffect-3 -->
+![문제 상황: 툴팁 위치 잡기](../../assets/diagrams/fe-useEffect-vs-useLayoutEffect-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 렌더:            height = 0 (틀린 위치)
 2. 커밋:            DOM에 반영 (아직 화면에는 안 보임)
@@ -122,6 +139,7 @@ function Tooltip({ targetRect, children }) {
 4. 렌더 + 커밋:     올바른 위치로 갱신 (아직 화면에는 안 보임)
 5. 페인트:          사용자는 처음부터 올바른 위치만 본다   ← 깜빡임 없음
 ```
+-->
 
 브라우저에게 "잠깐, 아직 그리지 마"라고 말한 셈이다. 그 대가로 페인트가 그만큼 늦어진다.
 
@@ -158,12 +176,18 @@ SSR 관련해서 한 가지 더. `useLayoutEffect`는 서버에서 실행될 수
 
 effect가 반환한 함수가 cleanup이다. 컴포넌트가 언마운트될 때, 그리고 **의존성이 바뀌어 다음 effect가 실행되기 직전**에 실행된다. 두 번째가 자주 간과된다.
 
+<!-- diagram:fe-useEffect-vs-useLayoutEffect-4 -->
+![언제 실행되는가](../../assets/diagrams/fe-useEffect-vs-useLayoutEffect-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [마운트]                effect 실행 (roomId: 'A')
 [roomId 'A' → 'B']      이전 cleanup ('A' 연결 해제)  ← 먼저
                         새 effect    ('B' 연결)       ← 나중
 [언마운트]              cleanup ('B' 연결 해제)
 ```
+-->
 
 cleanup 함수 역시 자신이 만들어진 렌더의 클로저를 붙잡고 있으므로, 위 예에서 첫 cleanup이 보는 `roomId`는 'A'다. 이 덕분에 "자기가 연 것을 자기가 닫는" 대칭이 성립한다.
 

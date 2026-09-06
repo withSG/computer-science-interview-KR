@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Node.js의 이벤트 루프</title>
+  <desc id="d">Node.js libuv 이벤트 루프의 6개 주요 페이즈 순환 구조와 페이즈 사이의 process.nextTick 및 Promise 마이크로태스크 큐 처리 순서를 나타낸 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+  <rect width="880" height="580" fill="#ffffff"/>
+
+  <!-- 메인 이벤트 루프 박스 그룹 -->
+  <g id="event-loop-phases">
+    <!-- 1. timers -->
+    <rect x="70" y="30" width="320" height="56" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="230" y="63" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">timers</text>
+    <text x="414" y="63" text-anchor="start" font-size="13" fill="#52606d">setTimeout / setInterval 콜백</text>
+
+    <!-- 2. pending callbacks -->
+    <rect x="70" y="102" width="320" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="230" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">pending callbacks</text>
+    <text x="414" y="135" text-anchor="start" font-size="13" fill="#52606d">일부 시스템 오퍼레이션 콜백</text>
+
+    <!-- 3. idle, prepare -->
+    <rect x="70" y="174" width="320" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="230" y="207" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">idle, prepare</text>
+    <text x="414" y="207" text-anchor="start" font-size="13" fill="#52606d">내부용</text>
+
+    <!-- 4. poll -->
+    <rect x="70" y="246" width="320" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+    <text x="230" y="279" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">poll</text>
+    <text x="414" y="279" text-anchor="start" font-size="13" fill="#52606d">I/O 이벤트 수집, 여기서 대기</text>
+
+    <!-- 5. check -->
+    <rect x="70" y="318" width="320" height="56" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+    <text x="230" y="351" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">check</text>
+    <text x="414" y="351" text-anchor="start" font-size="13" fill="#52606d">setImmediate 콜백</text>
+
+    <!-- 6. close callbacks -->
+    <rect x="70" y="390" width="320" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="230" y="423" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">close callbacks</text>
+    <text x="414" y="423" text-anchor="start" font-size="13" fill="#52606d">socket.on('close') 등</text>
+  </g>
+
+  <!-- 순환 루프 화살표 (오른쪽 순차 연결 + 왼쪽 리턴) -->
+  <g id="loop-arrows">
+    <path d="M 230,86 L 230,102" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+    <path d="M 230,158 L 230,174" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+    <path d="M 230,230 L 230,246" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+    <path d="M 230,302 L 230,318" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+    <path d="M 230,374 L 230,390" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+    <!-- 왼쪽 대형 리턴 루프 화살표 -->
+    <path d="M 70,418 L 36,418 L 36,58 L 61,58" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  </g>
+
+  <!-- 구분선 -->
+  <line x1="40" y1="480" x2="840" y2="480" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 각주 / 하단 설명 영역 -->
+  <g id="footer-note">
+    <text x="70" y="525" text-anchor="start" font-size="13" font-weight="bold" fill="#1f2933">각 콜백 사이마다:</text>
+    
+    <!-- process.nextTick 큐 -->
+    <rect x="210" y="504" width="180" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="300" y="527" text-anchor="middle" font-size="13" font-weight="bold" fill="#d97706">process.nextTick 큐</text>
+    
+    <!-- 화살표 -->
+    <text x="402" y="527" text-anchor="middle" font-size="14" fill="#52606d">→</text>
+    
+    <!-- Promise 마이크로태스크 큐 -->
+    <rect x="420" y="504" width="230" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="535" y="527" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">Promise 마이크로태스크 큐</text>
+    
+    <text x="662" y="527" text-anchor="start" font-size="13" fill="#1f2933">순으로 비운다</text>
+  </g>
+</svg>

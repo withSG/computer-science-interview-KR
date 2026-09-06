@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">SHAP: 기여도를 공정하게 나눈다</title>
+  <desc id="d">기준값에서 출발하여 각 특성의 기여도(양수 및 음수)를 합산하여 최종 예측값에 도달하는 SHAP 가산성을 보여주는 다이어그램입니다.</desc>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <!-- 상단 화살표 구조: 기준값 -> 이 건의 예측값 -->
+  <text x="40" y="44" font-size="14" font-weight="bold" fill="#1f2933">기준값(모든 예측의 평균)</text>
+  <path d="M 230 40 L 640 40" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <text x="650" y="44" font-size="14" font-weight="bold" fill="#2563eb">이 건의 예측값</text>
+
+  <!-- 메인 박스 영역 -->
+  <rect x="40" y="70" width="800" height="340" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+
+  <!-- base 값 -->
+  <text x="70" y="104" font-size="13" font-weight="bold" fill="#52606d">base = 0.20</text>
+
+  <!-- 트리 구조 연결선 (│ ├─ └─) -->
+  <path d="M 100 115 L 100 320" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 100 140 L 120 140" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 100 180 L 120 180" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 100 220 L 120 220" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 100 260 L 120 260" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <path d="M 100 320 L 120 320" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+
+  <!-- 1. 연체이력 +0.31 (위험 증가 - 빨강) -->
+  <text x="130" y="144" font-size="13" fill="#1f2933">연체이력</text>
+  <text x="240" y="144" font-size="13" font-weight="bold" fill="#dc2626">+0.31</text>
+  <rect x="300" y="128" width="310" height="20" rx="3" fill="#dc2626"/>
+
+  <!-- 2. 부채비율 +0.12 (위험 증가 - 빨강) -->
+  <text x="130" y="184" font-size="13" fill="#1f2933">부채비율</text>
+  <text x="240" y="184" font-size="13" font-weight="bold" fill="#dc2626">+0.12</text>
+  <rect x="300" y="168" width="120" height="20" rx="3" fill="#dc2626"/>
+
+  <!-- 3. 소득 -0.06 (위험 감소 - 파랑) -->
+  <text x="130" y="224" font-size="13" fill="#1f2933">소득</text>
+  <text x="240" y="224" font-size="13" font-weight="bold" fill="#2563eb">-0.06</text>
+  <rect x="300" y="208" width="60" height="20" rx="3" fill="#2563eb"/>
+
+  <!-- 4. 근속연수 -0.03 (위험 감소 - 파랑) -->
+  <text x="130" y="264" font-size="13" fill="#1f2933">근속연수</text>
+  <text x="240" y="264" font-size="13" font-weight="bold" fill="#2563eb">-0.03</text>
+  <rect x="300" y="248" width="30" height="20" rx="3" fill="#2563eb"/>
+
+  <!-- 구분선 -->
+  <line x1="120" y1="290" x2="780" y2="290" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- 5. 합계 및 최종 예측 -->
+  <text x="130" y="324" font-size="13" font-weight="bold" fill="#1f2933">합계</text>
+  <text x="240" y="324" font-size="13" font-weight="bold" fill="#d97706">+0.34</text>
+  
+  <rect x="130" y="348" width="280" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="270" y="373" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">최종 예측 = 0.20 + 0.34 = 0.54</text>
+
+  <!-- 하단 설명 text -->
+  <text x="40" y="440" font-size="13" font-weight="bold" fill="#1f2933">각 막대의 합이 정확히 (예측값 - 기준값)과 같다</text>
+  <text x="40" y="468" font-size="13" fill="#059669">→ "이 사람이 평균보다 위험하다고 판정된 이유의 몫"을 숫자로 나눌 수 있다</text>
+</svg>

@@ -96,6 +96,11 @@ O(2ⁿ)      = 무한대급
 이진 탐색은 **정렬된 배열**에서 중간값과 비교하여 탐색 범위를 절반씩 줄여나가는 알고리즘입니다. 시간 복잡도는 O(log n)입니다.
 
 ### 동작 과정
+<!-- diagram:cs-qna-algorithm-1 -->
+![동작 과정](../../assets/diagrams/cs-qna-algorithm-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 찾는 값: 7
 배열: [1, 3, 5, 7, 9, 11, 13]
@@ -106,6 +111,7 @@ O(2ⁿ)      = 무한대급
        [7]
 3단계: mid=7, 찾음!
 ```
+-->
 
 ### 구현 (Java)
 ```java
@@ -145,6 +151,11 @@ public int binarySearch(int[] arr, int target) {
 | 사용 | 경로 탐색, 사이클 | 최단 거리, 레벨 탐색 |
 
 ### 탐색 순서 예시
+<!-- diagram:cs-qna-algorithm-2 -->
+![탐색 순서 예시](../../assets/diagrams/cs-qna-algorithm-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
     1
    / \
@@ -155,6 +166,7 @@ public int binarySearch(int[] arr, int target) {
 DFS: 1 → 2 → 4 → 5 → 3
 BFS: 1 → 2 → 3 → 4 → 5
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 언제 어떤 것을 사용하는지
@@ -318,12 +330,18 @@ public String largestNumber(int[] nums) {
 ```
 
 ### 예시
+<!-- diagram:cs-qna-algorithm-3 -->
+![예시](../../assets/diagrams/cs-qna-algorithm-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 입력: [3, 30, 34, 5, 9]
 비교: "330" vs "303" → 3이 30보다 앞
 정렬: [9, 5, 34, 3, 30]
 출력: "9534330"
 ```
+-->
 
 ### 시간/공간 복잡도
 - 시간: O(n log n) - 정렬

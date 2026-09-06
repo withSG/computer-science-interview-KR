@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Top-p: 꼬리 자르기</title>
+  <desc id="d">top_p가 0.9일 때 누적 확률에 따라 후보 토큰과 제외 토큰을 구분하는 Top-p 샘플링 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+  </defs>
+  
+  <!-- 배경 -->
+  <rect width="880" height="370" fill="#ffffff"/>
+
+  <!-- 헤더 / top_p 설정값 -->
+  <rect x="40" y="24" width="800" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="60" y="49" font-size="14" font-weight="bold" fill="#1f2933">top_p = 0.9</text>
+
+  <!-- 후보 구역 배경 (포함) -->
+  <rect x="40" y="74" width="800" height="136" fill="#ecfdf5" rx="4"/>
+  
+  <!-- 잘림 구분선 및 라벨 -->
+  <line x1="40" y1="218" x2="840" y2="218" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+  <rect x="390" y="208" width="100" height="20" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
+  <text x="440" y="222" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">잘림</text>
+
+  <!-- 제외 구역 배경 -->
+  <rect x="40" y="226" width="800" height="90" fill="#fef2f2" rx="4"/>
+
+  <!-- 행 1: 서울 .60 누적 .60 ← 후보 -->
+  <text x="80" y="112" font-size="14" font-weight="bold" fill="#1f2933">서울</text>
+  <text x="140" y="112" font-size="14" fill="#059669" font-weight="bold">.60</text>
+  <text x="210" y="112" font-size="14" fill="#52606d">누적</text>
+  <text x="250" y="112" font-size="14" stroke="none" fill="#059669" font-weight="bold">.60</text>
+  <path d="M 380 108 L 310 108" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" stroke-linecap="butt" fill="none" marker-end="url(#a-ink)"/>
+  <text x="390" y="112" font-size="13" font-weight="bold" fill="#059669">후보</text>
+
+  <!-- 행 2: 부산 .22 누적 .82 ← 후보 -->
+  <text x="80" y="152" font-size="14" font-weight="bold" fill="#1f2933">부산</text>
+  <text x="140" y="152" font-size="14" fill="#059669" font-weight="bold">.22</text>
+  <text x="210" y="152" font-size="14" fill="#52606d">누적</text>
+  <text x="250" y="152" font-size="14" stroke="none" fill="#059669" font-weight="bold">.82</text>
+  <path d="M 380 148 L 310 148" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" stroke-linecap="butt" fill="none" marker-end="url(#a-ink)"/>
+  <text x="390" y="152" font-size="13" font-weight="bold" fill="#059669">후보</text>
+
+  <!-- 행 3: 대구 .12 누적 .94 ← 후보 (여기서 0.9를 넘김, 포함하고 종료) -->
+  <text x="80" y="192" font-size="14" font-weight="bold" fill="#1f2933">대구</text>
+  <text x="140" y="192" font-size="14" fill="#059669" font-weight="bold">.12</text>
+  <text x="210" y="192" font-size="14" fill="#52606d">누적</text>
+  <text x="250" y="192" font-size="14" fill="#059669" font-weight="bold">.94</text>
+  <path d="M 380 188 L 310 188" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" stroke-linecap="butt" fill="none" marker-end="url(#a-ink)"/>
+  <text x="390" y="192" font-size="13" font-weight="bold" fill="#059669">후보 (여기서 0.9를 넘김, 포함하고 종료)</text>
+
+  <!-- 행 4: 인천 .06 ← 제외 -->
+  <text x="80" y="258" font-size="14" fill="#52606d">인천</text>
+  <text x="140" y="258" font-size="14" fill="#dc2626">.06</text>
+  <path d="M 380 254 L 310 254" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" stroke-linecap="butt" fill="none" marker-end="url(#a-ink)"/>
+  <text x="390" y="258" font-size="13" font-weight="bold" fill="#dc2626">제외</text>
+
+  <!-- 행 5: 그외 .00 ← 제외 -->
+  <text x="80" y="298" font-size="14" fill="#52606d">그외</text>
+  <text x="140" y="298" font-size="14" fill="#dc2626">.00</text>
+  <path d="M 380 294 L 310 294" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" stroke-linecap="butt" fill="none" marker-end="url(#a-ink)"/>
+  <text x="390" y="298" font-size="13" font-weight="bold" fill="#dc2626">제외</text>
+</svg>

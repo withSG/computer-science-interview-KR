@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">티켓 오픈 시스템 설계 구조도</title>
+  <desc id="d">고트래픽 티켓 오픈 시나리오의 7가지 단계별 트래픽 처리 및 시스템 분리 흐름도</desc>
+  <rect width="880" height="630" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Step Item 1 -->
+  <g transform="translate(40, 30)">
+    <rect x="0" y="0" width="800" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="36" cy="32" r="16" fill="#2563eb"/>
+    <text x="36" y="37.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">①</text>
+    <text x="68" y="36.5" font-size="15" font-weight="bold" fill="#1f2933">정적 자산 + 대기실 페이지</text>
+    <path d="M285,32 L355,32" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="375" y="36.5" font-size="15" font-weight="bold" fill="#2563eb">전량 CDN</text>
+  </g>
+
+  <!-- Down Arrow 1 -> 2 -->
+  <path d="M440,94 L440,114" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- Step Item 2 -->
+  <g transform="translate(40, 114)">
+    <rect x="0" y="0" width="800" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="36" cy="32" r="16" fill="#2563eb"/>
+    <text x="36" y="37.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">②</text>
+    <text x="68" y="36.5" font-size="15" font-weight="bold" fill="#1f2933">대기실 입장 제어</text>
+    <path d="M210,32 L280,32" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <text x="300" y="36.5" font-size="15" font-weight="bold" fill="#2563eb">실제 처리 능력 기준으로 초당 N명씩 입장</text>
+  </g>
+
+  <!-- Down Arrow 2 -> 3 -->
+  <path d="M440,178 L440,198" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step Item 3 -->
+  <g transform="translate(40, 198)">
+    <rect x="0" y="0" width="800" height="64" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <circle cx="36" cy="32" r="16" fill="#7c3aed"/>
+    <text x="36" y="37.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">③</text>
+    <text x="68" y="36.5" font-size="15" font-weight="bold" fill="#1f2933">좌석 조회</text>
+    <path d="M160,32 L230,32" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+    <text x="250" y="36.5" font-size="15" font-weight="bold" fill="#7c3aed">Redis 캐시 <tspan font-size="13" font-weight="normal" fill="#52606d">(수 초 지연 허용, 표시용)</tspan></text>
+  </g>
+
+  <!-- Down Arrow 3 -> 4 -->
+  <path d="M440,262 L440,282" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- Step Item 4 -->
+  <g transform="translate(40, 282)">
+    <rect x="0" y="0" width="800" height="64" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <circle cx="36" cy="32" r="16" fill="#7c3aed"/>
+    <text x="36" y="37.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">④</text>
+    <text x="68" y="36.5" font-size="15" font-weight="bold" fill="#1f2933">좌석 선점</text>
+    <path d="M160,32 L230,32" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+    <text x="250" y="36.5" font-size="15" font-weight="bold" fill="#7c3aed">Redis 원자 연산. DB에 가지 않는다</text>
+  </g>
+
+  <!-- Down Arrow 4 -> 5 -->
+  <path d="M440,346 L440,366" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+
+  <!-- Step Item 5 -->
+  <g transform="translate(40, 366)">
+    <rect x="0" y="0" width="800" height="64" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <circle cx="36" cy="32" r="16" fill="#d97706"/>
+    <text x="36" y="37.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">⑤</text>
+    <text x="68" y="36.5" font-size="15" font-weight="bold" fill="#1f2933">결제</text>
+    <path d="M125,32 L195,32" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+    <text x="215" y="36.5" font-size="15" font-weight="bold" fill="#d97706">외부 PG 동기 호출 <tspan font-size="13" font-weight="normal" fill="#52606d">(타임아웃 + 서킷 브레이커)</tspan></text>
+  </g>
+
+  <!-- Down Arrow 5 -> 6 -->
+  <path d="M440,430 L440,450" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step Item 6 -->
+  <g transform="translate(40, 450)">
+    <rect x="0" y="0" width="800" height="64" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <circle cx="36" cy="32" r="16" fill="#059669"/>
+    <text x="36" y="37.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">⑥</text>
+    <text x="68" y="36.5" font-size="15" font-weight="bold" fill="#1f2933">확정 후 알림·메일·통계</text>
+    <path d="M255,32 L325,32" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+    <text x="345" y="36.5" font-size="15" font-weight="bold" fill="#059669">큐로 비동기</text>
+  </g>
+
+  <!-- Down Arrow 6 -> 7 -->
+  <path d="M440,514 L440,534" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Step Item 7 -->
+  <g transform="translate(40, 534)">
+    <rect x="0" y="0" width="800" height="64" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <circle cx="36" cy="32" r="16" fill="#059669"/>
+    <text x="36" y="37.5" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">⑦</text>
+    <text x="68" y="36.5" font-size="15" font-weight="bold" fill="#1f2933">이벤트 전용 클러스터/DB로 분리</text>
+    <path d="M335,32 L405,32" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+    <text x="425" y="36.5" font-size="15" font-weight="bold" fill="#059669">일반 서비스에 영향 없게</text>
+  </g>
+</svg>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 750" width="880" height="750" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Blue-Green 배포 전략 단계별 다이어그램</title>
+  <desc id="d">Blue-Green 배포 전략의 1단계부터 4단계까지의 진행 과정을 보여주는 기술 다이어그램입니다.</desc>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="880" height="750" fill="#ffffff"/>
+
+  <!-- 메인 제목 -->
+  <text x="30" y="35" font-size="16" font-weight="bold" fill="#1f2933">Blue-Green — 통째로 하나 더 만들고 스위치를 넘긴다</text>
+
+  <!-- ==================== 1단계 (현재) ==================== -->
+  <g transform="translate(0, 50)">
+    <text x="30" y="25" font-size="14" font-weight="bold" fill="#1f2933">1단계 (현재)</text>
+    
+    <!-- LB -->
+    <rect x="130" y="32" width="50" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="155" y="54" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+
+    <!-- 화살표 (LB -> Blue) -->
+    <path d="M180,50 L270,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <rect x="200" y="40" width="50" height="18" fill="#ffffff"/>
+    <text x="225" y="53" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">100%</text>
+
+    <!-- Blue (v1) 박스 -->
+    <rect x="270" y="20" width="220" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="380" y="42" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Blue (v1)</text>
+    <text x="380" y="65" font-size="13" fill="#1f2933" text-anchor="middle">[v1][v1][v1][v1]</text>
+
+    <!-- Green 텍스트 -->
+    <text x="540" y="54" font-size="13" fill="#52606d">Green: 없음</text>
+  </g>
+
+  <!-- 구분선 1 -->
+  <line x1="30" y1="150" x2="850" y2="150" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ==================== 2단계 (Green 구축) ==================== -->
+  <g transform="translate(0, 160)">
+    <text x="30" y="25" font-size="14" font-weight="bold" fill="#1f2933">2단계 (Green 구축)</text>
+
+    <!-- LB -->
+    <rect x="130" y="32" width="50" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="155" y="54" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+
+    <!-- 화살표 (LB -> Blue) -->
+    <path d="M180,50 L270,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <rect x="200" y="40" width="50" height="18" fill="#ffffff"/>
+    <text x="225" y="53" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">100%</text>
+
+    <!-- Blue (v1) 박스 -->
+    <rect x="270" y="20" width="220" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="380" y="42" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Blue (v1)</text>
+    <text x="380" y="65" font-size="13" fill="#1f2933" text-anchor="middle">[v1][v1][v1][v1]</text>
+
+    <!-- Green (v2) 박스 -->
+    <rect x="520" y="20" width="220" height="60" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="630" y="42" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Green (v2)</text>
+    <text x="630" y="65" font-size="13" fill="#1f2933" text-anchor="middle">[v2][v2][v2][v2]</text>
+
+    <!-- 라벨: 트래픽 없음 -->
+    <path d="M750,50 L765,50" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="775" y="54" font-size="13" fill="#52606d">트래픽 없음</text>
+
+    <!-- 주석 화살표 & 텍스트 -->
+    <path d="M630,115 L630,88" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="630" y="135" font-size="13" fill="#52606d" text-anchor="middle">여기서 실사용 전 검증(스모크 테스트)</text>
+  </g>
+
+  <!-- 구분선 2 -->
+  <line x1="30" y1="330" x2="850" y2="330" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ==================== 3단계 (전환) ==================== -->
+  <g transform="translate(0, 340)">
+    <text x="30" y="25" font-size="14" font-weight="bold" fill="#1f2933">3단계 (전환)</text>
+
+    <!-- LB -->
+    <rect x="130" y="32" width="50" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+    <text x="155" y="54" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+
+    <!-- 직선 화살표 (LB -> Blue 영역 방향) -->
+    <path d="M180,50 L260,50" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+    <!-- 우회 화살표 (LB -> Green) -->
+    <path d="M155,68 L155,100 L510,100 L510,50 L520,50" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+    <rect x="200" y="91" width="50" height="18" fill="#ffffff"/>
+    <text x="225" y="104" font-size="11.5" fill="#059669" text-anchor="middle" font-weight="bold">100%</text>
+
+    <!-- Blue (v1) 박스 -->
+    <rect x="270" y="20" width="220" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="380" y="42" font-size="13" fill="#52606d" text-anchor="middle">Blue (v1)</text>
+    <text x="380" y="65" font-size="13" fill="#52606d" text-anchor="middle">대기 (즉시 복귀 가능)</text>
+
+    <!-- Green (v2) 박스 -->
+    <rect x="520" y="20" width="220" height="60" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="630" y="42" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Green (v2)</text>
+    <text x="630" y="65" font-size="13" fill="#1f2933" text-anchor="middle">[v2][v2][v2][v2]</text>
+  </g>
+
+  <!-- 구분선 3 -->
+  <line x1="30" y1="480" x2="850" y2="480" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- ==================== 4단계 ==================== -->
+  <g transform="translate(0, 500)">
+    <text x="30" y="25" font-size="14" font-weight="bold" fill="#1f2933">4단계 : 일정 시간 관찰 후 Blue 회수. 문제가 생기면 LB를 Blue로 되돌린다.</text>
+  </g>
+</svg>

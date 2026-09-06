@@ -37,6 +37,11 @@ EC2로 API 서버를 운영한다고 하자. 트래픽이 하루 중 3시간만 
 
 Lambda를 "함수가 호출될 때마다 새로 뜬다"고 이해하면 성능 튜닝을 할 수 없다. 실제 동작은 이렇다.
 
+<!-- diagram:cloud-serverless-1 -->
+![2. 실행 모델: 실행 환경의 생명주기](../../assets/diagrams/cloud-serverless-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                     첫 호출 (또는 동시성 부족으로 새 환경이 필요할 때)
                                     │
@@ -58,6 +63,7 @@ Lambda를 "함수가 호출될 때마다 새로 뜬다"고 이해하면 성능 �
              │ 한동안 호출이 없으면 → SHUTDOWN 후 환경 회수   │
              └──────────────────────────────────────────────┘
 ```
+-->
 
 여기서 나오는 실전 규칙 하나가 있다.
 
@@ -185,6 +191,11 @@ Lambda의 제약은 대부분 "이 도구의 용도를 벗어났다"는 신호�
 
 ### 15분 제한을 만났을 때의 사고 흐름
 
+<!-- diagram:cloud-serverless-2 -->
+![15분 제한을 만났을 때의 사고 흐름](../../assets/diagrams/cloud-serverless-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 "작업이 15분을 넘는다"
    │
@@ -195,6 +206,7 @@ Lambda의 제약은 대부분 "이 도구의 용도를 벗어났다"는 신호�
    │
    └─ 하나의 긴 프로세스여야 하나? ──▶ Lambda가 아니라 ECS/Fargate Task, AWS Batch
 ```
+-->
 
 **작업을 쪼갤 수 없다는 것은 서버리스가 맞지 않는다는 뜻이다.** 억지로 15분마다 이어달리기를 시키는 설계는 상태 관리 때문에 거의 항상 후회한다.
 
@@ -204,12 +216,18 @@ Lambda의 제약은 대부분 "이 도구의 용도를 벗어났다"는 신호�
 
 ### 패턴 A. 동기 API — API Gateway + Lambda
 
+<!-- diagram:cloud-serverless-3 -->
+![패턴 A. 동기 API](../../assets/diagrams/cloud-serverless-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 클라이언트 ──HTTPS──▶ API Gateway ──▶ Lambda ──▶ DynamoDB
                        │                │
                   인증/쓰로틀링      비즈니스 로직
                   요청 검증
 ```
+-->
 
 API Gateway는 라우팅뿐 아니라 인증(JWT, IAM, Cognito), 사용량 제한, 요청 검증을 앞에서 처리해 Lambda 코드를 얇게 유지해준다.
 
@@ -217,12 +235,18 @@ API Gateway는 라우팅뿐 아니라 인증(JWT, IAM, Cognito), 사용량 제�
 
 ### 패턴 B. 버퍼링 — SQS + Lambda
 
+<!-- diagram:cloud-serverless-4 -->
+![패턴 B. 버퍼링](../../assets/diagrams/cloud-serverless-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 생산자 ──▶ SQS 큐 ──(Lambda가 폴링)──▶ Lambda ──▶ 처리
              │                              │ 실패
              │                              ▼
              └─ 재시도 횟수 초과 ─────▶ DLQ (Dead Letter Queue)
 ```
+-->
 
 큐를 사이에 끼우는 이유는 **속도 차이를 흡수하기 위해서**다. 순간 트래픽이 튀어도 큐가 받아두고, Lambda는 자기 처리 속도대로 소비한다. 다운스트림(예: RDS)이 감당 못 하면 함수의 예약 동시성으로 소비 속도에 상한을 걸 수도 있다.
 
@@ -235,6 +259,11 @@ API Gateway는 라우팅뿐 아니라 인증(JWT, IAM, Cognito), 사용량 제�
 
 ### 패턴 C. 이벤트 라우팅 — EventBridge + Lambda
 
+<!-- diagram:cloud-serverless-5 -->
+![패턴 C. 이벤트 라우팅](../../assets/diagrams/cloud-serverless-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                        ┌── 규칙: source=order, type=created ──▶ 재고 Lambda
 S3 / 애플리케이션 /     │
@@ -242,6 +271,7 @@ AWS 서비스 이벤트 ──▶ EventBridge ── 규칙: detail.amount > 100
                        │
                        └── 스케줄(cron) ──────────────────────▶ 야간 배치 Lambda
 ```
+-->
 
 EventBridge는 이벤트를 **내용 기반으로 분기**시킨다. 생산자는 "주문이 생성됨"만 발행하고, 누가 그걸 소비하는지 모른다. 소비자를 추가할 때 생산자 코드를 건드리지 않아도 되는 것이 핵심 이점이다.
 

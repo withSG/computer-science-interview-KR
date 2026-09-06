@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1160" width="880" height="1160" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">생명주기 전 과정</title>
+  <desc id="d">스프링 빈의 생명주기 전 과정을 나타낸 다이어그램입니다.</desc>
+  <rect width="880" height="1160" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Main Outer Box -->
+  <rect x="30" y="30" width="820" height="1100" fill="#ffffff" stroke="#9aa5b1" stroke-width="2" rx="6"/>
+
+  <!-- Section 1 -->
+  <g>
+    <rect x="30" y="30" width="820" height="70" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="50" width="130" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="115" y="69.7" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">[1] 컨테이너 기동</text>
+    <text x="210" y="69.7" font-size="13" fill="#1f2933">클래스 스캔 → BeanDefinition(설계도) 등록</text>
+  </g>
+
+  <!-- Section 2 -->
+  <g>
+    <rect x="30" y="100" width="820" height="70" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="120" width="130" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="115" y="139.7" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">[2] 인스턴스화</text>
+    <text x="210" y="139.7" font-size="13" fill="#1f2933">생성자 호출. 생성자 주입도 이때 이뤄진다</text>
+  </g>
+
+  <!-- Section 3 -->
+  <g>
+    <rect x="30" y="170" width="820" height="70" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="190" width="130" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="115" y="209.7" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">[3] 의존성 주입</text>
+    <text x="210" y="209.7" font-size="13" fill="#1f2933">필드 주입, Setter 주입이 채워진다</text>
+  </g>
+
+  <!-- Section 4 -->
+  <g>
+    <rect x="30" y="240" width="820" height="70" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="260" width="130" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="115" y="279.7" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">[4] Aware 콜백</text>
+    <text x="210" y="279.7" font-size="13" fill="#1f2933">BeanNameAware, BeanFactoryAware 등</text>
+  </g>
+
+  <!-- Section 5 -->
+  <g>
+    <rect x="30" y="310" width="820" height="190" fill="#fffbeb" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="330" width="150" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
+    <text x="125" y="349.7" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">[5] 초기화 전 후처리</text>
+    <text x="220" y="349.7" font-size="13" font-weight="bold" fill="#1f2933">BeanPostProcessor</text>
+    <text x="235" y="384.7" font-size="13" fill="#52606d">.postProcessBeforeInitialization</text>
+    
+    <!-- Sub tree for 5 -->
+    <path d="M 235 415 L 255 415" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    <text x="260" y="419.7" font-size="13" fill="#1f2933">ApplicationContextAware 도 여기서 처리</text>
+    
+    <path d="M 235 455 L 255 455" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    <text x="260" y="459.7" font-size="13" fill="#1f2933">이 안에서 @PostConstruct 가 호출된다</text>
+    <path d="M 235 395 L 235 455" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  </g>
+
+  <!-- Section 6 -->
+  <g>
+    <rect x="30" y="500" width="820" height="170" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="520" width="130" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+    <text x="115" y="539.7" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[6] 초기화 콜백</text>
+    <text x="210" y="539.7" font-size="13" fill="#1f2933">InitializingBean.afterPropertiesSet()</text>
+    
+    <!-- Down Arrow in Section 6 -->
+    <path d="M 310 555 L 310 595" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    
+    <text x="210" y="629.7" font-size="13" fill="#1f2933">@Bean(initMethod = "...") 지정 메서드</text>
+  </g>
+
+  <!-- Section 7 -->
+  <g>
+    <rect x="30" y="670" width="820" height="160" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="690" width="150" height="30" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+    <text x="125" y="709.7" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">[7] 초기화 후 후처리</text>
+    <text x="220" y="709.7" font-size="13" font-weight="bold" fill="#1f2933">BeanPostProcessor</text>
+    <text x="235" y="744.7" font-size="13" fill="#52606d">.postProcessAfterInitialization</text>
+    
+    <!-- Sub tree for 7 -->
+    <path d="M 235 770 L 235 780 L 255 780" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+    <text x="260" y="784.7" font-size="13" font-weight="bold" fill="#7c3aed">AOP 프록시가 만들어지는 지점</text>
+  </g>
+
+  <!-- Section 8 -->
+  <g>
+    <rect x="30" y="830" width="820" height="70" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="850" width="100" height="30" fill="#2563eb" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="100" y="869.7" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[8] 사용</text>
+  </g>
+
+  <!-- Section 9 -->
+  <g>
+    <rect x="30" y="900" width="820" height="230" fill="#fef2f2" stroke="#9aa5b1" stroke-width="1"/>
+    <rect x="50" y="920" width="130" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
+    <text x="115" y="939.7" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">[9] 소멸 콜백</text>
+    <text x="50" y="974.7" font-size="11.5" fill="#52606d">(컨테이너 종료)</text>
+    
+    <text x="210" y="939.7" font-size="13" fill="#1f2933">@PreDestroy → DisposableBean.destroy()</text>
+    <path d="M 335 955 L 335 985" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <text x="225" y="1019.7" font-size="13" fill="#1f2933">→ @Bean(destroyMethod = "...")</text>
+  </g>
+
+</svg>

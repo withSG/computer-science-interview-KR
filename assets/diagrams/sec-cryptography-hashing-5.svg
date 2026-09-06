@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">bcrypt 해시 문자열 읽기</title>
+  <desc id="d">bcrypt 해시 문자열의 각 구성 요소인 알고리즘 식별자, cost, Salt, 해시 결과를 나타내는 다이어그램입니다.</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title / Heading -->
+  <text x="30" y="35" font-size="16" font-weight="bold" fill="#1f2933">bcrypt 해시 문자열 읽기</text>
+
+  <!-- Hash String Box Container -->
+  <!-- Whole string display -->
+  <g transform="translate(30, 65)">
+    <!-- $2b$ -->
+    <rect x="0" y="0" width="56" height="46" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
+    <text x="28" y="28" font-size="16" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#7c3aed" text-anchor="middle">$2b$</text>
+
+    <!-- 12$ -->
+    <rect x="62" y="0" width="48" height="46" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
+    <text x="86" y="28" font-size="16" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#2563eb" text-anchor="middle">12$</text>
+
+    <!-- Salt (22 chars): Kx7Q9pLmN2vR4sT6uW8yZe -->
+    <rect x="116" y="0" width="344" height="46" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
+    <text x="288" y="28" font-size="16" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#d97706" text-anchor="middle">Kx7Q9pLmN2vR4sT6uW8yZe</text>
+
+    <!-- Hash Result (31 chars): AbCdEfGhIjKlMnOpQrStUvWxYz01234 -->
+    <rect x="466" y="0" width="384" height="46" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+    <text x="658" y="28" font-size="16" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#059669" text-anchor="middle">AbCdEfGhIjKlMnOpQrStUvWxYz01234</text>
+  </g>
+
+  <!-- Connector Lines & Labels -->
+
+  <!-- 1. 알고리즘 식별자 -->
+  <!-- Target: $2b$ (Center X: 30 + 28 = 58) -->
+  <path d="M 58,111 L 58,265 L 120,265" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="120" y="248" width="130" height="34" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="4"/>
+  <text x="185" y="270" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">알고리즘 식별자</text>
+
+  <!-- 2. cost = 12 (반복 2^12회) -->
+  <!-- Target: 12$ (Center X: 30 + 62 + 24 = 116) -->
+  <path d="M 116,111 L 116,215 L 170,215" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="170" y="198" width="200" height="34" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
+  <text x="270" y="220" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">cost = 12  (반복 2^12회)</text>
+
+  <!-- 3. Salt (22자, 자동 생성) -->
+  <!-- Target: Salt (Center X: 30 + 116 + 172 = 318) -->
+  <path d="M 318,111 L 318,165 L 350,165" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="350" y="148" width="205" height="34" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="452.5" y="170" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">Salt (22자, 자동 생성)</text>
+
+  <!-- 4. 해시 결과 -->
+  <!-- Target: Hash Result (Center X: 30 + 466 + 192 = 688) -->
+  <path d="M 688,111 L 688,265 L 630,265" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="520" y="248" width="110" height="34" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
+  <text x="575" y="270" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">해시 결과</text>
+
+</svg>

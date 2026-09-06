@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">6. 요청이 지나가는 앞단: Route 53, CloudFront, ELB</title>
+  <desc id="d">사용자 브라우저로부터 Route 53, CloudFront, ALB/NLB를 거쳐 EC2 및 컨테이너 대상 그룹으로 요청이 전달되는 흐름 다이어그램</desc>
+  
+  <rect width="880" height="720" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">6. 요청이 지나가는 앞단: Route 53, CloudFront, ELB</text>
+
+  <!-- 1. 사용자 브라우저 -->
+  <rect x="340" y="70" width="200" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="440" y="94" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자 브라우저</text>
+
+  <!-- Arrow 1 -->
+  <path d="M440,110 L440,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="235" y="130" width="260" height="20" fill="#ffffff"/>
+  <text x="240" y="144" font-size="11.5" fill="#2563eb">① 이름 해석: shop.example.com 은 어디?</text>
+
+  <!-- 2. Route 53 -->
+  <rect x="320" y="170" width="240" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="200" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Route 53</text>
+  <text x="440" y="222" font-size="13" fill="#52606d" text-anchor="middle">(권한 있는 DNS)</text>
+
+  <!-- Route 53 Side Text -->
+  <text x="580" y="198" font-size="11.5" fill="#52606d">DNS. 어느 엣지/어느 리전으로 보낼지 결정</text>
+  <text x="580" y="218" font-size="11.5" fill="#52606d">가중치/지연시간/장애조치 라우팅 정책</text>
+
+  <!-- Arrow 2 -->
+  <path d="M440,240 L440,300" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="448" y="260" width="180" height="20" fill="#ffffff"/>
+  <text x="450" y="274" font-size="11.5" fill="#52606d">② 응답: 가장 가까운 엣지 주소</text>
+
+  <!-- 3. CloudFront -->
+  <rect x="320" y="300" width="240" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="330" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">CloudFront</text>
+  <text x="440" y="352" font-size="13" fill="#52606d" text-anchor="middle">(CDN, 엣지 캐시)</text>
+
+  <!-- CloudFront Side Text -->
+  <text x="580" y="328" font-size="11.5" fill="#059669">캐시 히트 → 여기서 즉시 응답 (리전까지 안 감)</text>
+  <text x="580" y="354" font-size="11.5" fill="#d97706">캐시 미스 → 오리진으로 전달</text>
+
+  <!-- Arrow 3 -->
+  <path d="M440,370 L440,430" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="448" y="390" width="25" height="20" fill="#ffffff"/>
+  <text x="450" y="404" font-size="11.5" fill="#7c3aed">③</text>
+
+  <!-- 4. ALB / NLB -->
+  <rect x="320" y="430" width="240" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="440" y="460" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">ALB (L7)</text>
+  <text x="440" y="482" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">또는 NLB (L4)</text>
+
+  <!-- ALB/NLB Side Text -->
+  <text x="580" y="458" font-size="11.5" fill="#52606d">경로/호스트 기반 라우팅, 헬스 체크</text>
+  <text x="580" y="478" font-size="11.5" fill="#52606d">TLS 종료, 여러 AZ의 대상으로 분산</text>
+
+  <!-- Arrow 4 Main Path -->
+  <path d="M440,500 L440,540" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <rect x="448" y="510" width="25" height="20" fill="#ffffff"/>
+  <text x="450" y="524" font-size="11.5" fill="#059669">④</text>
+
+  <!-- Arrow 4 Split Branches -->
+  <path d="M220,540 L660,540" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <path d="M220,540 L220,580" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M440,540 L440,580" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M660,540 L660,580" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 5. EC2/컨테이너 대상 그룹 -->
+  <rect x="140" y="580" width="600" height="50" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="440" y="609" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[EC2/컨테이너 대상 그룹 — 여러 AZ에 분산]</text>
+</svg>

@@ -75,6 +75,11 @@ async function show(userId) {
 
 ## 2. Promise의 세 상태
 
+<!-- diagram:fe-promise-async-await-1 -->
+![2. Promise의 세 상태](../../assets/diagrams/fe-promise-async-await-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                   ┌──────────────┐
                   │   pending    │  대기
@@ -89,6 +94,7 @@ async function show(userId) {
           └──────────── settled ────────────┘
               (한 번 정해지면 되돌릴 수 없다)
 ```
+-->
 
 핵심은 **비가역성**이다. 한 번 `fulfilled`가 되면 다시 `pending`이나 `rejected`로 갈 수 없다. 이 성질 덕분에 "이미 끝난 Promise"에 나중에 `.then`을 붙여도 안전하게 결과를 받을 수 있고, 여러 곳에서 같은 Promise를 구독해도 값이 달라지지 않는다.
 
@@ -131,6 +137,11 @@ getUser(id)
 
 ### 에러는 아래로 흐른다
 
+<!-- diagram:fe-promise-async-await-2 -->
+![에러는 아래로 흐른다](../../assets/diagrams/fe-promise-async-await-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  getUser() ──✕ 실패
      ▼
@@ -142,6 +153,7 @@ getUser(id)
      ▼
  .then(C)   ← 실행됨 (catch가 값을 반환했으면 이행 상태로 복귀)
 ```
+-->
 
 ```js
 Promise.reject(new Error('네트워크 오류'))
@@ -299,6 +311,11 @@ async function loadDashboard() {
 }
 ```
 
+<!-- diagram:fe-promise-async-await-3 -->
+![안티패턴 1](../../assets/diagrams/fe-promise-async-await-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 순차                                          병렬
 user    ████████                              user    ████████
@@ -306,6 +323,7 @@ orders          ██████████                    orders  ██
 notices                   ████                notices ████
         └──────── 900ms ────────┘             └─ 400ms ─┘
 ```
+-->
 
 **판단 기준**: 뒤 작업이 앞 작업의 결과를 인자로 쓰는가? 쓰지 않으면 병렬로 묶어야 한다.
 

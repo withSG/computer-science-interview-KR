@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">로드 밸런서가 아직 이 서버를 살아 있다고 믿는다</title>
+  <desc id="d">SIGTERM 수신 후 로드 밸런서 목록 제거까지 대기하는 올바른 종료 순서 시퀀스 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Title Header -->
+  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">[올바른 순서]  SIGTERM을 받은 뒤</text>
+
+  <!-- Left Main Vertical Line -->
+  <path d="M 60,65 L 60,450" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+
+  <!-- Step 1 -->
+  <path d="M 60,95 L 80,95" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="80" y="70" width="760" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="100" y="100" font-size="13" font-weight="bold" fill="#2563eb">├─① 준비 상태를 false로 전환(헬스체크 실패) 또는 preStop 훅에서 N초 대기</text>
+
+  <!-- Step 2 (Highlighted/Warning Step) -->
+  <path d="M 60,185 L 80,185" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="80" y="135" width="760" height="100" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="100" y="170" font-size="13" font-weight="bold" fill="#d97706">├─② LB가 목록에서 뺄 때까지 대기. 대기 시간 ≥ 헬스체크 주기 × 실패 임계값</text>
+
+  <!-- Step 2 Sub Callout Box -->
+  <path d="M 120,180 L 120,215 M 120,215 L 140,215" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <rect x="145" y="197" width="370" height="28" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="155" y="215" font-size="12" font-weight="bold" fill="#d97706">← 이 구간이 빠지면 원인 2가 그대로 남는다</text>
+
+  <!-- Step 3 -->
+  <path d="M 60,270 L 80,270" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="80" y="245" width="760" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="100" y="275" font-size="13" font-weight="bold" fill="#1f2933">├─③ 새 요청은 더 이상 오지 않는다. 진행 중인 것만 처리</text>
+
+  <!-- Step 4 -->
+  <path d="M 60,345 L 80,345" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="80" y="320" width="760" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="100" y="350" font-size="13" font-weight="bold" fill="#1f2933">├─④ 커넥션 풀·메시지 컨슈머·스케줄러 정리</text>
+
+  <!-- Step 5 -->
+  <path d="M 60,420 L 80,420" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <rect x="80" y="395" width="760" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="100" y="425" font-size="13" font-weight="bold" fill="#059669">└─⑤ 종료</text>
+</svg>

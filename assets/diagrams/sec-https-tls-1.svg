@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 필요한가 — 평문 회선 위의 세 가지 위험</title>
+  <desc id="d">내 노트북에서 서버까지 이어지는 네트워크 경로(카페 공유기, ISP, 백본)에서 발생할 수 있는 도청, 변조, 위장 등 세 가지 위험 요소를 설명하는 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-danger" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Network Path Diagram -->
+  <!-- Nodes -->
+  <rect x="40" y="40" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="80" y="65" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">나</text>
+
+  <rect x="200" y="40" width="120" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="260" y="65" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">카페 공유기</text>
+
+  <rect x="400" y="40" width="100" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="450" y="65" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">ISP</text>
+
+  <rect x="580" y="40" width="100" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="630" y="65" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">백본</text>
+
+  <rect x="760" y="40" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="800" y="65" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">서버</text>
+
+  <!-- Network Path Arrows -->
+  <path d="M120,60 L200,60" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M320,60 L400,60" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M500,60 L580,60" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M680,60 L760,60" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- Attacker Markers -->
+  <path d="M260,115 L260,80" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-danger)"/>
+  <text x="260" y="133" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">▲</text>
+  <text x="260" y="152" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">여기 앉으면 …</text>
+
+  <path d="M450,115 L450,80" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-danger)"/>
+  <text x="450" y="133" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">▲</text>
+  <text x="450" y="152" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">여기 앉으면 …</text>
+
+  <!-- Divider line -->
+  <path d="M40,180 L840,180" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2" fill="none"/>
+
+  <!-- Threat Section 1: Eavesdropping -->
+  <g transform="translate(40, 200)">
+    <rect x="0" y="0" width="760" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <!-- Label -->
+    <text x="20" y="28" font-size="14" font-weight="bold" fill="#dc2626">① 도청(Eavesdropping)</text>
+    <!-- Description -->
+    <text x="230" y="28" font-size="13" fill="#1f2933">지나가는 패킷을 읽는다</text>
+    <text x="230" y="55" font-size="13" fill="#52606d">→ 로그인 ID/비밀번호, 세션 쿠키가 그대로 보인다</text>
+  </g>
+
+  <!-- Threat Section 2: Tampering -->
+  <g transform="translate(40, 295)">
+    <rect x="0" y="0" width="760" height="90" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <!-- Label -->
+    <text x="20" y="28" font-size="14" font-weight="bold" fill="#dc2626">② 변조(Tampering)</text>
+    <!-- Description -->
+    <text x="230" y="28" font-size="13" fill="#1f2933">패킷을 바꿔 흘려보낸다</text>
+    <text x="230" y="52" font-size="13" fill="#52606d">→ 응답 HTML에 악성 스크립트를 끼워 넣거나</text>
+    <text x="246" y="72" font-size="13" fill="#52606d">다운로드 파일을 악성 파일로 바꿔치기한다</text>
+  </g>
+
+  <!-- Threat Section 3: Impersonation -->
+  <g transform="translate(40, 400)">
+    <rect x="0" y="0" width="760" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
+    <!-- Label -->
+    <text x="20" y="28" font-size="14" font-weight="bold" fill="#dc2626">③ 위장(Impersonation)</text>
+    <!-- Description -->
+    <text x="230" y="28" font-size="13" fill="#1f2933">"내가 그 서버다"라며 대신 응답한다</text>
+    <text x="230" y="55" font-size="13" fill="#52606d">→ 가짜 로그인 화면을 띄워 자격 증명을 수집한다</text>
+  </g>
+</svg>

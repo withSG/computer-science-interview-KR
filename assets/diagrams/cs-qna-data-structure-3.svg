@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">왜 DB 인덱스에 B-Tree를 사용하나?</title>
+  <desc id="d">디스크 읽기 단위인 블록과 BST 대비 B-Tree의 I/O 효율성 및 레코드 수에 따른 높이 비교 다이어그램</desc>
+  
+  <rect width="880" height="540" fill="#ffffff"/>
+
+  <!-- Top Banner: Disk Read Unit -->
+  <rect x="24" y="24" width="832" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="440" y="53" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2933">디스크 읽기 단위 = 블록 (4KB~16KB)</text>
+
+  <!-- Left Comparison Box: BST -->
+  <rect x="24" y="96" width="404" height="230" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <!-- Title Badge -->
+  <rect x="44" y="116" width="364" height="36" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
+  <text x="226" y="139" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">BST</text>
+  <!-- BST Content -->
+  <rect x="44" y="168" width="364" height="44" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="226" y="194" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">노드 1개 = 1번 디스크 I/O</text>
+  
+  <text x="226" y="246" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">→</text>
+  <text x="226" y="278" text-anchor="middle" font-size="13" fill="#52606d">깊이가 깊으면 I/O 횟수 많음</text>
+
+  <!-- Right Comparison Box: B-Tree -->
+  <rect x="452" y="96" width="404" height="230" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <!-- Title Badge -->
+  <rect x="472" y="116" width="364" height="36" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1"/>
+  <text x="654" y="139" text-anchor="middle" font-size="16" font-weight="bold" fill="#059669">B-Tree</text>
+  <!-- B-Tree Content -->
+  <rect x="472" y="168" width="364" height="44" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <text x="654" y="194" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">노드 1개 = 수십~수백 개 키</text>
+  
+  <text x="654" y="234" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">→</text>
+  <text x="654" y="254" text-anchor="middle" font-size="13" fill="#52606d">디스크 1번 읽기로 더 많은 키 검색</text>
+  
+  <text x="654" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">→</text>
+  <text x="654" y="300" text-anchor="middle" font-size="13" fill="#52606d">트리 높이 낮아져 I/O 횟수 최소화</text>
+
+  <!-- Bottom Section: Record Stats -->
+  <rect x="24" y="350" width="832" height="166" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  
+  <!-- Header Text -->
+  <text x="44" y="388" font-size="15" font-weight="bold" fill="#1f2933">n=1,000,000 레코드:</text>
+
+  <!-- Stats Grid/Table -->
+  <!-- Stat Row 1: BST -->
+  <rect x="44" y="408" width="792" height="42" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="64" y="434" font-size="14" fill="#52606d">BST 높이:</text>
+  <text x="160" y="434" font-size="14" font-weight="bold" fill="#dc2626">~20</text>
+
+  <!-- Stat Row 2: B-Tree -->
+  <rect x="44" y="458" width="792" height="42" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="64" y="484" font-size="14" fill="#52606d">B-Tree 높이 (차수 1000):</text>
+  <text x="250" y="484" font-size="14" font-weight="bold" fill="#059669">~2~3</text>
+</svg>

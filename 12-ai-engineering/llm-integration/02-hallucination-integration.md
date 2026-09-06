@@ -78,6 +78,11 @@ LLM 프로토타입은 하루면 만들어진다. 그 프로토타입을 서비�
 
 기법을 나열식으로 외우면 실무에서 무엇부터 할지 결정할 수 없다. **입력 → 생성 → 출력** 순서로 놓으면 자연스럽게 우선순위가 생긴다.
 
+<!-- diagram:ai-hallucination-integration-1 -->
+![3. 완화 기법을 세 층으로 배치하기](../../assets/diagrams/ai-hallucination-integration-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌──────────────── 1층: 입력 (근거 주입) ────────────────┐
 │  RAG로 관련 문서 검색해 컨텍스트에 넣기                 │
@@ -100,6 +105,7 @@ LLM 프로토타입은 하루면 만들어진다. 그 프로토타입을 서비�
 │  → 통과 못한 답변을 사용자에게 안 보낸다               │
 └───────────────────────────────────────────────────────┘
 ```
+-->
 
 ### 1층: 근거를 주면 추측할 이유가 없어진다
 
@@ -191,6 +197,11 @@ if fabricated:
 
 결정 순서를 그림으로 두면 이렇다.
 
+<!-- diagram:ai-hallucination-integration-2 -->
+![4. Prompt Engineering vs RAG vs Fine-tuning](../../assets/diagrams/ai-hallucination-integration-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                   출력이 마음에 안 든다
                           │
@@ -206,6 +217,7 @@ if fabricated:
   RAG      Prompt Engineering   Few-shot     Fine-tuning
                                               (마지막 수단)
 ```
+-->
 
 Fine-tuning을 마지막에 두는 이유는 비용 때문만이 아니다. **지식을 Fine-tuning으로 넣으면 그 지식이 틀렸을 때 고칠 방법이 재학습밖에 없다.** RAG라면 문서 한 줄 고치면 끝난다. 실무에서는 조합이 흔하다. Fine-tuning으로 어투와 출력 형식을 고정하고, RAG로 최신 정책 문서를 가져오고, 프롬프트로 안전 제약을 건다.
 
@@ -215,6 +227,11 @@ Fine-tuning을 마지막에 두는 이유는 비용 때문만이 아니다. **�
 
 LLM 호출은 **느리고, 비싸고, 가끔 실패하고, 결과가 매번 다른 외부 API**다. 이 네 가지 성질에 각각 대응하는 장치가 필요하다.
 
+<!-- diagram:ai-hallucination-integration-3 -->
+![5. 프로덕션 통합](../../assets/diagrams/ai-hallucination-integration-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 사용자 요청
     │
@@ -236,6 +253,7 @@ LLM 호출은 **느리고, 비싸고, 가끔 실패하고, 결과가 매번 다�
     │
     └─▶ 로깅 (토큰 수, 지연, finish_reason, 비용) → 대시보드/알림
 ```
+-->
 
 ### 타임아웃과 재시도
 
@@ -286,12 +304,18 @@ LLM은 첫 토큰이 나올 때까지도 눈에 띄는 시간이 걸리고, 답�
 
 비용 사고는 대부분 "특정 사용자 하나가 반복 호출"에서 온다. 상한은 여러 층에 둔다.
 
+<!-- diagram:ai-hallucination-integration-4 -->
+![비용 상한](../../assets/diagrams/ai-hallucination-integration-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 호출 단위:  max_tokens로 응답 길이 상한
 사용자 단위: 하루 N회 / M토큰 쿼터
 조직 단위:  월 예산 초과 시 알림 → 자동 차단
 호출 전:    입력 토큰을 세어 임계값 초과 요청은 아예 거절하거나 잘라낸다
 ```
+-->
 
 ### 캐싱
 

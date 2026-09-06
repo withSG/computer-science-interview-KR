@@ -34,6 +34,11 @@ CSS도 같은 이유로 CSSOM(CSS Object Model)이 된다. 그리고 브라우�
 
 ## 2. DOM 트리는 어떻게 만들어지나
 
+<!-- diagram:fe-dom-cssom-1 -->
+![2. DOM 트리는 어떻게 만들어지나](../../assets/diagrams/fe-dom-cssom-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  [바이트]      3C 68 74 6D 6C 3E ...
      │  인코딩 해석 (Content-Type / <meta charset>)
@@ -49,6 +54,7 @@ CSS도 같은 이유로 CSSOM(CSS Object Model)이 된다. 그리고 브라우�
      ▼
  [DOM 트리]
 ```
+-->
 
 ### 인코딩이 먼저인 이유
 
@@ -150,6 +156,11 @@ button {
 
 렌더 트리(Blink에서는 레이아웃 트리)는 **화면에 실제로 그려질 것들만** 담는다.
 
+<!-- diagram:fe-dom-cssom-2 -->
+![4. 렌더 트리](../../assets/diagrams/fe-dom-cssom-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         DOM 트리                          렌더 트리
    ┌──────────────────┐            ┌──────────────────┐
@@ -166,6 +177,7 @@ button {
    │    └─ footer     │
    └──────────────────┘
 ```
+-->
 
 정리하면 이렇게 다르다.
 
@@ -249,6 +261,11 @@ list.appendChild(frag);         // 실제 문서 변경은 이 한 번
 
 ### DocumentFragment가 왜 싼가
 
+<!-- diagram:fe-dom-cssom-3 -->
+![DocumentFragment가 왜 싼가](../../assets/diagrams/fe-dom-cssom-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [안티패턴] 매번 살아 있는 문서를 건드린다
    문서 ──변경──► 스타일/레이아웃 대상    (1000회 누적)
@@ -264,6 +281,7 @@ list.appendChild(frag);         // 실제 문서 변경은 이 한 번
           ▼
         문서 ──► 스타일/레이아웃 1회
 ```
+-->
 
 `DocumentFragment`는 문서 트리에 속하지 않는 임시 컨테이너다. 여기에 노드를 아무리 넣어도
 렌더링 파이프라인이 돌지 않는다. 그리고 fragment를 `appendChild`하면 **fragment 자체가 아니라 그 자식들이 옮겨진다.**

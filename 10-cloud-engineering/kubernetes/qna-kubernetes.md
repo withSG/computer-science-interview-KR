@@ -43,6 +43,11 @@ spec:
 
 ### Sidecar 패턴
 
+<!-- diagram:cloud-qna-kubernetes-1 -->
+![Sidecar 패턴](../../assets/diagrams/cloud-qna-kubernetes-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ┌────────────────────────────────┐
 │            Pod                  │
@@ -55,6 +60,7 @@ spec:
 
 예: 앱 컨테이너 + 로그 수집 컨테이너
 ```
+-->
 
 </details>
 
@@ -154,6 +160,11 @@ StatefulSet:
 
 ### StatefulSet 특징
 
+<!-- diagram:cloud-qna-kubernetes-2 -->
+![StatefulSet 특징](../../assets/diagrams/cloud-qna-kubernetes-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Pod 이름: mysql-0, mysql-1, mysql-2
 DNS: mysql-0.mysql-headless.default.svc.cluster.local
@@ -161,6 +172,7 @@ DNS: mysql-0.mysql-headless.default.svc.cluster.local
 스케일 업: mysql-0 → mysql-1 → mysql-2 순차
 스케일 다운: mysql-2 → mysql-1 → mysql-0 역순
 ```
+-->
 
 </details>
 
@@ -316,6 +328,11 @@ spec:
 
 ### 구조
 
+<!-- diagram:cloud-qna-kubernetes-3 -->
+![구조](../../assets/diagrams/cloud-qna-kubernetes-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                  Internet
                     │
@@ -332,6 +349,7 @@ spec:
     │ Service │ │Service│ │Service │
     └─────────┘ └───────┘ └────────┘
 ```
+-->
 
 </details>
 

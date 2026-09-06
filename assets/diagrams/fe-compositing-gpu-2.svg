@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">left vs transform — 파이프라인 비교</title>
+  <desc id="d">left 속성과 transform 속성 변경 시 매 프레임 발생하는 브라우저 렌더링 파이프라인 단계를 비교하는 다이어그램</desc>
+  <defs>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-sub" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="340" fill="#ffffff"/>
+
+  <!-- 제목 (주어진 문서 헤딩) -->
+  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">left vs transform — 파이프라인 비교</text>
+
+  <!-- ================= A안 (left) 영역 ================= -->
+  <rect x="20" y="55" width="840" height="120" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  
+  <text x="40" y="85" font-size="14" font-weight="bold" fill="#dc2626">A안 (left)</text>
+  <text x="145" y="85" font-size="13" font-weight="bold" fill="#52606d">매 프레임:</text>
+
+  <!-- A안 노드들 -->
+  <!-- Style -->
+  <rect x="40" y="110" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="80" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Style</text>
+
+  <path d="M120,128 L150,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Layout -->
+  <rect x="157" y="110" width="90" height="36" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <text x="202" y="132" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Layout</text>
+
+  <path d="M247,128 L277,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Paint -->
+  <rect x="284" y="110" width="80" height="36" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <text x="324" y="132" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Paint</text>
+
+  <path d="M364,128 L394,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Raster -->
+  <rect x="401" y="110" width="85" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="443" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Raster</text>
+
+  <path d="M486,128 L516,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+
+  <!-- Composite -->
+  <rect x="523" y="110" width="105" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="575" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Composite</text>
+
+  <!-- A안 주석/화살표 -->
+  <path d="M202,160 L202,148" stroke="#52606d" stroke-width="1" fill="none" marker-end="url(#a-sub)"/>
+  <text x="210" y="164" font-size="11.5" fill="#52606d">위치를 다시 계산</text>
+
+  <path d="M324,160 L324,148" stroke="#52606d" stroke-width="1" fill="none" marker-end="url(#a-sub)"/>
+  <text x="332" y="164" font-size="11.5" fill="#52606d">다시 그림</text>
+
+
+  <!-- ================= B안 (transform) 영역 ================= -->
+  <rect x="20" y="190" width="840" height="130" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
+
+  <text x="40" y="220" font-size="14" font-weight="bold" fill="#059669">B안 (transform)</text>
+  <text x="190" y="220" font-size="13" font-weight="bold" fill="#52606d">매 프레임:</text>
+
+  <!-- B안 노드들 -->
+  <!-- Style -->
+  <rect x="40" y="245" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="80" y="267" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Style</text>
+
+  <path d="M120,263 L516,263" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- Composite -->
+  <rect x="523" y="245" width="105" height="36" rx="4" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="575" y="267" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Composite</text>
+
+  <!-- B안 주석/화살표 -->
+  <path d="M575,299 L575,283" stroke="#52606d" stroke-width="1" fill="none" marker-end="url(#a-sub)"/>
+  <text x="583" y="299" font-size="11.5" fill="#52606d">이미 만들어 둔 비트맵을</text>
+  <text x="583" y="313" font-size="11.5" fill="#52606d">다른 좌표에 겹치기만</text>
+</svg>

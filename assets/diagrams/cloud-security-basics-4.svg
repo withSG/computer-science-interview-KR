@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">iptables의 구조</title>
+  <desc id="d">패킷이 iptables의 PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING 체인과 라우팅 판단을 거치는 흐름을 나타낸 다이어그램</desc>
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <rect width="880" height="520" fill="#ffffff"/>
+
+  <!-- 들어오는 패킷 (시작) -->
+  <text x="140" y="54" font-size="13" fill="#1f2933" text-anchor="end">들어오는 패킷</text>
+  <path d="M148,50 L200,50" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- PREROUTING (nat) -->
+  <rect x="200" y="26" width="220" height="48" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="310" y="54" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">PREROUTING</text>
+  <text x="430" y="54" font-size="11.5" fill="#52606d">(nat: DNAT, 포트 포워딩)</text>
+
+  <!-- PREROUTING -> 라우팅 판단 -->
+  <path d="M310,74 L310,110" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 라우팅 판단 -->
+  <text x="310" y="124" font-size="13" fill="#1f2933" text-anchor="middle">라우팅 판단: 나에게 온 패킷인가?</text>
+  <path d="M310,132 L310,150" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M200,150 L420,150" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+
+  <!-- 나에게 / 통과시킬 것 분기 -->
+  <path d="M200,150 L200,178" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="175" y="168" font-size="11.5" fill="#2563eb" text-anchor="end">나에게</text>
+
+  <path d="M420,150 L420,178" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="435" y="168" font-size="11.5" fill="#52606d" text-anchor="start">통과시킬 것</text>
+
+  <!-- INPUT (filter) -->
+  <rect x="110" y="180" width="180" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="200" y="206" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">INPUT</text>
+
+  <!-- FORWARD (filter) -->
+  <rect x="330" y="180" width="180" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="420" y="206" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">FORWARD</text>
+  <text x="520" y="206" font-size="11.5" fill="#52606d">(filter)</text>
+
+  <!-- INPUT -> 로컬 프로세스 -->
+  <path d="M200,224 L200,252" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+
+  <!-- 로컬 프로세스 -->
+  <text x="200" y="268" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">로컬 프로세스</text>
+  <path d="M200,278 L200,300" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- OUTPUT (filter) -->
+  <rect x="110" y="302" width="180" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="200" y="328" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">OUTPUT</text>
+  <text x="520" y="328" font-size="11.5" fill="#52606d">(filter)</text>
+
+  <!-- OUTPUT, FORWARD -> POSTROUTING 합류 -->
+  <path d="M200,346 L200,370 L310,370" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M420,224 L420,370 L310,370" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <path d="M310,370 L310,398" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- POSTROUTING (nat) -->
+  <rect x="200" y="400" width="220" height="48" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="310" y="428" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">POSTROUTING</text>
+  <text x="430" y="428" font-size="11.5" fill="#52606d">(nat: SNAT, 마스커레이드)</text>
+
+  <!-- POSTROUTING -> 나가는 패킷 -->
+  <path d="M310,448 L310,476" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 나가는 패킷 (끝) -->
+  <text x="310" y="496" font-size="13" fill="#1f2933" text-anchor="middle">나가는 패킷</text>
+</svg>

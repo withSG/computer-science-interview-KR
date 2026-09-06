@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">재조정 과정</title>
+  <desc id="d">React의 Virtual DOM 재조정 과정을 나타낸 6단계 플로우차트입니다.</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- 제목 헤더 -->
+  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">재조정 과정</text>
+
+  <!-- 1. Root부터 비교 시작 -->
+  <g transform="translate(140, 70)">
+    <rect width="600" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="36" cy="28" r="14" fill="#2563eb"/>
+    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">Root부터 비교 시작</text>
+  </g>
+
+  <!-- 화살표 1 -> 2/3 분기 -->
+  <path d="M440,126 L440,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 분기 구역 (2. 같은 타입 & 3. 다른 타입) -->
+  <!-- 2. 같은 타입 → 속성만 업데이트 -->
+  <g transform="translate(60, 150)">
+    <rect width="360" height="70" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="30" cy="35" r="14" fill="#2563eb"/>
+    <text x="30" y="40" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="56" y="40" font-size="13.5" font-weight="bold" fill="#1f2933">같은 타입 → 속성만 업데이트</text>
+  </g>
+
+  <!-- 3. 다른 타입 → 이전 트리 제거, 새 트리 생성 -->
+  <g transform="translate(460, 150)">
+    <rect width="360" height="70" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+    <circle cx="30" cy="35" r="14" fill="#dc2626"/>
+    <text x="30" y="40" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="56" y="40" font-size="13.5" font-weight="bold" fill="#1f2933">다른 타입 → 이전 트리 제거, 새 트리 생성</text>
+  </g>
+
+  <!-- 분기 합류 화살표 -> Step 4 -->
+  <path d="M240,220 L240,245 L440,245 L440,260" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <path d="M640,220 L640,245 L440,245" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+  <path d="M440,245 L440,260" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <!-- 4. 자식 재귀적 비교 (key 활용) -->
+  <g transform="translate(140, 260)">
+    <rect width="600" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <circle cx="36" cy="28" r="14" fill="#2563eb"/>
+    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">자식 재귀적 비교 (key 활용)</text>
+  </g>
+
+  <!-- 화살표 4 -> 5 -->
+  <path d="M440,316 L440,340" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <!-- 5. 변경사항 수집 -->
+  <g transform="translate(140, 340)">
+    <rect width="600" height="56" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <circle cx="36" cy="28" r="14" fill="#7c3aed"/>
+    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">변경사항 수집</text>
+  </g>
+
+  <!-- 화살표 5 -> 6 -->
+  <path d="M440,396 L440,420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <!-- 6. 실제 DOM에 반영 -->
+  <g transform="translate(140, 420)">
+    <rect width="600" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <circle cx="36" cy="28" r="14" fill="#059669"/>
+    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">실제 DOM에 반영</text>
+  </g>
+
+  <!-- 범례 (Legend) -->
+  <g transform="translate(140, 506)">
+    <rect width="12" height="12" rx="2" fill="#2563eb" y="0"/>
+    <text x="18" y="10" font-size="11.5" fill="#52606d">비교 및 가상 DOM 연산</text>
+
+    <rect width="12" height="12" rx="2" fill="#7c3aed" x="200" y="0"/>
+    <text x="218" y="10" font-size="11.5" fill="#52606d">diff 수집</text>
+
+    <rect width="12" height="12" rx="2" fill="#059669" x="330" y="0"/>
+    <text x="348" y="10" font-size="11.5" fill="#52606d">실제 DOM 패치</text>
+  </g>
+</svg>

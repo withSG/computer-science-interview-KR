@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">의존성 배열에 거짓말하지 않는다</title>
+  <desc id="d">react-hooks/exhaustive-deps 경고 발생 시 3가지 원인과 해결 방안 전사 다이어그램</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
+  
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <!-- Root Warning Box -->
+  <rect x="40" y="24" width="160" height="42" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="120" y="50" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">경고가 뜬다</text>
+
+  <!-- Tree Trunk -->
+  <path d="M80,66 L80,350" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+
+  <!-- Branch 1 -->
+  <path d="M80,125 L110,125" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  
+  <rect x="110" y="97" width="350" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="126" y="129.5" font-size="13" fill="#1f2933">값이 바뀌면 정말로 effect를 다시 실행해야 한다</text>
+
+  <path d="M460,125 L502,125" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <rect x="510" y="97" width="330" height="56" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="526" y="129.5" font-size="13" font-weight="bold" fill="#1e40af">의존성에 넣는다</text>
+
+  <!-- Branch 2 -->
+  <path d="M80,225 L110,225" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+
+  <rect x="110" y="197" width="350" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="126" y="229.5" font-size="13" fill="#1f2933">값을 읽는 게 아니라 "갱신"만 하면 된다</text>
+
+  <path d="M460,225 L502,225" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <rect x="510" y="197" width="330" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="526" y="229.5" font-size="12.5" font-weight="bold" fill="#065f46">setState 함수형 업데이트로 바꿔 의존성을 없앤다</text>
+
+  <!-- Branch 3 -->
+  <path d="M80,350 L110,350" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+
+  <rect x="110" y="318" width="350" height="64" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <text x="126" y="354.5" font-size="12.5" fill="#1f2933">이 값(주로 함수·객체)이 매 렌더마다 새로 만들어져서 문제다</text>
+
+  <path d="M460,350 L502,350" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <rect x="510" y="310" width="330" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="526" y="340.3" font-size="12" font-weight="bold" fill="#5b21b6">정의를 effect 안으로 옮기거나, 컴포넌트 밖으로 빼거나,</text>
+  <text x="526" y="368.3" font-size="12" font-weight="bold" fill="#5b21b6">useCallback/useMemo로 참조를 고정한다</text>
+</svg>

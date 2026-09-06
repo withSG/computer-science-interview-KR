@@ -66,6 +66,11 @@ public void transfer(Long fromId, Long toId, int amount) {
 
 ### 프록시가 대신 감싼다
 
+<!-- diagram:be-transactional-pitfalls-1 -->
+![프록시가 대신 감싼다](../../assets/diagrams/be-transactional-pitfalls-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Controller
     │ orderService.placeOrder(...)
@@ -88,6 +93,7 @@ Controller
 │             커넥션 반환                               │
 └──────────────────────────────────────────────────────┘
 ```
+-->
 
 프록시가 하는 일을 의사코드로 옮기면 이렇다. 조건절에 `RuntimeException`과 `Error`만 적혀 있다는 점을 기억하자.
 
@@ -276,6 +282,11 @@ public void placeOrder(OrderRequest req) {
 
 **왜 문제인가**: 세 가지가 동시에 잘못된다.
 
+<!-- diagram:be-transactional-pitfalls-2 -->
+![함정 6. 트랜잭션 안에서 외부 API 호출](../../assets/diagrams/be-transactional-pitfalls-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [트랜잭션 없이]                    [트랜잭션 안에서]
 
@@ -284,6 +295,7 @@ public void placeOrder(OrderRequest req) {
           DB 작업                            DB 작업   외부 API 10초
                                               커넥션과 락을 10초 동안 붙잡고 있다
 ```
+-->
 
 1. **커넥션 점유 시간이 API 응답 시간만큼 늘어난다.** 풀 크기가 10인데 동시 주문이 10건이면 11번째 요청부터 커넥션을 못 받고 대기한다. 결제 API가 느려지는 순간 서비스 전체가 멈춘다. 재시도 로직까지 트랜잭션 안에서 돌면 점유 시간은 배로 늘어난다.
 2. **DB 락도 그만큼 유지된다.** 재고 행을 잠근 채 10초를 기다리면 같은 상품을 사려는 다른 요청이 전부 밀린다. 데드락 확률도 올라간다.
@@ -343,6 +355,11 @@ public class OrderNotificationListener {
 
 ### REQUIRED와 REQUIRES_NEW의 차이
 
+<!-- diagram:be-transactional-pitfalls-3 -->
+![REQUIRED와 REQUIRES_NEW의 차이](../../assets/diagrams/be-transactional-pitfalls-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [REQUIRED]  하나의 물리 트랜잭션을 공유한다
 
@@ -359,6 +376,7 @@ public class OrderNotificationListener {
                      └─ inner 가 롤백돼도 outer 는 영향받지 않고,
                         outer 가 롤백돼도 inner 커밋은 남는다
 ```
+-->
 
 `REQUIRES_NEW`의 대표 용도는 **본 작업의 성패와 무관하게 남아야 하는 기록**이다. 주문이 실패해도 시도 이력은 남겨야 하는 감사 로그가 전형적이다. 다만 안쪽 트랜잭션이 도는 동안 **커넥션을 두 개 점유한다.** 풀 크기가 10인데 `REQUIRES_NEW`를 쓰는 요청이 10개 동시에 들어오면, 바깥 트랜잭션 10개가 커넥션을 다 쓴 상태에서 안쪽이 커넥션을 기다리는 교착이 생길 수 있다.
 

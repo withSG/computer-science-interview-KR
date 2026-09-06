@@ -66,6 +66,11 @@ DAG(Directed Acyclic Graph)는 **작업들과 그 사이의 선후 관계를 표
 
 비순환이 왜 필수인지는 스케줄러 입장에서 보면 명확하다. A가 B를 기다리고 B가 A를 기다리면 둘 다 영원히 시작할 수 없다. 순환이 있으면 실행 순서를 정하는 것 자체가 불가능하다.
 
+<!-- diagram:de-airflow-1 -->
+![DAG](../assets/diagrams/de-airflow-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  ┌─────────────┐  ┌─────────┐  ┌───────────┐  ┌──────────┐  ┌────────────┐
  │ wait_source │─>│ extract │─>│ transform │─>│ validate │─>│ load_mart  │
@@ -74,6 +79,7 @@ DAG(Directed Acyclic Graph)는 **작업들과 그 사이의 선후 관계를 표
                                                    └───────>│ load_cache │
                                                             └────────────┘
 ```
+-->
 
 `wait_source`는 소스 파일이 도착할 때까지 기다리는 Sensor다. `validate`는 품질 검증이라 여기서 실패하면 아래 적재가 전부 멈춘다. `load_mart`와 `load_cache`는 서로 의존하지 않으므로 병렬로 실행된다.
 
@@ -166,12 +172,20 @@ daily_sales()
 
 ## 3. 실행 시각과 데이터 구간 — 가장 헷갈리는 지점
 
+<!-- diagram:de-airflow-data-interval -->
+![데이터 구간과 실제 실행 시각의 어긋남 타임라인](../assets/diagrams/de-airflow-data-interval.svg)
+
 ### 왜 자정 DAG가 다음 날 도는가
 
 `schedule="@daily"`, `start_date=2026-03-01`인 DAG는 **3월 1일 자정이 아니라 3월 2일 자정에 처음 실행된다.** 처음 보면 버그처럼 느껴지는데, 배치의 본질을 생각하면 당연하다.
 
 **3월 1일치 데이터를 집계하려면 3월 1일이 끝나야 한다.** 3월 1일 00:00에는 아직 그날 데이터가 한 건도 없다.
 
+<!-- diagram:de-airflow-2 -->
+![왜 자정 DAG가 다음 날 도는가](../assets/diagrams/de-airflow-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 데이터 구간(data interval)          실제 실행 시각
 ┌──────────────────────────┐
@@ -189,6 +203,7 @@ daily_sales()
   ds                  = "2026-03-02"  (logical_date의 날짜 부분)
   실제 실행 시각        = 03-03 00:00   (start_date 컬럼에 기록)
 ```
+-->
 
 ### `execution_date`라는 이름이 만든 오해
 

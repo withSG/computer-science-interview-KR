@@ -77,6 +77,11 @@ public Mono<OrderView> getOrder(Long id) {
 
 가상 스레드는 **JVM이 스케줄링하는 스레드**다. OS는 그 존재를 모른다. 실제로 코드를 실행할 때만 **캐리어 스레드(Carrier Thread)** 라 부르는 진짜 OS 스레드 위에 올라탄다.
 
+<!-- diagram:be-java21-virtual-threads-1 -->
+![2. 가상 스레드가 동작하는 방식](../../assets/diagrams/be-java21-virtual-threads-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         플랫폼 스레드 (기존)                    가상 스레드 (Java 21)
 
@@ -93,11 +98,17 @@ public Mono<OrderView> getOrder(Long id) {
                                         └────┴────┴────┴────┘
                                               M : N 매핑
 ```
+-->
 
 ### 마운트와 언마운트
 
 핵심은 **가상 스레드의 스택이 힙에 저장된다**는 것이다.
 
+<!-- diagram:be-java21-virtual-threads-2 -->
+![마운트와 언마운트](../../assets/diagrams/be-java21-virtual-threads-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [1] VT-1이 캐리어 C1 위에서 실행 중
     ┌──────────┐
@@ -124,6 +135,7 @@ public Mono<OrderView> getOrder(Long id) {
     │   C3     │ ── 실행 ──▶ VT-1  (read() 다음 줄부터 재개, 캐리어는 바뀔 수 있다)
     └──────────┘
 ```
+-->
 
 여기서 두 가지가 중요하다.
 

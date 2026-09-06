@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동작 원리 — 정적 바인딩 vs 동적 바인딩</title>
+  <desc id="d">컴파일 시점의 정적 바인딩과 런타임의 동적 바인딩 동작 원리를 비교하는 다이어그램</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Header Columns -->
+  <text x="210" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">컴파일 시점</text>
+  <text x="670" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">런타임</text>
+
+  <!-- Left Box: Compile Time -->
+  <rect x="40" y="65" width="340" height="190" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="60" y="98" font-size="13" font-family="Consolas, monospace" fill="#1f2933">PaymentGateway g;</text>
+  <text x="60" y="128" font-size="13" font-family="Consolas, monospace" fill="#1f2933">g.pay(cmd);</text>
+  <text x="60" y="165" font-size="13" fill="#52606d">컴파일러는 인터페이스에</text>
+  <text x="60" y="195" font-size="13" fill="#52606d">pay(..)가 있다는 것만</text>
+
+  <!-- Arrow between boxes -->
+  <path d="M380,160 L490,160" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- Label on Arrow -->
+  <rect x="407" y="148" width="56" height="24" fill="#ffffff" rx="3"/>
+  <text x="435" y="164.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">실행</text>
+
+  <!-- Right Box: Runtime -->
+  <rect x="500" y="65" width="340" height="190" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="520" y="98" font-size="13" font-weight="bold" fill="#059669">실제 객체: KakaoPayGateway</text>
+  <text x="520" y="135" font-size="13" fill="#52606d">JVM이 객체의 클래스 정보</text>
+  <text x="520" y="165" font-size="13" fill="#52606d">(vtable)를 보고</text>
+  <text x="520" y="195" font-size="13" font-weight="bold" fill="#1f2933">KakaoPayGateway.pay 호출</text>
+
+  <!-- Subtitles / Bottom Labels -->
+  <text x="210" y="295" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">시그니처 결정 = 오버로딩</text>
+  <text x="670" y="295" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">실제 구현체 결정 = 오버라이딩</text>
+</svg>

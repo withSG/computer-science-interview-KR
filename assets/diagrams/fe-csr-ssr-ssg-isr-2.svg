@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">네 전략을 시간축에 놓고 보기</title>
+  <desc id="d">CSR, SSR, SSG, ISR 네 가지 렌더링 전략의 빌드 타임, 요청 시점, 브라우저 단계별 동작 비교 다이어그램</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="30" y="32" font-size="16" font-weight="bold" fill="#1f2933">네 전략을 시간축에 놓고 보기</text>
+
+  <!-- Timeline Column Headers -->
+  <rect x="210" y="50" width="180" height="34" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="300" y="71.9" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">빌드 타임</text>
+
+  <rect x="420" y="50" width="200" height="34" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="520" y="71.9" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">요청 시점</text>
+
+  <rect x="650" y="50" width="200" height="34" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="750" y="71.9" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">브라우저</text>
+
+  <!-- CSR Row -->
+  <rect x="30" y="100" width="150" height="56" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="105" y="132.9" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">CSR</text>
+
+  <rect x="210" y="100" width="180" height="56" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-dasharray="4 3"/>
+  <text x="300" y="132.9" font-size="13" fill="#52606d" text-anchor="middle">(없음)</text>
+
+  <rect x="420" y="100" width="200" height="56" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="520" y="132.9" font-size="13" fill="#1f2933" text-anchor="middle">빈 HTML 전송</text>
+
+  <path d="M 620 128 L 650 128" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+  <rect x="650" y="100" width="200" height="56" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="750" y="124.9" font-size="13" fill="#1f2933" text-anchor="middle">JS가 HTML 생성</text>
+  <text x="750" y="142.9" font-size="13" fill="#1f2933" text-anchor="middle">+ API 호출</text>
+
+  <!-- SSR Row -->
+  <rect x="30" y="170" width="150" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="105" y="202.9" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">SSR</text>
+
+  <rect x="210" y="170" width="180" height="56" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-dasharray="4 3"/>
+  <text x="300" y="202.9" font-size="13" fill="#52606d" text-anchor="middle">(없음)</text>
+
+  <rect x="420" y="170" width="200" height="56" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="520" y="194.9" font-size="13" fill="#1f2933" text-anchor="middle">HTML 생성 후 전송</text>
+  <text x="520" y="212.9" font-size="11.5" fill="#52606d" text-anchor="middle">(매 요청마다)</text>
+
+  <path d="M 620 198 L 650 198" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+  <rect x="650" y="170" width="200" height="56" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="750" y="194.9" font-size="13" fill="#1f2933" text-anchor="middle">받은 HTML 표시</text>
+  <text x="750" y="212.9" font-size="13" fill="#1f2933" text-anchor="middle">+ 하이드레이션</text>
+
+  <!-- SSG Row -->
+  <rect x="30" y="240" width="150" height="56" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="105" y="272.9" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">SSG</text>
+
+  <rect x="210" y="240" width="180" height="56" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="300" y="272.9" font-size="13" fill="#1f2933" text-anchor="middle">HTML 미리 생성</text>
+
+  <path d="M 390 268 L 420 268" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <rect x="420" y="240" width="200" height="56" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="520" y="292.9" font-size="11.5" fill="#52606d" text-anchor="middle">(CDN에서 바로)</text>
+  <text x="520" y="264.9" font-size="13" fill="#1f2933" text-anchor="middle">저장된 HTML 전송</text>
+
+  <path d="M 620 268 L 650 268" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+
+  <rect x="650" y="240" width="200" height="56" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="750" y="264.9" font-size="13" fill="#1f2933" text-anchor="middle">받은 HTML 표시</text>
+  <text x="750" y="282.9" font-size="13" fill="#1f2933" text-anchor="middle">+ 하이드레이션</text>
+
+  <!-- ISR Row -->
+  <rect x="30" y="310" width="150" height="66" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="105" y="347.9" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">ISR</text>
+
+  <rect x="210" y="310" width="180" height="66" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="300" y="347.9" font-size="13" fill="#1f2933" text-anchor="middle">HTML 미리 생성</text>
+
+  <path d="M 390 343 L 420 343" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+
+  <rect x="420" y="310" width="200" height="66" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="520" y="331.9" font-size="13" fill="#1f2933" text-anchor="middle">캐시된 HTML 전송</text>
+  <text x="520" y="349.9" font-size="13" fill="#1f2933" text-anchor="middle">+ 만료됐으면</text>
+  <text x="520" y="365.9" font-size="13" fill="#1f2933" text-anchor="middle">뒤에서 재생성</text>
+
+  <path d="M 620 343 L 650 343" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+
+  <rect x="650" y="310" width="200" height="66" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="750" y="339.9" font-size="13" fill="#1f2933" text-anchor="middle">받은 HTML 표시</text>
+  <text x="750" y="357.9" font-size="13" fill="#1f2933" text-anchor="middle">+ 하이드레이션</text>
+</svg>

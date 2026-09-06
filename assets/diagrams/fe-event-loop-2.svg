@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">setTimeout 한 줄을 추적하면</title>
+  <desc id="d">setTimeout 호출 시 콜 스택, 타이머 스레드, 태스크 큐, 이벤트 루프 간의 실행 순서 추적 다이어그램</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
+
+  <defs>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    </marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="36" font-size="16" font-weight="bold" fill="#1f2933">setTimeout 한 줄을 추적하면</text>
+
+  <!-- Step 1 -->
+  <g>
+    <rect x="24" y="55" width="40" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="44" y="73" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">①</text>
+
+    <rect x="74" y="55" width="220" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="84" y="73" font-size="13" font-weight="bold" fill="#1f2933">console.log('A') 실행</text>
+
+    <rect x="314" y="55" width="220" height="28" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="324" y="73" font-size="13" fill="#52606d">Stack: <tspan fill="#2563eb" font-weight="bold">[Global, log]</tspan></text>
+
+    <path d="M544,69 L574,69" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <rect x="584" y="55" width="120" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="594" y="73" font-size="13" font-weight="bold" fill="#2563eb">'A' 출력</text>
+  </g>
+
+  <!-- Step 2 -->
+  <g>
+    <rect x="24" y="105" width="40" height="28" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="44" y="123" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">②</text>
+
+    <rect x="74" y="105" width="220" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="84" y="123" font-size="13" font-weight="bold" fill="#1f2933">setTimeout 호출</text>
+
+    <rect x="314" y="105" width="220" height="28" rx="4" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="324" y="123" font-size="13" fill="#52606d">Stack: <tspan fill="#7c3aed" font-weight="bold">[Global, setTimeout]</tspan></text>
+
+    <!-- Sub detail for step 2 -->
+    <path d="M84,141 L84,157 L96,157" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+    <rect x="100" y="143" width="370" height="28" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="110" y="161" font-size="12.5" fill="#7c3aed">브라우저 타이머 스레드에 콜백 등록 후 즉시 반환</text>
+  </g>
+
+  <!-- Step 3 -->
+  <g>
+    <rect x="24" y="190" width="40" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="44" y="208" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">③</text>
+
+    <rect x="74" y="190" width="220" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="84" y="208" font-size="13" font-weight="bold" fill="#1f2933">console.log('C') 실행</text>
+
+    <rect x="314" y="190" width="220" height="28" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="324" y="208" font-size="13" fill="#52606d">Stack: <tspan fill="#2563eb" font-weight="bold">[Global, log]</tspan></text>
+
+    <path d="M544,204 L574,204" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+
+    <rect x="584" y="190" width="120" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="594" y="208" font-size="13" font-weight="bold" fill="#2563eb">'C' 출력</text>
+  </g>
+
+  <!-- Step 4 -->
+  <g>
+    <rect x="24" y="240" width="40" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+    <text x="44" y="258" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">④</text>
+
+    <rect x="74" y="240" width="220" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="84" y="258" font-size="13" font-weight="bold" fill="#1f2933">전역 코드 종료</text>
+
+    <rect x="314" y="240" width="220" height="28" rx="4" fill="#fffbeb" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="324" y="258" font-size="13" fill="#52606d">Stack: <tspan fill="#d97706" font-weight="bold">[ ]</tspan></text>
+
+    <path d="M574,254 L544,254" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+
+    <rect x="584" y="240" width="150" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+    <text x="594" y="258" font-size="12" font-weight="bold" fill="#d97706">여기서 비로소 스택이 비적됨</text>
+  </g>
+
+  <!-- Step 5 -->
+  <g>
+    <rect x="24" y="290" width="40" height="28" rx="4" fill="#f8fafc" stroke="#52606d" stroke-width="1.5"/>
+    <text x="44" y="308" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">⑤</text>
+
+    <rect x="74" y="290" width="460" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="84" y="308" font-size="13" font-weight="bold" fill="#1f2933">0ms가 이미 지났으므로 콜백이 태스크 큐에 있음</text>
+  </g>
+
+  <!-- Step 6 -->
+  <g>
+    <rect x="24" y="340" width="40" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+    <text x="44" y="358" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">⑥</text>
+
+    <rect x="74" y="340" width="220" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="84" y="358" font-size="13" font-weight="bold" fill="#1f2933">이벤트 루프가 콜백을 스택에 올림</text>
+
+    <rect x="314" y="340" width="220" height="28" rx="4" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="324" y="358" font-size="13" fill="#52606d">Stack: <tspan fill="#059669" font-weight="bold">[callback]</tspan></text>
+
+    <path d="M544,354 L574,354" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+
+    <rect x="584" y="340" width="120" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+    <text x="594" y="358" font-size="13" font-weight="bold" fill="#059669">'B' 출력</text>
+  </g>
+
+  <!-- Summary Box (Output result & Note) -->
+  <g>
+    <rect x="24" y="400" width="832" height="76" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+    <text x="40" y="426" font-size="13" font-weight="bold" fill="#1f2933">최종 출력 결과: <tspan fill="#2563eb">A</tspan> → <tspan fill="#2563eb">C</tspan> → <tspan fill="#059669">B</tspan></text>
+    <text x="40" y="452" font-size="11.5" fill="#52606d">setTimeout(fn, 0)의 0은 "0ms 뒤에 실행"이 아니라 "0ms 뒤에 태스크 큐에 넣을 자격을 준다"는 뜻입니다.</text>
+  </g>
+</svg>

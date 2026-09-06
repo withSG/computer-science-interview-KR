@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TLS 핸드셰이크 — HTTPS가 추가로 하는 일</title>
+  <desc id="d">Client와 Server 간의 TLS 핸드셰이크 과정으로 ClientHello, ServerHello, 인증서 및 키 공유, 인증서 검증과 세션 키 도출 후 Finished 메시지를 통해 암호화된 HTTP가 시작되는 1 RTT 교환을 나타낸 다이어그램</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
+
+  <defs>
+    <!-- Arrow Markers for Primary/Ink (#1f2933) and Accent/Blue (#2563eb) -->
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    </marker>
+  </defs>
+
+  <!-- Title Section -->
+  <text x="440" y="36" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">5. TLS 핸드셰이크 — HTTPS가 추가로 하는 일</text>
+
+  <!-- Actor Boxes & Vertical Lifelines -->
+  <!-- Client Column Header -->
+  <rect x="130" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="210" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
+  <!-- Client Lifeline -->
+  <path d="M210,100 L210,380" stroke="#9aa5b1" stroke-width="2"/>
+
+  <!-- Server Column Header -->
+  <rect x="590" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="670" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Server</text>
+  <!-- Server Lifeline -->
+  <path d="M670,100 L670,380" stroke="#9aa5b1" stroke-width="2"/>
+
+  <!-- 1 RTT Bracket / Range Indicator -->
+  <path d="M685,115 L700,115 L700,215 L685,215" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
+  <text x="710" y="170" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="start">← 여기까지 1 RTT</text>
+
+  <!-- 1. ClientHello -->
+  <path d="M210,130 L670,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="280" y="116" width="320" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="440" y="132" font-size="13" fill="#1f2933" text-anchor="middle">ClientHello (지원 암호 스위트, 키 공유)</text>
+
+  <!-- 2. ServerHello + 인증서 + 키 공유 -->
+  <path d="M670,200 L210,200" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="290" y="186" width="300" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="440" y="202" font-size="13" fill="#1f2933" text-anchor="middle">ServerHello + 인증서 + 키 공유</text>
+
+  <!-- Internal Processing Blocks on Client Side -->
+  <rect x="220" y="232" width="280" height="28" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="360" y="250" font-size="13" fill="#1f2933" text-anchor="middle">[인증서 체인 검증 · 도메인 일치 확인]</text>
+
+  <rect x="220" y="270" width="280" height="28" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
+  <text x="360" y="288" font-size="13" fill="#1f2933" text-anchor="middle">[양쪽이 같은 세션 키 도출]</text>
+
+  <!-- 3. Finished -->
+  <path d="M210,320 L670,320" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="390" y="306" width="100" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
+  <text x="440" y="322" font-size="13" fill="#1f2933" text-anchor="middle">Finished</text>
+
+  <!-- Encrypted HTTP Starts Notification -->
+  <rect x="330" y="352" width="220" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
+  <text x="440" y="371" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[암호화된 HTTP 시작]</text>
+</svg>
