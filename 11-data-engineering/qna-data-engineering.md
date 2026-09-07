@@ -143,7 +143,7 @@ with DAG(
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Kafka는 **분산 이벤트 스트리밍 플랫폼**으로, 대용량 실시간 데이터를 발행(Producer)하고 구독(Consumer)하는 메시지 큐 기반 시스템입니다. 높은 처리량과 내구성, 확장성을 제공합니다.
+Kafka는 **분산 이벤트 스트리밍 플랫폼**으로, 대용량 실시간 데이터를 발행(Producer)하고 구독(Consumer)하는 메시지 큐 기반 시스템입니다. 처리량이 높고 내구성과 확장성이 좋습니다.
 
 ### 핵심 구조
 
@@ -324,7 +324,7 @@ result.show()  # 이때 실제 실행 (Action) → 전체 계획을 최적화해
 | 예시 | BigQuery, Snowflake, Redshift | S3, HDFS |
 
 ### 레이크하우스(Lakehouse)
-- 데이터 레이크의 유연성 + DW의 관리/성능을 결합한 최신 아키텍처(예: Delta Lake, Iceberg). 원본을 레이크에 두면서 트랜잭션·스키마 관리를 제공합니다.
+- 데이터 레이크의 유연성 + DW의 관리/성능을 결합한 최신 아키텍처(예: Delta Lake, Iceberg). 원본을 레이크에 두면서 트랜잭션·스키마를 관리합니다.
 
 ### 면접관이 주목하는 포인트
 - Schema-on-Write vs Schema-on-Read

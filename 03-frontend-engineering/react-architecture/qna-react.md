@@ -13,7 +13,7 @@
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Virtual DOM은 **메모리에 존재하는 가상의 DOM 트리**입니다. 실제 DOM 조작을 최소화하여 성능을 최적화하고, 선언적 UI 프로그래밍을 가능하게 합니다.
+**메모리에 존재하는 가상의 DOM 트리**, 이것이 Virtual DOM입니다. 실제 DOM 조작을 최소화해 성능을 최적화하고 선언적 UI 프로그래밍을 가능하게 합니다.
 
 ### Virtual DOM의 동작 과정
 
@@ -69,7 +69,7 @@ setCount(newCount);  // Virtual DOM 비교 후 필요한 부분만 업데이트
 
 ### 꼬리 질문 대비
 - "Virtual DOM 없이 성능을 최적화할 수 있나요?"
-  → 네, Svelte처럼 컴파일 타임에 최적화하는 방식도 있음
+  → 네, Svelte처럼 컴파일 타임에 최적화하는 방식도 있습니다
 
 </details>
 
@@ -81,7 +81,7 @@ setCount(newCount);  // Virtual DOM 비교 후 필요한 부분만 업데이트
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-재조정은 Virtual DOM의 두 트리를 비교하여 **최소한의 변경으로 실제 DOM을 업데이트**하는 알고리즘입니다.
+재조정 알고리즘은 Virtual DOM의 두 트리를 비교한 뒤 **최소한의 변경으로 실제 DOM을 업데이트**합니다.
 
 ### Diffing 알고리즘의 휴리스틱
 
@@ -158,7 +158,7 @@ React Diffing: O(n) - 두 가지 가정으로 최적화
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Fiber는 React 16에서 도입된 **새로운 재조정 엔진**입니다. 렌더링 작업을 작은 단위로 나누어 **중단/재개가 가능**하게 만들었습니다.
+React 16은 **새로운 재조정 엔진**을 도입했습니다. 그것이 Fiber입니다. 렌더링 작업을 작은 단위로 나누어 **중단/재개가 가능**하게 만들었습니다.
 
 ### 기존 Stack Reconciler의 문제
 
@@ -244,7 +244,7 @@ const deferredValue = useDeferredValue(value);
 
 ### 꼬리 질문 대비
 - "Time Slicing이란?"
-  → 렌더링 작업을 여러 프레임에 나눠서 처리, UI 블로킹 방지
+  → 렌더링 작업을 여러 프레임에 나눠서 처리해 UI 블로킹을 방지합니다
 
 </details>
 
@@ -492,7 +492,7 @@ function handleClick() {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-key는 React가 **어떤 항목이 변경/추가/삭제되었는지 식별**하는 데 사용됩니다. 효율적인 재조정을 위해 필수적입니다.
+React는 key를 보고 **어떤 항목이 변경/추가/삭제되었는지 식별**합니다. key는 효율적인 재조정에 필수적입니다.
 
 ### key가 없을 때 문제
 
@@ -560,7 +560,7 @@ key는 React가 **어떤 항목이 변경/추가/삭제되었는지 식별**하�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-라이브러리와 프레임워크의 핵심 차이는 **제어의 역전(IoC, Inversion of Control)**입니다. React는 UI 렌더링 도구만 제공하며 애플리케이션 흐름(라우팅, 상태 관리, 빌드 등)을 강제하지 않습니다. 개발자가 필요할 때 React를 호출하는 방식으로 제어권이 개발자에게 있습니다.
+라이브러리와 프레임워크의 핵심 차이는 **제어의 역전(IoC, Inversion of Control)**입니다. React는 UI 렌더링 도구만 제공하며 애플리케이션 흐름(라우팅, 상태 관리, 빌드 등)을 강제하지 않습니다. 개발자가 필요할 때 React를 호출하므로 제어권은 개발자에게 있습니다.
 
 ### 라이브러리 vs 프레임워크 비교
 
@@ -571,7 +571,7 @@ key는 React가 **어떤 항목이 변경/추가/삭제되었는지 식별**하�
 | 예시 | Angular, Next.js | React, jQuery |
 
 ### 면접관이 주목하는 포인트
-- 제어의 역전(IoC) 개념을 명확히 언급하는지
+- 제어의 역전 개념을 명확히 언급하는지
 
 ### 꼬리 질문 대비
 - "Next.js는 프레임워크인가요?" → 네, 라우팅/SSR/빌드 구조 등을 강제하므로 프레임워크입니다
@@ -586,7 +586,7 @@ key는 React가 **어떤 항목이 변경/추가/삭제되었는지 식별**하�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-함수 컴포넌트는 Hooks(useState, useEffect 등)를 통해 상태와 생명주기를 관리합니다. 클래스 컴포넌트보다 코드량이 적고 메모리 효율이 높으며, React 16.8 이후 함수 컴포넌트 사용이 공식 권장됩니다.
+함수 컴포넌트는 Hooks(useState, useEffect 등)로 상태와 생명주기를 관리합니다. 클래스 컴포넌트보다 코드량이 적고 메모리 효율이 높으며 React 16.8 이후 함수 컴포넌트 사용이 공식 권장됩니다.
 
 ### 함수 vs 클래스 컴포넌트 비교
 
@@ -632,7 +632,7 @@ function Counter() {
 - 함수 컴포넌트 권장 이유
 
 ### 꼬리 질문 대비
-- "클래스 컴포넌트가 완전히 사라지나요?" → 공식 지원은 유지되나 신규 프로젝트에는 함수 컴포넌트 권장
+- "클래스 컴포넌트가 완전히 사라지나요?" → 공식 지원은 유지되나 신규 프로젝트에는 함수 컴포넌트를 권장합니다
 
 </details>
 
@@ -644,7 +644,7 @@ function Counter() {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Props는 부모 컴포넌트가 자식에게 전달하는 **읽기 전용 데이터**이고, State는 컴포넌트가 **내부에서 직접 관리하고 변경할 수 있는 데이터**입니다. Props는 단방향으로 흐르며 자식은 변경할 수 없습니다.
+Props는 부모 컴포넌트가 자식에게 전달하는 **읽기 전용 데이터**입니다. State는 컴포넌트 자신의 데이터여서 **내부에서 직접 관리하고 변경할 수 있습니다**. Props는 단방향으로 흐르며 자식은 변경할 수 없습니다.
 
 ### Props vs State 비교
 
@@ -736,7 +736,7 @@ function UncontrolledInput() {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-FLUX는 Facebook이 제안한 **단방향 데이터 흐름 아키텍처**입니다. MVC의 양방향 데이터 흐름에서 발생하는 복잡성을 해결하기 위해 Action → Dispatcher → Store → View 순환 구조로 상태 변화를 예측 가능하게 만들었습니다.
+Facebook은 MVC의 양방향 데이터 흐름에서 발생하는 복잡성을 해결하려고 FLUX를 제안했습니다. **단방향 데이터 흐름 아키텍처**이며 Action → Dispatcher → Store → View 순환 구조로 상태 변화를 예측 가능하게 만들었습니다.
 
 ### FLUX 데이터 흐름
 
@@ -759,7 +759,7 @@ Action → Dispatcher → Store → View
 - MVC의 어떤 문제를 해결했는지 이해
 
 ### 꼬리 질문 대비
-- "Redux와 Flux의 차이는?" → Redux는 Flux를 구현한 라이브러리로, 단일 스토어와 순수 함수(reducer)를 통한 상태 변경이 특징입니다
+- "Redux와 Flux의 차이는?" → Redux는 Flux를 구현한 라이브러리로, 단일 스토어를 두고 순수 함수(reducer)로 상태를 바꾸는 것이 특징입니다
 
 </details>
 
@@ -771,7 +771,7 @@ Action → Dispatcher → Store → View
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Redux는 **단일 스토어, 읽기 전용 상태, 순수 함수 reducer**의 3대 원칙으로 동작합니다. View에서 Action을 dispatch하면 Reducer가 이전 상태와 Action을 받아 새로운 상태를 반환하고, Store가 업데이트되어 View가 다시 렌더링됩니다.
+Redux는 **단일 스토어, 읽기 전용 상태, 순수 함수 reducer**의 3대 원칙으로 동작합니다. View에서 Action을 dispatch하면 Reducer가 이전 상태와 Action을 받아 새로운 상태를 반환하고 Store가 업데이트되어 View가 다시 렌더링됩니다.
 
 ### Redux 데이터 흐름
 
@@ -782,7 +782,7 @@ View → dispatch(Action) → Reducer(순수함수) → Store → View 업데이
 ### 3대 원칙
 
 1. **단일 스토어(Single Source of Truth)** - 앱 전체 상태를 하나의 스토어에서 관리
-2. **읽기 전용 상태(State is read-only)** - Action을 통해서만 상태 변경 가능
+2. **읽기 전용 상태(State is read-only)** - Action으로만 상태 변경 가능
 3. **순수 함수 reducer(Changes made with pure functions)** - 이전 상태 + Action → 새 상태
 
 ### 코드 예시
@@ -849,7 +849,7 @@ dispatch({ type: 'INCREMENT' });
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-React는 `Object.is`로 **얕은 비교(shallow comparison)**를 수행하므로 객체/배열을 직접 변경(mutation)하면 참조가 같아 변화를 감지하지 못하고 리렌더링이 발생하지 않습니다. 항상 새로운 참조를 반환해야 합니다.
+React는 `Object.is`로 **얕은 비교(shallow comparison)**를 수행합니다. 그래서 객체/배열을 직접 변경하면 참조가 같아 변화를 감지하지 못하고 리렌더링이 발생하지 않습니다. 항상 새로운 참조를 반환해야 합니다.
 
 ### 올바른 불변성 유지
 
@@ -883,7 +883,7 @@ setState(produce(state, draft => {
 - 불변성 위반 시 발생하는 문제 설명
 
 ### 꼬리 질문 대비
-- "리듀서에서 얕은 복사 vs 깊은 복사 어느 것을 써야 하나요?" → 기본적으로 얕은 복사(스프레드)를 사용하고, 깊이 중첩된 객체는 Immer를 활용합니다
+- "리듀서에서 얕은 복사 vs 깊은 복사 어느 것을 써야 하나요?" → 기본적으로 얕은 복사(스프레드)를 사용하고 깊이 중첩된 객체는 Immer를 활용합니다
 
 </details>
 
@@ -895,7 +895,7 @@ setState(produce(state, draft => {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-순수 함수는 **같은 입력에 항상 같은 출력**을 반환하고 외부 상태를 변경하지 않습니다. React 컴포넌트는 렌더링 단계에서 순수해야 하며, API 호출/DOM 조작 같은 부수효과는 `useEffect`로 격리합니다.
+순수 함수는 **같은 입력에 항상 같은 출력**을 반환하고 외부 상태를 변경하지 않습니다. React 컴포넌트는 렌더링 단계에서 순수해야 하며 API 호출/DOM 조작 같은 부수효과는 `useEffect`로 격리합니다.
 
 ### 순수 함수 vs 부수효과 비교
 
@@ -907,7 +907,7 @@ setState(produce(state, draft => {
 
 ### 면접관이 주목하는 포인트
 - React 컴포넌트의 순수성 원칙 이해
-- useEffect를 통한 부수효과 격리 방식
+- useEffect로 부수효과를 격리하는 방식
 
 ### 꼬리 질문 대비
 - "React 컴포넌트가 순수해야 하는 이유는?" → Concurrent Mode에서 렌더링이 여러 번 호출될 수 있어 부수효과가 렌더 단계에 있으면 예측 불가능한 동작이 발생합니다
@@ -922,7 +922,7 @@ setState(produce(state, draft => {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-컴포넌트는 **Mount → Update → Unmount** 3단계 생명주기를 가집니다. 클래스 컴포넌트의 생명주기 메서드를 함수 컴포넌트에서는 `useEffect`로 대체할 수 있습니다.
+컴포넌트 생명주기는 **Mount → Update → Unmount** 3단계로 흐릅니다. 클래스 컴포넌트의 생명주기 메서드를 함수 컴포넌트에서는 `useEffect`로 대체할 수 있습니다.
 
 ### 생명주기 메서드 vs Hooks 비교
 
@@ -963,7 +963,7 @@ useEffect(() => {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-React 성능 최적화는 **불필요한 리렌더링 방지**, **코드 스플리팅을 통한 번들 크기 감소**, **가상화를 통한 긴 목록 처리** 세 가지 축으로 접근합니다.
+React 성능 최적화는 **불필요한 리렌더링 방지**, **코드 스플리팅으로 번들 크기 감소**, **가상화로 긴 목록 처리** 세 가지 축으로 접근합니다.
 
 ### 최적화 방법 요약
 
@@ -993,7 +993,7 @@ React 성능 최적화는 **불필요한 리렌더링 방지**, **코드 스플�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-useRef는 두 가지 주요 용도가 있습니다. **DOM 요소에 직접 접근**하거나, **렌더링 사이에 값을 유지**하되 값 변경 시 리렌더링을 유발하지 않는 경우에 사용합니다.
+useRef는 **DOM 요소에 직접 접근**할 때, 그리고 **렌더링 사이에 값을 유지**하되 값 변경 시 리렌더링을 유발하지 않아야 할 때 사용합니다.
 
 ### useRef 활용 예시
 
@@ -1072,7 +1072,7 @@ useEffect(() => {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-SPA는 **최초 한 번만 HTML/JS 리소스를 전체 로드**하고, 이후 페이지 이동은 JavaScript로 처리합니다. 서버에 매번 요청하지 않아 부드러운 사용자 경험을 제공하지만 초기 로딩이 느리고 SEO에 불리합니다.
+SPA는 **최초 한 번만 HTML/JS 리소스를 전체 로드**하고 이후 페이지 이동은 JavaScript로 처리합니다. 서버에 매번 요청하지 않아 부드러운 사용자 경험을 제공하지만 초기 로딩이 느리고 SEO에 불리합니다.
 
 ### SPA vs MPA 비교
 
@@ -1088,7 +1088,7 @@ SPA는 **최초 한 번만 HTML/JS 리소스를 전체 로드**하고, 이후 �
 - 단점 해결 방법 언급
 
 ### 꼬리 질문 대비
-- "SPA의 SEO 문제 해결 방법은?" → SSR/SSG (Next.js 등), Prerendering, Dynamic Rendering을 통해 크롤러가 콘텐츠를 읽을 수 있게 합니다
+- "SPA의 SEO 문제 해결 방법은?" → SSR/SSG (Next.js 등), Prerendering, Dynamic Rendering으로 크롤러가 콘텐츠를 읽을 수 있게 합니다
 
 </details>
 
@@ -1100,7 +1100,7 @@ SPA는 **최초 한 번만 HTML/JS 리소스를 전체 로드**하고, 이후 �
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-CSR은 JS를 다운로드 후 클라이언트에서 렌더링하여 SEO에 불리합니다. SSR은 서버에서 완성된 HTML을 전달해 SEO에 유리하고 초기 TTV(Time to View)가 빠릅니다. 그러나 SSR은 서버 부하가 높고, HTML 전달 후 JS 이벤트를 붙이는 **하이드레이션(Hydration)** 과정이 필요합니다.
+CSR은 JS를 다운로드 후 클라이언트에서 렌더링하여 SEO에 불리합니다. SSR은 서버에서 완성된 HTML을 전달해 SEO에 유리하고 초기 TTV(Time to View)가 빠릅니다. 그러나 SSR은 서버 부하가 높고 HTML 전달 후 JS 이벤트를 붙이는 **하이드레이션(Hydration)** 과정이 필요합니다.
 
 ### CSR / SSR / SSG 비교
 
@@ -1117,7 +1117,7 @@ CSR은 JS를 다운로드 후 클라이언트에서 렌더링하여 SEO에 불�
 - 하이드레이션 개념 이해
 
 ### 꼬리 질문 대비
-- "하이드레이션(Hydration)이란?" → SSR로 받은 정적 HTML에 React가 이벤트 리스너 등 JS 기능을 붙이는 과정입니다. 이 과정 전에는 화면은 보이지만 상호작용이 불가합니다
+- "하이드레이션이란?" → SSR로 받은 정적 HTML에 React가 이벤트 리스너 등 JS 기능을 붙이는 과정입니다. 이 과정 전에는 화면은 보이지만 상호작용이 불가합니다
 
 </details>
 

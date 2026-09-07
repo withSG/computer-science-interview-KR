@@ -55,7 +55,7 @@ public class UserService {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-AOP는 횡단 관심사(로깅, 트랜잭션, 보안)를 분리하여 코드 중복을 줄이는 기술입니다. Spring AOP는 **프록시 패턴**을 기반으로 동작합니다.
+AOP는 로깅, 트랜잭션, 보안 같은 횡단 관심사를 분리해 코드 중복을 줄이는 기술입니다. Spring AOP는 **프록시 패턴**을 기반으로 동작합니다.
 
 ### 프록시 방식
 
@@ -91,7 +91,7 @@ Client → Proxy → Advice 실행 → Target 메서드 호출 → Advice 실행
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-@Transactional은 AOP 기반으로 동작하며, 프록시가 트랜잭션 시작/커밋/롤백을 관리합니다.
+@Transactional은 AOP를 기반으로 동작합니다. 트랜잭션의 시작과 커밋, 롤백은 프록시가 관리합니다.
 
 ### Self-Invocation 문제
 
@@ -142,7 +142,7 @@ public void saveLog() {
 
 ### 면접관이 주목하는 포인트
 - Self-Invocation 문제 해결 경험
-- 전파 속성 선택 기준
+- 전파 속성을 어떤 기준으로 선택하는지
 
 </details>
 
@@ -225,7 +225,7 @@ HandlerMapping  HandlerAdapter
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Spring Boot는 Spring Framework를 쉽게 사용할 수 있도록 **자동 설정, 내장 WAS, Starter 의존성**을 제공합니다.
+Spring Boot가 제공하는 자동 설정, 내장 WAS, Starter 의존성 덕분에 Spring Framework를 쉽게 사용할 수 있습니다.
 
 ### 주요 차이점
 
@@ -248,7 +248,7 @@ H2 라이브러리가 클래스패스에 있으면
 ```
 
 ### 면접관이 주목하는 포인트
-- Auto Configuration 동작 원리
+- Auto Configuration이 어떤 원리로 동작하는지
 - 조건부 빈 등록 이해
 
 </details>
@@ -306,7 +306,7 @@ public class ConnectionPool {
 | session | HTTP 세션마다 |
 
 ### 면접관이 주목하는 포인트
-- Singleton의 무상태 설계 중요성
+- Singleton의 무상태 설계가 왜 중요한지
 - 실제 초기화/소멸 활용 사례
 
 </details>
@@ -343,7 +343,7 @@ public class AppConfig {
 ```
 
 ### 면접관이 주목하는 포인트
-- 언제 어떤 것을 사용하는지
+언제 어떤 것을 사용하는지 봅니다.
 
 </details>
 
@@ -418,7 +418,7 @@ public class SingletonService {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-@Autowired는 **타입을 기준으로 빈을 자동 주입**합니다. 같은 타입이 여러 개면 이름으로 구분합니다.
+@Autowired는 타입을 기준으로 빈을 자동 주입하며 같은 타입이 여러 개면 이름으로 구분합니다.
 
 ### 주입 순서
 
@@ -474,7 +474,7 @@ private Optional<SomeBean> optionalBean;  // 또는 Optional 사용
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-DispatcherServlet은 **Spring MVC의 프론트 컨트롤러**로, 모든 요청을 받아 적절한 컨트롤러에 위임합니다.
+DispatcherServlet은 Spring MVC의 프론트 컨트롤러입니다. 모든 요청을 받아 적절한 컨트롤러에 위임합니다.
 
 ### 프론트 컨트롤러 패턴
 
@@ -594,11 +594,11 @@ public class LogInterceptor implements HandlerInterceptor {
 
 ### 선택 기준
 - **Filter**: 모든 요청에 적용, Spring 무관한 처리
-- **Interceptor**: Spring 빈 활용, 컨트롤러 전후 처리
+- Spring 빈을 활용하고 컨트롤러 전후를 처리하는 쪽은 **Interceptor**
 
 ### 면접관이 주목하는 포인트
 - 예외 발생 시 동작 차이
-- 실무에서의 선택 기준
+- 실무에서 선택하는 기준
 
 </details>
 
@@ -610,7 +610,7 @@ public class LogInterceptor implements HandlerInterceptor {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-POJO(Plain Old Java Object)는 **특정 기술에 종속되지 않는 순수 자바 객체**입니다.
+POJO(Plain Old Java Object)는 특정 기술에 종속되지 않는 순수 자바 객체입니다.
 
 ### POJO vs Non-POJO
 
@@ -664,7 +664,7 @@ public class UserService {  // 클래스 자체는 POJO
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Spring에서 CORS를 해결하는 방법은 **@CrossOrigin, WebMvcConfigurer, Filter** 세 가지가 있습니다.
+Spring에서 CORS를 해결하는 방법으로는 @CrossOrigin, WebMvcConfigurer, Filter를 씁니다.
 
 ### 방법 1: @CrossOrigin 어노테이션
 
@@ -734,7 +734,7 @@ public CorsFilter corsFilter() {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Spring Boot에서 구동 시 코드를 실행하는 방법은 **@PostConstruct, ApplicationRunner, CommandLineRunner, EventListener** 등이 있습니다.
+구동 시 코드를 실행하고 싶다면 Spring Boot에서 @PostConstruct, ApplicationRunner, CommandLineRunner, EventListener 등을 선택할 수 있습니다.
 
 ### 방법 비교
 
@@ -804,7 +804,7 @@ public class StartupListener {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-생성자 주입은 **불변성, 테스트 용이성, 순환 참조 방지** 때문에 권장됩니다.
+불변성과 테스트 용이성, 순환 참조 방지 때문에 생성자 주입을 권장합니다.
 
 ### 주입 방식 비교
 
@@ -887,16 +887,16 @@ public class UserService {
 
 ## 학습 체크리스트
 
-- [ ] IoC/DI 개념과 생성자 주입 권장 이유 설명 가능
+- [ ] IoC/DI 개념과 생성자 주입 권장 이유를 설명할 수 있는가
 - [ ] AOP 프록시 동작 원리 이해
-- [ ] @Transactional Self-Invocation 문제 해결 방법 알기
+- [ ] @Transactional Self-Invocation 문제 해결 방법을 아는가
 - [ ] Spring MVC 요청 흐름 그릴 수 있음
 - [ ] Spring vs Spring Boot 차이 설명 가능
-- [ ] Bean 생명주기와 Scope 이해
+- [ ] Bean 생명주기와 Scope 짚어보기
 - [ ] Bean Scope 종류와 Prototype 주의사항 알기
 - [ ] @Autowired 동작 원리와 우선순위 이해
 - [ ] DispatcherServlet 역할 설명 가능
-- [ ] Filter와 Interceptor 차이 설명 가능
+- [ ] Filter와 Interceptor 차이를 말할 수 있는가
 - [ ] POJO 개념 이해
-- [ ] CORS 해결 방법 알기
+- [ ] CORS 해결 방법 떠올리기
 - [ ] 애플리케이션 구동 시 초기화 방법 알기

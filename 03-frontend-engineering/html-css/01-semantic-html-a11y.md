@@ -210,7 +210,7 @@ HTML을 파싱한 브라우저는 DOM 트리만 만드는 게 아닙니다. 그 
 <div class="btn" onclick="submitForm()">제출</div>
 ```
 
-**왜 문제인가**: Tab으로 도달할 수 없고, Enter/Space로 실행되지 않고, 스크린 리더가 버튼으로 알리지 않고, `disabled`도 못 씁니다. 이걸 `<div>`로 흉내 내려면 `tabindex="0"`, `role="button"`, keydown 핸들러, `aria-disabled`를 전부 직접 붙여야 합니다. 네 줄로 될 일을 스무 줄로 만드는 셈입니다.
+**왜 문제인가**: Tab으로 도달할 수 없고 Enter/Space로 실행되지 않고 스크린 리더가 버튼으로 알리지 않고 `disabled`도 못 씁니다. 이걸 `<div>`로 흉내 내려면 `tabindex="0"`, `role="button"`, keydown 핸들러, `aria-disabled`를 전부 직접 붙여야 합니다. 네 줄로 될 일을 스무 줄로 만드는 셈입니다.
 
 ```html
 <!-- 개선 -->

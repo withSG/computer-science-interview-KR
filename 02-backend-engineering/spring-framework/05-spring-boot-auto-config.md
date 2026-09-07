@@ -82,7 +82,7 @@ Spring Boot 이전에 "DB에 연결하고 JPA를 쓰고 웹 요청을 받는" �
 
 ### Spring Boot의 답: 설정보다 관례
 
-Spring Boot는 "어차피 90%가 똑같다면, 그 90%는 기본으로 깔아두고 나머지 10%만 개발자가 적게 하자"는 발상입니다. 이것이 설정보다 관례(Convention over Configuration)다.
+Spring Boot는 "어차피 90%가 똑같다면, 그 90%는 기본으로 깔아두고 나머지 10%만 개발자가 적게 하자"는 발상에서 출발합니다. 이것이 설정보다 관례(Convention over Configuration)입니다.
 
 ```java
 @SpringBootApplication
@@ -102,7 +102,7 @@ spring:
     password: 1234
 ```
 
-위의 XML 전부가 이 몇 줄로 대체됩니다. **중요한 것은 이게 마법이 아니라는 점입니다.** Spring Boot가 하는 일은 그 XML에 해당하는 `@Configuration` 클래스들을 미리 다 작성해두고, 조건에 맞을 때만 켜지도록 만든 것뿐입니다.
+위의 XML 전부가 이 몇 줄로 대체됩니다. **이건 마법이 아닙니다.** Spring Boot가 하는 일은 그 XML에 해당하는 `@Configuration` 클래스들을 미리 다 작성해두고 조건에 맞을 때만 켜지도록 만든 것뿐입니다.
 
 > 비유: 인테리어가 끝난 풀옵션 오피스텔. 냉장고, 세탁기, 에어컨이 이미 들어와 있어서 짐만 들고 오면 됩니다. 마음에 안 드는 가전은 내가 가져온 것으로 바꿔 넣을 수 있습니다.
 >
@@ -112,7 +112,7 @@ spring:
 
 ## 2. `@SpringBootApplication` 분해
 
-이 어노테이션은 세 개를 합친 것입니다.
+이 어노테이션 하나에 세 개가 합쳐져 있습니다.
 
 ```java
 @SpringBootConfiguration   // = @Configuration. 이 클래스 자체가 설정 클래스다
@@ -127,7 +127,7 @@ public @interface SpringBootApplication { }
 | `@ComponentScan` | 메인 클래스의 패키지부터 하위를 전부 스캔 | 내가 만든 `@Service`가 Bean으로 안 잡힌다 |
 | `@EnableAutoConfiguration` | 클래스패스를 보고 필요한 설정을 자동 등록 | DataSource, DispatcherServlet 등이 전부 사라진다 |
 
-`@ComponentScan`이 **메인 클래스의 패키지를 기준으로 한다**는 점이 중요합니다. 메인 클래스를 `com.shop`에 두면 `com.shop.order`, `com.shop.member`가 모두 스캔되지만, `com.external`에 만든 클래스는 잡히지 않습니다. "분명히 `@Service`를 붙였는데 Bean이 없다"는 문제의 흔한 원인입니다.
+`@ComponentScan`은 **메인 클래스의 패키지를 기준으로** 스캔 범위를 잡습니다. 메인 클래스를 `com.shop`에 두면 `com.shop.order`, `com.shop.member`가 모두 스캔되지만, `com.external`에 만든 클래스는 잡히지 않습니다. "분명히 `@Service`를 붙였는데 Bean이 없다"는 문제가 대개 여기서 생깁니다.
 
 ---
 
@@ -212,7 +212,7 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 | `@ConditionalOnResource` | 지정한 리소스 파일이 있을 때 |
 | `@ConditionalOnExpression` | SpEL 표현식이 true일 때 |
 
-> 결론: 자동 설정의 두 축은 **`@ConditionalOnClass`(라이브러리를 넣었는가)** 와 **`@ConditionalOnMissingBean`(개발자가 직접 만들었는가)** 입니다. 나머지는 세부 조정입니다.
+> 결론: 자동 설정은 **`@ConditionalOnClass`(라이브러리를 넣었는가)** 와 **`@ConditionalOnMissingBean`(개발자가 직접 만들었는가)** 두 축으로 돌아갑니다. 나머지 조건은 세부를 조정할 뿐입니다.
 
 ### 실제 사례: H2를 의존성에 넣으면 인메모리 DB가 뜨는 이유
 
@@ -247,7 +247,7 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 
 ### 왜 덮어쓰기가 항상 이기나
 
-핵심은 **[4]번 단계의 순서**입니다. `AutoConfigurationImportSelector`는 `DeferredImportSelector`라서, **사용자가 정의한 `@Configuration`과 컴포넌트 스캔이 전부 끝난 뒤에** 처리됩니다.
+**[4]번 단계의 순서**가 이걸 결정합니다. `AutoConfigurationImportSelector`는 `DeferredImportSelector`입니다. 그래서 **사용자가 정의한 `@Configuration`과 컴포넌트 스캔이 전부 끝난 뒤에** 처리됩니다.
 
 <!-- diagram:be-spring-boot-auto-config-3 -->
 ![왜 덮어쓰기가 항상 이기나](../../assets/diagrams/be-spring-boot-auto-config-3.svg)
@@ -266,7 +266,7 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 ```
 -->
 
-즉 자동 설정은 **"개발자가 안 만든 것만 채워 넣는 보조자"** 로 설계되어 있습니다. 우선권은 언제나 개발자에게 있습니다.
+자동 설정은 **"개발자가 안 만든 것만 채워 넣는 보조자"** 로 설계되어 있습니다. 우선권은 언제나 개발자에게 있습니다.
 
 ### 방법 1. 프로퍼티로 조정 (가장 흔함)
 
@@ -282,7 +282,7 @@ server:
   port: 8081
 ```
 
-대부분의 조정은 이 선에서 끝납니다. 자동 설정 클래스들이 `@ConfigurationProperties`로 값을 받도록 만들어져 있기 때문입니다.
+자동 설정 클래스들이 `@ConfigurationProperties`로 값을 받도록 만들어져 있어 대부분의 조정은 이 선에서 끝납니다.
 
 ### 방법 2. Bean을 직접 등록해 대체
 
@@ -315,7 +315,7 @@ spring:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 ```
 
-DB 없이 배치 애플리케이션만 띄우고 싶은데 `spring-boot-starter-data-jpa`가 딸려 들어와 기동이 실패하는 경우 같은, 예외적인 상황에서 씁니다.
+예외적인 상황에서 씁니다. DB 없이 배치 애플리케이션만 띄우려는데 `spring-boot-starter-data-jpa`가 딸려 들어와 기동이 실패하는 경우가 여기 해당합니다.
 
 | 방법 | 적용 범위 | 언제 쓰나 |
 |------|----------|----------|
@@ -358,7 +358,7 @@ public class JacksonConfig {
 }
 ```
 
-Spring Boot는 자동 설정 곳곳에 `Customizer` 인터페이스를 열어둡니다. 전체를 갈아엎는 대신 **필요한 부분만 손대는 훅이 있는지 먼저 찾아보는 것**이 원칙입니다.
+Spring Boot는 자동 설정 곳곳에 `Customizer` 인터페이스를 열어둡니다. 전체를 갈아엎는 대신 **필요한 부분만 손대는 훅**이 있는지 먼저 찾아봅니다.
 
 ---
 
@@ -374,7 +374,7 @@ java -jar shop.jar --debug
 ./gradlew bootRun --args='--debug'
 ```
 
-출력은 이런 구조입니다.
+출력 구조는 이렇습니다.
 
 <!-- diagram:be-spring-boot-auto-config-4 -->
 ![5. 디버깅](../../assets/diagrams/be-spring-boot-auto-config-4.svg)
@@ -403,26 +403,26 @@ Unconditional classes:       ← 조건 없이 항상 적용되는 것
 ```
 -->
 
-`--debug`는 로그 레벨 전체를 DEBUG로 바꾸는 것이 아니라 **이 리포트를 켜는 스위치**입니다. 문제 해결 순서는 이렇습니다.
+`--debug`는 **이 리포트를 켜는 스위치**로 동작합니다. 로그 레벨 전체를 DEBUG로 바꾸는 옵션으로 오해하기 쉽습니다. 문제 해결 순서는 이렇습니다.
 
-1. 기대한 Bean이 없다 → **Negative matches**에서 해당 자동 설정 클래스를 찾아 "왜 매칭되지 않았는지" 사유를 읽는다
-2. 예상치 못한 Bean이 있다 → **Positive matches**에서 어떤 자동 설정이 등록했는지 역추적한다
-3. Actuator를 쓴다면 애플리케이션을 재시작하지 않고 `/actuator/conditions` 엔드포인트에서 같은 정보를 JSON으로 볼 수 있다
+1. 기대한 Bean이 없다 → **Negative matches**에서 해당 자동 설정 클래스를 찾아 "왜 매칭되지 않았는지" 사유를 읽습니다
+2. 예상치 못한 Bean이 있다 → **Positive matches**에서 어떤 자동 설정이 등록했는지 역추적합니다
+3. Actuator를 쓴다면 애플리케이션을 재시작하지 않고 `/actuator/conditions` 엔드포인트에서 같은 정보를 JSON으로 볼 수 있습니다
 
 ---
 
 ## 6. 실무에서는
 
-- **Starter는 의존성 묶음일 뿐**입니다. `spring-boot-starter-web`은 그 자체로 코드가 거의 없고, Spring MVC·내장 톰캣·Jackson을 함께 끌어오는 역할을 합니다. 실제 설정은 `spring-boot-autoconfigure`에 들어 있습니다.
-- **버전 관리는 부모 BOM이 합니다.** `spring-boot-dependencies`가 수백 개 라이브러리의 검증된 버전 조합을 고정하기 때문에, 개발자가 버전을 적지 않아도 서로 호환되는 조합이 들어옵니다. 이 부분이 자동 설정만큼이나 실무 시간을 아껴줍니다.
+- **Starter는 의존성만 묶어 옵니다.** `spring-boot-starter-web`은 그 자체로 코드가 거의 없고 Spring MVC·내장 톰캣·Jackson을 함께 끌어오는 역할을 합니다. 실제 설정은 `spring-boot-autoconfigure`에 들어 있습니다.
+- **버전 관리는 부모 BOM이 합니다.** `spring-boot-dependencies`가 수백 개 라이브러리의 검증된 버전 조합을 고정해 둡니다. 그래서 개발자가 버전을 적지 않아도 서로 호환되는 조합이 들어옵니다. 이 부분이 자동 설정만큼이나 실무 시간을 아껴줍니다.
 - **회사 공통 모듈을 스타터로 만드는 경우**가 있습니다. 사내 인증 클라이언트나 로깅 규격을 자동 설정 클래스로 만들고 `AutoConfiguration.imports`에 등록하면, 다른 팀은 의존성만 추가하고 프로퍼티 몇 줄만 적으면 됩니다.
-- **기동이 느려졌다면 자동 설정 개수를 먼저 봅니다.** 쓰지 않는 스타터가 딸려 들어와 불필요한 자동 설정이 켜져 있는 경우가 흔합니다. `--debug` 리포트의 Positive matches 길이가 좋은 단서입니다.
+- **기동이 느려졌다면 자동 설정 개수를 먼저 봅니다.** 쓰지 않는 스타터가 딸려 들어와 불필요한 자동 설정이 켜져 있는 경우가 흔합니다. `--debug` 리포트의 Positive matches 길이부터 확인해 보면 단서가 잡힙니다.
 
 ---
 
 ## 7. 면접 포인트
 
-> 면접에서 이 주제가 나오면 이렇게 답한다
+> 면접에서 이 주제가 나오면 이렇게 답합니다
 
 **Q. Spring Boot의 자동 설정 동작 원리를 설명해주세요.**
 A. `@SpringBootApplication` 안의 `@EnableAutoConfiguration`이 시작점입니다. 이 어노테이션이 `AutoConfigurationImportSelector`를 가져오고, 셀렉터가 클래스패스의 모든 JAR에서 자동 설정 클래스 목록 파일을 읽습니다. Spring Boot 3 기준으로는 `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`이고 예전에는 `spring.factories`였습니다. 그다음 각 클래스에 붙은 `@ConditionalOnClass`, `@ConditionalOnMissingBean` 같은 조건을 평가해서 만족하는 것만 등록합니다. 결국 자동 설정은 조건부로 켜지는 `@Configuration` 클래스 모음일 뿐이고, 마법은 없습니다.

@@ -228,7 +228,7 @@ for (let i = 0; i < items.length; i++) {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-합성(Compositing)은 페이지를 여러 레이어로 나누어 GPU에서 합성하는 과정입니다. 레이아웃과 페인트를 건너뛰어 성능을 향상시킵니다.
+합성(Compositing)은 페이지를 여러 레이어로 나누어 GPU에서 합성하는 과정입니다. 레이아웃과 페인트를 건너뛰므로 성능이 좋아집니다.
 
 ### 렌더링 파이프라인
 
@@ -420,7 +420,7 @@ sessionStorage.setItem('formData', JSON.stringify(data));
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-LocalStorage는 XSS 공격에 취약하고, HttpOnly Cookie는 XSS를 방어하지만 CSRF를 고려해야 합니다. 저장소별 보안 트레이드오프를 이해하고 적합한 전략을 선택해야 합니다.
+LocalStorage는 XSS 공격에 취약합니다. HttpOnly Cookie는 XSS를 방어하지만 CSRF를 고려해야 합니다. 저장소별 보안 트레이드오프를 이해하고 적합한 전략을 선택해야 합니다.
 
 ### 저장소별 보안 비교
 

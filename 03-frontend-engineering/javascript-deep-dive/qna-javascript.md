@@ -375,7 +375,7 @@ console.log('end');
 - "setTimeout(fn, 0)이 즉시 실행되지 않는 이유?"
   → 콜 스택이 비고 마이크로태스크가 모두 처리된 후 실행
 - "requestAnimationFrame은 어디에 속하나요?"
-  → 어느 태스크 큐에도 속하지 않습니다. 마이크로태스크를 모두 비운 뒤 진행되는 렌더링 단계의 첫 순서로 실행된다 (→ [05-microtask-macrotask.md](./05-microtask-macrotask.md))
+  → 어느 태스크 큐에도 속하지 않습니다. 마이크로태스크를 모두 비운 뒤 진행되는 렌더링 단계의 첫 순서로 실행됩니다 (→ [05-microtask-macrotask.md](./05-microtask-macrotask.md))
 
 </details>
 

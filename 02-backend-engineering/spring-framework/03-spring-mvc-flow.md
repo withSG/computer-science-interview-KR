@@ -50,14 +50,14 @@ public class OrderListServlet extends HttpServlet {
 <!-- 화면이 100개면 이 블록이 100개 -->
 ```
 
-문제는 두 가지입니다.
+여기서 문제가 두 가지 생깁니다.
 
 1. **공통 처리가 모든 서블릿에 복사됩니다.** 인코딩, 로그인 확인, 로깅, 예외 처리. 하나만 빠뜨려도 그 URL만 한글이 깨집니다.
 2. **응답 방식이 코드에 박혀 있습니다.** JSP로 포워드하는 코드가 서블릿 안에 있으니, 같은 데이터를 JSON으로도 주려면 서블릿을 하나 더 만들어야 합니다.
 
 ### 프론트 컨트롤러 패턴
 
-해법은 단순합니다. **모든 요청을 하나의 입구로 모은 뒤, 거기서 공통 처리를 다 하고, 나머지만 각 컨트롤러에 나눠주는 것**입니다.
+**모든 요청을 하나의 입구로 모은 뒤, 거기서 공통 처리를 다 하고, 나머지만 각 컨트롤러에 나눠주면 됩니다.** 해법은 이만큼 단순합니다.
 
 <!-- diagram:be-spring-mvc-flow-1 -->
 ![프론트 컨트롤러 패턴](../../assets/diagrams/be-spring-mvc-flow-1.svg)
@@ -143,10 +143,10 @@ public class OrderListServlet extends HttpServlet {
 ### 단계별로 무슨 일이 일어나나
 
 **0단계 — 서블릿 컨테이너**
-톰캣이 소켓에서 요청을 읽어 `HttpServletRequest`/`HttpServletResponse` 객체로 만들고, 스레드 풀에서 스레드 하나를 배정합니다. 요청 처리가 끝날 때까지 이 스레드가 붙어 있습니다. Spring Boot는 `DispatcherServlet`을 `/` 경로에 등록하므로 사실상 모든 요청이 이리로 옵니다.
+톰캣이 소켓에서 요청을 읽어 `HttpServletRequest`/`HttpServletResponse` 객체로 만들고, 스레드 풀에서 스레드 하나를 배정하는데 이 스레드는 요청 처리가 끝날 때까지 붙어 있습니다. Spring Boot는 `DispatcherServlet`을 `/` 경로에 등록하므로 사실상 모든 요청이 이리로 옵니다.
 
 **1단계 — HandlerMapping: 누가 처리할 것인가**
-URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리할 핸들러를 찾습니다. `@RequestMapping` 계열을 처리하는 구현체는 `RequestMappingHandlerMapping`입니다. 결과로 핸들러와 **적용될 인터셉터 목록**을 함께 담은 `HandlerExecutionChain`이 나옵니다. 못 찾으면 404다.
+URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리할 핸들러를 찾습니다. `@RequestMapping` 계열을 처리하는 구현체는 `RequestMappingHandlerMapping`입니다. 결과로 나오는 `HandlerExecutionChain`에는 핸들러와 **적용될 인터셉터 목록**이 함께 담깁니다. 못 찾으면 404입니다.
 
 **2단계 — HandlerAdapter: 어떻게 실행할 것인가**
 찾은 핸들러를 실행할 수 있는 어댑터를 고릅니다. `@Controller`의 메서드는 `RequestMappingHandlerAdapter`가 맡습니다.
@@ -154,14 +154,14 @@ URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리�
 **3단계 — Interceptor.preHandle**
 등록된 인터셉터들이 순서대로 실행됩니다. `false`를 반환하면 그 즉시 요청 처리가 중단되고 컨트롤러는 호출되지 않습니다.
 
-**4단계 — ArgumentResolver: 요청을 자바 값으로**
-컨트롤러 메서드가 `@RequestBody OrderRequest`, `@PathVariable Long id`, `@RequestParam int page` 같은 파라미터를 선언하면, 그것을 채우는 것이 `HandlerMethodArgumentResolver`들입니다. `@RequestBody`의 경우 이 단계에서 `HttpMessageConverter`가 JSON 본문을 객체로 역직렬화합니다.
+**4단계 — ArgumentResolver**
+요청을 자바 값으로 바꾸는 자리입니다. 컨트롤러 메서드가 `@RequestBody OrderRequest`, `@PathVariable Long id`, `@RequestParam int page` 같은 파라미터를 선언하면, 그것을 채우는 것이 `HandlerMethodArgumentResolver`들입니다. `@RequestBody`의 경우 이 단계에서 `HttpMessageConverter`가 JSON 본문을 객체로 역직렬화합니다.
 
 **5단계 — Controller 실행**
 비즈니스 로직이 돕니다. 서비스가 AOP 대상이라면 이 안에서 프록시를 거쳐 트랜잭션이 시작됩니다.
 
-**6단계 — ReturnValueHandler: 반환값 처리**
-반환 타입에 따라 갈립니다. 뷰 이름이면 뷰 렌더링 경로로, `@ResponseBody`가 붙어 있으면 응답 본문 직렬화 경로로 갑니다.
+**6단계 — ReturnValueHandler**
+반환값을 어떻게 처리할지는 반환 타입에 따라 갈립니다. 뷰 이름이면 뷰 렌더링 경로로, `@ResponseBody`가 붙어 있으면 응답 본문 직렬화 경로로 갑니다.
 
 **7단계 — Interceptor.postHandle**
 컨트롤러가 정상 반환했을 때만 호출됩니다. 예외가 나면 건너뜁니다.
@@ -174,7 +174,7 @@ URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리�
 
 ### HandlerMapping과 HandlerAdapter는 왜 둘인가
 
-"찾아서 실행"이면 될 것을 왜 굳이 나눴을까. 답은 **핸들러의 형태가 하나가 아니기 때문**입니다.
+"찾아서 실행"이면 될 것을 왜 굳이 나눴을까. **핸들러의 형태가 하나가 아니기 때문**입니다.
 
 Spring MVC는 `@Controller` 메서드만 처리하지 않습니다. 정적 리소스를 내보내는 핸들러도 있고, 옛 방식인 `Controller` 인터페이스 구현체도 있습니다. 이들은 시그니처가 전혀 다릅니다.
 
@@ -286,7 +286,7 @@ Filter에서 던진 예외  ──> DispatcherServlet의 예외 처리 구간 �
 
 여기서 나오는 응답은 내가 만든 `@ExceptionHandler`가 아니라 Spring Boot의 기본 에러 응답입니다. `timestamp`, `status`, `error`, `path` 필드가 담긴 그 JSON이 바로 그것입니다.
 
-JWT 검증을 Filter에서 하는 구조라면 토큰 만료 예외를 `@ControllerAdvice`로 잡을 수 없다는 뜻입니다. 이 경우 Filter 안에서 직접 응답 본문을 써주거나, Spring Security의 `AuthenticationEntryPoint` 같은 전용 지점을 써야 합니다. 실무에서 "JWT 만료 응답만 포맷이 다르다"는 현상의 원인이 대부분 이것입니다.
+JWT 검증을 Filter에서 하는 구조라면 `@ControllerAdvice`가 토큰 만료 예외를 잡지 못합니다. 이 경우 Filter 안에서 직접 응답 본문을 써주거나, Spring Security의 `AuthenticationEntryPoint` 같은 전용 지점을 써야 합니다. 실무에서 "JWT 만료 응답만 포맷이 다르다"는 현상의 원인이 대부분 이것입니다.
 
 ---
 
@@ -371,7 +371,7 @@ public void postHandle(HttpServletRequest req, HttpServletResponse res,
 }
 ```
 
-**왜 문제인가**: `@ResponseBody` 계열 컨트롤러는 `ModelAndView`를 만들지 않으므로 `mav`가 `null`입니다. 그리고 이미 `HttpMessageConverter`가 응답 본문을 다 써버린 뒤라 지금 와서 바꿀 것도 없습니다. 게다가 컨트롤러가 예외를 던지면 `postHandle`은 아예 호출되지 않습니다.
+**왜 문제인가**: `@ResponseBody` 계열 컨트롤러는 `ModelAndView`를 만들지 않으므로 `mav`가 `null`입니다. 이미 `HttpMessageConverter`가 응답 본문을 다 써버린 뒤라 지금 와서 바꿀 것도 없습니다. 게다가 컨트롤러가 예외를 던지면 `postHandle`은 아예 호출되지 않습니다.
 
 ```java
 // 개선 1 - 응답 본문에 공통 필드를 추가하려면 ResponseBodyAdvice를 쓴다
@@ -401,14 +401,14 @@ public void afterCompletion(HttpServletRequest req, HttpServletResponse res,
 
 ## 7. 면접 포인트
 
-> 면접에서 이 주제가 나오면 이렇게 답한다
+> 면접에서 이 주제가 나오면 이렇게 답합니다
 
 **Q. Spring MVC의 요청 처리 흐름을 설명해주세요.**
-A. 요청이 오면 서블릿 컨테이너가 Filter 체인을 거쳐 DispatcherServlet에 전달합니다. DispatcherServlet은 HandlerMapping으로 요청을 처리할 핸들러와 인터셉터 목록을 찾고, HandlerAdapter로 그 핸들러를 실행합니다. 실행 전에 인터셉터 `preHandle`이 돌고, ArgumentResolver가 요청을 메서드 파라미터로 변환한 뒤 컨트롤러가 실행됩니다. 반환값이 뷰 이름이면 ViewResolver가 View를 찾아 렌더링하고, `@ResponseBody`면 HttpMessageConverter가 JSON으로 직렬화합니다. 마지막에 `afterCompletion`이 호출되고 응답이 나갑니다.
+A. 요청이 오면 서블릿 컨테이너가 Filter 체인을 거쳐 DispatcherServlet에 전달하고, DispatcherServlet은 HandlerMapping으로 요청을 처리할 핸들러와 인터셉터 목록을 찾은 뒤 HandlerAdapter로 그 핸들러를 실행합니다. 실행 전에 인터셉터 `preHandle`이 돌고, ArgumentResolver가 요청을 메서드 파라미터로 변환한 뒤 컨트롤러가 실행됩니다. 반환값이 뷰 이름이면 ViewResolver가 View를 찾아 렌더링하고, `@ResponseBody`면 HttpMessageConverter가 JSON으로 직렬화합니다. 마지막에 `afterCompletion`이 호출되고 응답이 나갑니다.
 - 꼬리 질문: "프론트 컨트롤러 패턴의 장점이 뭔가요?" → 공통 처리를 한곳에 모아 중복을 없애고, 컨트롤러가 HTTP 세부사항에서 자유로워져 테스트하기 쉬워집니다.
 
 **Q. HandlerMapping과 HandlerAdapter는 왜 분리돼 있나요?**
-A. 핸들러의 형태가 하나가 아니기 때문입니다. `@RequestMapping` 메서드, 정적 리소스 핸들러, 구버전 `Controller` 인터페이스 구현체는 시그니처가 전부 다릅니다. "누가 처리할지 찾는 책임"과 "그 형태를 어떻게 실행할지 아는 책임"을 나눠두면, 새로운 핸들러 유형이 생겨도 어댑터만 추가하면 되고 DispatcherServlet은 바뀌지 않습니다. 어댑터 패턴을 적용한 확장 포인트입니다.
+A. 핸들러의 형태가 하나가 아니기 때문입니다. `@RequestMapping` 메서드, 정적 리소스 핸들러, 구버전 `Controller` 인터페이스 구현체는 시그니처가 전부 다릅니다. 핸들러를 골라내는 책임과 고른 핸들러를 그 형태에 맞게 실행하는 책임을 나눠두면, 새로운 핸들러 유형이 생겨도 어댑터만 추가하면 되고 DispatcherServlet은 바뀌지 않습니다. 어댑터 패턴을 적용한 확장 포인트입니다.
 
 **Q. Filter와 Interceptor 중 무엇을 언제 쓰나요?**
 A. 요청/응답 객체 자체를 다뤄야 하면 Filter입니다. 예를 들어 요청 본문을 여러 번 읽어야 하는 로깅은 `ContentCachingRequestWrapper`로 요청을 감싸 교체해야 하는데, 이건 Filter만 할 수 있습니다. 반대로 어떤 컨트롤러 메서드가 매핑됐는지 알아야 하는 경우는 Interceptor입니다. `preHandle`이 `HandlerMethod`를 받기 때문에 메서드에 붙은 커스텀 어노테이션을 읽어 권한을 판단할 수 있습니다. Spring Bean 접근도 Interceptor가 자연스럽습니다.
@@ -426,7 +426,7 @@ A. `@RestController`는 `@Controller`에 `@ResponseBody`를 클래스 단위로 
 |------|----------|-----------|
 | "인터셉터가 필터보다 먼저 실행된다" | Filter는 DispatcherServlet 바깥, Interceptor는 안쪽이다 | Filter → DispatcherServlet → Interceptor 순 |
 | "`postHandle`은 항상 호출된다" | 컨트롤러가 예외를 던지면 건너뛴다 | 항상 실행돼야 하는 정리 작업은 `afterCompletion`에 둔다 |
-| "`@ControllerAdvice`가 모든 예외를 잡는다" | Filter 단계 예외는 DispatcherServlet의 예외 처리 구간 밖이다 | 필터 예외는 필터 안에서 처리하거나 Security 전용 지점을 씁니다. 그냥 두면 Boot 기본 에러 응답이 나간다 |
+| "`@ControllerAdvice`가 모든 예외를 잡는다" | Filter 단계 예외는 DispatcherServlet의 예외 처리 구간 밖이다 | 필터 예외는 필터 안에서 처리하거나 Security 전용 지점을 쓴다. 그냥 두면 Boot 기본 에러 응답이 나간다 |
 | "`@RestController`도 ViewResolver를 거친다" | `@ResponseBody` 경로는 View를 만들지 않는다 | HttpMessageConverter가 응답 본문을 직접 쓴다 |
 | "Interceptor에서 요청 본문을 읽어도 된다" | 입력 스트림은 한 번만 읽을 수 있어 이후 바인딩이 깨진다 | 본문을 봐야 하면 Filter에서 캐싱 래퍼로 감싼다 |
 | "DispatcherServlet은 요청을 넘기고 끝난다" | 응답 생성과 예외 처리까지 관장한다 | 요청 전 구간의 조율자다 |
@@ -443,7 +443,7 @@ Spring MVC는 모든 요청을 DispatcherServlet 하나로 모아 **"누가 처�
 
 - [02-aop-proxy.md](./02-aop-proxy.md) - 컨트롤러 안쪽에서 동작하는 세 번째 층, AOP
 - [05-spring-boot-auto-config.md](./05-spring-boot-auto-config.md) - DispatcherServlet과 내장 톰캣이 자동으로 등록되는 원리
-- [01-ioc-di.md](./01-ioc-di.md) - MVC 구성 요소들도 결국 컨테이너가 관리하는 Bean이다
+- [01-ioc-di.md](./01-ioc-di.md) - MVC 구성 요소들도 결국 컨테이너가 관리하는 Bean
 - [qna-spring.md](./qna-spring.md) - MVC 흐름과 Filter/Interceptor 면접 질문(Q4, Q10, Q11, Q13)
 - [../authentication/qna-authentication.md](../authentication/qna-authentication.md) - Filter 체인에서 이뤄지는 인증/인가
 - [../../01-computer-science-fundamentals/network/qna-network.md](../../01-computer-science-fundamentals/network/qna-network.md) - HTTP 요청/응답 기본기

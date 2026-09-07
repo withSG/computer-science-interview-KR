@@ -289,7 +289,7 @@ ConfigMap의 DB_HOST가 잘못 설정되어 있어 수정 후 해결했습니다
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Ingress는 **클러스터 외부에서 내부 Service로의 HTTP/HTTPS 라우팅**을 관리합니다.
+Ingress는 **클러스터 외부에서 내부 Service로 이어지는 HTTP/HTTPS 라우팅**을 관리합니다.
 
 ### Ingress vs LoadBalancer Service
 

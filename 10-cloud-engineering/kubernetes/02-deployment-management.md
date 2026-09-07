@@ -135,7 +135,7 @@ t8          [v2][v2][v2][v2]    완료
 ```
 -->
 
-핵심은 **"새 Pod가 Ready가 되어야 다음 단계로 넘어간다"** 는 점입니다. 그래서 readiness probe가 없으면 롤링 업데이트가 안전장치를 잃습니다. 컨테이너가 뜨자마자 Ready로 간주되어, 실제로는 아직 초기화 중인 Pod에 트래픽이 들어갑니다. Probe 이야기는 [05-troubleshooting.md](./05-troubleshooting.md)에서 더 다룹니다.
+**"새 Pod가 Ready가 되어야 다음 단계로 넘어간다"** 가 핵심입니다. 그래서 readiness probe가 없으면 롤링 업데이트가 안전장치를 잃습니다. 컨테이너가 뜨자마자 Ready로 간주되어, 실제로는 아직 초기화 중인 Pod에 트래픽이 들어갑니다. Probe 이야기는 [05-troubleshooting.md](./05-troubleshooting.md)에서 더 다룹니다.
 
 ```bash
 kubectl set image deployment/web web=myapp:2.0
@@ -435,7 +435,7 @@ CPU 말고 다른 축이 필요할 때도 있습니다. 큐 대기 길이나 초
 
 **리소스 설정은 관측 없이 정할 수 없습니다.** 처음에는 넉넉하게 잡고, Prometheus로 실제 사용량 분포를 본 뒤 조정하는 것이 순서입니다. 관련 내용은 [qna-monitoring.md](../monitoring-observability/qna-monitoring.md)를 참고합니다.
 
-**네임스페이스에 ResourceQuota와 LimitRange를 겁니다.** 팀별로 쓸 수 있는 총량(ResourceQuota)과 개별 컨테이너의 기본값·상한(LimitRange)을 정해 두면, requests를 안 적은 Pod가 클러스터를 잠식하는 사고를 막을 수 있습니다.
+**네임스페이스에 ResourceQuota와 LimitRange를 겁니다.** 팀별로 쓸 수 있는 총량(ResourceQuota)과 개별 컨테이너의 기본값·상한(LimitRange)을 정해 두면, requests를 안 적은 Pod가 클러스터 자원을 독차지하는 사고를 막을 수 있습니다.
 
 ---
 
@@ -477,7 +477,7 @@ A. HPA는 Pod 개수만 늘릴 뿐 노드를 늘리지 않으므로, 클러스�
 | `maxUnavailable: 0`만 설정하고 노드 여유 미확인 | 새 Pod가 Pending에 걸려 배포가 멈춤 | maxSurge와 노드 여유를 함께 계산 |
 | 상태 있는 앱을 Deployment로 배포 | Pod마다 다른 볼륨에 붙어 데이터가 섞임 | 전용 스토리지가 필요하면 StatefulSet |
 | StatefulSet만 쓰면 DB 클러스터가 된다고 생각 | 이름·순서·볼륨만 보장, 복제 로직은 별개 | 오퍼레이터나 관리형 DB를 검토 |
-| limits를 일부러 비워 성능 확보 | 한 Pod가 노드를 잠식해 이웃 Pod까지 죽임 | 실측 후 여유를 얹어 설정 |
+| limits를 일부러 비워 성능 확보 | 한 Pod가 노드 자원을 독차지해 이웃 Pod까지 죽임 | 실측 후 여유를 얹어 설정 |
 | JVM 힙 최대치를 메모리 limit과 동일하게 설정 | 힙 밖 영역(메타스페이스, 스택 등)이 limit을 넘김 | 힙은 limit보다 작게 잡는다 |
 | CronJob을 기본 concurrencyPolicy로 방치 | 이전 작업이 안 끝났는데 겹쳐 실행됨 | 중복이 위험하면 `Forbid`, 최신만 필요하면 `Replace` |
 

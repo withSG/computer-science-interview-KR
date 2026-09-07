@@ -13,7 +13,7 @@
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-CPU는 **ALU(산술논리장치)**, **제어장치(CU)**, **레지스터**로 구성되며, 명령어를 Fetch → Decode → Execute 사이클로 처리합니다.
+CPU는 **ALU(산술논리장치)**, **제어장치(CU)**, **레지스터**로 구성되며 명령어를 Fetch → Decode → Execute 사이클로 처리합니다.
 
 ### CPU 구성요소
 
@@ -160,7 +160,7 @@ JUMP 300         → PC = 300      (분기)
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-**고정 소수점**은 소수점 위치가 고정되어 정밀도는 일정하지만 표현 범위가 좁고, **부동 소수점**은 소수점이 움직여 넓은 범위를 표현하지만 정밀도 오차가 발생할 수 있습니다.
+**고정 소수점**은 소수점 위치가 고정되어 정밀도는 일정하지만 표현 범위가 좁습니다. **부동 소수점**은 소수점이 움직여 넓은 범위를 표현하지만 정밀도 오차가 발생할 수 있습니다.
 
 ### 고정 소수점 (Fixed Point)
 
@@ -232,7 +232,7 @@ JUMP 300         → PC = 300      (분기)
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-**패리티 비트**는 1비트 오류를 **검출**하는 가장 간단한 오류 검출 방식이고, **해밍 코드(ECC)**는 오류를 **검출하고 수정**할 수 있는 방식입니다.
+**패리티 비트**는 1비트 오류를 **검출**하는 가장 간단한 오류 검출 방식입니다. **해밍 코드(ECC)**는 오류를 **검출하고 수정**할 수 있는 방식입니다.
 
 ### 패리티 비트 (Parity Bit)
 
@@ -312,7 +312,7 @@ P4 = 위치 4,5,6,7의 XOR = 0⊕1⊕1 = 0
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-ARM은 **RISC(Reduced Instruction Set Computer)** 아키텍처로 단순한 명령어 세트와 낮은 전력 소비가 특징이고, x86은 **CISC(Complex Instruction Set Computer)** 아키텍처로 복잡한 명령어를 지원해 높은 성능을 냅니다.
+ARM은 **RISC(Reduced Instruction Set Computer)** 아키텍처로 단순한 명령어 세트와 낮은 전력 소비가 특징입니다. x86은 **CISC(Complex Instruction Set Computer)** 아키텍처로 복잡한 명령어를 지원해 높은 성능을 냅니다.
 
 ### RISC vs CISC 비교
 
@@ -357,7 +357,7 @@ x86 → ARM 이식 시 고려 사항:
   - 엔디언(Byte Order): ARM은 bi-endian (기본 little-endian)
   - 정렬(Alignment): ARM은 정렬 위반 시 오류 가능
   - 컴파일러 재빌드 필요
-  
+
 해결:
   - Apple Rosetta 2: x86 바이너리를 ARM에서 동적 번역
 ```

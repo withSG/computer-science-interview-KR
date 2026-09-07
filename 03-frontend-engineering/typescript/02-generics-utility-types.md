@@ -134,7 +134,7 @@ const r = await fetchJson<User>("/api/me");
 r.data.name;   // User로 보장된다
 ```
 
-> 주의: 위 `as`는 "서버가 이 모양으로 준다"는 **약속**일 뿐 검사가 아닙니다. 실제 응답이 다르면 런타임에 터집니다. 경계에서의 검증은 [03-type-guards-narrowing.md](./03-type-guards-narrowing.md)에서 다룹니다.
+> 주의: 위 `as`는 "서버가 이 모양으로 준다"는 **약속**일 뿐 검사가 아닙니다. 실제 응답이 다르면 런타임에 터집니다. 경계에서 하는 검증은 [03-type-guards-narrowing.md](./03-type-guards-narrowing.md)에서 다룹니다.
 
 ### 클래스
 

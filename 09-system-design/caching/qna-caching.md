@@ -280,7 +280,7 @@ def get_user_with_lock(user_id):
 
 ### 면접관이 주목하는 포인트
 - Cache Stampede 인지 및 해결 방법
-- 실무에서의 무효화 경험
+- 실무에서 겪은 무효화 경험
 
 </details>
 

@@ -315,7 +315,7 @@ public class UserService {
 
 ### 면접관이 주목하는 포인트
 - MVC 패턴을 사용하는 이유
-- 실제 프로젝트에서의 적용 경험
+- 실제 프로젝트 적용 경험
 - Spring MVC의 동작 흐름
 
 </details>
