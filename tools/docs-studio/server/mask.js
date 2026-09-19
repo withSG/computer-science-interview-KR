@@ -3,11 +3,11 @@
  * 공백으로 지운다. 줄 수·줄바꿈은 그대로 두므로 지운 뒤에도 줄 번호가 원문과
  * 동일하게 유지된다.
  *
- * `tools/docs-studio/scripts/lint-style.js`(register/spelling/translationese/
- * template 검사)와 `tools/docs-studio/scripts/convert-register.js`(해라체→합니다체
- * 변환기)가 함께 가져다 쓴다. 린터가 "위반 없음"이라 판정하는 텍스트와 변환기가
- * "손대지 않음"이라 판정하는 텍스트가 같은 함수에서 나와야, 변환기가 끝난 뒤
- * 린터를 검증 게이트로 신뢰할 수 있다.
+ * `server/register.js`·`server/prose.js`(재작성 검사기와 산문 추출기)와
+ * `tools/docs-studio/scripts/convert-register.js`(해라체→합니다체 변환기)가 함께
+ * 가져다 쓴다. 검사기가 "위반 없음"이라 판정하는 텍스트와 변환기가 "손대지 않음"이라
+ * 판정하는 텍스트가 같은 함수에서 나와야, 변환기가 끝난 뒤 검사기를 검증 게이트로
+ * 신뢰할 수 있다.
  */
 
 /**
@@ -29,11 +29,6 @@ export function maskFormattingArtifacts(text) {
   })
 
   return masked
-}
-
-/** 한 줄 안의 인라인 코드 스팬(`...`)을 지운다. */
-export function stripInlineCode(line) {
-  return line.replace(/`[^`\n]*`/g, '')
 }
 
 /** 인용부(" ... ", 「...」, 『...』)를 통째로 지운다 — 다른 화자의 말을 옮긴 자리는

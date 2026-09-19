@@ -171,7 +171,7 @@ Root DNS → TLD DNS → 권한 있는 DNS
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-REST는 HTTP를 기반으로 자원을 이름으로 구분하여 상태를 주고받는 아키텍처 스타일입니다.
+REST는 HTTP 위에서 자원을 이름으로 구분하고 그 상태를 주고받는 아키텍처 스타일입니다.
 
 ### REST 6가지 원칙
 1. **Client-Server**: 클라이언트와 서버 분리
@@ -242,7 +242,7 @@ REST는 HTTP를 기반으로 자원을 이름으로 구분하여 상태를 주�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-CORS(Cross-Origin Resource Sharing)는 다른 출처(Origin)의 리소스에 접근할 수 있게 해주는 메커니즘입니다. 브라우저의 동일 출처 정책(SOP)을 완화하기 위해 사용됩니다.
+다른 출처(Origin)의 리소스에 접근할 수 있게 해 주는 메커니즘이 CORS(Cross-Origin Resource Sharing)입니다. 브라우저의 동일 출처 정책(SOP)을 완화하려고 쓰는 장치입니다.
 
 ### 동일 출처 판단 기준
 `프로토콜 + 호스트 + 포트`가 모두 같아야 동일 출처
@@ -515,7 +515,7 @@ DNS(Domain Name System)는 도메인 이름을 IP 주소로 변환하는 분산�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-SSE는 서버에서 클라이언트로의 단방향 실시간 통신 기술입니다. HTTP 기반으로 동작하며 EventSource API를 사용하고, 연결이 끊어지면 자동으로 재연결합니다.
+SSE는 서버에서 클라이언트로의 단방향 실시간 통신 기술입니다. HTTP 위에서 동작하고 EventSource API를 사용하며, 연결이 끊어지면 자동으로 재연결합니다.
 
 ### 특징
 

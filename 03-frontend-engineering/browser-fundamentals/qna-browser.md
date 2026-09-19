@@ -228,7 +228,7 @@ for (let i = 0; i < items.length; i++) {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-합성(Compositing)은 페이지를 여러 레이어로 나누어 GPU에서 합성하는 과정입니다. 레이아웃과 페인트를 건너뛰므로 성능이 좋아집니다.
+합성(Compositing)은 페이지를 여러 레이어로 나눠 GPU에서 합치는 과정입니다. 레이아웃과 페인트를 건너뛰어서 성능이 좋아집니다.
 
 ### 렌더링 파이프라인
 
@@ -452,7 +452,7 @@ LocalStorage는 XSS 공격에 취약합니다. HttpOnly Cookie는 XSS를 방어�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Same-Origin Policy 보안 정책으로 인해 다른 출처의 요청이 차단됩니다. CORS 헤더를 통해 허용할 출처를 명시적으로 설정하여 이를 완화합니다.
+Same-Origin Policy 보안 정책 때문에 다른 출처의 요청이 차단됩니다. CORS 헤더에 허용할 출처를 명시해서 이를 완화합니다.
 
 ```
 출처(Origin) = 프로토콜 + 도메인 + 포트

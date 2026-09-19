@@ -1,6 +1,6 @@
 # 타입 가드와 좁히기 (Type Guards & Narrowing)
 
-> 유니온 타입이 왜 그대로는 쓸모가 없는지, 판별 유니온이 왜 실무에서 가장 자주 쓰이는 무기인지, `as`가 왜 "해결"이 아니라 "회피"인지 설명할 수 있게 됩니다.
+> 문법 목록을 외우는 문서가 아닙니다. 유니온 타입이 왜 그대로는 쓸모가 없는지, 판별 유니온이 왜 실무에서 가장 자주 쓰이는 무기인지, `as`가 왜 "해결"이 아니라 "회피"인지를 가려냅니다.
 
 ## 학습 목표
 
@@ -15,7 +15,7 @@
 ## 선행 지식
 
 - [01-why-typescript-types.md](./01-why-typescript-types.md) — 유니온, 리터럴 타입, `unknown`/`never`
-- [02-generics-utility-types.md](./02-generics-utility-types.md) — 필수는 아니지만 `Extract`, `NonNullable`이 나온다
+- [02-generics-utility-types.md](./02-generics-utility-types.md) — 필수는 아니지만 `Extract`, `NonNullable`이 나옵니다
 
 ---
 
@@ -64,7 +64,7 @@ JavaScript 프로젝트를 TypeScript로 옮길 때 가장 먼저 쏟아지는 �
 
 유니온 타입은 "이 사람은 직원이거나 방문객이다"라는 명찰입니다. 명찰만 보고는 서버실 문을 열어줄 수 없습니다. 신분증을 확인해서 직원임을 밝힌 뒤에야 그 권한을 줍니다. 확인이 끝난 구역 안에서만 "이 사람은 직원"이라는 사실이 유효합니다.
 
-> **비유의 한계**: 사람은 확인 후에도 계속 그 사람이지만, TypeScript의 좁히기는 **코드 블록을 벗어나거나 값이 재할당되면 즉시 무효**가 됩니다. 확인 결과가 붙는 대상은 사람이 아니라 "코드의 특정 지점"입니다.
+> **비유의 한계**: 사람은 확인을 마친 뒤에도 계속 그 사람입니다. TypeScript의 좁히기는 다릅니다. **코드 블록을 벗어나거나 값이 재할당되면 즉시 무효**가 됩니다. 확인 결과가 붙는 대상은 사람이 아니라 "코드의 특정 지점"입니다.
 
 ---
 
@@ -111,7 +111,7 @@ function g(v: string | null) {
 }
 ```
 
-`return`, `throw`, `continue`로 흐름을 일찍 끊는 **얼리 리턴(early return)** 패턴이 TypeScript에서 특히 잘 맞는 이유입니다. 중첩된 `if`를 만들지 않으면서 타입도 자연스럽게 좁혀집니다.
+이 때문에 `return`, `throw`, `continue`로 흐름을 일찍 끊는 **얼리 리턴(early return)** 패턴이 TypeScript에서 특히 잘 맞습니다. 중첩된 `if`를 만들지 않으면서 타입도 자연스럽게 좁혀집니다.
 
 ---
 
@@ -157,7 +157,7 @@ function report(e: Error | string) {
 }
 ```
 
-프로토타입 체인을 보는 검사라 **클래스나 생성자 함수로 만들어진 값**에만 쓸 수 있습니다. 인터페이스는 컴파일 후 사라지는 타입일 뿐 값이 아니므로, `x instanceof MyInterface`는 `'MyInterface' only refers to a type, but is being used as a value here.` 오류가 납니다. 배열은 `Array.isArray`를 씁니다(표준 라이브러리에 `arg is any[]` 타입 가드로 선언되어 있어 좁히기가 작동합니다).
+프로토타입 체인을 보는 검사라 **클래스나 생성자 함수로 만들어진 값**에만 쓸 수 있습니다. 인터페이스는 컴파일 후 사라지는 타입일 뿐 값이 아닙니다. 그래서 `x instanceof MyInterface`는 `'MyInterface' only refers to a type, but is being used as a value here.` 오류가 납니다. 배열은 `Array.isArray`를 씁니다(표준 라이브러리에 `arg is any[]` 타입 가드로 선언되어 있어 좁히기가 작동합니다).
 
 ### `in` — 속성 존재 판별
 
@@ -214,7 +214,7 @@ function render(count?: number | null) {
 
 ### 문제: 불린 플래그로 상태를 표현하면
 
-데이터를 불러오는 화면의 상태를 표현한다고 하자. 처음 떠오르는 방식은 이렇습니다.
+데이터를 불러오는 화면의 상태를 표현한다고 해 보겠습니다. 처음 떠오르는 방식은 이렇습니다.
 
 ```ts
 // 안티패턴
@@ -577,7 +577,7 @@ try {
 
 ### `strict`에 포함되지 않는, 그러나 유용한 옵션
 
-`noUncheckedIndexedAccess`는 `arr[0]`의 타입을 `T`가 아니라 `T | undefined`로 만듭니다. `const first = arr[0]; first.name;`이 오류가 되면서 "빈 배열이면?"이라는 질문을 강제로 마주하게 하는 강력한 옵션이지만, 켜는 순간 기존 코드에서 오류가 크게 늘어납니다. 그 밖에 `exactOptionalPropertyTypes`("속성 없음"과 "속성이 `undefined`"를 구분), `noImplicitReturns`(일부 경로에서만 반환하는 함수 금지), `noImplicitOverride`(재정의 시 `override` 키워드 강제)도 별도 옵션입니다.
+`noUncheckedIndexedAccess`는 `arr[0]`의 타입을 `T`가 아니라 `T | undefined`로 만듭니다. `const first = arr[0]; first.name;`이 오류가 되면서 "빈 배열이면?"이라는 질문을 강제로 마주하게 하는 강력한 옵션입니다. 다만 켜는 순간 기존 코드에서 오류가 크게 늘어납니다. 그 밖에 `exactOptionalPropertyTypes`("속성 없음"과 "속성이 `undefined`"를 구분), `noImplicitReturns`(일부 경로에서만 반환하는 함수 금지), `noImplicitOverride`(재정의 시 `override` 키워드 강제)도 별도 옵션입니다.
 
 ---
 
@@ -628,7 +628,7 @@ A. `strictNullChecks`, `noImplicitAny`, `strictFunctionTypes`, `strictPropertyIn
 
 ## 한 줄 정리
 
-유니온 타입은 좁히기와 짝을 이룰 때만 쓸모가 있고, 그 좁히기를 가장 안정적으로 얻는 방법은 리터럴 판별자를 둔 판별 유니온이며, `as`는 좁히기가 아니라 **좁히기를 포기하고 책임을 개발자가 떠안는 선언**입니다.
+유니온 타입은 좁히기와 짝을 이룰 때만 쓸모가 있고, 그 좁히기를 가장 안정적으로 얻는 방법은 리터럴 판별자를 둔 판별 유니온입니다. `as`는 좁히기가 아니라 **좁히기를 포기하고 책임을 개발자가 떠안는 선언**입니다.
 
 ---
 

@@ -1,6 +1,6 @@
 # Spring MVC 요청 처리 흐름 (Spring MVC Request Flow)
 
-> HTTP 요청 한 건이 톰캣에 도착해서 응답이 나가기까지 어떤 객체들을 어떤 순서로 지나는지, 그리고 Filter·Interceptor·AOP 중 무엇을 언제 써야 하는지 설명할 수 있게 됩니다.
+> Filter·Interceptor·AOP는 어느 층에 두느냐에 따라 할 수 있는 일과 못 하는 일이 갈립니다. HTTP 요청 한 건이 톰캣에 도착해서 응답이 나가기까지 지나는 객체와 순서를 따라가 보고, 셋 중 무엇을 언제 쓸지 가려냅니다.
 
 ## 학습 목표
 
@@ -92,7 +92,7 @@ public class OrderListServlet extends HttpServlet {
 
 > 비유: 대형 병원의 접수 창구. 환자가 진료과를 직접 찾아다니는 대신 접수처가 증상을 보고 해당 과로 보냅니다. 접수처는 보험 확인, 진료기록 준비 같은 공통 절차를 한 번에 처리하고, 각 과는 진료에만 집중합니다.
 >
-> **비유의 한계**: 접수처는 환자를 보내고 손을 떼지만, DispatcherServlet은 컨트롤러가 끝난 뒤에도 응답 변환과 예외 처리를 계속 책임집니다. 처음부터 끝까지 흐름의 주인은 DispatcherServlet입니다.
+> **비유의 한계**: 접수처는 환자를 보내고 나면 손을 뗍니다. DispatcherServlet은 다릅니다. 컨트롤러가 끝난 뒤에도 응답 변환과 예외 처리를 계속 책임집니다. 처음부터 끝까지 흐름의 주인은 DispatcherServlet입니다.
 
 ---
 
@@ -143,7 +143,7 @@ public class OrderListServlet extends HttpServlet {
 ### 단계별로 무슨 일이 일어나나
 
 **0단계 — 서블릿 컨테이너**
-톰캣이 소켓에서 요청을 읽어 `HttpServletRequest`/`HttpServletResponse` 객체로 만들고, 스레드 풀에서 스레드 하나를 배정하는데 이 스레드는 요청 처리가 끝날 때까지 붙어 있습니다. Spring Boot는 `DispatcherServlet`을 `/` 경로에 등록하므로 사실상 모든 요청이 이리로 옵니다.
+톰캣이 소켓에서 요청을 읽어 `HttpServletRequest`/`HttpServletResponse` 객체로 만들고, 스레드 풀에서 스레드 하나를 배정합니다. 이 스레드는 요청 처리가 끝날 때까지 붙어 있습니다. Spring Boot는 `DispatcherServlet`을 `/` 경로에 등록하므로 사실상 모든 요청이 이리로 옵니다.
 
 **1단계 — HandlerMapping: 누가 처리할 것인가**
 URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리할 핸들러를 찾습니다. `@RequestMapping` 계열을 처리하는 구현체는 `RequestMappingHandlerMapping`입니다. 결과로 나오는 `HandlerExecutionChain`에는 핸들러와 **적용될 인터셉터 목록**이 함께 담깁니다. 못 찾으면 404입니다.
@@ -174,7 +174,7 @@ URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리�
 
 ### HandlerMapping과 HandlerAdapter는 왜 둘인가
 
-"찾아서 실행"이면 될 것을 왜 굳이 나눴을까. **핸들러의 형태가 하나가 아니기 때문**입니다.
+"찾아서 실행"이면 될 것을 왜 굳이 나눴을까요? **핸들러의 형태가 하나가 아니기 때문**입니다.
 
 Spring MVC는 `@Controller` 메서드만 처리하지 않습니다. 정적 리소스를 내보내는 핸들러도 있고, 옛 방식인 `Controller` 인터페이스 구현체도 있습니다. 이들은 시그니처가 전혀 다릅니다.
 
@@ -189,7 +189,7 @@ Spring MVC는 `@Controller` 메서드만 처리하지 않습니다. 정적 리�
        정적 리소스 핸들러                스트림에 파일을 바로 쓴다
 ```
 
-DispatcherServlet은 두 인터페이스만 알면 되고, 새로운 형태의 핸들러가 추가돼도 DispatcherServlet 코드는 그대로입니다. 어댑터 패턴의 교과서적인 사용입니다.
+DispatcherServlet은 두 인터페이스만 알면 되니, 새로운 형태의 핸들러가 추가돼도 DispatcherServlet 코드는 그대로입니다. 어댑터 패턴을 교과서 그대로 쓴 셈입니다.
 
 ---
 
@@ -394,7 +394,7 @@ public void afterCompletion(HttpServletRequest req, HttpServletResponse res,
 
 - **Spring Boot에서는 `web.xml`이 없습니다.** 내장 톰캣이 뜨면서 `DispatcherServlet`을 자동 등록하고 `/`에 매핑합니다. 예전에는 `ContextLoaderListener`가 만드는 루트 컨테이너와 `DispatcherServlet`이 만드는 서블릿 컨테이너가 부모-자식으로 나뉘어 있었는데, Boot에서는 사실상 하나로 통합돼 신경 쓸 일이 없어졌습니다.
 - **요청 추적 ID는 Filter + MDC 조합**이 표준적입니다. Filter 진입 시 UUID를 만들어 `MDC`에 넣고, 로그 패턴에 `%X{traceId}`를 넣으면 한 요청의 로그를 전부 묶어 볼 수 있습니다. 반드시 `finally`에서 `MDC.clear()`를 해야 합니다. 톰캣이 스레드를 재사용하기 때문에 정리하지 않으면 다음 요청에 이전 ID가 딸려갑니다.
-- **인증은 Spring Security의 Filter 체인**이 사실상 표준입니다. Security가 붙으면 `DelegatingFilterProxy`를 통해 Spring Bean인 필터들이 서블릿 필터 체인에 끼어 들어옵니다. 인가되지 않은 요청은 DispatcherServlet에 닿기도 전에 차단됩니다.
+- **인증은 Spring Security의 Filter 체인**이 사실상 표준입니다. Security가 붙으면 `DelegatingFilterProxy`를 거쳐 Spring Bean인 필터들이 서블릿 필터 체인에 끼어 들어옵니다. 인가되지 않은 요청은 DispatcherServlet에 닿기도 전에 차단됩니다.
 - **404가 나는데 컨트롤러는 분명히 있다**면 HandlerMapping 단계에서 매칭에 실패한 것입니다. 경로 변수 패턴, HTTP 메서드, `produces`/`consumes` 조건을 순서대로 확인합니다. 애플리케이션 기동 로그에 매핑 목록이 출력되므로 거기서 비교하는 것이 빠릅니다.
 
 ---
@@ -435,7 +435,7 @@ A. `@RestController`는 `@Controller`에 `@ResponseBody`를 클래스 단위로 
 
 ## 한 줄 정리
 
-Spring MVC는 모든 요청을 DispatcherServlet 하나로 모아 **"누가 처리할지(HandlerMapping) → 어떻게 실행할지(HandlerAdapter) → 결과를 어떻게 응답으로 바꿀지(ViewResolver 또는 HttpMessageConverter)"** 를 순서대로 결정하는 구조이며, 공통 로직은 위치에 따라 Filter·Interceptor·AOP 중에서 고릅니다.
+Spring MVC는 모든 요청을 DispatcherServlet 하나로 모아 **"누가 처리할지(HandlerMapping) → 어떻게 실행할지(HandlerAdapter) → 결과를 어떻게 응답으로 바꿀지(ViewResolver 또는 HttpMessageConverter)"** 를 순서대로 결정하는 구조입니다. 공통 로직은 위치에 따라 Filter·Interceptor·AOP 중에서 고릅니다.
 
 ---
 

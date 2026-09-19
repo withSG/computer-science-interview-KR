@@ -230,7 +230,7 @@ HMACSHA256(
 <summary>답변 보기</summary>
 
 ### XSS (Cross-Site Scripting)
-악의적인 스크립트를 웹 페이지에 삽입하여 사용자 정보 탈취
+악의적인 스크립트를 웹 페이지에 삽입해 사용자 정보를 탈취하는 공격입니다.
 
 **방어:**
 - 입력값 검증 및 이스케이프 처리
@@ -238,7 +238,7 @@ HMACSHA256(
 - HttpOnly 쿠키 (JS 접근 차단)
 
 ### CSRF (Cross-Site Request Forgery)
-사용자의 의도와 무관한 요청을 위조
+사용자의 의도와 무관한 요청을 위조하는 공격입니다.
 
 **방어:**
 - CSRF 토큰 사용

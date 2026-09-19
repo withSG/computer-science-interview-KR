@@ -1,6 +1,6 @@
 # Spring Boot 자동 설정 (Auto Configuration)
 
-> `@SpringBootApplication` 한 줄이 실제로 무슨 일을 하는지, 내가 등록한 적 없는 Bean이 어떻게 컨테이너에 들어와 있는지, 그리고 그 자동 설정을 어떻게 덮어쓰고 어떻게 추적하는지 설명할 수 있게 됩니다.
+> 이 문서는 `@SpringBootApplication` 한 줄이 실제로 하는 일에서 출발해, 내가 등록한 적 없는 Bean이 어떻게 컨테이너에 들어와 있는지를 따라갑니다. 끝은 그 자동 설정을 덮어쓰고 추적하는 방법입니다.
 
 ## 학습 목표
 
@@ -102,11 +102,11 @@ spring:
     password: 1234
 ```
 
-위의 XML 전부가 이 몇 줄로 대체됩니다. **이건 마법이 아닙니다.** Spring Boot가 하는 일은 그 XML에 해당하는 `@Configuration` 클래스들을 미리 다 작성해두고 조건에 맞을 때만 켜지도록 만든 것뿐입니다.
+위의 XML 전부가 이 몇 줄로 대체됩니다. **이건 마법이 아닙니다.** Spring Boot가 하는 일은 그 XML에 해당하는 `@Configuration` 클래스들을 미리 다 작성해 두고, 조건에 맞을 때만 켜지도록 만든 것뿐입니다.
 
 > 비유: 인테리어가 끝난 풀옵션 오피스텔. 냉장고, 세탁기, 에어컨이 이미 들어와 있어서 짐만 들고 오면 됩니다. 마음에 안 드는 가전은 내가 가져온 것으로 바꿔 넣을 수 있습니다.
 >
-> **비유의 한계**: 오피스텔 가전은 물리적으로 이미 놓여 있지만, 자동 설정은 **조건을 만족할 때만** 등록됩니다. 세탁기를 쓸 배관이 없으면 세탁기는 아예 들어오지 않습니다.
+> **비유의 한계**: 오피스텔 가전은 물리적으로 이미 놓여 있습니다. 자동 설정은 **조건을 만족할 때만** 등록됩니다. 세탁기를 쓸 배관이 없으면 세탁기는 아예 들어오지 않습니다.
 
 ---
 
@@ -403,7 +403,7 @@ Unconditional classes:       ← 조건 없이 항상 적용되는 것
 ```
 -->
 
-`--debug`는 **이 리포트를 켜는 스위치**로 동작합니다. 로그 레벨 전체를 DEBUG로 바꾸는 옵션으로 오해하기 쉽습니다. 문제 해결 순서는 이렇습니다.
+`--debug`는 **이 리포트를 켜는 스위치**입니다. 로그 레벨 전체를 DEBUG로 바꾸는 옵션으로 오해하기 쉽습니다. 문제 해결 순서는 이렇습니다.
 
 1. 기대한 Bean이 없다 → **Negative matches**에서 해당 자동 설정 클래스를 찾아 "왜 매칭되지 않았는지" 사유를 읽습니다
 2. 예상치 못한 Bean이 있다 → **Positive matches**에서 어떤 자동 설정이 등록했는지 역추적합니다
@@ -454,14 +454,14 @@ A. 실행 인자에 `--debug`를 붙이면 CONDITIONS EVALUATION REPORT가 출�
 
 ## 한 줄 정리
 
-자동 설정은 **"클래스패스에 무엇이 있는지"** 와 **"개발자가 직접 만든 Bean이 있는지"** 두 가지 조건으로 미리 작성된 설정 클래스를 켜고 끄는 장치이며, 언제나 개발자가 만든 것이 우선하고 그 판단 과정은 `--debug` 리포트로 전부 들여다볼 수 있습니다.
+자동 설정은 **"클래스패스에 무엇이 있는지"** 와 **"개발자가 직접 만든 Bean이 있는지"** 두 가지 조건으로, 미리 작성된 설정 클래스를 켜고 끄는 장치입니다. 언제나 개발자가 만든 것이 우선합니다. 그 판단 과정은 `--debug` 리포트로 전부 들여다볼 수 있습니다.
 
 ---
 
 ## 연관 개념
 
-- [01-ioc-di.md](./01-ioc-di.md) - 자동 설정이 결국 등록하는 것도 Bean이다
+- [01-ioc-di.md](./01-ioc-di.md) - 자동 설정이 결국 등록하는 것도 Bean입니다
 - [04-bean-lifecycle.md](./04-bean-lifecycle.md) - `@Configuration`과 `@Bean` 메서드의 동작
 - [03-spring-mvc-flow.md](./03-spring-mvc-flow.md) - DispatcherServlet과 내장 톰캣이 자동 등록되는 대상
-- [06-transactional-pitfalls.md](./06-transactional-pitfalls.md) - `TransactionManager`도 자동 설정이 등록해준다
+- [06-transactional-pitfalls.md](./06-transactional-pitfalls.md) - `TransactionManager`도 자동 설정이 등록해 줍니다
 - [qna-spring.md](./qna-spring.md) - Spring vs Spring Boot, 자동 설정 면접 질문(Q5)

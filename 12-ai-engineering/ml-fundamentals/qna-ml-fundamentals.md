@@ -168,7 +168,7 @@ model.fc = nn.Linear(model.fc.in_features, 10)
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-정확도(Accuracy) 하나로는 부족하며 **혼동 행렬(Confusion Matrix)** 기반으로 정밀도/재현율/F1 등을 함께 봐야 합니다. 특히 데이터가 불균형하면 정확도는 오해를 부릅니다.
+정확도(Accuracy) 하나로는 부족합니다. **혼동 행렬(Confusion Matrix)** 에서 계산하는 정밀도/재현율/F1 등을 함께 봐야 합니다. 특히 데이터가 불균형하면 정확도는 오해를 부릅니다.
 
 ### 혼동 행렬
 

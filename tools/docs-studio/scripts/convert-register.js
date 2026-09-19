@@ -1,10 +1,10 @@
 /**
  * 해라체 → 합니다체 변환기.
  *
- * STYLEGUIDE.md 1절(합니다체 단일 규칙)에 맞춰 `lint-style.js`의 register-plain-leak
- * 규칙이 잡아내는 해라체 종결을 실제로 고쳐 쓴다. `lint-style.js`와 같은
- * `server/mask.js` 마스킹 함수를 써서, 린터가 "위반 없음"이라 판정하는 텍스트와
- * 이 스크립트가 "손댈 후보"로 보는 텍스트가 항상 같은 기준에서 나오게 한다.
+ * 합니다체 단일 규칙(prompts/VOICE.md 4절)에 맞춰 해라체 종결을 실제로 고쳐 쓴다.
+ * `server/register.js`(재작성 검사기가 쓰는 판정)와 같은 `server/mask.js` 마스킹
+ * 함수를 써서, 검사기가 "위반 없음"이라 판정하는 텍스트와 이 스크립트가 "손댈
+ * 후보"로 보는 텍스트가 항상 같은 기준에서 나오게 한다.
  *
  * 종결어미 변환은 문자열 치환이 아니라 활용형 변환이다. 판정 순서는 다음과 같다.
  *
@@ -53,14 +53,14 @@ const EMPHASIS_RE = '(\\*{1,2}|_{1,2})?'
 const SENTENCE_FINAL_RE = new RegExp(`([가-힣]+)${EMPHASIS_RE}다${EMPHASIS_RE}\\.${EMPHASIS_RE}(?=\\s|$)`, 'g')
 
 /** 한 줄 안의 인라인 코드 스팬(`...`)을 같은 길이의 공백으로 지운다.
- *  lint-style.js의 stripInlineCode와 달리 스팬을 제거하지 않고 블랭크 처리한다 —
+ *  스팬을 제거하지 않고 블랭크 처리한다 —
  *  이 스크립트는 줄 안의 오프셋으로 원문을 그대로 잘라 붙이므로, 길이가 바뀌면
  *  오프셋이 어긋난다. */
 function blankInlineCode(line) {
   return line.replace(/`[^`\n]*`/g, (m) => ' '.repeat(m.length))
 }
 
-/** 'X니다' 또는 'X시다'(청유형 '-ㅂ시다') 형태의 합쇼체 종결인가. lint-style.js의
+/** 'X니다' 또는 'X시다'(청유형 '-ㅂ시다') 형태의 합쇼체 종결인가. server/register.js의
  *  같은 이름 함수와 반드시 동일하게 유지한다. */
 function isPoliteEnding(word) {
   const n = word.length
@@ -146,8 +146,6 @@ async function listDocs(prefix) {
  * @returns {{ path:string, text:string, lines:string[], edits: Array<{lineIdx:number,start:number,end:number,before:string,after:string|null,unknownReason?:string,word:string}> }}
  */
 function scanDoc(repoPath, text, t2Table) {
-  if (repoPath === 'STYLEGUIDE.md') return { path: repoPath, text, lines: text.split('\n'), edits: [] }
-
   const afterFences = maskFormattingArtifacts(text)
   const afterQuotes = maskQuotedSpans(afterFences)
   const scanLines = afterQuotes.split('\n').map(blankInlineCode)

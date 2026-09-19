@@ -140,7 +140,7 @@ async function Page() {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-하이드레이션은 **서버에서 렌더링된 정적 HTML에 JavaScript 이벤트 핸들러를 연결**하여 인터랙티브하게 만드는 과정입니다.
+하이드레이션은 **서버에서 렌더링된 정적 HTML에 JavaScript 이벤트 핸들러를 연결**하는 과정입니다. 연결이 끝나면 인터랙티브해집니다.
 
 ### 하이드레이션 과정
 
@@ -236,7 +236,7 @@ function Page() {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-RSC는 **서버에서만 실행되는 React 컴포넌트**로, 클라이언트에 JavaScript가 전송되지 않습니다. 서버에서 렌더링 후 결과만 클라이언트로 전송됩니다.
+RSC는 **서버에서만 실행되는 React 컴포넌트**입니다. 클라이언트로는 JavaScript가 전송되지 않고, 서버에서 렌더링한 결과만 넘어갑니다.
 
 ### Server Components vs Client Components
 
@@ -457,7 +457,7 @@ fetch(url, { next: { tags: ['posts'] } });
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Streaming SSR은 **HTML을 청크 단위로 점진적으로 전송**하여 사용자가 전체 페이지 로딩을 기다리지 않고 일부 콘텐츠를 먼저 볼 수 있게 합니다.
+Streaming SSR은 **HTML을 청크 단위로 점진적으로 전송**하는 방식입니다. 사용자는 전체 페이지 로딩을 기다리지 않고 일부 콘텐츠를 먼저 볼 수 있습니다.
 
 ### 기존 SSR vs Streaming SSR
 

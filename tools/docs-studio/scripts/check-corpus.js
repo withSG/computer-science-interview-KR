@@ -5,11 +5,12 @@
  * 계획서의 "검증 방법 1·2"에 해당한다. `npm run check` 로 돌린다.
  */
 
+import path from 'node:path'
 import { buildTree, readDoc, existsInRepo } from '../server/docs.js'
 import { renderMarkdown, internalLinks, outline } from '../server/render.js'
 import { parseDiagrams } from '../server/diagram.js'
 
-const EXPECT = { docs: 245, diagrams: 961, ascii: 912 }
+const EXPECT = { docs: 244, diagrams: 961, ascii: 912 }
 
 const docs = []
 ;(function walk(node) {
@@ -37,6 +38,12 @@ for (const p of docs) {
   for (const d of ds) {
     if (d.ascii) ascii++
     if (!existsInRepo(d.svgRepoPath)) fail.push(`${p}: 없는 SVG 참조 ${d.svgRepoPath}`)
+    // 마커 id 와 이미지 파일명이 같아야 한다. parseDiagrams 는 둘을 별개 필드로만
+    // 들고 있고, render.js 는 이미지 파일명에서 자기 id 를 따로 뽑아 쓰므로 둘이
+    // 어긋나도 렌더는 조용히 성공한다.
+    const imgBase = path.posix.basename(d.src)
+    const imgId = imgBase.endsWith('.svg') ? imgBase.slice(0, -4) : imgBase
+    if (imgId !== d.id) fail.push(`${p}: 마커 id '${d.id}' 와 이미지 파일명 '${imgId}' 가 다르다`)
   }
 
   // --- 렌더 ---

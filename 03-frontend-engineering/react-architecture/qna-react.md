@@ -586,7 +586,7 @@ React는 key를 보고 **어떤 항목이 변경/추가/삭제되었는지 식�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-함수 컴포넌트는 Hooks(useState, useEffect 등)로 상태와 생명주기를 관리합니다. 클래스 컴포넌트보다 코드량이 적고 메모리 효율이 높으며 React 16.8 이후 함수 컴포넌트 사용이 공식 권장됩니다.
+함수 컴포넌트는 Hooks(useState, useEffect 등)로 상태와 생명주기를 관리합니다. 클래스 컴포넌트보다 코드량이 적고 메모리 효율이 높습니다. React 16.8 이후로는 함수 컴포넌트 사용이 공식 권장됩니다.
 
 ### 함수 vs 클래스 컴포넌트 비교
 
@@ -673,7 +673,7 @@ function Child({ onChange }) {
 - 단방향 데이터 흐름 원칙 이해
 
 ### 꼬리 질문 대비
-- "props로 자식 → 부모 데이터 전달이 가능한가요?" → 직접 불가. 부모가 콜백 함수를 props로 내려주고 자식이 그것을 호출하는 방식으로 전달합니다
+- "props로 자식 → 부모 데이터 전달이 가능한가요?" → 직접은 안 됩니다. 부모가 콜백 함수를 props로 내려주고 자식이 그것을 호출하는 방식으로 전달합니다
 
 </details>
 
@@ -771,7 +771,7 @@ Action → Dispatcher → Store → View
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Redux는 **단일 스토어, 읽기 전용 상태, 순수 함수 reducer**의 3대 원칙으로 동작합니다. View에서 Action을 dispatch하면 Reducer가 이전 상태와 Action을 받아 새로운 상태를 반환하고 Store가 업데이트되어 View가 다시 렌더링됩니다.
+Redux는 **단일 스토어, 읽기 전용 상태, 순수 함수 reducer**의 3대 원칙으로 동작합니다. View에서 Action을 dispatch하면 Reducer가 이전 상태와 Action을 받아 새로운 상태를 반환합니다. 그러면 Store가 업데이트되고 View가 다시 렌더링됩니다.
 
 ### Redux 데이터 흐름
 
@@ -821,7 +821,7 @@ dispatch({ type: 'INCREMENT' });
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-상태를 **서버 상태**와 **클라이언트 상태**로 구분하는 것이 중요합니다. 서버 상태(캐싱/동기화)는 React Query, 전역 클라이언트 상태는 Zustand/Jotai, 복잡한 전역 상태는 Redux가 적합합니다.
+상태는 **서버 상태**와 **클라이언트 상태**로 나눠서 봐야 합니다. 서버 상태(캐싱/동기화)는 React Query, 전역 클라이언트 상태는 Zustand/Jotai, 복잡한 전역 상태는 Redux가 적합합니다.
 
 ### 라이브러리 비교
 

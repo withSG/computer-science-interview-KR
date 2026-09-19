@@ -1,6 +1,6 @@
 # 실전 트러블슈팅 (Kubernetes Troubleshooting)
 
-> Pod 상태 이름만 보고 원인을 넘겨짚는 대신, 어떤 명령을 어떤 순서로 실행해 증상에서 원인까지 좁혀 가는지 몸에 익힙니다.
+> Pod 상태 이름으로 원인을 넘겨짚는 법은 다루지 않습니다. 어떤 명령을 어떤 순서로 실행해 증상에서 원인까지 좁혀 가는지를 몸에 익히는 문서입니다.
 
 ## 학습 목표
 
@@ -86,7 +86,7 @@ kubectl describe pod <pod> | sed -n '/Events/,$p'    # 이벤트만 잘라 보�
 kubectl get events --field-selector involvedObject.name=<pod>
 ```
 
-`--previous`가 특히 중요합니다. CrashLoopBackOff 상태에서 `kubectl logs`는 **방금 재시작한 컨테이너의 로그**를 보여주는데, 아직 실패하기 전이라 비어 있는 경우가 많습니다. 실패 원인은 죽은 이전 컨테이너에 남아 있습니다.
+`--previous`가 특히 중요합니다. CrashLoopBackOff 상태에서 `kubectl logs`가 보여 주는 것은 **방금 재시작한 컨테이너의 로그**이고, 아직 실패하기 전이라 비어 있는 경우가 많습니다. 실패 원인은 죽은 이전 컨테이너에 남아 있습니다.
 
 ---
 
@@ -118,7 +118,7 @@ kubectl get pvc                     # Pending PVC가 있는지
 kubectl get resourcequota -n <ns>
 ```
 
-여기서 자주 오해하는 것이 **"노드에 여유가 있는데 왜 Insufficient cpu냐"** 는 상황입니다. 스케줄러는 **실제 사용량이 아니라 requests의 합**을 봅니다. 노드 CPU 실사용률이 20%여도 그 노드의 Pod들이 requests로 이미 전부 예약해 뒀다면 더 못 넣습니다. `kubectl top node`(실사용)와 `describe node`의 Allocated resources(예약)를 함께 봐야 하는 이유입니다.
+여기서 오해가 잦은 지점이 **"노드에 여유가 있는데 왜 Insufficient cpu냐"** 입니다. 스케줄러가 보는 것은 **실제 사용량이 아니라 requests의 합**입니다. 노드 CPU 실사용률이 20%여도, 그 노드의 Pod들이 requests로 이미 전부 예약해 뒀다면 더 못 넣습니다. `kubectl top node`(실사용)와 `describe node`의 Allocated resources(예약)를 함께 봐야 하는 이유가 이것입니다.
 
 ---
 
@@ -151,7 +151,7 @@ kubectl get pod <pod> -o jsonpath='{.spec.imagePullSecrets}'
 
 ## 5. CrashLoopBackOff: 떴다가 계속 죽는다
 
-컨테이너가 시작은 되는데 곧 종료되고, 쿠버네티스가 재시작 간격을 지수적으로 늘려 가며(대략 10초에서 시작해 최대 5분까지) 기다리는 상태입니다.
+컨테이너가 시작은 되는데 곧 종료됩니다. 쿠버네티스는 재시작 간격을 지수적으로 늘려 가며(대략 10초에서 시작해 최대 5분까지) 기다립니다.
 
 ### 종료 코드부터 읽는다
 
@@ -443,9 +443,9 @@ kubectl debug -it <pod> --image=busybox:1.36 --target=<container>
 
 **로그는 Pod 밖으로 나가 있어야 합니다.** Pod가 사라지면 `kubectl logs`도 함께 사라집니다. 정작 원인 규명이 필요한 순간에 로그가 없는 상황이 자주 생기므로, 로그 수집 파이프라인(Fluent Bit + Loki/Elasticsearch 등)을 먼저 갖춥니다.
 
-**메트릭 없이는 리소스 판단이 불가능합니다.** `kubectl top`은 metrics-server가 있어야 동작하고, 과거 시점의 사용량은 보여주지 않습니다. OOMKilled의 원인을 사후에 밝히려면 Prometheus처럼 시계열을 남기는 도구가 필요합니다. 관련 내용은 [qna-monitoring.md](../monitoring-observability/qna-monitoring.md)에 있습니다.
+**메트릭 없이는 리소스 판단이 불가능합니다.** `kubectl top`은 metrics-server가 있어야 동작하고, 과거 시점의 사용량은 보여 주지 않습니다. OOMKilled의 원인을 사후에 밝히려면 Prometheus처럼 시계열을 남기는 도구가 필요합니다. 관련 내용은 [qna-monitoring.md](../monitoring-observability/qna-monitoring.md)에 있습니다.
 
-**같은 장애를 두 번 겪지 않도록 만듭니다.** 원인을 찾았다면 그 원인이 다시 발생했을 때 자동으로 감지되게 만듭니다. 리소스 사용률 알림, Pod 재시작 횟수 알림, 엔드포인트 개수 알림이 대표적입니다.
+**같은 장애를 두 번 겪지 않도록 만듭니다.** 원인을 찾았다면 그 원인이 다시 발생했을 때 자동으로 감지되게 해 둡니다. 리소스 사용률 알림, Pod 재시작 횟수 알림, 엔드포인트 개수 알림이 대표적입니다.
 
 **진단 절차를 문서로 남깁니다.** 온콜 담당자가 새벽에 보는 것은 남이 정리해 둔 순서입니다. 증상별로 "무슨 명령을 어떤 순서로"를 적어 두면 대응 시간이 크게 줄어듭니다. 더 넓은 장애 대응 사례는 [qna-troubleshooting.md](../practical-scenarios/qna-troubleshooting.md)를 참고합니다.
 
@@ -457,13 +457,13 @@ kubectl debug -it <pod> --image=busybox:1.36 --target=<container>
 
 **Q. Pod가 CrashLoopBackOff입니다. 어떻게 접근하나요?**
 
-A. 먼저 `kubectl describe pod`으로 Last State의 Reason과 Exit Code를 봅니다. 137이면 대개 OOMKilled고, 1이면 애플리케이션 예외입니다. 그 다음 `kubectl logs --previous`로 죽기 직전 컨테이너의 로그를 확인합니다. 현재 컨테이너 로그는 아직 실패 전이라 비어 있는 경우가 많기 때문입니다. 로그에 애플리케이션 오류가 전혀 없고 정상 기동 로그만 반복된다면 liveness probe 오설정을 의심합니다. 기동에 60초 걸리는 앱을 probe가 20초 만에 죽이고 있는 상황이 흔합니다.
+A. 먼저 `kubectl describe pod`으로 Last State의 Reason과 Exit Code를 봅니다. 137이면 대개 OOMKilled고, 1이면 애플리케이션 예외입니다. 그다음 `kubectl logs --previous`로 죽기 직전 컨테이너의 로그를 확인합니다. 현재 컨테이너 로그는 아직 실패 전이라 비어 있는 경우가 많기 때문입니다. 로그에 애플리케이션 오류가 전혀 없고 정상 기동 로그만 반복된다면 liveness probe 오설정을 의심합니다. 기동에 60초 걸리는 앱을 probe가 20초 만에 죽이고 있는 상황이 흔합니다.
 
 - 꼬리 질문: "재발 방지는 어떻게 하나요?" → 기동 시간을 보호하는 startup probe 도입, 필수 환경변수 검증을 init container로 앞당기기, 재시작 횟수 알림 추가.
 
 **Q. Pod가 Pending입니다. 어디부터 보나요?**
 
-A. `kubectl describe pod`의 FailedScheduling 이벤트가 이유를 그대로 알려줍니다. Insufficient cpu/memory면 requests 합계가 노드 여유를 넘은 것이고, untolerated taint면 toleration이 없는 것이고, unbound PVC면 스토리지 문제입니다. 여기서 주의할 점은 스케줄러가 실사용량이 아니라 requests 합을 본다는 것입니다. `kubectl top node`로 실사용률이 낮은데도 배치가 안 되는 경우가 있고, 그건 다른 Pod들이 이미 requests로 예약해 뒀기 때문입니다.
+A. `kubectl describe pod`의 FailedScheduling 이벤트가 이유를 그대로 알려 줍니다. Insufficient cpu/memory면 requests 합계가 노드 여유를 넘은 것이고, untolerated taint면 toleration이 없는 것이고, unbound PVC면 스토리지 문제입니다. 다만 스케줄러는 실사용량이 아니라 requests 합을 봅니다. `kubectl top node`로 실사용률이 낮은데도 배치가 안 되는 경우가 있고, 그건 다른 Pod들이 이미 requests로 예약해 뒀기 때문입니다.
 
 - 꼬리 질문: "노드를 늘려야 하나요?" → 먼저 requests가 과대 설정된 건 아닌지 봅니다. 실사용 대비 과도한 requests는 클러스터 전체의 배치 효율을 떨어뜨립니다.
 

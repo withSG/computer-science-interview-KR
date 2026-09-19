@@ -1,7 +1,7 @@
 # Spring Framework 면접 질문 & 답변
 
 ## 사용 방법
-1. 질문을 먼저 읽고 스스로 답변해보세요
+1. 질문을 먼저 읽고 스스로 답변해 보세요
 2. 답변을 확인하고 부족한 부분을 학습하세요
 3. ⭐ 표시는 빈출 질문입니다
 
@@ -55,7 +55,7 @@ public class UserService {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-AOP는 로깅, 트랜잭션, 보안 같은 횡단 관심사를 분리해 코드 중복을 줄이는 기술입니다. Spring AOP는 **프록시 패턴**을 기반으로 동작합니다.
+AOP는 로깅, 트랜잭션, 보안 같은 횡단 관심사를 분리해 코드 중복을 줄이는 기술입니다. Spring AOP는 **프록시 패턴** 위에서 동작합니다.
 
 ### 프록시 방식
 
@@ -64,7 +64,7 @@ AOP는 로깅, 트랜잭션, 보안 같은 횡단 관심사를 분리해 코드 
 | JDK Dynamic Proxy | 인터페이스 있음 | 리플렉션 사용 |
 | CGLIB | 인터페이스 없음 | 바이트코드 조작, 상속 기반 |
 
-Spring Boot 2.0+부터 기본적으로 **CGLIB** 사용
+Spring Boot 2.0+부터는 **CGLIB**를 기본으로 씁니다.
 
 ### 동작 흐름
 ```
@@ -91,7 +91,7 @@ Client → Proxy → Advice 실행 → Target 메서드 호출 → Advice 실행
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-@Transactional은 AOP를 기반으로 동작합니다. 트랜잭션의 시작과 커밋, 롤백은 프록시가 관리합니다.
+@Transactional은 AOP 위에서 동작합니다. 트랜잭션의 시작과 커밋, 롤백은 프록시가 관리합니다.
 
 ### Self-Invocation 문제
 
@@ -418,7 +418,7 @@ public class SingletonService {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-@Autowired는 타입을 기준으로 빈을 자동 주입하며 같은 타입이 여러 개면 이름으로 구분합니다.
+@Autowired는 타입을 기준으로 빈을 자동 주입합니다. 같은 타입이 여러 개면 이름으로 구분합니다.
 
 ### 주입 순서
 

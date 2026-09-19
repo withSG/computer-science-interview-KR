@@ -268,7 +268,7 @@ similarities = cosine_similarity([query_embedding], doc_embeddings)
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-하이브리드 검색은 **Dense Retrieval(벡터 검색)과 Sparse Retrieval(키워드 검색)을 결합**하여 검색 품질을 향상시키는 방법입니다.
+하이브리드 검색은 **Dense Retrieval(벡터 검색)과 Sparse Retrieval(키워드 검색)을 결합**하는 방법입니다. 목적은 검색 품질을 끌어올리는 데 있습니다.
 
 ### Dense vs Sparse Retrieval
 
@@ -357,7 +357,7 @@ Re-ranker 모델:
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-환각은 LLM이 **사실이 아닌 내용을 생성**하는 현상입니다. RAG에서는 검색된 컨텍스트를 기반으로 답변하도록 유도하여 완화합니다.
+환각은 LLM이 **사실이 아닌 내용을 생성**하는 현상입니다. RAG에서는 검색된 컨텍스트에 근거해 답하도록 유도하여 완화합니다.
 
 ### 환각 완화 전략
 
@@ -432,7 +432,7 @@ prompt = """
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-RAG 평가는 **검색 성능**과 **생성 품질** 두 측면에서 이루어집니다.
+RAG 평가는 **검색 성능**과 **생성 품질**, 두 측면으로 나눠서 봅니다.
 
 ### 검색 평가 지표
 
