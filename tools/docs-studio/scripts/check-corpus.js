@@ -1,7 +1,7 @@
 /**
  * 코퍼스 전수 검사.
  *
- * 뷰어가 244개 문서를 하나도 빠짐없이, 하나도 망가뜨리지 않고 렌더하는지 본다.
+ * 뷰어가 246개 문서를 하나도 빠짐없이, 하나도 망가뜨리지 않고 렌더하는지 본다.
  * 계획서의 "검증 방법 1·2"에 해당한다. `npm run check` 로 돌린다.
  */
 
@@ -10,7 +10,7 @@ import { buildTree, readDoc, existsInRepo } from '../server/docs.js'
 import { renderMarkdown, internalLinks, outline } from '../server/render.js'
 import { parseDiagrams } from '../server/diagram.js'
 
-const EXPECT = { docs: 244, diagrams: 961, ascii: 921 }
+const EXPECT = { docs: 246, diagrams: 961, ascii: 921 }
 
 const docs = []
 ;(function walk(node) {

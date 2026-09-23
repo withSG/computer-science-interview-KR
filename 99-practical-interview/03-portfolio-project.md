@@ -242,7 +242,7 @@
 
 ## 4. STAR와 여기 나온 프레임들
 
-[qna-behavioral.md](./qna-behavioral.md)가 쓰는 STAR(Situation-Task-Action-Result)는 경험을 빠짐없이 말하게 해주는 범용 틀입니다. 이 문서에 나온 프레임들은 그 틀을 답변 종류별로 좁힌 것에 가깝습니다. 아래 대응은 "STAR의 이 칸이 이 답변에서는 대체로 무엇에 해당하는가" 정도로 보면 됩니다. 일대일 등식은 아닙니다.
+[qna-behavioral.md](../98-personality-interview/qna-behavioral.md)가 쓰는 STAR(Situation-Task-Action-Result)는 경험을 빠짐없이 말하게 해주는 범용 틀입니다. 이 문서에 나온 프레임들은 그 틀을 답변 종류별로 좁힌 것에 가깝습니다. 아래 대응은 "STAR의 이 칸이 이 답변에서는 대체로 무엇에 해당하는가" 정도로 보면 됩니다. 일대일 등식은 아닙니다.
 
 | STAR | 프로젝트 설명 | 성능 개선 | 갈등 경험 |
 |------|-------------|----------|----------|
@@ -485,7 +485,7 @@ A. 하나를 구체적으로 고릅니다. 그리고 **당시 제약 하에서�
 
 - [01-interview-strategy.md](./01-interview-strategy.md) - 꼬리 질문이 이어지는 이유와 대응 원리
 - [02-self-introduction.md](./02-self-introduction.md) - 프로젝트를 60초로 압축해 자기소개에 넣는 법
-- [qna-behavioral.md](./qna-behavioral.md) - STAR 기법으로 프로젝트·갈등 경험을 정리하는 프레임
+- [../98-personality-interview/qna-behavioral.md](../98-personality-interview/qna-behavioral.md) - STAR 기법으로 프로젝트·갈등 경험을 정리하는 프레임
 - [qna-frontend-companies.md](./qna-frontend-companies.md) - 기업별로 실제 나온 포트폴리오 질문
 - [../07-version-control/03-branching-strategy.md](../07-version-control/03-branching-strategy.md) - 커밋과 브랜치 전략을 설명해야 할 때
 - [../09-system-design/performance/01-performance-optimization.md](../09-system-design/performance/01-performance-optimization.md) - 성능 개선 근거를 기술적으로 보강할 때

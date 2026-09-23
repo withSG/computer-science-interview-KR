@@ -12,7 +12,7 @@
 
 ## 선행 지식
 
-- 없음 — 이 문서부터 시작해도 됩니다. 경험을 정리하는 STAR 기법이 궁금하면 [qna-behavioral.md](./qna-behavioral.md)를 먼저 훑어도 되지만, 순서를 지킬 필요는 없습니다.
+- 없음 — 이 문서부터 시작해도 됩니다. 경험을 정리하는 STAR 기법이 궁금하면 [qna-behavioral.md](../98-personality-interview/qna-behavioral.md)를 먼저 훑어도 되지만, 순서를 지킬 필요는 없습니다.
 
 ---
 
@@ -474,6 +474,6 @@ A. 먼저 제가 놓친 맥락이 있는지 확인합니다. 그래도 A가 문�
 
 - [02-self-introduction.md](./02-self-introduction.md) - 첫 질문인 자기소개를 설계하는 법
 - [03-portfolio-project.md](./03-portfolio-project.md) - 프로젝트 질문에서 의사결정 근거를 보여주는 법
-- [qna-behavioral.md](./qna-behavioral.md) - STAR 기법과 인성 면접 질문 모음
+- [../98-personality-interview/qna-behavioral.md](../98-personality-interview/qna-behavioral.md) - STAR 기법과 인성 면접 질문 모음
 - [qna-frontend-companies.md](./qna-frontend-companies.md) - 기업별 실제 출제 질문과 후기
 - [../06-software-engineering/02-testing-tdd.md](../06-software-engineering/02-testing-tdd.md) - 테스트 관련 꼬리 질문에 대비할 때

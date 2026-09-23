@@ -546,10 +546,16 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 
 ---
 
-### [99. Practical Interview (실전 면접)](./99-practical-interview/)
+### [98. Personality Interview (인성 면접)](./98-personality-interview/)
 
 - [ ] STAR 기법 이해
 - [ ] 행동 면접 질문 준비
+- [ ] 인성 면접 질문 모음에 소리 내어 답해 보기
+
+---
+
+### [99. Practical Interview (실전 면접)](./99-practical-interview/)
+
 - [ ] 자기소개/지원동기 준비
 - [ ] 프론트엔드 기업별 실전 면접 질문 복습 (JS/React/CS/CSS/포트폴리오)
 - [ ] 프론트엔드 자가 진단 체크리스트 점검
@@ -640,7 +646,8 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 | ML Fundamentals | AI/데이터 | 과적합, 정규화, 평가지표, XAI |
 | AI Engineering | AI/데이터 | RAG, 임베딩, 벡터DB, FAISS, 환각완화 |
 | AI Agent | AI/데이터 | LangGraph, ReAct, 하네스, BMAD, 플로우엔지니어링 |
-| Practical Interview | 공통 | STAR 기법, 행동 면접, 기업별 실전 질문 |
+| Personality Interview | 공통 | 인성 면접, STAR 기법, 행동 면접, 지원 동기 |
+| Practical Interview | 공통 | 기술 면접 전략, 자기소개, 포트폴리오, 기업별 실전 질문 |
 
 ---
 

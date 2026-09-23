@@ -486,5 +486,5 @@ A. 다른 지원자를 모르므로 비교로 답하지 않습니다. 대신 "�
 
 - [01-interview-strategy.md](./01-interview-strategy.md) - 답변 구조화, 꼬리 질문 대비, 면접 전 체크리스트
 - [03-portfolio-project.md](./03-portfolio-project.md) - 자기소개에서 압축한 프로젝트를 깊이 있게 풀어내는 법
-- [qna-behavioral.md](./qna-behavioral.md) - 자기소개·지원동기·강점약점 질문의 답변 프레임
+- [../98-personality-interview/qna-behavioral.md](../98-personality-interview/qna-behavioral.md) - 자기소개·지원동기·강점약점 질문의 답변 프레임
 - [qna-frontend-companies.md](./qna-frontend-companies.md) - 기업별로 실제 나온 일반 질문 목록

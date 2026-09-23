@@ -1,6 +1,6 @@
 # 실전 면접 (Practical Interview)
 
-> 기술 면접 준비와 인성 면접 대응
+> 기술 면접 준비와 자기소개·포트폴리오 설명. 인성 면접 질문은 [98. 인성 면접](../98-personality-interview/)에 모아 두었습니다.
 
 ## 학습 목표
 
@@ -26,8 +26,8 @@
 
 ## QnA 파일
 
-- [qna-behavioral.md](./qna-behavioral.md) - 인성/경험 면접 질문 모음
 - [qna-frontend-companies.md](./qna-frontend-companies.md) - 프론트엔드 기업별 실전 면접 질문 모음
+- 인성/경험 면접 질문과 STAR 답변 가이드는 [98-personality-interview](../98-personality-interview/)에 있습니다.
 
 ---
 

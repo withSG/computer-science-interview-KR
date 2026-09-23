@@ -343,6 +343,6 @@ A. 팀이 한 일을 먼저 한 문장으로 말하고, 그중 제가 맡은 부
 - [02-system-design-interview.md](./02-system-design-interview.md) - 기술 면접에서도 요구되는 트레이드오프 서술 방식
 - [qna-behavioral.md](./qna-behavioral.md) - 갈등·실패·기술 부채·온보딩 질문의 답변 예시
 - [qna-troubleshooting.md](./qna-troubleshooting.md) - 경험 질문의 원료가 되는 장애 시나리오 모음
-- [../../99-practical-interview/qna-behavioral.md](../../99-practical-interview/qna-behavioral.md) - 자기소개·지원 동기·강약점 등 인성 면접 질문
+- [../../98-personality-interview/qna-behavioral.md](../../98-personality-interview/qna-behavioral.md) - 자기소개·지원 동기·강약점 등 인성 면접 질문
 - [../../06-software-engineering/01-agile-process.md](../../06-software-engineering/01-agile-process.md) - 회고와 스프린트 운영, 스토리 뱅크의 원료가 되는 기록 문화
 - [../monitoring-observability/05-alerting-oncall.md](../monitoring-observability/05-alerting-oncall.md) - 포스트모템 기록이 그대로 경험 자산이 되는 이유
