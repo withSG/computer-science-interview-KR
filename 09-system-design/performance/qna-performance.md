@@ -383,7 +383,7 @@ users = api.get_users(user_ids)  # 한 번에 여러 ID
 
 ```python
 # 사용하지 않으면 로드 안됨
-user = User.query.get(1)
+user = db.session.get(User, 1)
 # posts 접근 시점에 쿼리 실행
 print(user.posts)  # SELECT * FROM posts WHERE user_id = 1
 ```
@@ -392,7 +392,7 @@ print(user.posts)  # SELECT * FROM posts WHERE user_id = 1
 
 ```python
 # 처음부터 함께 로드
-user = User.query.options(joinedload(User.posts)).get(1)
+user = db.session.get(User, 1, options=[joinedload(User.posts)])
 # JOIN으로 한 번에 조회됨
 ```
 
@@ -426,7 +426,7 @@ Core Web Vitals는 Google이 정의한 사용자 경험 핵심 지표입니다. 
 
 ### 주요 지표
 
-| 지표 | 이름 | 의미 | 좋음 | 개선 필요 |
+| 지표 | 이름 | 의미 | 좋음 | 나쁨 |
 |------|------|------|------|---------|
 | LCP | Largest Contentful Paint | 최대 콘텐츠 렌더링 | <2.5s | >4s |
 | FCP | First Contentful Paint | 첫 콘텐츠 렌더링 | <1.8s | >3s |
@@ -574,7 +574,7 @@ HTTP 캐싱은 서버 요청을 줄여 줍니다. Cache-Control 헤더로 캐시
 - [ ] 커넥션 풀의 원리와 설정 이해
 - [ ] 비동기 처리 사용 시점 판단
 - [ ] Lazy/Eager Loading 차이 알기
-- [ ] Core Web Vitals 5가지 지표 설명 가능
+- [ ] Core Web Vitals 3가지 지표(LCP·INP·CLS)와 보조 지표(FCP·TTFB) 설명 가능
 - [ ] 프론트엔드 성능 최적화 6가지 영역 이해
 - [ ] CDN 동작 원리 설명 가능
 - [ ] Cache-Control과 ETag 차이 이해

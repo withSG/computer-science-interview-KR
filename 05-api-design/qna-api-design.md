@@ -150,7 +150,7 @@ GraphQL:
 ```
 - 하위 호환성 유지가 최선
 - 필드 추가 = 호환됨
-- 필드 삭제/변경 = 새 버전
+- 필드 삭제/변경 = 깨는 변경 (병행 제공·Sunset 공지 후 제거, 불가피하면 새 버전)
 - 명확한 지원 중단 정책
 ```
 
@@ -183,7 +183,7 @@ GET /posts?page=2&limit=10
 
 ```
 GET /posts?cursor=eyJpZCI6MTAwfQ&limit=10
-→ WHERE id > 100 LIMIT 10
+→ WHERE id > 100 ORDER BY id LIMIT 10
 
 장점: 일관된 결과, 대용량 성능 좋음
 ```

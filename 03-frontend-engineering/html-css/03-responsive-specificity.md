@@ -182,7 +182,7 @@ body { font-size: 1rem; }     /* 사용자 기본값을 그대로 존중 (보통
 h1   { font-size: 2rem; }     /* 기본값의 2배 — 설정을 바꾸면 같이 커진다 */
 ```
 
-`em`은 **부모가 아니라 자기 자신의 `font-size`** 를 기준으로 한다는 점이 흔한 오해입니다. `font-size` 속성 자체에 `em`을 쓸 때만 부모 값을 기준으로 계산되고, `padding: 1em`은 그 요소에 적용된 폰트 크기를 따릅니다. 그래서 버튼처럼 "글자가 커지면 안쪽 여백도 같이 커져야 하는" 컴포넌트에 잘 맞습니다.
+`em`은 **부모가 아니라 자기 자신의 `font-size`** 를 기준으로 한다는 점을 흔히 오해합니다. `font-size` 속성 자체에 `em`을 쓸 때만 부모 값을 기준으로 계산되고, `padding: 1em`은 그 요소에 적용된 폰트 크기를 따릅니다. 그래서 버튼처럼 "글자가 커지면 안쪽 여백도 같이 커져야 하는" 컴포넌트에 잘 맞습니다.
 
 ```css
 .btn {
@@ -319,7 +319,7 @@ h1 { font-size: clamp(1.75rem, 1rem + 3vw, 3.5rem); }
 @layer reset, framework, components, utilities;
 
 @layer framework {
-  #app .button { background: gray; }   /* 명시도 (1,1,1) */
+  #app .button { background: gray; }   /* 명시도 (1,1,0) */
 }
 
 @layer utilities {

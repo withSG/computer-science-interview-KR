@@ -110,8 +110,8 @@ main 브랜치에 머지되면 스테이징 환경에 자동 배포됩니다.
       └──────────────┘     └──────────────┘
 
 단계 2: 트래픽을 Green으로 전환
-             │ 100%
-             ▼
+                                 │ 100%
+                                 ▼
       ┌──────────────┐     ┌──────────────┐
       │    Blue      │     │   Green      │
       │   v1.0       │     │   v2.0       │
@@ -232,7 +232,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install dependencies
         run: npm ci
@@ -325,7 +325,7 @@ GitOps는 인프라와 애플리케이션을 선언적으로 관리하는 방식
 
 3. 자동 적용 (Automated)
    - Git 변경 → 자동 배포
-   - Pull/Push 기반
+   - Pull 기반 (에이전트가 당김)
 
 4. 지속적 조정 (Reconciled)
    - 실제 상태와 선언 상태 비교
@@ -385,7 +385,7 @@ spec:
 
 ```
 - 감사 로그: Git 히스토리 = 배포 히스토리
-- 롤백 용이: git revert로 즉시 롤백
+- 롤백 용이: git revert로 롤백
 - 보안 강화: 클러스터 자격증명 외부 노출 없음
 - 일관성: 환경 드리프트 방지
 ```
@@ -527,10 +527,10 @@ kubectl rollout undo deployment/myapp --to-revision=2
 kubectl rollout status deployment/myapp
 ```
 
-### 자동 롤백 설정
+### ArgoCD 자동 동기화 설정 (Git Revert 롤백 반영)
 
 ```yaml
-# ArgoCD 자동 롤백
+# ArgoCD 자동 동기화·자가 치유(selfHeal)·재시도(retry)
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 spec:
@@ -568,7 +568,7 @@ spec:
 ```
 "배포 후 5분간 에러율을 모니터링하고
 5%를 넘으면 자동 롤백되도록 구성했습니다.
-ArgoCD의 자동 동기화와 Prometheus 알림을 연동해
+Argo Rollouts의 Prometheus 메트릭 분석을 연동해
 문제가 생기면 Slack 알림과 함께 이전 버전으로
 자동 복구됩니다."
 ```
@@ -617,7 +617,7 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"
+  ami           = "ami-xxxxxxxxxxxxxxxxx"  # AMI ID는 리전마다 다르다. ap-northeast-2의 ID로 교체
   instance_type = "t3.micro"
   subnet_id     = aws_subnet.public.id
 

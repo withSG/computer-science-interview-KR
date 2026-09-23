@@ -13,14 +13,14 @@
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-DOCTYPE은 HTML 문서가 어떤 버전으로 작성되었는지 브라우저에 알리는 선언입니다. HTML5에서는 `<!DOCTYPE html>`로 간단하게 씁니다. DOCTYPE 선언이 없으면 브라우저가 **쿼크 모드**(Quirks Mode)로 동작해서 오래된 브라우저 방식으로 렌더링합니다. 선언이 있으면 **표준 모드**(Standards Mode)가 되어 W3C 스펙에 맞게 렌더링합니다.
+DOCTYPE은 원래 HTML 문서가 어떤 버전(DTD)으로 작성되었는지 알리는 선언이었지만, 지금 브라우저에게는 렌더링 모드를 고르는 스위치 역할을 합니다. HTML5에서는 `<!DOCTYPE html>`로 간단하게 씁니다. DOCTYPE 선언이 없으면 브라우저가 **쿼크 모드**(Quirks Mode)로 동작해서 오래된 브라우저 방식으로 렌더링합니다. 선언이 있으면 **표준 모드**(Standards Mode)가 되어 W3C 스펙에 맞게 렌더링합니다.
 
 ### 쿼크 모드 vs 표준 모드
 
 | 구분 | 쿼크 모드 | 표준 모드 |
 |------|----------|----------|
 | DOCTYPE | 없음 | 있음 |
-| 박스 모델 | IE 방식 (border 포함) | W3C 방식 (content만) |
+| 박스 모델 | 일반 요소는 표준과 같음 (border 포함은 옛 IE만, 현대 브라우저는 입력 요소·표 셀 정도만 예외) | W3C 방식 (content만) |
 | 렌더링 | 구형 브라우저 호환 | W3C 스펙 준수 |
 | 권장 | X | O |
 
@@ -40,7 +40,7 @@ DOCTYPE은 HTML 문서가 어떤 버전으로 작성되었는지 브라우저에
 
 ### 꼬리 질문 대비
 - "쿼크 모드에서 박스 모델이 어떻게 다른가요?"
-  → 쿼크 모드에서는 width/height에 border와 padding이 포함되지만, 표준 모드에서는 content 영역만 해당
+  → 옛 IE의 쿼크 모드는 width/height에 border와 padding을 포함했지만, 현대 브라우저는 쿼크 모드에서도 일반 요소를 content 영역 기준으로 계산하고 텍스트 입력 요소·표 셀 정도만 예외로 둠
 
 </details>
 
@@ -63,8 +63,8 @@ meta 태그에는 HTML 문서가 어떤 내용을 담고 있는지, 키워드가
 <!-- SEO를 위한 설명 -->
 <meta name="description" content="페이지 설명" />
 
-<!-- SEO를 위한 키워드 -->
-<meta name="keyword" content="HTML, CSS, 면접" />
+<!-- 키워드 (주요 검색 엔진은 무시) -->
+<meta name="keywords" content="HTML, CSS, 면접" />
 
 <!-- 반응형 뷰포트 설정 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -91,7 +91,7 @@ meta 태그에는 HTML 문서가 어떤 내용을 담고 있는지, 키워드가
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-웹 표준은 W3C(World Wide Web Consortium)가 정의한, 웹에서 표준으로 쓰이는 기술 규격입니다. 목표는 웹사이트를 어떤 운영체제나 브라우저에서 열어도 똑같이 보이게 맞추는 것입니다. 최신 웹 표준 버전은 **HTML5**와 **CSS3**입니다. 다양한 브라우저, 모바일 기기, 장애인 지원 프로그램에서도 호환이 가능해 접근성이 향상됩니다.
+웹 표준은 W3C(World Wide Web Consortium)가 정의한, 웹에서 표준으로 쓰이는 기술 규격입니다. 목표는 웹사이트를 어떤 운영체제나 브라우저에서 열어도 똑같이 보이게 맞추는 것입니다. HTML은 2019년부터 WHATWG가 관리하는 버전 번호 없는 **HTML Living Standard**로 일원화되었고, CSS는 CSS3 이후 모듈별 레벨로 나뉘어 발전하므로 단일한 "최신 버전"은 없습니다. 다양한 브라우저, 모바일 기기, 장애인 지원 프로그램에서도 호환이 가능해 접근성이 향상됩니다.
 
 ### 웹 표준의 장점
 - 브라우저/디바이스 간 일관된 표시
@@ -193,7 +193,7 @@ meta 태그에는 HTML 문서가 어떤 내용을 담고 있는지, 키워드가
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-SEO(Search Engine Optimization, 검색 엔진 최적화)는 검색 엔진이 웹페이지를 수집·분석하는 방식에 맞춰 웹페이지를 구성하고, **검색 결과 상위에 노출**되게 만드는 작업입니다. 검색 엔진은 HTML 태그를 분석합니다. 그래서 시맨틱 마크업이 SEO에 바로 영향을 줍니다.
+SEO(Search Engine Optimization, 검색 엔진 최적화)는 검색 엔진이 웹페이지를 수집·분석하는 방식에 맞춰 웹페이지를 구성하고, **검색 결과 상위에 노출**되게 만드는 작업입니다. 검색 엔진은 HTML 태그를 분석합니다. 그래서 시맨틱 마크업은 검색 엔진이 문서 구조를 이해하도록 도와 SEO에 간접적으로 영향을 줍니다.
 
 ### SEO 향상 방법
 
@@ -201,7 +201,7 @@ SEO(Search Engine Optimization, 검색 엔진 최적화)는 검색 엔진이 웹
 |------|------|
 | 시맨틱 태그 | 콘텐츠 구조를 명확히 전달 |
 | meta description | 검색 결과에 표시될 설명 작성 |
-| meta keywords | 핵심 키워드 등록 |
+| title 태그 | 페이지 주제를 담은 제목 작성 |
 | HTTPS | 보안 사이트로 신뢰도 향상 |
 | 페이지 속도 | 빠른 로딩 속도 |
 | 반응형 웹 | 모바일 최적화 |
@@ -293,7 +293,7 @@ CSS `display` 속성은 요소가 어떻게 배치되는지를 결정합니다. 
 |----|--------|------|:------------:|----------|
 | block | O | 전체 | 적용 | div, p, h1 |
 | inline | X | 콘텐츠 | 미적용 | span, a, strong |
-| inline-block | X | 콘텐츠 | 적용 | img, input |
+| inline-block | X | 콘텐츠 | 적용 | button, input |
 | none | - | - | - | - |
 
 ### display:none vs visibility:hidden
@@ -322,7 +322,7 @@ CSS `display` 속성은 요소가 어떻게 배치되는지를 결정합니다. 
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-CSS `position` 속성은 요소를 어떻게 배치할지 결정합니다. `static`은 기본값이고 일반 흐름을 따라 배치됩니다. `relative`는 원래 위치를 기준으로 이동하고, `absolute`는 가장 가까운 positioned 부모를 기준으로 배치됩니다. `fixed`는 뷰포트 기준이라 스크롤해도 제자리에 있고, `sticky`는 스크롤이 임계점에 닿으면 fixed처럼 고정됩니다.
+CSS `position` 속성은 요소를 어떻게 배치할지 결정합니다. `static`은 기본값이고 일반 흐름을 따라 배치됩니다. `relative`는 원래 위치를 기준으로 이동하고, `absolute`는 가장 가까운 positioned 조상을 기준으로 배치됩니다. `fixed`는 뷰포트 기준이라 스크롤해도 제자리에 있고, `sticky`는 스크롤이 임계점에 닿으면 fixed처럼 고정됩니다.
 
 ### position 속성 비교
 
@@ -330,12 +330,12 @@ CSS `position` 속성은 요소를 어떻게 배치할지 결정합니다. `stat
 |----|------|:--------:|:---------:|
 | static | 기본 흐름 | O | O |
 | relative | 원래 위치 | O | O |
-| absolute | positioned 부모 | X | O |
+| absolute | positioned 조상 | X | O |
 | fixed | 뷰포트 | X | X (고정) |
 | sticky | 스크롤 임계점 | O | 임계점 후 고정 |
 
 ### 면접관이 주목하는 포인트
-- absolute의 기준이 되는 "positioned 부모"를 이해하는지
+- absolute의 기준이 되는 "positioned 조상"을 이해하는지
 - fixed와 sticky의 차이를 정확히 아는지
 
 ### 꼬리 질문 대비
@@ -396,7 +396,7 @@ Flexbox는 **1차원 레이아웃**(행 또는 열)에 특화되어 있어 콘�
 |------|---------|------|
 | 차원 | 1차원 (행 또는 열) | 2차원 (행과 열) |
 | 중심 | 콘텐츠 중심 | 레이아웃 중심 |
-| 적합 | 네비게이션, 버튼 그룹 | 페이지 레이아웃, 카드 갤러리 |
+| 적합 | 내비게이션, 버튼 그룹 | 페이지 레이아웃, 카드 갤러리 |
 | 브라우저 지원 | 매우 좋음 | 좋음 |
 
 ```css
@@ -482,14 +482,14 @@ img {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-`px`는 절대 단위로 화면의 픽셀 수를 직접 지정합니다. `em`은 **부모 요소의 폰트 크기**를 기준으로 하는 상대 단위여서, 중첩하면 복잡해질 수 있습니다. `rem`(root em)은 **루트(html) 요소의 폰트 크기**를 기준으로 하기 때문에 크기를 예측 가능하고 일관되게 지정할 수 있습니다. 접근성을 위해 폰트 크기에는 rem 사용을 권장합니다.
+`px`는 절대 단위로 화면의 픽셀 수를 직접 지정합니다. `em`은 **자기 요소의 폰트 크기**를 기준으로 하는 상대 단위여서(`font-size` 속성에 쓸 때만 부모 폰트 크기 기준), 중첩하면 복잡해질 수 있습니다. `rem`(root em)은 **루트(html) 요소의 폰트 크기**를 기준으로 하기 때문에 크기를 예측 가능하고 일관되게 지정할 수 있습니다. 접근성을 위해 폰트 크기에는 rem 사용을 권장합니다.
 
 ### CSS 단위 비교
 
 | 단위 | 기준 | 특징 |
 |------|------|------|
 | px | 절대값 | 고정 크기, 브라우저 폰트 설정 무시 |
-| em | 부모 폰트 크기 | 중첩 시 복잡해짐 |
+| em | 자기 요소의 폰트 크기 (`font-size`에 쓰면 부모 기준) | 중첩 시 복잡해짐 |
 | rem | 루트 폰트 크기 | 예측 가능, 접근성 좋음 |
 | vw | 뷰포트 너비 | 화면 너비의 % |
 | vh | 뷰포트 높이 | 화면 높이의 % |
@@ -529,7 +529,7 @@ img {
 /* 명시도: (0,0,0,1) */
 p { color: blue; }
 
-/* 명시도: (0,0,1,0) - 이 스타일 적용 */
+/* 명시도: (0,0,1,0) - 위 p 규칙보다 우선(아래 !important가 없을 때 적용) */
 .text { color: red; }
 
 /* !important - 가장 높은 우선순위 */
@@ -554,7 +554,7 @@ p { color: green !important; }
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-CSS-in-JS는 JavaScript 코드 안에서 CSS를 작성하는 방식입니다. 대표 라이브러리로 **styled-components**와 **Emotion**이 있습니다. CSS를 컴포넌트 단위로 추상화해서 모듈성을 높이고, 부모 요소의 CSS가 자동으로 상속되는 문제를 막아 줍니다. 동적 스타일링과 props 기반 스타일 변경이 쉽다는 것도 장점입니다.
+CSS-in-JS는 JavaScript 코드 안에서 CSS를 작성하는 방식입니다. 대표 라이브러리로 **styled-components**와 **Emotion**이 있습니다. CSS를 컴포넌트 단위로 추상화해서 모듈성을 높이고, 고유한 클래스명을 자동으로 붙여 전역 클래스 이름 충돌을 막아 줍니다. 동적 스타일링과 props 기반 스타일 변경이 쉽다는 것도 장점입니다.
 
 ### CSS-in-JS 장단점
 
@@ -562,7 +562,7 @@ CSS-in-JS는 JavaScript 코드 안에서 CSS를 작성하는 방식입니다. �
 |------|------|
 | 장점 | 컴포넌트 단위 스코프 (전역 오염 없음) |
 | 장점 | 동적 스타일 (props 기반) |
-| 장점 | 부모 스타일 상속 방지 |
+| 장점 | 고유 클래스명 자동 생성 (클래스 이름 충돌 방지) |
 | 장점 | JavaScript의 모든 기능 활용 가능 |
 | 단점 | 런타임 오버헤드 (스타일 주입 비용) |
 | 단점 | 번들 크기 증가 |
@@ -570,9 +570,9 @@ CSS-in-JS는 JavaScript 코드 안에서 CSS를 작성하는 방식입니다. �
 
 ```tsx
 // styled-components 예시
-const Button = styled.button<{ primary?: boolean }>`
-  background: ${(props) => (props.primary ? 'blue' : 'white')};
-  color: ${(props) => (props.primary ? 'white' : 'blue')};
+const Button = styled.button<{ $primary?: boolean }>`
+  background: ${(props) => (props.$primary ? 'blue' : 'white')};
+  color: ${(props) => (props.$primary ? 'white' : 'blue')};
   padding: 8px 16px;
 `;
 ```
@@ -661,7 +661,7 @@ CSS 박스 모델은 HTML 요소가 차지하는 공간을 **content → padding
 
 /* 박스 모델 구조 */
 .box {
-  width: 200px;         /* content 너비 */
+  width: 200px;         /* content-box면 content 너비, 위 border-box 전역 설정이 있으면 테두리까지 포함한 너비 */
   padding: 20px;        /* 내부 여백 */
   border: 2px solid;    /* 테두리 */
   margin: 10px;         /* 외부 여백 */
@@ -747,7 +747,7 @@ CSS 박스 모델은 HTML 요소가 차지하는 공간을 **content → padding
 
 ### 꼬리 질문 대비
 - "애니메이션 처리 시 어떤 방법을 선택하나요?"
-  → opacity와 visibility를 함께 사용하면 transition 애니메이션 구현 가능. display:none은 transition 불가
+  → opacity와 visibility를 함께 사용하면 transition 애니메이션 구현 가능. display:none은 기본적으로 transition되지 않음(최신 브라우저는 `transition-behavior: allow-discrete`와 `@starting-style`로 지원하지만 브라우저마다 지원 범위가 다름)
 
 </details>
 

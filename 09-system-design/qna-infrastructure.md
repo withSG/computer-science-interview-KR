@@ -75,7 +75,7 @@ L7 (Application Layer)
 |---------|------|----------|
 | Round Robin | 순차적 분배 | 서버 성능 동일 시 |
 | Weighted RR | 가중치 기반 분배 | 서버 성능 다를 때 |
-| Least Connections | 연결 수 적은 서버로 | 세션 유지 필요 시 |
+| Least Connections | 연결 수 적은 서버로 | 처리 시간 편차 클 때 |
 | IP Hash | 클라이언트 IP 기반 | 세션 고정 필요 시 |
 | Least Response Time | 응답 빠른 서버로 | 성능 중시 |
 
@@ -304,7 +304,7 @@ spec:
 |------|------|------|
 | CDN | CloudFront, Cloudflare | 정적 콘텐츠 |
 | Application | Redis, Memcached | 세션, API 응답 |
-| Database | Query Cache | 자주 조회되는 데이터 |
+| Database | Query Cache (MySQL 5.7까지, 8.0에서 제거) | 자주 조회되는 데이터 |
 | Browser | Cache-Control | 클라이언트 캐시 |
 
 ```

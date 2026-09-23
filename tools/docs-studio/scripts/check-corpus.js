@@ -10,7 +10,7 @@ import { buildTree, readDoc, existsInRepo } from '../server/docs.js'
 import { renderMarkdown, internalLinks, outline } from '../server/render.js'
 import { parseDiagrams } from '../server/diagram.js'
 
-const EXPECT = { docs: 246, diagrams: 961, ascii: 921 }
+const EXPECT = { docs: 246, diagrams: 961, ascii: 922 }
 
 const docs = []
 ;(function walk(node) {

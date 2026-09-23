@@ -423,7 +423,7 @@ Compose는 여러 컨테이너의 최종 상태를 YAML로 선언해 한 명령�
 
 ## 연관 개념
 
-- [01-docker-basics.md](./01-docker-basics.md) - 이미지·볼륨·네트워크의 기본 개념
+- [01-docker-basics.md](./01-docker-basics.md) - 이미지·컨테이너·볼륨의 기본 개념
 - [03-container-vs-vm.md](./03-container-vs-vm.md) - 이 모든 격리를 커널이 어떻게 만드는가
 - [qna-docker.md](./qna-docker.md) - Docker 면접 질문 모음
 - [Kubernetes](../../kubernetes/README.md) - 단일 호스트를 넘어설 때 필요한 다음 단계

@@ -49,7 +49,7 @@
 
 ## 2. 구조 — 실제 토큰을 뜯어보자
 
-JWT는 `.`으로 구분된 세 조각입니다. 아래는 jwt.io에서 예제로 쓰이는 실제 토큰입니다.
+JWT는 `.`으로 구분된 세 조각입니다. 아래는 jwt.io에서 오랫동안 예제로 쓰인 실제 토큰입니다.
 
 ```
 Header    │ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9

@@ -117,7 +117,7 @@ CRP는 브라우저가 HTML, CSS, JavaScript를 화면에 픽셀로 변환하는
 
 ### 렌더링 차단 리소스
 
-| 리소스 | 차단 여부 | 해결책 |
+| 리소스 | 차단 여부 | 해결책 / 비고 |
 |--------|----------|--------|
 | CSS | 렌더링 차단 | media 쿼리, preload |
 | JS (일반) | 파싱 차단 | async, defer |
@@ -185,7 +185,7 @@ box-shadow, border-radius
 
 **1. Reflow 최소화**
 ```js
-// 나쁜 예 - 여러 번 Reflow
+// 흔히 여러 번 Reflow를 일으킨다고 오해하지만, 사이에 읽기가 없으면 브라우저가 모아 한 번만 처리함
 element.style.width = '100px';
 element.style.height = '100px';
 element.style.margin = '10px';
@@ -253,7 +253,6 @@ transform/opacity 변경:
 transform: translate(), rotate(), scale()
 opacity
 filter
-will-change
 ```
 
 ### will-change 활용
@@ -318,14 +317,14 @@ will-change
 | 구분 | Real DOM | Virtual DOM |
 |------|----------|-------------|
 | 위치 | 브라우저 | 메모리 (JavaScript) |
-| 업데이트 | 전체 트리 재렌더링 | 변경된 부분만 |
+| 업데이트 | 조작할 때마다 DOM에 바로 반영 | 변경된 부분만 |
 | 성능 | 직접 조작 시 느림 | 배치 업데이트로 최적화 |
 | 사용 | 순수 JavaScript | React, Vue 등 |
 
 ### DOM의 문제점
 
 ```js
-// DOM 직접 조작 - 매번 Reflow/Repaint
+// DOM 직접 조작 - 매번 기존 자식 전체를 직렬화·재파싱 (Reflow는 프레임 끝에 한 번)
 for (let i = 0; i < 1000; i++) {
     document.body.innerHTML += `<div>${i}</div>`;  // 비효율적
 }
@@ -382,13 +381,13 @@ for (let i = 0; i < 1000; i++) {
 | 만료 | 설정 가능 | 영구 | 탭 종료 시 |
 | 서버 전송 | 자동 (매 요청) | X | X |
 | 접근 | 서버 + 클라이언트 | 클라이언트만 | 클라이언트만 |
-| 범위 | 도메인 전체 | 도메인 전체 | 탭/윈도우 |
+| 범위 | 도메인 전체 | 출처(origin) 단위 | 출처 + 탭/윈도우 |
 
 ### 사용 사례
 
 ```js
 // Cookie - 인증, 세션 관리
-document.cookie = "token=abc123; max-age=3600; secure; httponly";
+document.cookie = "token=abc123; max-age=3600; secure";
 
 // LocalStorage - 영구 데이터 (테마, 설정)
 localStorage.setItem('theme', 'dark');
@@ -403,7 +402,7 @@ sessionStorage.setItem('formData', JSON.stringify(data));
 | 저장소 | XSS 취약 | CSRF 취약 | 권장 용도 |
 |--------|:--------:|:---------:|----------|
 | Cookie (HttpOnly) | 안전 | 취약 | 인증 토큰 |
-| Cookie + SameSite | 안전 | 안전 | 인증 토큰 |
+| Cookie (HttpOnly + SameSite) | 안전 | 대체로 안전 | 인증 토큰 |
 | LocalStorage | 취약 | 안전 | 비민감 데이터 |
 
 ### 면접관이 주목하는 포인트
@@ -427,7 +426,7 @@ LocalStorage는 XSS 공격에 취약합니다. HttpOnly Cookie는 XSS를 방어�
 | 저장소 | XSS 위험 | CSRF 위험 | 서버 접근 |
 |--------|---------|----------|---------|
 | LocalStorage | 높음 (JS 접근 가능) | 없음 | 수동 헤더 추가 |
-| Cookie(일반) | 낮음 | 높음 | 자동 전송 |
+| Cookie(일반) | 높음 (JS 접근 가능) | 높음 | 자동 전송 |
 | Cookie(HttpOnly) | 없음 | 높음 (SameSite로 완화) | 자동 전송 |
 | Cookie(HttpOnly+SameSite) | 없음 | 낮음 | 자동 전송 |
 
@@ -452,7 +451,7 @@ LocalStorage는 XSS 공격에 취약합니다. HttpOnly Cookie는 XSS를 방어�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Same-Origin Policy 보안 정책 때문에 다른 출처의 요청이 차단됩니다. CORS 헤더에 허용할 출처를 명시해서 이를 완화합니다.
+Same-Origin Policy 보안 정책 때문에 스크립트가 다른 출처의 응답을 읽는 것이 차단됩니다. CORS 헤더에 허용할 출처를 명시해서 이를 완화합니다.
 
 ```
 출처(Origin) = 프로토콜 + 도메인 + 포트

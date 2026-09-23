@@ -26,7 +26,7 @@
 
 ### 엔티티 생명주기
 ```
-비영속 (new) → 영속 (managed) → 준영속 (detached) → 삭제 (removed)
+비영속 (new) → 영속 (managed) → 준영속 (detached) 또는 삭제 (removed)
 ```
 
 ### 코드 예시
@@ -52,7 +52,7 @@ user.setName("newName");  // 값만 변경
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-연관된 엔티티를 조회하면 최초 쿼리(1)에 더해 연관 엔티티 개수(N)만큼 추가 쿼리가 발생합니다. 이 현상을 N+1 문제라고 합니다.
+연관된 엔티티를 조회하면 최초 쿼리(1)에 더해 그 쿼리로 조회된 엔티티 개수(N)만큼 추가 쿼리가 발생합니다. 이 현상을 N+1 문제라고 합니다.
 
 ### 발생 예시
 ```java
@@ -89,7 +89,7 @@ spring:
         default_batch_fetch_size: 100
 ```
 ```sql
--- N번 → 1번 (IN절)
+-- N번 → ceil(N/100)번 (IN절)
 SELECT * FROM member WHERE team_id IN (1, 2, 3, ..., 100)
 ```
 
@@ -99,7 +99,7 @@ SELECT * FROM member WHERE team_id IN (1, 2, 3, ..., 100)
 
 ### 꼬리 질문 대비
 - "Fetch Join과 페이징을 함께 사용할 수 있나요?"
-  → 컬렉션 Fetch Join 시 페이징 불가 (메모리에서 처리 → 위험)
+  → Hibernate 7.3 이하에서는 컬렉션 Fetch Join 시 페이징 불가 (메모리에서 처리 → 위험). 7.4부터는 LIMIT을 SQL에서 처리
   → 해결: @BatchSize 사용 또는 쿼리 분리
 
 </details>
@@ -190,7 +190,7 @@ SELECT * FROM member WHERE team_id IN (1, 2, 3, ..., 100)
 | 시점 | 실제 사용 시 로딩 | 엔티티 조회 시 함께 로딩 |
 | 프록시 | 사용 | 사용 안 함 |
 | N+1 | 발생 가능 | 발생 가능 |
-| 기본값 | @ManyToOne: EAGER | @OneToMany: LAZY |
+| 기본값 | @OneToMany: LAZY | @ManyToOne: EAGER |
 
 ### 권장 설정
 ```java
@@ -572,8 +572,6 @@ public class User {
 
 ---
 
----
-
 ## Q14. 트랜잭션 전파(Propagation) 속성을 설명해주세요. ⭐⭐
 
 <details>
@@ -608,7 +606,7 @@ public void methodA() {
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 public void saveLog() {
     // 부모와 독립적
-    // 로그는 실패해도 메인 로직에 영향 X
+    // 로그는 실패해도 메인 로직에 영향 X (단, 호출부에서 예외를 잡아야 함)
 }
 
 // NESTED: 중첩 트랜잭션 (Savepoint)
@@ -628,7 +626,7 @@ public class OrderService {
     public void createOrder(Order order) {
         orderRepository.save(order);
         paymentService.processPayment(order);  // REQUIRED
-        logService.saveLog(order);  // REQUIRES_NEW (실패해도 주문 유지)
+        logService.saveLog(order);  // REQUIRES_NEW (예외를 잡아야 실패해도 주문 유지)
     }
 }
 ```
@@ -639,7 +637,7 @@ public class OrderService {
 
 ### 꼬리 질문 대비
 - "로그 저장 실패 시 메인 트랜잭션은?"
-  → REQUIRES_NEW면 메인 영향 없음, REQUIRED면 함께 롤백
+  → REQUIRES_NEW면 호출부에서 예외를 잡을 때 메인 영향 없음(안 잡으면 예외가 전파되어 메인도 롤백), REQUIRED면 함께 롤백
 
 </details>
 
@@ -920,8 +918,8 @@ CS 학과명을 "컴퓨터공학" → "소프트웨어공학"으로 변경 시
 | 원인 | 이상현상 | 해결 정규화 |
 |------|---------|-----------|
 | 부분 함수 종속 | 삽입/삭제/갱신 이상 | 2NF |
-| 이행 함수 종속 | 갱신 이상 | 3NF |
-| 다치 종속 | 삽입/삭제 이상 | 4NF |
+| 이행 함수 종속 | 삽입/삭제/갱신 이상 | 3NF |
+| 다치 종속 | 삽입/삭제/갱신 이상 | 4NF |
 
 ### 면접관이 주목하는 포인트
 - 3가지 이상현상을 각각 예시로 설명할 수 있는지

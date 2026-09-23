@@ -311,7 +311,7 @@ requests : 스케줄러가 자리를 잡을 때 쓰는 "예약값"
 limits   : 런타임이 강제하는 "상한선"
 ```
 
-`requests`는 **스케줄링에만** 쓰입니다. `requests.cpu: 500m`인 Pod는 남은 CPU가 500m 이상인 노드에만 배치됩니다. 실제로 그만큼 쓰는지는 무관합니다.
+`requests`는 **주로 스케줄링에** 쓰입니다. `requests.cpu: 500m`인 Pod는 남은 CPU가 500m 이상인 노드에만 배치됩니다. 실제로 그만큼 쓰는지는 무관합니다.
 
 `limits`는 컨테이너가 뜬 뒤 cgroup으로 강제됩니다. 그런데 CPU와 메모리의 처리 방식이 다릅니다.
 
@@ -457,13 +457,13 @@ A. 복제본끼리 구별되어야 하는 워크로드를 위한 리소스입니
 
 A. requests는 스케줄러가 배치를 결정할 때 쓰는 예약값이고, limits는 런타임이 강제하는 상한선입니다. 중요한 건 CPU와 메모리의 처리 방식이 다르다는 점입니다. CPU는 limit을 넘으면 스로틀링되어 느려질 뿐이지만, 메모리는 넘는 순간 OOMKilled로 컨테이너가 종료됩니다. 메모리는 이미 할당한 것을 회수할 수 없기 때문입니다. 그래서 메모리 limit은 실측 기반으로 여유를 두고 잡아야 합니다.
 
-- 꼬리 질문: "requests를 아예 안 적으면 어떻게 되나요?" → QoS가 BestEffort가 되어 노드 압박 시 가장 먼저 축출됩니다. 또 사용률 기반 HPA도 동작하지 않습니다.
+- 꼬리 질문: "requests를 아예 안 적으면 어떻게 되나요?" → limits도 없다면 QoS가 BestEffort가 되어 노드 압박 시 가장 먼저 축출됩니다. 또 사용률 기반 HPA도 동작하지 않습니다.
 
 **Q. HPA로 Pod를 늘렸는데 Pending이면 무엇을 봐야 하나요?**
 
 A. HPA는 Pod 개수만 늘릴 뿐 노드를 늘리지 않으므로, 클러스터에 남은 자원이 없으면 새 Pod가 Pending에 걸립니다. `kubectl describe pod`의 FailedScheduling 이벤트로 어떤 자원이 부족한지 확인하고, 노드 자체를 늘리려면 Cluster Autoscaler 같은 노드 오토스케일러가 필요합니다. Pod 스케일링과 노드 스케일링은 서로 다른 층위입니다.
 
-- 꼬리 질문: "노드는 있는데도 Pending이면?" → taint/toleration 불일치, nodeSelector·affinity 조건, 바인딩되지 않은 PVC, ResourceQuota 초과를 확인합니다.
+- 꼬리 질문: "노드는 있는데도 Pending이면?" → taint/toleration 불일치, nodeSelector·affinity 조건, 바인딩되지 않은 PVC를 확인합니다.
 
 ---
 
@@ -473,7 +473,7 @@ A. HPA는 Pod 개수만 늘릴 뿐 노드를 늘리지 않으므로, 클러스�
 |---|---|---|
 | readiness probe 없이 롤링 업데이트 | 초기화 중인 Pod에 트래픽이 들어감 | Ready 판정 기준을 명시해야 무중단이 성립 |
 | `maxUnavailable: 0`만 설정하고 노드 여유 미확인 | 새 Pod가 Pending에 걸려 배포가 멈춤 | maxSurge와 노드 여유를 함께 계산 |
-| 상태 있는 앱을 Deployment로 배포 | Pod마다 다른 볼륨에 붙어 데이터가 섞임 | 전용 스토리지가 필요하면 StatefulSet |
+| 상태 있는 앱을 Deployment로 배포 | 모든 복제본이 같은 PVC를 참조해 데이터가 섞임 | 전용 스토리지가 필요하면 StatefulSet |
 | StatefulSet만 쓰면 DB 클러스터가 된다고 생각 | 이름·순서·볼륨만 보장, 복제 로직은 별개 | 오퍼레이터나 관리형 DB를 검토 |
 | limits를 일부러 비워 성능 확보 | 한 Pod가 노드 자원을 독차지해 이웃 Pod까지 죽임 | 실측 후 여유를 얹어 설정 |
 | JVM 힙 최대치를 메모리 limit과 동일하게 설정 | 힙 밖 영역(메타스페이스, 스택 등)이 limit을 넘김 | 힙은 limit보다 작게 잡는다 |

@@ -265,7 +265,7 @@ kubectl get events --sort-by=.lastTimestamp
 | 원인 | 증상 | 해결 |
 |------|------|------|
 | 애플리케이션 에러 | 로그에 에러 | 코드 수정 |
-| 이미지 없음 | ImagePullBackOff | 이미지 이름/태그 확인 |
+| 실행 명령 오류 | Exit Code 126/127 | command·entrypoint 경로 확인 |
 | 리소스 부족 | OOMKilled | 메모리 limit 증가 |
 | 환경변수 누락 | 앱 시작 실패 | ConfigMap/Secret 확인 |
 | Liveness Probe 실패 | 반복 재시작 | Probe 설정 조정 |

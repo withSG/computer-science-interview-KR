@@ -40,7 +40,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 
 ### 개념 설명 파일의 구성
 
-모든 개념 설명 파일은 같은 흐름을 따릅니다. 시간이 없다면 **1 → 5 → 6**만 봐도 됩니다.
+개념 설명 파일은 대부분 아래 흐름을 따릅니다(문서에 따라 빠지거나 이름이 다른 절이 있습니다). 시간이 없다면 **1 → 5 → 6**만 봐도 됩니다.
 
 1. **학습 목표 / 선행 지식** — 읽고 나면 무엇을 설명할 수 있는지, 먼저 알아야 할 것은 무엇인지
 2. **왜 필요한가** — 이 기술이 없던 시절의 문제부터 출발
@@ -137,7 +137,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
   - [ ] Java 21 Virtual Threads
   - [ ] 동기/비동기와 Thread-safe
   - [ ] Exception vs Error
-  - [ ] HashTable vs HashMap
+  - [ ] Hashtable vs HashMap
   - [ ] equals()와 hashCode() 오버라이딩
   - [ ] String vs StringBuilder vs StringBuffer
   - [ ] 인터페이스 vs 추상 클래스
@@ -146,7 +146,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
   - [ ] static 키워드
   - [ ] 접근 제어자
   - [ ] Java 8 주요 기능
-  - [ ] try-with-resource
+  - [ ] try-with-resources
   - [ ] 직렬화(Serialization)
   - [ ] JDK vs JRE
   - [ ] QnA 복습 완료
@@ -302,7 +302,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 
 - [ ] 생성 패턴 (Singleton, Factory, Builder)
 - [ ] 구조 패턴 (Decorator, Facade, Bridge)
-- [ ] 행동 패턴 (Observer, Strategy)
+- [ ] 행위 패턴 (Observer, Strategy)
 - [ ] 아키텍처 패턴 (MVC, MVP/MVVM 비교)
 - [ ] QnA 복습 완료
 
@@ -600,13 +600,14 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 1. 질문을 먼저 읽고 **소리 내어** 스스로 답변해보세요 (면접은 말로 하는 시험입니다)
 2. `<details>` 태그를 클릭하여 답변을 확인하세요
 3. 막히거나 어렴풋한 부분은 같은 폴더의 개념 설명 파일(`NN-*.md`)로 돌아가세요
-4. 각 QnA에는 **꼬리 질문**이 함께 있습니다. 꼬리 질문까지 답할 수 있어야 그 주제를 안다고 할 수 있습니다
+4. **꼬리 질문**이 달린 문항은 꼬리 질문까지 답해 보세요. 꼬리 질문까지 답할 수 있어야 그 주제를 안다고 할 수 있습니다
 
 ### ⭐ 표시
 
 ⭐는 쓰인 자리에 따라 뜻이 다릅니다.
 
 - **QnA 파일의 질문 제목**: 빈출도입니다. ⭐가 많을수록 면접에서 자주 나오는 질문입니다.
+- **장 README의 '면접 빈출 주제' 표**(`빈출도` 열): 역시 빈출도입니다.
 - **폴더 README의 문서 표**: 난이도입니다.
   - ⭐ (기본): 전공자 1-2학년 수준
   - ⭐⭐ (중급): 전공자 3-4학년 수준

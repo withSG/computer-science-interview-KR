@@ -232,9 +232,9 @@ README에 "features끼리 import하지 마세요"라고 적어두면 3개월 안
 
 `import/no-restricted-paths`는 `eslint-plugin-import`가 제공하는 규칙으로, `target` 폴더 안에서 `from` 폴더를 import하면 에러를 냅니다. 형제 슬라이스 간 금지처럼 규칙이 많아지면 `eslint-plugin-boundaries`나 `dependency-cruiser` 같은 전용 도구가 설정을 더 간결하게 표현해 줍니다.
 
-상대 경로가 길어지는 문제는 별개로 alias를 잡아 해결합니다. `tsconfig.json`에 `"baseUrl": "."`과 `"paths": { "@/*": ["src/*"] }`를 두면 `../../../shared/lib/formatDate`가 `@/shared/lib/formatDate`가 됩니다.
+상대 경로가 길어지는 문제는 별개로 alias를 잡아 해결합니다. `tsconfig.json`에 `"paths": { "@/*": ["./src/*"] }`를 두면 `../../../shared/lib/formatDate`가 `@/shared/lib/formatDate`가 됩니다.
 
-다만 `tsconfig`의 `paths`가 정하는 건 타입 검사기가 모듈을 찾는 방식까지입니다. 번들러가 같은 매핑을 모르면 타입 검사는 통과하는데 실행이 깨집니다. Vite와 webpack 모두 각자의 `resolve.alias`에 같은 매핑을 적어 주거나, `vite-tsconfig-paths`처럼 `tsconfig`를 대신 읽어 주는 플러그인을 붙여야 합니다. Next.js처럼 프레임워크가 `tsconfig`의 `paths`를 직접 읽어 주는 환경도 있으니, 쓰는 도구가 어느 쪽인지 먼저 확인하는 편이 빠릅니다.
+다만 `tsconfig`의 `paths`가 정하는 건 타입 검사기가 모듈을 찾는 방식까지입니다. 번들러가 같은 매핑을 모르면 타입 검사는 통과하는데 실행이 깨집니다. Vite와 webpack 모두 각자의 `resolve.alias`에 같은 매핑을 적어 주거나, `vite-tsconfig-paths`처럼 `tsconfig`를 대신 읽어 주는 플러그인을 붙여야 합니다. Vite 8부터는 내장 옵션 `resolve.tsconfigPaths: true`로, webpack 5.105부터는 `resolve.tsconfig` 옵션으로도 켤 수 있습니다(둘 다 기본값은 꺼짐). Next.js처럼 프레임워크가 `tsconfig`의 `paths`를 직접 읽어 주는 환경도 있으니, 쓰는 도구가 어느 쪽인지 먼저 확인하는 편이 빠릅니다.
 
 ### 각 기능의 공개 API를 정한다
 
@@ -385,7 +385,7 @@ Next.js의 Route Handler나 서버 컴포넌트가 사실상 경량 BFF 역할�
 
 ### 필요 조건
 
-아래를 **전부** 만족할 때만 이득이 비용을 넘습니다.
+1~3을 **전부** 만족하거나 4에 해당할 때만 이득이 비용을 넘습니다.
 
 1. **조직 경계가 이미 나뉘어 있다** — 코드 크기와는 무관합니다. 팀이 여럿이고 각자 오너십이 있어야 합니다
 2. **배포 주기가 실제로 다르다** — A팀은 하루 세 번, B팀은 2주에 한 번 배포하고, 서로를 기다리는 것이 실제 병목입니다

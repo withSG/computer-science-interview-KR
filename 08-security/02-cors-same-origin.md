@@ -366,7 +366,7 @@ export default {
 
 ## 9. 실무에서는
 
-- **Spring Boot에서 `allowedOrigins("*")`와 `allowCredentials(true)`를 함께 쓰면 기동 시 예외가 납니다.** 스펙상 불가능한 조합이기 때문입니다. 패턴이 필요하면 `allowedOriginPatterns`를 쓰되, `https://*.example.com`은 서브도메인 전체를 신뢰하겠다는 선언이라 하나만 탈취돼도 통로가 열립니다. Origin을 직접 검사한다면 문자열 전체를 비교합니다. `startsWith`는 `https://app.example.com.evil.com`에 뚫립니다.
+- **Spring Boot에서 `allowedOrigins("*")`와 `allowCredentials(true)`를 함께 쓰면 예외가 납니다.** 스펙상 불가능한 조합이기 때문입니다. 패턴이 필요하면 `allowedOriginPatterns`를 쓰되, `https://*.example.com`은 서브도메인 전체를 신뢰하겠다는 선언이라 하나만 탈취돼도 통로가 열립니다. Origin을 직접 검사한다면 문자열 전체를 비교합니다. `startsWith`는 `https://app.example.com.evil.com`에 뚫립니다.
 - **Nginx와 애플리케이션에서 CORS를 이중으로 설정하는 사고가 잦습니다.** 헤더가 두 번 붙으면 브라우저가 "값이 여러 개"라며 거부합니다. 처리 지점을 한 곳으로 정합니다.
 - **CDN에 두는 정적 자원도 `Access-Control-Allow-Origin`이 필요할 수 있습니다.** 웹폰트와 `crossorigin` 속성을 붙인 스크립트(소스맵·에러 추적용)가 대표적입니다.
 - **가장 확실한 CORS 대책은 CORS를 안 만나는 것입니다.** 리버스 프록시로 `app.example.com/api/*`를 백엔드로 넘기면 브라우저 입장에서는 동일 출처라 CORS 자체가 발생하지 않습니다. 쿠키의 `SameSite` 설정도 함께 단순해집니다.

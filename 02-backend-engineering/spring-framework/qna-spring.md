@@ -131,7 +131,11 @@ public class OrderService {
 @Transactional
 public void mainProcess() {
     // 메인 비즈니스 로직
-    logService.saveLog();  // 로그 실패해도 메인 롤백 X
+    try {
+        logService.saveLog();  // 로그 실패해도 메인 롤백 X
+    } catch (RuntimeException e) {
+        // 예외를 여기서 잡아야 메인 트랜잭션까지 롤백되지 않음
+    }
 }
 
 @Transactional(propagation = REQUIRES_NEW)
@@ -237,7 +241,7 @@ Spring Boot가 제공하는 자동 설정, 내장 WAS, Starter 의존성 덕분�
 | 배포 | WAR | JAR (java -jar) |
 
 ### Auto Configuration 원리
-1. @EnableAutoConfiguration → spring.factories 참조
+1. @EnableAutoConfiguration → AutoConfiguration.imports 참조 (Boot 2.6 이하는 spring.factories)
 2. @ConditionalOnClass: 클래스패스에 특정 클래스 존재 시
 3. @ConditionalOnMissingBean: 빈이 없을 때만 자동 등록
 
@@ -349,8 +353,6 @@ public class AppConfig {
 
 ---
 
----
-
 ## Q8. Bean Scope의 종류와 차이점을 설명해주세요. ⭐⭐
 
 <details>
@@ -429,9 +431,9 @@ public class SingletonService {
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1. 타입 매칭 → 하나면 주입
-2. 타입이 여러 개 → 필드/파라미터 이름으로 매칭
-3. @Qualifier로 명시적 지정
-4. @Primary로 우선순위 지정
+2. 타입이 여러 개 → @Qualifier로 후보 필터링
+3. @Primary로 우선순위 지정
+4. 그래도 여러 개 → 필드/파라미터 이름으로 매칭
 ```
 -->
 
@@ -629,8 +631,8 @@ public class UserServlet extends HttpServlet {
     // HttpServlet 상속 → 서블릿 컨테이너에 종속
 }
 
-public class UserEJB extends EJBObject {
-    // EJB 상속 → EJB 컨테이너에 종속
+public class UserEJB implements SessionBean {
+    // EJB 인터페이스 구현 → EJB 컨테이너에 종속
 }
 ```
 
@@ -844,8 +846,8 @@ public class UserService {
 |------|------|
 | 불변성 | final 선언으로 변경 방지 |
 | 테스트 용이 | Mock 객체 주입 쉬움 |
-| 순환 참조 방지 | 컴파일 타임에 발견 |
-| NPE 방지 | 주입 누락 시 컴파일 에러 |
+| 순환 참조 방지 | 애플리케이션 기동 시점에 발견 |
+| NPE 방지 | 주입할 빈이 없으면 기동 시점에 실패 (직접 new로 만들 때는 컴파일 에러) |
 
 ### 순환 참조 예시
 
@@ -862,8 +864,8 @@ public class BService {
 }
 // → BeanCurrentlyInCreationException (시작 시 발견)
 
-// 필드 주입: 런타임에 발견
-// → StackOverflowError (호출 시 발견)
+// 필드 주입: 컨테이너가 미완성 참조로 우회해 그대로 기동됨
+// → Spring Boot 2.6+는 순환 참조가 기본 금지라 기동 시 실패
 ```
 
 ### Lombok 활용

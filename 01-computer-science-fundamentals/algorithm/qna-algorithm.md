@@ -13,7 +13,7 @@
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-시간 복잡도는 입력 크기가 커질 때 알고리즘의 실행 시간이 얼마나 늘어나는지, 그 증가율을 나타냅니다. Big-O 표기법은 최악의 경우를 기준으로 상한선을 표현합니다.
+시간 복잡도는 입력 크기가 커질 때 알고리즘의 실행 시간이 얼마나 늘어나는지, 그 증가율을 나타냅니다. Big-O 표기법은 그 증가율의 상한선을 표현하며, 흔히 최악의 경우와 함께 씁니다.
 
 ### 주요 시간 복잡도
 
@@ -103,10 +103,10 @@ O(2ⁿ)      = 무한대급
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 찾는 값: 7
-배열: [1, 3, 5, 7, 9, 11, 13]
+배열: [1, 3, 5, 7, 9, 11]
 
 1단계: mid=5, 7>5 → 오른쪽 탐색
-       [7, 9, 11, 13]
+       [7, 9, 11]
 2단계: mid=9, 7<9 → 왼쪽 탐색
        [7]
 3단계: mid=7, 찾음!
@@ -146,7 +146,7 @@ public int binarySearch(int[] arr, int target) {
 |------|-----|-----|
 | 방식 | 깊이 우선 | 너비 우선 |
 | 구현 | 스택/재귀 | 큐 |
-| 메모리 | 적음 | 많음 |
+| 메모리 | 경로 깊이에 비례 | 레벨 너비에 비례 |
 | 최단 경로 | 보장 안됨 | 보장 (가중치 없을 때) |
 | 사용 | 경로 탐색, 사이클 | 최단 거리, 레벨 탐색 |
 
@@ -204,6 +204,7 @@ int fib(int n) {
 
 // DP (효율): O(n)
 int fibDP(int n) {
+    if (n <= 1) return n;
     int[] dp = new int[n+1];
     dp[0] = 0; dp[1] = 1;
     for (int i = 2; i <= n; i++) {
@@ -237,7 +238,7 @@ int fibDP(int n) {
 | Quick | O(n log n) | O(n²) | O(log n) | X |
 | Heap | O(n log n) | O(n log n) | O(1) | X |
 | Tim | O(n log n) | O(n log n) | O(n) | O |
-| Counting | O(n+k) | O(n+k) | O(k) | O |
+| Counting | O(n+k) | O(n+k) | O(n+k) | O |
 
 ### 안정 정렬이란?
 동일한 값의 상대적 순서가 정렬 후에도 유지되는 것
@@ -256,7 +257,7 @@ int fibDP(int n) {
 <summary>답변 보기</summary>
 
 ### 문제
-[0, n] 범위의 n개의 양의 정수가 담긴 배열에서 빠진 수 하나를 찾으세요.
+[0, n] 범위의 n개의 서로 다른 정수가 담긴 배열에서 빠진 수 하나를 찾으세요.
 
 ### 핵심 답변
 **XOR 연산** 또는 **수학 공식**을 사용하면 O(n) 시간, O(1) 공간으로 해결할 수 있습니다.
@@ -463,8 +464,6 @@ public int findDuplicate(int[] nums) {
 
 ---
 
----
-
 ## Q11. 피보나치 수열의 구현 방법들을 비교해주세요. ⭐⭐
 
 <details>
@@ -546,8 +545,8 @@ int fib(int n) {
 
 ```java
 // O(log n) - 분할 정복
-// [F(n+1), F(n)]   = [1 1]^n  * [F(1)]
-// [F(n), F(n-1)]     [1 0]      [F(0)]
+// [F(n+1), F(n)]   = [1 1]^n
+// [F(n), F(n-1)]     [1 0]
 
 long[][] multiply(long[][] A, long[][] B) {
     return new long[][] {
@@ -605,6 +604,7 @@ function same(arr1, arr2) {
 
 // O(n) 빈도수 카운터
 function same(arr1, arr2) {
+  if (arr1.length !== arr2.length) return false;
   const counter1 = {};
   const counter2 = {};
   for (let val of arr1) counter1[val] = (counter1[val] || 0) + 1;
@@ -875,7 +875,7 @@ if visited == all_visited:
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-기수 정렬은 **비교 없이** 각 자리수(1의 자리 → 10의 자리 → ...)를 기준으로 안정 정렬을 반복합니다. 시간 복잡도 O(d×n)으로 비교 기반 정렬의 하한인 O(n log n)을 넘어설 수 있습니다.
+기수 정렬은 **비교 없이** 각 자릿수(1의 자리 → 10의 자리 → ...)를 기준으로 안정 정렬을 반복합니다. 시간 복잡도 O(d×n)으로 비교 기반 정렬의 하한인 Ω(n log n)을 넘어설 수 있습니다.
 
 ### 동작 원리 (LSD - Least Significant Digit)
 
@@ -903,9 +903,9 @@ if visited == all_visited:
 def counting_sort_by_digit(arr, exp):
     n = len(arr)
     output = [0] * n
-    count = [0] * 10  # 0~9 자리수
+    count = [0] * 10  # 0~9 자릿수
 
-    # 자리수별 빈도 계산
+    # 자릿수별 빈도 계산
     for i in range(n):
         index = (arr[i] // exp) % 10
         count[index] += 1
@@ -935,19 +935,19 @@ def radix_sort(arr):
 
 | 항목 | 복잡도 |
 |------|--------|
-| 시간 | O(d × (n + k)) — d: 최대 자리수, k: 기수(10) |
+| 시간 | O(d × (n + k)) — d: 최대 자릿수, k: 기수(10) |
 | 공간 | O(n + k) |
 | 안정성 | 안정 정렬 |
 
 ### Q6 정렬 비교표와의 연계
 
 ```
-비교 기반 정렬 (하한: O(n log n))
+비교 기반 정렬 (하한: Ω(n log n))
   Quick, Merge, Heap Sort
 
 비교 비기반 정렬 (O(n) 가능)
   Counting Sort: O(n + k) — k: 값의 범위
-  Radix Sort:   O(d × n) — d: 자리수
+  Radix Sort:   O(d × n) — d: 자릿수
   Bucket Sort:  O(n)     — 균등 분포 시
 ```
 
@@ -955,19 +955,19 @@ def radix_sort(arr):
 
 ```
 ✓ 정수 또는 고정 길이 문자열 정렬
-✓ 값의 범위가 크지만 자리수(d)가 작을 때
+✓ 값의 범위가 크지만 자릿수(d)가 작을 때
 ✓ 안정 정렬이 필요할 때
 
 ✗ 부동 소수점, 비교 연산이 복잡한 경우
-✗ 자리수(d)가 log n보다 클 때는 비효율
+✗ 자릿수(d)가 log n보다 클 때는 비효율
 ```
 
 ### 면접관이 주목하는 포인트
-- 비교 기반 정렬의 하한(O(n log n))을 어떻게 극복하는지
+- 비교 기반 정렬의 하한(Ω(n log n))을 어떻게 극복하는지
 - Counting Sort와의 관계 (기수 정렬의 각 단계에서 Counting Sort 사용)
 
 ### 꼬리 질문 대비
-- "Counting Sort와 Radix Sort의 차이?" → Counting Sort는 값 범위(k)에 의존, Radix Sort는 자리수(d)에 의존. Radix Sort는 Counting Sort를 여러 번 적용한 것
+- "Counting Sort와 Radix Sort의 차이?" → Counting Sort는 값 범위(k)에 의존, Radix Sort는 자릿수(d)에 의존. Radix Sort는 Counting Sort를 여러 번 적용한 것
 
 </details>
 

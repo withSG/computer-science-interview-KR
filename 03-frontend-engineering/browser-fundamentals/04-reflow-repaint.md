@@ -260,25 +260,25 @@ window.addEventListener('scroll', () => {
 });
 ```
 
-**왜 문제인가**: 스크롤 이벤트는 한 프레임에 여러 번 발화할 수 있습니다. 그때마다 레이아웃을 강제하니 스크롤이 뚝뚝 끊깁니다.
+**왜 문제인가**: 최신 브라우저는 `scroll` 이벤트를 프레임마다 최대 한 번, 화면을 갱신하기 직전에 보냅니다. 스크롤하는 동안 이 핸들러가 **매 프레임** 돈다는 뜻입니다. 같은 프레임에 DOM을 바꾼 코드가 먼저 돌았다면 `getBoundingClientRect()`가 그 자리에서 강제 동기 레이아웃을 일으킵니다. 이런 핸들러가 여러 개면 읽기와 쓰기가 엇갈려 레이아웃 스래싱이 됩니다. 한 프레임의 작업이 16ms를 넘기는 순간 스크롤이 뚝뚝 끊깁니다.
 
 ```js
-// 개선: 프레임당 한 번만 처리하도록 묶는다
-let scheduled = false;
+// 개선: 레이아웃 값은 미리 읽어 두고, 핸들러는 스크롤 값만 보고 바뀔 때만 쓴다
+let threshold = header.offsetTop + 100;   // 레이아웃 읽기는 한 번만
+window.addEventListener('resize', () => { threshold = header.offsetTop + 100; });
 
+let faded = false;
 window.addEventListener('scroll', () => {
-  if (scheduled) return;
-  scheduled = true;
-
-  requestAnimationFrame(() => {
-    const rect = header.getBoundingClientRect();          // 읽기
-    header.style.opacity = rect.top < -100 ? '0.5' : '1'; // 쓰기
-    scheduled = false;
-  });
-}, { passive: true });
+  const next = window.scrollY > threshold;  // 핸들러 맨 앞에서 스크롤 값만 읽는다
+  if (next === faded) return;               // 상태가 그대로면 쓰지 않는다
+  faded = next;
+  header.style.opacity = faded ? '0.5' : '1';
+});
 ```
 
-`{ passive: true }`도 중요합니다. 이 옵션은 "이 핸들러는 `preventDefault()`를 호출하지 않는다"는 약속이라 브라우저가 핸들러 실행을 기다리지 않고 스크롤을 먼저 진행할 수 있습니다.
+스크롤 핸들러를 `requestAnimationFrame`으로 묶는 코드도 흔히 보입니다. 하지만 rAF 콜백도 프레임당 한 번 돌아 `scroll`과 주기가 같으므로 호출 횟수는 줄지 않습니다. 횟수 자체를 줄여야 한다면 `setTimeout`으로 간격을 직접 재서 스로틀합니다.
+
+스크롤 리스너에 흔히 붙이는 `{ passive: true }`는 `scroll` 이벤트에는 효과가 없습니다. `scroll` 이벤트는 취소할 수 없어서 핸들러가 스크롤을 막지 못하기 때문입니다. 이 옵션이 중요한 곳은 `touchstart`·`touchmove`·`wheel` 리스너입니다. 이 옵션은 "이 핸들러는 `preventDefault()`를 호출하지 않는다"는 약속이라 브라우저가 핸들러 실행을 기다리지 않고 스크롤을 먼저 진행할 수 있습니다.
 
 ### 더 나은 대안: 관찰자 API
 
@@ -335,7 +335,7 @@ A. 브라우저는 스타일 변경을 모아 프레임 끝에 한 번 처리하
 
 **Q. 스크롤 이벤트에서 성능이 나빠지는 흔한 원인은?**
 
-A. 스크롤은 한 프레임에도 여러 번 발화하는데, 핸들러 안에서 레이아웃 값을 읽고 바로 스타일을 쓰면 그때마다 강제 레이아웃이 일어납니다. `requestAnimationFrame`으로 프레임당 한 번만 처리하도록 묶고 `passive: true`를 붙여 스크롤을 막지 않게 합니다. 화면 진입 여부만 알면 되는 경우라면 `IntersectionObserver`로 바꾸는 것이 더 낫습니다.
+A. 스크롤하는 동안 `scroll` 핸들러는 매 프레임 실행됩니다. 최신 브라우저는 이 이벤트를 프레임당 최대 한 번 보냅니다. 그 안에서 레이아웃 값을 읽고 스타일을 쓰면 강제 동기 레이아웃과 스래싱이 생기고, 핸들러가 무거우면 프레임 예산을 넘깁니다. 레이아웃 값은 미리 읽어 두고 핸들러에서는 상태가 바뀔 때만 씁니다. 호출 횟수를 줄여야 하면 `setTimeout` 기반으로 스로틀합니다. `requestAnimationFrame`은 스크롤과 주기가 같아 횟수를 줄이지 못합니다. `touchmove`·`wheel` 리스너가 함께 있다면 `passive: true`를 붙여 스크롤을 막지 않게 합니다. 화면 진입 여부만 알면 되는 경우라면 `IntersectionObserver`로 바꾸는 것이 더 낫습니다.
 
 **Q. `setTimeout` 대신 `requestAnimationFrame`을 쓰는 이유는?**
 
@@ -353,7 +353,7 @@ A. `rAF` 콜백은 브라우저가 다음 프레임을 그리기 직전에 실�
 | "`cssText`가 무조건 더 빠르다" | 연속 쓰기는 어차피 배칭된다 | 유지보수 이점이 주된 이유. 성능 차이는 상황에 따라 미미하다 |
 | "`display:none`으로 숨겼다 켜면 항상 이득" | 숨김·복원 각각에 리플로우가 든다 | 변경량이 클 때만 이득. 측정 후 판단한다 |
 | "`visibility:hidden`은 `display:none`과 비용이 같다" | 전자는 렌더 트리에 남아 레이아웃이 유지된다 | 자주 토글한다면 `visibility` 쪽이 레이아웃 재계산을 피할 수 있다 |
-| "스크롤 핸들러는 `throttle`만 걸면 된다" | 시간 기준 스로틀은 프레임과 어긋날 수 있다 | 화면 갱신에 맞추려면 `rAF` 기반으로 묶는 편이 정확하다 |
+| "스크롤 핸들러는 `throttle`만 걸면 된다" | 횟수를 줄여도 핸들러 안에서 레이아웃을 읽고 쓰면 실행될 때마다 비용이 든다. `rAF`로 묶는 것은 횟수도 못 줄인다 | 레이아웃 값은 미리 읽어 두고 바뀔 때만 쓴다. 보이는지만 알면 `IntersectionObserver` |
 
 ---
 

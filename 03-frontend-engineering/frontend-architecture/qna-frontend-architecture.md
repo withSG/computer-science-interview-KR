@@ -112,7 +112,7 @@ URL 상태인지 판별하는 기준은 "이 값을 포함한 링크를 다른 �
 const { data, isLoading, error } = useQuery({
   queryKey: ['users'],
   queryFn: fetchUsers,
-  staleTime: 5 * 60 * 1000, // 5분 캐싱
+  staleTime: 5 * 60 * 1000, // 5분 동안 fresh로 취급해 재요청하지 않음
 });
 
 // 전역 클라이언트 상태: Zustand
@@ -221,8 +221,8 @@ const StyledButton = styled(MuiButton)(({ theme }) => ({
 }));
 
 export const Button = ({ variant = 'primary', ...props }: ButtonProps) => {
-  const muiVariant = variant === 'danger' ? 'contained' : 'outlined';
-  return <StyledButton variant={muiVariant} {...props} />;
+  const muiVariant = variant === 'secondary' ? 'outlined' : 'contained';
+  return <StyledButton variant={muiVariant} color={variant === 'danger' ? 'error' : 'primary'} {...props} />;
 };
 ```
 

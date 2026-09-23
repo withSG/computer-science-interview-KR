@@ -223,7 +223,7 @@ public Response call() throws InterruptedException {
 
   생산자                          소비자
   ┌──────────────────┐            ┌──────────────────┐
-  │ empty.acquire()  │            │ full.acquire()   │  ← 빌 때까지 대기
+  │ empty.acquire()  │            │ full.acquire()   │  ← 비면 대기
   │ mutex.lock()     │            │ mutex.lock()     │
   │   버퍼에 넣기      │            │   버퍼에서 꺼내기  │
   │ mutex.unlock()   │            │ mutex.unlock()   │

@@ -266,9 +266,9 @@ first();
  시간 →
  ①            ②            ③            ④            ⑤            ⑥
                                         ┌────────┐
-                            ┌────────┐  │ third  │
-              ┌────────┐    │ second │  │ second │   ┌────────┐
-┌────────┐    │ first  │    │ first  │  │ first  │   │ first  │   ┌────────┐
+                            ┌────────┐  │ third  │   ┌────────┐
+              ┌────────┐    │ second │  │ second │   │ second │   ┌────────┐
+┌────────┐    │ first  │    │ first  │  │ first  │   │ first  │   │ first  │
 │ Global │    │ Global │    │ Global │  │ Global │   │ Global │   │ Global │
 └────────┘    └────────┘    └────────┘  └────────┘   └────────┘   └────────┘
  스크립트      first 호출    second 호출  third 호출   third 반환   second 반환
@@ -443,6 +443,6 @@ A. `RangeError: Maximum call stack size exceeded`가 발생합니다. 함수 호
 
 - [02-hoisting-tdz.md](./02-hoisting-tdz.md) - 생성 단계의 "등록"과 "초기화"가 갈리는 지점
 - [03-closure.md](./03-closure.md) - 컨텍스트가 사라져도 환경 레코드가 살아남는 현상
-- [04-event-loop.md](./04-event-loop.md) - 콜 스택이 비어야 비로소 비동기 콜백이 올라온다
+- [04-event-loop.md](./04-event-loop.md) - 콜 스택이 비어야 비로소 비동기 콜백이 올라옵니다
 - [qna-javascript.md](./qna-javascript.md) - 실행 컨텍스트·스코프·this 면접 질문 모음
 - [../../01-computer-science-fundamentals/operating-system/01-process-thread.md](../../01-computer-science-fundamentals/operating-system/01-process-thread.md) - 스레드마다 독립 스택을 갖는 구조와 비교

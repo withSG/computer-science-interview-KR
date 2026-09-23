@@ -197,7 +197,7 @@ DB에만 쓰고, 읽을 때 캐시에 로드
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-캐시 무효화는 **캐시 데이터가 원본과 일치하지 않을 때 캐시를 갱신**하는 것입니다. "컴퓨터 과학에서 가장 어려운 두 가지 중 하나"로 알려져 있습니다.
+캐시 무효화는 **캐시 데이터가 원본과 일치하지 않을 때 캐시를 삭제하거나 무효로 표시**하는 것입니다. "컴퓨터 과학에서 가장 어려운 두 가지 중 하나"로 알려져 있습니다.
 
 ### 무효화 전략
 
@@ -263,7 +263,7 @@ def get_user_with_lock(user_id):
     if user:
         return user
 
-    lock = cache.acquire_lock(f"lock:user:{user_id}")
+    lock = cache.acquire_lock(f"lock:user:{user_id}", ttl=3)
     if lock:
         try:
             user = db.query(...)
@@ -271,9 +271,13 @@ def get_user_with_lock(user_id):
         finally:
             lock.release()
     else:
-        # 다른 요청이 로딩 중 → 잠시 대기 후 재시도
-        time.sleep(0.1)
-        return get_user_with_lock(user_id)
+        # 다른 요청이 로딩 중 → 잠시 대기 후 캐시를 다시 읽는다 (재시도 횟수는 반드시 제한)
+        for _ in range(20):
+            time.sleep(0.1)
+            user = cache.get(f"user:{user_id}")
+            if user:
+                return user
+        user = db.query(...)  # 끝내 안 채워지면 직접 조회
 
     return user
 ```

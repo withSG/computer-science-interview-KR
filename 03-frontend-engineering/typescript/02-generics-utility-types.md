@@ -645,7 +645,7 @@ A. 타입 파라미터가 조건부 타입의 왼쪽에 다른 타입으로 감�
 
 ## 연관 개념
 
-- [01-why-typescript-types.md](./01-why-typescript-types.md) - 제네릭이 다루는 재료인 기본 타입, 유니온, `keyof`의 출발점
+- [01-why-typescript-types.md](./01-why-typescript-types.md) - 제네릭이 다루는 재료인 기본 타입, 유니온, 리터럴 타입의 출발점
 - [03-type-guards-narrowing.md](./03-type-guards-narrowing.md) - 제네릭으로 만든 넓은 타입을 실제 값 검사로 좁히는 방법
 - [qna-typescript.md](./qna-typescript.md) - 이 주제 면접 질문(Q3, Q4)
-- [../react-architecture/04-hooks-internals.md](../react-architecture/04-hooks-internals.md) - `useState<T>` 같은 제네릭 훅이 타입을 어떻게 이어받는지
+- [../react-architecture/04-hooks-internals.md](../react-architecture/04-hooks-internals.md) - `useState` 같은 훅이 내부에서 상태를 어떻게 저장하고 꺼내는지

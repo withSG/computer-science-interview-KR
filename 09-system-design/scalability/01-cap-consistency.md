@@ -266,7 +266,7 @@ Raft는 etcd, Consul, TiKV, CockroachDB 등에 쓰입니다. 쿠버네티스의 
 | Cassandra | 계속 응답 (AP) | 최종 | 쿼리 단위로 `ONE`/`QUORUM`/`ALL` 지정. `W+R > N`이면 최신 값을 읽습니다 |
 | DynamoDB | 계속 응답 (AP) | 최종 | 읽기 요청에 강한 일관성 옵션을 켤 수 있습니다(비용·지연 증가) |
 | MongoDB | 프라이머리 쪽 (CP 성향) | 프라이머리 읽기는 강함 | `writeConcern`/`readConcern`으로 조절 |
-| Redis Cluster | 계속 응답하려 함 | 복제가 **비동기**라 강하지 않음 | 사실상 조정 불가. 페일오버 시 응답한 쓰기가 사라질 수 있습니다 |
+| Redis Cluster | 소수파 쪽은 노드 타임아웃 뒤 쓰기 거부 | 복제가 **비동기**라 강하지 않음 | 사실상 조정 불가. 페일오버 시 응답한 쓰기가 사라질 수 있습니다 |
 | Kafka | 리더 파티션 기준 | `acks=all` + 최소 동기 복제본 수 설정 시 강함 | `acks`와 `min.insync.replicas`로 내구성과 지연을 교환 |
 
 > 표에서 얻을 결론: **대부분의 시스템은 CP나 AP로 딱 떨어지지 않고 설정으로 스펙트럼 위를 움직입니다.** 그래서 면접에서 "MongoDB는 CP입니다"라고 단정하는 것보다 "기본 설정에서는 CP 성향이고, `readConcern`을 낮추면 AP 쪽으로 이동합니다"라고 답하는 편이 정확합니다.
@@ -333,6 +333,6 @@ CAP은 "셋 중 둘을 고르는 메뉴"가 아닙니다. **네트워크가 끊�
 
 - [02-load-balancing-sharding.md](./02-load-balancing-sharding.md) - 데이터를 나누고 복제하면서 이 문제들이 실제로 생기는 지점
 - [qna-scalability.md](./qna-scalability.md) - CAP, 복제 관련 면접 질문 (Q4, Q5)
-- [../caching/01-caching-strategies.md](../caching/01-caching-strategies.md) - 캐시도 결국 사본이므로 같은 정합성 문제를 겪는다
+- [../caching/01-caching-strategies.md](../caching/01-caching-strategies.md) - 캐시도 결국 사본이므로 같은 정합성 문제를 겪습니다
 - [../../02-backend-engineering/database/04-transaction-isolation.md](../../02-backend-engineering/database/04-transaction-isolation.md) - 단일 DB 안에서의 일관성 보장(ACID의 I와 C)
 - [../../01-computer-science-fundamentals/operating-system/04-deadlock-race-condition.md](../../01-computer-science-fundamentals/operating-system/04-deadlock-race-condition.md) - 합의가 필요한 근본 원인인 동시성 문제

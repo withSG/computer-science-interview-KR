@@ -259,7 +259,7 @@ smem -rs uss 2>/dev/null | head       # 공유 메모리 중복 제외 (설치�
 
 ```bash
 df -h                                # 파일시스템별 사용률
-du -sh /var/log/* | sort -rh | head  # 큰 디렉토리 찾기
+du -sh /var/log/* | sort -rh | head  # 큰 디렉터리 찾기
 du -xh / --max-depth=1 | sort -rh    # -x: 다른 파일시스템으로 넘어가지 않음
 find /var/log -type f -size +500M    # 큰 파일 직접 찾기
 ```
@@ -282,7 +282,7 @@ find /var/log -type f -size +500M    # 큰 파일 직접 찾기
 
   rm access.log
       │
-      └─► 디렉토리에서 이름만 제거 (unlink)
+      └─► 디렉터리에서 이름만 제거 (unlink)
            inode의 링크 수 1 → 0
            그러나 프로세스가 아직 열고 있으면
            ┌────────────────────────────────────┐
@@ -415,7 +415,7 @@ tail -n 200 /var/log/myapp/app.log
 tail -f /var/log/nginx/error.log
 grep -i -E 'error|exception|timeout' app.log | tail -50
 grep -c ' 500 ' access.log                       # 500 응답 개수
-grep -A 30 'OutOfMemoryError' app.log | head -40 # 스택트레이스 앞뒤 문맥
+grep -A 30 'OutOfMemoryError' app.log | head -40 # 매칭 줄 뒤 30줄(스택트레이스) 문맥
 
 # 접속 상위 IP
 awk '{print $1}' access.log | sort | uniq -c | sort -rn | head

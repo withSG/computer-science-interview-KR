@@ -302,7 +302,8 @@ Flexbox가 헷갈리는 이유는 대부분 하나입니다. **`justify-content`
 ```css
 /* 안티패턴 - 말줄임이 안 나오고 컨테이너가 밀려난다 */
 .row { display: flex; }
-.title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.title { flex: 1; }
+.title > p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }   /* 말줄임은 안쪽 자식에 걸려 있다 */
 ```
 
 **왜 문제인가**: flex 아이템의 `min-width` 기본값은 `0`이 아니라 `auto`입니다. 즉 **자기 콘텐츠보다 작아지기를 거부합니다.** `flex: 1`로 줄어들라고 지시해도 이 하한선에 막힙니다.
@@ -312,8 +313,8 @@ Flexbox가 헷갈리는 이유는 대부분 하나입니다. **`justify-content`
 .title {
   flex: 1;
   min-width: 0;          /* 하한선 해제 — 이 한 줄이 핵심 */
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+.title > p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 ```
 
 `flex-direction: column`에서 같은 문제가 생기면 `min-height: 0`을 씁니다. 안쪽 스크롤 영역이 안 생기고 부모를 뚫는 현상의 원인도 대개 이것입니다.
@@ -399,7 +400,7 @@ Flexbox가 옷걸이 봉 하나에 옷을 거는 것이라면, Grid는 서랍장
 
 ## 9. 실무에서는
 
-- **`gap`이 margin을 대체했습니다.** 예전에는 `.item + .item { margin-left: 8px }` 같은 인접 선택자로 마지막 요소의 여백을 뺐습니다. flex와 grid 모두 `gap`을 지원하는 지금은 컨테이너에 한 줄이면 끝납니다.
+- **`gap`이 margin을 대체했습니다.** 예전에는 `.item + .item { margin-left: 8px }` 같은 인접 선택자로 첫 요소의 여백을 뺐습니다. flex와 grid 모두 `gap`을 지원하는 지금은 컨테이너에 한 줄이면 끝납니다.
 - **레이아웃 디버깅은 개발자 도구로 합니다.** Chrome/Firefox의 Elements 패널에서 `grid`, `flex` 배지를 누르면 트랙 번호와 축이 화면에 오버레이됩니다. 머리로 상상하는 것보다 훨씬 빠릅니다.
 - **레이아웃을 바꾸는 속성은 비쌉니다.** `width`, `top`, `margin`을 애니메이션하면 매 프레임 레이아웃을 다시 계산합니다. 이동·확대는 `transform`, 투명도는 `opacity`가 원칙입니다. 자세한 내용은 [../browser-fundamentals/04-reflow-repaint.md](../browser-fundamentals/04-reflow-repaint.md)에 있습니다.
 - **이미지에는 `width`/`height` 속성을 적습니다.** 값이 없으면 이미지가 로드되는 순간 아래 콘텐츠가 밀려 레이아웃이 튑니다(CLS). HTML 속성으로 크기를 적어두면 브라우저가 비율을 미리 계산해 자리를 잡아둡니다.
@@ -413,7 +414,7 @@ Flexbox가 옷걸이 봉 하나에 옷을 거는 것이라면, Grid는 서랍장
 **Q. `box-sizing: border-box`를 전역으로 설정하는 이유는?**
 
 A. 기본값 `content-box`에서는 `width`가 content 영역만 가리켜서, padding이나 border를 주면 실제 박스가 그만큼 커집니다. `width: 100%`에 padding을 얹으면 부모를 삐져나가 가로 스크롤이 생깁니다. `border-box`는 padding과 border를 `width` 안쪽에 포함시켜 내가 적은 숫자가 곧 화면 폭이 되므로 계산이 직관적입니다. `::before`, `::after`까지 포함해 전역으로 깔아두는 게 관행입니다.
-- 꼬리 질문: "쿼크 모드와 관련이 있나요?" → DOCTYPE이 없어 쿼크 모드가 되면 표준 모드와 달리 옛 IE 방식, 즉 border-box에 가까운 계산을 합니다. DOCTYPE 누락이 레이아웃을 통째로 어긋나게 하는 이유입니다.
+- 꼬리 질문: "쿼크 모드와 관련이 있나요?" → 옛 IE는 쿼크 모드에서 border-box에 가까운 계산을 했지만, 현대 브라우저의 쿼크 모드는 일반 요소를 여전히 content-box로 계산하고 텍스트 입력 요소·표 셀 정도만 예외입니다. DOCTYPE 누락으로 레이아웃이 어긋나는 원인은 주로 줄 높이·% 높이 같은 다른 쿼크입니다.
 
 **Q. z-index를 아주 크게 줬는데도 요소가 뒤에 깔립니다. 왜 그럴까요?**
 

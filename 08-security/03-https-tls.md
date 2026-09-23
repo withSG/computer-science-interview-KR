@@ -90,7 +90,7 @@ ECDHE(Elliptic Curve Diffie-Hellman Ephemeral)는 연결마다 **임시 키 쌍*
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client                                                    Server
-  │  (TCP 연결은 이미 수립된 상태)                              │
+  │  (TCP 연결은 이미 수립된 상태, TLS 1.2 메시지 순서)      │
   │                                                          │
   │ ── ClientHello ─────────────────────────────────────────►│
   │    · 지원 TLS 버전 / Cipher Suite 목록                     │
@@ -329,7 +329,7 @@ add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" alway
 
 ### HSTS로도 남는 빈틈 — 그리고 preload
 
-HSTS 헤더는 **HTTPS 응답을 한 번 받아야** 저장됩니다. 즉 **생애 첫 접속은 여전히 평문일 수 있습니다.** 이것을 신뢰 우선 사용(TOFU, Trust On First Use) 문제라고 부릅니다.
+HSTS 헤더는 **HTTPS 응답을 한 번 받아야** 저장됩니다. 즉 **생애 첫 접속은 여전히 평문일 수 있습니다.** 이것을 최초 사용 시 신뢰(TOFU, Trust On First Use) 문제라고 부릅니다.
 
 `preload`는 이 빈틈을 메웁니다. 도메인을 브라우저 배포판에 내장된 목록에 등재하면, 그 브라우저는 **한 번도 접속한 적 없는 도메인이라도** 처음부터 HTTPS만 시도합니다.
 

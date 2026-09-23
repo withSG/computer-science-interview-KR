@@ -269,7 +269,7 @@ SELECT * FROM member WHERE name LIKE '길동%';
 SELECT * FROM member WHERE phone = 01012345678;   -- 숫자 리터럴
 ```
 
-**왜 문제인가.** 문자열과 숫자를 비교하면 MySQL은 **문자열 쪽을 숫자로 변환**합니다. 즉 `CAST(phone AS ...)  = 01012345678`이 되어 컬럼에 함수를 씌운 것과 같은 상황이 됩니다. 인덱스를 못 탑니다. 반대로 컬럼이 `INT`이고 값이 문자열이면 값 쪽이 변환되므로 인덱스를 탑니다. 방향에 따라 결과가 다르다는 게 함정입니다.
+**왜 문제인가.** 문자열과 숫자를 비교하면 MySQL은 **문자열 쪽을 숫자로 변환**합니다. 즉 `CAST(phone AS ...) = 01012345678`이 되어 컬럼에 함수를 씌운 것과 같은 상황이 됩니다. 인덱스를 못 탑니다. 반대로 컬럼이 `INT`이고 값이 문자열이면 값 쪽이 변환되므로 인덱스를 탑니다. 방향에 따라 결과가 다르다는 게 함정입니다.
 
 ```sql
 -- 개선
@@ -417,8 +417,8 @@ A. 쓰기 비용과 공간 때문입니다. INSERT, UPDATE, DELETE마다 관련 
 
 ## 연관 개념
 
-- [N+1 문제](./03-n-plus-one-problem.md) - 쿼리 개수 문제와 쿼리 속도 문제는 원인이 다르다
-- [트랜잭션과 격리 수준](./04-transaction-isolation.md) - 인덱스가 없으면 락 범위가 넓어진다
+- [N+1 문제](./03-n-plus-one-problem.md) - 쿼리 개수 문제와 쿼리 속도 문제는 원인이 다릅니다
+- [트랜잭션과 격리 수준](./04-transaction-isolation.md) - 인덱스가 없으면 락 범위가 넓어집니다
 - [JPA와 ORM](./01-jpa-orm.md) - ORM이 만든 SQL을 확인하는 법
 - [qna-database.md](./qna-database.md) - 인덱스/B-Tree/JOIN 면접 질문
 - [qna-data-structure.md](../../01-computer-science-fundamentals/data-structure/qna-data-structure.md) - 트리와 해시 테이블 기초

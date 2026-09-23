@@ -112,7 +112,7 @@ Temperature와 Top-p는 **LLM 출력의 무작위성(창의성)을 조절**하�
 ### Temperature
 
 ```
-0.0: 결정적 (항상 같은 출력)
+0.0: 가장 결정적 (재현이 보장되지는 않음)
 0.7: 균형 (일반적 사용)
 1.0+: 창의적 (다양한 출력)
 
@@ -195,8 +195,8 @@ GPT-4 예시:
 
 ```
 GPT-4: 8K / 32K / 128K 토큰
-Claude: 100K / 200K 토큰
-Llama: 4K ~ 32K 토큰
+Claude: 200K / 1M 토큰
+Llama: 4K ~ 10M 토큰
 
 제한:
 입력 + 출력 ≤ 컨텍스트 윈도우
@@ -224,7 +224,7 @@ prompt = "Q: {question}\nA:"
 
 # 2. 출력 제한
 response = client.chat.completions.create(
-    model="gpt-4",
+    model=MODEL,  # 사용할 모델 ID
     messages=[...],
     max_tokens=500  # 출력 토큰 제한
 )
@@ -292,7 +292,7 @@ response = client.chat.completions.create(
 | 기준 | Prompt | RAG | Fine-tuning |
 |------|--------|-----|-------------|
 | 구현 난이도 | 쉬움 | 중간 | 어려움 |
-| 데이터 필요량 | 없음 | 문서 | 수천+ 예시 |
+| 데이터 필요량 | 없음 | 문서 | 수십~수천 예시 (작업마다 다름) |
 | 업데이트 | 즉시 | 실시간 | 재학습 필요 |
 | 환각 제어 | 어려움 | 좋음 | 중간 |
 
@@ -315,9 +315,10 @@ response = client.chat.completions.create(
 
 ```python
 import openai
-from tenacity import retry, stop_after_attempt, wait_exponential
+from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 @retry(
+    retry=retry_if_exception_type((openai.RateLimitError, openai.APITimeoutError, openai.InternalServerError)),
     stop=stop_after_attempt(3),
     wait=wait_exponential(min=1, max=10)
 )
@@ -354,7 +355,7 @@ if count_tokens(prompt) > MAX_TOKENS:
 ```python
 # 스트리밍 응답
 stream = client.chat.completions.create(
-    model="gpt-4",
+    model=MODEL,  # 사용할 모델 ID
     messages=[...],
     stream=True
 )

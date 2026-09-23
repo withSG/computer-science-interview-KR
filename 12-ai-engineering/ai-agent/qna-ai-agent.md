@@ -255,7 +255,7 @@ app.invoke(Command(resume="승인"), config)  # 사람 입력으로 재개
 ### recursion_limit 설정
 
 ```python
-# 기본값은 25. 초과 시 GraphRecursionError 발생
+# 기본값은 langgraph 1.0.6부터 10000대(현재 10007, 이전 버전은 25). 초과 시 GraphRecursionError 발생
 app.invoke(inputs, {"recursion_limit": 10})
 ```
 
@@ -286,7 +286,7 @@ except GraphRecursionError:
 
 ---
 
-## Q6. 프롬프트 엔지니어링과 플로우(플로우) 엔지니어링의 차이는? ⭐⭐
+## Q6. 프롬프트 엔지니어링과 플로우 엔지니어링의 차이는? ⭐⭐
 
 <details>
 <summary>답변 보기</summary>
@@ -430,9 +430,9 @@ AI 하네스는 **LLM(모델)을 실제로 동작하는 에이전트로 만들�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-BMAD(Breakthrough Method of Agile AI-Driven Development)는 **애자일 방법론을 AI 에이전트로 구현한 오픈소스 프레임워크**입니다. 분석가·PM·아키텍트·스크럼마스터·개발자·QA 등 **역할별 전문 에이전트가** 협업해 소프트웨어 개발을 진행합니다.
+BMAD(Breakthrough Method of Agile AI-Driven Development)는 **애자일 방법론을 AI 에이전트로 구현한 오픈소스 프레임워크**입니다. 분석가·PM·아키텍트·스크럼마스터·개발자·QA 등 **역할별 전문 에이전트가** 협업해 소프트웨어 개발을 진행합니다(v6.2까지의 구성). v6.3.0(2026-04)부터는 스크럼마스터·QA 에이전트가 개발자 에이전트로 통합됐습니다.
 
-### 두 가지 핵심 아이디어
+### 두 가지 핵심 아이디어 (v4 기준)
 
 <!-- diagram:ai-qna-ai-agent-4 -->
 ![두 가지 핵심 아이디어](../../assets/diagrams/ai-qna-ai-agent-4.svg)
@@ -460,7 +460,7 @@ BMAD(Breakthrough Method of Agile AI-Driven Development)는 **애자일 방법�
 
 각 개발 스토리에 충분한 컨텍스트(요구사항·설계·제약)를 미리 담아 전달해서 개발 에이전트가 맥락을 잃지 않게 합니다.
 
-### 역할별 에이전트 (예시)
+### 역할별 에이전트 (예시, v6.2까지의 구성)
 
 | 역할 | 담당 |
 |------|------|

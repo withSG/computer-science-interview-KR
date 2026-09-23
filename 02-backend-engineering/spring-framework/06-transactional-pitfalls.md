@@ -23,7 +23,7 @@
 트랜잭션 없이는 짤 수 없는 로직이 있습니다. 계좌 이체가 그렇습니다. 두 개의 쓰기가 전부 성공하거나 전부 실패해야 합니다. JDBC로 직접 쓰면 이렇습니다.
 
 ```java
-public void transfer(Long fromId, Long toId, int amount) {
+public void transfer(Long fromId, Long toId, int amount) throws SQLException {
     Connection conn = null;
     try {
         conn = dataSource.getConnection();
@@ -189,7 +189,9 @@ public void placeOrder(OrderRequest req) throws IOException {
 public void placeOrder(OrderRequest req) throws IOException { ... }
 
 // 개선 2 (권장) - 애초에 비즈니스 예외를 RuntimeException 계열로 설계한다
-public class ReceiptWriteFailedException extends RuntimeException { }
+public class ReceiptWriteFailedException extends RuntimeException {
+    public ReceiptWriteFailedException(Throwable cause) { super(cause); }
+}
 
 @Transactional
 public void placeOrder(OrderRequest req) {
@@ -409,7 +411,7 @@ DB마다 기본값이 다르다는 점은 알아둘 만합니다. MySQL(InnoDB)�
 
 - **트랜잭션은 짧게, 경계는 서비스 계층에.** 컨트롤러에 `@Transactional`을 붙이면 뷰 렌더링이나 직렬화 시간까지 트랜잭션에 포함됩니다. Repository에 붙이면 여러 저장 작업이 하나로 묶이지 않습니다. 비즈니스 단위인 서비스 메서드가 자연스러운 경계입니다.
 - 타임아웃을 걸어두면 사고가 커지는 것을 막습니다. `@Transactional(timeout = 5)`처럼 상한을 두면 쿼리가 예상보다 오래 걸려 커넥션을 무한정 붙잡는 상황을 끊을 수 있습니다.
-- **`readOnly = true`는 읽기 전용 복제본 라우팅에도 쓰입니다.** `AbstractRoutingDataSource`로 현재 트랜잭션이 읽기 전용인지 판단해 리더/라이터 DB를 나눠 보내는 구성이 흔합니다. 반대로 트랜잭션이 실제로 걸렸는지 확인하려면 `org.springframework.transaction.interceptor` 로거를 DEBUG로 켜서 생성/커밋 로그를 보면 됩니다.
+- **`readOnly = true`는 읽기 전용 복제본 라우팅에도 쓰입니다.** `AbstractRoutingDataSource`로 현재 트랜잭션이 읽기 전용인지 판단해 리더/라이터 DB를 나눠 보내는 구성이 흔합니다. 반대로 트랜잭션이 실제로 걸렸는지 확인하려면 `org.springframework.transaction.interceptor` 로거를 TRACE로 켜서 생성/커밋 로그를 보면 됩니다.
 - 테스트의 `@Transactional`은 성격이 다릅니다. 테스트 메서드에 붙이면 끝난 뒤 자동 롤백되어 DB가 깨끗해집니다. 그래서 실제 커밋 시점에만 드러나는 문제(제약조건 위반, `AFTER_COMMIT` 리스너 동작)를 테스트가 놓칠 수 있습니다.
 
 ---
@@ -459,7 +461,7 @@ A. 본 작업이 실패해도 반드시 남아야 하는 기록, 예를 들어 �
 
 ## 한 줄 정리
 
-`@Transactional`은 프록시가 메서드를 감싸 커밋과 롤백을 대신해 주는 장치입니다. 이 문서의 함정은 전부 **"프록시를 거치지 않았거나(1·2번), 프록시가 예외를 보지 못했거나(3·4번), 트랜잭션 경계가 너무 넓거나(6번)"** 세 가지 중 하나로 모입니다.
+`@Transactional`은 프록시가 메서드를 감싸 커밋과 롤백을 대신해 주는 장치입니다. 이 문서의 함정은 대부분 **"프록시를 거치지 않았거나(1·2번), 프록시가 롤백 대상 예외를 보지 못했거나(3·4번), 트랜잭션 경계가 너무 넓거나(6번)"** 세 가지 중 하나로 모입니다.
 
 ---
 

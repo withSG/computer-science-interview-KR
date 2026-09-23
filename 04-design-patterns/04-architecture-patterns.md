@@ -433,7 +433,7 @@ A. 계층을 잘 지켜도 비즈니스 계층이 영속성 계층을 의존한�
 
 **Q. 클린 아키텍처의 의존성 규칙을 설명해주세요.**
 
-A. 소스 코드의 의존은 반드시 안쪽을 향해야 하고, 안쪽 원은 바깥 원의 이름을 알아서는 안 된다는 규칙입니다. 엔티티와 유스케이스는 웹 프레임워크나 DB의 존재를 모르고, 컨트롤러와 저장소 구현이 안쪽 인터페이스를 구현하는 형태가 됩니다. 실행 시점의 호출 방향은 바깥에서 안쪽으로 향하지만 **컴파일 의존 방향은 그 반대**라는 점이 핵심입니다.
+A. 소스 코드의 의존은 반드시 안쪽을 향해야 하고, 안쪽 원은 바깥 원의 이름을 알아서는 안 된다는 규칙입니다. 엔티티와 유스케이스는 웹 프레임워크나 DB의 존재를 모르고, 컨트롤러는 안쪽 인터페이스를 호출하고 저장소 구현은 안쪽 인터페이스를 구현하는 형태가 됩니다. 실행 시점에는 유스케이스가 바깥의 저장소 구현을 호출하지만(안쪽→바깥쪽) **컴파일 의존 방향은 그 반대**(바깥쪽→안쪽)라는 점이 핵심입니다.
 - 꼬리 질문: "그걸 어떻게 강제하나요?" → 패키지를 분리하고, 도메인 패키지가 프레임워크를 import 하면 실패하는 아키텍처 테스트를 CI에 두는 방법을 쓴다고 답합니다.
 
 ---
@@ -466,5 +466,5 @@ MVC는 바뀌는 이유가 다른 코드를 갈라놓은 첫 시도입니다. MV
 - [qna-design-patterns.md](./qna-design-patterns.md) - MVC 면접 질문(Q6)
 - [../02-backend-engineering/spring-framework/03-spring-mvc-flow.md](../02-backend-engineering/spring-framework/03-spring-mvc-flow.md) - DispatcherServlet이 요청을 분배하는 실제 경로
 - [../02-backend-engineering/spring-framework/01-ioc-di.md](../02-backend-engineering/spring-framework/01-ioc-di.md) - 의존성 역전을 실제로 구현하는 도구
-- [../02-backend-engineering/database/01-jpa-orm.md](../02-backend-engineering/database/01-jpa-orm.md) - 도메인 모델과 영속성 엔티티를 분리할 때 생기는 문제
+- [../02-backend-engineering/database/01-jpa-orm.md](../02-backend-engineering/database/01-jpa-orm.md) - 객체와 테이블의 패러다임 불일치와 엔티티 매핑
 - [../03-frontend-engineering/frontend-architecture/qna-frontend-architecture.md](../03-frontend-engineering/frontend-architecture/qna-frontend-architecture.md) - 클라이언트 쪽 아키텍처 면접 질문

@@ -159,7 +159,7 @@ IAM 정책:
 {
   "Statement": [{
     "Effect": "Allow",
-    "Principal": {"AWS": "arn:aws:iam::123456789:root"},
+    "Principal": {"AWS": "arn:aws:iam::123456789012:root"},
     "Action": "s3:GetObject",
     "Resource": "arn:aws:s3:::my-bucket/*"
   }]
@@ -250,7 +250,7 @@ CPU 70% 초과 시 자동 확장되도록 했습니다.
 - Cold Start 지연 (수백 ms ~ 수 초)
 - 실행 시간 제한 (15분)
 - 메모리 제한 (10GB)
-- Stateless (상태 저장 불가)
+- Stateless (상태 유지 보장 없음)
 ```
 
 ### 사용 사례
@@ -259,7 +259,7 @@ CPU 70% 초과 시 자동 확장되도록 했습니다.
 ✅ 적합:
 - API 백엔드
 - 이벤트 처리 (S3 업로드, SQS)
-- 스케줄 작업 (CloudWatch Events)
+- 스케줄 작업 (EventBridge, 구 CloudWatch Events)
 - 데이터 변환
 
 ❌ 부적합:
@@ -271,7 +271,7 @@ CPU 70% 초과 시 자동 확장되도록 했습니다.
 ### Cold Start 완화
 
 ```
-- Provisioned Concurrency (예약 동시성)
+- Provisioned Concurrency (프로비저닝된 동시성)
 - 경량 런타임 사용 (Python, Node.js)
 - 패키지 크기 최소화
 ```
@@ -290,7 +290,7 @@ CPU 70% 초과 시 자동 확장되도록 했습니다.
 | 옵션 | 할인율 | 조건 |
 |------|--------|------|
 | On-Demand | 0% | 언제든 사용 |
-| Reserved Instance | ~75% | 1-3년 약정 |
+| Reserved Instance | ~72% | 1년 또는 3년 약정 |
 | Savings Plans | ~72% | 시간당 사용량 약정 |
 | Spot Instance | ~90% | 중단 가능 |
 

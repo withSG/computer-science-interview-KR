@@ -14,7 +14,7 @@
 ## 선행 지식
 
 - [01-array-list.md](./01-array-list.md) - 노드와 포인터 개념
-- [02-stack-queue.md](./02-stack-queue.md) - DFS는 스택, BFS는 큐를 쓴다
+- [02-stack-queue.md](./02-stack-queue.md) - DFS는 스택, BFS는 큐를 씁니다
 
 ---
 

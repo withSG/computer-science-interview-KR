@@ -123,10 +123,10 @@ HTML을 파싱한 브라우저는 DOM 트리만 만드는 게 아닙니다. 그 
 | | 표준 모드(Standards) | 쿼크 모드(Quirks) |
 |---|---|---|
 | 조건 | DOCTYPE 있음 | DOCTYPE 없음/잘못됨 |
-| `width` 계산 | content 영역만 | padding·border 포함(옛 IE 방식) |
+| `width` 계산 | content 영역만 | 일반 요소는 같음(padding·border 포함은 옛 IE 방식이고, 현대 브라우저는 텍스트 입력 요소 정도만 해당) |
 | 그 외 | 스펙대로 | 90년대 호환을 위한 예외 규칙 다수 |
 
-> 결론: DOCTYPE을 빼먹으면 **박스 크기가 통째로 다르게 계산돼** 레이아웃이 무너집니다. 서버가 HTML을 조립해 내려주는 환경(Thymeleaf, JSP, Next.js 등)에서도 최종 응답 HTML의 첫 줄에 반드시 있어야 합니다.
+> 결론: DOCTYPE을 빼먹으면 **줄 높이·% 높이·표 계산 같은 규칙이 옛 방식으로 바뀌어** 레이아웃이 무너집니다. 서버가 HTML을 조립해 내려주는 환경(Thymeleaf, JSP, Next.js 등)에서도 최종 응답 HTML의 첫 줄에 반드시 있어야 합니다.
 
 ### `lang`은 장식이 아니다
 
@@ -170,7 +170,7 @@ HTML을 파싱한 브라우저는 DOM 트리만 만드는 게 아닙니다. 그 
 | `<button>` | button | **동작을 실행**한다 | `<div onclick>`으로 대체 |
 | `<a href>` | link | **다른 곳으로 이동**한다 | `href` 없이 `<a onclick>` |
 
-> 표 요약: 표의 "암묵적 역할"은 **그 태그가 `<article>`, `<aside>`, `<main>`, `<nav>`, `<section>` 같은 구획 요소 안에 중첩되지 않았을 때** 기준입니다. 중첩되면 `<header>`와 `<footer>`는 banner·contentinfo 대신 `generic`이 되고, `<aside>`도 `aria-label` 같은 이름이 따로 붙어 있지 않으면 `generic`으로 내려갑니다. 뒤집어 말하면 카드 컴포넌트 안의 `<header>`가 자동으로 사이트 헤더가 되는 일은 없으니 겁내지 말고 써도 됩니다.
+> 표 요약: 표의 "암묵적 역할"은 **그 태그가 `<article>`, `<aside>`, `<main>`, `<nav>`, `<section>` 같은 구획 요소 안에 중첩되지 않았을 때** 기준입니다. 중첩되면 `<header>`와 `<footer>`는 banner·contentinfo 대신 `generic`이 되고, `<aside>`는 `<main>` 안에서는 그대로 complementary지만, 다른 구획 요소 안에서는 `aria-label` 같은 이름이 따로 붙어 있지 않으면 `generic`으로 내려갑니다. 뒤집어 말하면 카드 컴포넌트 안의 `<header>`가 자동으로 사이트 헤더가 되는 일은 없으니 겁내지 말고 써도 됩니다.
 
 ### section인가 article인가 div인가
 

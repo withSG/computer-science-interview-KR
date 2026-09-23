@@ -207,14 +207,14 @@ HMACSHA256(
 
 | 타입 | 용도 |
 |------|------|
-| Authorization Code | 서버 사이드 앱 (가장 안전) |
+| Authorization Code (+ PKCE) | 서버 사이드 앱·SPA·모바일 (가장 안전) |
 | Implicit | SPA (보안 취약, 비권장) |
 | Client Credentials | 서버 간 통신 |
 | Password | 자사 앱 (비권장) |
 
 ### PKCE (Proof Key for Code Exchange)
 - Authorization Code 탈취 방지
-- 모바일/SPA에서 권장
+- 모바일/SPA 같은 Public Client는 필수, 서버 사이드 앱에도 권장
 
 ### 면접관이 주목하는 포인트
 - 왜 Authorization Code를 바로 Token으로 교환하지 않는지

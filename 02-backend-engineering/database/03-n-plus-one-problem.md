@@ -136,7 +136,7 @@ inner join member m on m.team_id = t.id;
 
 - **JPQL을 직접 작성해야 합니다.** 메서드 이름 기반 쿼리에는 붙일 수 없습니다.
 - **INNER JOIN이 기본입니다.** 멤버가 한 명도 없는 팀은 결과에서 빠집니다. 필요하면 `left join fetch`를 씁니다.
-- **컬렉션 fetch join은 하나만 가능합니다.** (아래 `MultipleBagFetchException`)
+- **bag(`List`) 컬렉션 fetch join은 하나만 가능합니다.** (아래 `MultipleBagFetchException`)
 - **컬렉션 fetch join + 페이징은 위험합니다.** (아래 3절)
 
 ---
@@ -185,14 +185,14 @@ JOIN 결과 (5행)
 
 **원하는 것은 "팀 단위 페이징"인데, DB는 "조인 결과 행 단위"로 자를 수밖에 없습니다.** `LIMIT 2`는 팀 2개가 아니라 조인 결과 2행을 의미하고, 그 결과 A팀은 멤버 3명 중 2명만 가진 반쪽짜리 객체가 됩니다. 데이터가 조용히 틀리는, 가장 나쁜 종류의 버그입니다.
 
-Hibernate는 이 상황을 감지하면 **DB에 LIMIT을 걸지 않고 조인 결과 전체를 읽어 온 뒤 메모리에서 페이징합니다.** 로그에 이런 경고가 남습니다.
+Hibernate 7.3 이하는 이 상황을 감지하면 **DB에 LIMIT을 걸지 않고 조인 결과 전체를 읽어 온 뒤 메모리에서 페이징합니다.** 로그에 이런 경고가 남습니다(아래는 Hibernate 5의 메시지이고, 6 이후에는 코드가 `HHH90003004`로 바뀌었습니다).
 
 ```
 HHH000104: firstResult/maxResults specified with collection fetch;
            applying in memory!
 ```
 
-결과는 정확하지만, 팀이 10만 개면 조인 결과 수십만 행을 애플리케이션 힙에 통째로 올립니다. 트래픽이 몰리면 `OutOfMemoryError`로 이어집니다. Hibernate에는 이 상황을 경고 대신 예외로 막는 `hibernate.query.fail_on_pagination_over_collection_fetch` 설정도 있습니다. 켜 두면 사고를 배포 전에 잡을 수 있습니다.
+결과는 정확하지만, 팀이 10만 개면 조인 결과 수십만 행을 애플리케이션 힙에 통째로 올립니다. 트래픽이 몰리면 `OutOfMemoryError`로 이어집니다. Hibernate에는 이 상황을 경고 대신 예외로 막는 `hibernate.query.fail_on_pagination_over_collection_fetch` 설정도 있습니다. 켜 두면 사고를 배포 전에 잡을 수 있습니다. 참고로 Hibernate 7.4(Spring Boot 4.1의 기본 버전)부터는 LIMIT을 서브쿼리 안에서 적용하도록 바뀌어, 대부분의 DB에서 이 메모리 페이징이 더는 일어나지 않습니다.
 
 ### 대안: ToOne은 fetch join, 컬렉션은 batch size
 
@@ -237,9 +237,9 @@ select * from member where team_id in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 | | fetch join | batch size |
 |---|---|---|
 | 쿼리 수 | 1 | 1 + ceil(N / size) |
-| 페이징 | 컬렉션은 불가 | 가능 |
+| 페이징 | 컬렉션은 불가(Hibernate 7.3 이하) | 가능 |
 | 데이터 중복 전송 | 있음(부모 컬럼이 반복됨) | 없음 |
-| 컬렉션 2개 이상 | 불가(예외) | 가능 |
+| bag(`List`) 컬렉션 2개 이상 | 불가(예외) | 가능 |
 | 적용 방법 | 쿼리마다 명시 | 전역 설정 한 줄 |
 | 그래서 언제 | 단건/소량 조회에서 확실히 함께 필요할 때 | 기본 전략. 특히 페이징이 있는 목록 조회 |
 
@@ -274,7 +274,7 @@ List<Order> findByStatus(@Param("status") OrderStatus status);
 
 ## 6. MultipleBagFetchException
 
-컬렉션을 두 개 이상 fetch join하면 애플리케이션 기동 시점에 이 예외가 납니다.
+`List`(bag) 컬렉션을 두 개 이상 fetch join하면 이 예외가 납니다.
 
 ```java
 @Entity
@@ -315,7 +315,7 @@ List<Order> findAllWithItems();
 // coupons 는 default_batch_fetch_size 설정에 맡긴다 → IN 절로 한 번에
 ```
 
-곱집합이 생기지 않고 페이징 제약도 피할 수 있습니다. 컬렉션이 여러 개일 때는 이쪽이 정석입니다.
+곱집합이 생기지 않습니다. 컬렉션이 여러 개일 때는 이쪽이 정석입니다.
 
 ---
 
@@ -379,7 +379,7 @@ A. 부모 엔티티 N건을 조회한 뒤, 각 엔티티의 연관 데이터를 
 
 **Q. fetch join과 페이징을 함께 쓸 수 있나요?**
 
-A. ToOne 관계는 가능하지만 컬렉션은 안 됩니다. 1:N을 조인하면 결과 행이 자식 기준으로 늘어나서, DB의 LIMIT이 "부모 몇 건"이 아니라 "조인 결과 몇 행"을 의미하게 되기 때문입니다. Hibernate는 이 경우 LIMIT을 걸지 않고 전체를 읽어 메모리에서 페이징하며 HHH000104 경고를 남기는데, 데이터가 많으면 OOM으로 이어집니다.
+A. ToOne 관계는 가능하지만 컬렉션은 안 됩니다. 1:N을 조인하면 결과 행이 자식 기준으로 늘어나서, DB의 LIMIT이 "부모 몇 건"이 아니라 "조인 결과 몇 행"을 의미하게 되기 때문입니다. Hibernate 7.3 이하는 이 경우 LIMIT을 걸지 않고 전체를 읽어 메모리에서 페이징하며 경고(Hibernate 5는 HHH000104, 6 이후는 HHH90003004)를 남기는데, 데이터가 많으면 OOM으로 이어집니다. Hibernate 7.4부터는 LIMIT을 서브쿼리 안에서 적용하도록 바뀌어 대부분의 DB에서 이 문제가 해소됐습니다.
 - 꼬리 질문: "그럼 어떻게 해결하나요?" → ToOne은 fetch join으로 가져오고 컬렉션은 LAZY로 두되 `default_batch_fetch_size`를 설정합니다. IN 절로 묶여 조회되므로 쿼리 수도 줄고 페이징도 정확합니다.
 
 **Q. batch size는 어떤 원리로 쿼리를 줄이나요?**
@@ -399,7 +399,7 @@ A. `@OrderColumn` 없는 `List`, 즉 bag 컬렉션을 두 개 이상 동시에 f
 |------|----------|-----------|
 | EAGER로 바꿔 N+1을 해결하려 한다 | JPQL 조회에서는 여전히 추가 쿼리가 나가고, 원인 추적만 어려워진다 | 전부 LAZY로 두고 필요한 곳에서 함께 조회한다 |
 | `@EntityGraph`면 컬렉션 페이징이 된다고 생각한다 | 내부적으로 fetch join과 같아서 제약도 동일하다 | 컬렉션 페이징은 batch size로 푼다 |
-| 컬렉션 fetch join에 `distinct`를 안 붙인다 | 조인으로 부모가 자식 수만큼 중복될 수 있다 | `distinct`를 붙여 엔티티 중복을 제거한다 |
+| 컬렉션 fetch join에 `distinct`를 안 붙인다 | Hibernate 5 이하에서는 조인으로 부모가 자식 수만큼 중복될 수 있다(6부터는 자동 제거) | `distinct`를 붙여 엔티티 중복을 제거한다 |
 | batch size를 걸었으니 쿼리가 1번이라고 말한다 | `1 + ceil(N / size)`번이다 | 완전한 1번은 fetch join, batch size는 대폭 감소 |
 | N+1이 있으면 무조건 고쳐야 한다고 생각한다 | 부모가 몇 건뿐이면 추가 쿼리 2~3번이 fetch join보다 나을 수도 있다 | 실제 데이터 규모를 보고 판단한다 |
 

@@ -190,7 +190,7 @@ LazyHolder도 충분히 안전한데 왜 enum이 권장될까요? **LazyHolder�
 | 클래스 상속 | 가능 | 가능 | 불가능 (인터페이스 구현은 가능) |
 | 런타임 값을 받아 생성 | 가능 | 어렵다 | 불가능 (호출자가 값을 넘길 수 없다) |
 
-> 결론: 새로 짠다면 **enum이 기본값**입니다. 상속이 필요하거나 생성 시점에 외부 값을 넘겨야 하면 LazyHolder를 씁니다. DCL은 `volatile`을 설명하는 교육용 예시로는 유효하지만 새 코드에서 고를 이유가 없습니다.
+> 결론: 새로 짠다면 **enum이 기본값**입니다. 상속이 필요하면 LazyHolder를 씁니다. DCL은 `volatile`을 설명하는 교육용 예시로는 유효하지만, 생성 시점에 외부 값을 넘겨야 하는 경우가 아니라면 새 코드에서 고를 이유가 없습니다.
 
 ### 싱글톤은 안티패턴인가
 
@@ -487,4 +487,4 @@ A. 생성자 파라미터가 많고 상당수가 선택적일 때 씁니다. 점
 - [04-architecture-patterns.md](./04-architecture-patterns.md) - 패턴을 애플리케이션 전체 구조로 확장한 형태
 - [qna-design-patterns.md](./qna-design-patterns.md) - 싱글톤·팩토리·빌더 면접 질문(Q1, Q2, Q7)
 - [../02-backend-engineering/spring-framework/01-ioc-di.md](../02-backend-engineering/spring-framework/01-ioc-di.md) - 컨테이너가 싱글톤과 팩토리를 대신 해주는 방식
-- [../02-backend-engineering/java-fundamentals/02-memory-model.md](../02-backend-engineering/java-fundamentals/02-memory-model.md) - `volatile`과 명령어 재배치의 배경
+- [../01-computer-science-fundamentals/operating-system/04-deadlock-race-condition.md](../01-computer-science-fundamentals/operating-system/04-deadlock-race-condition.md) - `volatile`과 명령어 재배치의 배경

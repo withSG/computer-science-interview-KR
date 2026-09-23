@@ -456,6 +456,6 @@ Java에서 넘어가는 것은 언제나 **값의 복사본**입니다. 원본�
 
 - [02-memory-model.md](./02-memory-model.md) - 스택의 참조와 힙의 객체가 놓이는 위치
 - [01-oop-solid.md](./01-oop-solid.md) - 캡슐화가 방어적 복사 없이는 완성되지 않는 이유
-- [03-garbage-collection.md](./03-garbage-collection.md) - 참조를 놓지 않으면 회수되지 않는다
+- [03-garbage-collection.md](./03-garbage-collection.md) - 참조를 놓지 않으면 회수되지 않습니다
 - [qna-java.md](./qna-java.md) - Call by Value·불변 객체 면접 질문
 - [../../01-computer-science-fundamentals/operating-system/04-deadlock-race-condition.md](../../01-computer-science-fundamentals/operating-system/04-deadlock-race-condition.md) - 불변 객체가 원천 차단하는 경쟁 조건

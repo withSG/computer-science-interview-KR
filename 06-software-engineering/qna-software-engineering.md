@@ -15,7 +15,7 @@
 ### 핵심 답변
 애자일은 개발 방법론의 하나입니다. **짧은 주기의 반복적 개발**로 변화에 빠르게 대응합니다.
 
-### 애자일 원칙
+### 애자일 선언의 4가지 가치
 
 ```
 - 프로세스보다 개인과 상호작용
@@ -408,7 +408,7 @@ Scenario: 올바른 자격증명으로 로그인
 ```
 ❌ 수동 테스트에 의존 → 시간 소모, 휴먼 에러
 ❌ 리팩터링 두려움 → 기술 부채 증가
-❌ 배포 불안감 → 릴리즈 지연
+❌ 배포 불안감 → 릴리스 지연
 ❌ 버그 재발 → 같은 문제 반복
 ```
 -->
@@ -556,7 +556,7 @@ int elapsedTimeInDays;
 List<int[]> gameBoard;
 ```
 
-#### 2. 함수는 한 가지만 (Single Responsibility)
+#### 2. 함수는 한 가지만 (Do One Thing)
 ```java
 // ❌ 나쁜 예: 여러 역할
 void emailAndUpdateDB(User user) {
@@ -643,7 +643,7 @@ void validateName(String name) {
 - 리팩터링 전 테스트 코드가 필요한 이유
 
 ### 꼬리 질문 대비
-- "클린 코드와 SOLID의 관계는?" → SOLID 원칙을 따르면 자연스럽게 클린 코드 달성 (단일 책임=함수 분리, 개방폐쇄=확장 가능한 구조)
+- "클린 코드와 SOLID의 관계는?" → SOLID 원칙을 따르면 자연스럽게 클린 코드 달성 (단일 책임=클래스가 바뀌는 이유를 하나로, 개방폐쇄=확장 가능한 구조)
 
 </details>
 
@@ -681,8 +681,8 @@ const arr = [1, 2, 3];
 arr.push(4);  // 원본 수정
 
 // ✅ 불변 (Immutable): 새 배열 반환
-const arr = [1, 2, 3];
-const newArr = [...arr, 4];  // 원본 유지
+const original = [1, 2, 3];
+const newArr = [...original, 4];  // 원본 유지
 ```
 
 #### 3. 고차 함수 (Higher-Order Function)

@@ -91,7 +91,7 @@ kubectl describe svc user-service          # Endpoints 항목이 비어 있으�
 kubectl get pods -l app=user -o wide       # 라벨이 실제로 붙었는지 확인
 ```
 
-**Endpoints가 비어 있다**는 것은 실무에서 가장 흔한 연결 장애의 신호입니다. 원인은 대개 셋 중 하나입니다. selector와 Pod 라벨의 오타, `targetPort`와 컨테이너 실제 포트 불일치, 그리고 모든 Pod가 Ready가 아닌 상태.
+**Endpoints가 비어 있다**는 것은 실무에서 가장 흔한 연결 장애의 신호입니다. 원인은 대개 둘 중 하나입니다. selector와 Pod 라벨의 오타, 그리고 모든 Pod가 Ready가 아닌 상태.
 
 ---
 
@@ -244,7 +244,7 @@ CoreDNS 조회 → 10.96.0.42 (ClusterIP)
 | 분산 알고리즘 | 확률 기반 무작위 선택 하나뿐 | 라운드로빈, 최소 연결, 해시 등 선택 가능 |
 | 요구 사항 | 추가 준비 불필요 | 커널 IPVS 모듈 필요 |
 
-**언제 뭘 쓰나**: 서비스와 엔드포인트가 수백 개 수준까지는 iptables로 충분합니다. 서비스가 수천 개 규모로 늘어 규칙 갱신 지연이 눈에 보이기 시작하면 IPVS를 검토합니다.
+**언제 뭘 쓰나**: 서비스와 엔드포인트가 수백 개 수준까지는 iptables로 충분합니다. 서비스가 수천 개 규모로 늘어 규칙 갱신 지연이 눈에 보이기 시작하면 nftables 모드(v1.33 GA)를 검토합니다. IPVS 모드는 v1.35부터 폐기 예정(deprecated)입니다.
 
 여기서 중요한 성질이 하나 나옵니다. kube-proxy의 분산은 **L4(TCP 연결) 단위**입니다. HTTP 요청 하나하나를 나누지 않습니다. 그래서 클라이언트가 keep-alive로 연결을 오래 유지하거나 gRPC처럼 하나의 연결에 여러 요청을 실어 보내면, **Pod를 늘려도 트래픽이 기존 연결에 묶여 고르게 퍼지지 않습니다.** 이 문제는 클라이언트 측 로드밸런싱이나 L7 프록시(Ingress, 서비스 메시)로 풉니다. 면접에서 "gRPC 서비스를 스케일아웃했는데 부하가 안 나뉜다"는 시나리오가 나온다면 답은 이 지점에 있습니다.
 
@@ -334,7 +334,7 @@ kubectl exec -it <pod> -- cat /etc/resolv.conf
 
 가장 흔한 함정입니다. **Ingress 리소스만 만들면 아무 일도 일어나지 않습니다.** Ingress는 "이런 규칙으로 라우팅해 달라"는 선언일 뿐이고, 그 선언을 읽어 실제로 트래픽을 처리하는 프로그램이 Ingress Controller입니다. 컨트롤러를 설치하지 않은 클러스터에서 Ingress를 만들면 `ADDRESS`가 영영 비어 있습니다.
 
-대표적인 컨트롤러로 ingress-nginx, Traefik, HAProxy Ingress가 있고, 클라우드에서는 AWS Load Balancer Controller처럼 클라우드 LB 자체를 L7로 구성해 주는 것도 씁니다. 어떤 컨트롤러를 쓸지는 `ingressClassName`으로 지정합니다.
+대표적인 컨트롤러로 ingress-nginx(2026년 3월 유지보수 종료), Traefik, HAProxy Ingress가 있고, 클라우드에서는 AWS Load Balancer Controller처럼 클라우드 LB 자체를 L7로 구성해 주는 것도 씁니다. 어떤 컨트롤러를 쓸지는 `ingressClassName`으로 지정합니다.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
@@ -457,7 +457,7 @@ spec:
 
 A. Service는 IP 목록이 아니라 Label Selector를 들고 있습니다. EndpointSlice 컨트롤러가 selector에 맞고 Ready 상태인 Pod의 IP를 모아 EndpointSlice에 기록합니다. 각 노드의 kube-proxy는 그 변경을 watch하면서 커널 라우팅 규칙을 갱신합니다. 그래서 Pod가 죽고 새로 떠도 같은 라벨만 달려 있으면 자동으로 목록에 들어옵니다. 중요한 건 Ready인 Pod만 포함된다는 점이고, 이 성질이 무중단 배포의 근거가 됩니다.
 
-- 꼬리 질문: "Endpoints가 비었으면 무엇을 의심하나요?" → selector와 Pod 라벨 불일치, targetPort와 컨테이너 포트 불일치, readiness probe 실패로 Ready인 Pod가 없는 경우.
+- 꼬리 질문: "Endpoints가 비었으면 무엇을 의심하나요?" → selector와 Pod 라벨 불일치, readiness probe 실패로 Ready인 Pod가 없는 경우.
 
 **Q. Service 타입은 어떤 기준으로 고르나요?**
 

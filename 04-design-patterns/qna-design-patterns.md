@@ -37,7 +37,7 @@ public class Singleton {
 ```
 
 ### 실무 선택 기준
-실무에서 새로 짠다면 **enum이 기본값**입니다. 역직렬화하면 생성자를 거치지 않고 새 인스턴스가 생기는 문제도, 리플렉션으로 `private` 생성자를 강제 호출해 두 번째 인스턴스를 만드는 공격도 enum은 언어 차원에서 막아 줍니다. 생성 시점에 외부 값을 주입해야 하거나 상속이 필요하면 LazyHolder를 씁니다. 위 DCL 코드는 `volatile`이 가시성과 명령어 재배치 방지를 어떻게 보장하는지 보여 주는 교육용 예시로 보면 됩니다.
+실무에서 새로 짠다면 **enum이 기본값**입니다. 역직렬화하면 생성자를 거치지 않고 새 인스턴스가 생기는 문제도, 리플렉션으로 `private` 생성자를 강제 호출해 두 번째 인스턴스를 만드는 공격도 enum은 언어 차원에서 막아 줍니다. 상속이 필요하면 LazyHolder를 쓰고, 생성 시점에 외부 값을 주입해야 하면 DCL을 씁니다. 위 DCL 코드는 `volatile`이 가시성과 명령어 재배치 방지를 어떻게 보장하는지 보여 주는 교육용 예시로 보면 됩니다.
 
 ### 사용 사례
 - 설정 관리자
@@ -72,7 +72,7 @@ public class Singleton {
 | 목적 | 단일 객체 생성 | 관련 객체 군 생성 |
 | 확장 | 서브클래스로 | 새 팩토리 추가 |
 
-### Factory Method 예시
+### 팩토리 예시 (정적 팩토리 메서드)
 
 ```java
 interface Animal { void speak(); }
@@ -230,7 +230,7 @@ Coffee coffee = new MilkDecorator(new BasicCoffee());
 
 ### 사용 사례
 - Java I/O (BufferedReader)
-- 권한 검사 래퍼
+- 로깅·재시도 래퍼
 
 </details>
 
@@ -293,7 +293,7 @@ public class UserController {
 @Service
 public class UserService {
     public User findById(Long id) {
-        return userRepository.findById(id);
+        return userRepository.findById(id).orElseThrow();
     }
 }
 
@@ -319,8 +319,6 @@ public class UserService {
 - Spring MVC의 동작 흐름
 
 </details>
-
----
 
 ---
 
@@ -599,7 +597,7 @@ blueCircle.draw();  // "원을 파랑"
 3. **런타임 변경**: 구현체를 동적으로 교체
 
 ### 활용 사례
-- **JDBC 드라이버**: Driver(추상화) + 각 DB별 구현
+- **JDBC 드라이버**: `Connection`·`Statement`(추상화) + 각 DB별 드라이버(구현)
 - **원격 제어**: RemoteControl + Device
 - **플랫폼 독립적 GUI**: Window + WindowImpl(각 OS별)
 

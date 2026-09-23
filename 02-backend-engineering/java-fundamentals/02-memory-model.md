@@ -249,7 +249,7 @@ System.out.println(a == b);   // true
 System.out.println(a == c);   // false
 ```
 
-`b`는 두 리터럴의 연결이라 컴파일러가 미리 계산해 하나의 리터럴로 바꿉니다. `c`는 변수가 끼어 있어 런타임에 새 String이 만들어집니다. **`==`으로 문자열을 비교하면 안 되는 이유**가 이것입니다. 코드를 조금만 바꿔도 결과가 달라집니다.
+`b`는 두 리터럴의 연결이라 컴파일러가 미리 계산해 하나의 리터럴로 바꿉니다. `c`는 변수가 끼어 있어 런타임에 새 String이 만들어집니다. **`==`로 문자열을 비교하면 안 되는 이유**가 이것입니다. 코드를 조금만 바꿔도 결과가 달라집니다.
 
 ### 안티패턴 — 반복문 안의 문자열 연결
 
@@ -322,7 +322,7 @@ Map<String, Integer> counts = new HashMap<>();
 int count = counts.get("없는키");   // NullPointerException
 ```
 
-**왜 문제인가**: `get()`이 `null`을 반환하는데 `int`에 대입하려면 `intValue()`를 호출해야 합니다. `null.intValue()`이므로 NPE입니다. 스택 트레이스에는 `.get()` 줄만 나와서 원인을 놓치기 쉽습니다.
+**왜 문제인가**: `get()`이 `null`을 반환하는데 `int`에 대입하려면 `intValue()`를 호출해야 합니다. `null.intValue()`이므로 NPE입니다. Java 14까지는 스택 트레이스에 `.get()` 줄만 나와서 원인을 놓치기 쉬웠습니다. Java 15부터는 Helpful NPE 메시지가 기본으로 켜져 `Integer.intValue()` 호출 대상이 `Map.get()`의 `null` 반환값이라고 알려 줍니다.
 
 ```java
 // 개선

@@ -27,7 +27,7 @@
 │ │  │  └── Others (기타 사용자)
 │ │  └───── Group (그룹)
 │ └──────── User (소유자)
-└────────── 파일 타입 (- 파일, d 디렉토리, l 링크)
+└────────── 파일 타입 (- 파일, d 디렉터리, l 링크)
 ```
 -->
 
@@ -64,7 +64,7 @@ SetUID (4xxx): 실행 시 소유자 권한으로 실행
   예: /usr/bin/passwd (4755)
 
 SetGID (2xxx): 실행 시 그룹 권한으로 실행
-  디렉토리: 새 파일이 디렉토리 그룹 상속
+  디렉터리: 새 파일이 디렉터리 그룹 상속
 
 Sticky Bit (1xxx): 소유자만 삭제 가능
   예: /tmp (1777)
@@ -332,7 +332,7 @@ ps aux --sort=-%mem | head
 # 디스크 사용량
 df -h
 
-# 디렉토리별 사용량
+# 디렉터리별 사용량
 du -sh /var/log/*
 du -sh * | sort -rh | head
 
@@ -486,7 +486,7 @@ awk '$NF > 1.0' access.log
 ### SSH 키 생성
 
 ```bash
-# RSA 키 생성 (기본)
+# RSA 키 생성 (구형 시스템 호환용)
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 # Ed25519 키 생성 (권장)
@@ -673,11 +673,6 @@ ufw delete allow 80/tcp
 ### 실무 기본 설정
 
 ```bash
-# 기본 정책
-iptables -P INPUT DROP
-iptables -P FORWARD DROP
-iptables -P OUTPUT ACCEPT
-
 # localhost 허용
 iptables -A INPUT -i lo -j ACCEPT
 
@@ -690,6 +685,11 @@ iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 # 웹 서버 허용
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+
+# 기본 정책 (허용 규칙을 모두 넣은 뒤 마지막에)
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
 ```
 
 </details>

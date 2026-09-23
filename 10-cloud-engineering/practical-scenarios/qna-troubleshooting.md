@@ -197,7 +197,7 @@ spring:
 
 진단:
 1. 에러 로그에서 'Connection pool exhausted' 확인
-2. DB processlist 확인 → 대부분 Sleep 상태로 대기 중
+2. DB processlist 확인 → 대부분 Query 상태로 장시간 실행 중
 3. 슬로우 쿼리 로그 → 특정 조회 쿼리 20초 소요
 
 원인:
@@ -244,7 +244,7 @@ jmap -dump:live,format=b,file=heap.hprof <pid>
 # - Leak Suspects: 누수 의심 객체
 
 # 4. GC 로그 분석
--XX:+PrintGCDetails -XX:+PrintGCTimeStamps
+-Xlog:gc*:file=gc.log:time,uptime   # JDK 9+ (JDK 8: -XX:+PrintGCDetails -XX:+PrintGCTimeStamps)
 ```
 
 ### 흔한 원인
@@ -293,7 +293,7 @@ jmap -dump:live,format=b,file=heap.hprof <pid>
 
 진단:
 1. Kubernetes에서 Pod가 OOMKilled로 재시작되는 것 확인
-2. 메모리 그래프가 톱니바퀴 패턴 (계단식 증가)
+2. 메모리 그래프가 계단식 증가 패턴
 3. heap dump 분석 → 사용자 세션 객체가 수백만 개
 
 원인:
@@ -369,7 +369,7 @@ kubectl rollout undo deployment/myapp
 kubectl rollout status deployment/myapp
 
 # Docker Compose
-docker-compose up -d --no-deps myapp:previous-tag
+TAG=previous-tag docker compose up -d --no-deps myapp   # compose 파일에 image: myapp:${TAG}로 정의된 경우
 
 # ArgoCD
 # Git에서 이전 커밋으로 revert → 자동 동기화
@@ -498,7 +498,7 @@ spec:
 │ API Gateway  │ 캐시 정책    │ API 응답 캐시      │
 │ Application  │ Caffeine     │ 로컬 캐시          │
 │ Distributed  │ Redis        │ 세션, 핫데이터     │
-│ Database     │ Query Cache  │ 쿼리 결과          │
+│ Database     │ Buffer Pool  │ 데이터 페이지      │
 └──────────────┴──────────────┴───────────────────┘
 ```
 -->

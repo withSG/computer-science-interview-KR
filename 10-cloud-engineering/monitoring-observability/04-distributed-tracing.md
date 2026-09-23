@@ -63,7 +63,7 @@
 - `span_id` — 이 구간의 고유 ID
 - `parent_span_id` — 나를 호출한 구간 (없으면 루트 스팬)
 - 이름, 시작 시각, 종료 시각
-- 속성(attributes) — `http.method`, `db.statement`, `merchant_id` 같은 키-값
+- 속성(attributes) — `http.request.method`, `db.query.text`, `merchant_id` 같은 키-값
 - 이벤트(events) — 구간 안에서 일어난 시점 사건 (예: 예외 발생)
 - 상태(status) — 성공/실패
 - 종류(kind) — SERVER, CLIENT, PRODUCER, CONSUMER, INTERNAL
@@ -273,7 +273,7 @@ Collector가 중간에 있으면 **애플리케이션은 OTLP로만 내보내고
 ```bash
 java -javaagent:opentelemetry-javaagent.jar \
      -Dotel.service.name=order-service \
-     -Dotel.exporter.otlp.endpoint=http://otel-collector:4317 \
+     -Dotel.exporter.otlp.endpoint=http://otel-collector:4318 \
      -jar app.jar
 ```
 
@@ -380,7 +380,7 @@ A. 그 지점부터 새 trace_id로 별개 트레이스가 시작되어, 앞부�
 
 **Q. OpenTelemetry를 쓰는 이유는 무엇인가요?**
 
-A. 계측 코드를 백엔드에서 분리해주기 때문입니다. 예전에는 Jaeger용, Datadog용 클라이언트를 코드에 직접 심어야 해서 백엔드를 바꾸면 전 서비스를 수정해야 했습니다. OTel은 표준 API로 계측하고 OTLP로 내보내므로, 백엔드 교체가 Collector 설정 변경으로 끝납니다. 또 로그·메트릭· 트레이스를 같은 SDK와 같은 의미 규약으로 다룰 수 있어서 세 축을 연결하기가 쉬워집니다.
+A. 계측 코드를 백엔드에서 분리해주기 때문입니다. 예전에는 Jaeger용, Datadog용 클라이언트를 코드에 직접 심어야 해서 백엔드를 바꾸면 전 서비스를 수정해야 했습니다. OTel은 표준 API로 계측하고 OTLP로 내보내므로, 백엔드 교체가 Collector 설정 변경으로 끝납니다. 또 로그·메트릭·트레이스를 같은 SDK와 같은 의미 규약으로 다룰 수 있어서 세 축을 연결하기가 쉬워집니다.
 
 ---
 

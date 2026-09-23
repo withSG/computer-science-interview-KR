@@ -126,8 +126,8 @@ Layer 0:  [A][D][F][C][E][G][B]    (밀집)
 
 원본: [1024차원]
 분할: [128차원] × 8개 서브벡터
-양자화: 각 서브벡터를 256개 코드북으로 압축
-결과: 8바이트로 표현 (압축률 128:1)
+양자화: 각 서브벡터를 중심점 256개짜리 코드북으로 압축
+결과: 8바이트로 표현 (float32 기준 압축률 512:1)
 
 장점: 메모리 대폭 절감
 단점: 정확도 저하
@@ -137,7 +137,7 @@ Layer 0:  [A][D][F][C][E][G][B]    (밀집)
 
 | 알고리즘 | 속도 | 정확도 | 메모리 | 적합 상황 |
 |---------|------|--------|--------|----------|
-| Brute Force | 느림 | 100% | 낮음 | 소규모 |
+| Brute Force | 느림 | 100% | 중간 | 소규모 |
 | HNSW | 빠름 | 높음 | 높음 | 정확도 중요 |
 | IVF | 중간 | 중간 | 중간 | 균형 |
 | IVF-PQ | 빠름 | 낮음 | 낮음 | 대용량 |
@@ -236,10 +236,10 @@ cosine_sim = 1.0  (같은 방향)
 ### Pinecone
 
 ```python
-import pinecone
+from pinecone import Pinecone
 
-pinecone.init(api_key="...", environment="...")
-index = pinecone.Index("my-index")
+pc = Pinecone(api_key="...")
+index = pc.index("my-index")
 
 # Upsert
 index.upsert(vectors=[("id1", [0.1, 0.2, ...], {"metadata": "value"})])
@@ -346,7 +346,7 @@ results = index.query(
 1. 벡터 검색으로 Top-K 추출
 2. 결과에 메타데이터 필터 적용
 
-장점: recall 유지
+장점: ANN 인덱스를 온전히 활용
 단점: 필터 후 결과 부족 가능
 ```
 

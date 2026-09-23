@@ -15,7 +15,7 @@
 ## 선행 지식
 
 - [01-why-typescript-types.md](./01-why-typescript-types.md) - 유니온, 리터럴 타입, `unknown`/`never`
-- [02-generics-utility-types.md](./02-generics-utility-types.md) - 필수는 아니지만 `Extract`, `NonNullable`이 나옵니다
+- [02-generics-utility-types.md](./02-generics-utility-types.md) - 필수는 아니지만 `NonNullable`이 나옵니다
 
 ---
 
@@ -415,7 +415,7 @@ if (typeof value === "string") {
 }
 ```
 
-**왜 문제인가**: `value`는 `let`이라 언제든 재할당될 수 있습니다. 콜백은 **나중에** 실행되므로 그 시점의 값이 여전히 문자열이라는 보장이 없습니다. 컴파일러의 판단이 옳습니다.
+**왜 문제인가**: `value`는 `let`이라 언제든 재할당될 수 있습니다. 콜백은 **나중에** 실행되므로 그 시점의 값이 여전히 문자열이라는 보장이 없습니다. 컴파일러의 판단이 옳습니다. 다만 TypeScript 5.4부터는 모듈이나 함수 안의 `let` 변수라면 콜백을 만든 지점 뒤로 대입이 없을 때 좁히기를 유지하므로, 이 오류는 그 뒤 어딘가에서 `value`를 다시 대입하는 코드(또는 5.3 이하)에서 납니다.
 
 ```ts
 // 개선 1 — 좁혀진 값을 const 지역 변수에 옮겨 담는다
@@ -449,7 +449,7 @@ if (isString) {
 }
 ```
 
-여기에도 조건이 붙습니다. **조건을 담은 변수와 검사 대상 변수가 둘 다 `const`**(또는 `readonly` 속성, 재할당되지 않는 매개변수)여야 합니다. 어느 한쪽이 `let`이면 컴파일러는 검사 시점과 사용 시점 사이에 값이 바뀌지 않았다고 확신할 수 없어 좁히기를 포기합니다.
+여기에도 조건이 붙습니다. **조건을 담은 변수와 검사 대상 변수가 둘 다 `const`**(또는 `readonly` 속성, 재할당되지 않는 매개변수, 5.4부터는 재할당되지 않는 `let`)여야 합니다. 조건 변수가 `let`이거나 검사 대상이 재할당되면 컴파일러는 검사 시점과 사용 시점 사이에 값이 바뀌지 않았다고 확신할 수 없어 좁히기를 포기합니다.
 
 ### 그래서 규칙은
 
@@ -457,7 +457,7 @@ if (isString) {
 |------|------------|------|
 | 같은 블록 안, 재할당 없음 | 유지 | 그대로 쓴다 |
 | `const` 변수를 콜백에서 참조 | 유지 | 그대로 쓴다 |
-| `let` 변수를 콜백에서 참조 | 풀림 | `const` 지역 변수에 담는다 |
+| `let` 변수를 콜백에서 참조 | 풀림(5.4+는 콜백 생성 뒤 재할당이 없으면 유지) | `const` 지역 변수에 담는다 |
 | 좁힌 뒤 재할당 | 풀림 | 새 변수를 만든다 |
 | 조건을 `const`에 담아 재사용 | 유지(4.4+) | 그대로 쓴다 |
 | 조건을 `let`에 담아 재사용 | 풀림 | `const`로 바꾼다 |
@@ -553,12 +553,12 @@ const mockUser = { id: 1 } as User;
 | `strictPropertyInitialization` | 클래스 필드가 초기화되지 않은 채 남는 것 | 생성자에서 대입을 빠뜨린 필드가 `undefined`인 채로 쓰인다 |
 | `strictBindCallApply` | `bind`/`call`/`apply` 인자 검사 누락 | 인자 개수와 타입이 틀려도 통과 |
 | `noImplicitThis` | `this`가 암묵적 `any`가 되는 것 | 콜백 안의 `this`에 아무 속성이나 접근 가능 |
-| `useUnknownInCatchVariables` | `catch (e)`가 `any`인 것 | `e.message`를 검증 없이 호출 — 던져진 것이 문자열이면 터진다 |
+| `useUnknownInCatchVariables` | `catch (e)`가 `any`인 것 | `e.message`를 검증 없이 호출 — 던져진 것이 문자열이면 `undefined`가 나온다 |
 | `alwaysStrict` | 출력 JS에 `"use strict"` 누락 | 느슨한 모드의 암묵적 전역 변수 등이 살아난다 |
 
 > 표 요약: 실무 영향이 압도적으로 큰 것은 **`strictNullChecks`와 `noImplicitAny`** 둘입니다. 레거시 프로젝트를 옮기는 중이라면 이 둘을 먼저 켜고 나머지를 순차적으로 붙이면 됩니다.
 
-`strict`에 묶인 옵션 목록은 버전에 따라 늘어납니다. 위 여덟 개가 오래 유지된 구성이고, TypeScript 5.6에서 `strictBuiltinIteratorReturn`이 추가됐습니다. 정확한 목록이 필요하면 쓰고 있는 버전의 컴파일러 옵션 문서를 확인하는 편이 안전합니다.
+`strict`에 묶인 옵션 목록은 버전에 따라 늘어납니다. 위 여덟 개가 오래 유지된 구성이고, TypeScript 5.6에서 `strictBuiltinIteratorReturn`이 추가됐습니다. TypeScript 6.0부터는 `strict`의 기본값이 `true`로 바뀌었고, `alwaysStrict: false`는 6.0에서 사용 중단(deprecated)된 뒤 7.0부터 아예 설정할 수 없어 모든 코드가 엄격 모드로 취급됩니다. 정확한 목록이 필요하면 쓰고 있는 버전의 컴파일러 옵션 문서를 확인하는 편이 안전합니다.
 
 `useUnknownInCatchVariables` 덕분에 예외 처리 코드가 이렇게 바뀝니다.
 
@@ -642,4 +642,4 @@ A. `strictNullChecks`, `noImplicitAny`, `strictFunctionTypes`, `strictPropertyIn
 - [02-generics-utility-types.md](./02-generics-utility-types.md) - 타입 가드에서 쓰는 `NonNullable`, `Extract`가 어떻게 만들어지는지
 - [qna-typescript.md](./qna-typescript.md) - 이 주제 면접 질문(Q5, Q6)
 - [../javascript-deep-dive/06-promise-async-await.md](../javascript-deep-dive/06-promise-async-await.md) - 비동기 코드의 `catch` 블록에서 `unknown`을 다루는 맥락
-- [../react-architecture/qna-react.md](../react-architecture/qna-react.md) - 컴포넌트 상태를 판별 유니온으로 모델링하는 실전 맥락
+- [../react-architecture/qna-react.md](../react-architecture/qna-react.md) - `action.type`으로 분기하는 Redux 리듀서 등 React 상태 관리 면접 질문

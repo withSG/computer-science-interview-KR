@@ -81,7 +81,7 @@ setCount(newCount);  // Virtual DOM 비교 후 필요한 부분만 업데이트
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-재조정 알고리즘은 Virtual DOM의 두 트리를 비교한 뒤 **최소한의 변경으로 실제 DOM을 업데이트**합니다.
+재조정 알고리즘은 Virtual DOM의 두 트리를 비교한 뒤 **바뀐 부분만 실제 DOM에 반영**합니다.
 
 ### Diffing 알고리즘의 휴리스틱
 
@@ -210,7 +210,7 @@ Fiber Reconciler (React 16+):
   pendingProps: {},      // 새 props
   memoizedProps: {},     // 이전 props
   memoizedState: {},     // 이전 state
-  effectTag: 'UPDATE',   // 수행할 작업
+  flags: Update,         // 수행할 작업
   // ...
 }
 ```
@@ -219,11 +219,11 @@ Fiber Reconciler (React 16+):
 
 | 단계 | Render Phase | Commit Phase |
 |------|--------------|--------------|
-| 특징 | 비동기, 중단 가능 | 동기, 중단 불가 |
+| 특징 | 비동기, 중단 가능 (동시성 업데이트일 때) | 동기, 중단 불가 |
 | 작업 | Virtual DOM 비교, 변경사항 계산 | 실제 DOM 업데이트 |
 | Side Effect | 없음 | 있음 |
 
-### Concurrent Mode (React 18)
+### 동시성 기능 (React 18)
 
 ```jsx
 // 긴급하지 않은 업데이트
@@ -736,7 +736,7 @@ function UncontrolledInput() {
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Facebook은 MVC의 양방향 데이터 흐름에서 발생하는 복잡성을 해결하려고 FLUX를 제안했습니다. **단방향 데이터 흐름 아키텍처**이며 Action → Dispatcher → Store → View 순환 구조로 상태 변화를 예측 가능하게 만들었습니다.
+Facebook은 MVC의 양방향 데이터 흐름에서 발생하는 복잡성을 해결하려고 FLUX를 제안했습니다. FLUX는 **단방향 데이터 흐름 아키텍처**이며 Action → Dispatcher → Store → View 순환 구조로 상태 변화를 예측 가능하게 만들었습니다.
 
 ### FLUX 데이터 흐름
 
@@ -859,7 +859,7 @@ state.items.push(newItem);
 setState(state); // 같은 참조
 
 // 올바른 예 - 새 참조 반환
-setState([...state.items, newItem]);
+setState({ ...state, items: [...state.items, newItem] });
 
 // 객체
 setState({ ...state, name: 'new name' });
@@ -910,7 +910,7 @@ setState(produce(state, draft => {
 - useEffect로 부수효과를 격리하는 방식
 
 ### 꼬리 질문 대비
-- "React 컴포넌트가 순수해야 하는 이유는?" → Concurrent Mode에서 렌더링이 여러 번 호출될 수 있어 부수효과가 렌더 단계에 있으면 예측 불가능한 동작이 발생합니다
+- "React 컴포넌트가 순수해야 하는 이유는?" → 동시성 렌더링에서 렌더링이 여러 번 호출될 수 있어 부수효과가 렌더 단계에 있으면 예측 불가능한 동작이 발생합니다
 
 </details>
 
@@ -1022,7 +1022,7 @@ useEffect(() => {
 - 렌더링 간 값 유지 용도 인지
 
 ### 꼬리 질문 대비
-- "forwardRef는 언제 사용하나요?" → 부모 컴포넌트가 자식 컴포넌트의 DOM 노드에 ref로 접근해야 할 때 사용합니다
+- "forwardRef는 언제 사용하나요?" → 부모 컴포넌트가 자식 컴포넌트의 DOM 노드에 ref로 접근해야 할 때 사용합니다. 다만 React 19부터는 함수 컴포넌트가 `ref`를 일반 prop으로 받을 수 있어 `forwardRef`가 필요 없습니다
 
 </details>
 

@@ -143,7 +143,7 @@ chmod 644 ~/.ssh/id_ed25519.pub
 chmod 600 ~/.ssh/authorized_keys
 ```
 
-**OpenSSH는 개인키가 다른 사용자에게 읽힐 수 있으면 접속을 거부합니다.** 남이 읽을 수 있는 개인키는 이미 유출된 것으로 간주하는 정책입니다. 서버 쪽도 마찬가지라, `~/.ssh`가 700이 아니거나 홈 디렉터리가 그룹 쓰기 가능하면 키 인증이 조용히 실패합니다. CI에서 키 파일을 내려받은 뒤 `chmod 600`을 빠뜨려 실패하는 일이 드물지 않게 벌어집니다.
+**OpenSSH는 개인키가 다른 사용자에게 읽힐 수 있으면 접속을 거부합니다.** 남이 읽을 수 있는 개인키는 이미 유출된 것으로 간주하는 정책입니다. 서버 쪽도 마찬가지라, `~/.ssh`가 그룹·기타 사용자에게 쓰기 가능하거나 홈 디렉터리가 그룹 쓰기 가능하면 키 인증이 조용히 실패합니다. CI에서 키 파일을 내려받은 뒤 `chmod 600`을 빠뜨려 실패하는 일이 드물지 않게 벌어집니다.
 
 ```bash
 # 4) 접속 안 될 때 원인 찾기
@@ -224,7 +224,7 @@ sshd 설정을 잘못 고치고 재시작했다가 서버에 못 들어가는 �
 추가로 주의할 점이 둘 있습니다.
 
 - **포트를 바꿨다면** OS 방화벽과 클라우드 보안 그룹에서 새 포트를 먼저 열어야 합니다. SELinux를 쓰는 배포판에서는 포트 컨텍스트도 등록해야 sshd가 바인딩할 수 있습니다.
-- 배포판에 따라 sshd가 systemd 소켓 액티베이션(`ssh.socket`)으로 뜨는 경우가 있습니다. 이때는 `sshd_config`의 `Port`가 무시되므로 소켓 유닛 쪽을 함께 고쳐야 합니다.
+- 배포판에 따라 sshd가 systemd 소켓 액티베이션(`ssh.socket`)으로 뜨는 경우가 있습니다. 이때는 sshd만 재시작해서는 새 `Port`가 반영되지 않으므로 `systemctl daemon-reload` 후 `ssh.socket`을 재시작해야 합니다.
 
 ---
 
@@ -454,7 +454,7 @@ sudo apt install fail2ban          # 또는 dnf install fail2ban
 bantime  = 1h
 findtime = 10m
 maxretry = 5
-ignoreip = 127.0.0.1/8 203.0.113.0/24    # 사내 대역은 제외
+ignoreip = 127.0.0.1/8 203.0.113.0/24    ; 사내 대역은 제외
 
 [sshd]
 enabled = true
@@ -463,7 +463,7 @@ enabled = true
 ```bash
 sudo systemctl enable --now fail2ban
 sudo fail2ban-client status sshd     # 현재 차단된 IP 확인
-sudo fail2ban-client set sshd unbanip 203.0.113.55
+sudo fail2ban-client set sshd unbanip 198.51.100.55
 ```
 
 `ignoreip`에 사무실이나 배스천 대역을 넣어두지 않으면 **오타로 자기 자신이 차단되는** 일이 생깁니다. 실제로 자주 일어나므로 설정 시 반드시 챙깁니다.
@@ -553,7 +553,7 @@ A. 체인의 규칙은 위에서 아래로 평가되고 첫 번째로 일치하�
 
 - [리눅스 기본기](./01-linux-essentials.md) - 파일 권한과 SUID가 보안에서 갖는 의미
 - [네트워크 진단 명령어](./02-networking-commands.md) - 방화벽 차단 여부를 판별하는 방법
-- [셸 스크립팅](./04-shell-scripting.md) - 자동화 스크립트에 자격 증명을 넣지 않기
+- [셸 스크립팅](./04-shell-scripting.md) - 운영 작업을 안전하게 자동화하는 스크립트 작성법
 - [qna-linux-networking.md](./qna-linux-networking.md) - 이 주제 면접 질문 모음
 - [qna-security.md](../../08-security/qna-security.md) - 애플리케이션 보안 전반
 - [qna-aws.md](../aws/qna-aws.md) - 보안 그룹, IAM 등 클라우드 보안 모델

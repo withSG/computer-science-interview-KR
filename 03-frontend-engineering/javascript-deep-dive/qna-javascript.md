@@ -649,7 +649,7 @@ console.log(y);  // ReferenceError: y is not defined
 ```
 var 선언 ─── 선언 + 초기화(undefined) 동시 진행
 let 선언 ─── 선언만 진행 → TDZ 구간 → 초기화(변수 선언문 도달 시)
-const 선언 ── 선언 + 초기화 + 할당 동시 진행
+const 선언 ── 선언만 진행 → TDZ 구간 → 초기화 + 할당(변수 선언문 도달 시 동시 진행)
 ```
 
 ```js
@@ -911,7 +911,7 @@ ES6 클래스는 프로토타입 기반 객체지향을 **더 쉽게 작성하�
 | 구분 | 클래스 | 생성자 함수 |
 |------|--------|-------------|
 | new 없이 호출 | TypeError | 일반 함수로 동작 |
-| 상속 | extends/super 지원 | 지원하지 않음 |
+| 상속 | extends/super 지원 | extends/super 없음 (프로토타입을 직접 연결해 상속) |
 | 호이스팅 | TDZ 존재 (선언 전 사용 불가) | 함수 선언문은 완전 호이스팅 |
 | strict mode | 자동 적용 | 수동 설정 필요 |
 | 열거 | 메서드 [[Enumerable]] = false | 열거 가능 |
@@ -1278,7 +1278,7 @@ element.removeEventListener('click', handler);  // 정리
 function outer() {
     const largeData = new Array(10000);
     return function inner() {
-        // largeData 참조가 유지되어 GC 안됨
+        return largeData.length;  // largeData를 참조하므로 inner가 살아 있는 동안 GC 안됨
     };
 }
 ```
@@ -1489,7 +1489,7 @@ console.log(gen.next(25));         // { value: '홍길동님은 25살입니다.'
 | 구분 | Map | Object |
 |------|-----|--------|
 | 키 타입 | 모든 타입 (객체, 함수 등) | 문자열, Symbol만 |
-| 순서 | 삽입 순서 보장 | 보장하지 않음 (ES2015+는 보장) |
+| 순서 | 삽입 순서 보장 | 보장하지 않음 (ES2015+: 정수형 키는 오름차순, 나머지 문자열 키는 삽입 순) |
 | 크기 | map.size | Object.keys(obj).length |
 | 순회 | for...of 직접 가능 | Object.keys/entries 필요 |
 | 성능 | 빈번한 추가/삭제에 유리 | 정적 데이터에 유리 |
@@ -1528,14 +1528,14 @@ const unique = [...new Set(arr)];  // [1, 2, 3, 4]
 ### WeakMap / WeakSet
 
 ```js
-// WeakMap: 키가 객체만 가능, 약한 참조 → GC 대상 가능
+// WeakMap: 키가 객체만 가능(ES2023+는 등록되지 않은 심볼도), 약한 참조 → GC 대상 가능
 const weakMap = new WeakMap();
 let obj = { name: 'test' };
 weakMap.set(obj, 'value');
 
 obj = null;  // obj가 GC 대상이 되면 WeakMap에서도 자동 제거
 
-// WeakSet: 값이 객체만 가능, 약한 참조
+// WeakSet: 값이 객체만 가능(ES2023+는 등록되지 않은 심볼도), 약한 참조
 const weakSet = new WeakSet();
 let item = { id: 1 };
 weakSet.add(item);
@@ -1720,7 +1720,7 @@ DELETE /todos/1     ← 삭제
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-JavaScript의 에러 처리는 **try/catch/finally** 문으로 합니다. try 블록에서 에러가 나면 catch 블록이 실행되어, 프로그램이 **강제 종료되는 것을 막습니다**. **throw** 문으로 의도적으로 에러를 발생시킬 수도 있고, JavaScript는 7가지 빌트인 Error 타입을 제공합니다.
+JavaScript의 에러 처리는 **try/catch/finally** 문으로 합니다. try 블록에서 에러가 나면 catch 블록이 실행되어, 프로그램이 **강제 종료되는 것을 막습니다**. **throw** 문으로 의도적으로 에러를 발생시킬 수도 있고, JavaScript는 7가지 대표적인 빌트인 Error 타입을 제공합니다.
 
 ### try / catch / finally
 

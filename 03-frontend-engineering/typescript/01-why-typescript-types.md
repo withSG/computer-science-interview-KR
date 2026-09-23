@@ -524,7 +524,7 @@ const routesB = {
 } satisfies Record<string, Route>;
 
 routesB.hoem;        // 오류: 'hoem' 속성이 없습니다
-routesB.home.auth;   // boolean으로 정확히 추론
+routesB.home.auth;   // 리터럴 타입 false로 정확히 추론
 ```
 
 `satisfies`는 "이 값이 저 타입에 맞는지 검사만 해라, 대신 값의 타입은 원래 추론된 것을 유지해라"는 뜻입니다. 설정 객체, 라우트 테이블, 아이콘 맵처럼 **키 목록 자체가 정보인 상수**에 잘 맞습니다.

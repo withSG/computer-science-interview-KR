@@ -349,7 +349,7 @@ public Product getProduct(Long id) {
 
     String lockKey = "lock:" + key;
     Boolean acquired = stringRedisTemplate.opsForValue()
-            .setIfAbsent(lockKey, "1", Duration.ofSeconds(3));   // SET NX PX
+            .setIfAbsent(lockKey, "1", Duration.ofSeconds(3));   // SET NX EX
 
     if (Boolean.TRUE.equals(acquired)) {
         try {

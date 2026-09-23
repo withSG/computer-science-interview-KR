@@ -19,7 +19,7 @@
 | CSR | 런타임 (브라우저) | 클라이언트 | 빈 HTML + JS로 렌더링 |
 | SSR | 런타임 (요청 시) | 서버 | 매 요청마다 서버에서 생성 |
 | SSG | 빌드 타임 | 서버 | 빌드 시 미리 생성 |
-| ISR | 빌드 + 런타임 | 서버 | SSG + 주기적 재생성 |
+| ISR | 빌드 + 런타임 | 서버 | SSG + 만료 후 요청 시 재생성 |
 
 ### CSR (Client-Side Rendering)
 
@@ -33,7 +33,7 @@ function App() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        fetch('/api/data').then(res => setData(res));
+        fetch('/api/data').then(res => res.json()).then(setData);
     }, []);
 
     return <div>{data}</div>;
@@ -58,7 +58,7 @@ export async function getServerSideProps() {
 
 // Next.js App Router
 async function Page() {
-    const data = await fetchData();  // 서버에서 실행
+    const data = await fetchData();  // cookies() 등 동적 API를 함께 쓸 때 요청마다 실행
     return <div>{data}</div>;
 }
 ```
@@ -92,7 +92,7 @@ async function Page() {
 ### ISR (Incremental Static Regeneration)
 
 ```
-초기 요청 → 캐시된 HTML 응답 → 백그라운드에서 재생성 → 다음 요청에 새 HTML
+만료 후 요청 → 캐시된(stale) HTML 응답 → 백그라운드에서 재생성 → 다음 요청에 새 HTML
 ```
 
 ```jsx
@@ -100,7 +100,7 @@ async function Page() {
 export async function getStaticProps() {
     return {
         props: { data },
-        revalidate: 60  // 60초마다 재생성
+        revalidate: 60  // 60초가 지난 뒤 요청이 오면 백그라운드 재생성
     };
 }
 
@@ -198,7 +198,7 @@ function Time() {
 
 **2. 큰 JS 번들로 인한 TTI 지연**
 - Selective Hydration (React 18)
-- Streaming SSR로 해결
+- Streaming SSR로 완화 (TTI 자체는 번들 축소가 함께 가야 개선)
 
 ### Selective Hydration (React 18)
 
@@ -311,7 +311,7 @@ function InteractiveButton({ data }) {
 
 ```jsx
 // Server Component에서 불가능한 것들
-'use server';
+// 지시어 없음 — App Router에서는 서버 컴포넌트가 기본값
 
 function ServerComponent() {
     const [state, setState] = useState();  // ❌ useState 불가
@@ -361,7 +361,7 @@ async function ClientComponent() {  // ❌ async 불가
 ```jsx
 // Pages Router
 export async function getServerSideProps() {
-    const data = await fetch('...');
+    const data = await (await fetch('...')).json();
     return { props: { data } };
 }
 
@@ -371,7 +371,7 @@ function Page({ data }) {
 
 // App Router
 async function Page() {
-    const data = await fetch('...');  // 직접 async/await
+    const data = await (await fetch('...')).json();  // 직접 async/await
     return <div>{data}</div>;
 }
 ```
@@ -440,7 +440,7 @@ export const dynamic = 'force-dynamic';
 
 // 태그 기반 재검증
 fetch(url, { next: { tags: ['posts'] } });
-// revalidateTag('posts')로 무효화
+// revalidateTag('posts', 'max')로 무효화 (Next.js 16부터 두 번째 인자 필요)
 ```
 
 ### 면접관이 주목하는 포인트

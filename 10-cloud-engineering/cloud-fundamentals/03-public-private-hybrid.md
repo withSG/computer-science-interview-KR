@@ -237,7 +237,7 @@ AWS, Azure, GCP, NCP처럼 벤더가 소유·운영하는 인프라를 불특정
 
 ## 7. 마이그레이션 6R 전략
 
-기존 시스템을 클라우드로 옮길 때, 애플리케이션마다 옮기는 방식이 달라야 합니다. AWS가 정리한 **6R**이 업계 공통 언어로 쓰입니다.
+기존 시스템을 클라우드로 옮길 때, 애플리케이션마다 옮기는 방식이 달라야 합니다. AWS가 정리한 **6R**이 업계 공통 언어로 쓰입니다(현재 AWS 문서는 여기에 Relocate를 더해 7R로 설명합니다).
 
 | 전략 | 하는 일 | 속도 | 클라우드 이점 활용 | 적합한 대상 |
 |------|--------|------|------------------|-----------|
@@ -273,7 +273,7 @@ aws directconnect describe-connections
 aws directconnect describe-virtual-interfaces \
   --query "virtualInterfaces[].{Id:virtualInterfaceId,State:virtualInterfaceState}"
 
-# 3) 백업 경로인 VPN 터널이 올라와 있는지 (올라와 있다면 이미 페일오버된 것)
+# 3) 백업 경로인 VPN 터널이 올라와 있는지 (대기 중에도 보통 UP이므로 UP만으로 페일오버됐다고 단정할 수 없다)
 aws ec2 describe-vpn-connections \
   --query "VpnConnections[].{Id:VpnConnectionId,State:State,Tunnel:VgwTelemetry[].Status}"
 

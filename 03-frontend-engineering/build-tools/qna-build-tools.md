@@ -50,7 +50,7 @@
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Webpack은 최신 프론트엔드 프레임워크에서 가장 많이 쓰는 **모듈 번들러**입니다. 웹 애플리케이션을 구성하는 모든 자원(HTML, CSS, JS, 이미지 등)을 모듈로 봅니다. 이 모듈들을 조합해 병합된 결과물을 만드는 도구입니다. 파일 단위로 자바스크립트 모듈을 관리해야 했던 필요성과 HTTP 요청 수를 줄여 성능을 개선하려는 목적이 맞물려 등장했습니다.
+Webpack은 오랫동안 가장 널리 쓰여 온 **모듈 번들러**입니다. 웹 애플리케이션을 구성하는 모든 자원(HTML, CSS, JS, 이미지 등)을 모듈로 봅니다. 이 모듈들을 조합해 병합된 결과물을 만드는 도구입니다. 파일 단위로 자바스크립트 모듈을 관리해야 했던 필요성과 HTTP 요청 수를 줄여 성능을 개선하려는 목적이 맞물려 등장했습니다.
 
 ### Webpack 사용 이점
 
@@ -68,7 +68,7 @@ Webpack은 최신 프론트엔드 프레임워크에서 가장 많이 쓰는 **�
 
 ### 꼬리 질문 대비
 - "Webpack 대신 Vite를 사용하는 이유는?"
-  → Vite는 개발 시 ESM을 활용한 네이티브 브라우저 모듈 로딩으로 번들링 없이 빠른 HMR 제공. 프로덕션은 Rollup으로 번들링
+  → Vite는 개발 시 ESM을 활용한 네이티브 브라우저 모듈 로딩으로 번들링 없이 빠른 HMR 제공. 프로덕션은 Rolldown(Vite 7까지는 Rollup)으로 번들링
 
 </details>
 
@@ -80,7 +80,7 @@ Webpack은 최신 프론트엔드 프레임워크에서 가장 많이 쓰는 **�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-Webpack의 4가지 핵심 속성은 **entry(시작점), output(결과물), loader(파일 변환), plugin**(결과물 최적화)입니다. entry는 번들링의 시작 파일 경로, output은 번들 결과물의 경로와 파일명을 지정합니다. loader는 JS 외의 파일을 처리하는 변환기입니다. plugin은 번들 최적화나 환경 변수 주입처럼 번들 결과물의 형태를 바꾸는 역할을 합니다.
+Webpack의 4가지 핵심 속성은 <strong>entry(시작점), output(결과물), loader(파일 변환), plugin(결과물 최적화)</strong>입니다. entry는 번들링의 시작 파일 경로, output은 번들 결과물의 경로와 파일명을 지정합니다. loader는 JS 외의 파일을 처리하는 변환기입니다. plugin은 번들 최적화나 환경 변수 주입처럼 번들 결과물의 형태를 바꾸는 역할을 합니다.
 
 ### 4가지 주요 속성
 
@@ -182,7 +182,7 @@ Babel은 **JavaScript 트랜스파일러**입니다. 최신 JavaScript 문법(ES
     "@babel/preset-react"
   ],
   "plugins": [
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-transform-class-properties"
   ]
 }
 ```

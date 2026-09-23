@@ -22,7 +22,7 @@
 엔진은 코드를 실행하기 전에 스코프 전체를 한 번 훑습니다. 실행 도중에 처음 보는 이름이 튀어나올 때마다 "이게 지역 변수인가 전역 변수인가"를 다시 판정하는 건 비효율적이고, 서로를 호출하는 두 함수(상호 재귀)를 정의할 방법도 없어지기 때문입니다.
 
 ```js
-// 이 코드가 동작하려면, isEven이 정의되기 전에 isOdd가 isEven을 알아야 한다
+// 이 코드가 동작하려면, isOdd가 정의되기 전에 isEven이 isOdd를 알아야 한다
 function isEven(n) { return n === 0 ? true : isOdd(n - 1); }
 function isOdd(n)  { return n === 0 ? false : isEven(n - 1); }
 console.log(isEven(10)); // true
@@ -83,7 +83,7 @@ var count = 10;
 console.log(count); // 10
 ```
 
-에러가 나지 않는 것이 왜 문제인가? **버그가 에러가 아니라 잘못된 값으로 나타나기 때문**입니다.
+에러가 나지 않는 것이 왜 문제일까요? **버그가 에러가 아니라 잘못된 값으로 나타나기 때문**입니다.
 
 ```js
 function getDiscount(user, price) {
@@ -369,4 +369,4 @@ A. 이유는 네 가지입니다. 첫째, 함수 스코프라 블록을 뚫고 �
 - [01-execution-context.md](./01-execution-context.md) - 생성 단계와 실행 단계가 나뉘는 이유
 - [03-closure.md](./03-closure.md) - `let`이 반복마다 새 바인딩을 만드는 동작의 응용
 - [qna-javascript.md](./qna-javascript.md) - 호이스팅, `var`/`let`/`const` 면접 질문 모음
-- [../typescript/qna-typescript.md](../typescript/qna-typescript.md) - 타입 시스템이 선언 전 사용을 잡아주는 방식
+- [../typescript/qna-typescript.md](../typescript/qna-typescript.md) - 타입 시스템이 컴파일 단계에서 오류를 잡아주는 방식

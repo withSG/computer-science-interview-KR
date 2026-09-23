@@ -303,7 +303,7 @@ button.addEventListener('click', async () => {
 
 ## 7. 실무에서는
 
-- **Lighthouse / PageSpeed Insights**: "렌더링 차단 리소스 제거" 항목이 바로 이 문서의 내용입니다. 차단 리소스 목록과 예상 절감 시간을 그대로 보여줍니다.
+- **Lighthouse / PageSpeed Insights**: "렌더링 차단 요청" 항목(Lighthouse 13 이전 이름은 "렌더링 차단 리소스 제거")이 바로 이 문서의 내용입니다. 차단 리소스 목록과 예상 절감 시간을 그대로 보여줍니다.
 - **DevTools Network 패널의 Waterfall**: 어떤 리소스가 언제 발견되어 언제 요청됐는지 볼 수 있습니다. 막대가 오른쪽으로 계단처럼 밀려 있으면 직렬 의존(예: `@import` 체인, JS가 만든 URL)을 의심합니다.
 - **DevTools Performance 패널**: 파싱·스타일 계산·레이아웃·페인트가 시간축에 나옵니다. 첫 화면이 늦을 때 네트워크 문제인지 메인 스레드 문제인지 여기서 갈립니다.
 - **번들러(Vite, webpack 등)**: 코드 분할, CSS 추출, `@import` 인라이닝을 빌드 시점에 처리합니다. 런타임 최적화보다 빌드 설정으로 푸는 편이 유지보수에 낫습니다.

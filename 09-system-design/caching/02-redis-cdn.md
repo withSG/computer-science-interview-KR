@@ -126,7 +126,7 @@ Redis를 "값을 문자열로 넣는 곳"으로만 쓰면 절반도 못 쓰는 �
 | 값의 형태 | String, Hash, List, Set, Sorted Set, Stream 등 | 바이트 배열 하나 |
 | 영속화 | RDB·AOF 지원 (4절) | 없음. 재시작하면 전부 사라진다 |
 | 복제·페일오버 | 복제와 자동 페일오버가 제품에 포함(Sentinel, Cluster) | 서버 자체에는 없습니다. 클라이언트가 여러 노드에 샤딩합니다 |
-| 스레드 모델 | 명령 실행은 단일 스레드 (2절) | 처음부터 멀티 스레드 |
+| 스레드 모델 | 명령 실행은 단일 스레드 (2절) | 멀티 스레드 |
 | 부가 기능 | Lua 스크립트, Pub/Sub, 트랜잭션, 만료 이벤트 | 사실상 없음 |
 | 값당 메모리 오버헤드 | 자료구조 메타데이터만큼 더 든다 | 단순 문자열 캐시에서는 더 작은 편 |
 
@@ -150,7 +150,7 @@ Long rank = redisTemplate.opsForZSet().reverseRank("ranking:20260726", "post:100
 
 ### 세션
 
-세션을 서버 메모리에 두면 서버를 늘릴 때마다 "그 사용자의 세션이 있는 서버로만 보내야 하는" 문제(세션 고정)가 생깁니다. Redis에 두면 모든 서버가 같은 세션을 봅니다. 그러면 애플리케이션 서버가 무상태(stateless)가 되어 자유롭게 늘리고 줄일 수 있습니다. Spring 진영에서는 `spring-session-data-redis`를 의존성에 추가하는 것만으로 `HttpSession` 구현이 Redis로 바뀝니다.
+세션을 서버 메모리에 두면 서버를 늘릴 때마다 "그 사용자의 세션이 있는 서버로만 보내야 하는" 문제(세션 고정)가 생깁니다. Redis에 두면 모든 서버가 같은 세션을 봅니다. 그러면 애플리케이션 서버가 무상태(stateless)가 되어 자유롭게 늘리고 줄일 수 있습니다. Spring 진영에서는 `spring-boot-starter-session-data-redis`(Spring Boot 3까지는 `spring-session-data-redis`)를 의존성에 추가하는 것만으로 `HttpSession` 구현이 Redis로 바뀝니다.
 
 ### Rate Limiting
 
@@ -271,7 +271,7 @@ public void process(Long orderId) {
     String token = UUID.randomUUID().toString();      // 내 락임을 식별하는 값
 
     Boolean acquired = redisTemplate.opsForValue()
-            .setIfAbsent(lockKey, token, Duration.ofSeconds(30));   // SET NX PX
+            .setIfAbsent(lockKey, token, Duration.ofSeconds(30));   // SET NX EX
     if (!Boolean.TRUE.equals(acquired)) throw new AlreadyProcessingException();
 
     try {
@@ -414,7 +414,7 @@ CDN과 브라우저는 우리가 보낸 헤더대로 움직입니다. 캐시 정
 
 ## 10. 실무에서는
 
-- **Redis를 한 인스턴스에 여러 용도로 섞지 않습니다.** 캐시(축출 허용)와 세션(축출되면 로그아웃)을 한 곳에 두면 축출 정책을 정할 수 없습니다. 최소한 논리 DB를 나누거나 인스턴스를 분리합니다.
+- **Redis를 한 인스턴스에 여러 용도로 섞지 않습니다.** 캐시(축출 허용)와 세션(축출되면 로그아웃)을 한 곳에 두면 축출 정책을 정할 수 없습니다. 인스턴스를 분리합니다. 논리 DB는 `maxmemory`와 축출 정책을 인스턴스 전체가 공유하므로 나눠도 이 문제는 풀리지 않습니다.
 - **Redis 클라이언트에는 짧은 타임아웃을 설정합니다.** Redis가 느려졌을 때 애플리케이션 스레드가 무한정 대기하면, 캐시 장애가 그대로 서비스 전체 장애가 됩니다. 타임아웃이 나면 DB로 폴백하는 경로까지 만들어 두어야 캐시를 붙인 보람이 있습니다.
 - **CDN 히트율은 대시보드의 1급 지표입니다.** 히트율이 낮다면 대개 `Vary` 설정이 과하거나, 캐시 키에 쓸데없는 쿼리 파라미터(광고 추적용 `utm_*` 등)가 포함돼 같은 콘텐츠가 여러 항목으로 쪼개진 것입니다.
 - **API 응답에도 CDN을 쓸 수 있습니다.** 공개 데이터(상품 목록, 공지)라면 `s-maxage`와 `stale-while-revalidate`를 붙여 CDN에 캐시하면 오리진 트래픽이 크게 줍니다. 다만 사용자별 응답에 `public`을 붙이는 사고가 나지 않도록, 인증이 필요한 엔드포인트에는 기본으로 `private, no-store`가 붙게 프레임워크 레벨에서 강제하는 편이 안전합니다.
@@ -457,7 +457,7 @@ A. `no-cache`는 저장은 하되 **사용하기 전에 서버에 재검증하�
 | 실수 | 왜 틀렸나 | 올바른 이해 |
 |------|----------|-----------|
 | 운영 Redis에서 `KEYS *`로 키를 찾는다 | O(N)이라 실행되는 동안 모든 요청이 멈춘다 | `SCAN`으로 커서 기반 순회. 삭제는 `UNLINK` |
-| 캐시 인스턴스를 기본 설정 그대로 쓴다 | `maxmemory-policy` 기본값이 `noeviction`이라 메모리가 차면 쓰기가 전부 실패한다 | 캐시 용도면 `allkeys-lru` 계열로 바꾼다 |
+| 캐시 인스턴스에 `maxmemory`만 정하고 축출 정책은 기본값 그대로 쓴다 | `maxmemory-policy` 기본값이 `noeviction`이라 메모리가 차면 쓰기가 전부 실패한다 | 캐시 용도면 `allkeys-lru` 계열로 바꾼다 |
 | 분산 락에 TTL을 안 건다 | 락을 쥔 프로세스가 죽으면 영원히 풀리지 않는다 | 항상 TTL을 걸고 해제는 소유자 확인 후 Lua로 원자 처리 |
 | `no-cache`는 캐시 금지다 | 저장은 하고 사용 전에 재검증한다는 뜻이다 | 진짜 금지는 `no-store` |
 | 배포할 때마다 CDN 전체를 purge 한다 | 전파에 시간이 걸리고 비용도 듭니다. 그동안 오리진이 미스 폭탄을 맞습니다 | 파일명에 해시를 넣는 버전드 URL로 무효화 자체를 없앤다 |

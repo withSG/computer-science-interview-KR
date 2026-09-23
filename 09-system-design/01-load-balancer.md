@@ -333,7 +333,7 @@ public Map<String, String> dependencies() {
 ```
    [잘못된 순서]                        [올바른 순서]
 
-   프로세스 종료                        ① 종료 신호 수신 (SIGTERM)
+   프로세스 종료                        ① 종료 시작 (SIGTERM 수신 또는 preStop 훅)
         │                                    │
         ▼                              ② 헬스체크를 즉시 실패로 전환
    LB: "어? 연결이 끊겼네"                    │   또는 preStop 훅에서 대기
@@ -394,7 +394,7 @@ public void login(HttpSession session, LoginRequest req) {
 # 의존성: org.springframework.session:spring-session-data-redis
 spring:
   session:
-    store-type: redis
+    store-type: redis   # Spring Boot 2.x까지의 속성. 3.0에서 제거됐고, 이후로는 클래스패스의 저장소 구현이 자동 선택됨
 ```
 
 애플리케이션 코드는 그대로 `HttpSession`을 쓰지만 실제 데이터는 Redis에 저장됩니다. 모든 서버가 같은 세션을 보므로 세션 고정이 필요 없어집니다.

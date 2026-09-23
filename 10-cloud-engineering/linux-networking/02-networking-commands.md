@@ -112,7 +112,7 @@ default via 10.0.0.1 dev eth0 proto dhcp   ← 이 줄이 없으면 외부로 �
 10.0.0.0/24 dev eth0 proto kernel scope link src 10.0.0.42
 ```
 
-`default` 라우트가 없으면 같은 서브넷 안은 통신되는데 인터넷만 안 됩니다. 프라이빗 서브넷에 NAT 게이트웨이를 안 붙였을 때 나타나는 전형적인 증상입니다.
+`default` 라우트가 없으면 같은 서브넷 안은 통신되는데 인터넷만 안 됩니다. 프라이빗 서브넷에 NAT 게이트웨이를 안 붙였을 때도 증상은 같지만, 그때 빠진 것은 VPC 라우팅 테이블의 `0.0.0.0/0` 경로라서 인스턴스의 `ip route`에는 default가 정상으로 보입니다.
 
 `ip -s link`의 `errors`, `dropped` 카운터가 계속 증가한다면 애플리케이션이 아니라 물리/가상 NIC 레벨 문제를 의심합니다.
 
@@ -352,7 +352,7 @@ ip:       %{remote_ip}\n' https://api.example.com/health
 ```bash
 tcpdump -i eth0 -nn port 8080                    # 인터페이스 지정, 이름 해석 안 함
 tcpdump -i any -nn host 10.0.5.20 and port 8080  # 모든 인터페이스, 호스트+포트 조합
-tcpdump -i eth0 -nn -c 100 'tcp[tcpflags] & tcp-syn != 0'   # SYN만 100개
+tcpdump -i eth0 -nn -c 100 'tcp[tcpflags] & tcp-syn != 0'   # SYN 플래그가 선 패킷(SYN-ACK 포함) 100개
 tcpdump -i eth0 -nn -w /tmp/cap.pcap port 443    # 파일로 저장 후 Wireshark에서 분석
 tcpdump -i eth0 -nn -ttt host 10.0.5.20          # 패킷 간 시간 간격 표시
 tcpdump -i eth0 -A -nn port 80                   # 페이로드를 ASCII로 (평문 노출 주의)
@@ -392,7 +392,7 @@ tcpdump -i eth0 -A -nn port 80                   # 페이로드를 ASCII로 (평
 | tcpdump에서 보이는 것 | 원인 |
 |---------------------|------|
 | 서버에 아무 패킷도 안 옴 | 보안 그룹/방화벽/라우팅. 서버는 무죄 |
-| SYN은 오는데 SYN-ACK 안 나감 | 해당 포트에 LISTEN 없음, 또는 서버 방화벽이 응답 차단 |
+| SYN은 오는데 SYN-ACK 안 나감 | 서버 방화벽이 응답 차단 |
 | SYN에 RST로 즉답 | 포트가 닫혀 있음 (`Connection refused`의 실체) |
 | SYN-ACK는 나갔는데 ACK 안 옴 | 비대칭 라우팅, 중간 장비, 클라이언트 측 문제 |
 | 같은 seq의 패킷 반복 | 재전송. 경로상 패킷 유실 |
@@ -414,7 +414,7 @@ tcpdump -i eth0 -A -nn port 80                   # 페이로드를 ASCII로 (평
 
 **클라우드에서는 방화벽이 두 겹입니다.** 보안 그룹(인스턴스 단위)과 네트워크 ACL(서브넷 단위)이 그 두 겹이고, 여기에 OS 내부의 iptables/ufw까지 더해집니다. 어느 한 곳만 막혀도 `nc`는 타임아웃이 납니다. 그래서 서버 안에서 `curl localhost:8080`은 되는데 밖에서 안 되면, 바인드 주소 → OS 방화벽 → 보안 그룹 → 네트워크 ACL 순으로 확인합니다. 자세한 방화벽 구조는 [보안 기초](./05-security-basics.md)에서 다룹니다.
 
-**로드밸런서 헬스체크 실패.** ALB가 타겟을 unhealthy로 표시할 때는 헬스체크 경로를 그대로 흉내 내봅니다. `curl -v -H "Host: api.example.com" http://<인스턴스IP>:8080/health`처럼 LB가 보내는 것과 동일한 요청을 인스턴스에 직접 쏴서, 애플리케이션이 200을 주는지 확인하는 것이 첫 단계입니다.
+**로드밸런서 헬스체크 실패.** ALB가 타겟을 unhealthy로 표시할 때는 헬스체크 경로를 그대로 흉내 내봅니다. `curl -v http://<인스턴스IP>:8080/health`처럼 LB가 보내는 것과 동일한 요청을 인스턴스에 직접 쏴서, 애플리케이션이 200을 주는지 확인하는 것이 첫 단계입니다.
 
 **DNS 캐시.** JVM은 과거에 DNS 결과를 무기한 캐시하는 설정이 기본인 시절이 있었습니다. 그래서 RDS 페일오버로 엔드포인트가 새 IP를 가리켜도 애플리케이션이 옛 IP로 계속 붙는 사고가 유명합니다. 애플리케이션 레벨 DNS 캐시 정책은 클라우드에서 반드시 확인해야 할 항목입니다.
 

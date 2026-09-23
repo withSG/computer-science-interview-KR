@@ -117,7 +117,7 @@ function render() {
 
 `initialValue`가 첫 렌더링에서만 쓰인다는 점이 드러납니다. `useState(0)`을 매번 호출해도 두 번째부터는 저장된 값을 그대로 돌려줍니다.
 
-### 비유: 이름표 없는 옷장
+### 비유: 이름표 없는 사물함
 
 훅 저장소는 **번호만 붙어 있고 이름표는 없는 사물함**입니다. React는 "당신이 오늘 세 번째로 연 사물함"이라는 것만 기억합니다. 어제도 오늘도 같은 순서로 열면 문제가 없습니다. 하지만 오늘 두 번째 사물함을 건너뛰면 그 뒤로 전부 한 칸씩 밀립니다.
 
@@ -370,9 +370,9 @@ useEffect(() => {
 
 ```jsx
 const filter = { status: 'active' };                   // 매 렌더 새 객체
-useEffect(() => fetchItems(filter), [filter]);         // 안티패턴: 매 렌더 재실행
+useEffect(() => { fetchItems(filter); }, [filter]);    // 안티패턴: 매 렌더 재실행
 
-useEffect(() => fetchItems({ status }), [status]);     // 개선: 원시 값으로 분해
+useEffect(() => { fetchItems({ status }); }, [status]); // 개선: 원시 값으로 분해
 ```
 
 의존성은 `Object.is`로 하나씩 비교됩니다. 객체·배열·함수 리터럴을 그대로 넣으면 내용이 같아도 참조가 달라 매번 "바뀌었다"고 판정됩니다. effect 안에서 상태를 갱신하고 있었다면 무한 루프로 이어집니다.
@@ -413,7 +413,7 @@ const debouncedQuery = useDebouncedValue(query, 300);
 
 - `eslint-plugin-react-hooks`의 두 규칙(`rules-of-hooks`, `exhaustive-deps`)은 켜 두는 것이 사실상 표준입니다. 순서 위반은 `rules-of-hooks`가 대부분 잡아 줍니다.
 - React DevTools의 Components 탭에서 컴포넌트를 선택하면 hooks가 순서대로 나열됩니다. `useState` 값이 예상과 다르게 표시되면 훅 순서나 stale closure를 의심할 지점입니다.
-- 메모이제이션은 Profiler로 병목을 확인한 뒤에 적용합니다. React 팀도 수동 메모이제이션의 부담을 줄이려고 컴파일러가 이를 대신하는 방향을 추진하고 있습니다. 이는 곧 **손으로 감싸는 코드가 많다는 것 자체가 문제로 인식되고 있다**는 뜻입니다.
+- 메모이제이션은 Profiler로 병목을 확인한 뒤에 적용합니다. React 팀도 수동 메모이제이션의 부담을 줄이려고 컴파일러가 이를 대신하는 방향을 추진해 왔고, 2025년 10월 React Compiler 1.0을 정식 출시했습니다. 이는 곧 **손으로 감싸는 코드가 많다는 것 자체가 문제로 인식되고 있다**는 뜻입니다.
 - 반복되는 상태 로직(폼 입력, 모달 열림, 목록 페이징, 미디어 쿼리 구독 등)은 커스텀 훅으로 뽑는 것이 팀 단위에서 가장 체감이 큰 정리 작업입니다.
 
 ---

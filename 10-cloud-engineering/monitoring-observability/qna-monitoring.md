@@ -17,7 +17,7 @@
 | 요소 | 설명 | 도구 예시 |
 |------|------|----------|
 | Logs | 이벤트 기록 | ELK, Loki |
-| Metrics | 수치 데이터 | Prometheus, DataDog |
+| Metrics | 수치 데이터 | Prometheus, Datadog |
 | Traces | 요청 흐름 추적 | Jaeger, Zipkin |
 
 ### 3가지 요소의 역할
@@ -96,7 +96,7 @@ Observability (관측가능성):
 |------|------|------|
 | Prometheus | 메트릭 수집/저장 | Pull 방식, TSDB |
 | Grafana | 시각화/대시보드 | 다양한 데이터소스 지원 |
-| AlertManager | 알림 관리 | 그룹핑, 라우팅 |
+| Alertmanager | 알림 관리 | 그룹핑, 라우팅 |
 
 ### 아키텍처
 
@@ -139,7 +139,7 @@ Counter (카운터):
 Gauge (게이지):
 - 증감하는 값
 - 예: CPU 사용률, 메모리
-- node_memory_available_bytes 8589934592
+- node_memory_MemAvailable_bytes 8589934592
 
 Histogram (히스토그램):
 - 분포 측정
@@ -166,15 +166,15 @@ sum(rate(http_requests_total{status=~"5.."}[5m]))
 / sum(rate(http_requests_total[5m])) * 100
 ```
 
-### AlertManager 설정 예시
+### Alertmanager 설정 예시
 
 ```yaml
 # alertmanager.yml
 route:
   receiver: 'slack-notifications'
   routes:
-    - match:
-        severity: critical
+    - matchers:
+        - severity="critical"
       receiver: 'pagerduty'
 
 receivers:
@@ -252,7 +252,7 @@ receivers:
         ┌───────────┼───────────┐
         │           │           │
    ┌────▼────┐ ┌────▼────┐ ┌────▼────┐
-   │Promtail │ │Promtail │ │Promtail │
+   │  Alloy  │ │  Alloy  │ │  Alloy  │
    └─────────┘ └─────────┘ └─────────┘
 ```
 -->
@@ -307,13 +307,13 @@ receivers:
 ```
 Trace: 전체 요청의 여정 (하나의 요청)
   │
-  ├─ Span A: API Gateway (10ms)
+  ├─ Span A: API Gateway (130ms)
   │    │
-  │    ├─ Span B: User Service (25ms)
+  │    ├─ Span B: User Service (40ms)
   │    │    │
   │    │    └─ Span C: DB Query (15ms)
   │    │
-  │    └─ Span D: Order Service (30ms)
+  │    └─ Span D: Order Service (80ms)
   │         │
   │         └─ Span E: Payment API (50ms)
   │
@@ -329,15 +329,12 @@ Trace: 전체 요청의 여정 (하나의 요청)
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
-[API Gateway] ████████░░░░░░░░░░░░░░░░░░░░░░░░  10ms
-              │
-[User Service]├──████████████████░░░░░░░░░░░░░  25ms
-              │  │
-[DB Query]    │  └──██████████░░░░░░░░░░░░░░░░  15ms
-              │
-[Order Service]└──██████████████████████░░░░░░  30ms
-                  │
-[Payment API]     └──████████████████████████  50ms
+                 0ms                  130ms
+[API Gateway]    ██████████████████████████  130ms
+[User Service]    ████████                    40ms
+[DB Query]          ███                       15ms
+[Order Service]           ████████████████    80ms
+[Payment API]                ██████████       50ms
 
 총 소요시간: 130ms
 병목 구간: Payment API (50ms)
@@ -356,17 +353,19 @@ Trace: 전체 요청의 여정 (하나의 요청)
 ### OpenTelemetry 계측 예시
 
 ```js
-// Node.js 자동 계측
-const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
-const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');
+// Node.js SDK 수동 설정
+const { NodeTracerProvider, BatchSpanProcessor } = require('@opentelemetry/sdk-trace-node');
+const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http');
+const { resourceFromAttributes } = require('@opentelemetry/resources');
 
-const provider = new NodeTracerProvider();
-provider.addSpanProcessor(
-  new SimpleSpanProcessor(new JaegerExporter({
-    serviceName: 'user-service',
-    endpoint: 'http://jaeger:14268/api/traces'
-  }))
-);
+const provider = new NodeTracerProvider({
+  resource: resourceFromAttributes({ 'service.name': 'user-service' }),
+  spanProcessors: [
+    new BatchSpanProcessor(new OTLPTraceExporter({
+      url: 'http://jaeger:4318/v1/traces'
+    }))
+  ]
+});
 provider.register();
 
 // 수동 Span 생성
@@ -408,7 +407,7 @@ traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 
 | 용어 | 정의 | 예시 |
 |------|------|------|
-| SLI | 측정 지표 | 가용성 99.5% (측정값) |
+| SLI | 측정 지표 | 가용성 99.95% (측정값) |
 | SLO | 목표 수준 | 가용성 99.9% (내부 목표) |
 | SLA | 계약 조건 | 가용성 99.5% (고객 약속) |
 
@@ -446,7 +445,7 @@ traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 = (total - errors) / total × 100%
 
 지연시간 (Latency):
-= p99 응답시간 < 200ms인 요청 비율
+= 응답시간 < 200ms인 요청 비율
 
 처리량 (Throughput):
 = 초당 처리 요청 수
@@ -471,7 +470,7 @@ SLO: 99.9% 가용성
 ### 면접 답변 예시
 
 ```
-"저희 팀은 API 응답시간 SLI를 p99 < 200ms로 정의하고,
+"저희 팀은 API 응답시간 SLI를 200ms 이내에 응답한 요청의 비율로 정의하고,
 SLO를 99.9%로 설정했습니다.
 SLA는 고객사와 99.5%로 계약되어 있습니다.
 그래서 내부 목표를 더 높게 잡아 여유를 확보했습니다.
@@ -558,14 +557,14 @@ group_interval: 5m
 
 # 2. 억제 (관련 알림 숨기기)
 inhibit_rules:
-  - source_match:
-      severity: 'critical'
-    target_match:
-      severity: 'warning'
+  - source_matchers:
+      - severity="critical"
+    target_matchers:
+      - severity="warning"
     equal: ['alertname']
 
 # 3. 정적 (조용한 시간)
-mute_time_intervals:
+time_intervals:
   - name: 'maintenance'
     time_intervals:
       - weekdays: ['saturday', 'sunday']

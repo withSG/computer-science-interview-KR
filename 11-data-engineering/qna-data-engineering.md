@@ -43,9 +43,9 @@ ELT (Extract → Load → Transform)
 ### 데이터 파이프라인 구성 요소
 
 ```
-수집(Ingestion) → 저장(Storage) → 처리(Processing) → 적재(Serving)
+수집(Ingestion) → 저장(Storage) → 처리(Processing) → 서빙(Serving)
    Kafka,           S3, HDFS,        Spark,            DW, DB,
-   API, CDC         Data Lake        Airflow           BI 도구
+   API, CDC         Data Lake        dbt               BI 도구
 ```
 
 ### 면접관이 주목하는 포인트
@@ -125,7 +125,7 @@ with DAG(
         (재시도/재실행 시 데이터 중복 방지) → 날짜 파티션 덮어쓰기 등으로 구현
 
 백필(Backfill): 과거 기간에 대해 DAG를 소급 실행
-        (start_date~현재의 누락된 실행을 채움)
+        (사람이 지정한 과거 구간의 누락된 실행을 채움)
 ```
 -->
 
@@ -238,7 +238,7 @@ Spark는 **대용량 데이터를 분산·병렬로 처리하는 엔진**입니�
 ### Lazy Evaluation
 
 ```python
-df = spark.read.csv("data.csv")
+df = spark.read.csv("data.csv", header=True, inferSchema=True)
 result = df.filter(df.age > 20).select("name")  # 아직 실행 안 됨 (Transformation)
 result.show()  # 이때 실제 실행 (Action) → 전체 계획을 최적화해 한 번에 처리
 ```
@@ -269,7 +269,7 @@ result.show()  # 이때 실제 실행 (Action) → 전체 계획을 최적화해
 | 처리 단위 | 모아서 한 번에 | 이벤트 단위/소량 |
 | 지연 | 높음(분~시간) | 낮음(초 이하) |
 | 예시 | 일별 매출 집계 | 실시간 이상거래 탐지 |
-| 도구 | Spark, Airflow | Kafka, Spark Streaming, Flink |
+| 도구 | Spark, Airflow | Kafka, Spark Structured Streaming, Flink |
 
 ### 람다 아키텍처 (Lambda)
 

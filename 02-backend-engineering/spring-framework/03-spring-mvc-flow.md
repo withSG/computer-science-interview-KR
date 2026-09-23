@@ -128,10 +128,10 @@ public class OrderListServlet extends HttpServlet {
 │  │ │           │   Service → Repository → DB       │      │ │ │
 │  │ │           └──────────────────────────────────┘      │ │ │
 │  │ │       │                                              │ │ │
-│  │ │  5. ReturnValueHandler 반환값 처리                   │ │ │
-│  │ │  6. Interceptor.postHandle                           │ │ │
-│  │ │  7. ViewResolver + View  또는  HttpMessageConverter  │ │ │
-│  │ │  8. Interceptor.afterCompletion                      │ │ │
+│  │ │  6. ReturnValueHandler 반환값 처리                   │ │ │
+│  │ │  7. Interceptor.postHandle                           │ │ │
+│  │ │  8. ViewResolver + View  (뷰 반환 시에만)            │ │ │
+│  │ │  9. Interceptor.afterCompletion                      │ │ │
 │  │ └──────────────────────────────────────────────────────┘ │ │
 │  └──────────────────────────────────────────────────────────┘ │
 └───────────────────────────────────────────────────────────────┘
@@ -167,7 +167,7 @@ URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리�
 컨트롤러가 정상 반환했을 때만 호출됩니다. 예외가 나면 건너뜁니다.
 
 **8단계 — 응답 생성**
-뷰 방식이면 `ViewResolver`가 뷰 이름으로 실제 `View` 객체를 찾아 렌더링합니다. REST 방식이면 `HttpMessageConverter`가 반환 객체를 JSON으로 직렬화해 응답 본문에 씁니다.
+뷰 방식이면 `ViewResolver`가 뷰 이름으로 실제 `View` 객체를 찾아 렌더링합니다. REST 방식은 이 단계에서 할 일이 없습니다. `HttpMessageConverter`가 이미 6단계(ReturnValueHandler)에서 반환 객체를 JSON으로 직렬화해 응답 본문에 써 두었기 때문입니다.
 
 **9단계 — Interceptor.afterCompletion**
 `preHandle`이 `true`를 반환했다면, 중간에 예외가 났더라도 반드시 호출됩니다. 자원 정리와 요청 단위 로그 마감에 적합한 자리입니다.
@@ -335,7 +335,7 @@ JWT 검증을 Filter에서 하는 구조라면 `@ControllerAdvice`가 토큰 만
 ### 선택이 갈리는 실전 예
 
 **요청 본문 로깅을 Filter로 해야 하는 이유**
-`HttpServletRequest`의 입력 스트림은 한 번만 읽을 수 있습니다. Interceptor에서 본문을 읽어버리면 그 뒤 `@RequestBody` 바인딩이 빈 본문을 만납니다. Filter라면 `ContentCachingRequestWrapper`로 요청 객체를 **감싸서 교체**할 수 있으므로 여러 번 읽을 수 있습니다. 요청 객체를 갈아끼우는 것은 Filter만 할 수 있는 일입니다.
+`HttpServletRequest`의 입력 스트림은 한 번만 읽을 수 있습니다. Interceptor에서 본문을 읽어버리면 그 뒤 `@RequestBody` 바인딩이 빈 본문을 만납니다. Filter라면 `ContentCachingRequestWrapper`로 요청 객체를 **감싸서 교체**할 수 있습니다. 이 래퍼는 `@RequestBody` 바인딩 등으로 본문이 읽히는 동안 그 내용을 캐싱해 두므로, `chain.doFilter()`가 끝난 뒤 `getContentAsByteArray()`로 본문을 다시 꺼내 로깅할 수 있습니다. 요청 객체를 갈아끼우는 것은 Filter만 할 수 있는 일입니다.
 
 **권한 체크를 Interceptor로 하는 것이 편한 이유**
 Interceptor의 `preHandle`은 세 번째 인자로 `Object handler`를 받습니다. 여기서 `HandlerMethod`로 캐스팅하면 **호출될 컨트롤러 메서드에 붙은 어노테이션**을 읽을 수 있습니다.
@@ -392,10 +392,10 @@ public void afterCompletion(HttpServletRequest req, HttpServletResponse res,
 
 ## 6. 실무에서는
 
-- **Spring Boot에서는 `web.xml`이 없습니다.** 내장 톰캣이 뜨면서 `DispatcherServlet`을 자동 등록하고 `/`에 매핑합니다. 예전에는 `ContextLoaderListener`가 만드는 루트 컨테이너와 `DispatcherServlet`이 만드는 서블릿 컨테이너가 부모-자식으로 나뉘어 있었는데, Boot에서는 사실상 하나로 통합돼 신경 쓸 일이 없어졌습니다.
+- **Spring Boot에서는 `web.xml`이 없습니다.** 내장 톰캣이 뜨면서 `DispatcherServlet`을 자동 등록하고 `/`에 매핑합니다. 예전에는 `ContextLoaderListener`가 만드는 루트 컨테이너와 `DispatcherServlet`이 만드는 서블릿용 컨테이너(Servlet WebApplicationContext)가 부모-자식으로 나뉘어 있었는데, Boot에서는 사실상 하나로 통합돼 신경 쓸 일이 없어졌습니다.
 - **요청 추적 ID는 Filter + MDC 조합**이 표준적입니다. Filter 진입 시 UUID를 만들어 `MDC`에 넣고, 로그 패턴에 `%X{traceId}`를 넣으면 한 요청의 로그를 전부 묶어 볼 수 있습니다. 반드시 `finally`에서 `MDC.clear()`를 해야 합니다. 톰캣이 스레드를 재사용하기 때문에 정리하지 않으면 다음 요청에 이전 ID가 딸려갑니다.
 - **인증은 Spring Security의 Filter 체인**이 사실상 표준입니다. Security가 붙으면 `DelegatingFilterProxy`를 거쳐 Spring Bean인 필터들이 서블릿 필터 체인에 끼어 들어옵니다. 인가되지 않은 요청은 DispatcherServlet에 닿기도 전에 차단됩니다.
-- **404가 나는데 컨트롤러는 분명히 있다**면 HandlerMapping 단계에서 매칭에 실패한 것입니다. 경로 변수 패턴, HTTP 메서드, `produces`/`consumes` 조건을 순서대로 확인합니다. 애플리케이션 기동 로그에 매핑 목록이 출력되므로 거기서 비교하는 것이 빠릅니다.
+- **404가 나는데 컨트롤러는 분명히 있다**면 HandlerMapping 단계에서 매칭에 실패한 것입니다. 경로 변수 패턴, HTTP 메서드, `produces`/`consumes` 조건을 순서대로 확인합니다. `RequestMappingHandlerMapping` 로거를 TRACE로 켜면 기동 로그에 매핑 목록이 출력되므로 거기서 비교하는 것이 빠릅니다(Spring Boot 2.1부터는 기본 로그 레벨에서 출력되지 않습니다).
 
 ---
 

@@ -123,7 +123,7 @@ public @interface SpringBootApplication { }
 
 | 구성 | 하는 일 | 빠지면 생기는 일 |
 |------|--------|----------------|
-| `@SpringBootConfiguration` | 메인 클래스를 설정 클래스로 만든다 | 여기 정의한 `@Bean`이 등록되지 않는다 |
+| `@SpringBootConfiguration` | 메인 클래스를 설정 클래스로 만든다 | `@Bean`은 등록되지만 프록시 없는 lite 모드로 처리되고, `@SpringBootTest`가 설정 클래스를 자동으로 찾지 못한다 |
 | `@ComponentScan` | 메인 클래스의 패키지부터 하위를 전부 스캔 | 내가 만든 `@Service`가 Bean으로 안 잡힌다 |
 | `@EnableAutoConfiguration` | 클래스패스를 보고 필요한 설정을 자동 등록 | DataSource, DispatcherServlet 등이 전부 사라진다 |
 
@@ -177,7 +177,7 @@ SpringApplication.run()
 
 ### [1] 후보 목록 파일
 
-자동 설정 클래스 목록은 각 스타터 JAR 안에 텍스트 파일로 들어 있습니다. `spring-boot-autoconfigure` JAR을 열어보면 이런 내용입니다.
+자동 설정 클래스 목록은 각 자동 설정 모듈 JAR 안에 텍스트 파일로 들어 있습니다. Spring Boot 3.x의 `spring-boot-autoconfigure` JAR을 열어보면 이런 내용입니다(4.0부터는 `spring-boot-jdbc` 같은 기술별 모듈로 나뉘고 패키지도 `org.springframework.boot.jdbc.autoconfigure`처럼 바뀌었습니다).
 
 ```
 org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
@@ -239,7 +239,7 @@ org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 ```
 -->
 
-`@ConditionalOnClass`가 신기해 보이지만 원리는 단순합니다. 클래스를 실제로 로드해서 확인하는 게 아니라 **바이트코드 메타데이터만 읽어서** 존재를 판단합니다. 그래서 조건에 적힌 클래스가 없어도 `ClassNotFoundException`이 나지 않습니다.
+`@ConditionalOnClass`가 신기해 보이지만 원리는 단순합니다. 조건이 붙은 자동 설정 클래스는 로드하지 않고 **바이트코드 메타데이터만 읽어서** 조건에 적힌 클래스 이름을 꺼낸 뒤, 그 이름을 클래스로더에서 찾아보고 실패하면 '없음'으로 판단합니다. 그래서 조건에 적힌 클래스가 없어도 `ClassNotFoundException`이 나지 않습니다.
 
 ---
 
@@ -312,7 +312,7 @@ public class ShopApplication { }
 ```yaml
 spring:
   autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration  # Boot 3.x 기준. 4.x는 org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration
 ```
 
 예외적인 상황에서 씁니다. DB 없이 배치 애플리케이션만 띄우려는데 `spring-boot-starter-data-jpa`가 딸려 들어와 기동이 실패하는 경우가 여기 해당합니다.
@@ -350,7 +350,7 @@ public class WebConfig implements WebMvcConfigurer {
 public class JacksonConfig {
 
     @Bean
-    public Jackson2ObjectMapperBuilderCustomizer customizer() {
+    public Jackson2ObjectMapperBuilderCustomizer customizer() {   // Boot 3.x(Jackson 2) 기준. Boot 4는 JsonMapperBuilderCustomizer
         return builder -> builder
                 .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 .serializationInclusion(JsonInclude.Include.NON_NULL);
@@ -413,7 +413,7 @@ Unconditional classes:       ← 조건 없이 항상 적용되는 것
 
 ## 6. 실무에서는
 
-- **Starter는 의존성만 묶어 옵니다.** `spring-boot-starter-web`은 그 자체로 코드가 거의 없고 Spring MVC·내장 톰캣·Jackson을 함께 끌어오는 역할을 합니다. 실제 설정은 `spring-boot-autoconfigure`에 들어 있습니다.
+- **Starter는 의존성만 묶어 옵니다.** `spring-boot-starter-web`은 그 자체로 코드가 거의 없고 Spring MVC·내장 톰캣·Jackson을 함께 끌어오는 역할을 합니다. 실제 설정은 `spring-boot-autoconfigure`(Boot 4부터는 `spring-boot-webmvc` 같은 기술별 모듈)에 들어 있습니다.
 - **버전 관리는 부모 BOM이 합니다.** `spring-boot-dependencies`가 수백 개 라이브러리의 검증된 버전 조합을 고정해 둡니다. 그래서 개발자가 버전을 적지 않아도 서로 호환되는 조합이 들어옵니다. 이 부분이 자동 설정만큼이나 실무 시간을 아껴줍니다.
 - **회사 공통 모듈을 스타터로 만드는 경우**가 있습니다. 사내 인증 클라이언트나 로깅 규격을 자동 설정 클래스로 만들고 `AutoConfiguration.imports`에 등록하면, 다른 팀은 의존성만 추가하고 프로퍼티 몇 줄만 적으면 됩니다.
 - **기동이 느려졌다면 자동 설정 개수를 먼저 봅니다.** 쓰지 않는 스타터가 딸려 들어와 불필요한 자동 설정이 켜져 있는 경우가 흔합니다. `--debug` 리포트의 Positive matches 길이부터 확인해 보면 단서가 잡힙니다.

@@ -278,9 +278,9 @@ public DependencyStatus dependencies() {
                     ╲   │   ╱      키는 시계 방향으로 가다
               키3 ●  ╲  │  ╱  ● 키1   처음 만나는 노드에 배정된다
                       ╲ │ ╱
-                       ╲│╱          키1 → 노드A
-              ──────────┼──────────  키2 → 노드B
-                       ╱│╲          키3 → 노드A(링을 한 바퀴 돌아)
+                       ╲│╱          키1 → 노드B
+              ──────────┼──────────  키2 → 노드C
+                       ╱│╲          키3 → 노드C
                       ╱ │ ╲
                  키2 ●  │
                         │
@@ -423,7 +423,7 @@ A. `hash(key) % N` 방식은 노드 수 N이 바뀌면 거의 모든 키의 위�
 - [01-cap-consistency.md](./01-cap-consistency.md) - 복제와 분할이 만드는 일관성 문제, 복제 지연 대응
 - [qna-scalability.md](./qna-scalability.md) - 수평/수직 확장, 로드 밸런서, 샤딩 면접 질문 (Q1~Q3, Q5)
 - [../qna-infrastructure.md](../qna-infrastructure.md) - L4/L7, 무중단 배포 등 인프라 면접 질문
-- [../caching/02-redis-cdn.md](../caching/02-redis-cdn.md) - Redis 클러스터가 해시 슬롯으로 같은 문제를 푸는 방식
+- [../caching/02-redis-cdn.md](../caching/02-redis-cdn.md) - Redis 자료구조·영속화·분산 락과 CDN 동작 방식
 - [../performance/01-performance-optimization.md](../performance/01-performance-optimization.md) - 확장 전에 병목이 정말 용량 부족인지 확인하는 절차
 - [../../01-computer-science-fundamentals/network/01-osi-tcp-ip.md](../../01-computer-science-fundamentals/network/01-osi-tcp-ip.md) - L4/L7 구분의 근거가 되는 계층 모델
 - [../../01-computer-science-fundamentals/data-structure/04-hash-table.md](../../01-computer-science-fundamentals/data-structure/04-hash-table.md) - 해시 함수와 충돌 처리의 기본

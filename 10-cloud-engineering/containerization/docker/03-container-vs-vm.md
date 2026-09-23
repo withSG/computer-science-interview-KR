@@ -158,7 +158,7 @@ docker inspect limited --format '{{.State.OOMKilled}} {{.State.ExitCode}}'
 컨테이너 안에서 `/proc/meminfo`나 `/proc/cpuinfo`를 읽으면 **호스트 전체 값**이 나옵니다. `/proc`은 namespace로 완전히 가려지지 않기 때문입니다. 그래서 이런 사고가 납니다.
 
 - **JVM**: 호스트 메모리 기준으로 힙 최대치를 잡아 컨테이너 한도를 넘깁니다 → OOMKilled 반복. JDK 10 이상은 컨테이너 인식이 기본 활성이고 `-XX:MaxRAMPercentage`로 한도 대비 비율을 지정합니다
-- **Node.js**: old space 한도가 cgroup을 자동 반영하지 않습니다 → `--max-old-space-size`를 한도보다 작게 줍니다
+- **Node.js**: 구버전(cgroup v2 환경에서는 v20.3 미만)은 old space 한도가 cgroup을 자동 반영하지 않습니다 → `--max-old-space-size`를 한도보다 작게 줍니다
 - **Go**: `runtime.NumCPU()`는 CPU 개수(affinity)만 보고, `--cpus` 같은 대역폭 쿼터는 반영하지 않습니다. Go 1.25부터 런타임이 cgroup CPU 한도를 GOMAXPROCS 기본값에 반영하지만, 그 이전 버전에서는 라이브러리를 써서 쿼터를 읽어 GOMAXPROCS를 맞추거나 값을 직접 지정해야 합니다
 - **스레드풀**: `nproc` 기반으로 워커 수를 정하는 프레임워크는 0.5 코어짜리 컨테이너에서 수십 개 스레드를 만들어, 컨텍스트 스위칭만 하다 끝납니다
 

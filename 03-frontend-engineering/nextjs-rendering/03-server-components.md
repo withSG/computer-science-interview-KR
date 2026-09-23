@@ -391,7 +391,7 @@ import { revalidateTag, revalidatePath } from 'next/cache';
 
 export async function publishPost(data: FormData) {
   const post = await db.post.create({ data: parse(data) });
-  revalidateTag('posts');                    // 태그 기반: 관련 캐시만 정밀 무효화
+  revalidateTag('posts', 'max');             // 태그 기반: 관련 캐시만 정밀 무효화 (Next.js 16부터 두 번째 인자 필요, 즉시 반영은 updateTag)
   revalidatePath(`/posts/${post.id}`);       // 경로 기반: 특정 라우트 무효화
 }
 ```

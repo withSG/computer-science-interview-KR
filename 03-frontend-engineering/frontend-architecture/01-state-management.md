@@ -370,7 +370,7 @@ Zustand는 셀렉터 결과를 기본적으로 `Object.is`로 비교합니다. �
 import { useShallow } from 'zustand/react/shallow';
 
 const whole = useUIStore();                                            // 안티패턴 — 스토어 전체 구독
-const pair = useUIStore((s) => ({ a: s.a, b: s.b }));                  // 함정 — 매 렌더 새 객체라 항상 리렌더
+const pair = useUIStore((s) => ({ a: s.a, b: s.b }));                  // 함정 — 매번 새 객체라 v5에선 무한 루프 오류, v4에선 스토어가 바뀔 때마다 리렌더
 const sidebarOpen = useUIStore((s) => s.sidebarOpen);                  // 해법 1 — 원시값 단위로 구독
 const { a, b } = useUIStore(useShallow((s) => ({ a: s.a, b: s.b })));  // 해법 2 — 얕은 비교
 ```

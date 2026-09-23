@@ -121,7 +121,7 @@ aws logs tail /aws/lambda/order-processor --since 30m --filter-pattern "REPORT"
 ```
 
 ```
-REPORT RequestId: 9f3a...  Duration: 412.55 ms  Billed Duration: 413 ms
+REPORT RequestId: 9f3a...  Duration: 412.55 ms  Billed Duration: 1305 ms
        Memory Size: 512 MB  Max Memory Used: 137 MB  Init Duration: 892.11 ms
 ```
 
@@ -154,7 +154,7 @@ Init Duration = ① 코드 패키지 다운로드/압축 해제
 
 Lambda를 VPC에 붙이면 우리 서브넷의 사설 IP로 RDS 같은 내부 리소스에 접근할 수 있습니다. 과거에는 이 과정에서 호출마다 ENI를 만드느라 콜드 스타트가 수 초 단위로 뛰었습니다. 지금은 AWS가 서브넷 + 보안 그룹 조합마다 ENI를 미리 만들어 둡니다. 여러 함수가 그 ENI를 공유하니 VPC 때문에 늘던 지연은 대부분 사라졌습니다.
 
-그래도 VPC 연결에는 다른 대가가 남아 있습니다. **VPC 안의 Lambda는 인터넷으로 나가려면 NAT Gateway가 필요합니다.** VPC에 붙였더니 갑자기 외부 API 호출이 전부 타임아웃 나는 사고의 원인이 거의 항상 이것입니다. 그리고 함수의 동시성만큼 서브넷 IP를 소모하므로, 서브넷을 좁게 잡아뒀다면 IP 고갈로 스케일이 막힙니다.
+그래도 VPC 연결에는 다른 대가가 남아 있습니다. **VPC 안의 Lambda는 인터넷으로 나가려면 NAT Gateway가 필요합니다.** VPC에 붙였더니 갑자기 외부 API 호출이 전부 타임아웃 나는 사고의 원인이 거의 항상 이것입니다. 그리고 Lambda가 만든 ENI도 서브넷 IP를 차지하므로, 서브넷 IP가 바닥나 있으면 ENI를 만들거나 늘리지 못해 함수 생성과 확장이 막힙니다.
 
 ### Provisioned Concurrency
 
@@ -183,7 +183,7 @@ Lambda의 제약은 대부분 이 도구의 용도를 벗어났다는 신호입�
 | `/tmp` 임시 디스크 | 최대 10GB | 큰 파일은 S3에서 스트리밍 처리 |
 | 배포 패키지 | zip은 압축 해제 기준 250MB, 컨테이너 이미지는 10GB | ML 모델처럼 큰 아티팩트는 컨테이너 이미지 방식이나 EFS 마운트 |
 | 동기 호출 페이로드 | 요청/응답 6MB | 큰 데이터는 S3에 올리고 **키만 전달**한다 (Claim Check 패턴) |
-| 비동기 호출 페이로드 | 256KB | 동일 |
+| 비동기 호출 페이로드 | 1MB | 동일 |
 | 실행 환경 상태 | 보장 없음 | 상태는 DynamoDB/ElastiCache/S3 등 외부에 둔다 |
 
 ### 15분 제한을 만났을 때의 사고 흐름
@@ -302,8 +302,8 @@ EventBridge는 이벤트를 **내용 기반으로 분기**시킵니다. 생산�
 
 ```bash
 # 1) 함수 설정부터 확인 — 타임아웃, 메모리, 예약 동시성
-aws lambda get-function-configuration --function-name order-processor \
-  --query "{Timeout:Timeout,Memory:MemorySize,Concurrency:ReservedConcurrentExecutions}"
+aws lambda get-function --function-name order-processor \
+  --query "{Timeout:Configuration.Timeout,Memory:Configuration.MemorySize,Concurrency:Concurrency.ReservedConcurrentExecutions}"
 
 # 2) 스로틀링이 걸리고 있는가 (Throttles 메트릭)
 aws cloudwatch get-metric-statistics --namespace AWS/Lambda \

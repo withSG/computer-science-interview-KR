@@ -76,7 +76,7 @@
 | Serial GC | 단일 스레드 | 김 | 소형 시스템 |
 | Parallel GC | 멀티 스레드 | 중간 | Java 8 기본 |
 | G1GC | Region 기반 | 예측 가능 | Java 9+ 기본 |
-| ZGC | 초저지연 | <10ms | 대용량 힙 |
+| ZGC | 초저지연 | 1ms 미만 (JDK 16+) | 대용량 힙 |
 
 ### 힙 메모리 구조
 <!-- diagram:be-qna-java-1 -->
@@ -290,7 +290,7 @@ set.contains(user2); // false! (hashCode가 다름)
 
 | 구분 | 동기 (Synchronous) | 비동기 (Asynchronous) |
 |------|-------------------|----------------------|
-| 실행 방식 | 순차적, 블로킹 | 병렬적, 논블로킹 |
+| 실행 방식 | 순차적 (보통 블로킹과 조합) | 병렬적 (보통 논블로킹과 조합) |
 | 대기 | 결과까지 대기 | 대기 없이 다음 작업 |
 | 구현 | 간단 | 복잡 (콜백, Promise) |
 
@@ -364,7 +364,7 @@ Throwable
 | 구분 | Checked | Unchecked |
 |------|---------|-----------|
 | 확인 시점 | 컴파일 타임 | 런타임 |
-| 처리 강제 | try-catch 필수 | 선택적 |
+| 처리 강제 | try-catch 또는 throws 선언 필수 | 선택적 |
 | 예시 | IOException | NullPointerException |
 | 부모 클래스 | Exception | RuntimeException |
 
@@ -452,7 +452,7 @@ Thread-safe는 여러 스레드가 동시에 접근해도 **정합성이 보장*
 | Lock | 명시적 락 | ReentrantLock |
 | Atomic | CAS 연산 | AtomicInteger, AtomicReference |
 | 불변 객체 | 상태 변경 불가 | String, final 필드 |
-| ThreadLocal | 스레드별 복사본 | ThreadLocal<T> |
+| ThreadLocal | 스레드별 복사본 | `ThreadLocal<T>` |
 
 ### 코드 예시
 ```java
@@ -494,8 +494,6 @@ public void increment() {
 
 ---
 
----
-
 ## Q13. JVM의 구조와 클래스 로더에 대해 설명해주세요. ⭐⭐
 
 <details>
@@ -516,7 +514,7 @@ JVM은 Java 프로그램을 실행하는 가상 머신입니다. 내부는 **클
 │                    JVM                       │
 ├─────────────────────────────────────────────┤
 │              Class Loader                    │
-│  (Bootstrap → Extension → Application)      │
+│  (Bootstrap → Platform → Application)       │
 ├─────────────────────────────────────────────┤
 │           Runtime Data Area                  │
 │  ┌────────┬────────┬─────────────────────┐  │
@@ -535,8 +533,8 @@ JVM은 Java 프로그램을 실행하는 가상 머신입니다. 내부는 **클
 
 | 클래스 로더 | 역할 |
 |------------|------|
-| Bootstrap | 핵심 Java API (rt.jar) 로드 |
-| Extension | 확장 클래스 로드 (ext 디렉터리) |
+| Bootstrap | 핵심 Java API 로드 (Java 8까지 rt.jar, 9+는 `java.base` 등 핵심 모듈) |
+| Platform (Java 8까지 Extension) | `java.sql` 등 부트스트랩 밖의 플랫폼 모듈 로드 (Java 8까지는 ext 디렉터리) |
 | Application | 애플리케이션 클래스패스 로드 |
 
 ### 클래스 로딩 과정
@@ -751,7 +749,7 @@ public class User {
 | 구분 | 원시타입 (Primitive) | 참조타입 (Reference) |
 |------|---------------------|---------------------|
 | 저장 값 | 실제 값 | 객체 주소 |
-| 메모리 | Stack | Heap (참조는 Stack) |
+| 메모리 | 지역 변수면 Stack (필드면 Heap 객체 안) | Heap (지역 변수인 참조는 Stack) |
 | null | 불가 | 가능 |
 | 기본값 | 0, false 등 | null |
 | 비교 | == (값) | == (주소), equals (값) |
@@ -767,7 +765,7 @@ public class User {
 | float | 4B | 0.0f | - |
 | double | 8B | 0.0d | - |
 | char | 2B | '\u0000' | 0 ~ 65535 |
-| boolean | 1bit | false | true/false |
+| boolean | 명세상 미정 (JVM 구현상 보통 1B) | false | true/false |
 
 ### Wrapper 클래스와 Auto Boxing
 
@@ -985,7 +983,7 @@ JDK
 │   │   ├── Class Loader
 │   │   ├── Runtime Data Area
 │   │   └── Execution Engine
-│   └── Java Class Libraries (rt.jar)
+│   └── Java Class Libraries (Java 8까지 rt.jar)
 └── Development Tools
     ├── javac (컴파일러)
     ├── jdb (디버거)
@@ -996,11 +994,11 @@ JDK
 
 ### 언제 무엇을 사용?
 - **JDK**: 개발자 - 코드 작성, 컴파일 필요
-- **JRE**: 사용자 - 실행만 필요 (Java 11부터 별도 배포 중단)
+- **JRE**: 사용자 - 실행만 필요 (Oracle 기준 Java 11부터 별도 배포 중단)
 
 ### 면접관이 주목하는 포인트
 - JVM의 역할
-- Java 11 이후 JRE 독립 배포 중단
+- Java 11 이후 Oracle의 JRE 독립 배포 중단
 
 </details>
 

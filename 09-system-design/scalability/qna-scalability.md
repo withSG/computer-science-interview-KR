@@ -290,7 +290,7 @@ Consistent Hash: 인접 노드에만 영향
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-분산 시스템에서 **Consistency, Availability, Partition Tolerance 중 2가지만 동시에 만족**할 수 있다는 정리입니다.
+분산 시스템에서 **네트워크 분할(Partition)이 발생하면 Consistency와 Availability를 동시에 만족할 수 없다**는 정리입니다.
 
 ### CAP 요소
 
@@ -314,7 +314,7 @@ Consistent Hash: 인접 노드에만 영향
 CP (Consistency + Partition Tolerance)
 - 일관성 우선
 - 네트워크 분할 시 일부 요청 거부
-- 예: MongoDB, HBase, Redis Cluster
+- 예: MongoDB, HBase
 
 AP (Availability + Partition Tolerance)
 - 가용성 우선

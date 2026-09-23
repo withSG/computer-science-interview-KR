@@ -483,7 +483,7 @@ A. 교체를 누가 결정하느냐가 다릅니다. Strategy는 외부에서 �
 
 - [01-creational-patterns.md](./01-creational-patterns.md) - 전략 구현체를 만들어주는 팩토리
 - [02-structural-patterns.md](./02-structural-patterns.md) - 전략과 헷갈리는 브릿지, 책임 연쇄와 닮은 프록시
-- [04-architecture-patterns.md](./04-architecture-patterns.md) - 옵저버를 애플리케이션 구조로 확장한 이벤트 기반 아키텍처
+- [04-architecture-patterns.md](./04-architecture-patterns.md) - 옵저버가 Model-View 갱신의 핵심 부품으로 쓰이는 MVC
 - [qna-design-patterns.md](./qna-design-patterns.md) - 전략·옵저버 면접 질문(Q3, Q4)
 - [../02-backend-engineering/spring-framework/03-spring-mvc-flow.md](../02-backend-engineering/spring-framework/03-spring-mvc-flow.md) - 필터와 인터셉터가 놓이는 실제 위치
 - [../02-backend-engineering/spring-framework/06-transactional-pitfalls.md](../02-backend-engineering/spring-framework/06-transactional-pitfalls.md) - 이벤트와 트랜잭션 경계

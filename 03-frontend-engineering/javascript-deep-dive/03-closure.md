@@ -307,7 +307,7 @@ for (let i = 0; i < 3; i++) {
 ```js
 for (var i = 0; i < 3; i++) {
   (function (captured) {
-    setTimeout(() => console.log(captured), 0);
+    setTimeout(function () { console.log(captured); }, 0);
   })(i);
 }
 // 0 1 2
@@ -399,9 +399,9 @@ unmount();
 
 ## 6. 실무에서는
 
-**React**: 함수 컴포넌트는 렌더될 때마다 새로 호출되고, 그 안에서 만들어진 핸들러는 **그 렌더 시점의 props/state를 캡처**합니다. 그래서 `useEffect`의 의존성 배열을 빼먹으면, 이펙트 안 함수가 첫 렌더의 값을 계속 붙잡는 **stale closure(오래된 클로저)** 버그가 생깁니다. "이상하게 값이 안 바뀐다"의 상당수가 이 문제입니다. 해결책은 의존성을 정확히 적거나, 최신 값을 참조하는 형태(함수형 업데이트, ref)로 바꾸는 것입니다.
+**React**: 함수 컴포넌트는 렌더될 때마다 새로 호출되고, 그 안에서 만들어진 핸들러는 **그 렌더 시점의 props/state를 캡처**합니다. 그래서 `useEffect`의 의존성 배열에서 이펙트가 쓰는 값을 빼먹으면, 이펙트 안 함수가 첫 렌더의 값을 계속 붙잡는 **stale closure(오래된 클로저)** 버그가 생깁니다. "이상하게 값이 안 바뀐다"의 상당수가 이 문제입니다. 해결책은 의존성을 정확히 적거나, 최신 값을 참조하는 형태(함수형 업데이트, ref)로 바꾸는 것입니다.
 
-**번들 크기와 성능**: 클로저는 힙에 환경 객체를 만듭니다. 초당 수만 번 호출되는 경로에서 매번 새 클로저를 생성하면 GC 압력이 생깁니다. 다만 이는 측정 후에 다룰 문제이며 가독성을 먼저 희생할 이유는 없습니다.
+**성능**: 클로저는 힙에 환경 객체를 만듭니다. 초당 수만 번 호출되는 경로에서 매번 새 클로저를 생성하면 GC 압력이 생깁니다. 다만 이는 측정 후에 다룰 문제이며 가독성을 먼저 희생할 이유는 없습니다.
 
 **보안 오해**: 클로저 은닉은 "다른 코드가 실수로 건드리는 것"을 막는 캡슐화 장치입니다. 브라우저 개발자 도구에서 디버거로 멈추면 스코프 내용이 그대로 보입니다. **비밀 키를 클로저에 넣는 것은 보안이 아닙니다.**
 
@@ -460,4 +460,4 @@ A. 상태를 은닉한 카운터·캐시, 설정을 고정한 함수 팩토리�
 - [02-hoisting-tdz.md](./02-hoisting-tdz.md) - `var`와 `let`의 바인딩 생성 단위 차이
 - [04-event-loop.md](./04-event-loop.md) - 콜백이 나중에 실행되기 때문에 클로저 문제가 드러나는 이유
 - [qna-javascript.md](./qna-javascript.md) - 클로저·스코프 면접 질문 모음
-- [../react-architecture/qna-react.md](../react-architecture/qna-react.md) - Hook에서 발생하는 stale closure 문제
+- [../react-architecture/04-hooks-internals.md](../react-architecture/04-hooks-internals.md) - Hook에서 발생하는 stale closure 문제

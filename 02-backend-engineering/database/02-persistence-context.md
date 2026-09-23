@@ -151,7 +151,7 @@ public void writeBehind() {
 }   // 커밋 시점에 INSERT 3개를 한 번에 전송
 ```
 
-SQL을 모아 뒀다가 한 번에 보내면 네트워크 왕복이 줄어듭니다. JDBC 배치(`hibernate.jdbc.batch_size`)까지 켜면 여러 INSERT를 한 번의 통신으로 묶을 수도 있습니다.
+SQL을 모아 뒀다가 flush 시점에 몰아서 보냅니다. 여기에 JDBC 배치(`hibernate.jdbc.batch_size`)까지 켜야 여러 INSERT를 한 번의 통신으로 묶어 네트워크 왕복을 줄일 수 있습니다.
 
 **단, `GenerationType.IDENTITY`에서는 쓰기 지연이 동작하지 않습니다.** 영속성 컨텍스트는 엔티티를 식별자로 관리하는데, IDENTITY는 DB가 INSERT를 실행해야 식별자를 알려줍니다. 그래서 `persist()` 호출 즉시 INSERT가 나갑니다. MySQL을 쓰면서 "쓰기 지연 덕분에 성능이 좋다"고 말하면, 꼬리 질문에서 무너지기 쉽습니다.
 
@@ -370,7 +370,7 @@ public OrderResponse findOrder(Long id) {
 public String detail(@PathVariable Long id, Model model) { ... }
 ```
 
-**왜 문제인가.** 예외는 사라지지만, 트랜잭션이 뷰 렌더링과 응답 직렬화까지 열려 있습니다. DB 커넥션을 그만큼 오래 붙잡으니 트래픽이 몰리면 커넥션 풀이 먼저 마릅니다. 게다가 프레젠테이션 계층이 트랜잭션 경계를 갖는 건 책임 분리가 깨지는 설계입니다. 위 2)번으로 해결하는 게 맞습니다.
+**왜 문제인가.** 메서드 본문 안의 예외는 사라지지만, 트랜잭션이 컨트롤러 메서드 전체로 넓어집니다(메서드가 반환된 뒤의 뷰 렌더링·응답 직렬화는 여전히 트랜잭션 밖입니다). DB 커넥션을 그만큼 오래 붙잡으니 트래픽이 몰리면 커넥션 풀이 먼저 마릅니다. 게다가 프레젠테이션 계층이 트랜잭션 경계를 갖는 건 책임 분리가 깨지는 설계입니다. 위 2)번으로 해결하는 게 맞습니다.
 
 **4) OSIV(Open Session In View)**
 

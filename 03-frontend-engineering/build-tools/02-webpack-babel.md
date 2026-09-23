@@ -135,9 +135,14 @@ plugin은 `apply(compiler)` 메서드를 가진 객체입니다. 컴파일러가
 class BuildReportPlugin {
   apply(compiler) {
     const { RawSource } = compiler.webpack.sources;   // Webpack 5가 직접 제공한다
-    compiler.hooks.emit.tap('BuildReportPlugin', (compilation) => {
-      const report = Object.keys(compilation.assets).join('\n');  // 산출물 전체
-      compilation.emitAsset('build-report.txt', new RawSource(report));
+    compiler.hooks.thisCompilation.tap('BuildReportPlugin', (compilation) => {
+      compilation.hooks.processAssets.tap(
+        { name: 'BuildReportPlugin', stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_REPORT },
+        (assets) => {
+          const report = Object.keys(assets).join('\n');  // 산출물 전체
+          compilation.emitAsset('build-report.txt', new RawSource(report));
+        },
+      );
     });
   }
 }
@@ -368,7 +373,7 @@ import 'regenerator-runtime/runtime';
 
 `useBuiltIns`에는 `"entry"`라는 중간 선택지도 있습니다. 이 값을 주면 Babel이 위의 `import 'core-js'` 한 줄을 targets에 없는 폴리필 import 목록으로 바꿔줍니다. 다만 기준이 "이 브라우저에 없는 것 전부"라서, "코드에서 실제로 쓴 것만" 넣는 `usage`보다 결과가 큽니다. 애플리케이션은 대개 `usage`가 낫고, 폴리필 진입 지점을 한 파일로 명시하고 싶을 때 `entry`를 고릅니다.
 
-라이브러리를 만들어 배포하는 경우라면 이야기가 또 다릅니다. `useBuiltIns: "usage"`는 전역 객체를 수정하는 폴리필을 심으므로, 라이브러리가 사용자의 전역 환경을 오염시키게 됩니다. 이럴 땐 `@babel/plugin-transform-runtime`을 써서 전역을 건드리지 않는 격리된 형태로 헬퍼와 폴리필을 참조하게 만듭니다.
+라이브러리를 만들어 배포하는 경우라면 이야기가 또 다릅니다. `useBuiltIns: "usage"`는 전역 객체를 수정하는 폴리필을 심으므로, 라이브러리가 사용자의 전역 환경을 오염시키게 됩니다. 이럴 땐 `@babel/plugin-transform-runtime`을 써서 전역을 건드리지 않는 격리된 형태로 헬퍼와 폴리필을 참조하게 만듭니다. 여기까지의 `useBuiltIns`·`corejs` 설정은 Babel 7 기준입니다. Babel 8(2026년 6월)에서는 `preset-env`의 `useBuiltIns`와 `plugin-transform-runtime`의 `corejs` 옵션이 제거되어, 폴리필 주입을 `babel-plugin-polyfill-corejs3` 플러그인에 직접 맡깁니다.
 
 ### browserslist — 여러 도구가 공유하는 하나의 기준
 
@@ -418,7 +423,7 @@ Webpack에서는 `devtool` 한 줄로 고릅니다. 조합이 많은데, 실무�
 
 ## 7. 실무에서는
 
-- **설정 파일을 직접 쓰는 일이 많이 줄었습니다.** Next.js는 Webpack 설정을 감싸두고 필요한 부분만 열어주며, Vite는 Rollup 설정을 추상화합니다. 그래도 개념을 알아야 하는 이유는, 빌드가 깨졌을 때 에러 메시지가 여전히 loader와 plugin의 언어로 나오기 때문입니다.
+- **설정 파일을 직접 쓰는 일이 많이 줄었습니다.** Next.js는 번들러 설정(16부터 기본은 Turbopack, 그 전에는 Webpack)을 감싸두고 필요한 부분만 열어주며, Vite는 Rolldown(Vite 7까지는 Rollup) 설정을 추상화합니다. 그래도 개념을 알아야 하는 이유는, 빌드가 깨졌을 때 에러 메시지가 여전히 loader와 plugin의 언어로 나오기 때문입니다.
 - **`babel-loader` 대신 `swc-loader`나 `esbuild-loader`로 갈아타는 사례가 흔합니다.** 문법 변환만 필요하다면 체감할 만큼 빨라집니다. 다만 `preset-env`의 `useBuiltIns` 같은 폴리필 자동 주입은 그대로 대체되지 않으므로 구형 브라우저 지원 범위를 먼저 확인해야 합니다.
 - **`@babel/preset-typescript`가 타입 검사를 하지 않는 탓에 사고가 납니다.** 빌드는 멀쩡히 통과하는데 타입 에러가 런타임 버그로 드러납니다. CI에 `tsc --noEmit`을 별도 단계로 반드시 넣습니다. 배포 번들이 예상보다 크다면 `mode: 'production'`이 제대로 적용됐는지부터 확인하는 것이 순서입니다.
 

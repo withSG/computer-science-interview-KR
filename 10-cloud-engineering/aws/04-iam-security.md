@@ -394,9 +394,10 @@ aws iam simulate-principal-policy \
 aws s3api get-bucket-policy --bucket deploy-artifacts --output text
 
 # 4) 실제 거부 이벤트를 CloudTrail에서 확인 (errorCode를 본다)
-#    주의: PutObject 같은 S3 객체 수준 호출은 "데이터 이벤트"라 트레일에서 켜둔 경우에만 기록된다
+#    주의: PutObject 같은 S3 객체 수준 호출은 "데이터 이벤트"라 트레일에서 켜둔 경우에만 기록되고, lookup-events로는 조회되지 않는다
+#    (트레일이 S3에 쌓은 로그에서 찾는다). lookup-events로는 관리 이벤트인 버킷 정책 변경 이력을 확인한다
 aws cloudtrail lookup-events --max-results 10 \
-  --lookup-attributes AttributeKey=EventName,AttributeValue=PutObject
+  --lookup-attributes AttributeKey=EventName,AttributeValue=PutBucketPolicy
 ```
 
 **원인 후보와 판별 신호**

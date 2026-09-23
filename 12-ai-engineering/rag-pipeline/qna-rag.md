@@ -100,7 +100,7 @@ RAG로 해결:
 ### 청킹이 필요한 이유
 
 ```
-1. LLM 컨텍스트 윈도우 제한 (4K~128K 토큰)
+1. LLM 컨텍스트 윈도우 제한 (4K~1M 토큰 이상)
 2. 긴 문서에서 정확한 부분 검색 어려움
 3. 임베딩 품질 저하 (긴 텍스트는 의미 희석)
 ```
@@ -124,6 +124,8 @@ def fixed_size_chunk(text, chunk_size=500, overlap=50):
     while start < len(text):
         end = start + chunk_size
         chunks.append(text[start:end])
+        if end >= len(text):
+            break
         start = end - overlap  # 오버랩으로 맥락 유지
     return chunks
 ```
@@ -158,6 +160,7 @@ def semantic_chunk(text, threshold=0.5):
             current_chunk = []
         current_chunk.append(sentences[i])
 
+    chunks.append(" ".join(current_chunk))
     return chunks
 ```
 
@@ -212,7 +215,7 @@ def semantic_chunk(text, threshold=0.5):
 | OpenAI text-embedding-3-small | 1536 | 범용, API |
 | OpenAI text-embedding-3-large | 3072 | 고성능, 비용 높음 |
 | sentence-transformers | 384~768 | 오픈소스, 로컬 |
-| Cohere embed | 1024 | 다국어 지원 |
+| Cohere embed v3 | 1024 | 다국어 지원 |
 | BGE (BAAI) | 1024 | 오픈소스, 한국어 좋음 |
 | ko-sbert | 768 | 한국어 특화 SBERT (로컬, 무료) |
 
@@ -239,6 +242,7 @@ def semantic_chunk(text, threshold=0.5):
 
 ```python
 from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
 
 model = SentenceTransformer('BAAI/bge-m3')
 
@@ -438,7 +442,7 @@ RAG 평가는 **검색 성능**과 **생성 품질**, 두 측면으로 나눠서
 
 | 지표 | 설명 |
 |------|------|
-| Recall@K | 상위 K개 중 관련 문서 비율 |
+| Recall@K | 전체 관련 문서 중 상위 K개 안에 들어온 비율 |
 | Precision@K | 상위 K개의 정확도 |
 | MRR | 첫 번째 관련 문서의 역순위 평균 |
 | NDCG | 순위를 고려한 관련성 점수 |

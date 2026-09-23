@@ -45,9 +45,12 @@ Image (읽기 전용)
 ### 이미지 레이어 구조
 
 ```dockerfile
-FROM ubuntu:20.04      # Layer 1
-RUN apt-get update     # Layer 2
-COPY app.py /app/      # Layer 3
+# Layer 1
+FROM ubuntu:20.04
+# Layer 2
+RUN apt-get update
+# Layer 3
+COPY app.py /app/
 CMD ["python", "app.py"]
 ```
 
@@ -116,10 +119,12 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 
 ```dockerfile
 # 나쁜 예: 불필요하게 큼
-FROM ubuntu:20.04  # ~70MB
+# ~70MB
+FROM ubuntu:20.04
 
 # 좋은 예: 경량 이미지
-FROM alpine:3.14   # ~5MB
+# ~5MB
+FROM alpine:3.14
 FROM node:16-alpine
 FROM python:3.9-slim
 ```
@@ -205,7 +210,7 @@ docker volume create db-data
 docker run -v db-data:/var/lib/mysql mysql
 
 # Bind Mount (개발용)
-docker run -v $(pwd):/app node npm start
+docker run -v $(pwd):/app -w /app node npm start
 ```
 
 ### Docker Compose에서
@@ -236,8 +241,6 @@ Docker Compose는 **멀티 컨테이너 애플리케이션을 정의하고 실�
 ### docker-compose.yml 예시
 
 ```yaml
-version: '3.8'
-
 services:
   web:
     build: ./web
@@ -268,11 +271,11 @@ volumes:
 ### 주요 명령어
 
 ```bash
-docker-compose up -d      # 시작
-docker-compose down       # 중지 + 삭제
-docker-compose logs -f    # 로그
-docker-compose ps         # 상태 확인
-docker-compose build      # 재빌드
+docker compose up -d      # 시작
+docker compose down       # 중지 + 삭제
+docker compose logs -f    # 로그
+docker compose ps         # 상태 확인
+docker compose build      # 재빌드
 ```
 
 </details>

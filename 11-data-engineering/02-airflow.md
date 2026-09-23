@@ -141,11 +141,12 @@ with DAG(
     extract >> transform     # 의존성: extract가 성공해야 transform이 시작
 ```
 
-`{{ ds }}`, `{{ data_interval_start }}` 는 Airflow가 실행 시점에 채워 주는 **Jinja 템플릿 변수**입니다. SQL 안에 날짜를 하드코딩하지 않고 이 변수를 쓰는 것이 백필을 가능하게 하는 첫 번째 조건입니다. 주의할 점이 하나 있습니다. `schedule`을 `0 2 * * *` 같은 cron으로 두면 데이터 구간이 02:00~02:00이 되어 `{{ ds }}`가 가리키는 달력 하루와 어긋납니다. 위처럼 파티션 키와 구간 필터를 함께 쓸 때는 스케줄 경계가 파티션 경계와 맞는지 먼저 확인해야 합니다.
+`{{ ds }}`, `{{ data_interval_start }}` 는 Airflow가 실행 시점에 채워 주는 **Jinja 템플릿 변수**입니다. SQL 안에 날짜를 하드코딩하지 않고 이 변수를 쓰는 것이 백필을 가능하게 하는 첫 번째 조건입니다. 주의할 점이 하나 있습니다. `schedule`을 `0 2 * * *` 같은 cron으로 두면 데이터 구간이 02:00~02:00이 되어 `{{ ds }}`가 가리키는 달력 하루와 어긋납니다. 위처럼 파티션 키와 구간 필터를 함께 쓸 때는 스케줄 경계가 파티션 경계와 맞는지 먼저 확인해야 합니다. 또 Airflow 3은 cron 스케줄(`@daily` 포함)의 기본 시간표가 `CronTriggerTimetable`이라 `data_interval_start`와 `data_interval_end`가 같은 시각이 되므로, 위 구간 필터는 한 건도 고르지 못합니다. Airflow 3에서 이 방식을 쓰려면 `[scheduler] create_cron_data_intervals = True`로 두거나 `CronDataIntervalTimetable`을 명시해야 합니다.
 
 ### 최신 스타일: TaskFlow API
 
 ```python
+from datetime import datetime
 from airflow.decorators import dag, task
 
 @dag(dag_id="daily_sales_taskflow", start_date=datetime(2026, 1, 1),
@@ -177,7 +178,7 @@ daily_sales()
 
 ### 왜 자정 DAG가 다음 날 도는가
 
-`schedule="@daily"`, `start_date=2026-03-01`인 DAG는 **3월 1일 자정이 아니라 3월 2일 자정에 처음 실행됩니다.** 처음 보면 버그처럼 느껴지는데, 배치의 본질을 생각하면 당연합니다.
+Airflow 2의 기본 시간표(`CronDataIntervalTimetable`) 기준으로, `schedule="@daily"`, `start_date=2026-03-01`인 DAG는 **3월 1일 자정이 아니라 3월 2일 자정에 처음 실행됩니다.** 처음 보면 버그처럼 느껴지는데, 배치의 본질을 생각하면 당연합니다.
 
 **3월 1일치 데이터를 집계하려면 3월 1일이 끝나야 합니다.** 3월 1일 00:00에는 아직 그날 데이터가 한 건도 없습니다.
 
@@ -247,7 +248,7 @@ def load(**context):
 `start_date`가 과거이고 `catchup=True`면, Airflow는 `start_date`부터 현재까지 모든 데이터 구간을 훑습니다. **구간마다 DAG Run을 자동으로 만들어 순서대로 실행합니다.** 이 값을 생략했을 때의 기본값은 `catchup_by_default` 설정과 Airflow 버전에 따라 달라지므로, DAG마다 명시하는 편이 안전합니다.
 
 ```
-start_date = 2026-01-01, schedule = @daily, 오늘 = 2026-03-01
+start_date = 2026-01-01, schedule = @daily, 오늘 = 2026-03-01   (Airflow 2 기본 시간표 기준)
 catchup=True  →  01-01 구간부터 02-28 구간까지 59개 DAG Run이 차례로 생성·실행
 
 catchup=False →  가장 최근 구간 하나만 실행하고, 이후 정상 스케줄로 진행
@@ -370,7 +371,7 @@ def compute_threshold():
     return float(pd.read_sql("SELECT * FROM huge_table", conn).amount.mean())
 ```
 
-**왜 문제인가**: 스케줄러는 DAG 폴더의 파이썬 파일을 **주기적으로 반복 파싱**합니다. DAG가 몇 개인지 알기 위해 실행과 무관하게 계속 읽습니다. 최상위에 DB 조회가 있으면 그 쿼리가 몇 분마다 실행되고, DAG가 늘어날수록 스케줄러 전체가 느려집니다. 커넥션 풀이 고갈되어 다른 DAG까지 영향을 받기도 합니다.
+**왜 문제인가**: 스케줄러는 DAG 폴더의 파이썬 파일을 **주기적으로 반복 파싱**합니다. DAG가 몇 개인지 알기 위해 실행과 무관하게 계속 읽습니다. 최상위에 DB 조회가 있으면 그 쿼리가 파싱 때마다(기본 설정이면 30초 간격) 실행되고, DAG가 늘어날수록 스케줄러 전체가 느려집니다. 커넥션 풀이 고갈되어 다른 DAG까지 영향을 받기도 합니다.
 
 ### 안티패턴 2: Sensor를 기본 모드로 오래 대기시킨다
 
@@ -423,7 +424,7 @@ A. cron은 시간만 알고 의존성을 모릅니다. 앞 작업이 밀려도 �
 
 **Q. `logical_date`(예전 `execution_date`)가 실제 실행 시각과 다른 이유는 무엇인가요?**
 
-A. 그 값은 실행 시각이 아니라 **처리 대상 데이터 구간의 시작 시각**이기 때문입니다. 3월 1일 하루치를 집계하려면 3월 1일이 끝나야 하므로, 3월 1일 구간의 DAG Run은 3월 2일 자정에 실행됩니다. 이름이 `execution_date`였을 때 오해가 많아서 이후 `logical_date`로 바뀌고 `data_interval_start` / `data_interval_end`가 추가됐습니다. 실무에서는 구간이 명시적으로 드러나는 `data_interval_*`를 쓰는 편이 안전합니다.
+A. Airflow 2의 기본 시간표(`CronDataIntervalTimetable`)에서는 그 값이 실행 시각이 아니라 **처리 대상 데이터 구간의 시작 시각**이기 때문입니다. 3월 1일 하루치를 집계하려면 3월 1일이 끝나야 하므로, 3월 1일 구간의 DAG Run은 3월 2일 자정에 실행됩니다. 이름이 `execution_date`였을 때 오해가 많아서 이후 `logical_date`로 바뀌고 `data_interval_start` / `data_interval_end`가 추가됐습니다. 실무에서는 구간이 명시적으로 드러나는 `data_interval_*`를 쓰는 편이 안전합니다.
 - 꼬리 질문: "이 개념이 왜 중요한가요?" → 태스크가 `now()` 대신 이 구간을 파라미터로 받아야 재시도와 백필이 같은 결과를 내기 때문이라고 답합니다.
 
 **Q. Airflow 태스크를 멱등하게 작성한다는 것은 구체적으로 무엇인가요?**

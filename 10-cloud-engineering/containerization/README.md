@@ -17,8 +17,8 @@
 |------|------|--------|
 | [docker](./docker/) | Docker 기초, Compose, 컨테이너 vs VM | ⭐⭐ |
 
-> 이미지 레지스트리(DockerHub, ECR)는 [docker/01-docker-basics.md](./docker/01-docker-basics.md)의
-> 이미지·레이어 절에서 함께 다룹니다.
+> 이미지 레지스트리는 [docker/01-docker-basics.md](./docker/01-docker-basics.md)의
+> 7절 '실무에서는'(이미지 태그 전략)에서 push 예시와 함께 다룹니다.
 
 ---
 

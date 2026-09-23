@@ -354,7 +354,7 @@ public class OrderService {
 }
 ```
 
-**왜 문제인가**: `OrderService`는 주문 규칙이라는 상위 정책인데 MySQL과 SMTP라는 하위 기술을 직접 알고 있습니다. 단위 테스트에서 가짜 저장소로 바꿔치울 수도 없고, DB를 옮기면 정책 코드가 바뀝니다.
+**왜 문제인가**: `OrderService`는 주문 규칙이라는 상위 정책인데 MySQL과 SMTP라는 하위 기술을 직접 알고 있습니다. 단위 테스트에서 가짜 저장소로 바꿔치기할 수도 없고, DB를 옮기면 정책 코드가 바뀝니다.
 
 <!-- diagram:be-oop-solid-2 -->
 ![DIP](../../assets/diagrams/be-oop-solid-2.svg)

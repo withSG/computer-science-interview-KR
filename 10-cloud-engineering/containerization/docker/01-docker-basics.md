@@ -122,7 +122,7 @@ docker diff web2 | grep html   # 안 나온다. web2가 보는 index.html은 이
 
 ### 유니온 파일시스템이 하는 일
 
-여러 디렉터리를 겹쳐서 **하나의 디렉터리인 것처럼 보여주는** 파일시스템입니다. 리눅스 Docker의 기본 스토리지 드라이버는 `overlay2`이며 구조는 이렇습니다.
+여러 디렉터리를 겹쳐서 **하나의 디렉터리인 것처럼 보여주는** 파일시스템입니다. 리눅스 Docker의 전통적인 기본 스토리지 드라이버는 `overlay2`이며(Docker Engine 29부터 새로 설치하면 containerd 이미지 스토어의 `overlayfs` 스냅샷터가 기본이지만 같은 OverlayFS를 씁니다) 구조는 이렇습니다.
 
 <!-- diagram:cloud-docker-basics-3 -->
 ![유니온 파일시스템이 하는 일](../../../assets/diagrams/cloud-docker-basics-3.svg)
@@ -186,7 +186,8 @@ RUN wget https://example.com/big-sdk.tar.gz \
 # 나쁜 예: 소스 한 글자만 고쳐도 의존성을 통째로 다시 설치한다
 FROM python:3.12-slim
 WORKDIR /app
-COPY . .                                  # 소스가 바뀌면 여기서 캐시 깨짐
+# 소스가 바뀌면 여기서 캐시 깨짐
+COPY . .
 RUN pip install --no-cache-dir -r requirements.txt   # → 매번 재설치 (수 분)
 CMD ["python", "main.py"]
 ```
@@ -195,13 +196,15 @@ CMD ["python", "main.py"]
 # 좋은 예: 의존성 목록과 소스를 분리해서 복사한다
 FROM python:3.12-slim
 WORKDIR /app
-COPY requirements.txt .                   # requirements.txt가 안 바뀌면 캐시 히트
+# requirements.txt가 안 바뀌면 캐시 히트
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt   # → 재사용 (수 초)
-COPY . .                                  # 소스만 다시 복사
+# 소스만 다시 복사
+COPY . .
 CMD ["python", "main.py"]
 ```
 
-소스 한 줄만 고쳤을 때, 나쁜 예는 `COPY . .`부터 아래 전부가 MISS라 의존성을 다시 깝니다. 좋은 예는 `COPY requirements.txt`와 `RUN pip`가 CACHED로 살아남고 마지막 `COPY . .`만 다시 돕니다. Node, Java도 원리는 같습니다. `package.json`과 `package-lock.json`만 먼저 복사해 `npm ci`를 돌립니다. Gradle이면 `build.gradle`과 래퍼만 먼저 복사해 의존성을 받은 뒤 `src`를 복사합니다.
+소스 한 줄만 고쳤을 때, 나쁜 예는 `COPY . .`부터 아래 전부가 MISS라 의존성을 다시 깝니다. 좋은 예는 `COPY requirements.txt`와 `RUN pip`이 CACHED로 살아남고 마지막 `COPY . .`만 다시 돕니다. Node, Java도 원리는 같습니다. `package.json`과 `package-lock.json`만 먼저 복사해 `npm ci`를 돌립니다. Gradle이면 `build.gradle`과 래퍼만 먼저 복사해 의존성을 받은 뒤 `src`를 복사합니다.
 
 ### .dockerignore를 안 쓰면 캐시가 계속 깨진다
 
@@ -242,7 +245,8 @@ FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /src/build/libs/*.jar app.jar
 RUN addgroup --system app && adduser --system --ingroup app app
-USER app                                      # root로 돌리지 않는다
+# root로 돌리지 않는다
+USER app
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 ```
 
@@ -257,7 +261,8 @@ COPY . .
 RUN npm run build
 
 FROM nginx:1.27-alpine
-COPY --from=build /app/dist /usr/share/nginx/html   # node_modules도 npm도 안 남는다
+# node_modules도 npm도 안 남는다
+COPY --from=build /app/dist /usr/share/nginx/html
 ```
 
 `docker build --target build .`처럼 중간 스테이지만 빌드할 수도 있습니다. 그래서 테스트 전용 스테이지를 따로 두고 CI에서만 쓰는 패턴도 흔합니다.
@@ -302,7 +307,7 @@ COPY --from=build /app/dist /usr/share/nginx/html   # node_modules도 npm도 안
 | 상세 | `docker inspect web` | `--format`으로 필드만 뽑는 게 실용적 |
 | 정리 | `docker system df` / `docker system prune` | 디스크 차지 확인 후 정리 |
 
-`docker attach`는 PID 1의 표준 입출력에 직접 붙어 Ctrl+C가 컨테이너를 죽일 수 있습니다. 디버깅은 `docker exec`로 합니다.
+`docker attach`는 PID 1의 표준 입출력에 직접 붙어 Ctrl+C가 컨테이너를 죽일 수 있습니다. 디버깅은 `docker exec`으로 합니다.
 
 ### 데이터를 어디에 둘 것인가
 
@@ -319,8 +324,8 @@ COPY --from=build /app/dist /usr/share/nginx/html   # node_modules도 npm도 안
 바인드 마운트에는 유명한 함정이 있습니다. 마운트는 해당 경로를 **통째로 덮어쓰기** 때문에 이미지 빌드 중 설치했던 `/app/node_modules`가 호스트 디렉터리에 가려져 사라집니다. 그 하위 경로만 익명 볼륨으로 다시 덮어 주면 됩니다.
 
 ```bash
-docker run -v "$(pwd)":/app node:20 npm start                       # node_modules 사라짐
-docker run -v "$(pwd)":/app -v /app/node_modules node:20 npm start  # 하위 경로만 되살림
+docker run -v "$(pwd)":/app myapp npm start                       # node_modules 사라짐
+docker run -v "$(pwd)":/app -v /app/node_modules myapp npm start  # 하위 경로만 되살림
 ```
 
 ---
@@ -348,7 +353,7 @@ docker inspect myapp --format '{{.State.OOMKilled}} {{.State.ExitCode}}'
 # true 137
 ```
 
-**원인**: 종료 코드 137은 SIGKILL(128+9)이고, `OOMKilled=true`면 메모리 한도 초과로 커널이 죽인 경우입니다. JVM이나 Node가 호스트 전체 메모리를 기준으로 힙을 잡아 컨테이너 한도를 넘기는 경우가 가장 흔합니다.
+**원인**: 종료 코드 137은 SIGKILL(128+9)이고, `OOMKilled=true`면 메모리 한도 초과로 커널이 죽인 경우입니다. 컨테이너를 인식하지 못하는 구버전 JVM이나 Node가 호스트 전체 메모리를 기준으로 힙을 잡아 컨테이너 한도를 넘기는 경우가 대표적입니다.
 
 **대응**: 한도를 올릴지 앱을 줄일지 먼저 정합니다. JVM이라면 `-XX:MaxRAMPercentage`로 컨테이너 한도 대비 비율을 지정하고, Node라면 `--max-old-space-size`를 한도보다 작게 줍니다. 한도 자체가 부족하면 `--memory`를 조정합니다.
 
@@ -367,7 +372,7 @@ docker system df
 ### 장애 시나리오 3 — 로컬에선 빠른 빌드가 CI에서만 10분
 
 **원인**: CI 러너는 매번 새 머신이라 로컬 레이어 캐시가 없습니다. 로컬에서 보던 캐시 이득이 통째로 사라집니다.
-**대응**: 레지스트리를 공용 캐시 저장소로 씁니다. `docker buildx build`에 `--cache-from type=registry,ref=<이미지>:buildcache`와 `--cache-to ...,mode=max`를 붙이면 이전 빌드의 레이어를 내려받아 재사용합니다. 레지스트리로 캐시를 내보내려면 기본 `docker` 드라이버가 아니라 `docker-container` 드라이버 빌더가 필요합니다.
+**대응**: 레지스트리를 공용 캐시 저장소로 씁니다. `docker buildx build`에 `--cache-from type=registry,ref=<이미지>:buildcache`와 `--cache-to ...,mode=max`를 붙이면 이전 빌드의 레이어를 내려받아 재사용합니다. 레지스트리로 캐시를 내보내려면 `docker-container` 드라이버 빌더를 쓰거나, 기본 `docker` 드라이버라면 containerd 이미지 스토어가 켜져 있어야 합니다(Docker Engine 29부터 새 설치의 기본값).
 
 ### 보안 기본기
 

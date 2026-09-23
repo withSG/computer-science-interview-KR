@@ -108,7 +108,7 @@ kubectl describe pod <pod> | grep -A 10 Events
 | `had untolerated taint` | 노드에 taint가 있는데 toleration 없음 | toleration 추가 또는 다른 노드 대상 |
 | `didn't match Pod's node affinity/selector` | nodeSelector/affinity 조건에 맞는 노드 없음 | 라벨 확인 또는 조건 완화 |
 | `pod has unbound immediate PersistentVolumeClaims` | PVC가 바인딩되지 않음 | `describe pvc`로 StorageClass 확인 |
-| `exceeded quota` | 네임스페이스 ResourceQuota 초과 | 쿼터 조정 또는 불필요 워크로드 정리 |
+| `exceeded quota` | 네임스페이스 ResourceQuota 초과. Pending이 아니라 Pod 생성 자체가 거부되어 ReplicaSet 등 컨트롤러의 `FailedCreate` 이벤트로 나타남 | 쿼터 조정 또는 불필요 워크로드 정리 |
 | `node(s) didn't have free ports` | hostPort 충돌 | hostPort 사용을 재검토 |
 
 ```bash
@@ -230,7 +230,7 @@ kubectl describe node <node> | grep -A 10 Conditions
 | `MemoryPressure` | 노드 메모리 부족 | limit 없는 Pod의 폭주, 과밀 배치 |
 | `DiskPressure` | 디스크 또는 inode 부족 | 로그 누적, 사용하지 않는 이미지, emptyDir 폭증 |
 | `PIDPressure` | 프로세스 ID 고갈 | 프로세스를 정리하지 않는 애플리케이션 |
-| `Ready=False` | kubelet 응답 없음 | kubelet/런타임 장애, 네트워크 단절, 노드 재부팅 |
+| `Ready=False` / `Unknown` | 노드 비정상(False) 또는 kubelet 응답 없음(Unknown) | kubelet/런타임 장애, 네트워크 단절, 노드 재부팅 |
 
 축출 순서는 QoS 클래스를 따릅니다. **BestEffort → Burstable → Guaranteed** 순으로 희생됩니다. 그래서 requests를 적어 두지 않은 Pod가 제일 먼저 사라집니다. 중요한 워크로드에 requests/limits를 성실히 적는 것이 곧 생존 전략입니다.
 
@@ -408,7 +408,7 @@ kubectl get endpoints <service>          # 비어 있으면 readiness 실패 의
        ③ 노드에서 디스크 사용량 확인
 
 원인   한 애플리케이션이 컨테이너 안에 파일 로그를 무한 누적.
-       노드 디스크가 차자 kubelet이 BestEffort Pod부터 축출.
+       노드 디스크가 차자 kubelet이 requests 대비 디스크 사용량이 큰 Pod부터 축출.
 
 대응   즉시: 문제 Pod 정리, 오래된 이미지·로그 회수로 공간 확보
        근본: 로그를 표준 출력으로 전환해 수집기가 가져가도록 변경,
@@ -502,8 +502,8 @@ Pod 상태 이름은 증상일 뿐이므로, 어느 층(스케줄링·이미지�
 
 ## 연관 개념
 
-- [01-architecture-concepts.md](./01-architecture-concepts.md) - 스케줄러·kubelet의 역할을 알아야 Pending과 NotReady가 구분된다
-- [02-deployment-management.md](./02-deployment-management.md) - requests/limits와 QoS가 OOMKilled·Evicted를 결정한다
+- [01-architecture-concepts.md](./01-architecture-concepts.md) - 스케줄러·kubelet의 역할을 알아야 Pending과 NotReady가 구분됩니다
+- [02-deployment-management.md](./02-deployment-management.md) - requests/limits와 QoS가 OOMKilled·Evicted를 결정합니다
 - [03-networking-service.md](./03-networking-service.md) - 엔드포인트가 비는 연결 장애의 진단
 - [04-config-storage.md](./04-config-storage.md) - 설정 누락과 PVC Pending의 원인
 - [qna-kubernetes.md](./qna-kubernetes.md) - 트러블슈팅 면접 질문

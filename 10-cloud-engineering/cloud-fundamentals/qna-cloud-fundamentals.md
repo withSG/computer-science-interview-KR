@@ -18,14 +18,14 @@
 |------|----------|------------|------|
 | **IaaS** | 인프라 (서버, 스토리지, 네트워크) | OS, 런타임, 앱 | AWS EC2, Azure VM |
 | **PaaS** | 인프라 + 플랫폼 (OS, 런타임) | 앱, 데이터 | Heroku, AWS Elastic Beanstalk |
-| **SaaS** | 모든 것 (완성된 서비스) | 사용만 | Gmail, Slack, Salesforce |
+| **SaaS** | 모든 것 (완성된 서비스) | 데이터, 계정/권한 설정 | Gmail, Slack, Salesforce |
 
 ### 책임 분담 시각화
 
 ```
               On-Prem   IaaS    PaaS    SaaS
 Applications    You      You     You    Vendor
-Data            You      You     You    Vendor
+Data            You      You     You    You
 Runtime         You      You    Vendor  Vendor
 Middleware      You      You    Vendor  Vendor
 O/S             You      You    Vendor  Vendor
@@ -116,7 +116,7 @@ GCP: KVM - Type 1
 
 | 구분 | VM | Container |
 |------|-----|-----------|
-| 격리 수준 | 완전 격리 (OS 레벨) | 프로세스 격리 |
+| 격리 수준 | 강한 격리 (하이퍼바이저 경계) | 프로세스 격리 |
 | OS | 각 VM마다 Guest OS | Host OS 커널 공유 |
 | 부팅 시간 | 분 단위 | 초 단위 |
 | 이미지 크기 | GB 단위 | MB 단위 |

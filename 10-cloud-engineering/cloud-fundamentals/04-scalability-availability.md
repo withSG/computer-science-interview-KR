@@ -12,7 +12,8 @@
 
 ## 선행 지식
 
-- [01-cloud-computing-basics.md](./01-cloud-computing-basics.md) - 클라우드의 탄력성, 리전과 가용 영역
+- [01-cloud-computing-basics.md](./01-cloud-computing-basics.md) - 클라우드의 탄력성
+- [../aws/01-core-services.md](../aws/01-core-services.md) - 리전과 가용 영역
 
 ---
 
@@ -105,7 +106,7 @@
 
 | 가용성 | 부르는 말 | 연간 다운타임 | 월간 다운타임 | 감이 오게 하면 |
 |--------|----------|-------------|-------------|--------------|
-| 99% | Two 9s | 약 3.65일 | 약 7.2시간 | 매달 반나절이 꺼진다 |
+| 99% | Two 9s | 약 3.65일 | 약 7.3시간 | 매달 반나절이 꺼진다 |
 | 99.9% | Three 9s | 약 8.8시간 | 약 43.8분 | 매달 점심시간 한 번 |
 | 99.95% | - | 약 4.4시간 | 약 21.9분 | 매달 회의 한 번 |
 | 99.99% | Four 9s | 약 52.6분 | 약 4.4분 | 배포 실패 한 번이면 소진 |
@@ -380,7 +381,7 @@ A. RTO는 복구까지 허용되는 시간, RPO는 허용되는 데이터 손실
 
 ## 연관 개념
 
-- [01-cloud-computing-basics.md](./01-cloud-computing-basics.md) - 탄력성과 종량제, 리전/가용 영역의 개념
+- [01-cloud-computing-basics.md](./01-cloud-computing-basics.md) - 탄력성과 종량제
 - [02-virtualization-hypervisor.md](./02-virtualization-hypervisor.md) - 인스턴스를 빠르게 늘릴 수 있게 하는 기반 기술
 - [03-public-private-hybrid.md](./03-public-private-hybrid.md) - 배포 모델에 따라 달라지는 확장 한계와 DR 선택지
 - [qna-cloud-fundamentals.md](./qna-cloud-fundamentals.md) - 이 주제의 면접 질문 모음

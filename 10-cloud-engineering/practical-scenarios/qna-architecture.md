@@ -113,7 +113,7 @@
 - 분산 ID 생성기 (Snowflake)
 - ID를 Base62로 변환
 
-선택: Counter 기반 (충돌 없음, 예측 가능)
+선택: Counter 기반 (충돌 없음, 단 코드가 순차적이라 예측 가능)
 ```
 
 ### 데이터베이스 설계
@@ -131,7 +131,7 @@ CREATE TABLE urls (
     INDEX idx_short_code (short_code)
 );
 
--- 규모: 1억 URL × 1KB = 100GB (충분히 단일 DB)
+-- 규모: 월 1억 URL × 1KB = 월 100GB, 연 1.2TB (보관 기간에 따라 파티셔닝 검토)
 ```
 
 ### 캐싱 전략
@@ -262,7 +262,7 @@ Redis 캐싱:
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1:1 채팅:
-┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐
+┌────────┐    ┌────────┐    ┌────────┐    ┌────────┐    ┌──────┐
 │User A  │───▶│Gateway │───▶│ Kafka  │───▶│Gateway │───▶│User B│
 │        │    │Server 1│    │        │    │Server 2│    │      │
 └────────┘    └────────┘    └────────┘    └────────┘    └──────┘
@@ -673,7 +673,12 @@ CREATE TABLE share_links (
   },
   "settings": {
     "number_of_shards": 5,
-    "number_of_replicas": 1
+    "number_of_replicas": 1,
+    "analysis": {
+      "analyzer": {
+        "korean": { "type": "nori" }
+      }
+    }
   }
 }
 ```
@@ -698,12 +703,12 @@ CREATE TABLE share_links (
 
 ```
 점수 계산:
-score = TF-IDF × boost × popularity × freshness
+score = BM25 × boost × popularity × freshness
 
-TF-IDF: 텍스트 관련도
+BM25: 텍스트 관련도
 boost: 필드별 가중치 (제목 > 본문)
 popularity: 클릭수, 구매수
-freshness: 최신 컨텐츠 가산점
+freshness: 최신 콘텐츠 가산점
 
 예시 쿼리:
 {
@@ -736,7 +741,7 @@ freshness: 최신 컨텐츠 가산점
 ```
 Elasticsearch 클러스터:
 - 5 샤드 × 2 레플리카
-- 샤드당 10GB 권장
+- 샤드당 10~50GB 권장
 - 노드 추가로 수평 확장
 
 캐싱:

@@ -14,7 +14,7 @@
 ## 선행 지식
 
 - HTTP API를 만들어본 경험, 데이터베이스 트랜잭션의 기본 개념
-- [03-clean-code-refactoring.md](./03-clean-code-refactoring.md) - 여기서 다룬 결합도 이야기가 서비스 단위로 확장된다
+- [03-clean-code-refactoring.md](./03-clean-code-refactoring.md) - 여기서 다룬 결합도 이야기가 서비스 단위로 확장됩니다
 
 ---
 
@@ -119,7 +119,7 @@ MSA로 가면 이 다섯 가지를 **전부 잃고** 각각을 직접 구현해�
 
   결과는 최소 다섯 가지:
     1. 성공
-    2. 재고 서비스가 500을 반환 (실패했음이 확실)
+    2. 재고 서비스가 500을 반환 (실패 응답은 받았다)
     3. 타임아웃 — 처리됐는지 안 됐는지 알 수 없다  ← 가장 어렵다
     4. 커넥션 거부 (서비스가 죽었거나 배포 중)
     5. 응답은 왔는데 그 사이 네트워크가 끊겨 주문 쪽이 못 받음
@@ -423,8 +423,8 @@ MSA는 기술적 우월성이 아닙니다. **배포와 조직의 결합을 끊�
 ## 연관 개념
 
 - [03-clean-code-refactoring.md](./03-clean-code-refactoring.md) - 결합도와 응집도를 클래스 단위에서 다루는 법
-- [01-agile-process.md](./01-agile-process.md) - 콘웨이의 법칙과 팀 구조, 브룩스의 법칙
-- [02-testing-tdd.md](./02-testing-tdd.md) - 서비스 간 계약을 테스트로 고정하기
+- [01-agile-process.md](./01-agile-process.md) - 팀 구조와 브룩스의 법칙
+- [02-testing-tdd.md](./02-testing-tdd.md) - 서비스 간 연동을 검증하는 통합 테스트와 테스트 더블
 - [qna-software-engineering.md](./qna-software-engineering.md) - MSA 면접 질문(Q13)
 - [../02-backend-engineering/database/04-transaction-isolation.md](../02-backend-engineering/database/04-transaction-isolation.md) - Saga가 포기하는 격리성이 원래 무엇이었는지
 - [../09-system-design/scalability/qna-scalability.md](../09-system-design/scalability/qna-scalability.md) - 확장성 관점의 아키텍처 선택

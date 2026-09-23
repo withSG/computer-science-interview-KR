@@ -160,7 +160,7 @@ password = "mypassword"
 hash = sha256(password)
 
 # 좋은 예: Salt + 느린 해시 (bcrypt)
-hash = bcrypt.hashpw(password, bcrypt.gensalt())
+hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 ```
 
 ### 해싱 알고리즘
@@ -259,7 +259,7 @@ CSRF는 인증된 사용자를 이용해 **의도하지 않은 요청을 서버�
 Set-Cookie: session=abc; SameSite=Strict
 ```
 - Strict: 다른 사이트에서 쿠키 전송 X
-- Lax: GET만 허용
+- Lax: 최상위 내비게이션의 GET만 허용
 - None: 항상 전송 (HTTPS 필수)
 
 **3. Referer/Origin 검증**
@@ -310,7 +310,7 @@ if (!allowedOrigins.contains(origin)) {
 | MD5 | 128bit | 취약 | 비권장 |
 | SHA-1 | 160bit | 취약 | 비권장 |
 | SHA-256 | 256bit | 안전 | 파일 검증 |
-| bcrypt | 가변 | 안전 | 비밀번호 |
+| bcrypt | 184bit (문자열 60자) | 안전 | 비밀번호 |
 
 ### 사용 사례
 - **비밀번호 저장**: bcrypt, argon2
@@ -390,7 +390,7 @@ String hash = BCrypt.hashpw(password, BCrypt.gensalt());
 ```
 1. 서버가 공개키 전송
 2. 클라이언트가 대칭키 생성
-3. 공개키로 대칭키 암호화하여 전송
+3. 공개키로 대칭키 암호화하여 전송 (TLS 1.2 이하의 RSA 키 교환. TLS 1.3은 ECDHE로 양쪽이 각자 같은 키를 계산)
 4. 이후 대칭키로 통신 (빠름)
 ```
 
@@ -606,8 +606,8 @@ OAuth는 **제3자 애플리케이션이 사용자의 리소스에 접근할 수
 
 ### 소셜 로그인 구현 예시 (Spring Security)
 
-```java
-// application.yml
+```yaml
+# application.yml
 spring:
   security:
     oauth2:

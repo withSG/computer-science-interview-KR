@@ -110,7 +110,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'          # setup-node가 npm 캐시를 알아서 처리
       - run: npm ci
       - run: npm run lint
@@ -121,7 +121,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       - run: npm ci
       - run: npm test -- --coverage
@@ -133,7 +133,7 @@ jobs:
       - uses: actions/checkout@v4   # 새 러너이므로 체크아웃부터 다시 한다
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: 'npm'
       - run: npm ci
       - run: npm run build
@@ -339,7 +339,7 @@ COPY . .
          3) 캐시를 끄고(워크플로에서 임시로 제거) 재실행해 정상 통과하는지 확인
 원인   : 캐시 키에 잠금 파일 해시가 빠졌거나, restore-keys가 너무 느슨해서
          오래된 캐시를 끌어왔다. 또는 캐시된 디렉터리 안에 빌드 결과물이 섞여 있다.
-대응   : 즉시 - 저장소 설정에서 해당 캐시 항목을 삭제하고 재실행
+대응   : 즉시 - 저장소의 Actions 탭 > Caches에서 해당 캐시 항목을 삭제하고 재실행
          근본 - 키에 hashFiles(잠금 파일)를 넣고, restore-keys 접두어를 좁힌다.
          캐시 경로에서 빌드 산출물 디렉터리를 제외한다.
 ```
@@ -361,10 +361,10 @@ jobs:
       max-parallel: 4
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node: ['18', '20', '22']
+        node: ['22', '24', '26']
         exclude:
           - os: windows-latest
-            node: '18'        # 이 조합은 지원 대상이 아님
+            node: '22'        # 이 조합은 지원 대상이 아님
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

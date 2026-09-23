@@ -29,7 +29,7 @@
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 1) 첫 화면이 늦다
-   HTML 도착 → 흰 화면 → JS 다운로드 → JS 실행 → API 호출 → 그제서야 콘텐츠
+   HTML 도착 → 흰 화면 → JS 다운로드 → JS 실행 → API 호출 → 그제야 콘텐츠
 
 2) 검색 엔진과 SNS가 내용을 못 본다
    크롤러가 받은 HTML: <div id="root"></div>
@@ -39,7 +39,7 @@
 
 그래서 "다시 서버에서 HTML을 만들자"는 흐름이 돌아왔습니다. 다만 옛날처럼 전부 서버에서 만드는 게 아니라, **페이지 성격에 따라 만드는 시점과 장소를 골라 쓰자**는 게 지금의 렌더링 전략입니다.
 
-> **비유**: 음식점에 빗대면 CSR은 밀키트 배송(재료와 조리법만 보내고 손님이 집에서 조리), SSR은 주문받고 그 자리에서 조리, SSG는 아침에 미리 만들어 진열대에 올려둔 도시락, ISR은 그 도시락을 정해진 주기마다 새로 만들어 교체하는 것입니다.
+> **비유**: 음식점에 빗대면 CSR은 밀키트 배송(재료와 조리법만 보내고 손님이 집에서 조리), SSR은 주문받고 그 자리에서 조리, SSG는 아침에 미리 만들어 진열대에 올려둔 도시락, ISR은 진열한 지 정해진 시간이 지난 도시락이라도 손님이 오면 일단 내주고, 그 주문을 계기로 새 도시락을 만들어 교체하는 것입니다.
 >
 > **비유의 한계**: 이 비유가 말해 주는 건 "누가 언제 조리하나"뿐입니다. 하지만 실제로는 조리된 음식(HTML)을 받은 뒤에도 브라우저에서 JavaScript를 다시 실행해 이벤트를 붙이는 하이드레이션이 남아 있습니다. → [02-hydration.md](./02-hydration.md)
 
@@ -329,7 +329,7 @@ export default function ProductPage() {
 }
 ```
 
-한 가지 짚고 갈 게 있습니다. Suspense로 감쌌다고 이 라우트가 정적이 되는 건 아닙니다. **동적 API를 트리 어디에서든 쓰면 라우트 전체가 동적 렌더 대상이 됩니다.** 달라지는 건 "느린 조각이 나머지를 막지 않는다"는 점이지 캐싱 여부가 아닙니다. 라우트를 정적으로 유지하고 싶다면 그 조각을 클라이언트 컴포넌트로 빼서 로드 이후에 따로 가져오는 쪽이 확실합니다. 정적 껍데기와 동적 구멍을 한 라우트에 공존시키는 Partial Prerendering이 이 문제를 정면으로 다루지만, 아직 실험적 기능이라 프로덕션 도입은 버전 상태를 확인하고 판단해야 합니다.
+한 가지 짚고 갈 게 있습니다. Suspense로 감쌌다고 이 라우트가 정적이 되는 건 아닙니다. **동적 API를 트리 어디에서든 쓰면 라우트 전체가 동적 렌더 대상이 됩니다.** 달라지는 건 "느린 조각이 나머지를 막지 않는다"는 점이지 캐싱 여부가 아닙니다. 라우트를 정적으로 유지하고 싶다면 그 조각을 클라이언트 컴포넌트로 빼서 로드 이후에 따로 가져오는 쪽이 확실합니다. 정적 껍데기와 동적 구멍을 한 라우트에 공존시키는 Partial Prerendering이 이 문제를 정면으로 다룹니다. Next.js 15까지는 실험적 기능(`experimental.ppr`)이었고 16부터는 `cacheComponents: true`를 켜면 기본 동작으로 적용되므로, 프로덕션 도입은 버전 상태를 확인하고 판단해야 합니다.
 
 ### 안티패턴 3 — 전 상품을 `generateStaticParams`로 미리 생성
 
@@ -373,7 +373,7 @@ const [user, posts, banners] = await Promise.all([getUser(), getPosts(), getBann
 ## 8. 실무에서는
 
 - **Next.js**는 라우트 단위로 정적/동적을 자동 판정하고, `next build` 출력에 각 라우트가 미리 생성됐는지 요청 시 렌더되는지를 표시합니다. 배포 전에 이 출력을 확인하는 게 "의도치 않게 전부 동적이 됐는지" 잡는 가장 빠른 방법입니다.
-- **온디맨드 재검증**은 CMS와 붙일 때 사실상 표준입니다. 에디터가 글을 발행하면 CMS가 웹훅을 쏘고, 그 핸들러에서 `revalidateTag('posts')`로 관련 캐시만 정확히 비웁니다.
+- **온디맨드 재검증**은 CMS와 붙일 때 사실상 표준입니다. 에디터가 글을 발행하면 CMS가 웹훅을 쏘고, 그 핸들러에서 `revalidateTag('posts', { expire: 0 })`로 관련 캐시만 정확히 비웁니다(Next.js 16부터 두 번째 인자가 필요하고, 15 이하는 `revalidateTag('posts')`).
 
 ```ts
 // app/api/revalidate/route.ts
@@ -385,7 +385,7 @@ export async function POST(request: Request) {
   if (secret !== process.env.REVALIDATE_SECRET) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
-  revalidateTag((await request.json()).tag);
+  revalidateTag((await request.json()).tag, { expire: 0 });   // Next.js 16: 두 번째 인자 필요 (15 이하는 인자 하나)
   return NextResponse.json({ ok: true });
 }
 ```

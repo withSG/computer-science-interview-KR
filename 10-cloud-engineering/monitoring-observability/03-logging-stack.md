@@ -169,7 +169,7 @@ Loki — 쓸 때 싸고 읽을 때 범위에 비례한다
                         │ 컨테이너 런타임이 노드 디스크에 기록
                         ▼
 ┌──────────────────────────────────────────────────────────────┐
-│ 노드 에이전트 (DaemonSet)  Fluent Bit / Filebeat / Promtail   │
+│ 노드 에이전트 (DaemonSet)  Fluent Bit / Filebeat / Alloy      │
 │   파일 tail · 멀티라인 병합 · 메타데이터 부착 · 로컬 버퍼링    │
 └───────────────────────┬──────────────────────────────────────┘
                         ▼  (선택) 완충 계층
@@ -319,7 +319,7 @@ payment-service가 외부 PG에 요청을 보내고 응답을 못 받은 채 3�
 
 ## 9. 실무에서는
 
-**Kubernetes 표준 구성**은 Fluent Bit DaemonSet으로 노드 로그를 수집해 Loki나 Elasticsearch로 보내고 Grafana·Kibana에서 조회하는 형태입니다. Grafana 진영은 Promtail을 써왔고, 현재는 후속 에이전트인 Grafana Alloy로 통합되는 방향입니다. **OpenTelemetry Collector**를 파이프라인 중앙에 두는 구성도 늘고 있습니다. 로그·메트릭·트레이스를 같은 규칙으로 가공해 각기 다른 백엔드로 내보낼 수 있어서 벤더를 바꿀 때 애플리케이션을 건드리지 않아도 됩니다.
+**Kubernetes 표준 구성**은 Fluent Bit DaemonSet으로 노드 로그를 수집해 Loki나 Elasticsearch로 보내고 Grafana·Kibana에서 조회하는 형태입니다. Grafana 진영은 Promtail을 써왔지만 Promtail은 지원이 종료(EOL)되었고, 현재는 후속 에이전트인 Grafana Alloy를 씁니다. **OpenTelemetry Collector**를 파이프라인 중앙에 두는 구성도 늘고 있습니다. 로그·메트릭·트레이스를 같은 규칙으로 가공해 각기 다른 백엔드로 내보낼 수 있어서 벤더를 바꿀 때 애플리케이션을 건드리지 않아도 됩니다.
 
 **AWS 환경**에서는 CloudWatch Logs가 기본입니다. Lambda는 함수가 출력한 로그가 자동으로 로그 그룹에 쌓이고, Fargate는 노드에 에이전트를 DaemonSet으로 띄울 수 없는 대신 태스크·파드 정의에 로그 드라이버나 플랫폼이 제공하는 로그 라우터를 지정해 목적지를 정합니다. 조회는 Logs Insights로 합니다. **수집·보관·질의 스캔량**이 각각 과금되므로, Insights 쿼리를 대시보드에 걸어 자동 새로고침하도록 두면 스캔 비용이 조용히 누적됩니다. 반복적으로 보는 지표는
 **메트릭 필터로 뽑아 메트릭화하는 게 맞습니다.** "특정 패턴이 몇 번 나왔나"를 로그 검색으로 매번 세지 말고 수집 단계에서 카운터로 변환해두면 검색 비용 없이 알림을 걸 수 있습니다.
