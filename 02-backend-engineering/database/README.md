@@ -15,11 +15,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-jpa-orm.md | JPA와 ORM | ⭐⭐ |
-| 02-persistence-context.md | 영속성 컨텍스트 | ⭐⭐ |
-| 03-n-plus-one-problem.md | N+1 문제 | ⭐⭐⭐ |
-| 04-transaction-isolation.md | 트랜잭션 격리 수준 | ⭐⭐ |
-| 05-indexing-btree.md | 인덱싱과 B-Tree | ⭐⭐ |
+| [01-jpa-orm.md](./01-jpa-orm.md) | JPA와 ORM | ⭐⭐ |
+| [02-persistence-context.md](./02-persistence-context.md) | 영속성 컨텍스트 | ⭐⭐ |
+| [03-n-plus-one-problem.md](./03-n-plus-one-problem.md) | N+1 문제 | ⭐⭐⭐ |
+| [04-transaction-isolation.md](./04-transaction-isolation.md) | 트랜잭션 격리 수준 | ⭐⭐ |
+| [05-indexing-btree.md](./05-indexing-btree.md) | 인덱싱과 B-Tree | ⭐⭐ |
 
 ---
 

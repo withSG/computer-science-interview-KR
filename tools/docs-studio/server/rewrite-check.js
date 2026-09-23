@@ -27,7 +27,7 @@ const VOLUME_ERROR = [0.6, 1.5]
 const FILE_VOLUME_ERROR = [0.7, 1.4]
 const MIN_CHARS_FOR_RATIO = 120
 
-const SPELLING_BAD = ['디렉토리', '쓰레드', '메세지', '트랜색션', '어플리케이션', '컨텐츠']
+const SPELLING_BAD = ['디렉토리', '쓰레드', '메세지', '트랜색션', '어플리케이션', '컨텐츠', '시멘틱', '쉐이킹', '리팩토링', '쓰로틀', '메소드']
 
 const TRANSLATIONESE = [
   ['에 대한', (t) => t.split('에 대한').length - 1],

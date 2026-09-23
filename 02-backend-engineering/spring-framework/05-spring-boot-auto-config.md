@@ -104,7 +104,7 @@ spring:
 
 위의 XML 전부가 이 몇 줄로 대체됩니다. **이건 마법이 아닙니다.** Spring Boot가 하는 일은 그 XML에 해당하는 `@Configuration` 클래스들을 미리 다 작성해 두고, 조건에 맞을 때만 켜지도록 만든 것뿐입니다.
 
-> 비유: 인테리어가 끝난 풀옵션 오피스텔. 냉장고, 세탁기, 에어컨이 이미 들어와 있어서 짐만 들고 오면 됩니다. 마음에 안 드는 가전은 내가 가져온 것으로 바꿔 넣을 수 있습니다.
+> **비유**: 인테리어가 끝난 풀옵션 오피스텔. 냉장고, 세탁기, 에어컨이 이미 들어와 있어서 짐만 들고 오면 됩니다. 마음에 안 드는 가전은 내가 가져온 것으로 바꿔 넣을 수 있습니다.
 >
 > **비유의 한계**: 오피스텔 가전은 물리적으로 이미 놓여 있습니다. 자동 설정은 **조건을 만족할 때만** 등록됩니다. 세탁기를 쓸 배관이 없으면 세탁기는 아예 들어오지 않습니다.
 
@@ -422,19 +422,23 @@ Unconditional classes:       ← 조건 없이 항상 적용되는 것
 
 ## 7. 면접 포인트
 
-> 면접에서 이 주제가 나오면 이렇게 답합니다
+> 면접에서 이 주제가 나오면 이렇게 답한다
 
 **Q. Spring Boot의 자동 설정 동작 원리를 설명해주세요.**
+
 A. `@SpringBootApplication` 안의 `@EnableAutoConfiguration`이 시작점입니다. 이 어노테이션이 `AutoConfigurationImportSelector`를 가져오고, 셀렉터가 클래스패스의 모든 JAR에서 자동 설정 클래스 목록 파일을 읽습니다. Spring Boot 3 기준으로는 `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`이고 예전에는 `spring.factories`였습니다. 그다음 각 클래스에 붙은 `@ConditionalOnClass`, `@ConditionalOnMissingBean` 같은 조건을 평가해서 만족하는 것만 등록합니다. 결국 자동 설정은 조건부로 켜지는 `@Configuration` 클래스 모음일 뿐이고, 마법은 없습니다.
 
 **Q. H2 의존성만 추가했는데 인메모리 DB가 뜨는 원리는요?**
+
 A. H2를 추가하면 클래스패스에 JDBC `DataSource` 관련 클래스와 H2 드라이버가 들어옵니다. `DataSourceAutoConfiguration`에 걸린 `@ConditionalOnClass(DataSource.class)`가 통과하고, 이어서 `@ConditionalOnMissingBean(DataSource.class)`를 검사해 개발자가 직접 만든 `DataSource`가 없으면 그때 내장 DB용 DataSource를 구성합니다. 즉 라이브러리 존재 여부와 개발자 정의 Bean 존재 여부 두 조건의 조합입니다.
 - 꼬리 질문: "제가 `DataSource` Bean을 만들면 어떻게 되나요?" → `@ConditionalOnMissingBean`이 실패해 자동 설정이 물러납니다. 개발자 정의가 항상 우선합니다.
 
 **Q. 자동 설정보다 내가 만든 Bean이 우선되는 이유가 뭔가요?**
+
 A. 등록 순서 때문입니다. `AutoConfigurationImportSelector`는 `DeferredImportSelector`로 구현돼 있어서, 사용자 정의 설정 클래스와 컴포넌트 스캔이 모두 끝난 뒤 마지막에 처리됩니다. 그래서 자동 설정이 조건을 평가하는 시점에는 개발자가 만든 Bean이 이미 컨테이너에 있고, `@ConditionalOnMissingBean`이 그것을 정확히 감지할 수 있습니다. 이 순서가 보장되지 않으면 조건부 등록 자체가 성립하지 않습니다.
 
 **Q. 자동 설정이 왜 적용됐는지/안 됐는지 어떻게 확인하나요?**
+
 A. 실행 인자에 `--debug`를 붙이면 CONDITIONS EVALUATION REPORT가 출력됩니다. Positive matches에는 적용된 자동 설정과 그 근거가, Negative matches에는 빠진 자동 설정과 어떤 조건에서 탈락했는지가 나옵니다. 기대한 Bean이 없을 때는 Negative matches에서 사유를 확인하는 게 가장 빠릅니다. Actuator가 붙어 있으면 `/actuator/conditions`로 같은 정보를 조회할 수도 있습니다.
 
 ---

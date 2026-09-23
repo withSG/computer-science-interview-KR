@@ -15,11 +15,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-url-to-render.md | URL 입력 후 렌더링까지 | ⭐ |
-| 02-critical-rendering-path.md | Critical Rendering Path | ⭐⭐ |
-| 03-dom-cssom.md | DOM과 CSSOM | ⭐⭐ |
-| 04-reflow-repaint.md | 리플로우와 리페인트 | ⭐⭐ |
-| 05-compositing-gpu.md | 합성과 GPU 가속 | ⭐⭐ |
+| [01-url-to-render.md](./01-url-to-render.md) | URL 입력 후 렌더링까지 | ⭐ |
+| [02-critical-rendering-path.md](./02-critical-rendering-path.md) | Critical Rendering Path | ⭐⭐ |
+| [03-dom-cssom.md](./03-dom-cssom.md) | DOM과 CSSOM | ⭐⭐ |
+| [04-reflow-repaint.md](./04-reflow-repaint.md) | 리플로우와 리페인트 | ⭐⭐ |
+| [05-compositing-gpu.md](./05-compositing-gpu.md) | 합성과 GPU 가속 | ⭐⭐ |
 
 ---
 

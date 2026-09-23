@@ -30,7 +30,7 @@
 
 ---
 
-## 학습 순서 권장
+## 학습 순서 (권장)
 
 <!-- diagram:fe-README-1 -->
 ![학습 순서 권장](../assets/diagrams/fe-README-1.svg)
@@ -38,7 +38,7 @@
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
-1. HTML/CSS 기초 (시멘틱, 반응형, Flexbox/Grid)
+1. HTML/CSS 기초 (시맨틱, 반응형, Flexbox/Grid)
        ↓
 2. 브라우저 기초 (CRP, DOM/CSSOM)
        ↓
@@ -64,7 +64,7 @@
 `실행 컨텍스트` `호이스팅` `클로저` `이벤트 루프` `프로토타입`
 `가상 DOM` `재조정` `Fiber` `Hooks` `상태 관리`
 `CSR` `SSR` `SSG` `ISR` `RSC` `하이드레이션`
-`DOCTYPE` `시멘틱 태그` `Flexbox` `Grid` `반응형`
+`DOCTYPE` `시맨틱 태그` `Flexbox` `Grid` `반응형`
 `TypeScript` `제네릭` `Utility Types`
-`Webpack` `Babel` `트리 쉐이킹`
+`Webpack` `Babel` `트리 셰이킹`
 `BFF` `의존성 방향` `관심사 분리`

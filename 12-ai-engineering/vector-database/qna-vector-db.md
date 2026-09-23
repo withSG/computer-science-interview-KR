@@ -159,7 +159,7 @@ Layer 0:  [A][D][F][C][E][G][B]    (밀집)
 
 | 방법 | 공식 | 범위 | 특징 |
 |------|------|------|------|
-| Cosine Similarity | cos(θ) = A·B / (||A||×||B||) | -1 ~ 1 | 방향만 비교 |
+| Cosine Similarity | cos(θ) = A·B / (‖A‖×‖B‖) | -1 ~ 1 | 방향만 비교 |
 | Euclidean Distance | √Σ(ai-bi)² | 0 ~ ∞ | 절대 거리 |
 | Dot Product | Σ(ai×bi) | -∞ ~ ∞ | 크기+방향 |
 

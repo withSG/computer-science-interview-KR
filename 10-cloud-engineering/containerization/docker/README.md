@@ -14,9 +14,9 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-docker-basics.md | 이미지, 컨테이너, Dockerfile | ⭐⭐ |
-| 02-docker-compose.md | 멀티 컨테이너 관리 | ⭐⭐ |
-| 03-container-vs-vm.md | 컨테이너 vs VM | ⭐ |
+| [01-docker-basics.md](./01-docker-basics.md) | 이미지, 컨테이너, Dockerfile | ⭐⭐ |
+| [02-docker-compose.md](./02-docker-compose.md) | 멀티 컨테이너 관리 | ⭐⭐ |
+| [03-container-vs-vm.md](./03-container-vs-vm.md) | 컨테이너 vs VM | ⭐ |
 
 ---
 

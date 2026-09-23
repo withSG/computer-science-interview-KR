@@ -15,9 +15,9 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-csr-ssr-ssg-isr.md | 렌더링 전략 비교 | ⭐⭐ |
-| 02-hydration.md | 하이드레이션 | ⭐⭐ |
-| 03-server-components.md | React Server Components | ⭐⭐⭐ |
+| [01-csr-ssr-ssg-isr.md](./01-csr-ssr-ssg-isr.md) | 렌더링 전략 비교 | ⭐⭐ |
+| [02-hydration.md](./02-hydration.md) | 하이드레이션 | ⭐⭐ |
+| [03-server-components.md](./03-server-components.md) | React Server Components | ⭐⭐⭐ |
 
 ---
 

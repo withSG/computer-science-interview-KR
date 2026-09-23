@@ -13,7 +13,7 @@
 ## 선행 지식
 
 - CSS 선택자와 속성을 적을 줄 아는 정도
-- [01-semantic-html-a11y.md](./01-semantic-html-a11y.md) — 레이아웃을 얹을 마크업의 구조
+- [01-semantic-html-a11y.md](./01-semantic-html-a11y.md) - 레이아웃을 얹을 마크업의 구조
 
 ---
 
@@ -411,18 +411,22 @@ Flexbox가 옷걸이 봉 하나에 옷을 거는 것이라면, Grid는 서랍장
 > 면접에서 이 주제가 나오면 이렇게 답한다
 
 **Q. `box-sizing: border-box`를 전역으로 설정하는 이유는?**
+
 A. 기본값 `content-box`에서는 `width`가 content 영역만 가리켜서, padding이나 border를 주면 실제 박스가 그만큼 커집니다. `width: 100%`에 padding을 얹으면 부모를 삐져나가 가로 스크롤이 생깁니다. `border-box`는 padding과 border를 `width` 안쪽에 포함시켜 내가 적은 숫자가 곧 화면 폭이 되므로 계산이 직관적입니다. `::before`, `::after`까지 포함해 전역으로 깔아두는 게 관행입니다.
 - 꼬리 질문: "쿼크 모드와 관련이 있나요?" → DOCTYPE이 없어 쿼크 모드가 되면 표준 모드와 달리 옛 IE 방식, 즉 border-box에 가까운 계산을 합니다. DOCTYPE 누락이 레이아웃을 통째로 어긋나게 하는 이유입니다.
 
 **Q. z-index를 아주 크게 줬는데도 요소가 뒤에 깔립니다. 왜 그럴까요?**
+
 A. z-index는 같은 stacking context 안에서만 비교되기 때문입니다. 조상 중 하나가 `opacity`가 1 미만이거나 `transform`, `filter`가 걸려 있으면 그 지점에서 새 context가 생기고, 그 안의 자식은 z-index가 아무리 커도 조상의 순서를 넘어설 수 없습니다. 숫자를 올리는 대신 어느 조상이 context를 만들었는지 먼저 찾아야 하고, 모달 같은 건 Portal로 body 최상단에 렌더링해 문제를 원천 차단합니다.
 - 꼬리 질문: "`position: static`에 z-index를 주면요?" → 무시됩니다. z-index는 positioned 요소이거나 flex/grid 아이템일 때만 동작합니다.
 
 **Q. Flexbox와 Grid는 어떤 기준으로 선택하나요?**
+
 A. 배치를 한 방향으로만 통제하면 되는지, 행과 열을 동시에 잡아야 하는지가 1차 기준입니다. 더 실용적인 기준은 크기를 누가 정하느냐인데, 콘텐츠 길이에 따라 자연스럽게 늘어나야 하면 Flexbox, 칸 크기를 내가 먼저 정하고 콘텐츠를 맞춰 넣어야 하면 Grid입니다. 실무에서는 Grid로 페이지 골격을 잡고 각 영역 내부 정렬은 Flexbox로 처리합니다.
 - 꼬리 질문: "미디어 쿼리 없이 반응형 갤러리를 만들려면?" → `grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))`을 쓰면 화면 폭에 따라 열 개수가 자동으로 바뀝니다.
 
 **Q. float가 부모 높이를 무너뜨리는 이유와 해결법은?**
+
 A. float된 요소는 일반 흐름에서 빠지기 때문에 부모가 자식 높이를 계산에 넣지 않습니다. 자식이 전부 float면 부모 높이가 0이 되어 배경이 안 보이거나 아래 요소가 겹칩니다. 고전 해법은 `::after`에 `clear: both`를 주는 clearfix이고, `overflow: hidden`도 BFC를 만들어 같은 효과를 내지만 콘텐츠가 잘리는 부작용이 있습니다. 지금은 `display: flow-root`가 부작용 없는 정석이고, 애초에 레이아웃을 Flexbox나 Grid로 짜면 이 문제를 만나지 않습니다.
 - 꼬리 질문: "BFC가 뭔가요?" → 내부 박스들이 독립적으로 배치되는 영역입니다. BFC 안에서는 float가 부모 밖으로 새지 않고 마진 병합도 경계를 넘지 못합니다.
 
@@ -436,7 +440,7 @@ A. float된 요소는 일반 흐름에서 빠지기 때문에 부모가 자식 �
 | "인접 margin은 더해진다" | 세로 방향은 큰 값 하나로 병합된다 | flex/grid의 `gap`을 쓰면 병합 자체가 없다 |
 | "`position: absolute`는 부모 기준이다" | 기준은 **positioned 조상**이다 | 부모가 `static`이면 더 위로 올라가고, 없으면 문서 기준이 된다 |
 | "z-index 숫자가 크면 위로 온다" | 같은 stacking context 안에서만 비교된다 | 조상이 새 context를 만들었는지 먼저 확인한다 |
-| "`justify-content`는 가로 정렬이다" | 주축 정렬입니다. `column`이면 세로가 된다 | `justify-*`=주축, `align-*`=교차축으로 외운다 |
+| "`justify-content`는 가로 정렬이다" | 주축 정렬입니다. `column`이면 세로가 됩니다 | `justify-*`=주축, `align-*`=교차축으로 외운다 |
 | "`flex: 1`이면 콘텐츠 비율대로 나뉜다" | basis가 `0`이라 콘텐츠를 무시하고 균등 분할된다 | 콘텐츠 비율을 살리려면 `flex: auto` |
 | "`overflow: hidden`은 안전한 clearfix다" | 드롭다운·그림자가 잘리고 내부 `sticky`가 깨진다 | `display: flow-root` 또는 flex/grid로 대체 |
 

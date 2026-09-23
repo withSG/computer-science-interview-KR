@@ -45,7 +45,7 @@ Execution Context
 
 ### 콜 스택과 실행 컨텍스트
 
-```javascript
+```js
 function first() {
     console.log('first');
     second();
@@ -94,7 +94,7 @@ first();
 
 ### var vs let/const 호이스팅
 
-```javascript
+```js
 // var - 선언과 초기화가 동시에 (undefined)
 console.log(a);  // undefined (에러 아님!)
 var a = 10;
@@ -106,7 +106,7 @@ let b = 20;
 
 ### TDZ (Temporal Dead Zone)
 
-```javascript
+```js
 // TDZ 시작 ─────────────────┐
 console.log(x);  // TDZ 구간  │ ReferenceError
 let x = 10;      // TDZ 종료 ─┘
@@ -115,7 +115,7 @@ console.log(x);  // 10
 
 ### 함수 호이스팅
 
-```javascript
+```js
 // 함수 선언문 - 완전히 호이스팅
 sayHello();  // "Hello!" (정상 동작)
 function sayHello() {
@@ -161,7 +161,7 @@ var sayBye = function() {
 
 ### 클로저 기본 예시
 
-```javascript
+```js
 function outer() {
     const message = 'Hello';  // 외부 함수의 변수
 
@@ -199,7 +199,7 @@ message 변수는 가비지 컬렉션되지 않음
 
 ### 클로저 활용 1: 은닉화 (Private 변수)
 
-```javascript
+```js
 function createCounter() {
     let count = 0;  // private 변수
 
@@ -219,7 +219,7 @@ console.log(counter.getCount());  // 2
 
 ### 클로저 활용 2: 함수 팩토리
 
-```javascript
+```js
 function multiplier(factor) {
     return function(number) {
         return number * factor;
@@ -235,7 +235,7 @@ console.log(triple(5));  // 15
 
 ### 클로저 주의점: 반복문
 
-```javascript
+```js
 // 문제: var는 함수 스코프
 for (var i = 0; i < 3; i++) {
     setTimeout(() => console.log(i), 100);
@@ -324,7 +324,7 @@ JavaScript는 싱글 스레드인데도 비동기 작업을 처리합니다. 그
 
 ### 실행 순서 예측 문제
 
-```javascript
+```js
 console.log('1');  // 동기
 
 setTimeout(() => {
@@ -342,7 +342,7 @@ console.log('4');  // 동기
 
 ### 복잡한 예시
 
-```javascript
+```js
 console.log('start');
 
 setTimeout(() => console.log('timeout'), 0);
@@ -391,7 +391,7 @@ JavaScript의 this는 **함수가 호출되는 방식**에 따라 동적으로 �
 
 ### this 바인딩 4가지 규칙
 
-```javascript
+```js
 // 1. 기본 바인딩 - 전역 객체 (strict mode: undefined)
 function showThis() {
     console.log(this);
@@ -432,7 +432,7 @@ new 바인딩 > 명시적 바인딩 (call/apply/bind) > 암시적 바인딩 > �
 
 ### 화살표 함수의 this
 
-```javascript
+```js
 const obj = {
     name: 'object',
     // 일반 함수 - this는 호출 객체
@@ -451,7 +451,7 @@ obj.arrow();    // undefined (전역의 this)
 
 ### 콜백에서의 this 문제
 
-```javascript
+```js
 const obj = {
     name: 'object',
     delayedLog: function() {
@@ -491,7 +491,7 @@ async/await는 Promise를 더 **동기 코드처럼 읽기 쉽게** 쓸 수 있�
 
 ### Promise 체이닝 vs async/await
 
-```javascript
+```js
 // Promise 체이닝
 function fetchData() {
     return fetch('/api/user')
@@ -518,7 +518,7 @@ async function fetchData() {
 
 ### 에러 처리
 
-```javascript
+```js
 // Promise - catch 메서드
 fetchData()
     .then(data => process(data))
@@ -540,7 +540,7 @@ async function process() {
 
 ### 병렬 실행
 
-```javascript
+```js
 // 순차 실행 (느림)
 async function sequential() {
     const a = await fetchA();  // 1초
@@ -589,7 +589,7 @@ async function parallel() {
 
 ### 예시
 
-```javascript
+```js
 // == (암묵적 타입 변환)
 1 == '1'        // true
 0 == false      // true
@@ -616,7 +616,7 @@ null === undefined  // false
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-var는 **함수 레벨 스코프**, let과 const는 **블록 레벨 스코프**를 가집니다. 재선언과 재할당은 var가 둘 다 되고, let은 재할당만 되고, const는 둘 다 안 됩니다. 또 let과 const에는 **TDZ(Temporal Dead Zone)**가 있어서, 선언 전에 접근하면 ReferenceError가 발생합니다.
+var는 **함수 레벨 스코프**, let과 const는 **블록 레벨 스코프**를 가집니다. 재선언과 재할당은 var가 둘 다 되고, let은 재할당만 되고, const는 둘 다 안 됩니다. 또 let과 const에는 **TDZ**(Temporal Dead Zone)가 있어서, 선언 전에 접근하면 ReferenceError가 발생합니다.
 
 ### 비교 정리
 
@@ -630,7 +630,7 @@ var는 **함수 레벨 스코프**, let과 const는 **블록 레벨 스코프**�
 
 ### 스코프 차이 예시
 
-```javascript
+```js
 // var - 함수 레벨 스코프
 if (true) {
     var x = 10;
@@ -652,7 +652,7 @@ let 선언 ─── 선언만 진행 → TDZ 구간 → 초기화(변수 선언
 const 선언 ── 선언 + 초기화 + 할당 동시 진행
 ```
 
-```javascript
+```js
 console.log(a);  // undefined (var는 선언과 동시에 초기화)
 var a = 10;
 
@@ -695,7 +695,7 @@ JavaScript의 데이터 타입은 **7가지 원시 타입**(number, string, bool
 
 ### 동적 타이핑
 
-```javascript
+```js
 var foo;
 console.log(typeof foo);  // undefined
 
@@ -768,7 +768,7 @@ Global Scope
 ```
 -->
 
-```javascript
+```js
 function outer() {
     let outerVar = 'I am from outer';
 
@@ -785,7 +785,7 @@ function outer() {
 
 ### 렉시컬 스코프 (정적 스코프)
 
-```javascript
+```js
 var x = 1;
 
 function foo() {
@@ -844,7 +844,7 @@ bar();  // 1
 
 ### 프로토타입 체인 탐색
 
-```javascript
+```js
 function Person(name) {
     this.name = name;
 }
@@ -871,7 +871,7 @@ console.log(me.foo);  // me → Person.prototype → Object.prototype → null �
 
 ### Object.create를 통한 프로토타입 설정
 
-```javascript
+```js
 const parent = {
     greet() {
         console.log('Hello from parent');
@@ -918,7 +918,7 @@ ES6 클래스는 프로토타입 기반 객체지향을 **더 쉽게 작성하�
 
 ### 문법 비교
 
-```javascript
+```js
 // 생성자 함수 방식
 function Person(name) {
     this.name = name;
@@ -943,7 +943,7 @@ class Person {
 
 ### 클래스 상속 (extends/super)
 
-```javascript
+```js
 class Animal {
     constructor(name) {
         this.name = name;
@@ -1019,7 +1019,7 @@ Document (문서 노드)
 
 ### 주요 DOM API
 
-```javascript
+```js
 // 요소 선택
 document.getElementById('app');
 document.querySelector('.class');
@@ -1082,7 +1082,7 @@ Window ◀─────────────────────── 
 
 ### 이벤트 버블링
 
-```javascript
+```js
 const html = document.querySelector('html');
 const body = document.querySelector('body');
 const div = document.querySelector('div');
@@ -1096,7 +1096,7 @@ div.addEventListener('click', () => console.log('DIV'));
 
 ### 이벤트 캡처링
 
-```javascript
+```js
 // 세 번째 인수를 true로 설정하면 캡처링 단계에서 캐치
 html.addEventListener('click', () => console.log('HTML'), true);
 body.addEventListener('click', () => console.log('BODY'), true);
@@ -1107,7 +1107,7 @@ div.addEventListener('click', () => console.log('DIV'));
 
 ### 이벤트 위임 (Event Delegation)
 
-```javascript
+```js
 // 개별 버튼에 이벤트를 등록하지 않고 부모에 위임
 const container = document.querySelector('.container');
 
@@ -1120,7 +1120,7 @@ container.addEventListener('click', (e) => {
 
 ### stopPropagation
 
-```javascript
+```js
 div.addEventListener('click', (e) => {
     e.stopPropagation();  // 이벤트 전파 중단
     console.log('DIV만 실행');
@@ -1141,17 +1141,17 @@ div.addEventListener('click', (e) => {
 
 ---
 
-## Q15. 디바운스와 쓰로틀의 차이는? ⭐⭐
+## Q15. 디바운스와 스로틀의 차이는? ⭐⭐
 
 <details>
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-디바운스와 쓰로틀은 짧은 간격으로 연속 발생하는 이벤트를 **묶어서 과도한 호출을 막는** 기법입니다. **디바운스**는 마지막 이벤트 뒤에 일정 시간이 지나면 한 번 실행하고, **쓰로틀**은 일정 시간 간격으로 최대 한 번만 실행합니다.
+디바운스와 스로틀은 짧은 간격으로 연속 발생하는 이벤트를 **묶어서 과도한 호출을 막는** 기법입니다. **디바운스**는 마지막 이벤트 뒤에 일정 시간이 지나면 한 번 실행하고, **스로틀**은 일정 시간 간격으로 최대 한 번만 실행합니다.
 
 ### 비교 정리
 
-| 구분 | 디바운스 (Debounce) | 쓰로틀 (Throttle) |
+| 구분 | 디바운스 (Debounce) | 스로틀 (Throttle) |
 |------|--------------------|--------------------|
 | 동작 | 마지막 이벤트 후 delay 경과 시 실행 | delay 간격으로 최대 한 번 실행 |
 | 활용 | 검색 입력, 리사이즈 완료 | 스크롤, 무한 스크롤, mousemove |
@@ -1165,13 +1165,13 @@ div.addEventListener('click', (e) => {
 디바운스:    ─────────────○─────────────○
              (마지막 이벤트 후 delay 경과 시 실행)
 
-쓰로틀:     ○────○────○──○────○────○
+스로틀:     ○────○────○──○────○────○
              (일정 간격으로 실행)
 ```
 
 ### 디바운스 구현
 
-```javascript
+```js
 function debounce(callback, delay) {
     let timerId;
     return function(event) {
@@ -1186,9 +1186,9 @@ input.oninput = debounce((e) => {
 }, 300);
 ```
 
-### 쓰로틀 구현
+### 스로틀 구현
 
-```javascript
+```js
 function throttle(callback, delay) {
     let timerId;
     return function(event) {
@@ -1260,7 +1260,7 @@ GC Root (전역 객체, 콜 스택)
 
 ### 메모리 누수 방지 패턴
 
-```javascript
+```js
 // 1. 불필요한 전역 변수 피하기
 function foo() {
     leak = 'global';  // var/let/const 없이 선언 → 전역 변수!
@@ -1322,7 +1322,7 @@ function outer() {
 
 ### 고차 함수 예시
 
-```javascript
+```js
 // 대표적인 고차 함수: map, filter, reduce
 const numbers = [1, 2, 3, 4, 5];
 
@@ -1341,7 +1341,7 @@ const sum = numbers.reduce((acc, cur) => acc + cur, 0);
 
 ### 함수를 반환하는 고차 함수
 
-```javascript
+```js
 function makeCounter(predicate) {
     let num = 0;
     return function() {
@@ -1405,7 +1405,7 @@ console.log(decrease());  // -1
 
 ### 기본 사용법
 
-```javascript
+```js
 function* genFunc() {
     yield 1;
     yield 2;
@@ -1422,7 +1422,7 @@ console.log(generator.next());  // { value: undefined, done: true }
 
 ### 이터러블/이터레이터 프로토콜
 
-```javascript
+```js
 function* fibonacci() {
     let [a, b] = [0, 1];
     while (true) {
@@ -1451,7 +1451,7 @@ for (const num of range(1, 5)) {
 
 ### 양방향 통신
 
-```javascript
+```js
 function* dialog() {
     const name = yield '이름이 무엇인가요?';
     const age = yield `${name}님, 나이가 어떻게 되나요?`;
@@ -1496,7 +1496,7 @@ console.log(gen.next(25));         // { value: '홍길동님은 25살입니다.'
 
 ### Map 사용법
 
-```javascript
+```js
 const map = new Map();
 
 map.set('1', 'str1');      // 문자열 키
@@ -1511,7 +1511,7 @@ console.log(map.has(1));   // true
 
 ### Set 사용법
 
-```javascript
+```js
 const set = new Set();
 
 set.add(1);
@@ -1527,7 +1527,7 @@ const unique = [...new Set(arr)];  // [1, 2, 3, 4]
 
 ### WeakMap / WeakSet
 
-```javascript
+```js
 // WeakMap: 키가 객체만 가능, 약한 참조 → GC 대상 가능
 const weakMap = new WeakMap();
 let obj = { name: 'test' };
@@ -1559,7 +1559,7 @@ weakSet.add(item);
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-**CommonJS**는 `require/module.exports`를 쓰는 Node.js의 모듈 시스템이고, **ES Modules**는 `import/export`를 쓰는 JavaScript 표준 모듈 시스템입니다. ES Modules는 **정적 분석**이 가능해서 **트리 쉐이킹**을 지원하고, CommonJS는 **동적 로딩**이 가능합니다.
+**CommonJS**는 `require/module.exports`를 쓰는 Node.js의 모듈 시스템이고, **ES Modules**는 `import/export`를 쓰는 JavaScript 표준 모듈 시스템입니다. ES Modules는 **정적 분석**이 가능해서 **트리 셰이킹**을 지원하고, CommonJS는 **동적 로딩**이 가능합니다.
 
 ### 비교 정리
 
@@ -1567,14 +1567,14 @@ weakSet.add(item);
 |------|----------|------------|
 | 문법 | require / module.exports | import / export |
 | 로딩 | 동적 (런타임) | 정적 (컴파일 타임) |
-| 트리 쉐이킹 | 어려움 | 가능 |
+| 트리 셰이킹 | 어려움 | 가능 |
 | 비동기 로딩 | X | O (dynamic import) |
 | 사용 환경 | Node.js | 브라우저 + Node.js |
 | 기본 모드 | non-strict | strict mode |
 
 ### 문법 비교
 
-```javascript
+```js
 // === CommonJS ===
 // 내보내기
 module.exports = { add, subtract };
@@ -1599,17 +1599,17 @@ import Calculator from './math.js';
 import * as math from './math.js';
 ```
 
-### 트리 쉐이킹
+### 트리 셰이킹
 
 <!-- diagram:fe-qna-javascript-10 -->
-![트리 쉐이킹](../../assets/diagrams/fe-qna-javascript-10.svg)
+![트리 셰이킹](../../assets/diagrams/fe-qna-javascript-10.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 ES Modules (정적 분석 가능)
 ├── import { add } from './math.js'
-│   → add만 번들에 포함, subtract는 제거 (트리 쉐이킹)
+│   → add만 번들에 포함, subtract는 제거 (트리 셰이킹)
 │
 CommonJS (동적 분석)
 ├── const { add } = require('./math')
@@ -1619,7 +1619,7 @@ CommonJS (동적 분석)
 
 ### Dynamic Import
 
-```javascript
+```js
 // ES Modules의 동적 import (코드 분할에 활용)
 const module = await import('./math.js');
 module.add(1, 2);
@@ -1631,11 +1631,11 @@ if (condition) {
 ```
 
 ### 면접관이 주목하는 포인트
-- 정적 분석과 트리 쉐이킹의 관계
+- 정적 분석과 트리 셰이킹의 관계
 - 각 모듈 시스템의 사용 환경
 
 ### 꼬리 질문 대비
-- "트리 쉐이킹이란?"
+- "트리 셰이킹이란?"
   → 사용하지 않는 코드를 번들에서 제거하는 최적화 기법
 - "Node.js에서 ES Modules를 사용하려면?"
   → package.json에 "type": "module" 설정 또는 .mjs 확장자 사용
@@ -1724,7 +1724,7 @@ JavaScript의 에러 처리는 **try/catch/finally** 문으로 합니다. try �
 
 ### try / catch / finally
 
-```javascript
+```js
 try {
     // 에러가 발생할 수 있는 코드
     const result = riskyOperation();
@@ -1752,7 +1752,7 @@ try {
 
 ### throw 문으로 에러 발생
 
-```javascript
+```js
 function divide(a, b) {
     if (b === 0) {
         throw new Error('0으로 나눌 수 없습니다');
@@ -1769,7 +1769,7 @@ try {
 
 ### 커스텀 에러
 
-```javascript
+```js
 class ValidationError extends Error {
     constructor(message, field) {
         super(message);
@@ -1798,7 +1798,7 @@ try {
 
 ### 에러 처리를 하지 않으면
 
-```javascript
+```js
 // 에러 미처리 → 프로그램 강제 종료
 console.log('[Start]');
 foo();  // ReferenceError → 프로그램 종료
@@ -1843,7 +1843,7 @@ console.log('[End]');  // 정상 실행됨
 - [ ] ES6 클래스와 생성자 함수 차이 설명 가능
 - [ ] DOM 구조와 API 이해
 - [ ] 이벤트 버블링/캡처링/위임 설명 가능
-- [ ] 디바운스와 쓰로틀 차이와 구현 가능
+- [ ] 디바운스와 스로틀 차이와 구현 가능
 - [ ] 가비지 컬렉션 동작 원리 이해
 - [ ] 일급 객체와 고차 함수 개념 설명 가능
 - [ ] 제너레이터 함수 사용법 이해

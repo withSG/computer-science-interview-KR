@@ -14,11 +14,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-architecture-concepts.md | Master/Worker, Pod, Service | ⭐⭐ |
-| 02-deployment-management.md | Deployment, ReplicaSet, StatefulSet | ⭐⭐ |
-| 03-networking-service.md | Service 타입, Ingress | ⭐⭐ |
-| 04-config-storage.md | ConfigMap, Secret, PV/PVC | ⭐⭐ |
-| 05-troubleshooting.md | 실전 트러블슈팅 | ⭐⭐⭐ |
+| [01-architecture-concepts.md](./01-architecture-concepts.md) | Master/Worker, Pod, Service | ⭐⭐ |
+| [02-deployment-management.md](./02-deployment-management.md) | Deployment, ReplicaSet, StatefulSet | ⭐⭐ |
+| [03-networking-service.md](./03-networking-service.md) | Service 타입, Ingress | ⭐⭐ |
+| [04-config-storage.md](./04-config-storage.md) | ConfigMap, Secret, PV/PVC | ⭐⭐ |
+| [05-troubleshooting.md](./05-troubleshooting.md) | 실전 트러블슈팅 | ⭐⭐⭐ |
 
 ---
 

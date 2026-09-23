@@ -14,8 +14,8 @@
 
 ## 선행 지식
 
-- [01-why-typescript-types.md](./01-why-typescript-types.md) — 유니온, 리터럴 타입, `unknown`/`never`
-- [02-generics-utility-types.md](./02-generics-utility-types.md) — 필수는 아니지만 `Extract`, `NonNullable`이 나옵니다
+- [01-why-typescript-types.md](./01-why-typescript-types.md) - 유니온, 리터럴 타입, `unknown`/`never`
+- [02-generics-utility-types.md](./02-generics-utility-types.md) - 필수는 아니지만 `Extract`, `NonNullable`이 나옵니다
 
 ---
 
@@ -262,7 +262,7 @@ type State =
   | { status: "error"; error: Error };
 ```
 
-각 멤버가 `status`라는 **같은 이름의 속성을, 서로 다른 리터럴 타입으로** 가집니다. 이 속성을 판별자(discriminant)라고 부르고, 이런 유니온을 **판별 유니온(discriminated union)**이라 합니다. TypeScript는 판별자를 검사하는 것만으로 나머지 속성까지 통째로 좁혀줍니다.
+각 멤버가 `status`라는 **같은 이름의 속성을, 서로 다른 리터럴 타입으로** 가집니다. 이 속성을 판별자(discriminant)라고 부르고, 이런 유니온을 **판별 유니온**(discriminated union)이라 합니다. TypeScript는 판별자를 검사하는 것만으로 나머지 속성까지 통째로 좁혀줍니다.
 
 ```ts
 function render(state: State): string {
@@ -476,7 +476,7 @@ const value: unknown = fetchSomething();
 (value as string).toUpperCase();   // 컴파일 통과. 실제로 숫자면 런타임 에러
 ```
 
-`as`는 컴파일러에게 **"내가 책임질 테니 검사하지 마라"**라고 말하는 문법입니다. 코드를 한 줄도 생성하지 않고, 런타임에 아무 일도 하지 않습니다.
+`as`는 컴파일러에게 "**내가 책임질 테니 검사하지 마라**"라고 말하는 문법입니다. 코드를 한 줄도 생성하지 않고, 런타임에 아무 일도 하지 않습니다.
 
 <!-- diagram:fe-type-guards-narrowing-3 -->
 ![단언은 검사가 아니라 선언이다](../../assets/diagrams/fe-type-guards-narrowing-3.svg)
@@ -595,18 +595,22 @@ try {
 > 면접에서 이 주제가 나오면 이렇게 답한다
 
 **Q. 타입 가드가 무엇이고 왜 필요한가요?**
+
 A. 유니온 타입은 모든 멤버에 공통으로 존재하는 연산만 허용하기 때문에, 선언만으로는 실질적으로 쓸 수 없습니다. 타입 가드는 런타임 값을 확인해서 컴파일러가 그 블록 안에서 타입을 더 구체적으로 좁히도록 만드는 검사입니다. `typeof`, `instanceof`, `in`, 진릿값 검사 같은 내장 방식과, 반환 타입을 `value is T`로 선언하는 사용자 정의 타입 가드가 있습니다.
 - 꼬리 질문: "`typeof`로 `null`을 걸러낼 수 있나요?" → 없습니다. `typeof null`이 `"object"`라서 `v !== null`을 따로 검사해야 한다고 답합니다.
 
 **Q. 판별 유니온이 무엇이고 왜 좋은가요?**
+
 A. 여러 객체 타입이 같은 이름의 속성을 서로 다른 리터럴 타입으로 갖게 해서, 그 속성 하나만 검사하면 나머지 속성까지 통째로 좁혀지도록 만든 유니온입니다. 가장 큰 가치는 **불가능한 상태를 표현할 수 없게 만드는 것**입니다. `isLoading`, `data`, `error` 같은 불린 플래그 조합은 "로딩 중인데 성공이면서 실패" 같은 무의미한 상태를 타입 수준에서 허용하지만, 판별 유니온은 유효한 상태만 존재하게 합니다. 여기에 `never`를 이용한 완전성 검사를 붙이면 상태를 추가했을 때 처리를 빠뜨린 곳을 컴파일러가 전부 찾아줍니다.
 - 꼬리 질문: "판별자로 `string` 타입을 쓰면 되나요?" → 안 됩니다. 리터럴 타입이어야 컴파일러가 각 멤버를 구별할 수 있습니다.
 
 **Q. 타입 단언(`as`)과 타입 가드의 차이는요?**
+
 A. 타입 가드는 런타임 값을 실제로 확인한 결과로 좁히는 것이고, 타입 단언은 확인 없이 컴파일러에게 "믿어라"라고 선언하는 것입니다. `as`는 코드를 한 줄도 생성하지 않아서 단언이 틀리면 컴파일은 통과하고 런타임에 터집니다. 그래서 외부 입력처럼 신뢰할 수 없는 값에는 절대 쓰면 안 되고, 컴파일러가 알 수 없지만 내가 확실히 아는 좁은 상황에만 씁니다. `as unknown as T` 형태의 이중 단언은 컴파일러가 이미 말이 안 된다고 판단한 것을 우회하는 것이라 거의 항상 설계 문제 신호입니다.
 - 꼬리 질문: "사용자 정의 타입 가드는 안전한가요?" → `is` 서술어와 함수 본문이 일치하는지 컴파일러가 검증하지 않으므로, 잘못 구현하면 `as`와 똑같이 위험합니다. 그래서 실무에서는 스키마 검증기에 맡깁니다.
 
 **Q. `strict` 옵션은 무엇을 켜나요?**
+
 A. `strictNullChecks`, `noImplicitAny`, `strictFunctionTypes`, `strictPropertyInitialization`, `strictBindCallApply`, `noImplicitThis`, `useUnknownInCatchVariables`, `alwaysStrict`를 한 번에 켭니다(버전에 따라 항목이 더해지는데, 5.6에서 `strictBuiltinIteratorReturn`이 들어왔습니다). 실무 영향이 가장 큰 것은 `strictNullChecks`로, 이게 꺼져 있으면 모든 타입에 `null`이 암묵적으로 섞여서 TypeScript를 쓰는 의미가 절반 이상 사라집니다. 신규 프로젝트는 처음부터 켜고, 마이그레이션 중이라면 `noImplicitAny`와 `strictNullChecks`부터 순서대로 켭니다.
 - 꼬리 질문: "`strict`에 포함되지 않는 유용한 옵션이 있나요?" → `noUncheckedIndexedAccess`가 대표적입니다. 배열 인덱스 접근 결과에 `undefined`를 붙여줘서 범위 초과 접근을 잡습니다.
 
@@ -619,9 +623,9 @@ A. `strictNullChecks`, `noImplicitAny`, `strictFunctionTypes`, `strictPropertyIn
 | "`typeof v === 'object'`면 객체다" | `typeof null`도 `"object"`다 | `v !== null && typeof v === "object"`로 검사한다 |
 | "`if (value)`로 `undefined`만 걸러진다" | `""`, `0`, `NaN`, `false`도 함께 걸러진다 | 무엇을 배제할지 명확히 — `value !== undefined` 또는 `value == null` |
 | "검사 로직을 함수로 빼도 좁혀진다" | 반환 타입이 `boolean`이면 호출부와 연결되지 않는다 | 반환 타입을 `v is T`로 선언해야 좁히기가 전달된다 |
-| "`is` 가드를 쓰면 안전하다" | 서술어와 본문이 일치하는지 컴파일러는 검사하지 않는다 | 잘못 구현한 가드는 `as`와 같습니다. 서술어가 주장하는 것을 전부 실제로 확인해야 한다 |
-| "`as`로 고치면 타입 오류가 해결된다" | 오류를 없앤 게 아니라 검사를 끈 것이다 | 오류는 대개 진짜 문제를 가리킵니다. 왜 안전한지 설명할 수 없으면 쓰지 않는다 |
-| "한 번 좁히면 계속 유지된다" | 재할당이나 `let` 변수의 콜백 참조에서 풀린다 | 좁히기는 지점에 붙는 사실입니다. `const`와 얼리 리턴을 기본으로 삼는다 |
+| "`is` 가드를 쓰면 안전하다" | 서술어와 본문이 일치하는지 컴파일러는 검사하지 않는다 | 잘못 구현한 가드는 `as`와 같습니다. 서술어가 주장하는 것을 전부 실제로 확인해야 합니다 |
+| "`as`로 고치면 타입 오류가 해결된다" | 오류를 없앤 게 아니라 검사를 끈 것이다 | 오류는 대개 진짜 문제를 가리킵니다. 왜 안전한지 설명할 수 없으면 쓰지 않습니다 |
+| "한 번 좁히면 계속 유지된다" | 재할당이나 `let` 변수의 콜백 참조에서 풀린다 | 좁히기는 지점에 붙는 사실입니다. `const`와 얼리 리턴을 기본으로 삼습니다 |
 | "`in`으로 두 인터페이스를 구분할 수 있다" | 선택적 속성이 섞이면 좁혀지지 않는다 | 구분이 목적이라면 리터럴 판별자를 두는 판별 유니온으로 설계한다 |
 
 ---

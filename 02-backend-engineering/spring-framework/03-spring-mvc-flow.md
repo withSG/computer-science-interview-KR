@@ -90,7 +90,7 @@ public class OrderListServlet extends HttpServlet {
 
 이 "하나뿐인 입구"가 **DispatcherServlet**입니다. Spring MVC의 거의 모든 구성 요소는 이 클래스 하나가 조율하는 부품이라고 봐도 됩니다.
 
-> 비유: 대형 병원의 접수 창구. 환자가 진료과를 직접 찾아다니는 대신 접수처가 증상을 보고 해당 과로 보냅니다. 접수처는 보험 확인, 진료기록 준비 같은 공통 절차를 한 번에 처리하고, 각 과는 진료에만 집중합니다.
+> **비유**: 대형 병원의 접수 창구. 환자가 진료과를 직접 찾아다니는 대신 접수처가 증상을 보고 해당 과로 보냅니다. 접수처는 보험 확인, 진료기록 준비 같은 공통 절차를 한 번에 처리하고, 각 과는 진료에만 집중합니다.
 >
 > **비유의 한계**: 접수처는 환자를 보내고 나면 손을 뗍니다. DispatcherServlet은 다릅니다. 컨트롤러가 끝난 뒤에도 응답 변환과 예외 처리를 계속 책임집니다. 처음부터 끝까지 흐름의 주인은 DispatcherServlet입니다.
 
@@ -401,20 +401,24 @@ public void afterCompletion(HttpServletRequest req, HttpServletResponse res,
 
 ## 7. 면접 포인트
 
-> 면접에서 이 주제가 나오면 이렇게 답합니다
+> 면접에서 이 주제가 나오면 이렇게 답한다
 
 **Q. Spring MVC의 요청 처리 흐름을 설명해주세요.**
+
 A. 요청이 오면 서블릿 컨테이너가 Filter 체인을 거쳐 DispatcherServlet에 전달하고, DispatcherServlet은 HandlerMapping으로 요청을 처리할 핸들러와 인터셉터 목록을 찾은 뒤 HandlerAdapter로 그 핸들러를 실행합니다. 실행 전에 인터셉터 `preHandle`이 돌고, ArgumentResolver가 요청을 메서드 파라미터로 변환한 뒤 컨트롤러가 실행됩니다. 반환값이 뷰 이름이면 ViewResolver가 View를 찾아 렌더링하고, `@ResponseBody`면 HttpMessageConverter가 JSON으로 직렬화합니다. 마지막에 `afterCompletion`이 호출되고 응답이 나갑니다.
 - 꼬리 질문: "프론트 컨트롤러 패턴의 장점이 뭔가요?" → 공통 처리를 한곳에 모아 중복을 없애고, 컨트롤러가 HTTP 세부사항에서 자유로워져 테스트하기 쉬워집니다.
 
 **Q. HandlerMapping과 HandlerAdapter는 왜 분리돼 있나요?**
+
 A. 핸들러의 형태가 하나가 아니기 때문입니다. `@RequestMapping` 메서드, 정적 리소스 핸들러, 구버전 `Controller` 인터페이스 구현체는 시그니처가 전부 다릅니다. 핸들러를 골라내는 책임과 고른 핸들러를 그 형태에 맞게 실행하는 책임을 나눠두면, 새로운 핸들러 유형이 생겨도 어댑터만 추가하면 되고 DispatcherServlet은 바뀌지 않습니다. 어댑터 패턴을 적용한 확장 포인트입니다.
 
 **Q. Filter와 Interceptor 중 무엇을 언제 쓰나요?**
+
 A. 요청/응답 객체 자체를 다뤄야 하면 Filter입니다. 예를 들어 요청 본문을 여러 번 읽어야 하는 로깅은 `ContentCachingRequestWrapper`로 요청을 감싸 교체해야 하는데, 이건 Filter만 할 수 있습니다. 반대로 어떤 컨트롤러 메서드가 매핑됐는지 알아야 하는 경우는 Interceptor입니다. `preHandle`이 `HandlerMethod`를 받기 때문에 메서드에 붙은 커스텀 어노테이션을 읽어 권한을 판단할 수 있습니다. Spring Bean 접근도 Interceptor가 자연스럽습니다.
 - 꼬리 질문: "Filter에서 던진 예외는 `@ControllerAdvice`로 잡히나요?" → 잡히지 않습니다. 서블릿 컨테이너가 에러 경로로 다시 디스패치해 Spring Boot 기본 에러 응답(`/error`)이 나갑니다.
 
 **Q. `@Controller`와 `@RestController`의 차이는 무엇인가요?**
+
 A. `@RestController`는 `@Controller`에 `@ResponseBody`를 클래스 단위로 붙여둔 것입니다. `@Controller`의 String 반환값은 뷰 이름으로 해석돼 ViewResolver를 거치지만, `@ResponseBody`가 붙으면 ViewResolver를 건너뛰고 HttpMessageConverter가 반환 객체를 JSON 등으로 직렬화해 응답 본문에 바로 씁니다.
 - 꼬리 질문: "`@RestController`에서 String을 반환하면요?" → 뷰 이름이 아니라 그 문자열 자체가 응답 본문이 됩니다.
 

@@ -79,7 +79,7 @@ XSS는 **악의적인 스크립트를 웹 페이지에 삽입**하여 사용자 
 ### 방어 방법
 
 **1. 출력 이스케이프**
-```javascript
+```js
 // HTML 이스케이프
 function escapeHtml(str) {
     return str.replace(/[&<>"']/g, char => ({
@@ -637,7 +637,7 @@ spring:
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-JWT는 **토큰 형식(Format)**이고, OAuth는 **권한 위임 프로토콜(Protocol)**입니다. 서로 다른 개념이며, OAuth에서 JWT를 토큰 형식으로 사용할 수 있습니다.
+JWT는 **토큰 형식**(Format)이고, OAuth는 **권한 위임 프로토콜**(Protocol)입니다. 서로 다른 개념이며, OAuth에서 JWT를 토큰 형식으로 사용할 수 있습니다.
 
 ### 개념적 차이
 

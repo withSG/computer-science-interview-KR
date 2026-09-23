@@ -4,7 +4,7 @@
 
 ## 학습 목표
 
-- [ ] HTML 시멘틱 태그와 웹 접근성을 설명할 수 있다
+- [ ] HTML 시맨틱 태그와 웹 접근성을 설명할 수 있다
 - [ ] CSS 레이아웃(Flexbox, Grid)을 이해한다
 - [ ] 반응형 웹 설계 원칙을 안다
 - [ ] CSS 명시도와 박스 모델을 설명할 수 있다
@@ -15,7 +15,7 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| [01-semantic-html-a11y.md](./01-semantic-html-a11y.md) | 시멘틱 HTML과 웹 접근성 | ⭐ |
+| [01-semantic-html-a11y.md](./01-semantic-html-a11y.md) | 시맨틱 HTML과 웹 접근성 | ⭐ |
 | [02-css-layout.md](./02-css-layout.md) | CSS 레이아웃 (박스 모델·position·Flexbox·Grid) | ⭐⭐ |
 | [03-responsive-specificity.md](./03-responsive-specificity.md) | 반응형 웹과 CSS 캐스케이드 | ⭐⭐ |
 
@@ -31,4 +31,4 @@
 
 ## 핵심 키워드
 
-`DOCTYPE` `시멘틱 태그` `웹 접근성` `SEO` `display` `position` `Flexbox` `Grid` `반응형` `CSS 명시도` `박스 모델` `CSS-in-JS`
+`DOCTYPE` `시맨틱 태그` `웹 접근성` `SEO` `display` `position` `Flexbox` `Grid` `반응형` `CSS 명시도` `박스 모델` `CSS-in-JS`

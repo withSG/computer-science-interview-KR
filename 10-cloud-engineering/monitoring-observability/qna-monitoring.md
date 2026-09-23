@@ -355,7 +355,7 @@ Trace: 전체 요청의 여정 (하나의 요청)
 
 ### OpenTelemetry 계측 예시
 
-```javascript
+```js
 // Node.js 자동 계측
 const { NodeTracerProvider } = require('@opentelemetry/sdk-trace-node');
 const { JaegerExporter } = require('@opentelemetry/exporter-jaeger');

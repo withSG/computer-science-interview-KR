@@ -184,7 +184,7 @@ box-shadow, border-radius
 ### 최적화 전략
 
 **1. Reflow 최소화**
-```javascript
+```js
 // 나쁜 예 - 여러 번 Reflow
 element.style.width = '100px';
 element.style.height = '100px';
@@ -197,7 +197,7 @@ element.classList.add('new-style');
 ```
 
 **2. Layout Thrashing 방지**
-```javascript
+```js
 // 나쁜 예 - 읽기/쓰기 반복
 for (let i = 0; i < items.length; i++) {
     items[i].style.width = box.offsetWidth + 'px';  // 읽기 → 쓰기 반복
@@ -324,7 +324,7 @@ will-change
 
 ### DOM의 문제점
 
-```javascript
+```js
 // DOM 직접 조작 - 매번 Reflow/Repaint
 for (let i = 0; i < 1000; i++) {
     document.body.innerHTML += `<div>${i}</div>`;  // 비효율적
@@ -386,7 +386,7 @@ for (let i = 0; i < 1000; i++) {
 
 ### 사용 사례
 
-```javascript
+```js
 // Cookie - 인증, 세션 관리
 document.cookie = "token=abc123; max-age=3600; secure; httponly";
 

@@ -33,7 +33,7 @@
 
 ---
 
-## 학습 순서 권장
+## 학습 순서 (권장)
 
 <!-- diagram:sd-README-1 -->
 ![학습 순서 권장](../assets/diagrams/sd-README-1.svg)

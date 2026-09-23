@@ -594,7 +594,7 @@ long fib(int n) {
 
 ### 문제 예시: 두 배열이 서로 각 원소의 제곱 관계인지 확인
 
-```javascript
+```js
 // O(n²) 방식
 function same(arr1, arr2) {
   for (let val of arr1) {
@@ -640,7 +640,7 @@ function same(arr1, arr2) {
 
 ### 문제 예시: 정렬된 배열에서 합이 0이 되는 쌍 찾기
 
-```javascript
+```js
 function sumZero(arr) {
   let left = 0;
   let right = arr.length - 1;
@@ -676,7 +676,7 @@ function sumZero(arr) {
 
 ### 문제 예시: n 크기 부분 배열의 최대 합
 
-```javascript
+```js
 function maxSubarraySum(arr, n) {
   if (arr.length < n) return null;
   let maxSum = arr.slice(0, n).reduce((a, b) => a + b, 0);
@@ -726,7 +726,7 @@ function maxSubarraySum(arr, n) {
 
 ### 의사코드
 
-```javascript
+```js
 function dijkstra(graph, start) {
   const distances = {};
   const pq = new PriorityQueue(); // [거리, 노드]

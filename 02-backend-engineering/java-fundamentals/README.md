@@ -15,11 +15,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-oop-solid.md | OOP와 SOLID 원칙 | ⭐ |
-| 02-memory-model.md | Java 메모리 모델 | ⭐⭐ |
-| 03-garbage-collection.md | 가비지 컬렉션 | ⭐⭐⭐ |
-| 04-call-by-value-reference.md | Call By Value | ⭐ |
-| 05-java21-virtual-threads.md | Virtual Threads | ⭐⭐⭐ |
+| [01-oop-solid.md](./01-oop-solid.md) | OOP와 SOLID 원칙 | ⭐ |
+| [02-memory-model.md](./02-memory-model.md) | Java 메모리 모델 | ⭐⭐ |
+| [03-garbage-collection.md](./03-garbage-collection.md) | 가비지 컬렉션 | ⭐⭐⭐ |
+| [04-call-by-value-reference.md](./04-call-by-value-reference.md) | Call By Value | ⭐ |
+| [05-java21-virtual-threads.md](./05-java21-virtual-threads.md) | Virtual Threads | ⭐⭐⭐ |
 
 ---
 

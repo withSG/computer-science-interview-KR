@@ -15,11 +15,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-observability-concepts.md | Logs/Metrics/Traces, 카디널리티, USE·RED, SLI/SLO/에러 버짓 | ⭐ |
-| 02-prometheus-grafana.md | Pull 수집, 메트릭 타입, PromQL, Exporter, 대시보드 설계 | ⭐⭐ |
-| 03-logging-stack.md | 구조화 로깅, ELK vs Loki, 수집 파이프라인, 상관관계 ID | ⭐⭐ |
-| 04-distributed-tracing.md | Trace/Span, W3C Trace Context, 샘플링, OpenTelemetry | ⭐⭐ |
-| 05-alerting-oncall.md | 알림 계층, 증상 기반 알림, On-call, 포스트모템 | ⭐⭐ |
+| [01-observability-concepts.md](./01-observability-concepts.md) | Logs/Metrics/Traces, 카디널리티, USE·RED, SLI/SLO/에러 버짓 | ⭐ |
+| [02-prometheus-grafana.md](./02-prometheus-grafana.md) | Pull 수집, 메트릭 타입, PromQL, Exporter, 대시보드 설계 | ⭐⭐ |
+| [03-logging-stack.md](./03-logging-stack.md) | 구조화 로깅, ELK vs Loki, 수집 파이프라인, 상관관계 ID | ⭐⭐ |
+| [04-distributed-tracing.md](./04-distributed-tracing.md) | Trace/Span, W3C Trace Context, 샘플링, OpenTelemetry | ⭐⭐ |
+| [05-alerting-oncall.md](./05-alerting-oncall.md) | 알림 계층, 증상 기반 알림, On-call, 포스트모템 | ⭐⭐ |
 
 ---
 

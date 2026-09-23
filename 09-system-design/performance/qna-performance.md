@@ -457,7 +457,7 @@ Core Web Vitals는 Google이 정의한 사용자 경험 핵심 지표입니다. 
 
 | 최적화 영역 | 방법 | 효과 |
 |-----------|------|------|
-| 번들 최적화 | 코드 스플리팅, 트리 쉐이킹 | 초기 로드 감소 |
+| 번들 최적화 | 코드 스플리팅, 트리 셰이킹 | 초기 로드 감소 |
 | 이미지 | WebP/AVIF, lazy loading, srcset | 전송량 감소 |
 | 캐싱 | Cache-Control, Service Worker | 재요청 감소 |
 | 렌더링 | React.memo, useMemo, 가상화 | 리렌더링 감소 |

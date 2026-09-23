@@ -14,10 +14,10 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-cicd-concepts.md | CI vs CD, 통합 지옥, 파이프라인 단계 설계 | ⭐ |
-| 02-pipeline-tools.md | GitHub Actions, Jenkins, 캐싱과 시크릿 | ⭐⭐ |
-| 03-deployment-strategies.md | Blue-Green, Canary, Rolling, 스키마 호환 | ⭐⭐ |
-| 04-gitops.md | GitOps, ArgoCD, Terraform과 IaC | ⭐⭐⭐ |
+| [01-cicd-concepts.md](./01-cicd-concepts.md) | CI vs CD, 통합 지옥, 파이프라인 단계 설계 | ⭐ |
+| [02-pipeline-tools.md](./02-pipeline-tools.md) | GitHub Actions, Jenkins, 캐싱과 시크릿 | ⭐⭐ |
+| [03-deployment-strategies.md](./03-deployment-strategies.md) | Blue-Green, Canary, Rolling, 스키마 호환 | ⭐⭐ |
+| [04-gitops.md](./04-gitops.md) | GitOps, ArgoCD, Terraform과 IaC | ⭐⭐⭐ |
 
 ---
 

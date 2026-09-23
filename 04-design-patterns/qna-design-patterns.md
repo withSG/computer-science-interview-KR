@@ -94,7 +94,7 @@ Animal animal = AnimalFactory.create("dog");
 ```
 
 ### 주의: 정적 팩토리 메서드와의 구분
-위 코드는 문자열로 분기해 구현체를 골라 반환하는 `static` 메서드입니다. 엄밀히는 GoF의 Factory Method 패턴이 아니라 **정적 팩토리 메서드(static factory method)**라는 별개의 관용구입니다. GoF Factory Method는 추상 Creator 클래스가 생성 메서드(`createXxx()`)를 서브클래스에 위임하고, 상속으로 "무엇을 만들지"를 정하는 구조를 가리킵니다. 위 예시는 다릅니다. 상속이나 다형성 없이 조건 분기만으로 구현체를 고르기 때문입니다.
+위 코드는 문자열로 분기해 구현체를 골라 반환하는 `static` 메서드입니다. 엄밀히는 GoF의 Factory Method 패턴이 아니라 **정적 팩토리 메서드**(static factory method)라는 별개의 관용구입니다. GoF Factory Method는 추상 Creator 클래스가 생성 메서드(`createXxx()`)를 서브클래스에 위임하고, 상속으로 "무엇을 만들지"를 정하는 구조를 가리킵니다. 위 예시는 다릅니다. 상속이나 다형성 없이 조건 분기만으로 구현체를 고르기 때문입니다.
 
 ### 면접관이 주목하는 포인트
 - 팩토리 패턴의 이점

@@ -25,7 +25,7 @@
 
 ---
 
-## 학습 순서 권장
+## 학습 순서 (권장)
 
 <!-- diagram:ai-README-1 -->
 ![학습 순서 권장](../assets/diagrams/ai-README-1.svg)

@@ -90,7 +90,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
   - [ ] OSI 7계층
   - [ ] TCP/IP
   - [ ] HTTP/HTTPS
-  - [ ] HTTP 메소드와 HTTP/2
+  - [ ] HTTP 메서드와 HTTP/2
   - [ ] 흐름제어와 혼잡제어
   - [ ] DNS 동작 원리
   - [ ] I/O 모델 (Blocking/Non-blocking/Multiplexing/Async)
@@ -222,7 +222,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
   - [ ] 프로토타입과 프로토타입 체인
   - [ ] ES6 클래스
   - [ ] 이벤트 전파 (버블링/캡처링/위임)
-  - [ ] 디바운스와 쓰로틀
+  - [ ] 디바운스와 스로틀
   - [ ] 가비지 컬렉션
   - [ ] 고차 함수와 함수형 프로그래밍
   - [ ] Map/Set
@@ -261,7 +261,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 - [ ] **[HTML/CSS](./03-frontend-engineering/html-css/)**
   - [ ] DOCTYPE, meta 태그
   - [ ] 웹 표준 및 웹 접근성
-  - [ ] 시멘틱 태그와 SEO
+  - [ ] 시맨틱 태그와 SEO
   - [ ] 크로스 브라우징과 SVG
   - [ ] CSS display, position, float
   - [ ] display:none vs visibility:hidden
@@ -285,7 +285,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
   - [ ] 모듈 번들링
   - [ ] Webpack (entry/output/loader/plugin)
   - [ ] Babel 트랜스파일링
-  - [ ] 트리 쉐이킹
+  - [ ] 트리 셰이킹
   - [ ] QnA 복습 완료
 
 - [ ] **[Frontend Architecture](./03-frontend-engineering/frontend-architecture/)**
@@ -330,7 +330,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 - [ ] CI/CD 개념과 이점
 - [ ] KISS, YAGNI, DRY 원칙
 - [ ] 브룩스의 법칙
-- [ ] 클린 코드 & 리팩토링
+- [ ] 클린 코드 & 리팩터링
 - [ ] 함수형 프로그래밍 (순수 함수, 불변성, 고차 함수)
 - [ ] MSA vs 모놀리식 아키텍처
 - [ ] QnA 복습 완료
@@ -596,10 +596,15 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 3. 막히거나 어렴풋한 부분은 같은 폴더의 개념 설명 파일(`NN-*.md`)로 돌아가세요
 4. 각 QnA에는 **꼬리 질문**이 함께 있습니다. 꼬리 질문까지 답할 수 있어야 그 주제를 안다고 할 수 있습니다
 
-### 난이도 표시
-- ⭐ (기본): 전공자 1-2학년 수준
-- ⭐⭐ (중급): 전공자 3-4학년 수준
-- ⭐⭐⭐ (고급): 주니어 현업 개발자 수준
+### ⭐ 표시
+
+⭐는 쓰인 자리에 따라 뜻이 다릅니다.
+
+- **QnA 파일의 질문 제목**: 빈출도입니다. ⭐가 많을수록 면접에서 자주 나오는 질문입니다.
+- **폴더 README의 문서 표**: 난이도입니다.
+  - ⭐ (기본): 전공자 1-2학년 수준
+  - ⭐⭐ (중급): 전공자 3-4학년 수준
+  - ⭐⭐⭐ (고급): 주니어 현업 개발자 수준
 
 ---
 
@@ -620,9 +625,9 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 | JavaScript | 프론트엔드 | 클로저, 이벤트 루프, 호이스팅, this |
 | React | 프론트엔드 | Virtual DOM, Fiber, Hooks |
 | Next.js | 프론트엔드 | SSR, SSG, RSC |
-| HTML/CSS | 프론트엔드 | DOCTYPE, 시멘틱, Flexbox, Grid, 반응형, 명시도 |
+| HTML/CSS | 프론트엔드 | DOCTYPE, 시맨틱, Flexbox, Grid, 반응형, 명시도 |
 | TypeScript | 프론트엔드 | Type, Interface, Generic, Utility Types |
-| Build Tools | 프론트엔드 | Webpack, Babel, 번들링, 트리쉐이킹 |
+| Build Tools | 프론트엔드 | Webpack, Babel, 번들링, 트리셰이킹 |
 | Frontend Architecture | 프론트엔드 | BFF, 상태관리, 의존성방향, 관심사분리 |
 | Design Patterns | 공통 | 싱글톤, 팩토리, 옵저버, 전략, MVC/MVVM |
 | API Design | 공통 | REST, GraphQL, 버저닝, 페이지네이션 |
@@ -667,9 +672,9 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 | 폴더 | 개념 문서 |
 |------|----------|
 | `browser-fundamentals` | [URL 입력부터 화면 렌더링까지](./03-frontend-engineering/browser-fundamentals/01-url-to-render.md) · [크리티컬 렌더링 패스](./03-frontend-engineering/browser-fundamentals/02-critical-rendering-path.md) · [DOM과 CSSOM](./03-frontend-engineering/browser-fundamentals/03-dom-cssom.md) · [리플로우와 리페인트](./03-frontend-engineering/browser-fundamentals/04-reflow-repaint.md) · [합성과 GPU 가속](./03-frontend-engineering/browser-fundamentals/05-compositing-gpu.md) |
-| `build-tools` | [모듈 시스템과 번들링](./03-frontend-engineering/build-tools/01-module-bundling.md) · [Webpack과 Babel](./03-frontend-engineering/build-tools/02-webpack-babel.md) · [트리 쉐이킹과 번들 최적화](./03-frontend-engineering/build-tools/03-tree-shaking-optimization.md) |
+| `build-tools` | [모듈 시스템과 번들링](./03-frontend-engineering/build-tools/01-module-bundling.md) · [Webpack과 Babel](./03-frontend-engineering/build-tools/02-webpack-babel.md) · [트리 셰이킹과 번들 최적화](./03-frontend-engineering/build-tools/03-tree-shaking-optimization.md) |
 | `frontend-architecture` | [상태 관리 전략](./03-frontend-engineering/frontend-architecture/01-state-management.md) · [컴포넌트 설계](./03-frontend-engineering/frontend-architecture/02-component-design.md) · [프로젝트 구조와 경계](./03-frontend-engineering/frontend-architecture/03-project-structure.md) |
-| `html-css` | [시멘틱 HTML과 웹 접근성](./03-frontend-engineering/html-css/01-semantic-html-a11y.md) · [CSS 레이아웃](./03-frontend-engineering/html-css/02-css-layout.md) · [반응형 웹과 CSS 캐스케이드](./03-frontend-engineering/html-css/03-responsive-specificity.md) |
+| `html-css` | [시맨틱 HTML과 웹 접근성](./03-frontend-engineering/html-css/01-semantic-html-a11y.md) · [CSS 레이아웃](./03-frontend-engineering/html-css/02-css-layout.md) · [반응형 웹과 CSS 캐스케이드](./03-frontend-engineering/html-css/03-responsive-specificity.md) |
 | `javascript-deep-dive` | [실행 컨텍스트](./03-frontend-engineering/javascript-deep-dive/01-execution-context.md) · [호이스팅과 TDZ](./03-frontend-engineering/javascript-deep-dive/02-hoisting-tdz.md) · [클로저](./03-frontend-engineering/javascript-deep-dive/03-closure.md) · [이벤트 루프](./03-frontend-engineering/javascript-deep-dive/04-event-loop.md) · [마이크로태스크와 매크로태스크](./03-frontend-engineering/javascript-deep-dive/05-microtask-macrotask.md) · [Promise와 async/await](./03-frontend-engineering/javascript-deep-dive/06-promise-async-await.md) |
 | `nextjs-rendering` | [렌더링 전략](./03-frontend-engineering/nextjs-rendering/01-csr-ssr-ssg-isr.md) · [하이드레이션](./03-frontend-engineering/nextjs-rendering/02-hydration.md) · [React Server Components](./03-frontend-engineering/nextjs-rendering/03-server-components.md) |
 | `react-architecture` | [가상 DOM](./03-frontend-engineering/react-architecture/01-virtual-dom.md) · [재조정](./03-frontend-engineering/react-architecture/02-reconciliation.md) · [Fiber 아키텍처](./03-frontend-engineering/react-architecture/03-fiber-architecture.md) · [Hooks 내부 동작](./03-frontend-engineering/react-architecture/04-hooks-internals.md) · [useEffect와 useLayoutEffect](./03-frontend-engineering/react-architecture/05-useEffect-vs-useLayoutEffect.md) |
@@ -685,7 +690,7 @@ SVG 다이어그램을 함께 두었습니다(`assets/diagrams/`). 기존 ASCII 
 
 ### 06. Software Engineering
 
-[애자일 프로세스와 협업](./06-software-engineering/01-agile-process.md) · [테스트와 TDD](./06-software-engineering/02-testing-tdd.md) · [클린 코드와 리팩토링](./06-software-engineering/03-clean-code-refactoring.md) · [모놀리식과 마이크로서비스](./06-software-engineering/04-architecture-monolith-msa.md)
+[애자일 프로세스와 협업](./06-software-engineering/01-agile-process.md) · [테스트와 TDD](./06-software-engineering/02-testing-tdd.md) · [클린 코드와 리팩터링](./06-software-engineering/03-clean-code-refactoring.md) · [모놀리식과 마이크로서비스](./06-software-engineering/04-architecture-monolith-msa.md)
 
 ### 07. Version Control
 

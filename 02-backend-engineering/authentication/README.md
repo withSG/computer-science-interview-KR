@@ -14,9 +14,9 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-session-based.md | 세션 기반 인증 | ⭐ |
-| 02-jwt-token.md | JWT 토큰 | ⭐⭐ |
-| 03-oauth2.md | OAuth 2.0 | ⭐⭐ |
+| [01-session-based.md](./01-session-based.md) | 세션 기반 인증 | ⭐ |
+| [02-jwt-token.md](./02-jwt-token.md) | JWT 토큰 | ⭐⭐ |
+| [03-oauth2.md](./03-oauth2.md) | OAuth 2.0 | ⭐⭐ |
 
 ---
 

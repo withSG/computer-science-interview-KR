@@ -15,11 +15,11 @@
 
 | 파일 | 주제 | 난이도 |
 |------|------|--------|
-| 01-virtual-dom.md | Virtual DOM | ⭐⭐ |
-| 02-reconciliation.md | 재조정 알고리즘 | ⭐⭐⭐ |
-| 03-fiber-architecture.md | Fiber 아키텍처 | ⭐⭐⭐ |
-| 04-hooks-internals.md | Hooks 내부 동작 | ⭐⭐⭐ |
-| 05-useEffect-vs-useLayoutEffect.md | useEffect vs useLayoutEffect | ⭐⭐ |
+| [01-virtual-dom.md](./01-virtual-dom.md) | Virtual DOM | ⭐⭐ |
+| [02-reconciliation.md](./02-reconciliation.md) | 재조정 알고리즘 | ⭐⭐⭐ |
+| [03-fiber-architecture.md](./03-fiber-architecture.md) | Fiber 아키텍처 | ⭐⭐⭐ |
+| [04-hooks-internals.md](./04-hooks-internals.md) | Hooks 내부 동작 | ⭐⭐⭐ |
+| [05-useEffect-vs-useLayoutEffect.md](./05-useEffect-vs-useLayoutEffect.md) | useEffect vs useLayoutEffect | ⭐⭐ |
 
 ---
 

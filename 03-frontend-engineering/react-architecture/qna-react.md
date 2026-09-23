@@ -55,7 +55,7 @@
 
 ### 실제 성능 비교
 
-```javascript
+```js
 // 직접 DOM 조작 - 단순 작업에선 더 빠를 수 있음
 document.getElementById('count').textContent = newCount;
 
@@ -198,7 +198,7 @@ Fiber Reconciler (React 16+):
 
 ### Fiber 노드 구조
 
-```javascript
+```js
 // 각 React 엘리먼트는 Fiber 노드로 변환
 {
   type: 'div',           // 컴포넌트 타입
@@ -560,7 +560,7 @@ React는 key를 보고 **어떤 항목이 변경/추가/삭제되었는지 식�
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-라이브러리와 프레임워크의 핵심 차이는 **제어의 역전(IoC, Inversion of Control)**입니다. React는 UI 렌더링 도구만 제공하며 애플리케이션 흐름(라우팅, 상태 관리, 빌드 등)을 강제하지 않습니다. 개발자가 필요할 때 React를 호출하므로 제어권은 개발자에게 있습니다.
+라이브러리와 프레임워크의 핵심 차이는 **제어의 역전**(IoC, Inversion of Control)입니다. React는 UI 렌더링 도구만 제공하며 애플리케이션 흐름(라우팅, 상태 관리, 빌드 등)을 강제하지 않습니다. 개발자가 필요할 때 React를 호출하므로 제어권은 개발자에게 있습니다.
 
 ### 라이브러리 vs 프레임워크 비교
 
@@ -787,7 +787,7 @@ View → dispatch(Action) → Reducer(순수함수) → Store → View 업데이
 
 ### 코드 예시
 
-```javascript
+```js
 // Reducer (순수 함수)
 function counterReducer(state = { count: 0 }, action) {
   switch (action.type) {
@@ -849,11 +849,11 @@ dispatch({ type: 'INCREMENT' });
 <summary>답변 보기</summary>
 
 ### 핵심 답변
-React는 `Object.is`로 **얕은 비교(shallow comparison)**를 수행합니다. 그래서 객체/배열을 직접 변경하면 참조가 같아 변화를 감지하지 못하고 리렌더링이 발생하지 않습니다. 항상 새로운 참조를 반환해야 합니다.
+React는 `Object.is`로 **얕은 비교**(shallow comparison)를 수행합니다. 그래서 객체/배열을 직접 변경하면 참조가 같아 변화를 감지하지 못하고 리렌더링이 발생하지 않습니다. 항상 새로운 참조를 반환해야 합니다.
 
 ### 올바른 불변성 유지
 
-```javascript
+```js
 // 잘못된 예 - 직접 변경 → 리렌더링 안됨
 state.items.push(newItem);
 setState(state); // 같은 참조
@@ -934,7 +934,7 @@ setState(produce(state, draft => {
 
 ### useEffect로 생명주기 구현
 
-```javascript
+```js
 useEffect(() => {
   // componentDidMount + componentDidUpdate
   console.log('마운트 또는 deps 변경 시 실행');
@@ -997,7 +997,7 @@ useRef는 **DOM 요소에 직접 접근**할 때, 그리고 **렌더링 사이�
 
 ### useRef 활용 예시
 
-```javascript
+```js
 // DOM 접근
 const inputRef = useRef(null);
 inputRef.current.focus(); // input에 포커스
