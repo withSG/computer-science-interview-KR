@@ -1,38 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">동작 원리 — 정적 바인딩 vs 동적 바인딩</title>
-  <desc id="d">컴파일 시점의 정적 바인딩과 런타임의 동적 바인딩 동작 원리를 비교하는 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">정적 바인딩과 동적 바인딩</title>
+  <desc id="d">컴파일 시점에는 컴파일러가 PaymentGateway 인터페이스에 pay(..)가 있다는 것만 보고 시그니처를 결정하고(오버로딩), 실행되면 런타임에 JVM이 실제 객체 KakaoPayGateway의 클래스 정보(vtable)를 보고 KakaoPayGateway.pay를 호출해 실제 구현체를 결정한다(오버라이딩).</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Header Columns -->
-  <text x="210" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">컴파일 시점</text>
-  <text x="670" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">런타임</text>
+  <!-- 열 제목 -->
+  <text x="44" y="52"><tspan font-size="20" font-weight="bold" fill="#1d4ed8">컴파일 시점</tspan><tspan dx="12" font-size="16" fill="#4b5563">정적 바인딩</tspan></text>
+  <text x="496" y="52"><tspan font-size="20" font-weight="bold" fill="#047857">런타임</tspan><tspan dx="12" font-size="16" fill="#4b5563">동적 바인딩</tspan></text>
 
-  <!-- Left Box: Compile Time -->
-  <rect x="40" y="65" width="340" height="190" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="98" font-size="13" font-family="Consolas, monospace" fill="#1f2933">PaymentGateway g;</text>
-  <text x="60" y="128" font-size="13" font-family="Consolas, monospace" fill="#1f2933">g.pay(cmd);</text>
-  <text x="60" y="165" font-size="13" fill="#52606d">컴파일러는 인터페이스에</text>
-  <text x="60" y="195" font-size="13" fill="#52606d">pay(..)가 있다는 것만</text>
+  <!-- 왼쪽 패널: 컴파일 시점 -->
+  <rect x="24" y="68" width="380" height="312" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
 
-  <!-- Arrow between boxes -->
-  <path d="M380,160 L490,160" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <!-- Label on Arrow -->
-  <rect x="407" y="148" width="56" height="24" fill="#ffffff" rx="3"/>
-  <text x="435" y="164.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">실행</text>
+  <rect x="44" y="88" width="340" height="84" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="64" y="122" font-size="17" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827"><tspan font-weight="bold" fill="#1d4ed8">PaymentGateway</tspan> g;</text>
+  <text x="64" y="156" font-size="17" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">g.pay(cmd);</text>
 
-  <!-- Right Box: Runtime -->
-  <rect x="500" y="65" width="340" height="190" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="520" y="98" font-size="13" font-weight="bold" fill="#059669">실제 객체: KakaoPayGateway</text>
-  <text x="520" y="135" font-size="13" fill="#52606d">JVM이 객체의 클래스 정보</text>
-  <text x="520" y="165" font-size="13" fill="#52606d">(vtable)를 보고</text>
-  <text x="520" y="195" font-size="13" font-weight="bold" fill="#1f2933">KakaoPayGateway.pay 호출</text>
+  <text x="64" y="212" font-size="15" font-weight="bold" fill="#1e3a8a">컴파일러가 아는 것</text>
+  <text x="64" y="240" font-size="16" fill="#111827">인터페이스에 pay(..)가 있다는 것만</text>
 
-  <!-- Subtitles / Bottom Labels -->
-  <text x="210" y="295" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">시그니처 결정 = 오버로딩</text>
-  <text x="670" y="295" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">실제 구현체 결정 = 오버라이딩</text>
+  <rect x="44" y="300" width="340" height="60" rx="6" fill="#1d4ed8"/>
+  <text x="214" y="336" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">시그니처 결정 = 오버로딩</text>
+
+  <!-- 가운데: 실행 -->
+  <text x="440" y="138" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">실행</text>
+  <line x1="408" y1="152" x2="470" y2="152" stroke="#374151" stroke-width="2.5" marker-end="url(#arr-ink)"/>
+
+  <!-- 오른쪽 패널: 런타임 -->
+  <rect x="476" y="68" width="380" height="312" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+
+  <rect x="496" y="88" width="340" height="52" rx="6" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="666" y="120" font-size="16" fill="#111827" text-anchor="middle">실제 객체: <tspan font-size="17" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#047857">KakaoPayGateway</tspan></text>
+
+  <line x1="522" y1="144" x2="522" y2="220" stroke="#047857" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="542" y="176" font-size="16" fill="#111827">JVM이 객체의 클래스 정보</text>
+  <text x="542" y="200" font-size="16" fill="#111827">(vtable)를 보고</text>
+
+  <rect x="496" y="226" width="340" height="52" rx="6" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="666" y="258" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#047857">KakaoPayGateway.pay</tspan> 호출</text>
+
+  <rect x="496" y="300" width="340" height="60" rx="6" fill="#047857"/>
+  <text x="666" y="336" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">실제 구현체 결정 = 오버라이딩</text>
 </svg>

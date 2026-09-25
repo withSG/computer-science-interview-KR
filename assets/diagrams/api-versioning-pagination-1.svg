@@ -1,44 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">이미 나간 API는 되돌릴 수 없다</title>
-  <desc id="d">서버에서 응답 필드명을 변경했을 때 업데이트하지 않은 기존 앱 버전에서 오류가 발생하고 업데이트된 버전에서만 정상 작동함을 보여주는 다이어그램</desc>
+  <desc id="d">서버가 응답의 user_name 필드를 name으로 바꿔 배포하면, 업데이트하지 않은 앱 v1.2(사용자 40%)는 response.get("user_name")이 null이 되어 화면에 이름이 안 뜨고, 앱 v2.0(사용자 60%)만 정상 동작한다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
 
-  <!-- Title / Section Header -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">이미 나간 API는 되돌릴 수 없다</text>
+  <!-- 서버 변경 -->
+  <rect x="24" y="24" width="832" height="76" rx="10" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="48" y="69" font-size="20" font-weight="bold" fill="#0f172a">서버</text>
+  <line x1="110" y1="40" x2="110" y2="84" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="132" y="68" font-size="16" fill="#111827">응답에서</text>
+  <rect x="204" y="44" width="110" height="36" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="259" y="68" font-size="16" font-weight="bold" fill="#991b1b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">user_name</text>
+  <text x="326" y="68" font-size="16" fill="#111827">필드를</text>
+  <rect x="384" y="44" width="68" height="36" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="418" y="68" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">name</text>
+  <text x="460" y="68" font-size="16" fill="#111827">으로 바꿈</text>
+  <rect x="724" y="44" width="108" height="36" rx="18" fill="#334155"/>
+  <text x="778" y="68" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">배포 완료</text>
 
-  <!-- Top Node: Server -->
-  <rect x="140" y="60" width="600" height="54" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="82" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서버: 응답에서 user_name 필드를 name으로 바꿈 (배포 완료)</text>
+  <!-- 서버 → 두 앱 -->
+  <line x1="187" y1="104" x2="187" y2="142" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="611" y1="104" x2="611" y2="142" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Downward Arrows from Server -->
-  <path d="M280,114 L280,162" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <path d="M600,114 L600,162" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- 앱 v1.2 : 사용자 40% (폭도 40%) -->
+  <path d="M24,158 a10,10 0 0 1 10,-10 h306 a10,10 0 0 1 10,10 v38 h-326 z" fill="#fee2e2"/>
+  <rect x="24" y="148" width="326" height="268" rx="10" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <text x="44" y="179" font-size="18" font-weight="bold" fill="#991b1b">앱 v1.2</text>
+  <text x="330" y="179" font-size="18" font-weight="bold" fill="#991b1b" text-anchor="end">사용자 40%</text>
 
-  <!-- Bottom Left Node: App v1.2 (Error / Broken) -->
-  <rect x="30" y="170" width="500" height="130" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="50" y="200" font-size="14" font-weight="bold" fill="#dc2626">앱 v1.2 (사용자 40%):</text>
-  <text x="210" y="200" font-size="13" font-family="monospace" fill="#1f2933">response.get("user_name")</text>
-  <path d="M395,195 L415,195" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="425" y="200" font-size="13" font-weight="bold" fill="#dc2626">null</text>
-  <path d="M460,195 L480,195" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="50" y="245" font-size="13" font-weight="bold" fill="#dc2626">화면에 이름 안 뜸</text>
-  <text x="50" y="275" font-size="11.5" fill="#52606d">(하위 호환성 파괴로 인한 클라이언트 정상 작동 불가)</text>
+  <rect x="52" y="218" width="270" height="38" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="187" y="242" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">response.get("user_name")</text>
+  <line x1="187" y1="260" x2="187" y2="284" stroke="#b91c1c" stroke-width="2" marker-end="url(#ahr)"/>
+  <text x="187" y="310" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">null</text>
+  <line x1="187" y1="320" x2="187" y2="344" stroke="#b91c1c" stroke-width="2" marker-end="url(#ahr)"/>
+  <text x="187" y="372" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">화면에 이름 안 뜸</text>
+  <text x="187" y="400" font-size="14" fill="#4b5563" text-anchor="middle">하위 호환이 깨진 변경</text>
 
-  <!-- Bottom Right Node: App v2.0 (Success) -->
-  <rect x="550" y="170" width="300" height="130" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="570" y="200" font-size="14" font-weight="bold" fill="#059669">앱 v2.0 (사용자 60%):</text>
-  <text x="735" y="200" font-size="14" font-weight="bold" fill="#059669">정상</text>
-  <text x="570" y="245" font-size="13" fill="#1f2933">변경된 필드명(name) 반영됨</text>
-  <text x="570" y="275" font-size="11.5" fill="#52606d">(새로운 API 규격과 정상 동기화)</text>
+  <!-- 앱 v2.0 : 사용자 60% (폭도 60%) -->
+  <path d="M366,158 a10,10 0 0 1 10,-10 h470 a10,10 0 0 1 10,10 v38 h-490 z" fill="#d1fae5"/>
+  <rect x="366" y="148" width="490" height="268" rx="10" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="386" y="179" font-size="18" font-weight="bold" fill="#065f46">앱 v2.0</text>
+  <text x="836" y="179" font-size="18" font-weight="bold" fill="#065f46" text-anchor="end">사용자 60%</text>
+
+  <rect x="476" y="218" width="270" height="38" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="611" y="242" font-size="15" fill="#111827" text-anchor="middle">변경된 필드명(<tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">name</tspan>) 반영됨</text>
+  <line x1="611" y1="260" x2="611" y2="284" stroke="#047857" stroke-width="2" marker-end="url(#ahg)"/>
+  <text x="611" y="312" font-size="20" font-weight="bold" fill="#047857" text-anchor="middle">정상</text>
 </svg>

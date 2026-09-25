@@ -236,7 +236,7 @@ public class OrderService {
 필드 주입에서는 이런 순간이 실제로 존재합니다.
 
 <!-- diagram:be-ioc-di-3 -->
-![근거 2. 필수 의존성 보장 — "반쯤 만들어진 객체"가 존재할 수 없다](../../assets/diagrams/be-ioc-di-3.svg)
+![필드 주입과 생성자 주입의 객체 완성 시점 비교](../../assets/diagrams/be-ioc-di-3.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

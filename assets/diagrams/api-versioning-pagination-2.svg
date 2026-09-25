@@ -1,97 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">문제 1 — 뒤로 갈수록 느려진다</title>
-  <desc id="d">Offset 방식과 Cursor 방식의 데이터 읽기 양 및 성능 차이를 비교하는 다이어그램</desc>
-  <rect width="880" height="490" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Offset과 Cursor가 읽는 양</title>
+  <desc id="d">Offset 방식은 1페이지에서 10행을 읽지만 10페이지(OFFSET 90)에서는 100행을 읽고 90행을, 1000페이지(OFFSET 9990)에서는 10000행을 읽고 9990행을 버린다. Cursor 방식은 몇 페이지든 항상 10행만 읽는다.</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
 
-  <!-- Main Title -->
-  <text x="24" y="36" font-size="16" font-weight="bold" fill="#1f2933">문제 1 — 뒤로 갈수록 느려진다</text>
+  <!-- ── Offset ── -->
+  <text x="24" y="46" font-size="18" font-weight="bold" fill="#111827">Offset 방식이 실제로 읽는 양</text>
+  <text x="856" y="46" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">O(offset + limit)</text>
+  <line x1="24" y1="62" x2="856" y2="62" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- SECTION 1: Offset 방식 -->
-  <text x="24" y="75" font-size="14" font-weight="bold" fill="#1f2933">Offset 방식이 실제로 읽는 양</text>
+  <!-- 1페이지 -->
+  <text x="24" y="100" font-size="16" font-weight="bold" fill="#111827">1페이지</text>
+  <text x="24" y="120" font-size="14" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(OFFSET 0)</text>
+  <rect x="196" y="88" width="30" height="32" fill="#1d4ed8"/>
+  <text x="656" y="109" font-size="15" fill="#111827"><tspan font-weight="bold">10행 읽고</tspan> 10행 반환</text>
 
-  <!-- Offset Line 1 -->
-  <text x="24" y="114" font-size="13" font-weight="bold" fill="#1f2933">1페이지</text>
-  <text x="120" y="114" font-size="12" fill="#52606d">(OFFSET 0)</text>
+  <!-- 10페이지 -->
+  <text x="24" y="160" font-size="16" font-weight="bold" fill="#111827">10페이지</text>
+  <text x="24" y="180" font-size="14" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(OFFSET 90)</text>
+  <rect x="196" y="148" width="270" height="32" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="331" y="169" font-size="15" fill="#374151" text-anchor="middle">90행 버림</text>
+  <rect x="466" y="148" width="30" height="32" fill="#1d4ed8"/>
+  <text x="656" y="169" font-size="15" fill="#111827"><tspan font-weight="bold">100행 읽고</tspan> <tspan fill="#b91c1c">90행 버림</tspan></text>
 
-  <!-- [■■■■■■■■■■] -->
-  <rect x="230" y="96" width="230" height="26" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-  <text x="345" y="113" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">■■■■■■■■■■</text>
+  <!-- 1000페이지 -->
+  <text x="24" y="220" font-size="16" font-weight="bold" fill="#111827">1000페이지</text>
+  <text x="24" y="240" font-size="14" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(OFFSET 9990)</text>
+  <rect x="196" y="208" width="180" height="32" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="286" y="229" font-size="15" fill="#374151" text-anchor="middle">9990행 버림</text>
+  <line x1="378" y1="246" x2="386" y2="202" stroke="#4b5563" stroke-width="2"/>
+  <line x1="388" y1="246" x2="396" y2="202" stroke="#4b5563" stroke-width="2"/>
+  <rect x="398" y="208" width="208" height="32" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <rect x="606" y="208" width="30" height="32" fill="#1d4ed8"/>
+  <text x="656" y="229" font-size="15" fill="#111827"><tspan font-weight="bold">10000행 읽고</tspan> <tspan fill="#b91c1c">9990행 버림</tspan></text>
 
-  <text x="580" y="114" font-size="13" font-weight="bold" fill="#2563eb">10행 읽고 10행 반환</text>
+  <!-- ── Cursor ── -->
+  <text x="24" y="306" font-size="18" font-weight="bold" fill="#111827">Cursor 방식이 읽는 양</text>
+  <text x="856" y="306" font-size="16" font-weight="bold" fill="#047857" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">O(log N + limit)</text>
+  <line x1="24" y1="322" x2="856" y2="322" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- Offset Line 2 -->
-  <text x="24" y="154" font-size="13" font-weight="bold" fill="#1f2933">10페이지</text>
-  <text x="120" y="154" font-size="12" fill="#52606d">(OFFSET 90)</text>
+  <text x="24" y="370" font-size="16" font-weight="bold" fill="#111827">1페이지</text>
+  <rect x="196" y="348" width="30" height="32" fill="#1d4ed8"/>
+  <text x="656" y="369" font-size="15" font-weight="bold" fill="#111827">10행</text>
 
-  <!-- [□□□□□□□□□ ... □□□■■■■■■■■■■] -->
-  <g>
-    <!-- 버리는 부분 -->
-    <rect x="230" y="136" width="160" height="26" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" rx="3"/>
-    <text x="310" y="153" font-size="12" fill="#dc2626" text-anchor="middle">□□□□□□□□□ ... □□□</text>
-    <!-- 취하는 부분 -->
-    <rect x="395" y="136" width="165" height="26" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="477.5" y="153" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">■■■■■■■■■■</text>
-  </g>
+  <text x="24" y="430" font-size="16" font-weight="bold" fill="#111827">10페이지</text>
+  <rect x="196" y="408" width="30" height="32" fill="#1d4ed8"/>
+  <text x="656" y="429" font-size="15" fill="#111827"><tspan font-weight="bold">10행</tspan>  <tspan fill="#047857" font-weight="bold">← 항상 같다</tspan></text>
 
-  <text x="580" y="154" font-size="13" fill="#dc2626">100행 읽고 <tspan font-weight="bold">90행 버림</tspan></text>
+  <text x="24" y="490" font-size="16" font-weight="bold" fill="#111827">1000페이지</text>
+  <rect x="196" y="468" width="30" height="32" fill="#1d4ed8"/>
+  <text x="656" y="489" font-size="15" fill="#111827"><tspan font-weight="bold">10행</tspan>  <tspan fill="#047857" font-weight="bold">← 항상 같다</tspan></text>
 
-  <!-- Offset Line 3 -->
-  <text x="24" y="194" font-size="13" font-weight="bold" fill="#1f2933">1000페이지</text>
-  <text x="120" y="194" font-size="12" fill="#52606d">(OFFSET 9990)</text>
-
-  <!-- [□□□□□□□ ... 9990행 버림 ... □□□■■■■■■■■■■] -->
-  <g>
-    <!-- 버리는 부분 -->
-    <rect x="230" y="176" width="220" height="26" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" rx="3"/>
-    <text x="340" y="193" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">□□□□□ ... 9990행 버림 ... □□□</text>
-    <!-- 취하는 부분 -->
-    <rect x="455" y="176" width="105" height="26" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="507.5" y="193" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">■■■■■■■■■■</text>
-  </g>
-
-  <text x="580" y="214" font-size="13" fill="#dc2626">10000행 읽고 <tspan font-weight="bold">9990행 버림</tspan></text>
-
-  <!-- Divider Line -->
-  <line x1="24" y1="245" x2="856" y2="245" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- SECTION 2: Cursor 방식 -->
-  <text x="24" y="280" font-size="14" font-weight="bold" fill="#1f2933">Cursor 방식이 읽는 양</text>
-
-  <!-- Cursor Line 1 -->
-  <text x="24" y="320" font-size="13" font-weight="bold" fill="#1f2933">1페이지</text>
-
-  <rect x="230" y="302" width="230" height="26" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="3"/>
-  <text x="345" y="319" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">■■■■■■■■■■</text>
-
-  <text x="580" y="320" font-size="13" font-weight="bold" fill="#059669">10행</text>
-
-  <!-- Cursor Line 2 -->
-  <text x="24" y="360" font-size="13" font-weight="bold" fill="#1f2933">10페이지</text>
-
-  <rect x="230" y="342" width="230" height="26" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="3"/>
-  <text x="345" y="359" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">■■■■■■■■■■</text>
-
-  <text x="580" y="360" font-size="13" font-weight="bold" fill="#059669">10행</text>
-  <text x="635" y="360" font-size="13" fill="#52606d">← 항상 같다</text>
-
-  <!-- Cursor Line 3 -->
-  <text x="24" y="400" font-size="13" font-weight="bold" fill="#1f2933">1000페이지</text>
-
-  <rect x="230" y="382" width="230" height="26" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="3"/>
-  <text x="345" y="399" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">■■■■■■■■■■</text>
-
-  <text x="580" y="400" font-size="13" font-weight="bold" fill="#059669">10행</text>
-  <text x="635" y="400" font-size="13" fill="#52606d">← 항상 같다</text>
-
-  <!-- Legend / Footnote -->
-  <g>
-    <rect x="24" y="440" width="14" height="14" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="2"/>
-    <text x="44" y="452" font-size="11.5" fill="#52606d">반환되는 데이터 (10행)</text>
-
-    <rect x="210" y="440" width="14" height="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1" stroke-dasharray="3 2" rx="2"/>
-    <text x="230" y="452" font-size="11.5" fill="#52606d">읽고 버려지는 데이터 (비효율 발생)</text>
-
-    <rect x="460" y="440" width="14" height="14" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="2"/>
-    <text x="480" y="452" font-size="11.5" fill="#52606d">Cursor 방식 읽기 (일정함)</text>
-  </g>
+  <!-- 범례 -->
+  <line x1="24" y1="522" x2="856" y2="522" stroke="#e5e7eb" stroke-width="1.5"/>
+  <rect x="24" y="536" width="22" height="18" fill="#1d4ed8"/>
+  <text x="54" y="551" font-size="14" fill="#374151">반환하는 10행</text>
+  <rect x="190" y="536" width="40" height="18" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="238" y="551" font-size="14" fill="#374151">읽고 버리는 행</text>
+  <line x1="392" y1="558" x2="398" y2="532" stroke="#4b5563" stroke-width="2"/>
+  <line x1="402" y1="558" x2="408" y2="532" stroke="#4b5563" stroke-width="2"/>
+  <text x="418" y="551" font-size="14" fill="#374151">중간 생략 (1000페이지 막대는 실제로 훨씬 길다)</text>
 </svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">커서 페이지네이션의 정합성</title>
+  <desc id="d">1페이지 [글6, 글5, 글4]를 받은 뒤 cursor = 4를 기억하고, 그 사이 글7이 등록되든 글5가 삭제되든 2페이지는 WHERE id &lt; 4 조건으로 [글3, 글2, 글1]을 정확히 받는다.</desc>
+  <rect width="880" height="300" fill="#ffffff"/>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+
+  <!-- 시간 흐름 (1페이지 → 2페이지) -->
+  <line x1="58" y1="86" x2="58" y2="210" stroke="#9ca3af" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- 1페이지 -->
+  <text x="24" y="70" font-size="18" font-weight="bold" fill="#111827">1페이지</text>
+  <rect x="130" y="38" width="100" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="180" y="70" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">글6</text>
+  <rect x="242" y="38" width="100" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="292" y="70" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">글5</text>
+  <rect x="354" y="38" width="100" height="52" rx="6" fill="#f3f4f6" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="404" y="70" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">글4</text>
+
+  <line x1="462" y1="64" x2="530" y2="64" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+
+  <rect x="540" y="30" width="260" height="68" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="670" y="58" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">cursor = 4</text>
+  <text x="670" y="84" font-size="15" fill="#374151" text-anchor="middle">(마지막으로 본 값)</text>
+
+  <!-- 그 사이 데이터 변경 -->
+  <line x1="96" y1="150" x2="296" y2="150" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="465" y="156" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">글7 등록되든 글5 삭제되든 상관없다</text>
+  <line x1="634" y1="150" x2="834" y2="150" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+  <!-- 2페이지 -->
+  <text x="24" y="246" font-size="18" font-weight="bold" fill="#111827">2페이지</text>
+  <rect x="130" y="206" width="260" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="260" y="241" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">WHERE id &lt; 4</text>
+
+  <line x1="398" y1="234" x2="466" y2="234" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+
+  <rect x="476" y="208" width="100" height="52" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="526" y="240" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">글3</text>
+  <rect x="588" y="208" width="100" height="52" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="638" y="240" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">글2</text>
+  <rect x="700" y="208" width="100" height="52" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="750" y="240" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">글1</text>
+</svg>

@@ -1,49 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3-way merge 및 3-way 비교 원리</title>
-  <desc id="d">병합 커밋 M이 c2와 c3를 부모로 가지며 기능 브랜치 범위를 유지하는 모습</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">--no-ff 병합 커밋</title>
+  <desc id="d">--no-ff로 병합하면 부모가 c2와 c3 둘인 병합 커밋 M이 생겨, 기능 브랜치가 갈라졌다 합쳐진 범위가 그래프에 남는다.</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="260" fill="#ffffff"/>
+  <text x="40" y="50" font-size="16" fill="#4b5563"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1f2937">git merge --no-ff feature</tspan><tspan> 실행 결과</tspan></text>
 
-  <!-- 메인 그래프 연결선 (c1 -> c2 -> M) -->
-  <path d="M120,80 L200,80" stroke="#1f2933" stroke-width="2" fill="none"/>
-  <path d="M240,80 L440,80" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 간선 -->
+  <line x1="124" y1="130" x2="206" y2="130" stroke="#64748b" stroke-width="2.5"/>
+  <line x1="254" y1="130" x2="536" y2="130" stroke="#047857" stroke-width="3"/>
+  <line x1="250.5" y1="142.4" x2="374.5" y2="217.6" stroke="#6d28d9" stroke-width="2.5"/>
+  <line x1="415.5" y1="217.6" x2="539.5" y2="142.4" stroke="#047857" stroke-width="3"/>
 
-  <!-- 기능 브랜치 분기 및 병합 선 (c2 -> c3 -> M) -->
-  <path d="M220,100 L320,180" stroke="#2563eb" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
-  <path d="M360,180 L440,100" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 커밋 -->
+  <circle cx="100" cy="130" r="24" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <text x="100" y="136" font-size="17" font-weight="bold" text-anchor="middle" fill="#1f2937">c1</text>
+  <circle cx="230" cy="130" r="24" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <text x="230" y="136" font-size="17" font-weight="bold" text-anchor="middle" fill="#1f2937">c2</text>
+  <circle cx="395" cy="230" r="24" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="395" y="236" font-size="17" font-weight="bold" text-anchor="middle" fill="#6d28d9">c3</text>
+  <circle cx="560" cy="130" r="26" fill="#ecfdf5" stroke="#047857" stroke-width="3"/>
+  <text x="560" y="137" font-size="19" font-weight="bold" text-anchor="middle" fill="#047857">M</text>
 
-  <!-- 노드: c1 -->
-  <rect x="80" y="60" width="40" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="100" y="84.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">c1</text>
+  <!-- M 설명 -->
+  <line x1="618" y1="130" x2="592" y2="130" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <rect x="622" y="92" width="234" height="76" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="640" y="124" font-size="17" font-weight="bold" fill="#047857">병합 커밋</text>
+  <text x="640" y="152" font-size="16" fill="#1f2937">부모가 c2와 c3 둘</text>
 
-  <!-- 노드: c2 -->
-  <rect x="200" y="60" width="40" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="84.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">c2</text>
-
-  <!-- 노드: c3 -->
-  <rect x="320" y="160" width="40" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="184.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">c3</text>
-
-  <!-- 노드: M (병합 커밋) -->
-  <rect x="440" y="60" width="40" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="460" y="84.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">M</text>
-
-  <!-- 주석 1: 병합 커밋 설명 (M 오른쪽) -->
-  <path d="M495,80 L525,80" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="535" y="84.0" font-size="13" fill="#1f2933">← 병합 커밋. 부모가 c2와 c3 둘</text>
-
-  <!-- 주석 2: 기능 브랜치 범위 설명 (c3 아래/오른쪽) -->
-  <text x="380" y="184.0" font-size="13" fill="#52606d">(기능 브랜치의 범위가 그래프에 남는다)</text>
+  <!-- 기능 브랜치 범위 -->
+  <path d="M230,270 V282 H560 V270" fill="none" stroke="#6d28d9" stroke-width="2"/>
+  <text x="395" y="312" font-size="16" text-anchor="middle" fill="#6d28d9">기능 브랜치의 범위가 그래프에 남는다</text>
 </svg>

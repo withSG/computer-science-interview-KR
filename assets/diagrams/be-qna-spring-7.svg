@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Filter와 Interceptor 실행 순서</title>
+  <desc id="d">요청은 Filter, DispatcherServlet, Interceptor를 거쳐 Controller에 도달하고, 응답은 Interceptor, DispatcherServlet, Filter 순으로 거꾸로 돌아 나간다. Filter는 서블릿 컨테이너 소속으로 DispatcherServlet 전/후에, Interceptor는 스프링 컨테이너 소속으로 Controller 전/후에 실행된다.</desc>
+  <rect width="880" height="280" fill="#ffffff"/>
+  <defs>
+    <marker id="ah-req" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ah-res" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <!-- 요청 / 응답 레인 라벨 -->
+  <rect x="24" y="52" width="76" height="36" rx="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="62" y="76" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">요청</text>
+  <rect x="24" y="152" width="76" height="36" rx="18" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="62" y="176" font-size="16" font-weight="bold" fill="#78350f" text-anchor="middle">응답</text>
+
+  <!-- 구성요소 (요청 레인과 응답 레인을 모두 지난다) -->
+  <rect x="148" y="40" width="120" height="160" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="208" y="126" font-size="18" font-weight="bold" fill="#065f46" text-anchor="middle">Filter</text>
+
+  <rect x="312" y="40" width="190" height="160" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="407" y="126" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">DispatcherServlet</text>
+
+  <rect x="546" y="40" width="140" height="160" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="616" y="126" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">Interceptor</text>
+
+  <rect x="730" y="40" width="126" height="160" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="793" y="126" font-size="17" font-weight="bold" fill="#78350f" text-anchor="middle">Controller</text>
+
+  <!-- 요청 흐름 (왼→오른) -->
+  <path d="M104,70 L144,70" stroke="#1d4ed8" stroke-width="2.5" fill="none" marker-end="url(#ah-req)"/>
+  <path d="M272,70 L308,70" stroke="#1d4ed8" stroke-width="2.5" fill="none" marker-end="url(#ah-req)"/>
+  <path d="M506,70 L542,70" stroke="#1d4ed8" stroke-width="2.5" fill="none" marker-end="url(#ah-req)"/>
+  <path d="M690,70 L726,70" stroke="#1d4ed8" stroke-width="2.5" fill="none" marker-end="url(#ah-req)"/>
+
+  <!-- 응답 흐름 (오른→왼) -->
+  <path d="M726,170 L690,170" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#ah-res)"/>
+  <path d="M542,170 L506,170" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#ah-res)"/>
+  <path d="M308,170 L272,170" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#ah-res)"/>
+  <path d="M144,170 L104,170" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#ah-res)"/>
+
+  <!-- 소속과 실행 시점 -->
+  <text x="208" y="232" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">서블릿 컨테이너 소속</text>
+  <text x="208" y="254" font-size="14" fill="#374151" text-anchor="middle">DispatcherServlet 전/후 실행</text>
+  <text x="616" y="232" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">스프링 컨테이너 소속</text>
+  <text x="616" y="254" font-size="14" fill="#374151" text-anchor="middle">Controller 전/후 실행</text>
+</svg>

@@ -26,7 +26,7 @@
 
 ### 엔티티 생명주기
 <!-- diagram:be-qna-database-7 -->
-![엔티티 생명주기](../../assets/diagrams/be-qna-database-7.svg)
+![비영속→영속→준영속 또는 삭제로 이어지는 엔티티 생명주기](../../assets/diagrams/be-qna-database-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -853,7 +853,7 @@ SELECT * FROM a RIGHT JOIN b ON a.id = b.id;
 ### 문제 테이블 예시
 
 <!-- diagram:be-qna-database-8 -->
-![문제 테이블 예시](../../assets/diagrams/be-qna-database-8.svg)
+![정규화 전 학생_수강 테이블 6열 3행 예시](../../assets/diagrams/be-qna-database-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

@@ -1,79 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">정렬 키 선택 — 여기서 가장 많이 틀린다</title>
-  <desc id="d">created_at 중복 시 커서 페이징에서 데이터(id=97)가 누락되는 문제를 보여주는 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">created_at 커서의 누락</title>
+  <desc id="d">created_at이 10:00:00으로 같은 글 4개(id 100~97) 중 1페이지 LIMIT 3이 100, 99, 98을 가져가고 커서를 '10:00:00'으로 잡으면, 2페이지 WHERE created_at &lt; '10:00:00'은 96부터 돌려주어 id=97이 통째로 사라진다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+  <text x="24" y="38" font-size="18" font-weight="bold" fill="#111827">데이터 (created_at이 같은 글 4개)</text>
 
-  <!-- 데이터 그룹 영역 -->
-  <rect x="40" y="30" width="800" height="230" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" rx="8"/>
-  <text x="60" y="65" font-size="14" font-weight="bold" fill="#1f2933">데이터 (created_at이 같은 글 4개)</text>
+  <!-- 표: 머리행 -->
+  <rect x="24" y="56" width="420" height="40" fill="#e5e7eb"/>
+  <text x="79" y="82" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">id</text>
+  <text x="214" y="82" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">created_at</text>
+  <text x="369" y="82" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">결과</text>
 
-  <!-- 데이터 행들 -->
-  <!-- id=100 (1페이지 포함) -->
-  <rect x="60" y="85" width="760" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="80" y="106" font-size="13" font-weight="bold" fill="#2563eb">id=100</text>
-  <text x="200" y="106" font-size="13" fill="#1f2933">created_at = 10:00:00</text>
+  <!-- 행 배경 -->
+  <rect x="24" y="96" width="420" height="138" fill="#eff6ff"/>
+  <rect x="24" y="234" width="420" height="46" fill="#fef2f2"/>
+  <rect x="24" y="280" width="420" height="46" fill="#ecfdf5"/>
 
-  <!-- id=99 (1페이지 포함) -->
-  <rect x="60" y="122" width="760" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="80" y="143" font-size="13" font-weight="bold" fill="#2563eb">id=99</text>
-  <text x="200" y="143" font-size="13" fill="#1f2933">created_at = 10:00:00</text>
+  <!-- 격자 -->
+  <line x1="24" y1="142" x2="444" y2="142" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="24" y1="188" x2="444" y2="188" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="24" y1="234" x2="444" y2="234" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="24" y1="280" x2="444" y2="280" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="134" y1="56" x2="134" y2="326" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="294" y1="56" x2="294" y2="326" stroke="#cbd5e1" stroke-width="1"/>
+  <rect x="24" y="56" width="420" height="270" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="26" y="236" width="416" height="42" fill="none" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4"/>
 
-  <!-- id=98 (1페이지 포함) -->
-  <rect x="60" y="159" width="760" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="80" y="180" font-size="13" font-weight="bold" fill="#2563eb">id=98</text>
-  <text x="200" y="180" font-size="13" fill="#1f2933">created_at = 10:00:00</text>
-
-  <!-- id=97 (누락된 행) -->
-  <rect x="60" y="196" width="760" height="32" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" rx="4"/>
-  <text x="80" y="217" font-size="13" font-weight="bold" fill="#dc2626">id=97</text>
-  <text x="200" y="217" font-size="13" fill="#1f2933">created_at = 10:00:00</text>
-
-  <!-- id=96 (2페이지 포함) -->
-  <rect x="60" y="233" width="760" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="80" y="247" font-size="13" font-weight="bold" fill="#52606d">id=96</text>
-  <text x="200" y="247" font-size="13" fill="#52606d">created_at = 09:59:00</text>
-
-  <!-- 1페이지 결과 영역 -->
-  <g transform="translate(0, 280)">
-    <rect x="40" y="0" width="800" height="85" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="8"/>
-    
-    <text x="60" y="32" font-size="13" font-weight="bold" fill="#1f2933">1페이지 LIMIT 3</text>
-    
-    <!-- 화살표 -->
-    <path d="M180,27 L205,27" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    
-    <rect x="215" y="12" width="145" height="30" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="4"/>
-    <text x="287.5" y="31.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[100, 99, 98]</text>
-    
-    <text x="380" y="32" font-size="13" fill="#52606d">커서 = '10:00:00'</text>
+  <!-- 행 내용 -->
+  <g font-size="17" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="79" y="125" text-anchor="middle" fill="#111827" font-weight="bold">100</text>
+    <text x="214" y="125" text-anchor="middle" fill="#b45309" font-weight="bold">10:00:00</text>
+    <text x="79" y="171" text-anchor="middle" fill="#111827" font-weight="bold">99</text>
+    <text x="214" y="171" text-anchor="middle" fill="#b45309" font-weight="bold">10:00:00</text>
+    <text x="79" y="217" text-anchor="middle" fill="#111827" font-weight="bold">98</text>
+    <text x="214" y="217" text-anchor="middle" fill="#b45309" font-weight="bold">10:00:00</text>
+    <text x="79" y="263" text-anchor="middle" fill="#b91c1c" font-weight="bold">97</text>
+    <text x="214" y="263" text-anchor="middle" fill="#b45309" font-weight="bold">10:00:00</text>
+    <text x="79" y="309" text-anchor="middle" fill="#111827" font-weight="bold">96</text>
+    <text x="214" y="309" text-anchor="middle" fill="#374151">09:59:00</text>
   </g>
+  <text x="369" y="125" font-size="16" fill="#1d4ed8" text-anchor="middle">1페이지</text>
+  <text x="369" y="171" font-size="16" fill="#1d4ed8" text-anchor="middle">1페이지</text>
+  <text x="369" y="217" font-size="16" fill="#1d4ed8" text-anchor="middle">1페이지</text>
+  <text x="369" y="263" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">사라짐</text>
+  <text x="369" y="309" font-size="16" fill="#047857" text-anchor="middle">2페이지</text>
 
-  <!-- 2페이지 결과 및 오류 영역 -->
-  <g transform="translate(0, 385)">
-    <rect x="40" y="0" width="800" height="115" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="8"/>
-    
-    <text x="60" y="38" font-size="13" font-weight="bold" fill="#1f2933">2페이지 WHERE created_at &lt; '10:00:00'</text>
-    
-    <!-- 화살표 -->
-    <path d="M335,33 L360,33" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    
-    <rect x="370" y="18" width="100" height="30" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
-    <text x="420" y="37.5" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">[96, ...]</text>
-    
-    <!-- 오류 지적 화살표 및 경고 -->
-    <path d="M500,33 L480,33" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="505" y="18" width="225" height="30" fill="#dc2626" rx="4"/>
-    <text x="617.5" y="37.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">id=97이 통째로 사라졌다</text>
-    
-    <text x="60" y="82" font-size="11.5" fill="#dc2626">※ created_at이 10:00:00으로 동일하여 id=97 데이터가 조건(&lt; '10:00:00')에 의해 스킵됨</text>
-  </g>
+  <!-- ① 1페이지 -->
+  <rect x="476" y="96" width="380" height="138" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="496" y="128" font-size="17" font-weight="bold" fill="#111827">① 1페이지 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LIMIT 3</tspan></text>
+  <text x="496" y="166" font-size="17" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif">→</tspan> [100, 99, 98]</text>
+  <text x="496" y="206" font-size="16" fill="#111827">커서 = <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'10:00:00'</tspan></text>
+
+  <!-- ② 2페이지 -->
+  <rect x="476" y="250" width="380" height="162" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="496" y="282" font-size="17" font-weight="bold" fill="#111827">② 2페이지</text>
+  <text x="496" y="316" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">WHERE created_at &lt; '10:00:00'</text>
+  <text x="496" y="352" font-size="17" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif">→</tspan> [96, ...]</text>
+  <text x="496" y="390" font-size="17" font-weight="bold" fill="#b91c1c">id=97이 통째로 사라졌다</text>
+
+  <!-- 원인 -->
+  <text x="24" y="366" font-size="15" fill="#374151">※ created_at이 10:00:00으로 동일하여</text>
+  <text x="24" y="390" font-size="15" fill="#374151">id=97 데이터가 조건(&lt; '10:00:00')에 의해 스킵됨</text>
 </svg>

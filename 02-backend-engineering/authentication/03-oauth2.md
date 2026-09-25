@@ -186,7 +186,7 @@ ROPC(Password Grant)는 **OAuth가 없애려던 문제 그 자체**입니다. �
 Public Client는 secret이 없으니 코드를 토큰으로 바꿀 때 "내가 진짜 그 앱이다"를 증명할 수단이 없습니다. 공격자가 리다이렉트 과정에서 코드를 가로채면 그대로 토큰을 받아갑니다. 특히 모바일에서는 커스텀 URL 스킴(`myapp://callback`)을 **악성 앱이 똑같이 등록**해 코드를 가로챌 수 있습니다. 해결 아이디어는 이렇습니다. secret을 미리 심어둘 수 없다면 **요청할 때마다 그 자리에서 만들면 됩니다.**
 
 <!-- diagram:be-oauth2-7 -->
-![5. PKCE — Public Client의 구멍 메우기](../../assets/diagrams/be-oauth2-7.svg)
+![PKCE: verifier·challenge 생성부터 토큰 발급까지](../../assets/diagrams/be-oauth2-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

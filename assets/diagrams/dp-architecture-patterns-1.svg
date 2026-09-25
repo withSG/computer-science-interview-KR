@@ -1,50 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">레이어드 아키텍처 계층 구조</title>
-  <desc id="d">Presentation, Business, Persistence, Database 계층의 위아래 구조와 의존성 규칙을 설명하는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">레이어드 아키텍처의 계층과 의존 방향</title>
+  <desc id="d">위에서부터 Presentation(Controller, DTO)은 HTTP를, Business(Service, Domain)는 비즈니스 규칙을, Persistence(Repository)는 DB를 알고, 맨 아래에 Database(RDB, Redis)가 있다. 의존은 항상 아래로만 향하고 위로 부르지 않는다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- Title / Section Heading from Markdown context -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">4. 레이어드 아키텍처 (Layered Architecture)</text>
+  <!-- Presentation -->
+  <rect x="40" y="28" width="800" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="68" y="62" font-size="18" font-weight="bold" fill="#1d4ed8">Presentation</text>
+  <text x="270" y="62" font-size="16" fill="#111827">Controller, DTO</text>
+  <text x="580" y="62" font-size="16" fill="#111827">HTTP를 안다</text>
 
-  <!-- Outer Layer Container -->
-  <rect x="40" y="75" width="560" height="340" fill="none" stroke="#9aa5b1" stroke-width="2" rx="4"/>
+  <path d="M440,86 V117" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-gray)"/>
 
-  <!-- Layer 1: Presentation -->
-  <rect x="40" y="75" width="560" height="85" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="60" y="122" font-size="14" font-weight="bold" fill="#2563eb">Presentation</text>
-  <text x="210" y="122" font-size="13" fill="#1f2933">Controller, DTO</text>
+  <!-- Business -->
+  <rect x="40" y="120" width="800" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="68" y="154" font-size="18" font-weight="bold" fill="#047857">Business</text>
+  <text x="270" y="154" font-size="16" fill="#111827">Service, Domain</text>
+  <text x="580" y="154" font-size="16" fill="#111827">비즈니스 규칙을 안다</text>
 
-  <!-- Layer 2: Business -->
-  <rect x="40" y="160" width="560" height="85" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="60" y="207" font-size="14" font-weight="bold" fill="#059669">Business</text>
-  <text x="210" y="207" font-size="13" fill="#1f2933">Service, Domain</text>
+  <path d="M440,178 V209" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-gray)"/>
 
-  <!-- Layer 3: Persistence -->
-  <rect x="40" y="245" width="560" height="85" fill="#fffbeb" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="60" y="292" font-size="14" font-weight="bold" fill="#d97706">Persistence</text>
-  <text x="210" y="292" font-size="13" fill="#1f2933">Repository</text>
+  <!-- Persistence -->
+  <rect x="40" y="212" width="800" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="68" y="246" font-size="18" font-weight="bold" fill="#b45309">Persistence</text>
+  <text x="270" y="246" font-size="16" fill="#111827">Repository</text>
+  <text x="580" y="246" font-size="16" fill="#111827">DB를 안다</text>
 
-  <!-- Layer 4: Database -->
-  <rect x="40" y="330" width="560" height="85" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="60" y="377" font-size="14" font-weight="bold" fill="#52606d">Database</text>
-  <text x="210" y="377" font-size="13" fill="#1f2933">RDB, Redis</text>
+  <path d="M440,270 V301" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-gray)"/>
 
-  <!-- Right Annotations -->
-  <text x="630" y="122" font-size="13" fill="#52606d">HTTP를 안다</text>
-  <text x="630" y="207" font-size="13" fill="#52606d">비즈니스 규칙을 안다</text>
-  <text x="630" y="292" font-size="13" fill="#52606d">DB를 안다</text>
+  <!-- Database -->
+  <rect x="40" y="304" width="800" height="56" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="68" y="338" font-size="18" font-weight="bold" fill="#374151">Database</text>
+  <text x="270" y="338" font-size="16" fill="#111827">RDB, Redis</text>
 
-  <!-- Dependency Direction Visual (Downwards Arrow on Left-side Context) -->
-  <path d="M 25,100 L 25,390" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Bottom Rule -->
-  <rect x="40" y="440" width="800" height="36" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="55" y="463" font-size="13" font-weight="bold" fill="#dc2626">규칙:</text>
-  <text x="95" y="463" font-size="13" fill="#1f2933">의존은 항상 아래로만 향한다. 위로 부르지 않는다.</text>
+  <!-- 규칙 -->
+  <rect x="40" y="384" width="800" height="52" rx="8" fill="#fef3c7"/>
+  <text x="64" y="416" font-size="17" fill="#78350f"><tspan font-weight="bold">규칙</tspan><tspan dx="14">의존은 항상 아래로만 향한다. 위로 부르지 않는다.</tspan></text>
 </svg>

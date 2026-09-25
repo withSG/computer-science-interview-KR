@@ -1,73 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">가용성은 곱해진다</title>
-  <desc id="d">안티패턴 동기 호출 체인에서 알림 서비스 장애가 주문 전체로 전파되는 과정을 나타낸 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동기 호출 체인의 장애 전파</title>
+  <desc id="d">클라이언트에서 주문·재고·배송·정산·알림으로 이어지는 동기 호출 체인에서 알림이 느려지면 정산·배송·재고가 차례로 대기하고 주문 스레드 풀이 고갈되어, 알림 서비스 장애가 주문 전체를 멈추는 과정을 보여줍니다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title / Subtitle -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#dc2626">안티패턴: 동기 호출 체인</text>
+  <text x="40" y="46"><tspan font-size="18" font-weight="bold" fill="#b91c1c">안티패턴:</tspan><tspan dx="8" font-size="18" font-weight="bold" fill="#111827">동기 호출 체인</tspan></text>
 
-  <!-- Boxes -->
-  <!-- 클라이언트 -->
-  <rect x="30" y="60" width="110" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="85" y="84" font-size="13" fill="#1f2933" text-anchor="middle">클라이언트</text>
+  <!-- 호출 체인 -->
+  <rect x="40" y="72" width="110" height="48" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="95" y="102" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">클라이언트</text>
+  <rect x="178" y="72" width="110" height="48" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="233" y="102" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">주문</text>
+  <rect x="316" y="72" width="110" height="48" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="371" y="102" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">재고</text>
+  <rect x="454" y="72" width="110" height="48" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="509" y="102" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">배송</text>
+  <rect x="592" y="72" width="110" height="48" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="647" y="102" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">정산</text>
+  <rect x="730" y="72" width="110" height="48" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="785" y="102" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">알림</text>
 
-  <!-- 주문 -->
-  <rect x="170" y="60" width="90" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="215" y="84" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">주문</text>
+  <g stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arr-ink)">
+    <path d="M152,96 L175,96"/>
+    <path d="M290,96 L313,96"/>
+    <path d="M428,96 L451,96"/>
+    <path d="M566,96 L589,96"/>
+    <path d="M704,96 L727,96"/>
+  </g>
 
-  <!-- 재고 -->
-  <rect x="290" y="60" width="90" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="335" y="84" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">재고</text>
+  <!-- 장애 전파 계단 -->
+  <rect x="718" y="136" width="134" height="32" rx="16" fill="#b91c1c"/>
+  <text x="785" y="157" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">여기가 느려지면</text>
 
-  <!-- 배송 -->
-  <rect x="410" y="60" width="90" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="455" y="84" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">배송</text>
+  <rect x="591" y="184" width="112" height="32" rx="16" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="647" y="205" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">정산이 대기</text>
 
-  <!-- 정산 -->
-  <rect x="530" y="60" width="90" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="575" y="84" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">정산</text>
+  <rect x="453" y="232" width="112" height="32" rx="16" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="509" y="253" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">배송이 대기</text>
 
-  <!-- 알림 (장애 지점) -->
-  <rect x="650" y="60" width="90" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="695" y="84" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">알림</text>
+  <rect x="315" y="280" width="112" height="32" rx="16" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="371" y="301" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">재고가 대기</text>
 
-  <!-- Forward Flow Arrows -->
-  <path d="M140,80 L170,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M260,80 L290,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M380,80 L410,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M500,80 L530,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M620,80 L650,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="149" y="328" width="168" height="32" rx="16" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="233" y="349" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">주문 스레드 풀 고갈</text>
 
-  <!-- Cascading Delay Arrows & Annotations -->
-  <!-- (여기가 느려지면) -->
-  <text x="695" y="125" font-size="13" fill="#dc2626" text-anchor="middle" font-weight="bold">(여기가 느려지면)</text>
+  <g stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arr-red)">
+    <path d="M716,152 H647 V181"/>
+    <path d="M589,200 H509 V229"/>
+    <path d="M451,248 H371 V277"/>
+    <path d="M313,296 H233 V325"/>
+  </g>
 
-  <!-- 정산이 대기 -->
-  <path d="M640,135 L610,150" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="615" y="160" font-size="13" fill="#dc2626">정산이 대기</text>
-
-  <!-- 배송이 대기 -->
-  <path d="M520,170 L490,185" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="495" y="195" font-size="13" fill="#dc2626">배송이 대기</text>
-
-  <!-- 재고가 대기 -->
-  <path d="M400,205 L370,220" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="375" y="230" font-size="13" fill="#dc2626">재고가 대기</text>
-
-  <!-- 주문 스레드 풀 고갈 -->
-  <path d="M280,240 L250,255" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="255" y="265" font-size="13" fill="#dc2626">주문 스레드 풀 고갈</text>
-
-  <!-- 최종 결과 메시지 및 화살표 -->
-  <path d="M160,285 L120,285" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="170" y="289" font-size="13" font-weight="bold" fill="#dc2626">알림 서비스 장애가 주문 전체를 멈춘다</text>
+  <!-- 결론 -->
+  <rect x="40" y="384" width="800" height="48" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="414" font-size="17" font-weight="bold" fill="#7f1d1d" text-anchor="middle">← 알림 서비스 장애가 주문 전체를 멈춘다</text>
 </svg>

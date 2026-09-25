@@ -1,34 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 220" width="880" height="220" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">잘못된 기준: 기술 계층</title>
-  <desc id="d">안티패턴 계층별로 나누기: 컨트롤러 서비스, 비즈니스 서비스, DAO 서비스가 순차적으로 화살표로 연결된 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">기술 계층별 서비스 분리 안티패턴</title>
+  <desc id="d">컨트롤러 서비스, 비즈니스 서비스, DAO 서비스처럼 계층별로 나누면 "주문에 배송 메모를 추가한다"는 요구사항 하나에 세 서비스를 모두 고치고 세 번 배포해야 하는 분산 모놀리식이 된다.</desc>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
-  <rect width="880" height="220" fill="#ffffff"/>
-  
-  <!-- Outer Container / Area for Anti-pattern -->
-  <rect x="24" y="20" width="832" height="180" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6 4"/>
-  
-  <!-- Section Title -->
-  <text x="44" y="52" font-size="16" font-weight="bold" fill="#dc2626">안티패턴 - 계층별로 나누기</text>
-  
-  <!-- Service Box 1: 컨트롤러 서비스 -->
-  <rect x="54" y="80" width="220" height="80" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="164" y="125" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">컨트롤러 서비스</text>
-  
-  <!-- Arrow 1 -> 2 -->
-  <path d="M274,120 L328,120" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  
-  <!-- Service Box 2: 비즈니스 서비스 -->
-  <rect x="330" y="80" width="220" height="80" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="125" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">비즈니스 서비스</text>
-  
-  <!-- Arrow 2 -> 3 -->
-  <path d="M550,120 L604,120" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  
-  <!-- Service Box 3: DAO 서비스 -->
-  <rect x="606" y="80" width="220" height="80" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="716" y="125" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">DAO 서비스</text>
+  <rect width="880" height="400" fill="#ffffff"/>
+
+  <!-- 캡션 -->
+  <rect x="40" y="24" width="88" height="30" rx="6" fill="#b91c1c"/>
+  <text x="84" y="45" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">안티패턴</text>
+  <text x="142" y="46" font-size="20" font-weight="bold" fill="#111827">계층별로 나누기</text>
+
+  <!-- 요구사항 하나 -->
+  <rect x="200" y="76" width="480" height="46" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="440" y="105" font-size="16" fill="#1f2937" text-anchor="middle"><tspan font-weight="bold" fill="#92400e">요구사항 하나</tspan>: “주문에 배송 메모를 추가한다”</text>
+
+  <!-- 요구사항이 세 서비스 모두에 닿는다 -->
+  <path d="M330,122 L160,184" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-amber)"/>
+  <path d="M440,122 L440,184" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-amber)"/>
+  <path d="M550,122 L720,184" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-amber)"/>
+
+  <!-- 계층별 서비스 -->
+  <rect x="40" y="190" width="228" height="80" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="154" y="224" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">컨트롤러 서비스</text>
+  <text x="154" y="252" font-size="15" fill="#b91c1c" text-anchor="middle">수정 · 배포 필요</text>
+
+  <rect x="326" y="190" width="228" height="80" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="440" y="224" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">비즈니스 서비스</text>
+  <text x="440" y="252" font-size="15" fill="#b91c1c" text-anchor="middle">수정 · 배포 필요</text>
+
+  <rect x="612" y="190" width="228" height="80" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="726" y="224" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">DAO 서비스</text>
+  <text x="726" y="252" font-size="15" fill="#b91c1c" text-anchor="middle">수정 · 배포 필요</text>
+
+  <!-- 호출 방향 -->
+  <path d="M270,230 L322,230" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah-gray)"/>
+  <path d="M556,230 L608,230" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah-gray)"/>
+
+  <!-- 결과 -->
+  <rect x="40" y="298" width="800" height="78" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="328" font-size="16" fill="#1f2937" text-anchor="middle">세 팀이 조율 · 세 번 배포 · 배포 순서까지 맞춤</text>
+  <text x="440" y="357" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">→ 분산 모놀리식(Distributed Monolith): 나눈 대가는 다 치르고 얻는 것은 없다</text>
 </svg>

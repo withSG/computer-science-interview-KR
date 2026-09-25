@@ -68,7 +68,7 @@ Spring Boot 2.0+부터는 **CGLIB**를 기본으로 씁니다.
 
 ### 동작 흐름
 <!-- diagram:be-qna-spring-6 -->
-![동작 흐름](../../assets/diagrams/be-qna-spring-6.svg)
+![프록시가 Target 호출 앞뒤로 Advice를 실행하는 흐름](../../assets/diagrams/be-qna-spring-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -562,7 +562,7 @@ Controller1  Controller2  Controller3
 ### 실행 순서
 
 <!-- diagram:be-qna-spring-7 -->
-![실행 순서](../../assets/diagrams/be-qna-spring-7.svg)
+![Filter·Interceptor 요청/응답 실행 순서](../../assets/diagrams/be-qna-spring-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -801,7 +801,7 @@ public class StartupListener {
 
 ### 실행 순서
 <!-- diagram:be-qna-spring-8 -->
-![실행 순서](../../assets/diagrams/be-qna-spring-8.svg)
+![애플리케이션 구동 시 초기화 코드 실행 순서](../../assets/diagrams/be-qna-spring-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

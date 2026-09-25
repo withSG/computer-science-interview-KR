@@ -1,82 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">@Controller와 @RestController의 갈림길</title>
-  <desc id="d">@Controller와 @RestController의 처리 흐름 비교 다이어그램</desc>
-  <rect width="880" height="570" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">@Controller와 @RestController의 응답 경로</title>
+  <desc id="d">@Controller는 뷰 이름을 반환해 ViewResolver와 View.render를 거쳐 HTML을 응답 본문에 쓰고, @RestController는 반환 객체를 HttpMessageConverter(Jackson)가 JSON으로 바꿔 ViewResolver 없이 응답 본문에 바로 쓴다.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Section 1: @Controller -->
-  <g id="controller-section">
-    <rect x="30" y="24" width="820" height="230" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="50" y="52" font-size="14" font-weight="bold" fill="#2563eb">[@Controller + 뷰 이름 반환]</text>
+  <!-- 왼쪽: @Controller + 뷰 이름 반환 -->
+  <rect x="24" y="24" width="404" height="432" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M25,96 L25,34 Q25,25 34,25 L418,25 Q427,25 427,34 L427,96 Z" fill="#eff6ff"/>
+  <line x1="25" y1="96" x2="427" y2="96" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="226" y="56" font-size="20" font-weight="bold" fill="#1d4ed8" text-anchor="middle">@Controller</text>
+  <text x="226" y="82" font-size="15" fill="#1f2937" text-anchor="middle">뷰 이름 반환</text>
 
-    <!-- Step 1 -->
-    <rect x="70" y="70" width="220" height="36" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="180" y="92" font-size="13" text-anchor="middle" fill="#1f2933">return "orders/list";</text>
+  <rect x="52" y="120" width="348" height="48" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="226" y="150" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">return "orders/list";</text>
+  <line x1="226" y1="170" x2="226" y2="190" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
 
-    <!-- Arrow 1 -->
-    <path d="M180,106 L180,124" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="52" y="192" width="348" height="92" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="226" y="220" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">ViewResolver</text>
+  <text x="226" y="246" font-size="15" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"orders/list" + prefix/suffix</text>
+  <text x="226" y="270" font-size="15" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">→ /WEB-INF/views/orders/list.jsp</text>
+  <line x1="226" y1="286" x2="226" y2="306" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
 
-    <!-- Step 2 -->
-    <rect x="70" y="125" width="220" height="36" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="180" y="147" font-size="13" text-anchor="middle" fill="#1f2933">ViewResolver</text>
+  <rect x="52" y="308" width="348" height="48" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="226" y="338" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">View.render(model, request, response)</text>
+  <line x1="226" y1="358" x2="226" y2="378" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
 
-    <!-- Flow to path details -->
-    <path d="M290,143 L330,143" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-    <text x="335" y="147" font-size="13" fill="#52606d">─ "orders/list" + prefix/suffix ─&gt; /WEB-INF/views/orders/list.jsp</text>
+  <rect x="52" y="380" width="348" height="56" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="226" y="414" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">HTML 문자열이 응답 본문에 기록됨</text>
 
-    <!-- Arrow 2 -->
-    <path d="M180,161 L180,179" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 오른쪽: @RestController -->
+  <rect x="452" y="24" width="404" height="432" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M453,96 L453,34 Q453,25 462,25 L846,25 Q855,25 855,34 L855,96 Z" fill="#f5f3ff"/>
+  <line x1="453" y1="96" x2="855" y2="96" stroke="#6d28d9" stroke-width="1"/>
+  <text x="654" y="56" font-size="20" font-weight="bold" fill="#6d28d9" text-anchor="middle">@RestController</text>
+  <text x="654" y="82" font-size="15" fill="#1f2937" text-anchor="middle">= @Controller + @ResponseBody</text>
 
-    <!-- Step 3 -->
-    <rect x="70" y="180" width="310" height="36" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="225" y="202" font-size="13" text-anchor="middle" fill="#1f2933">View.render(model, request, response)</text>
+  <rect x="480" y="120" width="348" height="48" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="654" y="150" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">return new OrderResponse(...);</text>
+  <line x1="654" y1="170" x2="654" y2="190" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
 
-    <!-- Arrow 3 -->
-    <path d="M180,216 L180,234" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="480" y="192" width="348" height="92" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="654" y="232" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">HttpMessageConverter</text>
+  <text x="654" y="258" font-size="15" fill="#1f2937" text-anchor="middle">(Jackson이 객체 → JSON)</text>
+  <line x1="654" y1="286" x2="654" y2="378" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
 
-    <!-- Result Text -->
-    <text x="200" y="244" font-size="13" fill="#1f2933">HTML 문자열이 응답 본문에 기록됨</text>
-  </g>
+  <rect x="672" y="300" width="160" height="64" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="752" y="327" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">ViewResolver를</text>
+  <text x="752" y="349" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">거치지 않는다</text>
 
-  <!-- Section 2: @RestController -->
-  <g id="rest-controller-section">
-    <rect x="30" y="274" width="820" height="270" rx="8" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="50" y="302" font-size="14" font-weight="bold" fill="#7c3aed">[@RestController (= @Controller + @ResponseBody)]</text>
-
-    <!-- Step 1 -->
-    <rect x="70" y="320" width="270" height="36" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="205" y="342" font-size="13" text-anchor="middle" fill="#1f2933">return new OrderResponse(...);</text>
-
-    <!-- Arrow 1 -->
-    <path d="M205,356 L205,374" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-    <!-- Step 2 -->
-    <rect x="70" y="375" width="270" height="36" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="205" y="397" font-size="13" text-anchor="middle" fill="#1f2933">HttpMessageConverter</text>
-
-    <!-- Flow to Converter details -->
-    <text x="350" y="397" font-size="13" fill="#52606d">(Jackson이 객체 → JSON)</text>
-
-    <!-- Arrow 2 -->
-    <path d="M205,411 L205,429" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-    <!-- Result Text -->
-    <text x="70" y="449" font-size="13" fill="#1f2933">JSON 문자열이 응답 본문에 직접 기록됨</text>
-
-    <!-- Note Arrow & Text -->
-    <path d="M325,445 L355,445" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-    <rect x="360" y="431" width="250" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="370" y="448" font-size="13" font-weight="bold" fill="#d97706">ViewResolver를 거치지 않는다</text>
-  </g>
+  <rect x="480" y="380" width="348" height="56" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="654" y="414" font-size="16" font-weight="bold" fill="#4c1d95" text-anchor="middle">JSON 문자열이 응답 본문에 직접 기록됨</text>
 </svg>

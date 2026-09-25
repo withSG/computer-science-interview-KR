@@ -302,7 +302,7 @@ id 인덱스 (B-Tree)
 ### 왜 정합성이 지켜지는가
 
 <!-- diagram:api-versioning-pagination-6 -->
-![왜 정합성이 지켜지는가](../assets/diagrams/api-versioning-pagination-6.svg)
+![값 기준 커서라 앞쪽이 바뀌어도 2페이지가 정확한 흐름](../assets/diagrams/api-versioning-pagination-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

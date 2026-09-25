@@ -1,90 +1,111 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">프론트 컨트롤러 패턴 비교 다이어그램</title>
-  <desc id="d">서블릿마다 공통 처리가 중복되던 Before 구조와 DispatcherServlet 하나로 공통 처리를 통합하는 After 구조의 프론트 컨트롤러 패턴 비교</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">프론트 컨트롤러 패턴 전후 비교</title>
+  <desc id="d">Before에는 URL마다 서블릿이 따로 있어 공통 처리 코드가 서블릿마다 복사됩니다. After에는 모든 요청이 DispatcherServlet 하나로 들어와 공통 처리를 한 번만 수행하고, 로직만 각 컨트롤러 메서드에 위임합니다.</desc>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
+  <rect width="880" height="610" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- ============ Before ============ -->
+  <rect x="24" y="24" width="832" height="252" rx="10" fill="#fff5f5" stroke="#fca5a5" stroke-width="1.5"/>
+  <rect x="44" y="42" width="84" height="28" rx="14" fill="#b91c1c"/>
+  <text x="86" y="61.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">Before</text>
+  <text x="144" y="62.5" font-size="18" font-weight="bold" fill="#111827">서블릿마다 입구가 따로</text>
 
-  <!-- ==================== [Before] 섹션 ==================== -->
-  <rect x="20" y="20" width="840" height="200" fill="#fef2f2" stroke="#fca5a5" stroke-width="1" rx="8"/>
-  <text x="40" y="50" font-size="16" font-weight="bold" fill="#dc2626">[Before] 서블릿마다 입구가 따로</text>
+  <!-- row 1 -->
+  <text x="48" y="119.5" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/orders</text>
+  <path d="M148,114 H194" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <rect x="198" y="92" width="466" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="214" y="119.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderListServlet</text>
+  <rect x="446" y="99" width="112" height="30" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="502" y="119" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">공통 처리</text>
+  <text x="571" y="119.5" font-size="16" fill="#374151" text-anchor="middle">+</text>
+  <rect x="584" y="99" width="64" height="30" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="616" y="119" font-size="15" fill="#111827" text-anchor="middle">로직</text>
 
-  <!-- Before 요청 URL들 -->
-  <text x="60" y="94" font-size="13" fill="#1f2933">/orders</text>
-  <text x="60" y="134" font-size="13" fill="#1f2933">/orders/1</text>
-  <text x="60" y="174" font-size="13" fill="#1f2933">/products</text>
+  <!-- row 2 -->
+  <text x="48" y="177.5" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/orders/1</text>
+  <path d="M148,172 H194" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <rect x="198" y="150" width="466" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="214" y="177.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderDetailServlet</text>
+  <rect x="446" y="157" width="112" height="30" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="502" y="177" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">공통 처리</text>
+  <text x="571" y="177.5" font-size="16" fill="#374151" text-anchor="middle">+</text>
+  <rect x="584" y="157" width="64" height="30" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="616" y="177" font-size="15" fill="#111827" text-anchor="middle">로직</text>
 
-  <!-- Before 화살표들 -->
-  <path d="M140,90 L240,90" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M140,130 L240,130" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M140,170 L240,170" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- row 3 -->
+  <text x="48" y="235.5" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/products</text>
+  <path d="M148,230 H194" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <rect x="198" y="208" width="466" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="214" y="235.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ProductServlet</text>
+  <rect x="446" y="215" width="112" height="30" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="502" y="235" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">공통 처리</text>
+  <text x="571" y="235.5" font-size="16" fill="#374151" text-anchor="middle">+</text>
+  <rect x="584" y="215" width="64" height="30" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="616" y="235" font-size="15" fill="#111827" text-anchor="middle">로직</text>
 
-  <!-- Before 서블릿 박스들 -->
-  <rect x="240" y="70" width="240" height="40" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="360" y="94" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">OrderListServlet   [공통 처리 + 로직]</text>
+  <!-- duplication bracket -->
+  <path d="M678,96 H692 V248 H678" stroke="#b91c1c" stroke-width="2" fill="none"/>
+  <path d="M692,172 H704" stroke="#b91c1c" stroke-width="2" fill="none"/>
+  <text font-size="16" font-weight="bold" fill="#b91c1c">
+    <tspan x="714" y="167">같은 코드가</tspan>
+    <tspan x="714" y="190">계속 복사된다</tspan>
+  </text>
 
-  <rect x="240" y="110" width="240" height="40" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="360" y="134" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">OrderDetailServlet [공통 처리 + 로직]</text>
+  <!-- ============ After ============ -->
+  <rect x="24" y="296" width="832" height="290" rx="10" fill="#f5f8ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <rect x="44" y="314" width="72" height="28" rx="14" fill="#1d4ed8"/>
+  <text x="80" y="333.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">After</text>
+  <text x="132" y="334.5" font-size="18" font-weight="bold" fill="#111827">입구는 하나</text>
 
-  <rect x="240" y="150" width="240" height="40" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="360" y="174" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">ProductServlet     [공통 처리 + 로직]</text>
+  <!-- URLs converge into one entrance -->
+  <text x="48" y="395.5" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/orders</text>
+  <text x="48" y="465.5" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/orders/1</text>
+  <text x="48" y="535.5" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/products</text>
+  <path d="M148,390 H166 V530 M148,530 H166" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M148,460 H196" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <circle cx="166" cy="460" r="4" fill="#4b5563"/>
 
-  <!-- Before 주석 설명 -->
-  <path d="M 480,170 L 510,170 L 510,190 L 525,190" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <text x="535" y="194" font-size="12" fill="#dc2626" font-weight="bold">└── 같은 코드가 계속 복사된다</text>
+  <!-- DispatcherServlet -->
+  <rect x="200" y="394" width="232" height="132" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="316" y="425" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DispatcherServlet</text>
+  <rect x="216" y="440" width="200" height="68" rx="5" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">
+    <tspan x="316" y="468">공통 처리를 여기서</tspan>
+    <tspan x="316" y="491">한 번만 수행</tspan>
+  </text>
 
-  <!-- ==================== [After] 섹션 ==================== -->
-  <rect x="20" y="240" width="840" height="260" fill="#eff6ff" stroke="#93c5fd" stroke-width="1" rx="8"/>
-  <text x="40" y="270" font-size="16" font-weight="bold" fill="#2563eb">[After] 입구는 하나</text>
+  <!-- delegate only the logic -->
+  <path d="M432,460 H532" stroke="#1d4ed8" stroke-width="2" fill="none"/>
+  <text x="482" y="449" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">로직만 위임</text>
+  <path d="M532,390 V530" stroke="#1d4ed8" stroke-width="2" fill="none"/>
+  <circle cx="532" cy="460" r="4" fill="#1d4ed8"/>
+  <path d="M532,390 H556" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ahb)"/>
+  <path d="M532,460 H556" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ahb)"/>
+  <path d="M532,530 H556" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ahb)"/>
 
-  <!-- After 요청 URL들 -->
-  <text x="60" y="324" font-size="13" fill="#1f2933">/orders</text>
-  <text x="60" y="364" font-size="13" fill="#1f2933">/orders/1</text>
-  <text x="60" y="404" font-size="13" fill="#1f2933">/products</text>
+  <!-- controllers -->
+  <rect x="560" y="362" width="276" height="56" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="576" y="386" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderController</text>
+  <text x="576" y="407" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.list()</text>
+  <rect x="758" y="375" width="64" height="30" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="790" y="395" font-size="15" fill="#111827" text-anchor="middle">로직</text>
 
-  <!-- After 분기선 (─┐ / ├─> / ─┘) -->
-  <path d="M 140,320 L 175,320 L 175,360 L 250,360" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M 140,400 L 175,400 L 175,360" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M 140,360 L 250,360" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="560" y="432" width="276" height="56" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="576" y="456" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderController</text>
+  <text x="576" y="477" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.detail()</text>
+  <rect x="758" y="445" width="64" height="30" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="790" y="465" font-size="15" fill="#111827" text-anchor="middle">로직</text>
 
-  <!-- DispatcherServlet 박스 -->
-  <rect x="250" y="315" width="220" height="90" fill="#ffffff" stroke="#2563eb" stroke-width="2" rx="6"/>
-  <text x="360" y="341" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">DispatcherServlet</text>
-  <text x="360" y="367" font-size="13" fill="#1f2933" text-anchor="middle">공통 처리를 여기서</text>
-  <text x="360" y="387" font-size="13" fill="#1f2933" text-anchor="middle">한 번만 수행</text>
-
-  <!-- 중앙 하단 위임 화살표 (수직) -->
-  <path d="M 360,405 L 360,445" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-  <!-- 화살표 라벨 (선과 겹치지 않게 배경 지원) -->
-  <rect x="370" y="416" width="76" height="18" fill="#ffffff" rx="2"/>
-  <text x="372" y="429" font-size="11.5" font-weight="bold" fill="#7c3aed">로직만 위임</text>
-
-  <!-- 하단 수평 분기선 -->
-  <path d="M 130,445 L 610,445" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-
-  <!-- 각 컨트롤러로 향하는 화살표 3개 -->
-  <path d="M 130,445 L 130,465" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M 360,445 L 360,465" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M 610,445 L 610,465" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- 컨트롤러 텍스트들 -->
-  <text x="130" y="480" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">OrderController</text>
-  <text x="130" y="496" font-size="12" fill="#52606d" text-anchor="middle">.list()</text>
-
-  <text x="360" y="480" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">OrderController</text>
-  <text x="360" y="496" font-size="12" fill="#52606d" text-anchor="middle">.detail()</text>
-
-  <text x="610" y="480" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">ProductController</text>
-  <text x="610" y="496" font-size="12" fill="#52606d" text-anchor="middle">.list()</text>
+  <rect x="560" y="502" width="276" height="56" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="576" y="526" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ProductController</text>
+  <text x="576" y="547" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.list()</text>
+  <rect x="758" y="515" width="64" height="30" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="790" y="535" font-size="15" fill="#111827" text-anchor="middle">로직</text>
 </svg>

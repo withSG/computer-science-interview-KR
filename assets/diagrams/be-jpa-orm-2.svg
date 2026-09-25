@@ -1,49 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">JPA, Hibernate, Spring Data JPA는 각각 무엇인가</title>
-  <desc id="d">내 애플리케이션 코드부터 Spring Data JPA, JPA, Hibernate, JDBC 및 DB로 이어지는 계층 구조 다이어그램</desc>
-  <rect width="880" height="600" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">JPA 계층 구조</title>
+  <desc id="d">애플리케이션 코드의 호출이 Spring Data JPA(편의 계층), JPA(표준 명세/인터페이스), Hibernate(구현체)를 차례로 거쳐 JDBC와 DB에 닿는 층 구조를 보여준다.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Box 1: 내 애플리케이션 코드 -->
-  <rect x="130" y="35" width="620" height="76" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="62" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">내 애플리케이션 코드</text>
-  <text x="440" y="88" font-size="13" fill="#52606d" text-anchor="middle">memberRepository.findByEmail("a@b.com")</text>
+  <!-- 1. 내 애플리케이션 코드 -->
+  <rect x="40" y="24" width="800" height="72" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="64" y="66" font-size="18" font-weight="bold" fill="#111827">내 애플리케이션 코드</text>
+  <text x="300" y="66" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">memberRepository.findByEmail("a@b.com")</text>
 
-  <!-- Arrow 1 -->
-  <path d="M440,111 L440,142" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="98" x2="440" y2="124" stroke="#374151" stroke-width="2" marker-end="url(#ak)"/>
 
-  <!-- Box 2: Spring Data JPA -->
-  <rect x="130" y="150" width="620" height="94" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="177" font-size="14" font-weight="bold" fill="#1e40af" text-anchor="middle">Spring Data JPA</text>
-  <text x="440" y="201" font-size="13" fill="#1f2933" text-anchor="middle">인터페이스만 선언하면 구현체를 만들어 주는</text>
-  <text x="440" y="225" font-size="13" fill="#1f2933" text-anchor="middle">편의 계층. 내부적으로 EntityManager를 호출.</text>
+  <!-- 2. Spring Data JPA -->
+  <rect x="40" y="128" width="800" height="88" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="64" y="162" font-size="20" font-weight="bold" fill="#047857">Spring Data JPA</text>
+  <rect x="64" y="174" width="84" height="26" rx="13" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+  <text x="106" y="192" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">편의 계층</text>
+  <text x="300" y="164" font-size="16" fill="#1f2937">인터페이스만 선언하면 구현체를 만들어 주는 편의 계층</text>
+  <text x="300" y="190" font-size="16" fill="#1f2937">내부적으로 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">EntityManager</tspan>를 호출</text>
 
-  <!-- Arrow 2 -->
-  <path d="M440,244 L440,275" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="218" x2="440" y2="244" stroke="#374151" stroke-width="2" marker-end="url(#ak)"/>
 
-  <!-- Box 3: JPA (표준 명세 / 인터페이스) -->
-  <rect x="130" y="283" width="620" height="94" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="310" font-size="14" font-weight="bold" fill="#92400e" text-anchor="middle">JPA (표준 명세 / 인터페이스)</text>
-  <text x="440" y="334" font-size="13" fill="#1f2933" text-anchor="middle">EntityManager, @Entity, JPQL 같은 "규격"만</text>
-  <text x="440" y="358" font-size="13" fill="#1f2933" text-anchor="middle">정의. 스스로 동작하는 코드는 없다.</text>
+  <!-- 3. JPA (규격: 점선) -->
+  <rect x="40" y="248" width="800" height="88" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.8" stroke-dasharray="9 6"/>
+  <text x="64" y="282" font-size="20" font-weight="bold" fill="#1d4ed8">JPA</text>
+  <rect x="64" y="294" width="170" height="26" rx="13" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="149" y="312" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">표준 명세 / 인터페이스</text>
+  <text x="300" y="284" font-size="16" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">EntityManager</tspan>, <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">@Entity</tspan>, JPQL 같은 "규격"만 정의</text>
+  <text x="300" y="310" font-size="16" font-weight="bold" fill="#1f2937">스스로 동작하는 코드는 없다</text>
 
-  <!-- Arrow 3 -->
-  <path d="M440,377 L440,408" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="338" x2="440" y2="364" stroke="#374151" stroke-width="2" marker-end="url(#ak)"/>
 
-  <!-- Box 4: Hibernate (구현체) -->
-  <rect x="130" y="416" width="620" height="94" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="443" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">Hibernate (구현체)</text>
-  <text x="440" y="467" font-size="13" fill="#1f2933" text-anchor="middle">실제로 SQL을 만들고 JDBC를 호출하는 엔진</text>
-  <text x="440" y="491" font-size="13" fill="#1f2933" text-anchor="middle">EclipseLink, DataNucleus 등 다른 구현체도 있음</text>
+  <!-- 4. Hibernate -->
+  <rect x="40" y="368" width="800" height="88" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="64" y="402" font-size="20" font-weight="bold" fill="#b45309">Hibernate</text>
+  <rect x="64" y="414" width="72" height="26" rx="13" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+  <text x="100" y="432" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">구현체</text>
+  <text x="300" y="404" font-size="16" fill="#1f2937">실제로 SQL을 만들고 JDBC를 호출하는 엔진</text>
+  <text x="300" y="430" font-size="16" fill="#1f2937">EclipseLink, DataNucleus 등 다른 구현체도 있음</text>
 
-  <!-- Arrow 4 -->
-  <path d="M440,510 L440,536" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="458" x2="440" y2="484" stroke="#374151" stroke-width="2" marker-end="url(#ak)"/>
 
-  <!-- Bottom: JDBC → DB -->
-  <rect x="320" y="544" width="240" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="569" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">JDBC → DB</text>
+  <!-- 5. JDBC → DB -->
+  <rect x="380" y="488" width="120" height="48" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="518" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">JDBC</text>
+  <line x1="504" y1="512" x2="542" y2="512" stroke="#374151" stroke-width="2" marker-end="url(#ak)"/>
+  <rect x="546" y="488" width="100" height="48" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="596" y="518" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">DB</text>
 </svg>

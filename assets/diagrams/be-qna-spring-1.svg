@@ -1,80 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">핵심 답변</title>
-  <desc id="d">Spring MVC의 요청 처리 흐름 6단계를 나타낸 다이어그램</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Spring MVC 요청 처리 6단계</title>
+  <desc id="d">Request가 DispatcherServlet에 도착한 뒤 HandlerMapping의 Controller 조회, HandlerAdapter의 Controller 실행, Controller의 비즈니스 로직과 Model + View 반환, ViewResolver의 View 객체 조회, View의 렌더링 후 Response까지 여섯 단계를 순서대로 보여준다.</desc>
+  <rect width="880" height="470" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">핵심 답변</text>
+  <!-- 단계 사이 세로 흐름 -->
+  <line x1="52" y1="74" x2="52" y2="100" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="52" y1="146" x2="52" y2="172" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="52" y1="218" x2="52" y2="244" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="52" y1="290" x2="52" y2="316" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="52" y1="362" x2="52" y2="388" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <g transform="translate(40, 70)">
-    <rect x="0" y="0" width="800" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="16" y="14" width="28" height="28" rx="14" fill="#2563eb"/>
-    <text x="30" y="32" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="60" y="33" font-size="14" font-weight="bold" fill="#1f2933">Request</text>
-    <path d="M130,28 L170,28" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-    <text x="185" y="33" font-size="14" font-weight="bold" fill="#2563eb">DispatcherServlet</text>
-  </g>
+  <!-- 1 -->
+  <circle cx="52" cy="52" r="19" fill="#1d4ed8"/>
+  <text x="52" y="58" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="92" y="24" width="260" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="222" y="58" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Request</text>
+  <line x1="360" y1="52" x2="406" y2="52" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="416" y="24" width="440" height="56" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="436" y="58" font-size="17" font-weight="bold" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DispatcherServlet</text>
 
-  <path d="M440,126 L440,142" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 2 -->
+  <circle cx="52" cy="124" r="19" fill="#374151"/>
+  <text x="52" y="130" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="92" y="96" width="260" height="56" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="222" y="130" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">HandlerMapping</text>
+  <line x1="360" y1="124" x2="406" y2="124" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="416" y="96" width="440" height="56" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="436" y="130" font-size="17" fill="#1f2937">Controller 조회</text>
 
-  <g transform="translate(40, 144)">
-    <rect x="0" y="0" width="800" height="56" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <rect x="16" y="14" width="28" height="28" rx="14" fill="#52606d"/>
-    <text x="30" y="32" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="60" y="33" font-size="14" font-weight="bold" fill="#1f2933">HandlerMapping</text>
-    <path d="M195,28 L235,28" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="250" y="33" font-size="14" font-weight="bold" fill="#1f2933">Controller 조회</text>
-  </g>
+  <!-- 3 -->
+  <circle cx="52" cy="196" r="19" fill="#374151"/>
+  <text x="52" y="202" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="92" y="168" width="260" height="56" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="222" y="202" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">HandlerAdapter</text>
+  <line x1="360" y1="196" x2="406" y2="196" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="416" y="168" width="440" height="56" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="436" y="202" font-size="17" fill="#1f2937">Controller 실행</text>
 
-  <path d="M440,200 L440,216" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 4 -->
+  <circle cx="52" cy="268" r="19" fill="#374151"/>
+  <text x="52" y="274" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="92" y="240" width="260" height="56" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="222" y="274" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Controller</text>
+  <line x1="360" y1="268" x2="406" y2="268" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="416" y="240" width="440" height="56" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="436" y="274" font-size="17" fill="#1f2937">비즈니스 로직, Model + View 반환</text>
 
-  <g transform="translate(40, 218)">
-    <rect x="0" y="0" width="800" height="56" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <rect x="16" y="14" width="28" height="28" rx="14" fill="#52606d"/>
-    <text x="30" y="32" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="60" y="33" font-size="14" font-weight="bold" fill="#1f2933">HandlerAdapter</text>
-    <path d="M190,28 L230,28" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="245" y="33" font-size="14" font-weight="bold" fill="#1f2933">Controller 실행</text>
-  </g>
+  <!-- 5 -->
+  <circle cx="52" cy="340" r="19" fill="#374151"/>
+  <text x="52" y="346" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="92" y="312" width="260" height="56" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="222" y="346" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ViewResolver</text>
+  <line x1="360" y1="340" x2="406" y2="340" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="416" y="312" width="440" height="56" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="436" y="346" font-size="17" fill="#1f2937">View 객체 조회</text>
 
-  <path d="M440,274 L440,290" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <g transform="translate(40, 292)">
-    <rect x="0" y="0" width="800" height="56" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <rect x="16" y="14" width="28" height="28" rx="14" fill="#52606d"/>
-    <text x="30" y="32" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-    <text x="60" y="33" font-size="14" font-weight="bold" fill="#1f2933">Controller</text>
-    <path d="M150,28 L190,28" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="205" y="33" font-size="14" font-weight="bold" fill="#1f2933">비즈니스 로직, Model + View 반환</text>
-  </g>
-
-  <path d="M440,348 L440,364" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <g transform="translate(40, 366)">
-    <rect x="0" y="0" width="800" height="56" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <rect x="16" y="14" width="28" height="28" rx="14" fill="#52606d"/>
-    <text x="30" y="32" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
-    <text x="60" y="33" font-size="14" font-weight="bold" fill="#1f2933">ViewResolver</text>
-    <path d="M175,28 L215,28" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="230" y="33" font-size="14" font-weight="bold" fill="#1f2933">View 객체 조회</text>
-  </g>
-
-  <path d="M440,422 L440,438" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <g transform="translate(40, 440)">
-    <rect x="0" y="0" width="800" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <rect x="16" y="14" width="28" height="28" rx="14" fill="#059669"/>
-    <text x="30" y="32" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
-    <text x="60" y="33" font-size="14" font-weight="bold" fill="#1f2933">View</text>
-    <path d="M105,28 L145,28" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="160" y="33" font-size="14" font-weight="bold" fill="#059669">렌더링 후 Response</text>
-  </g>
+  <!-- 6 -->
+  <circle cx="52" cy="412" r="19" fill="#1d4ed8"/>
+  <text x="52" y="418" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <rect x="92" y="384" width="260" height="56" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="222" y="418" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">View</text>
+  <line x1="360" y1="412" x2="406" y2="412" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="416" y="384" width="440" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="436" y="418" font-size="17" fill="#1f2937">렌더링 후 <tspan font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Response</tspan></text>
 </svg>

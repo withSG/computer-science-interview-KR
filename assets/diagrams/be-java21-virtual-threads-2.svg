@@ -1,108 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">마운트와 언마운트</title>
-  <desc id="d">가상 스레드 VT-1이 캐리어 스레드 C1에서 실행되다 블로킹을 만나 힙으로 언마운트되고, 다른 스레드 C1이 VT-2를 실행한 뒤, I/O 완료 후 VT-1이 C3로 마운트되는 과정 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 690" width="880" height="690" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">가상 스레드의 마운트와 언마운트</title>
+  <desc id="d">VT-1이 캐리어 C1에서 실행되다 socket.read() 같은 블로킹 지점에서 스택 프레임이 힙의 Continuation으로 옮겨지고(언마운트), C1은 곧바로 VT-2를 실행하며, I/O가 완료되면 VT-1의 프레임이 비어 있는 캐리어 C3의 스택으로 복원돼(마운트) read() 다음 줄부터 재개되는 네 단계를 보여준다.</desc>
+  <rect width="880" height="690" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="720" fill="#ffffff"/>
 
-  <!-- [1] 단계 -->
-  <g transform="translate(0, 0)">
-    <text x="30" y="38" font-size="14" font-weight="bold" fill="#1f2933">[1] VT-1이 캐리어 C1 위에서 실행 중</text>
-    
-    <!-- C1 박스 -->
-    <rect x="50" y="55" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="100" y="79" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">C1</text>
-    
-    <!-- 화살표 -->
-    <path d="M150,75 L260,75" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="180" y="62" width="50" height="20" fill="#ffffff"/>
-    <text x="205" y="76" font-size="12" fill="#2563eb" text-anchor="middle">실행</text>
+  <!-- ===== 1단계 ===== -->
+  <rect x="24" y="24" width="832" height="116" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="52" cy="54" r="14" fill="#1f2937"/>
+  <text x="52" y="59" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">1</text>
+  <text x="78" y="60" font-size="17" font-weight="bold" fill="#111827">VT-1이 캐리어 C1 위에서 실행 중</text>
 
-    <!-- VT-1 텍스트 및 설명 -->
-    <text x="272" y="79" font-size="13" font-weight="bold" fill="#1f2933">VT-1</text>
-    <text x="315" y="79" font-size="11.5" fill="#52606d">(스택 프레임이 C1의 OS 스택에 올라와 있음)</text>
-  </g>
+  <rect x="72" y="80" width="100" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="122" y="108" text-anchor="middle" font-size="16" font-weight="bold" fill="#6d28d9">C1</text>
+  <line x1="172" y1="102" x2="256" y2="102" stroke="#374151" stroke-width="2" marker-end="url(#arr-ink)"/>
+  <text x="214" y="93" text-anchor="middle" font-size="15" fill="#374151">실행</text>
+  <rect x="262" y="80" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="302" y="108" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d4ed8">VT-1</text>
+  <text x="360" y="108" font-size="15" fill="#4b5563">스택 프레임이 C1의 OS 스택에 올라와 있음</text>
 
-  <!-- 구분선 1 -->
-  <line x1="30" y1="120" x2="850" y2="120" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- ===== 2단계 ===== -->
+  <rect x="24" y="152" width="832" height="184" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="52" cy="182" r="14" fill="#1f2937"/>
+  <text x="52" y="187" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">2</text>
+  <text x="78" y="188" font-size="17" font-weight="bold" fill="#111827">VT-1이 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">socket.read()</tspan> 등 블로킹 지점에 도달</text>
+  <text x="78" y="214" font-size="15" fill="#374151">JVM이 VT-1의 스택 프레임을 힙으로 옮긴다 = <tspan font-weight="bold" fill="#b45309">언마운트(unmount)</tspan></text>
 
-  <!-- [2] 단계 -->
-  <g transform="translate(0, 120)">
-    <text x="30" y="35" font-size="14" font-weight="bold" fill="#1f2933">[2] VT-1이 socket.read() 등 블로킹 지점에 도달</text>
-    <text x="55" y="58" font-size="13" fill="#d97706">JVM이 VT-1의 스택 프레임을 힙으로 옮긴다 = 언마운트(unmount)</text>
+  <rect x="72" y="248" width="100" height="44" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="122" y="276" text-anchor="middle" font-size="16" font-weight="bold" fill="#4b5563">C1</text>
+  <line x1="172" y1="270" x2="262" y2="270" stroke="#9ca3af" stroke-width="2" stroke-dasharray="5 4"/>
+  <rect x="262" y="248" width="80" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="302" y="276" text-anchor="middle" font-size="15" fill="#4b5563">비었음</text>
 
-    <!-- C1 박스 -->
-    <rect x="50" y="80" width="100" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="100" y="104" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">C1</text>
+  <line x1="346" y1="270" x2="498" y2="270" stroke="#b45309" stroke-width="2.2" marker-end="url(#arr-amber)"/>
+  <text x="422" y="260" text-anchor="middle" font-size="15" font-weight="bold" fill="#b45309">언마운트</text>
 
-    <!-- 비었음 표시 -->
-    <path d="M150,100 L210,100" stroke="#52606d" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-    <text x="220" y="104" font-size="12" fill="#52606d">비었음</text>
+  <rect x="504" y="228" width="328" height="94" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="520" y="252" font-size="16" font-weight="bold" fill="#b45309">Heap</text>
+  <rect x="520" y="262" width="296" height="52" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="668" y="284" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">VT-1의 Continuation</text>
+  <text x="668" y="305" text-anchor="middle" font-size="15" fill="#4b5563">(스택 프레임 사본)</text>
 
-    <!-- Heap 컨테이너 -->
-    <rect x="520" y="70" width="280" height="90" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6 4"/>
-    <text x="535" y="90" font-size="13" font-weight="bold" fill="#d97706">Heap</text>
+  <!-- ===== 3단계 ===== -->
+  <rect x="24" y="348" width="832" height="116" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="52" cy="378" r="14" fill="#1f2937"/>
+  <text x="52" y="383" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">3</text>
+  <text x="78" y="384" font-size="17" font-weight="bold" fill="#111827">C1은 즉시 다른 가상 스레드를 집어 실행</text>
 
-    <!-- Continuation 박스 -->
-    <rect x="540" y="98" width="240" height="50" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
-    <text x="660" y="118" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">VT-1의 Continuation</text>
-    <text x="660" y="138" font-size="11.5" fill="#52606d" text-anchor="middle">(스택 프레임 사본)</text>
+  <rect x="72" y="404" width="100" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="122" y="432" text-anchor="middle" font-size="16" font-weight="bold" fill="#6d28d9">C1</text>
+  <line x1="172" y1="426" x2="256" y2="426" stroke="#374151" stroke-width="2" marker-end="url(#arr-ink)"/>
+  <text x="214" y="417" text-anchor="middle" font-size="15" fill="#374151">실행</text>
+  <rect x="262" y="404" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="302" y="432" text-anchor="middle" font-size="16" font-weight="bold" fill="#047857">VT-2</text>
 
-    <!-- 언마운트 흐름 화살표 -->
-    <path d="M300,100 C380,100 420,123 530,123" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-orange)"/>
-  </g>
+  <!-- ===== 4단계 ===== -->
+  <rect x="24" y="476" width="832" height="190" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="52" cy="506" r="14" fill="#1f2937"/>
+  <text x="52" y="511" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">4</text>
+  <text x="78" y="512" font-size="17" font-weight="bold" fill="#111827">I/O 완료 이벤트가 오면 VT-1을 다시 스케줄</text>
+  <text x="78" y="538" font-size="15" fill="#374151">힙의 프레임을 어느 캐리어든 비어 있는 스레드 스택으로 복원 = <tspan font-weight="bold" fill="#1d4ed8">마운트(mount)</tspan></text>
 
-  <!-- 구분선 2 -->
-  <line x1="30" y1="310" x2="850" y2="310" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="72" y="572" width="100" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="122" y="600" text-anchor="middle" font-size="16" font-weight="bold" fill="#6d28d9">C3</text>
+  <line x1="172" y1="594" x2="256" y2="594" stroke="#374151" stroke-width="2" marker-end="url(#arr-ink)"/>
+  <text x="214" y="585" text-anchor="middle" font-size="15" fill="#374151">실행</text>
+  <rect x="262" y="572" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="302" y="600" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d4ed8">VT-1</text>
 
-  <!-- [3] 단계 -->
-  <g transform="translate(0, 310)">
-    <text x="30" y="38" font-size="14" font-weight="bold" fill="#1f2933">[3] C1은 즉시 다른 가상 스레드를 집어 실행</text>
+  <line x1="502" y1="594" x2="348" y2="594" stroke="#1d4ed8" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+  <text x="424" y="584" text-anchor="middle" font-size="15" font-weight="bold" fill="#1d4ed8">마운트</text>
 
-    <!-- C1 박스 -->
-    <rect x="50" y="55" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="100" y="79" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">C1</text>
+  <rect x="504" y="554" width="328" height="94" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="520" y="578" font-size="16" font-weight="bold" fill="#b45309">Heap</text>
+  <rect x="520" y="588" width="296" height="52" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="668" y="610" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2937">VT-1의 Continuation</text>
+  <text x="668" y="631" text-anchor="middle" font-size="15" fill="#4b5563">(스택 프레임 사본)</text>
 
-    <!-- 화살표 -->
-    <path d="M150,75 L260,75" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="180" y="62" width="50" height="20" fill="#ffffff"/>
-    <text x="205" y="76" font-size="12" fill="#2563eb" text-anchor="middle">실행</text>
-
-    <!-- VT-2 텍스트 -->
-    <text x="272" y="79" font-size="13" font-weight="bold" fill="#1f2933">VT-2</text>
-  </g>
-
-  <!-- 구분선 3 -->
-  <line x1="30" y1="430" x2="850" y2="430" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- [4] 단계 -->
-  <g transform="translate(0, 430)">
-    <text x="30" y="35" font-size="14" font-weight="bold" fill="#1f2933">[4] I/O 완료 이벤트가 오면 VT-1을 다시 스케줄</text>
-    <text x="55" y="58" font-size="13" fill="#7c3aed">힙의 프레임을 어느 캐리어든 비어 있는 스레드 스택으로 복원 = 마운트(mount)</text>
-
-    <!-- C3 박스 -->
-    <rect x="50" y="80" width="100" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="100" y="104" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">C3</text>
-
-    <!-- 화살표 -->
-    <path d="M150,100 L260,100" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="180" y="87" width="50" height="20" fill="#ffffff"/>
-    <text x="205" y="101" font-size="12" fill="#7c3aed" text-anchor="middle">실행</text>
-
-    <!-- VT-1 텍스트 및 설명 -->
-    <text x="272" y="104" font-size="13" font-weight="bold" fill="#1f2933">VT-1</text>
-    <text x="315" y="104" font-size="11.5" fill="#52606d">(read() 다음 줄부터 재개, 캐리어는 바뀔 수 있다)</text>
-  </g>
+  <text x="72" y="646" font-size="15" fill="#4b5563"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">read()</tspan> 다음 줄부터 재개, <tspan font-weight="bold" fill="#1f2937">캐리어는 바뀔 수 있다</tspan></text>
 </svg>

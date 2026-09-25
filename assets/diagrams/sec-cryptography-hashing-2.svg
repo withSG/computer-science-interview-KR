@@ -1,96 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3. 비밀번호는 왜 암호화가 아니라 해싱인가</title>
-  <desc id="d">회원가입시 입력된 비밀번호가 해시 함수를 거쳐 DB에 저장되고 로그인 시 입력값이 동일한 해시 함수를 거쳐 DB 값과 비교되는 과정을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">비밀번호 해시 저장과 검증</title>
+  <desc id="d">회원가입 때는 입력한 비밀번호를 해시 함수에 넣어 나온 해시값만 DB에 저장한다. 로그인 때는 입력값을 같은 해시 함수로 해싱해 DB의 값과 비교하고, 같으면 통과, 다르면 실패한다. 원본은 어디에도 남지 않는다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Section 1: 회원가입 -->
-  <g id="signup-group">
-    <!-- Section Box -->
-    <rect x="20" y="20" width="840" height="100" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="45" font-size="14" font-weight="bold" fill="#1f2933">[ 회원가입 ]</text>
+  <!-- ① 회원가입 -->
+  <text x="32" y="44" font-size="18" font-weight="bold" fill="#111827">① 회원가입</text>
 
-    <!-- Node 1: 입력 "hunter2" -->
-    <rect x="120" y="55" width="130" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="185" y="79.2" font-size="13" fill="#1f2933" text-anchor="middle">입력 "hunter2"</text>
+  <rect x="32" y="60" width="150" height="52" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="107" y="92" font-size="16" text-anchor="middle" fill="#111827">입력 "hunter2"</text>
+  <path d="M184,86 H212" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-    <!-- Arrow 1 -->
-    <path d="M250,75 L281,75" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="216" y="60" width="130" height="52" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="281" y="92" font-size="16" text-anchor="middle" fill="#111827">해시 함수</text>
+  <path d="M348,86 H376" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-    <!-- Node 2: 해시 함수 -->
-    <rect x="290" y="55" width="110" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="345" y="79.2" font-size="13" fill="#1f2933" text-anchor="middle">해시 함수</text>
+  <rect x="380" y="60" width="130" height="52" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="445" y="92" font-size="16" text-anchor="middle" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"a3f9c2..."</text>
+  <path d="M512,86 H542" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-    <!-- Arrow 2 -->
-    <path d="M400,75 L431,75" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="546" y="60" width="150" height="52" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="621" y="92" font-size="16" font-weight="bold" text-anchor="middle" fill="#5b21b6">DB에 이것만 저장</text>
 
-    <!-- Node 3: "a3f9c2..." -->
-    <rect x="440" y="55" width="110" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="495" y="79.2" font-size="13" fill="#1f2933" text-anchor="middle">"a3f9c2..."</text>
+  <!-- DB 값이 비교 단계로 -->
+  <path d="M621,114 V182" stroke="#6d28d9" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#ah-purple)"/>
 
-    <!-- Arrow 3 with Label -->
-    <path d="M550,75 L739,75" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="580" y="65" width="110" height="20" fill="#ffffff"/>
-    <text x="635" y="79.05" font-size="11.5" fill="#52606d" text-anchor="middle">DB에 이것만 저장</text>
-  </g>
+  <!-- ② 로그인 검증 -->
+  <text x="32" y="164" font-size="18" font-weight="bold" fill="#111827">② 로그인 검증</text>
 
-  <!-- Section 2: 로그인 검증 -->
-  <g id="login-group">
-    <!-- Section Box -->
-    <rect x="20" y="140" width="840" height="120" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="165" font-size="14" font-weight="bold" fill="#1f2933">[ 로그인 검증 ]</text>
+  <rect x="32" y="186" width="150" height="52" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="107" y="218" font-size="16" text-anchor="middle" fill="#111827">입력 "hunter2"</text>
+  <path d="M184,212 H212" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-    <!-- Node 1: 입력 "hunter2" -->
-    <rect x="120" y="175" width="130" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="185" y="199.2" font-size="13" fill="#1f2933" text-anchor="middle">입력 "hunter2"</text>
+  <rect x="216" y="186" width="130" height="52" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="281" y="218" font-size="16" text-anchor="middle" fill="#111827"><tspan font-weight="bold">같은</tspan> 해시 함수</text>
+  <path d="M348,212 H376" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-    <!-- Arrow 1 -->
-    <path d="M250,195 L281,195" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="380" y="186" width="130" height="52" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="445" y="218" font-size="16" text-anchor="middle" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"a3f9c2..."</text>
+  <path d="M512,212 H542" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-    <!-- Node 2: 같은 해시 함수 -->
-    <rect x="290" y="175" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="350" y="199.2" font-size="13" fill="#1f2933" text-anchor="middle">같은 해시 함수</text>
+  <rect x="546" y="186" width="150" height="52" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="621" y="218" font-size="16" font-weight="bold" text-anchor="middle" fill="#5b21b6">DB의 값과 비교</text>
 
-    <!-- Arrow 2 -->
-    <path d="M410,195 L431,195" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 결과 분기 -->
+  <path d="M698,204 L726,186" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#ah-green)"/>
+  <path d="M698,220 L726,238" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ah-red)"/>
 
-    <!-- Node 3: "a3f9c2..." -->
-    <rect x="440" y="175" width="110" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="495" y="199.2" font-size="13" fill="#1f2933" text-anchor="middle">"a3f9c2..."</text>
+  <rect x="730" y="160" width="126" height="40" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="793" y="186" font-size="16" font-weight="bold" text-anchor="middle" fill="#047857">같다 → 통과</text>
 
-    <!-- Arrow 3 -->
-    <path d="M550,195 L581,195" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="730" y="224" width="126" height="40" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="793" y="250" font-size="16" font-weight="bold" text-anchor="middle" fill="#b91c1c">다르다 → 실패</text>
 
-    <!-- Node 4: DB의 값과 비교 -->
-    <rect x="590" y="175" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="650" y="199.2" font-size="13" fill="#1f2933" text-anchor="middle">DB의 값과 비교</text>
-
-    <!-- Result 1: 같다 → 통과 -->
-    <rect x="740" y="160" width="105" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="792.5" y="179.05" font-size="11.5" font-weight="bold" fill="#059669" text-anchor="middle">같다 → 통과</text>
-
-    <!-- Result 2: 다르다 → 실패 -->
-    <rect x="740" y="200" width="105" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="792.5" y="219.05" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">다르다 → 실패</text>
-  </g>
-
-  <!-- Legend / Footnote -->
-  <g id="footnote-group">
-    <rect x="20" y="280" width="840" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="440" y="304.05" font-size="11.5" fill="#52606d" text-anchor="middle">원본은 어디에도 남지 않고, 서버는 끝까지 비밀번호를 "알지" 못한다.</text>
-  </g>
+  <!-- 요점 -->
+  <rect x="32" y="290" width="824" height="46" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="444" y="319" font-size="17" font-weight="bold" text-anchor="middle" fill="#111827">원본은 어디에도 남지 않고, 서버는 끝까지 비밀번호를 "알지" 못한다.</text>
 </svg>

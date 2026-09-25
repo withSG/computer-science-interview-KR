@@ -1,124 +1,110 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">4. 증명 2 — 참조 타입에서 벌어지는 일</title>
-  <desc id="d">Java에서 참조 타입 인자를 전달할 때, 객체 수정(mutate)과 참조 재할당(reassign)이 스택과 히프 메모리 상태 및 참조 값에 미치는 영향을 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="630" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 800" width="880" height="800" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">증명 2 — 참조값 복사와 재할당</title>
+  <desc id="d">s의 참조값 0xA1이 매개변수 sb로 복사된다. (A) mutate는 sb로 같은 StringBuilder를 고쳐 원본에 반영되고, (B) reassign은 sb에 새 주소 0xB7만 넣어 s는 그대로이며 새 객체 "Bye!"는 프레임이 사라지면 GC 대상이 된다.</desc>
+  <rect width="880" height="800" fill="#ffffff"/>
 
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- ================= SECTION 1: [초기 상태] ================= -->
-  <g id="section-1">
-    <!-- Title -->
-    <text x="30" y="38" font-size="14" font-weight="bold" fill="#1f2933">[초기 상태]</text>
+  <!-- 열 머리 -->
+  <text x="164" y="40" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">스택</text>
+  <text x="530" y="40" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">Heap</text>
 
-    <!-- Header Labels -->
-    <text x="160" y="62" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">main 스택</text>
-    <text x="560" y="62" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">Heap</text>
+  <!-- ===== 초기 상태 ===== -->
+  <rect x="24" y="56" width="832" height="160" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="84" font-size="17" font-weight="bold" fill="#111827">초기 상태</text>
+  <text x="44" y="108" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">StringBuilder s = new StringBuilder("Hello");</text>
 
-    <!-- Main Stack Frame Box -->
-    <rect x="40" y="75" width="240" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <line x1="100" y1="75" x2="100" y2="125" stroke="#cbd2d9" stroke-width="1"/>
-    <!-- Stack Variable Labels -->
-    <text x="70" y="104" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">s</text>
-    <text x="190" y="104" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">0xA1</text>
+  <rect x="44" y="122" width="240" height="76" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="58" y="144" font-size="15" font-weight="bold" fill="#4b5563">main 프레임</text>
+  <rect x="58" y="154" width="212" height="36" rx="3" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="118" y1="154" x2="118" y2="190" stroke="#64748b" stroke-width="1"/>
+  <text x="88" y="178" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">s</text>
+  <text x="194" y="178" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0xA1</text>
 
-    <!-- Arrow from s to Heap Object -->
-    <path d="M280,100 L440,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="272" y1="172" x2="416" y2="172" stroke="#334155" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-    <!-- Heap Object Box -->
-    <rect x="440" y="70" width="240" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="460" y="93" font-size="13" font-weight="bold" fill="#1f2933">StringBuilder</text>
-    <text x="460" y="117" font-size="13" fill="#52606d">"Hello"</text>
-  </g>
+  <rect x="420" y="142" width="220" height="60" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <text x="434" y="164" font-size="14" fill="#4b5563">StringBuilder</text>
+  <text x="626" y="164" font-size="14" fill="#4b5563" text-anchor="end">주소 0xA1</text>
+  <text x="434" y="190" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"Hello"</text>
 
-  <!-- Horizontal Divider 1 -->
-  <line x1="30" y1="155" x2="850" y2="155" stroke="#e4e7eb" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- ===== (A) mutate 호출 ===== -->
+  <rect x="24" y="232" width="832" height="250" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="260" font-size="17" font-weight="bold" fill="#1d4ed8">(A) mutate 호출 — 참조값이 복사됨</text>
+  <text x="44" y="284" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sb.append(" World");</text>
 
-  <!-- ================= SECTION 2: [(A) mutate 호출] ================= -->
-  <g id="section-2">
-    <!-- Title -->
-    <text x="30" y="188" font-size="14" font-weight="bold" fill="#2563eb">[(A) mutate 호출 — 참조값이 복사됨]</text>
+  <rect x="44" y="298" width="240" height="76" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="58" y="320" font-size="15" font-weight="bold" fill="#4b5563">main 프레임</text>
+  <rect x="58" y="330" width="212" height="36" rx="3" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="118" y1="330" x2="118" y2="366" stroke="#64748b" stroke-width="1"/>
+  <text x="88" y="354" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">s</text>
+  <text x="194" y="354" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0xA1</text>
 
-    <!-- Stack Frames -->
-    <!-- s frame -->
-    <rect x="40" y="205" width="240" height="45" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="100" y1="205" x2="100" y2="250" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="70" y="232" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">s</text>
-    <text x="190" y="232" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">0xA1</text>
+  <rect x="44" y="388" width="240" height="76" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="58" y="410" font-size="15" font-weight="bold" fill="#4b5563">mutate 프레임</text>
+  <rect x="58" y="420" width="212" height="36" rx="3" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="118" y1="420" x2="118" y2="456" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="88" y="444" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sb</text>
+  <text x="194" y="444" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0xA1</text>
 
-    <!-- sb frame -->
-    <rect x="40" y="260" width="240" height="45" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="100" y1="260" x2="100" y2="305" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="70" y="287" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">sb</text>
-    <text x="190" y="287" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">0xA1</text>
+  <!-- 참조값 복사 -->
+  <line x1="194" y1="368" x2="194" y2="416" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ah-blue)"/>
+  <text x="206" y="407" font-size="15" font-weight="bold" fill="#1d4ed8">복사</text>
 
-    <!-- Subtitle under sb -->
-    <text x="160" y="325" font-size="11.5" fill="#52606d" text-anchor="middle">(mutate 프레임)</text>
+  <line x1="272" y1="348" x2="416" y2="381" stroke="#334155" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <line x1="272" y1="438" x2="416" y2="405" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
 
-    <!-- Combined Arrows to same Heap Object -->
-    <path d="M280,227.5 L360,227.5 L360,255 L440,255" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-    <path d="M280,282.5 L360,282.5 L360,255 L440,255" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="420" y="363" width="220" height="60" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="434" y="385" font-size="14" fill="#374151">StringBuilder</text>
+  <text x="626" y="385" font-size="14" fill="#374151" text-anchor="end">주소 0xA1</text>
+  <text x="434" y="411" font-size="17" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"Hello World"</text>
 
-    <!-- Heap Object Box -->
-    <rect x="440" y="225" width="240" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="460" y="248" font-size="13" font-weight="bold" fill="#1f2933">StringBuilder</text>
-    <text x="460" y="272" font-size="13" font-weight="bold" fill="#059669">"Hello World"</text>
+  <text x="656" y="399" font-size="15" font-weight="bold" fill="#047857">← 같은 객체를 고쳤다</text>
+  <text x="420" y="452" font-size="15" fill="#111827">두 변수가 같은 객체를 본다 → <tspan font-weight="bold" fill="#047857">원본에 반영</tspan></text>
 
-    <!-- Annotations -->
-    <text x="692" y="260" font-size="13" font-weight="bold" fill="#059669">← 같은 객체를 고쳤다</text>
-    <text x="380" y="325" font-size="13" fill="#1f2933">두 변수가 같은 객체를 본다 → 원본에 반영</text>
-  </g>
+  <!-- ===== (B) reassign 호출 ===== -->
+  <rect x="24" y="494" width="832" height="282" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="522" font-size="17" font-weight="bold" fill="#6d28d9">(B) reassign 호출 — 복사본에만 새 주소를 넣음</text>
+  <text x="44" y="546" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sb = new StringBuilder("Bye");  sb.append("!");</text>
 
-  <!-- Horizontal Divider 2 -->
-  <line x1="30" y1="350" x2="850" y2="350" stroke="#e4e7eb" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="44" y="560" width="240" height="76" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="58" y="582" font-size="15" font-weight="bold" fill="#4b5563">main 프레임</text>
+  <rect x="58" y="592" width="212" height="36" rx="3" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="118" y1="592" x2="118" y2="628" stroke="#64748b" stroke-width="1"/>
+  <text x="88" y="616" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">s</text>
+  <text x="194" y="616" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0xA1</text>
 
-  <!-- ================= SECTION 3: [(B) reassign 호출] ================= -->
-  <g id="section-3">
-    <!-- Title -->
-    <text x="30" y="383" font-size="14" font-weight="bold" fill="#7c3aed">[(B) reassign 호출 — 복사본에만 새 주소를 넣음]</text>
+  <rect x="44" y="650" width="240" height="76" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="58" y="672" font-size="15" font-weight="bold" fill="#4b5563">reassign 프레임</text>
+  <rect x="58" y="682" width="212" height="36" rx="3" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <line x1="118" y1="682" x2="118" y2="718" stroke="#6d28d9" stroke-width="1"/>
+  <text x="88" y="706" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sb</text>
+  <text x="194" y="706" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0xB7</text>
 
-    <!-- Stack Frame 1: s -->
-    <rect x="40" y="400" width="240" height="45" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <line x1="100" y1="400" x2="100" y2="445" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="70" y="427" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">s</text>
-    <text x="190" y="427" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">0xA1</text>
+  <line x1="272" y1="610" x2="416" y2="610" stroke="#334155" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <line x1="272" y1="700" x2="416" y2="700" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
 
-    <!-- Arrow from s to Original Heap Object -->
-    <path d="M280,422.5 L440,422.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="420" y="580" width="220" height="60" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <text x="434" y="602" font-size="14" fill="#4b5563">StringBuilder</text>
+  <text x="626" y="602" font-size="14" fill="#4b5563" text-anchor="end">주소 0xA1</text>
+  <text x="434" y="628" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"Hello World"</text>
 
-    <!-- Heap Object 1: "Hello World" -->
-    <rect x="440" y="400" width="240" height="45" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="460" y="427" font-size="13" font-weight="bold" fill="#1f2933">"Hello World"</text>
+  <rect x="420" y="670" width="220" height="60" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="434" y="692" font-size="14" fill="#374151">StringBuilder</text>
+  <text x="626" y="692" font-size="14" fill="#374151" text-anchor="end">주소 0xB7</text>
+  <text x="434" y="718" font-size="17" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"Bye!"</text>
 
-    <!-- Stack Frame 2: sb -->
-    <rect x="40" y="480" width="240" height="45" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <line x1="100" y1="480" x2="100" y2="525" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="70" y="507" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">sb</text>
-    <text x="190" y="507" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">0xB7</text>
-
-    <!-- Arrow from sb to New Heap Object -->
-    <path d="M280,502.5 L440,502.5" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-    <!-- Heap Object 2: "Bye!" -->
-    <rect x="440" y="480" width="240" height="45" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="460" y="507" font-size="13" font-weight="bold" fill="#7c3aed">"Bye!"</text>
-
-    <!-- Subtitle under sb -->
-    <text x="160" y="548" font-size="11.5" fill="#52606d" text-anchor="middle">(reassign 프레임)</text>
-
-    <!-- Annotations -->
-    <text x="692" y="427" font-size="13" fill="#52606d">← s는 그대로</text>
-    <text x="692" y="507" font-size="13" font-weight="bold" fill="#7c3aed">← 새 객체</text>
-    <text x="380" y="548" font-size="13" fill="#d97706">프레임이 사라지면 이 객체는 GC 대상</text>
-  </g>
+  <text x="656" y="615" font-size="15" font-weight="bold" fill="#111827">← s는 그대로</text>
+  <text x="656" y="705" font-size="15" font-weight="bold" fill="#6d28d9">← 새 객체</text>
+  <text x="656" y="733" font-size="15" fill="#b45309"><tspan x="656">프레임이 사라지면</tspan><tspan x="656" dy="21">이 객체는 GC 대상</tspan></text>
 </svg>

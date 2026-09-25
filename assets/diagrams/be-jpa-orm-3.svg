@@ -1,76 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">양방향과 연관관계 주인</title>
-  <desc id="d">객체 세계의 2개 참조와 DB 세계의 1개 외래키 매핑 관계를 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">참조 2개와 외래키 1개</title>
+  <desc id="d">객체 세계에서는 Member의 team 참조와 Team의 members 참조 두 곳에서 관계를 바꿀 수 있지만, DB 세계에서는 member 테이블의 team_id 외래키 한 컬럼만 수정 지점이다. 그래서 외래키를 가진 쪽만 연관관계 주인이 된다.</desc>
+  <rect width="880" height="400" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="370" fill="#ffffff"/>
+  <!-- ===== 왼쪽: 객체 세계 ===== -->
+  <rect x="24" y="24" width="380" height="292" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+  <text x="48" y="58" font-size="18" font-weight="bold" fill="#1d4ed8">객체 세계 <tspan font-weight="normal" fill="#374151">(참조 2개)</tspan></text>
 
-  <!-- 메인 구역 구분 (왼쪽: 객체 세계, 오른쪽: DB 세계) -->
-  <!-- 1. 객체 세계 (왼쪽 영역) -->
-  <text x="30" y="44.9" font-size="14" font-weight="bold" fill="#1f2933">객체 세계 (참조 2개)</text>
+  <rect x="48" y="92" width="108" height="72" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="102" y="134" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Member</text>
+  <rect x="272" y="92" width="108" height="72" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="326" y="134" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Team</text>
 
-  <!-- Member 박스 -->
-  <rect x="30" y="70" width="130" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="95" y="104.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Member</text>
+  <!-- ① team : Member → Team -->
+  <line x1="160" y1="112" x2="268" y2="112" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <circle cx="186" cy="97" r="11" fill="#1d4ed8"/>
+  <text x="186" y="102" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="204" y="103" font-size="15" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">team</text>
 
-  <!-- Team 박스 -->
-  <rect x="270" y="70" width="130" height="60" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="335" y="104.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Team</text>
+  <!-- ② members : Team → Member -->
+  <line x1="268" y1="144" x2="160" y2="144" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <circle cx="186" cy="161" r="11" fill="#1d4ed8"/>
+  <text x="186" y="166" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="204" y="167" font-size="15" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">members</text>
 
-  <!-- team 화살표 (Member -> Team) -->
-  <path d="M160,85 L270,85" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="200" y="73" width="30" height="16" fill="#ffffff"/>
-  <text x="215" y="85.025" font-size="11.5" fill="#2563eb" text-anchor="middle">team</text>
+  <!-- 관계를 바꾸는 두 코드 -->
+  <circle cx="59" cy="204" r="11" fill="#1d4ed8"/>
+  <text x="59" y="209" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="80" y="209" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">member.setTeam(team)</text>
+  <circle cx="59" cy="236" r="11" fill="#1d4ed8"/>
+  <text x="59" y="241" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="80" y="241" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">team.getMembers().add(member)</text>
 
-  <!-- members 화살표 (Team -> Member) -->
-  <path d="M270,115 L160,115" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="190" y="107" width="50" height="16" fill="#ffffff"/>
-  <text x="215" y="119.025" font-size="11.5" fill="#7c3aed" text-anchor="middle">members</text>
+  <rect x="40" y="262" width="348" height="38" rx="6" fill="#dbeafe"/>
+  <text x="214" y="287" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">관계를 바꿀 수 있는 지점이 2개</text>
 
-  <!-- 객체 설명 텍스트 -->
-  <text x="30" y="174.025" font-size="11.5" fill="#52606d">관계를 바꿀 수 있는 지점이 2개</text>
+  <!-- ===== 오른쪽: DB 세계 ===== -->
+  <rect x="428" y="24" width="428" height="292" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.2"/>
+  <text x="452" y="58" font-size="18" font-weight="bold" fill="#6d28d9">DB 세계 <tspan font-weight="normal" fill="#374151">(외래키 1개)</tspan></text>
+  <text x="452" y="86" font-size="15" font-weight="bold" fill="#374151">member 테이블</text>
 
+  <!-- member 테이블 -->
+  <rect x="452" y="96" width="120" height="36" fill="#e5e7eb"/>
+  <rect x="452" y="132" width="120" height="36" fill="#ffffff"/>
+  <line x1="452" y1="132" x2="572" y2="132" stroke="#6b7280" stroke-width="1"/>
+  <line x1="500" y1="96" x2="500" y2="168" stroke="#6b7280" stroke-width="1"/>
+  <rect x="452" y="96" width="216" height="72" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="572" y="96" width="96" height="72" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+  <line x1="572" y1="132" x2="668" y2="132" stroke="#b45309" stroke-width="1"/>
+  <text x="476" y="119" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">id</text>
+  <text x="536" y="119" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">name</text>
+  <text x="620" y="119" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">team_id</text>
+  <text x="476" y="156" font-size="16" fill="#111827" text-anchor="middle">1</text>
+  <text x="536" y="156" font-size="16" fill="#111827" text-anchor="middle">김</text>
+  <text x="620" y="156" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">10</text>
 
-  <!-- 2. DB 세계 (오른쪽 영역) -->
-  <text x="450" y="44.9" font-size="14" font-weight="bold" fill="#1f2933">DB 세계 (외래키 1개)</text>
-  <text x="450" y="74.025" font-size="11.5" font-weight="bold" fill="#52606d">member 테이블</text>
+  <line x1="698" y1="150" x2="674" y2="150" stroke="#b45309" stroke-width="2" marker-end="url(#ao)"/>
+  <text x="704" y="155" font-size="15" font-weight="bold" fill="#b45309">FK는 이 컬럼 하나뿐</text>
 
-  <!-- 테이블 헤더 -->
-  <rect x="450" y="85" width="60" height="25" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="480" y="101.55" font-size="13" fill="#1f2933" text-anchor="middle">id</text>
+  <text x="452" y="212" font-size="15" fill="#374151">team 테이블에는 member를 가리키는</text>
+  <text x="452" y="236" font-size="15" fill="#374151">컬럼이 아예 없다</text>
 
-  <rect x="510" y="85" width="80" height="25" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="550" y="101.55" font-size="13" fill="#1f2933" text-anchor="middle">name</text>
+  <rect x="444" y="262" width="396" height="38" rx="6" fill="#ede9fe"/>
+  <text x="642" y="287" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">수정 지점은 1개</text>
 
-  <rect x="590" y="85" width="90" height="25" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="635" y="101.55" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">team_id</text>
-
-  <!-- 테이블 데이터 행 -->
-  <rect x="450" y="110" width="60" height="25" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="480" y="126.55" font-size="13" fill="#1f2933" text-anchor="middle">1</text>
-
-  <rect x="510" y="110" width="80" height="25" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="550" y="126.55" font-size="13" fill="#1f2933" text-anchor="middle">김</text>
-
-  <rect x="590" y="110" width="90" height="25" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="635" y="126.55" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">10</text>
-
-  <!-- FK 설명 화살표 및 텍스트 -->
-  <path d="M700,122.5 L685,122.5" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="708" y="126.55" font-size="13" fill="#d97706">FK는 이 컬럼 하나뿐</text>
-
-  <!-- DB 설명 텍스트 -->
-  <text x="450" y="174.025" font-size="11.5" fill="#52606d">team 테이블에는 member를 가리키는</text>
-  <text x="450" y="194.025" font-size="11.5" fill="#52606d">컬럼이 아예 없다. 수정 지점은 1개.</text>
+  <!-- ===== 결론 ===== -->
+  <rect x="24" y="332" width="832" height="44" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="440" y="360" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">외래키를 가진 쪽(<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">@JoinColumn</tspan>이 있는 쪽)만 주인이고, 주인만 DB에 반영된다</text>
 </svg>

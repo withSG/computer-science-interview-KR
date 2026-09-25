@@ -1,52 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">GraphQL 스키마와 타입 시스템 - Nullability 및 리스트 타입 표기법</title>
-  <desc id="d">GraphQL의 널 허용 여부(! 연산자) 및 리스트 타입의 중첩된 널 허용 규칙을 설명하는 표 형태의 다이어그램</desc>
-  <rect width="880" height="440" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">GraphQL 널 허용 표기 읽는 법</title>
+  <desc id="d">타입 뒤에 !가 붙으면 널 불가다. 리스트 타입은 리스트 자체와 원소의 널 허용 여부가 따로 정해지며, 가장 흔한 [Post!]!는 둘 다 널이 아니고 결과가 없으면 빈 배열 []을 돌려준다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
 
-  <!-- Sub-heading/Context Section -->
-  <text x="40" y="36" font-size="16" font-weight="bold" fill="#1f2933">2. 스키마와 타입 시스템</text>
+  <!-- 규칙 1 -->
+  <text x="32" y="44" font-size="17" font-weight="bold" fill="#111827">규칙 1 · 기본 타입</text>
 
-  <!-- Section 1: Basic Nullability -->
-  <g>
-    <!-- Row 1: String -->
-    <rect x="40" y="60" width="120" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="100" y="86" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">String</text>
+  <rect x="32" y="60" width="400" height="72" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="56" y="104" font-size="22" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">String</text>
+  <rect x="160" y="80" width="92" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="206" y="102" font-size="15" fill="#374151" text-anchor="middle">널 허용</text>
 
-    <text x="180" y="86" font-size="13" fill="#52606d">널 허용</text>
+  <rect x="448" y="60" width="400" height="72" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="472" y="104" font-size="22" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">String!</text>
+  <rect x="576" y="80" width="92" height="32" rx="16" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="622" y="102" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">널 불가</text>
+  <text x="682" y="102" font-size="15" fill="#1f2937">(반드시 값이 있음)</text>
 
-    <!-- Row 2: String! -->
-    <rect x="440" y="60" width="120" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="500" y="86" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">String!</text>
+  <!-- 규칙 2 -->
+  <text x="32" y="184" font-size="17" font-weight="bold" fill="#111827">규칙 2 · 리스트 타입</text>
 
-    <text x="580" y="86" font-size="13" fill="#1f2933">널 불가 (반드시 값이 있음)</text>
-  </g>
+  <!-- 표 머리행 -->
+  <rect x="32" y="200" width="816" height="40" fill="#f3f4f6"/>
+  <text x="52" y="226" font-size="15" font-weight="bold" fill="#111827">타입</text>
+  <text x="232" y="226" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">리스트 자체</text>
+  <text x="352" y="226" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">원소</text>
+  <text x="432" y="226" font-size="15" font-weight="bold" fill="#111827">의미</text>
 
-  <!-- Divider line -->
-  <line x1="40" y1="128" x2="840" y2="128" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 강조 행 배경 -->
+  <rect x="32" y="344" width="816" height="80" fill="#fffbeb"/>
 
-  <!-- Section 2: List Nullability -->
-  <g>
-    <!-- Card 1: [Post] -->
-    <rect x="40" y="150" width="800" height="68" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <rect x="56" y="162" width="110" height="44" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="111" y="188" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[Post]</text>
-    <text x="186" y="188" font-size="13" fill="#52606d">리스트도 원소도 널일 수 있음</text>
+  <!-- 행 1: [Post] -->
+  <text x="52" y="275" font-size="20" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[Post]</text>
+  <rect x="186" y="252" width="92" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="232" y="274" font-size="15" fill="#374151" text-anchor="middle">널 허용</text>
+  <rect x="306" y="252" width="92" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="352" y="274" font-size="15" fill="#374151" text-anchor="middle">널 허용</text>
+  <text x="432" y="274" font-size="15" fill="#1f2937">리스트도 원소도 널일 수 있음</text>
 
-    <!-- Card 2: [Post!] -->
-    <rect x="40" y="232" width="800" height="68" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <rect x="56" y="244" width="110" height="44" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="111" y="270" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[Post!]</text>
-    <text x="186" y="270" font-size="13" fill="#52606d">리스트는 널일 수 있지만 원소는 널이 아님</text>
+  <!-- 행 2: [Post!] -->
+  <text x="52" y="327" font-size="20" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[Post!]</text>
+  <rect x="186" y="304" width="92" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="232" y="326" font-size="15" fill="#374151" text-anchor="middle">널 허용</text>
+  <rect x="306" y="304" width="92" height="32" rx="16" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="352" y="326" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">널 불가</text>
+  <text x="432" y="326" font-size="15" fill="#1f2937">리스트는 널일 수 있지만 원소는 널이 아님</text>
 
-    <!-- Card 3: [Post!]! (Highlighted) -->
-    <rect x="40" y="314" width="800" height="76" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <rect x="56" y="326" width="110" height="44" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
-    <text x="111" y="352" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">[Post!]!</text>
+  <!-- 행 3: [Post!]! -->
+  <text x="52" y="391" font-size="20" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[Post!]!</text>
+  <rect x="186" y="368" width="92" height="32" rx="16" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="232" y="390" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">널 불가</text>
+  <rect x="306" y="368" width="92" height="32" rx="16" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="352" y="390" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">널 불가</text>
+  <text x="432" y="376" font-size="15" fill="#1f2937">리스트도 원소도 널이 아님</text>
+  <text x="432" y="402" font-size="15" font-weight="bold" fill="#92400e">← 가장 흔하다. 결과가 없으면 빈 배열 []</text>
 
-    <!-- Label & Annotation -->
-    <text x="186" y="352" font-size="13" fill="#1f2933">
-      리스트도 원소도 널이 아님
-      <tspan font-weight="bold" fill="#d97706"> ← 가장 흔하다. 결과가 없으면 빈 배열 []</tspan>
-    </text>
-  </g>
+  <!-- 표 격자 -->
+  <line x1="32" y1="240" x2="848" y2="240" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="32" y1="292" x2="848" y2="292" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="32" y1="344" x2="848" y2="344" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="172" y1="200" x2="172" y2="424" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="292" y1="200" x2="292" y2="424" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="412" y1="200" x2="412" y2="424" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="32" y="200" width="816" height="224" rx="0" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
 </svg>

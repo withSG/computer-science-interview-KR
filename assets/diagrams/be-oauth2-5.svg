@@ -1,84 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">state 파라미터와 CSRF 공격 시나리오</title>
-  <desc id="d">OAuth2 authorization flow에서 state 파라미터가 없을 때 발생하는 CSRF 공격 및 계정 연결 하이재킹 과정을 보여주는 5단계 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 670" width="880" height="670" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">state 없는 콜백의 로그인 CSRF</title>
+  <desc id="d">공격자가 자기 구글 계정으로 얻은 code를 담은 콜백 링크를 피해자에게 보내고, 우리 서비스에 로그인돼 있는 피해자가 클릭하면 우리 서비스가 토큰을 교환해 공격자의 구글 계정을 피해자 계정에 연결한다. 이후 공격자는 자기 구글 계정으로 피해자의 계정에 로그인할 수 있다.</desc>
+  <rect width="880" height="670" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- 레인 -->
+  <rect x="24" y="24" width="250" height="622" rx="10" fill="#f8fafc"/>
+  <rect x="290" y="24" width="250" height="622" rx="10" fill="#f8fafc"/>
+  <rect x="556" y="24" width="300" height="622" rx="10" fill="#f8fafc"/>
+  <rect x="24" y="24" width="250" height="44" rx="10" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="149" y="52" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">공격자</text>
+  <rect x="290" y="24" width="250" height="44" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="415" y="52" font-size="17" font-weight="bold" fill="#374151" text-anchor="middle">피해자</text>
+  <rect x="556" y="24" width="300" height="44" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="706" y="52" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">우리 서비스</text>
 
-  <!-- Main Box Container -->
-  <rect x="30" y="30" width="820" height="460" rx="12" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- (1) -->
+  <rect x="36" y="88" width="226" height="112" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <circle cx="58" cy="112" r="13" fill="#b91c1c"/>
+  <text x="58" y="117.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="80" y="118" font-size="15" fill="#111827">자기 구글 계정으로</text>
+  <text x="80" y="140" font-size="15" fill="#111827">인가 흐름을 시작해</text>
+  <text x="80" y="162" font-size="15" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">code</tspan>를 손에 넣는다</text>
+  <text x="80" y="185" font-size="15" fill="#4b5563">(쓰지 않고 보관)</text>
 
-  <!-- Title / Heading Area -->
-  <rect x="50" y="50" width="780" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="440" y="75" fill="#2563eb" font-size="16" font-weight="bold" text-anchor="middle">state 파라미터와 CSRF</text>
+  <!-- (2) -->
+  <line x1="149" y1="202" x2="149" y2="222" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="36" y="226" width="340" height="100" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <circle cx="58" cy="250" r="13" fill="#b91c1c"/>
+  <text x="58" y="255.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="80" y="256" font-size="16" font-weight="bold" fill="#111827">피해자에게 링크를 보낸다</text>
+  <rect x="50" y="268" width="312" height="48" rx="6" fill="#f8fafc" stroke="#d1d5db" stroke-width="1"/>
+  <text x="62" y="288" font-size="15" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">https://victim-service.com/callback</text>
+  <text x="62" y="308" font-size="15" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">?code=<tspan font-weight="bold" fill="#b91c1c">&lt;공격자의_code&gt;</tspan></text>
+  <path d="M378,276 H415 V340" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Flow Steps -->
-  <!-- Step 1 -->
-  <g stroke-width="1.5">
-    <rect x="60" y="110" width="760" height="54" rx="8" fill="#fef2f2" stroke="#dc2626"/>
-    <circle cx="88" cy="137" r="14" fill="#dc2626"/>
-    <text x="88" y="142" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">1</text>
-    <text x="115" y="142" fill="#dc2626" font-size="13" font-weight="bold">(1)</text>
-    <text x="140" y="142" fill="#1f2933" font-size="13">공격자가 자기 구글 계정으로 인가 흐름을 시작해 code를 손에 넣는다 (쓰지 않고 보관)</text>
-  </g>
+  <!-- (3) -->
+  <rect x="302" y="344" width="226" height="68" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <circle cx="324" cy="368" r="13" fill="#4b5563"/>
+  <text x="324" y="373.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="346" y="374" font-size="16" font-weight="bold" fill="#111827">그 링크를 클릭</text>
+  <text x="318" y="399" font-size="14" fill="#4b5563">우리 서비스에 로그인돼 있음</text>
+  <line x1="530" y1="378" x2="564" y2="378" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Down Arrow 1 -> 2 -->
-  <path d="M440,164 L440,188" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- (4) -->
+  <rect x="568" y="344" width="276" height="128" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="590" cy="368" r="13" fill="#1d4ed8"/>
+  <text x="590" y="373.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="612" y="374" font-size="16" font-weight="bold" fill="#111827">“코드가 왔네”</text>
+  <text x="584" y="402" font-size="15" fill="#111827">→ 토큰 교환</text>
+  <text x="584" y="428" font-size="15" font-weight="bold" fill="#b91c1c">→ 공격자의 구글 계정을</text>
+  <text x="604" y="452" font-size="15" font-weight="bold" fill="#b91c1c">피해자 계정에 연결</text>
 
-  <!-- Step 2 -->
-  <g stroke-width="1.5">
-    <rect x="60" y="190" width="760" height="54" rx="8" fill="#fffbeb" stroke="#d97706"/>
-    <circle cx="88" cy="217" r="14" fill="#d97706"/>
-    <text x="88" y="222" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">2</text>
-    <text x="115" y="222" fill="#d97706" font-size="13" font-weight="bold">(2)</text>
-    <text x="140" y="222" fill="#1f2933" font-size="13">피해자에게 링크를 보낸다:</text>
-    <rect x="300" y="204" width="500" height="26" rx="4" fill="#ffffff" stroke="#cbd2d9"/>
-    <text x="310" y="221" fill="#2563eb" font-size="12.5" font-family="monospace">https://victim-service.com/callback?code=&lt;공격자의_code&gt;</text>
-  </g>
+  <rect x="568" y="488" width="276" height="84" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="584" y="512" font-size="15" font-weight="bold" fill="#b45309">state가 없어서</text>
+  <text x="584" y="535" font-size="15" fill="#111827">우리가 시작한 흐름의 결과인지</text>
+  <text x="584" y="558" font-size="15" fill="#111827">확인하지 않는다</text>
 
-  <!-- Down Arrow 2 -> 3 -->
-  <path d="M440,244 L440,268" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 3 -->
-  <g stroke-width="1.5">
-    <rect x="60" y="270" width="760" height="54" rx="8" fill="#ffffff" stroke="#9aa5b1"/>
-    <circle cx="88" cy="297" r="14" fill="#52606d"/>
-    <text x="88" y="302" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">3</text>
-    <text x="115" y="302" fill="#52606d" font-size="13" font-weight="bold">(3)</text>
-    <text x="140" y="302" fill="#1f2933" font-size="13">우리 서비스에 로그인돼 있는 피해자가 그 링크를 클릭</text>
-  </g>
-
-  <!-- Down Arrow 3 -> 4 -->
-  <path d="M440,324 L440,348" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 4 -->
-  <g stroke-width="1.5">
-    <rect x="60" y="350" width="760" height="54" rx="8" fill="#ffffff" stroke="#9aa5b1"/>
-    <circle cx="88" cy="377" r="14" fill="#52606d"/>
-    <text x="88" y="382" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">4</text>
-    <text x="115" y="382" fill="#52606d" font-size="13" font-weight="bold">(4)</text>
-    <text x="140" y="382" fill="#1f2933" font-size="13">우리 서비스: "코드가 왔네" → 토큰 교환 → 공격자의 구글 계정을 피해자 계정에 연결</text>
-  </g>
-
-  <!-- Down Arrow 4 -> 5 -->
-  <path d="M440,404 L440,428" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Step 5 -->
-  <g stroke-width="1.5">
-    <rect x="60" y="430" width="760" height="54" rx="8" fill="#fef2f2" stroke="#dc2626"/>
-    <circle cx="88" cy="457" r="14" fill="#dc2626"/>
-    <text x="88" y="462" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">5</text>
-    <text x="115" y="462" fill="#dc2626" font-size="13" font-weight="bold">(5)</text>
-    <text x="140" y="462" fill="#dc2626" font-size="13" font-weight="bold">이제 공격자는 자기 구글 계정으로 피해자의 계정에 로그인할 수 있다</text>
-  </g>
+  <!-- (5) -->
+  <rect x="160" y="588" width="560" height="34" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+  <circle cx="182" cy="605" r="13" fill="#b91c1c"/>
+  <text x="182" y="610.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="204" y="611" font-size="16" font-weight="bold" fill="#b91c1c">이제 공격자는 자기 구글 계정으로 피해자의 계정에 로그인할 수 있다</text>
+  <circle cx="149" cy="636" r="5" fill="#b91c1c"/>
+  <line x1="149" y1="636" x2="704" y2="636" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ahr)"/>
 </svg>

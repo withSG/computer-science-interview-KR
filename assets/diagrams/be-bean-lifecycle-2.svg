@@ -1,71 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">초기화 시점 네 가지 비교</title>
-  <desc id="d">컨테이너 기동 후 Bean 생성과 PostConstruct 호출, 모든 Bean 준비 완료, ApplicationRunner 및 CommandLineRunner 실행, ApplicationReadyEvent 발행까지의 순서를 나타낸 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">애플리케이션 기동 시 초기화 시점</title>
+  <desc id="d">컨테이너 기동 뒤 Bean마다 생성, 주입, @PostConstruct가 차례로 실행되고, 모든 Bean이 준비된 다음 ApplicationRunner/CommandLineRunner가 실행되며, 마지막으로 ApplicationReadyEvent가 발행되는 순서를 시간축으로 보여줍니다.</desc>
+  <rect width="880" height="470" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="note" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
   </defs>
 
+  <!-- 시간축 -->
+  <line x1="44" y1="52" x2="44" y2="408" stroke="#94a3b8" stroke-width="3" marker-end="url(#arr)"/>
+
   <!-- 컨테이너 기동 -->
-  <rect x="180" y="30" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="290" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">컨테이너 기동</text>
+  <circle cx="44" cy="44" r="9" fill="#1f2937"/>
+  <text x="68" y="50" font-size="17" font-weight="bold" fill="#111827">컨테이너 기동</text>
 
-  <!-- 메인 세로 라인 -->
-  <path d="M290,70 L290,480" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <!-- Bean A -->
+  <circle cx="44" cy="100" r="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <text x="68" y="105" font-size="16" font-weight="bold" fill="#111827">Bean A</text>
+  <rect x="140" y="83" width="64" height="34" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="172" y="105" font-size="15" fill="#1f2937" text-anchor="middle">생성</text>
+  <line x1="206" y1="100" x2="232" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="236" y="83" width="64" height="34" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="268" y="105" font-size="15" fill="#1f2937" text-anchor="middle">주입</text>
+  <line x1="302" y1="100" x2="328" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="332" y="83" width="190" height="34" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="427" y="105" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">@PostConstruct(A)</text>
+  <line x1="600" y1="100" x2="530" y2="100" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#note)"/>
+  <text x="612" y="105" font-size="15" fill="#374151">A 하나만 준비된 상태</text>
 
-  <!-- Bean A branch -->
-  <path d="M290,110 L330,110" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <rect x="330" y="90" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="115" font-size="13" fill="#1f2933" text-anchor="middle">Bean A 생성 → 주입 → @PostConstruct(A)</text>
+  <!-- Bean B -->
+  <circle cx="44" cy="150" r="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <text x="68" y="155" font-size="16" font-weight="bold" fill="#111827">Bean B</text>
+  <rect x="140" y="133" width="64" height="34" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="172" y="155" font-size="15" fill="#1f2937" text-anchor="middle">생성</text>
+  <line x1="206" y1="150" x2="232" y2="150" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="236" y="133" width="64" height="34" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="268" y="155" font-size="15" fill="#1f2937" text-anchor="middle">주입</text>
+  <line x1="302" y1="150" x2="328" y2="150" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="332" y="133" width="190" height="34" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="427" y="155" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">@PostConstruct(B)</text>
 
-  <!-- Bean B branch -->
-  <path d="M290,165 L330,165" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <rect x="330" y="145" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="170" font-size="13" fill="#1f2933" text-anchor="middle">Bean B 생성 → 주입 → @PostConstruct(B)</text>
+  <!-- Bean C -->
+  <circle cx="44" cy="200" r="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <text x="68" y="205" font-size="16" font-weight="bold" fill="#111827">Bean C</text>
+  <rect x="140" y="183" width="64" height="34" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="172" y="205" font-size="15" fill="#1f2937" text-anchor="middle">생성</text>
+  <line x1="206" y1="200" x2="232" y2="200" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="236" y="183" width="64" height="34" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="268" y="205" font-size="15" fill="#1f2937" text-anchor="middle">주입</text>
+  <line x1="302" y1="200" x2="328" y2="200" stroke="#64748b" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="332" y="183" width="190" height="34" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="427" y="205" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">@PostConstruct(C)</text>
 
-  <!-- Bean C branch -->
-  <path d="M290,220 L330,220" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <rect x="330" y="200" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="225" font-size="13" fill="#1f2933" text-anchor="middle">Bean C 생성 → 주입 → @PostConstruct(C)</text>
+  <!-- 모든 Bean 준비 완료 (경계) -->
+  <line x1="248" y1="256" x2="856" y2="256" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <rect x="36" y="248" width="16" height="16" fill="#1f2937" transform="rotate(45 44 256)"/>
+  <text x="68" y="262" font-size="17" font-weight="bold" fill="#111827">모든 Bean 준비 완료</text>
 
-  <!-- Bean A annotation line -->
-  <path d="M550,110 L580,110" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="588" y="98" width="168" height="24" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="594" y="115" font-size="12" fill="#2563eb">← A 하나만 준비된 상태</text>
+  <!-- Runner -->
+  <circle cx="44" cy="316" r="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <rect x="68" y="299" width="390" height="34" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="263" y="321" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">ApplicationRunner / CommandLineRunner 실행</text>
+  <line x1="600" y1="316" x2="466" y2="316" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#note)"/>
+  <text x="612" y="321" font-size="15" fill="#374151">전부 준비된 상태</text>
 
-  <!-- 모든 Bean 준비 완료 -->
-  <rect x="180" y="275" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="290" y="300" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">모든 Bean 준비 완료</text>
+  <!-- ApplicationReadyEvent -->
+  <circle cx="44" cy="376" r="6" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <rect x="68" y="359" width="260" height="34" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="198" y="381" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">ApplicationReadyEvent 발행</text>
+  <line x1="600" y1="376" x2="336" y2="376" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#note)"/>
+  <text x="612" y="381" font-size="15" fill="#374151">Runner까지 끝난 상태</text>
 
-  <!-- ApplicationRunner / CommandLineRunner 실행 -->
-  <path d="M290,370 L330,370" stroke="#059669" stroke-width="1.5" fill="none"/>
-  <rect x="330" y="350" width="350" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="505" y="375" font-size="13" fill="#1f2933" text-anchor="middle">ApplicationRunner / CommandLineRunner 실행</text>
-
-  <!-- Runner annotation line -->
-  <path d="M680,370 L710,370" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-green)"/>
-  <rect x="718" y="358" width="136" height="24" fill="#ffffff" stroke="#059669" stroke-width="1" rx="4"/>
-  <text x="724" y="375" font-size="12" fill="#059669">← 전부 준비된 상태</text>
-
-  <!-- ApplicationReadyEvent 발행 -->
-  <path d="M290,455 L330,455" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-  <rect x="330" y="435" width="230" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="445" y="460" font-size="13" fill="#1f2933" text-anchor="middle">ApplicationReadyEvent 발행</text>
-
-  <!-- Event annotation line -->
-  <path d="M560,455 L590,455" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="598" y="443" width="180" height="24" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="4"/>
-  <text x="604" y="460" font-size="12" fill="#7c3aed">← Runner까지 끝난 상태</text>
+  <!-- 범례 -->
+  <rect x="68" y="428" width="28" height="18" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="106" y="442" font-size="15" fill="#374151">시작할 때 코드를 돌릴 수 있는 지점</text>
 </svg>

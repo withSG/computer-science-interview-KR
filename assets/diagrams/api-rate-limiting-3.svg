@@ -1,55 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Sliding Window Counter — 두 창을 가중평균으로 근사</title>
-  <desc id="d">현재 시각 12:01:15 기준으로 슬라이딩 윈도가 덮는 구간과 이전 창 75% 겹침을 통해 가중평균 추정치 9를 계산하는 과정을 보여주는 다이어그램</desc>
-  <rect width="880" height="370" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Sliding Window Counter 추정</title>
+  <desc id="d">현재 시각 12:01:15, 창 크기 1분일 때 슬라이딩 윈도는 12:00:15 ~ 12:01:15를 덮는다. 12:00 창(요청 8건)과는 75%가 겹치고 12:01 창(요청 3건)은 그대로 더해 추정치 = 8 × 0.75 + 3 = 9가 된다.</desc>
+  <rect width="880" height="400" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-  </defs>
+  <!-- 조건 -->
+  <text x="40" y="42" font-size="18" font-weight="bold" fill="#111827">현재 시각 12:01:15  (창 크기 1분)</text>
+  <text x="40" y="72" font-size="16" fill="#374151">슬라이딩 윈도가 덮는 구간: <tspan font-weight="bold" fill="#1d4ed8">12:00:15 ~ 12:01:15</tspan></text>
 
-  <!-- 상단 정보 텍스트 -->
-  <text x="40" y="38" font-size="14" font-weight="bold" fill="#1f2933">현재 시각 12:01:15  (창 크기 1분)</text>
-  <text x="40" y="62" font-size="13" fill="#52606d">슬라이딩 윈도가 덮는 구간: 12:00:15 ~ 12:01:15</text>
+  <!-- 시간 눈금 -->
+  <g font-size="15" text-anchor="middle">
+    <text x="80" y="112" fill="#4b5563">12:00</text>
+    <text x="440" y="112" fill="#4b5563">12:01</text>
+    <text x="800" y="112" fill="#4b5563">12:02</text>
+    <text x="170" y="112" fill="#1d4ed8" font-weight="bold">12:00:15</text>
+    <text x="530" y="112" fill="#1d4ed8" font-weight="bold">현재 12:01:15</text>
+  </g>
 
-  <!-- 타임라인/창 영역 (X: 80 ~ 800, 총 720px 너비, 각 창 360px) -->
-  <!-- 12:00 창 배경 및 라벨 -->
-  <rect x="80" y="90" width="360" height="40" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="260" y="115" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">12:00 창 (요청 8건)</text>
+  <!-- 고정 창 두 개 -->
+  <rect x="80" y="126" width="360" height="52" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="440" y="126" width="360" height="52" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="260" y="158" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">12:00 창 (요청 8건)</text>
+  <text x="620" y="158" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">12:01 창 (요청 3건)</text>
 
-  <!-- 12:01 창 배경 및 라벨 -->
-  <rect x="440" y="90" width="360" height="40" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="620" y="115" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">12:01 창 (요청 3건)</text>
+  <!-- 슬라이딩 윈도 경계 안내선 -->
+  <line x1="170" y1="118" x2="170" y2="196" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="530" y1="118" x2="530" y2="196" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="4 3"/>
 
-  <!-- 고정 창 구분선 및 구획 선 |───────────────────|───────────────────| -->
-  <!-- 시작 선 -->
-  <line x1="80" y1="130" x2="80" y2="150" stroke="#1f2933" stroke-width="2"/>
-  <!-- 12:00 창 수평선 -->
-  <line x1="80" y1="140" x2="440" y2="140" stroke="#1f2933" stroke-width="1.5"/>
-  <!-- 중앙 선 -->
-  <line x1="440" y1="130" x2="440" y2="150" stroke="#1f2933" stroke-width="2"/>
-  <!-- 12:01 창 수평선 -->
-  <line x1="440" y1="140" x2="800" y2="140" stroke="#1f2933" stroke-width="1.5"/>
-  <!-- 끝 선 -->
-  <line x1="800" y1="130" x2="800" y2="150" stroke="#1f2933" stroke-width="2"/>
+  <!-- 슬라이딩 윈도 막대 -->
+  <rect x="170" y="198" width="270" height="42" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="305" y="224" font-size="15" fill="#92400e" text-anchor="middle">12:00:15부터 겹침 = 이전 창의 75%</text>
+  <rect x="440" y="198" width="90" height="42" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="485" y="224" font-size="15" font-weight="bold" fill="#1e40af" text-anchor="middle">현재 창</text>
 
-  <!-- 슬라이딩 윈도 영역 (12:00:15 ~ 12:01:15) -->
-  <!-- X 좌표: 12:00:15 = 80 + 360 * (15/60) = 170 / 12:01:15 = 440 + 360 * (15/60) = 530 / 너비 = 360 -->
-  <rect x="170" y="165" width="360" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="4"/>
-  
-  <!-- 빗금 패턴 효과를 위한 해치 표현 (ASCII ▓▓▓▓ 시각적 전사) -->
-  <path d="M 170 165 L 530 165 L 530 201 L 170 201 Z" fill="#2563eb" fill-opacity="0.15"/>
+  <path d="M170,248 L170,256 L530,256 L530,248" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="350" y="280" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">슬라이딩 윈도 (1분)</text>
 
-  <!-- └ 12:00:15부터 겹침 = 이전 창의 75% 라인 및 텍스트 -->
-  <path d="M 170,205 L 170,225 L 190,225" fill="none" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="195" y="213" width="280" height="24" fill="#ffffff"/>
-  <text x="200" y="230" font-size="13" font-weight="bold" fill="#2563eb">└ 12:00:15부터 겹침 = 이전 창의 75%</text>
-
-  <!-- 추정치 하단 계산 결과 Box -->
-  <rect x="80" y="275" width="720" height="55" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
-  <text x="440" y="309" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">추정치 = 8 × 0.75 + 3 = 9</text>
+  <!-- 추정 계산 -->
+  <rect x="80" y="302" width="720" height="78" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="336" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">추정치 = <tspan fill="#b45309">8 × 0.75</tspan> + <tspan fill="#1d4ed8">3</tspan> = 9</text>
+  <text x="440" y="364" font-size="15" fill="#374151" text-anchor="middle">(<tspan fill="#92400e">이전 창 카운터 × 겹치는 비율</tspan>) + <tspan fill="#1e40af">현재 창 카운터</tspan></text>
 </svg>

@@ -1,63 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 230" width="880" height="230" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Layered System — 클라이언트가 몰라도 되는 것들</title>
-  <desc id="d">클라이언트 요청이 CDN, Load Balancer, API Gateway를 거쳐 앱 서버로 전달되는 Layered System 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Layered System의 중간 계층</title>
+  <desc id="d">클라이언트는 https://api.example.com/users/1 주소만 알고, 요청은 CDN(캐시 응답), Load Balancer(트래픽 분산), API Gateway(인증·Rate Limit)를 거쳐 앱 서버(비즈니스 로직)에 닿는다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
+  <rect width="880" height="260" fill="#ffffff"/>
 
-  <rect width="880" height="230" fill="#ffffff"/>
+  <!-- Client -->
+  <rect x="65" y="24" width="120" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="125" y="52" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Client</text>
+  <rect x="205" y="28" width="310" height="36" rx="18" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="360" y="51" font-size="15" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">https://api.example.com/users/1</text>
+  <text x="533" y="52" font-size="16" font-weight="bold" fill="#1d4ed8">이것만 안다</text>
 
-  <!-- Client Section -->
-  <text x="74" y="38" font-size="14" font-weight="bold" fill="#1f2933">Client</text>
+  <!-- 중간 계층 영역 -->
+  <rect x="24" y="96" width="832" height="140" rx="10" fill="#f9fafb" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6 5"/>
+  <text x="836" y="124" font-size="15" fill="#4b5563" text-anchor="end">클라이언트가 몰라도 되는 것들</text>
 
-  <!-- URL Label with White Background -->
-  <rect x="82" y="58" width="230" height="22" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="197" y="73" font-size="11.5" fill="#52606d" text-anchor="middle">https://api.example.com/users/1</text>
-  <text x="322" y="73" font-size="11.5" fill="#52606d">이것만 안다</text>
+  <!-- 요청 진입: Client → CDN (영역 위에 그려 화살촉이 보이게) -->
+  <path d="M125,68 L125,142" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
 
-  <!-- Vertical Arrow from Client to CDN -->
-  <path d="M74,48 L74,122" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- CDN -->
+  <rect x="44" y="144" width="162" height="68" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="125" y="172" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">CDN</text>
+  <text x="125" y="198" font-size="15" fill="#374151" text-anchor="middle">캐시 응답</text>
+  <path d="M206,178 L252,178" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah-ink)"/>
 
-  <!-- Horizontal Layered System Boxes -->
-  <!-- Box 1: CDN -->
-  <g id="cdn">
-    <rect x="24" y="130" width="100" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="74" y="157" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">CDN</text>
-    <text x="74" y="196" font-size="11.5" fill="#52606d" text-anchor="middle">캐시 응답</text>
-  </g>
+  <!-- Load Balancer -->
+  <rect x="254" y="144" width="162" height="68" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="335" y="172" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">Load Balancer</text>
+  <text x="335" y="198" font-size="15" fill="#374151" text-anchor="middle">트래픽 분산</text>
+  <path d="M416,178 L462,178" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah-ink)"/>
 
-  <!-- Arrow 1: CDN -> Load Balancer -->
-  <path d="M124,152 L222,152" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- API Gateway -->
+  <rect x="464" y="144" width="162" height="68" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="545" y="172" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">API Gateway</text>
+  <text x="545" y="198" font-size="15" fill="#374151" text-anchor="middle">인증·Rate Limit</text>
+  <path d="M626,178 L672,178" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah-ink)"/>
 
-  <!-- Box 2: Load Balancer -->
-  <g id="load-balancer">
-    <rect x="230" y="130" width="150" height="44" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="305" y="157" font-size="13" fill="#1f2933" text-anchor="middle">Load Balancer</text>
-    <text x="305" y="196" font-size="11.5" fill="#52606d" text-anchor="middle">트래픽 분산</text>
-  </g>
-
-  <!-- Arrow 2: Load Balancer -> API Gateway -->
-  <path d="M380,152 L478,152" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Box 3: API Gateway -->
-  <g id="api-gateway">
-    <rect x="486" y="130" width="140" height="44" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="556" y="157" font-size="13" fill="#1f2933" text-anchor="middle">API Gateway</text>
-    <text x="556" y="196" font-size="11.5" fill="#52606d" text-anchor="middle">인증·Rate Limit</text>
-  </g>
-
-  <!-- Arrow 3: API Gateway -> 앱 서버 -->
-  <path d="M626,152 L724,152" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Box 4: 앱 서버 -->
-  <g id="app-server">
-    <rect x="732" y="130" width="124" height="44" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="794" y="157" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">앱 서버</text>
-    <text x="794" y="196" font-size="11.5" fill="#52606d" text-anchor="middle">비즈니스 로직</text>
-  </g>
+  <!-- 앱 서버 -->
+  <rect x="674" y="144" width="162" height="68" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="755" y="172" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">앱 서버</text>
+  <text x="755" y="198" font-size="15" fill="#374151" text-anchor="middle">비즈니스 로직</text>
 </svg>

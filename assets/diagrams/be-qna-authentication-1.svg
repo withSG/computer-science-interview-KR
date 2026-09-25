@@ -1,55 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">JWT 기반 인증 흐름</title>
-  <desc id="d">클라이언트와 서버 간의 JWT 기반 로그인 및 요청, 검증 흐름 시퀀스 다이어그램</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+  <desc id="d">클라이언트가 로그인하면 서버가 JWT를 생성해 발급하고, 클라이언트는 토큰을 localStorage나 Cookie에 저장한다. 이후 요청마다 Authorization 헤더에 토큰을 넣어 보내면 서버가 서명을 확인해 토큰을 검증한다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="30" y="45" font-size="16" font-weight="bold" fill="#1f2933">JWT 기반 인증 흐름</text>
+  <!-- 참여자 -->
+  <rect x="100" y="24" width="220" height="48" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="210" y="54" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">클라이언트</text>
+  <rect x="560" y="24" width="220" height="48" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="670" y="54" font-size="18" font-weight="bold" fill="#4c1d95" text-anchor="middle">서버</text>
 
-  <!-- Lifelines -->
-  <!-- Client Column -->
-  <rect x="140" y="70" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="220" y="95" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">클라이언트</text>
-  <line x1="220" y1="110" x2="220" y2="470" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 생명선 -->
+  <line x1="210" y1="72" x2="210" y2="486" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="670" y1="72" x2="670" y2="486" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- Server Column -->
-  <rect x="580" y="70" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="660" y="95" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서버</text>
-  <line x1="660" y1="110" x2="660" y2="470" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 1. 로그인 → JWT 생성 및 발급 -->
+  <line x1="212" y1="130" x2="666" y2="130" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <circle cx="400" cy="108" r="13" fill="#1d4ed8"/>
+  <text x="400" y="113" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="422" y="114" font-size="17" font-weight="bold" fill="#1e3a8a">로그인</text>
 
-  <!-- Step 1: 로그인 -> 서버에서 JWT 생성 및 발급 -->
-  <!-- Request Line -->
-  <path d="M 220,150 L 660,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="390" y="136" width="100" height="22" fill="#ffffff"/>
-  <text x="440" y="152" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">1. 로그인</text>
+  <rect x="596" y="148" width="148" height="40" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="670" y="174" font-size="16" font-weight="bold" fill="#4c1d95" text-anchor="middle">JWT 생성</text>
 
-  <!-- Response Line -->
-  <path d="M 660,190 L 220,190" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="330" y="176" width="220" height="22" fill="#ffffff"/>
-  <text x="440" y="192" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">서버에서 JWT 생성 및 발급</text>
+  <line x1="668" y1="222" x2="214" y2="222" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <text x="440" y="208" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">JWT 발급</text>
 
-  <!-- Step 2: 클라이언트에서 토큰 저장 (localStorage/Cookie) -->
-  <rect x="80" y="225" width="280" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="220" y="253" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">2. 클라이언트에서 토큰 저장 (localStorage/Cookie)</text>
+  <!-- 2. 토큰 저장 -->
+  <circle cx="68" cy="272" r="13" fill="#1d4ed8"/>
+  <text x="68" y="277" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="96" y="242" width="228" height="60" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="210" y="266" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">토큰 저장</text>
+  <text x="210" y="290" font-size="15" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">localStorage / Cookie</text>
 
-  <!-- Step 3: 이후 요청 시 Authorization 헤더에 토큰 포함 -->
-  <path d="M 220,330 L 660,330" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="270" y="316" width="340" height="22" fill="#ffffff"/>
-  <text x="440" y="332" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">3. 이후 요청 시 Authorization 헤더에 토큰 포함</text>
+  <!-- 구분: 이후 요청 -->
+  <line x1="24" y1="336" x2="856" y2="336" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <rect x="382" y="323" width="116" height="26" rx="13" fill="#f3f4f6"/>
+  <text x="440" y="341" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">이후 요청 시</text>
 
-  <!-- Step 4: 서버에서 토큰 검증 (서명 확인) -->
-  <rect x="530" y="375" width="260" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="660" y="403" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">4. 서버에서 토큰 검증 (서명 확인)</text>
+  <!-- 3. Authorization 헤더에 토큰 포함 -->
+  <line x1="212" y1="392" x2="666" y2="392" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <circle cx="302" cy="370" r="13" fill="#1d4ed8"/>
+  <text x="302" y="375" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="324" y="376" font-size="17" fill="#1e3a8a"><tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Authorization</tspan> 헤더에 토큰 포함</text>
+
+  <!-- 4. 토큰 검증 -->
+  <circle cx="544" cy="440" r="13" fill="#6d28d9"/>
+  <text x="544" y="445" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="572" y="410" width="196" height="60" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="670" y="434" font-size="16" font-weight="bold" fill="#4c1d95" text-anchor="middle">토큰 검증</text>
+  <text x="670" y="458" font-size="15" fill="#1f2937" text-anchor="middle">서명 확인</text>
 </svg>

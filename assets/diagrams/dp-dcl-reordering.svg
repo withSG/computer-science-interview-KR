@@ -1,140 +1,101 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">volatile 없는 DCL — 명령어 재배치가 만드는 미완성 객체</title>
-  <desc id="d">Double-Checked Locking 패턴에서 volatile 키워드가 없을 때 명령어 재배치로 인해 미완성된 객체가 다른 스레드에 노출되는 과정을 시간 흐름에 따라 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 724" width="880" height="724" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">volatile 없는 DCL의 재배치 문제</title>
+  <desc id="d">volatile이 없으면 스레드 A의 객체 생성이 ① 힙 메모리 할당, ③ instance 대입, ② 생성자 실행 순서로 재배치될 수 있다. ③과 ② 사이 위험 구간에 스레드 B가 1차 검사에서 instance != null을 보고 락 없이 반환받아, 커넥션 0개인 미완성 객체를 그대로 사용한다.</desc>
+  <rect width="880" height="724" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 메인 제목 -->
-  <text x="440" y="38" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">volatile 없는 DCL — 명령어 재배치가 만드는 미완성 객체</text>
+  <!-- 위험 구간 띠 (T2 ~ T3) -->
+  <rect x="24" y="226" width="832" height="240" fill="#fef2f2"/>
 
-  <!-- 타임라인 시간축 세로 가이드라인 및 상단 타임스탬프 -->
-  <!-- T1: x=240 -->
-  <line x1="240" y1="60" x2="240" y2="440" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="210" y="65" width="60" height="22" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="240" y="80" font-size="11.5" font-weight="600" fill="#1f2933" text-anchor="middle">T1</text>
+  <!-- 시간축 -->
+  <text x="72" y="58" font-size="15" font-weight="bold" text-anchor="middle" fill="#374151">시간</text>
+  <path d="M72,72 V616" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
 
-  <!-- T2: x=390 -->
-  <line x1="390" y1="60" x2="390" y2="440" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="360" y="65" width="60" height="22" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="390" y="80" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">T2</text>
+  <!-- 레인 머리 -->
+  <rect x="132" y="24" width="232" height="60" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="248" y="50" font-size="17" font-weight="bold" text-anchor="middle" fill="#1e3a8a">스레드 A</text>
+  <text x="248" y="72" font-size="15" text-anchor="middle" fill="#1e40af">(객체 생성 중)</text>
+  <rect x="376" y="24" width="232" height="60" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="492" y="50" font-size="17" font-weight="bold" text-anchor="middle" fill="#4c1d95">스레드 B</text>
+  <text x="492" y="72" font-size="15" text-anchor="middle" fill="#5b21b6">(getInstance 호출)</text>
+  <rect x="620" y="24" width="236" height="60" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="738" y="50" font-size="17" font-weight="bold" text-anchor="middle" fill="#1f2937">힙 객체 상태</text>
+  <text x="738" y="72" font-size="15" text-anchor="middle" fill="#374151">(ConnectionPool)</text>
 
-  <!-- T3: x=580 -->
-  <line x1="580" y1="60" x2="580" y2="440" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="550" y="65" width="60" height="22" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="580" y="80" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">T3</text>
+  <!-- 생명선 -->
+  <path d="M248,84 V620" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+  <path d="M492,84 V620" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
 
-  <!-- T4: x=760 -->
-  <line x1="760" y1="60" x2="760" y2="440" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="730" y="65" width="60" height="22" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="760" y="80" font-size="11.5" font-weight="600" fill="#1f2933" text-anchor="middle">T4</text>
+  <!-- 스레드 A 진행 화살표 -->
+  <path d="M248,216 V229" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <path d="M248,304 V475" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
 
-  <!-- 시간 흐름 화살표 -->
-  <path d="M150,76 L200,76" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-ink)"/>
-  <text x="140" y="80" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="end">시간 흐름</text>
+  <!-- 시각 표시 -->
+  <rect x="36" y="110" width="72" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="72" y="129" font-size="15" font-weight="bold" text-anchor="middle" fill="#374151">T1 이전</text>
+  <rect x="36" y="176" width="72" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="72" y="195" font-size="15" font-weight="bold" text-anchor="middle" fill="#374151">T1</text>
+  <rect x="36" y="254" width="72" height="28" rx="14" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="72" y="273" font-size="15" font-weight="bold" text-anchor="middle" fill="#b91c1c">T2</text>
+  <rect x="28" y="318" width="88" height="74" fill="#fef2f2"/>
+  <text x="72" y="340" font-size="16" font-weight="bold" text-anchor="middle" fill="#b91c1c">위험 구간</text>
+  <text x="72" y="362" font-size="15" text-anchor="middle" fill="#b91c1c">(인스턴스</text>
+  <text x="72" y="382" font-size="15" text-anchor="middle" fill="#b91c1c">미완성)</text>
+  <rect x="36" y="490" width="72" height="28" rx="14" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="72" y="509" font-size="15" font-weight="bold" text-anchor="middle" fill="#b91c1c">T3</text>
+  <rect x="36" y="558" width="72" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="72" y="577" font-size="15" font-weight="bold" text-anchor="middle" fill="#374151">T4</text>
 
-  <!-- 위험 구간 영역 강조 배경 (T2~T3: x=390 to x=580) -->
-  <rect x="390" y="100" width="190" height="340" fill="#fef2f2" opacity="0.6"/>
-  <rect x="390" y="100" width="190" height="26" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="485" y="117" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">위험 구간 (인스턴스 미완성)</text>
+  <!-- 스레드 A -->
+  <rect x="140" y="164" width="216" height="52" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="248" y="186" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937">① 힙 메모리 할당</text>
+  <text x="248" y="207" font-size="15" text-anchor="middle" fill="#4b5563">(주소값 생성)</text>
 
-  <!-- 레인 1: 스레드 A -->
-  <rect x="30" y="140" width="110" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="85" y="175" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">스레드 A</text>
-  <text x="85" y="195" font-size="11.5" fill="#52606d" text-anchor="middle">(객체 생성 중)</text>
+  <rect x="140" y="232" width="216" height="72" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="248" y="254" font-size="16" font-weight="bold" text-anchor="middle" fill="#b91c1c">③ <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">instance</tspan> 대입</text>
+  <text x="248" y="275" font-size="15" text-anchor="middle" fill="#b91c1c">(주소만 먼저 연결)</text>
+  <text x="248" y="295" font-size="15" font-weight="bold" text-anchor="middle" fill="#92400e">명령어 재배치 발생</text>
 
-  <line x1="150" y1="180" x2="840" y2="180" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="140" y="478" width="216" height="52" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="248" y="500" font-size="16" font-weight="bold" text-anchor="middle" fill="#047857">② 생성자 실행</text>
+  <text x="248" y="521" font-size="15" text-anchor="middle" fill="#047857">(커넥션 풀 생성/열기)</text>
 
-  <!-- 스레드 A 동작 단계 -->
-  <!-- 단계 ①: x=160 ~ 240 -->
-  <rect x="160" y="152" width="150" height="56" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="235" y="175" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">① 힙 메모리 할당</text>
-  <text x="235" y="195" font-size="11.5" fill="#52606d" text-anchor="middle">(주소값 생성)</text>
+  <!-- 스레드 B -->
+  <rect x="384" y="316" width="216" height="72" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="492" y="338" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937">1차 검사</text>
+  <text x="492" y="359" font-size="15" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">instance != null</text>
+  <text x="492" y="379" font-size="15" font-weight="bold" text-anchor="middle" fill="#b91c1c">→ 통과! (락 없이 반환)</text>
+  <path d="M492,388 V403" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ah-red)"/>
+  <rect x="384" y="406" width="216" height="50" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="492" y="426" font-size="15" font-weight="bold" text-anchor="middle" fill="#991b1b">미완성 객체를</text>
+  <text x="492" y="446" font-size="15" font-weight="bold" text-anchor="middle" fill="#991b1b">그대로 받아 사용</text>
+  <path d="M600,431 H625" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ah-red)"/>
 
-  <!-- 재배치 화살표 (②와 ③ 순서 바뀜) -->
-  <path d="M 320 150 Q 485 130 650 150" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="435" y="127" width="100" height="18" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="485" y="140" font-size="11" font-weight="500" fill="#d97706" text-anchor="middle">명령어 재배치 발생</text>
+  <!-- 힙 객체 상태 -->
+  <rect x="628" y="100" width="220" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="738" y="122" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">null 상태</text>
+  <text x="738" y="143" font-size="15" text-anchor="middle" fill="#4b5563">(메모리 미할당)</text>
 
-  <!-- 단계 ③: x=390 (T2에 대입) -->
-  <rect x="320" y="152" width="140" height="56" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
-  <text x="390" y="175" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">③ instance 대입</text>
-  <text x="390" y="195" font-size="11.5" fill="#dc2626" text-anchor="middle">(주소만 먼저 연결)</text>
+  <rect x="628" y="232" width="220" height="224" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="738" y="338" font-size="16" font-weight="bold" text-anchor="middle" fill="#b91c1c">주소 연결됨 / 커넥션 0개</text>
+  <text x="738" y="360" font-size="15" text-anchor="middle" fill="#b91c1c">(생성자 미실행 껍데기)</text>
 
-  <!-- 단계 ②: x=580 ~ 760 (T3부터 생성자 실행) -->
-  <rect x="580" y="152" width="170" height="56" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="665" y="175" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">② 생성자 실행</text>
-  <text x="665" y="195" font-size="11.5" fill="#059669" text-anchor="middle">(커넥션 풀 생성/열기)</text>
+  <rect x="628" y="546" width="220" height="52" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="738" y="568" font-size="16" font-weight="bold" text-anchor="middle" fill="#047857">커넥션 20개 정상 생성</text>
+  <text x="738" y="589" font-size="15" text-anchor="middle" fill="#047857">(객체 초기화 완료)</text>
 
-
-  <!-- 레인 2: 스레드 B -->
-  <rect x="30" y="240" width="110" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="85" y="275" font-size="14" font-weight="600" fill="#7c3aed" text-anchor="middle">스레드 B</text>
-  <text x="85" y="295" font-size="11.5" fill="#52606d" text-anchor="middle">(getInstance 호출)</text>
-
-  <line x1="150" y1="280" x2="840" y2="280" stroke="#7c3aed" stroke-width="1.5"/>
-
-  <!-- 스레드 B 동작 단계 (T2.5: x=485에서 1차 검사 수행) -->
-  <rect x="410" y="252" width="150" height="56" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
-  <text x="485" y="272" font-size="12" font-weight="600" fill="#dc2626" text-anchor="middle">1차 검사: instance!=null</text>
-  <text x="485" y="292" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">통과! (락 없이 반환)</text>
-
-  <path d="M 560 280 L 780 280" stroke="#dc2626" stroke-width="2" marker-end="url(#a-red)"/>
-  <rect x="590" y="292" width="170" height="22" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="675" y="307" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">미완성 객체를 그대로 받아 사용</text>
-
-
-  <!-- 레인 3: 힙 객체 상태 (ConnectionPool) -->
-  <rect x="30" y="340" width="110" height="80" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="85" y="375" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">힙 객체 상태</text>
-  <text x="85" y="395" font-size="11.5" fill="#52606d" text-anchor="middle">(ConnectionPool)</text>
-
-  <line x1="150" y1="380" x2="840" y2="380" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- T1 이전/시작 상태 -->
-  <rect x="160" y="355" width="150" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="235" y="377" font-size="12" font-weight="500" fill="#52606d" text-anchor="middle">null 상태</text>
-  <text x="235" y="393" font-size="11" fill="#52606d" text-anchor="middle">(메모리 미할당)</text>
-
-  <!-- T2 ~ T3 (위험 구간에서의 객체 상태) -->
-  <rect x="390" y="355" width="180" height="50" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="480" y="377" font-size="12" font-weight="600" fill="#dc2626" text-anchor="middle">주소 연결됨 / 커넥션 0개</text>
-  <text x="480" y="393" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">(생성자 미실행 껍데기)</text>
-
-  <!-- T3 이후 (정상 완성 상태) -->
-  <rect x="650" y="355" width="170" height="50" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="735" y="377" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">커넥션 20개 정상 생성</text>
-  <text x="735" y="393" font-size="11" fill="#059669" text-anchor="middle">(객체 초기화 완료)</text>
-
-
-  <!-- 하단 범례 및 구역 분리선 -->
-  <line x1="30" y1="445" x2="850" y2="445" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 범례 라벨들 -->
-  <rect x="30" y="460" width="14" height="14" rx="2" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="50" y="472" font-size="11" fill="#1f2933">위험 구간 / 문제 동작</text>
-
-  <rect x="180" y="460" width="14" height="14" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="200" y="472" font-size="11" fill="#1f2933">스레드 A (생성자 수행)</text>
-
-  <rect x="340" y="460" width="14" height="14" rx="2" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="360" y="472" font-size="11" fill="#1f2933">스레드 B (접근 수행)</text>
-
-  <rect x="490" y="460" width="14" height="14" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="510" y="472" font-size="11" fill="#1f2933">정상 초기화 상태</text>
-
-  <!-- 최종 캡션 -->
-  <text x="440" y="502" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">결론: volatile이 없으면 ①→③→② 재배치로 인해 스레드 B가 생성자가 실행되지 않은 미완성 객체에 접근하게 된다.</text>
+  <!-- 결론 -->
+  <rect x="24" y="634" width="832" height="66" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="661" font-size="16" fill="#1f2937"><tspan font-weight="bold">결론:</tspan> <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">volatile</tspan>이 없으면 ① → ③ → ② 재배치로 인해</text>
+  <text x="48" y="685" font-size="16" fill="#1f2937">스레드 B가 생성자가 실행되지 않은 미완성 객체에 접근하게 된다.</text>
 </svg>

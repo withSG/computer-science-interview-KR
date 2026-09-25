@@ -1,76 +1,140 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 750" width="880" height="750" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">HTTP 요청 한 건이 지나는 계층 구조 및 처리 흐름</title>
-  <desc id="d">서블릿 컨테이너 Tomcat, Filter Chain, DispatcherServlet, Controller 및 AOP 프록시 계층의 중첩 구조와 요청 응답 처리 경로를 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1010" width="880" height="1010" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">HTTP 요청 한 건이 지나는 계층</title>
+  <desc id="d">HTTP 요청은 서블릿 컨테이너(Tomcat), Filter Chain을 지나 DispatcherServlet에 들어가고, DispatcherServlet 안에서 HandlerMapping부터 Interceptor.afterCompletion까지 1~9단계를 차례로 거친 뒤 HTTP 응답으로 나갑니다. 5단계 Controller 실행 구간에서 AOP 프록시가 개입하며, 서비스가 AOP 대상이면 프록시를 거쳐 트랜잭션이 시작됩니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  <rect width="880" height="750" fill="#ffffff"/>
-  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">HTTP 요청 한 건이 지나는 계층 구조</text>
-  <rect x="30" y="50" width="820" height="610" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="50" y="74" font-size="14" font-weight="600" fill="#1f2933">0단계: 서블릿 컨테이너 (Tomcat)</text>
-  <text x="50" y="93" font-size="11.5" fill="#52606d">요청 스레드 할당, HttpServletRequest / HttpServletResponse 객체 생성</text>
-  <rect x="50" y="110" width="780" height="530" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="70" y="134" font-size="14" font-weight="600" fill="#7c3aed">Filter Chain</text>
-  <text x="160" y="134" font-size="11.5" fill="#52606d">(인코딩, CORS, Spring Security 처리)</text>
-  <rect x="70" y="150" width="740" height="470" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="90" y="174" font-size="14" font-weight="600" fill="#2563eb">DispatcherServlet</text>
-  <rect x="90" y="190" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="100" y="210" font-size="13" font-weight="500" fill="#1f2933">1단계: HandlerMapping</text>
-  <text x="100" y="229" font-size="11.5" fill="#52606d">요청 처리할 핸들러 검색</text>
-  <rect x="330" y="190" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="340" y="210" font-size="13" font-weight="500" fill="#1f2933">2단계: HandlerAdapter</text>
-  <text x="340" y="229" font-size="11.5" fill="#52606d">핸들러 실행 어댑터 선택</text>
-  <rect x="570" y="190" width="240" height="55" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="580" y="210" font-size="13" font-weight="500" fill="#d97706">3단계: Interceptor.preHandle</text>
-  <text x="580" y="229" font-size="11.5" fill="#52606d">전처리 (false 반환 시 중단)</text>
-  <rect x="90" y="260" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="100" y="280" font-size="13" font-weight="500" fill="#1f2933">4단계: ArgumentResolver</text>
-  <text x="100" y="299" font-size="11.5" fill="#52606d">HttpMessageConverter 역직렬화</text>
-  <rect x="90" y="330" width="720" height="190" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="110" y="354" font-size="14" font-weight="600" fill="#059669">5단계: Controller / Service (AOP 프록시 개입 영역)</text>
-  <rect x="110" y="370" width="680" height="135" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text x="130" y="394" font-size="13" font-weight="500" fill="#059669">AOP Proxy (트랜잭션 관리 및 비즈니스 로직)</text>
-  <rect x="130" y="410" width="200" height="75" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="230" y="435" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Controller</text>
-  <text x="230" y="455" font-size="11.5" fill="#52606d" text-anchor="middle">비즈니스 요청 전달</text>
-  <rect x="370" y="410" width="200" height="75" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="470" y="435" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Service</text>
-  <text x="470" y="455" font-size="11.5" fill="#52606d" text-anchor="middle">트랜잭션 시작 및 처리</text>
-  <rect x="610" y="410" width="160" height="75" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="690" y="435" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Repository / DB</text>
-  <text x="690" y="455" font-size="11.5" fill="#52606d" text-anchor="middle">데이터 액세스</text>
-  <path d="M330,447 L361,447" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M570,447 L601,447" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="90" y="535" width="220" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="100" y="555" font-size="13" font-weight="500" fill="#1f2933">6단계: ReturnValueHandler</text>
-  <text x="100" y="574" font-size="11.5" fill="#52606d">응답 반환값 유형별 처리</text>
-  <rect x="330" y="535" width="220" height="55" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="340" y="555" font-size="13" font-weight="500" fill="#d97706">7단계: Interceptor.postHandle</text>
-  <text x="340" y="574" font-size="11.5" fill="#52606d">컨트롤러 정상 반환 후 호출</text>
-  <rect x="570" y="535" width="240" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="580" y="555" font-size="13" font-weight="500" fill="#1f2933">8단계: 응답 생성</text>
-  <text x="580" y="574" font-size="11.5" fill="#52606d">뷰 렌더링 (JSON은 6단계에서 이미 기록)</text>
-  <rect x="330" y="600" width="480" height="35" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="340" y="622" font-size="13" font-weight="500" fill="#d97706">9단계: Interceptor.afterCompletion</text>
-  <text x="590" y="622" font-size="11.5" fill="#52606d">(예외 발생 여부와 상관없이 항상 실행)</text>
-  <path d="M120,10 L120,39" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="80" y="15" width="80" height="18" fill="#ffffff"/>
-  <text x="120" y="28" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">HTTP 요청</text>
-  <path d="M440,670 L440,699" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="400" y="675" width="80" height="18" fill="#ffffff"/>
-  <text x="440" y="688" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">HTTP 응답</text>
-  <rect x="580" y="118" width="250" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="585" y="135" font-size="11" font-weight="500" fill="#dc2626">Filter 예외 발생 시 @ControllerAdvice 도달 불가</text>
-  <text x="440" y="728" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 요청은 Tomcat → Filter → DispatcherServlet → Interceptor → Controller/AOP 순으로 처리되며, 각 계층별 책임이 분리되어 있다.</text>
+  <rect width="880" height="1010" fill="#ffffff"/>
+
+  <!-- HTTP request -->
+  <rect x="36" y="24" width="112" height="32" rx="16" fill="#111827"/>
+  <text x="92" y="45.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">HTTP 요청</text>
+
+  <!-- layer 0: servlet container -->
+  <rect x="24" y="76" width="832" height="846" rx="12" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="124" y="109" font-size="18" font-weight="bold" fill="#111827">서블릿 컨테이너 (Tomcat)</text>
+  <text x="124" y="134" font-size="15" fill="#374151">요청 스레드 할당, HttpServletRequest/Response 객체 생성</text>
+
+  <!-- layer: filter chain -->
+  <rect x="40" y="152" width="800" height="754" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="124" y="183" font-size="18" font-weight="bold" fill="#6d28d9">Filter Chain</text>
+  <text x="238" y="183" font-size="15" fill="#374151">(인코딩, CORS, Spring Security)</text>
+  <text x="124" y="208" font-size="15" fill="#b91c1c">Filter 예외 발생 시 @ControllerAdvice 도달 불가</text>
+
+  <!-- layer: DispatcherServlet -->
+  <rect x="56" y="226" width="768" height="664" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="124" y="257" font-size="18" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DispatcherServlet</text>
+
+  <!-- request spine -->
+  <path d="M92,56 V86" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,119 V278" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,310 V328" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,360 V378" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,410 V437" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,469 V540" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,572 V643" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,675 V702" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,734 V761" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,793 V829" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M92,861 V940" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+
+  <!-- 0: container -->
+  <circle cx="92" cy="103" r="14" fill="#4b5563"/>
+  <text x="92" y="108.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">0</text>
+
+  <!-- 1 -->
+  <rect x="118" y="274" width="690" height="40" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="92" cy="294" r="14" fill="#1d4ed8"/>
+  <text x="92" y="299.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="134" y="299.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">HandlerMapping</text>
+  <text x="410" y="299.5" font-size="15" fill="#111827">어떤 핸들러인가</text>
+
+  <!-- 2 -->
+  <rect x="118" y="324" width="690" height="40" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="92" cy="344" r="14" fill="#1d4ed8"/>
+  <text x="92" y="349.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="134" y="349.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">HandlerAdapter</text>
+  <text x="410" y="349.5" font-size="15" fill="#111827">어떻게 실행하는가</text>
+
+  <!-- 3 interceptor -->
+  <rect x="118" y="374" width="690" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="92" cy="394" r="14" fill="#b45309"/>
+  <text x="92" y="399.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="134" y="399.5" font-size="16" font-weight="bold" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Interceptor.preHandle</text>
+  <text x="410" y="399.5" font-size="15" fill="#111827">false 반환 시 여기서 중단</text>
+
+  <!-- 4 -->
+  <rect x="118" y="424" width="690" height="58" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="92" cy="453" r="14" fill="#1d4ed8"/>
+  <text x="92" y="458.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="134" y="458.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ArgumentResolver</text>
+  <text font-size="15">
+    <tspan x="410" y="447" fill="#111827">요청 → 메서드 파라미터</tspan>
+    <tspan x="410" y="469" fill="#4b5563">@RequestBody면 HttpMessageConverter가 역직렬화</tspan>
+  </text>
+
+  <!-- 5 controller -->
+  <rect x="118" y="492" width="690" height="128" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="92" cy="556" r="14" fill="#047857"/>
+  <text x="92" y="561.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="134" y="518" font-size="16" font-weight="bold" fill="#047857">Controller 실행</text>
+  <text x="274" y="518" font-size="15" fill="#065f46">(여기서 AOP 프록시 개입)</text>
+  <rect x="134" y="534" width="124" height="40" rx="5" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="196" y="559" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Controller</text>
+  <path d="M260,554 H292" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#ahg)"/>
+  <rect x="296" y="534" width="100" height="40" rx="5" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="346" y="559" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Service</text>
+  <path d="M398,554 H430" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#ahg)"/>
+  <rect x="434" y="534" width="126" height="40" rx="5" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="497" y="559" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Repository</text>
+  <path d="M562,554 H594" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#ahg)"/>
+  <rect x="598" y="534" width="64" height="40" rx="5" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="630" y="559" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DB</text>
+  <text x="339" y="601" font-size="15" fill="#065f46"><tspan font-weight="bold">↑</tspan> 서비스가 AOP 대상이면 프록시를 거쳐 <tspan font-weight="bold">트랜잭션 시작</tspan></text>
+
+  <!-- 6 -->
+  <rect x="118" y="630" width="690" height="58" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="92" cy="659" r="14" fill="#1d4ed8"/>
+  <text x="92" y="664.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="134" y="664.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ReturnValueHandler</text>
+  <text font-size="15">
+    <tspan x="410" y="653" fill="#111827">반환값 처리</tspan>
+    <tspan x="410" y="675" fill="#4b5563">@ResponseBody면 여기서 JSON 직렬화</tspan>
+  </text>
+
+  <!-- 7 interceptor -->
+  <rect x="118" y="698" width="690" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="92" cy="718" r="14" fill="#b45309"/>
+  <text x="92" y="723.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="134" y="723.5" font-size="16" font-weight="bold" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Interceptor.postHandle</text>
+  <text x="410" y="723.5" font-size="15" fill="#111827">정상 반환 시에만 호출, 예외 나면 건너뜀</text>
+
+  <!-- 8 -->
+  <rect x="118" y="748" width="690" height="58" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="92" cy="777" r="14" fill="#1d4ed8"/>
+  <text x="92" y="782.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">8</text>
+  <text x="134" y="782.5" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ViewResolver + View</text>
+  <text font-size="15">
+    <tspan x="410" y="771" fill="#111827">뷰 반환 시에만</tspan>
+    <tspan x="410" y="793" fill="#4b5563">JSON은 6단계에서 이미 기록</tspan>
+  </text>
+
+  <!-- 9 interceptor -->
+  <rect x="118" y="816" width="690" height="58" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="92" cy="845" r="14" fill="#b45309"/>
+  <text x="92" y="850.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">9</text>
+  <text x="134" y="850.5" font-size="16" font-weight="bold" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Interceptor.afterCompletion</text>
+  <text font-size="15">
+    <tspan x="410" y="839" fill="#111827">예외가 나도 반드시 호출</tspan>
+    <tspan x="410" y="861" fill="#4b5563">(preHandle이 true를 반환했다면)</tspan>
+  </text>
+
+  <!-- HTTP response -->
+  <rect x="36" y="944" width="112" height="32" rx="16" fill="#111827"/>
+  <text x="92" y="965.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">HTTP 응답</text>
 </svg>

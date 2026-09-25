@@ -1,158 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Git Flow 브랜치 전략의 분기 및 합류 흐름</title>
-  <desc id="d">main, hotfix, release, develop, feature 다섯 브랜치의 시간축에 따른 분기 및 합류 흐름과 v1.0, v1.1, v1.1.1 릴리스 태그 지점을 나타낸 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 576" width="880" height="576" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Git Flow 다섯 브랜치의 분기·합류 흐름</title>
+  <desc id="d">영구 브랜치 main·develop과 짧은 브랜치 feature/*·release/*·hotfix/*의 흐름. feature는 develop에서 나와 develop으로, release는 develop에서 나와 main(v1.1)과 develop으로, hotfix만 main에서 나와 main(v1.1.1)과 develop 양쪽으로 합류한다.</desc>
+  <rect width="880" height="576" fill="#ffffff"/>
   <defs>
-    <marker id="a-main" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-main" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-hotfix" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ah-dev" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-release" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-feat" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-dev" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-rel" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-feat" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-hot" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="30" y="36" font-size="17" font-weight="600" fill="#1f2933">Git Flow 다섯 브랜치의 분기·합류 흐름</text>
-  <text x="30" y="56" font-size="11.5" font-weight="400" fill="#52606d">각 브랜치의 수명주기와 역할에 따른 분기 및 통합 지점 시간축 다이어그램</text>
+  <!-- 레인 배경 -->
+  <rect x="24" y="32" width="832" height="90" rx="6" fill="#fef2f2"/>
+  <rect x="24" y="138" width="832" height="76" rx="6" fill="#fffbeb"/>
+  <rect x="24" y="228" width="832" height="76" rx="6" fill="#f5f3ff"/>
+  <rect x="24" y="318" width="832" height="76" rx="6" fill="#eff6ff"/>
+  <rect x="24" y="408" width="832" height="76" rx="6" fill="#ecfdf5"/>
 
-  <!-- Legend Header Section -->
-  <rect x="540" y="20" width="310" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <circle cx="555" cy="40" r="5" fill="#dc2626"/>
-  <text x="565" y="44" font-size="11" font-weight="500" fill="#1f2933">main</text>
-  <circle cx="612" cy="40" r="5" fill="#d97706"/>
-  <text x="622" y="44" font-size="11" font-weight="500" fill="#1f2933">hotfix</text>
-  <circle cx="675" cy="40" r="5" fill="#7c3aed"/>
-  <text x="685" y="44" font-size="11" font-weight="500" fill="#1f2933">release</text>
-  <circle cx="745" cy="40" r="5" fill="#2563eb"/>
-  <text x="755" y="44" font-size="11" font-weight="500" fill="#1f2933">develop</text>
-  <circle cx="815" cy="40" r="5" fill="#059669"/>
-  <text x="825" y="44" font-size="11" font-weight="500" fill="#1f2933">feat</text>
+  <!-- 레인 이름 + 수명 -->
+  <text x="40" y="84" font-size="17" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">main</text>
+  <text x="40" y="106" font-size="14" fill="#4b5563">수명 영구</text>
+  <text x="40" y="174" font-size="17" font-weight="bold" fill="#b45309" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hotfix/*</text>
+  <text x="40" y="196" font-size="14" fill="#4b5563">수명 짧음</text>
+  <text x="40" y="264" font-size="17" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">release/*</text>
+  <text x="40" y="286" font-size="14" fill="#4b5563">수명 중간</text>
+  <text x="40" y="354" font-size="17" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">develop</text>
+  <text x="40" y="376" font-size="14" fill="#4b5563">수명 영구</text>
+  <text x="40" y="444" font-size="17" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">feature/*</text>
+  <text x="40" y="466" font-size="14" fill="#4b5563">수명 짧음</text>
 
-  <!-- Lane Backgrounds -->
-  <rect x="30" y="80" width="820" height="60" fill="#fef2f2" rx="4"/>
-  <rect x="30" y="150" width="820" height="60" fill="#fffbeb" rx="4"/>
-  <rect x="30" y="220" width="820" height="60" fill="#f5f3ff" rx="4"/>
-  <rect x="30" y="290" width="820" height="60" fill="#eff6ff" rx="4"/>
-  <rect x="30" y="360" width="820" height="60" fill="#ecfdf5" rx="4"/>
+  <!-- 영구 브랜치 레일 -->
+  <line x1="150" y1="86" x2="852" y2="86" stroke="#b91c1c" stroke-width="3" marker-end="url(#ah-main)"/>
+  <line x1="150" y1="356" x2="852" y2="356" stroke="#1d4ed8" stroke-width="3" marker-end="url(#ah-dev)"/>
 
-  <!-- Lane Labels -->
-  <rect x="40" y="92" width="100" height="36" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="90" y="114" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">main</text>
+  <!-- develop 은 main v1.0 에서 시작 -->
+  <path d="M170 94 L170 345" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#ah-dev)"/>
 
-  <rect x="40" y="162" width="100" height="36" fill="#ffffff" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="90" y="184" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">hotfix/*</text>
+  <!-- feature: develop → develop -->
+  <path d="M195 363 C195 421 205 446 223 446" fill="none" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-feat)"/>
+  <path d="M325 446 C345 446 355 431 355 367" fill="none" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-feat)"/>
+  <rect x="225" y="418" width="100" height="56" rx="6" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="275" y="442" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">기능 개발</text>
+  <text x="275" y="463" font-size="14" fill="#047857" text-anchor="middle">→ develop</text>
 
-  <rect x="40" y="232" width="100" height="36" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="90" y="254" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">release/*</text>
+  <!-- release: develop → main + develop -->
+  <path d="M355 349 C355 296 365 266 383 266" fill="none" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-rel)"/>
+  <path d="M535 266 C555 266 565 246 565 97" fill="none" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-rel)"/>
+  <path d="M535 266 C555 266 565 286 565 345" fill="none" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-rel)"/>
+  <rect x="385" y="238" width="150" height="56" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="460" y="262" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">출시 준비(QA)</text>
+  <text x="460" y="283" font-size="14" fill="#6d28d9" text-anchor="middle">→ main + develop</text>
 
-  <rect x="40" y="302" width="100" height="36" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="90" y="324" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">develop</text>
+  <!-- hotfix: main → main + develop -->
+  <path d="M600 93 C600 146 610 176 628 176" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#ah-hot)"/>
+  <path d="M780 176 C800 176 810 161 810 97" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#ah-hot)"/>
+  <path d="M780 176 C800 176 810 191 810 345" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#ah-hot)"/>
+  <rect x="630" y="148" width="150" height="56" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+  <text x="705" y="172" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">긴급 수정</text>
+  <text x="705" y="193" font-size="14" fill="#b45309" text-anchor="middle">→ main + develop</text>
 
-  <rect x="40" y="372" width="100" height="36" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="90" y="394" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">feature/*</text>
+  <!-- 커밋 점 -->
+  <g stroke="#ffffff" stroke-width="2">
+    <circle cx="170" cy="86" r="7" fill="#b91c1c"/>
+    <circle cx="565" cy="86" r="7" fill="#b91c1c"/>
+    <circle cx="600" cy="86" r="7" fill="#b91c1c"/>
+    <circle cx="810" cy="86" r="7" fill="#b91c1c"/>
+    <circle cx="170" cy="356" r="7" fill="#1d4ed8"/>
+    <circle cx="195" cy="356" r="7" fill="#1d4ed8"/>
+    <circle cx="265" cy="356" r="7" fill="#1d4ed8"/>
+    <circle cx="355" cy="356" r="7" fill="#1d4ed8"/>
+    <circle cx="565" cy="356" r="7" fill="#1d4ed8"/>
+    <circle cx="810" cy="356" r="7" fill="#1d4ed8"/>
+  </g>
 
-  <!-- Time Alignment Vertical Guidelines -->
-  <line x1="200" y1="75" x2="200" y2="430" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <line x1="480" y1="75" x2="480" y2="430" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <line x1="770" y1="75" x2="770" y2="430" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 릴리스 태그 -->
+  <rect x="145" y="44" width="50" height="24" rx="5" fill="#b91c1c"/>
+  <text x="170" y="61" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">v1.0</text>
+  <rect x="540" y="44" width="50" height="24" rx="5" fill="#b91c1c"/>
+  <text x="565" y="61" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">v1.1</text>
+  <rect x="777" y="44" width="66" height="24" rx="5" fill="#b91c1c"/>
+  <text x="810" y="61" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">v1.1.1</text>
 
-  <!-- Horizontal Axis Baseline Tracks -->
-  <path d="M160,110 L830,110" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-main)"/>
-  <path d="M160,320 L830,320" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-dev)"/>
-
-  <!-- Timeline Branching Curves & Edges -->
-
-  <!-- Initial main/develop synchronization at v1.0 (X=200) -->
-  <path d="M200,320 L200,110" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
-
-  <!-- Feature Branch (X=240 to X=320) -->
-  <path d="M240,320 Q255,390 270,390 L290,390 Q305,390 320,320" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-feat)"/>
-
-  <!-- Release Branch (X=360 to X=480) -->
-  <path d="M360,320 Q375,250 390,250 L450,250" stroke="#7c3aed" stroke-width="2" fill="none"/>
-  <!-- Release to main (X=450 to X=480) -->
-  <path d="M450,250 Q465,250 480,110" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-release)"/>
-  <!-- Release to develop back-merge (X=450 to X=480) -->
-  <path d="M450,250 Q465,250 480,320" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-release)"/>
-
-  <!-- Hotfix Branch (X=560 to X=700) -->
-  <!-- Branch from main (X=560) to hotfix track (Y=180) -->
-  <path d="M560,110 Q575,180 590,180 L670,180" stroke="#d97706" stroke-width="2" fill="none"/>
-  <!-- Hotfix to main (X=670 to X=700) -->
-  <path d="M670,180 Q685,180 700,110" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-hotfix)"/>
-  <!-- Hotfix to develop back-merge (X=670 to X=770) -->
-  <path d="M670,180 Q720,180 770,320" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-hotfix)"/>
-
-  <!-- Branch Nodes (Commits) -->
-  <!-- Main commits -->
-  <circle cx="200" cy="110" r="5" fill="#dc2626"/>
-  <circle cx="480" cy="110" r="5" fill="#dc2626"/>
-  <circle cx="700" cy="110" r="5" fill="#dc2626"/>
-
-  <!-- Develop commits -->
-  <circle cx="200" cy="320" r="4" fill="#2563eb"/>
-  <circle cx="240" cy="320" r="4" fill="#2563eb"/>
-  <circle cx="280" cy="320" r="4" fill="#2563eb"/>
-  <circle cx="320" cy="320" r="4" fill="#2563eb"/>
-  <circle cx="360" cy="320" r="4" fill="#2563eb"/>
-  <circle cx="480" cy="320" r="4" fill="#2563eb"/>
-  <circle cx="770" cy="320" r="4" fill="#2563eb"/>
-
-  <!-- Feature commits -->
-  <circle cx="270" cy="390" r="4" fill="#059669"/>
-  <circle cx="290" cy="390" r="4" fill="#059669"/>
-
-  <!-- Release commits -->
-  <circle cx="390" cy="250" r="4" fill="#7c3aed"/>
-  <circle cx="420" cy="250" r="4" fill="#7c3aed"/>
-
-  <!-- Hotfix commits -->
-  <circle cx="590" cy="180" r="4" fill="#d97706"/>
-  <circle cx="640" cy="180" r="4" fill="#d97706"/>
-
-  <!-- Tag Badges on Main -->
-  <!-- v1.0 Tag at X=200 -->
-  <rect x="175" y="84" width="50" height="20" rx="3" fill="#dc2626"/>
-  <text x="200" y="98" font-size="11" font-weight="600" fill="#ffffff" text-anchor="middle">v1.0</text>
-
-  <!-- v1.1 Tag at X=480 -->
-  <rect x="455" y="84" width="50" height="20" rx="3" fill="#dc2626"/>
-  <text x="480" y="98" font-size="11" font-weight="600" fill="#ffffff" text-anchor="middle">v1.1</text>
-
-  <!-- v1.1.1 Tag at X=700 -->
-  <rect x="670" y="84" width="60" height="20" rx="3" fill="#dc2626"/>
-  <text x="700" y="98" font-size="11" font-weight="600" fill="#ffffff" text-anchor="middle">v1.1.1</text>
-
-  <!-- Annotations / Action Labels with White Background Masking -->
-  <!-- Feature flow label -->
-  <rect x="250" y="362" width="60" height="16" fill="#ffffff" rx="2"/>
-  <text x="280" y="374" font-size="11" font-weight="500" fill="#059669" text-anchor="middle">기능 개발</text>
-
-  <!-- Release flow label -->
-  <rect x="385" y="222" width="70" height="16" fill="#ffffff" rx="2"/>
-  <text x="420" y="234" font-size="11" font-weight="500" fill="#7c3aed" text-anchor="middle">출시 준비(QA)</text>
-
-  <!-- Hotfix flow label -->
-  <rect x="590" y="152" width="60" height="16" fill="#ffffff" rx="2"/>
-  <text x="620" y="164" font-size="11" font-weight="500" fill="#d97706" text-anchor="middle">긴급 수정</text>
-
-  <!-- Multi-merge annotations -->
-  <rect x="425" y="160" width="110" height="18" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
-  <text x="480" y="173" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">main + develop 합류</text>
-
-  <rect x="675" y="230" width="110" height="18" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
-  <text x="730" y="243" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">main + develop 반영</text>
-
-  <!-- Bottom Conclusion Caption -->
-  <text x="440" y="465" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: feature/release는 develop 중심, hotfix는 main에서 직접 분기되어 양쪽 브랜치로 최종 통합된다.</text>
+  <!-- 요점 -->
+  <rect x="24" y="504" width="832" height="48" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="440" y="534" font-size="16" fill="#111827" text-anchor="middle">feature·release는 develop에서 분기 · <tspan font-weight="bold" fill="#b45309">hotfix만 main에서 분기</tspan>해 main과 develop 양쪽으로 합류</text>
 </svg>

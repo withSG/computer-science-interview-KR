@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">GitLab Flow 환경 브랜치 방식</title>
+  <desc id="d">main에 머지된 변경이 staging으로, 검증된 것만 다시 production으로 한 방향으로 흘러내려가는 GitLab Flow의 환경 브랜치 구조. main은 개발 환경, staging은 검증 완료분, production은 배포 승인된 것만 담는다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
+  <defs>
+    <marker id="endMain" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="endStg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="endPrd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="flow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+
+  <!-- 캡션 -->
+  <text x="40" y="46" font-size="17" font-weight="bold" fill="#111827">[환경 브랜치 방식]</text>
+  <text x="840" y="46" text-anchor="end" font-size="15" fill="#374151">위에서 아래로만 흐른다</text>
+
+  <!-- 레인 이름 -->
+  <text x="40" y="115" font-size="17" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">main</text>
+  <text x="40" y="205" font-size="17" font-weight="bold" fill="#b45309" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">staging</text>
+  <text x="40" y="295" font-size="17" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">production</text>
+
+  <!-- 레인 선 -->
+  <line x1="160" y1="110" x2="596" y2="110" stroke="#1d4ed8" stroke-width="3" marker-end="url(#endMain)"/>
+  <line x1="220" y1="200" x2="596" y2="200" stroke="#b45309" stroke-width="3" marker-end="url(#endStg)"/>
+  <line x1="340" y1="290" x2="596" y2="290" stroke="#047857" stroke-width="3" marker-end="url(#endPrd)"/>
+
+  <!-- 흘려보내기 (main → staging → production) -->
+  <g stroke="#4b5563" stroke-width="2" stroke-dasharray="6 4" fill="none">
+    <line x1="204.1" y1="119.1" x2="235.5" y2="189.9" marker-end="url(#flow)"/>
+    <line x1="284.1" y1="119.1" x2="315.5" y2="189.9" marker-end="url(#flow)"/>
+    <line x1="464.1" y1="119.1" x2="495.5" y2="189.9" marker-end="url(#flow)"/>
+    <line x1="324.1" y1="209.1" x2="355.5" y2="279.9" marker-end="url(#flow)"/>
+    <line x1="504.1" y1="209.1" x2="535.5" y2="279.9" marker-end="url(#flow)"/>
+  </g>
+
+  <!-- 커밋 -->
+  <g stroke="#ffffff" stroke-width="2">
+    <circle cx="200" cy="110" r="9" fill="#1d4ed8"/>
+    <circle cx="280" cy="110" r="9" fill="#1d4ed8"/>
+    <circle cx="370" cy="110" r="9" fill="#1d4ed8"/>
+    <circle cx="460" cy="110" r="9" fill="#1d4ed8"/>
+
+    <circle cx="240" cy="200" r="9" fill="#b45309"/>
+    <circle cx="320" cy="200" r="9" fill="#b45309"/>
+    <circle cx="500" cy="200" r="9" fill="#b45309"/>
+
+    <circle cx="360" cy="290" r="9" fill="#047857"/>
+    <circle cx="540" cy="290" r="9" fill="#047857"/>
+  </g>
+
+  <!-- 레인 설명 -->
+  <text x="630" y="115" font-size="16" fill="#1d4ed8">머지되면 개발 환경 반영</text>
+  <text x="630" y="205" font-size="16" fill="#b45309">검증 완료분만 흘려보낸다</text>
+  <text x="630" y="295" font-size="16" fill="#047857">배포 승인된 것만</text>
+
+  <!-- 범례 -->
+  <line x1="160" y1="336" x2="196" y2="336" stroke="#4b5563" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#flow)"/>
+  <text x="208" y="341" font-size="15" fill="#374151">아래 환경 브랜치로 흘려보냄</text>
+
+  <!-- upstream first -->
+  <rect x="40" y="362" width="800" height="58" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="60" y="388" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#1d4ed8">upstream first</tspan> — 변경은 항상 main에 먼저 들어가고 아래 환경 브랜치로 흘러내려간다</text>
+  <text x="60" y="410" font-size="15" fill="#374151">production에 직접 커밋하면 그 수정이 main에 없어서 다음 배포 때 사라진다</text>
+</svg>

@@ -1,36 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">힙 메모리 구조</title>
-  <desc id="d">Heap, Young Generation (Eden, Survivor S0, S1), Old Generation의 계층 구조 트리 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">JVM 힙 메모리 구조</title>
+  <desc id="d">Heap은 Young Generation과 Old Generation으로 나뉘고, Young Generation은 다시 Eden과 Survivor(S0, S1)로 나뉩니다.</desc>
+  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- Root Node: Heap -->
-  <rect x="350" y="30" width="180" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="57" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">Heap</text>
+  <!-- Heap (outer) -->
+  <rect x="32" y="24" width="816" height="272" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="56" y="58" font-size="20" font-weight="bold" fill="#1f2937">Heap</text>
 
-  <!-- Level 1 Nodes: Young & Old Generation -->
-  <rect x="180" y="120" width="220" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="290" y="147" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Young Generation</text>
+  <!-- Young Generation -->
+  <rect x="56" y="78" width="376" height="194" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="76" y="108" font-size="18" font-weight="bold" fill="#065f46">Young Generation</text>
 
-  <rect x="520" y="120" width="200" height="44" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="620" y="147" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Old Generation</text>
+  <!-- Eden -->
+  <rect x="76" y="126" width="140" height="126" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="146" y="195" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Eden</text>
 
-  <!-- Level 2 Nodes under Young Generation -->
-  <rect x="100" y="240" width="160" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="180" y="267" fill="#1f2933" font-size="13" text-anchor="middle">Eden</text>
+  <!-- Survivor (S0, S1) -->
+  <rect x="232" y="126" width="180" height="126" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="322" y="154" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Survivor</text>
+  <rect x="248" y="170" width="68" height="64" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="282" y="208" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">S0</text>
+  <rect x="328" y="170" width="68" height="64" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="362" y="208" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">S1</text>
 
-  <rect x="290" y="240" width="210" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="395" y="267" fill="#1f2933" font-size="13" text-anchor="middle">Survivor (S0, S1)</text>
-
-  <!-- Connector Lines -->
-  <!-- Root to Level 1 -->
-  <path d="M440,74 L440,95 L290,95 L290,120" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <path d="M440,95 L620,95 L620,120" stroke="#52606d" stroke-width="1.5" fill="none"/>
-
-  <!-- Level 1 (Young Gen) to Level 2 -->
-  <path d="M290,164 L290,200 L180,200 L180,240" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <path d="M290,200 L395,200 L395,240" stroke="#52606d" stroke-width="1.5" fill="none"/>
-
-  <!-- Tree Structure Indicators (Dots at branching points) -->
-  <circle cx="440" cy="95" r="3" fill="#52606d"/>
-  <circle cx="290" cy="200" r="3" fill="#52606d"/>
+  <!-- Old Generation -->
+  <rect x="448" y="78" width="376" height="194" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="468" y="108" font-size="18" font-weight="bold" fill="#92400e">Old Generation</text>
 </svg>

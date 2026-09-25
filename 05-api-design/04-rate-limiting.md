@@ -42,7 +42,7 @@
 시간을 고정된 창으로 자르고, 창마다 카운터를 하나 둡니다.
 
 <!-- diagram:api-rate-limiting-8 -->
-![2. Fixed Window — 가장 단순하고 가장 많이 새는](../assets/diagrams/api-rate-limiting-8.svg)
+![1분 고정 창 3개와 창마다 0인 카운터](../assets/diagrams/api-rate-limiting-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -102,7 +102,7 @@
 경계 문제의 원인은 창이 **고정**되어 있다는 것이었습니다. 창을 항상 "지금부터 과거 1분"으로 잡으면 문제가 사라집니다.
 
 <!-- diagram:api-rate-limiting-9 -->
-![3. Sliding Window — 창을 현재 시점 기준으로 움직인다](../assets/diagrams/api-rate-limiting-9.svg)
+![고정 창 대비 현재를 따라 움직이는 Sliding Window](../assets/diagrams/api-rate-limiting-9.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

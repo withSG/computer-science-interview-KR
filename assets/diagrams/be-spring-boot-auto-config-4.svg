@@ -1,66 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">디버깅 — 무엇이 켜졌고 무엇이 꺼졌나</title>
-  <desc id="d">Spring Boot 조건 평가 리포트(CONDITIONS EVALUATION REPORT)의 구조를 보여주는 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">조건 평가 리포트 구조</title>
+  <desc id="d">--debug로 켜는 CONDITIONS EVALUATION REPORT는 Positive matches(조건을 만족해 적용된 것), Negative matches(조건을 만족하지 못해 빠진 것, 여기가 핵심), Exclusions(exclude로 명시적으로 뺀 것), Unconditional classes(조건 없이 항상 적용되는 것)로 나뉜다.</desc>
+  <rect width="880" height="620" fill="#ffffff"/>
 
-  <!-- Main Title Container -->
-  <rect x="24" y="24" width="832" height="50" rx="6" fill="#1f2933"/>
-  <text x="440" y="55" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">CONDITIONS EVALUATION REPORT</text>
+  <!-- 리포트 머리 -->
+  <rect x="24" y="24" width="832" height="56" rx="8" fill="#1f2937"/>
+  <text x="440" y="58" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CONDITIONS EVALUATION REPORT</text>
 
-  <!-- Legend -->
-  <rect x="520" y="86" width="12" height="12" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="538" y="97" fill="#52606d" font-size="11.5">적용됨</text>
-  <rect x="610" y="86" width="12" height="12" rx="2" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="628" y="97" fill="#52606d" font-size="11.5">미적용(핵심)</text>
-  <rect x="710" y="86" width="12" height="12" rx="2" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="728" y="97" fill="#52606d" font-size="11.5">제외/조건없음</text>
+  <!-- Positive matches -->
+  <rect x="24" y="100" width="832" height="132" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="48" y="134" font-size="17" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Positive matches:</text>
+  <rect x="340" y="112" width="270" height="32" rx="16" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="475" y="134" text-anchor="middle" font-size="15" font-weight="bold" fill="#047857">← 조건을 만족해서 적용된 것</text>
+  <line x1="48" y1="154" x2="832" y2="154" stroke="#a7f3d0" stroke-width="1.5"/>
+  <text x="64" y="184" font-size="15" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DataSourceAutoConfiguration matched:</text>
+  <text x="92" y="212" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">- @ConditionalOnClass found required classes 'javax.sql.DataSource' ...</text>
 
-  <!-- 1. Positive Matches Group -->
-  <g>
-    <rect x="24" y="110" width="832" height="130" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <!-- Header Area -->
-    <text x="44" y="139" fill="#059669" font-size="14" font-weight="bold">Positive matches:</text>
-    <rect x="230" y="125" width="220" height="20" rx="3" fill="#ffffff" stroke="#059669" stroke-width="1"/>
-    <text x="236" y="139" fill="#059669" font-size="11.5">← 조건을 만족해서 적용된 것</text>
-    
-    <line x1="44" y1="155" x2="836" y2="155" stroke="#a7f3d0" stroke-width="1"/>
-    
-    <!-- Content Detail -->
-    <text x="56" y="179" fill="#1f2933" font-size="13" font-weight="bold">DataSourceAutoConfiguration matched:</text>
-    <text x="80" y="209" fill="#52606d" font-size="13">- @ConditionalOnClass found required classes 'javax.sql.DataSource' ...</text>
-  </g>
+  <!-- Negative matches (핵심) -->
+  <rect x="24" y="252" width="832" height="190" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="48" y="286" font-size="17" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Negative matches:</text>
+  <rect x="340" y="264" width="270" height="32" rx="16" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="475" y="286" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">← 조건을 만족하지 못해 빠진 것</text>
+  <rect x="624" y="264" width="112" height="32" rx="16" fill="#b91c1c"/>
+  <text x="680" y="286" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">여기가 핵심</text>
+  <line x1="48" y1="306" x2="832" y2="306" stroke="#fecaca" stroke-width="1.5"/>
+  <text x="64" y="336" font-size="15" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">RedisAutoConfiguration:</text>
+  <text x="92" y="364" font-size="15" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Did not match:</text>
+  <text x="120" y="392" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">- @ConditionalOnClass did not find required class</text>
+  <text x="138" y="420" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'org.springframework.data.redis.core.RedisOperations'</text>
 
-  <!-- 2. Negative Matches Group -->
-  <g>
-    <rect x="24" y="255" width="832" height="155" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <!-- Header Area -->
-    <text x="44" y="284" fill="#dc2626" font-size="14" font-weight="bold">Negative matches:</text>
-    <rect x="230" y="270" width="285" height="20" rx="3" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
-    <text x="236" y="284" fill="#dc2626" font-size="11.5" font-weight="bold">← 조건을 만족하지 못해 빠진 것 (여기가 핵심)</text>
-    
-    <line x1="44" y1="300" x2="836" y2="300" stroke="#fecaca" stroke-width="1"/>
-    
-    <!-- Content Detail -->
-    <text x="56" y="324" fill="#1f2933" font-size="13" font-weight="bold">RedisAutoConfiguration:</text>
-    <text x="80" y="352" fill="#dc2626" font-size="13">Did not match:</text>
-    <text x="104" y="380" fill="#52606d" font-size="13">- @ConditionalOnClass did not find required class 'org.springframework.data.redis.core.RedisOperations'</text>
-  </g>
+  <!-- Exclusions -->
+  <rect x="24" y="462" width="832" height="56" rx="10" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="48" y="496" font-size="17" font-weight="bold" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Exclusions:</text>
+  <rect x="340" y="474" width="270" height="32" rx="16" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="475" y="496" text-anchor="middle" font-size="15" font-weight="bold" fill="#92400e">← <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">exclude</tspan> 로 명시적으로 뺀 것</text>
 
-  <!-- 3. Exclusions Group -->
-  <g>
-    <rect x="24" y="425" width="408" height="90" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="44" y="454" fill="#d97706" font-size="14" font-weight="bold">Exclusions:</text>
-    <rect x="220" y="440" width="180" height="20" rx="3" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
-    <text x="226" y="454" fill="#d97706" font-size="11.5">← exclude 로 명시적으로 뺀 것</text>
-    <line x1="44" y1="470" x2="412" y2="470" stroke="#fde68a" stroke-width="1"/>
-  </g>
-
-  <!-- 4. Unconditional Classes Group -->
-  <g>
-    <rect x="448" y="425" width="408" height="90" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="468" y="454" fill="#1f2933" font-size="14" font-weight="bold">Unconditional classes:</text>
-    <rect x="630" y="440" width="200" height="20" rx="3" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="636" y="454" fill="#52606d" font-size="11.5">← 조건 없이 항상 적용되는 것</text>
-    <line x1="468" y1="470" x2="836" y2="470" stroke="#cbd2d9" stroke-width="1"/>
-  </g>
+  <!-- Unconditional classes -->
+  <rect x="24" y="534" width="832" height="56" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="48" y="568" font-size="17" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Unconditional classes:</text>
+  <rect x="340" y="546" width="270" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="475" y="568" text-anchor="middle" font-size="15" font-weight="bold" fill="#374151">← 조건 없이 항상 적용되는 것</text>
 </svg>

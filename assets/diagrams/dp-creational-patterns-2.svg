@@ -1,62 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">가장 단순한 구현이 깨지는 지점</title>
-  <desc id="d">스레드 A와 스레드 B가 동시에 싱글톤 인스턴스를 생성하여 경쟁 상태가 발생하는 과정을 나타낸 시퀀스 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 632" width="880" height="632" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">싱글톤 경쟁 상태</title>
+  <desc id="d">스레드 A가 instance == null 검사를 통과한 직후 스케줄러가 스레드 B로 전환되고, B도 검사를 통과해 인스턴스 1을 만든 뒤 A가 인스턴스 2를 만든다. 결과로 커넥션 40개가 생기고, 나중 것이 static 필드를 덮어써 먼저 만들어진 풀의 커넥션 20개는 아무도 반납하지 않는 미아가 된다.</desc>
+  <rect width="880" height="632" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
-  <rect width="880" height="390" fill="#ffffff"/>
 
-  <!-- Title / Heading -->
-  <text x="24" y="38" font-size="16" font-weight="bold" fill="#1f2933">가장 단순한 구현이 깨지는 지점</text>
+  <!-- 머리: 시간축과 두 스레드 -->
+  <text x="40" y="50" font-size="15" font-weight="bold" text-anchor="middle" fill="#374151">시간</text>
+  <path d="M40,64 V382" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
 
-  <!-- Time Axis -->
-  <text x="24" y="74" font-size="13" font-weight="bold" fill="#52606d">시간</text>
-  <path d="M60,70 L850,70" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="80" y="24" width="380" height="40" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="270" y="50" font-size="17" font-weight="bold" text-anchor="middle" fill="#1e3a8a">스레드 A</text>
+  <rect x="476" y="24" width="380" height="40" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="666" y="50" font-size="17" font-weight="bold" text-anchor="middle" fill="#4c1d95">스레드 B</text>
 
-  <!-- Main Container -->
-  <rect x="24" y="88" width="832" height="212" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="6"/>
+  <path d="M270,64 V388" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+  <path d="M666,64 V388" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
 
-  <!-- Sequence Step 1: Thread A Check -->
-  <text x="40" y="121" font-size="13" font-weight="bold" fill="#2563eb">스레드 A:</text>
-  <rect x="110" y="102" width="180" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="200" y="121" font-size="13" fill="#1f2933" text-anchor="middle">if (instance == null)</text>
-  <path d="M296,117 L326,117" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="334" y="121" font-size="13" font-weight="bold" fill="#2563eb">true</text>
+  <!-- 스케줄러 전환 표시 -->
+  <path d="M270,132 V158 H666 V181" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#ah-amber)"/>
+  <path d="M666,296 V312 H270 V325" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#ah-amber)"/>
+  <rect x="364" y="144" width="208" height="28" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1"/>
+  <text x="468" y="163" font-size="15" text-anchor="middle" fill="#92400e">여기서 스케줄러가 B로 전환</text>
 
-  <!-- Context Switch Indicator -->
-  <path d="M380,127 L380,152" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="390" y="132" width="210" height="22" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="3"/>
-  <text x="495" y="147" font-size="11.5" fill="#d97706" text-anchor="middle">(여기서 스케줄러가 B로 전환)</text>
+  <!-- 1. A 검사 -->
+  <rect x="92" y="84" width="356" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="116" cy="108" r="12" fill="#1d4ed8"/>
+  <text x="116" y="113" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+  <text x="140" y="114" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">if (instance == null)</text>
+  <text x="338" y="114" font-size="16" font-weight="bold" fill="#1d4ed8">→ true</text>
 
-  <!-- Sequence Step 2: Thread B Check -->
-  <text x="40" y="181" font-size="13" font-weight="bold" fill="#7c3aed">스레드 B:</text>
-  <rect x="405" y="162" width="180" height="30" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="4"/>
-  <text x="495" y="181" font-size="13" fill="#1f2933" text-anchor="middle">if (instance == null)</text>
-  <path d="M591,177 L621,177" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="629" y="181" font-size="13" font-weight="bold" fill="#7c3aed">true</text>
+  <!-- 2. B 검사 -->
+  <rect x="488" y="184" width="356" height="48" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="512" cy="208" r="12" fill="#6d28d9"/>
+  <text x="512" y="213" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+  <text x="536" y="214" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">if (instance == null)</text>
+  <text x="734" y="214" font-size="16" font-weight="bold" fill="#6d28d9">→ true</text>
 
-  <!-- Sequence Step 3: Thread B Instantiation -->
-  <rect x="405" y="202" width="180" height="30" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="4"/>
-  <text x="495" y="221" font-size="13" fill="#1f2933" text-anchor="middle">new ConnectionPool()</text>
-  <text x="595" y="221" font-size="13" fill="#52606d">← 인스턴스 1</text>
+  <!-- 3. B 생성 -->
+  <rect x="488" y="248" width="356" height="48" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="512" cy="272" r="12" fill="#6d28d9"/>
+  <text x="512" y="277" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">3</text>
+  <text x="536" y="278" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">new ConnectionPool()</text>
+  <rect x="724" y="258" width="108" height="28" rx="14" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="778" y="277" font-size="15" font-weight="bold" text-anchor="middle" fill="#4c1d95">인스턴스 1</text>
 
-  <!-- Sequence Step 4: Thread A Instantiation -->
-  <text x="40" y="261" font-size="13" font-weight="bold" fill="#2563eb">스레드 A:</text>
-  <rect x="520" y="242" width="180" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="610" y="261" font-size="13" fill="#1f2933" text-anchor="middle">new ConnectionPool()</text>
-  <text x="710" y="261" font-size="13" font-weight="bold" fill="#dc2626">← 인스턴스 2</text>
+  <!-- 4. A 생성 -->
+  <rect x="92" y="328" width="356" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="116" cy="352" r="12" fill="#1d4ed8"/>
+  <text x="116" y="357" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">4</text>
+  <text x="140" y="358" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">new ConnectionPool()</text>
+  <rect x="328" y="338" width="108" height="28" rx="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="382" y="357" font-size="15" font-weight="bold" text-anchor="middle" fill="#1e3a8a">인스턴스 2</text>
 
-  <!-- Result Box -->
-  <rect x="24" y="312" width="832" height="58" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="6"/>
-  <text x="40" y="335" font-size="13" font-weight="bold" fill="#dc2626">결과:</text>
-  <text x="82" y="335" font-size="12" fill="#1f2933">커넥션 40개. 게다가 나중 것이 static 필드를 덮어써서</text>
-  <text x="82" y="355" font-size="12" fill="#1f2933">먼저 만들어진 풀의 커넥션 20개는 아무도 반납하지 않는 미아가 된다</text>
+  <!-- 결과 -->
+  <rect x="24" y="404" width="832" height="204" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="436" font-size="18" font-weight="bold" fill="#b91c1c">결과: 커넥션 40개</text>
+  <text x="212" y="436" font-size="15" fill="#374151">(인스턴스 1의 20개 + 인스턴스 2의 20개)</text>
+
+  <path d="M232,482 H417" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <text x="325" y="472" font-size="15" text-anchor="middle" fill="#1f2937">나중 것이 덮어씀</text>
+  <path d="M232,556 H417" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#ah)"/>
+  <text x="300" y="546" font-size="15" text-anchor="middle" fill="#4b5563">이전 참조 끊김</text>
+  <path d="M372,548 L388,564 M388,548 L372,564" stroke="#b91c1c" stroke-width="2.5" fill="none"/>
+
+  <rect x="48" y="458" width="184" height="132" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="140" y="518" font-size="15" text-anchor="middle" fill="#4b5563">static 필드</text>
+  <text x="140" y="544" font-size="17" font-weight="bold" text-anchor="middle" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">instance</text>
+
+  <rect x="420" y="458" width="412" height="48" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="488" font-size="16" fill="#111827">인스턴스 2 (나중 것) · 커넥션 20개</text>
+
+  <rect x="420" y="522" width="412" height="68" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="440" y="549" font-size="16" fill="#111827">인스턴스 1 (먼저 만들어진 풀) · 커넥션 20개</text>
+  <text x="440" y="576" font-size="16" font-weight="bold" fill="#b91c1c">→ 아무도 반납하지 않는 미아</text>
 </svg>

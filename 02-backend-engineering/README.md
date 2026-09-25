@@ -14,7 +14,7 @@
 ## 하위 폴더 구조
 
 <!-- diagram:be-README-1 -->
-![하위 폴더 구조](../assets/diagrams/be-README-1.svg)
+![02-backend-engineering 하위 폴더 4개와 다루는 내용](../assets/diagrams/be-README-1.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

@@ -1,64 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">DIP (Dependency Inversion Principle) — 의존 역전</title>
-  <desc id="d">의존 역전 전과 후의 클래스 의존성 및 인터페이스 구현 방향 비교 다이어그램</desc>
-  
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DIP 의존 역전 전과 후</title>
+  <desc id="d">의존 역전 전에는 OrderService가 MySqlOrderRepository에 컴파일 의존해 화살표가 아래로만 흐른다. 의존 역전 후에는 OrderService가 OrderRepository 인터페이스에 의존하고 MySqlOrderRepository가 그 인터페이스를 implements 하므로 구현체의 화살표가 위로 뒤집힌다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <!-- Dark Ink Arrowhead for Solid Lines -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <!-- Purple Arrowhead for Implements Interface -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Left Column Area (Before) -->
-  <rect x="30" y="20" width="390" height="300" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
-  <text x="225" y="55" text-anchor="middle" font-size="16" font-weight="bold" fill="#dc2626">[의존 역전 전]</text>
+  <!-- 층위 라벨 -->
+  <text x="66" y="117" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">상위 모듈</text>
+  <text x="66" y="333" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">하위 모듈</text>
 
-  <!-- Left: OrderService -->
-  <rect x="125" y="85" width="200" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="225" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">OrderService</text>
+  <!-- 왼쪽: 의존 역전 전 -->
+  <rect x="116" y="24" width="364" height="392" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="298" y="60" font-size="19" font-weight="bold" fill="#b91c1c" text-anchor="middle">의존 역전 전</text>
 
-  <!-- Left Arrow -->
-  <path d="M225,129 L225,199" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="175" y="154" width="100" height="20" fill="#ffffff"/>
-  <text x="225" y="168" text-anchor="middle" font-size="11.5" fill="#52606d">(컴파일 의존)</text>
+  <rect x="163" y="88" width="270" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="298" y="118" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">OrderService</text>
 
-  <!-- Left: MySqlOrderRepository -->
-  <rect x="110" y="200" width="230" height="44" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="225" y="227" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">MySqlOrderRepository</text>
+  <line x1="298" y1="138" x2="298" y2="300" stroke="#374151" stroke-width="2" marker-end="url(#arr-ink)"/>
+  <text x="312" y="225" font-size="15" fill="#374151">컴파일 의존</text>
 
-  <!-- Left Note -->
-  <text x="225" y="285" text-anchor="middle" font-size="12" fill="#52606d">화살표가 아래로만 흐름</text>
+  <rect x="163" y="304" width="270" height="48" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="298" y="334" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">MySqlOrderRepository</text>
 
-  <!-- Right Column Area (After) -->
-  <rect x="460" y="20" width="390" height="300" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
-  <text x="655" y="55" text-anchor="middle" font-size="16" font-weight="bold" fill="#059669">[의존 역전 후]</text>
+  <text x="298" y="392" font-size="16" fill="#374151" text-anchor="middle">화살표가 아래로만 흐름</text>
 
-  <!-- Right: OrderService -->
-  <rect x="555" y="80" width="200" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="655" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">OrderService</text>
+  <!-- 오른쪽: 의존 역전 후 -->
+  <rect x="492" y="24" width="364" height="392" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="674" y="60" font-size="19" font-weight="bold" fill="#047857" text-anchor="middle">의존 역전 후</text>
 
-  <!-- Right Down Arrow -->
-  <path d="M655,120 L655,149" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="539" y="88" width="270" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="674" y="118" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">OrderService</text>
 
-  <!-- Right: OrderRepository (interface) -->
-  <rect x="525" y="150" width="260" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="655" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">OrderRepository (interface)</text>
+  <line x1="674" y1="138" x2="674" y2="192" stroke="#374151" stroke-width="2" marker-end="url(#arr-ink)"/>
 
-  <!-- Right Up Arrow (implements) -->
-  <path d="M655,220 L655,191" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="615" y="196" width="80" height="18" fill="#ffffff"/>
-  <text x="655" y="210" text-anchor="middle" font-size="11.5" fill="#7c3aed">implements</text>
+  <rect x="514" y="196" width="320" height="48" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="674" y="226" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">OrderRepository <tspan font-weight="normal" fill="#6d28d9">(interface)</tspan></text>
 
-  <!-- Right: MySqlOrderRepository -->
-  <rect x="540" y="221" width="230" height="40" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="655" y="246" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">MySqlOrderRepository</text>
+  <line x1="674" y1="302" x2="674" y2="248" stroke="#6d28d9" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arr-purple)"/>
+  <text x="690" y="281" font-size="15" font-weight="bold" fill="#6d28d9">implements</text>
 
-  <!-- Right Note -->
-  <text x="655" y="285" text-anchor="middle" font-size="12" fill="#52606d">구현체의 화살표가 위로 뒤집힘 = 역전</text>
+  <rect x="539" y="304" width="270" height="48" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="674" y="334" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">MySqlOrderRepository</text>
+
+  <text x="674" y="392" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">구현체의 화살표가 위로 뒤집힘 = 역전</text>
 </svg>

@@ -1,132 +1,99 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 700" width="880" height="700" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">세 영역과 명령어</title>
-  <desc id="d">Git의 세 영역(작업 디렉토리, 스테이징 영역, 로컬 저장소)과 원격 저장소 간의 주요 명령어 흐름을 나타낸 다이어그램</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
+  <desc id="d">작업 디렉터리, 스테이징 영역(index), 로컬 저장소 세 영역과 원격 저장소를 열로 세우고, git add·commit은 오른쪽으로, git restore·restore --staged·reset --hard는 왼쪽으로 내용을 옮기는 화살표로 보인다. restore는 index를, restore --staged는 HEAD를 기준으로 되돌리고, reset --hard는 세 영역을 전부 특정 커밋 상태로 만든다. push와 fetch는 로컬 저장소와 원격 저장소 사이를 오간다.</desc>
+  <rect width="880" height="700" fill="#ffffff"/>
 
   <defs>
-    <!-- Arrow Markers -->
-    <!-- Blue: Add / Stage / Normal flow -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <!-- Purple: Commit flow -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ar-brown" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <!-- Orange: Undo / Restore -->
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <!-- Red: Reset hard -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <!-- Green: Remote push/fetch -->
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ar-green" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Title Heading from Context -->
-  <text x="40" y="38" font-size="16" font-weight="bold" fill="#1f2933">세 영역과 명령어</text>
+  <!-- 세 영역 묶음 -->
+  <rect x="24" y="24" width="688" height="534" rx="10" fill="#f8fafc"/>
+  <text x="40" y="48" font-size="15" font-weight="bold" fill="#4b5563">세 영역</text>
 
-  <!-- 3 Main Local Boxes -->
+  <!-- 영역 상자 -->
+  <rect x="34" y="62" width="184" height="110" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="126" y="94" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">작업 디렉터리</text>
+  <text x="126" y="122" font-size="15" fill="#1d4ed8" text-anchor="middle">Working Dir</text>
+  <text x="126" y="150" font-size="15" fill="#4b5563" text-anchor="middle">눈에 보이는 파일</text>
 
-  <!-- 1. 작업 디렉토리 (Working Dir) -->
-  <g>
-    <rect x="40" y="60" width="240" height="110" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="160" y="87" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">작업 디렉터리</text>
-    <text x="160" y="110" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Working Dir</text>
-    <text x="160" y="140" font-size="12" fill="#52606d" text-anchor="middle">눈에 보이는 파일</text>
+  <rect x="276" y="62" width="184" height="110" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="368" y="94" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">스테이징 영역</text>
+  <text x="368" y="122" font-size="15" fill="#b45309" text-anchor="middle">Index <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(.git/index)</tspan></text>
+
+  <rect x="518" y="62" width="184" height="110" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="610" y="94" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">로컬 저장소</text>
+  <text x="610" y="122" font-size="15" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.git/objects</text>
+  <text x="610" y="150" font-size="15" fill="#4b5563" text-anchor="middle">커밋으로 확정된 이력</text>
+
+  <rect x="728" y="62" width="124" height="110" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="790" y="94" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">원격 저장소</text>
+  <text x="790" y="122" font-size="15" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">origin</text>
+
+  <!-- 영역 세로선 -->
+  <g stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5" fill="none">
+    <line x1="126" y1="172" x2="126" y2="540"/>
+    <line x1="368" y1="172" x2="368" y2="540"/>
+    <line x1="610" y1="172" x2="610" y2="670"/>
+    <line x1="790" y1="172" x2="790" y2="670"/>
   </g>
 
-  <!-- 2. 스테이징 영역 (Index) -->
-  <g>
-    <rect x="320" y="60" width="240" height="110" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="440" y="87" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">스테이징 영역</text>
-    <text x="440" y="110" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">Index (.git/index)</text>
-    <text x="440" y="140" font-size="12" fill="#52606d" text-anchor="middle"></text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" font-weight="bold" text-anchor="middle">
+    <!-- 1. git add -->
+    <circle cx="126" cy="222" r="4.5" fill="#1d4ed8"/>
+    <line x1="126" y1="222" x2="368" y2="222" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ar-blue)"/>
+    <text x="247" y="210" fill="#1d4ed8">git add</text>
+
+    <!-- 2. git commit -->
+    <circle cx="368" cy="282" r="4.5" fill="#1d4ed8"/>
+    <line x1="368" y1="282" x2="610" y2="282" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ar-blue)"/>
+    <text x="489" y="270" fill="#1d4ed8">git commit</text>
+
+    <!-- 3. restore file -->
+    <circle cx="368" cy="352" r="4.5" fill="#b45309"/>
+    <line x1="368" y1="352" x2="126" y2="352" stroke="#b45309" stroke-width="2.5" marker-end="url(#ar-brown)"/>
+    <text x="247" y="340" fill="#b45309">git restore &lt;file&gt;</text>
+
+    <!-- 4. restore staged -->
+    <circle cx="610" cy="432" r="4.5" fill="#b45309"/>
+    <line x1="610" y1="432" x2="368" y2="432" stroke="#b45309" stroke-width="2.5" marker-end="url(#ar-brown)"/>
+    <text x="489" y="420" fill="#b45309">git restore --staged &lt;file&gt;</text>
+
+    <!-- 5. reset hard -->
+    <circle cx="610" cy="512" r="4.5" fill="#b91c1c"/>
+    <line x1="610" y1="512" x2="126" y2="512" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ar-red)"/>
+    <circle cx="368" cy="512" r="5.5" fill="#b91c1c"/>
+    <text x="489" y="500" fill="#b91c1c">git reset --hard &lt;c&gt;</text>
+
+    <!-- 6. git push / 7. git fetch -->
+    <circle cx="610" cy="592" r="4.5" fill="#047857"/>
+    <line x1="610" y1="592" x2="790" y2="592" stroke="#047857" stroke-width="2.5" marker-end="url(#ar-green)"/>
+    <text x="700" y="580" fill="#047857">git push</text>
+
+    <circle cx="790" cy="652" r="4.5" fill="#047857"/>
+    <line x1="790" y1="652" x2="610" y2="652" stroke="#047857" stroke-width="2.5" marker-end="url(#ar-green)"/>
+    <text x="700" y="640" fill="#047857">git fetch</text>
   </g>
 
-  <!-- 3. 로컬 저장소 (.git/objects) -->
-  <g>
-    <rect x="600" y="60" width="240" height="110" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="720" y="87" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">로컬 저장소</text>
-    <text x="720" y="110" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">.git/objects</text>
-    <text x="720" y="140" font-size="12" fill="#52606d" text-anchor="middle">커밋으로 확정된 이력</text>
+  <!-- 되돌리기 설명 -->
+  <g font-size="15" fill="#4b5563" text-anchor="middle">
+    <text x="247" y="378">index 내용으로 파일을 되돌린다</text>
+    <text x="489" y="458">HEAD 내용으로 index만 되돌린다</text>
+    <text x="489" y="538">세 영역을 전부 특정 커밋 상태로</text>
   </g>
 
-  <!-- Vertical Axis Guidelines from Boxes -->
-  <line x1="160" y1="170" x2="160" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="440" y1="170" x2="440" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="720" y1="170" x2="720" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-
-  <!-- Command 1: git add -->
-  <g>
-    <path d="M160,200 L431,200" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="230" y="188" width="80" height="22" fill="#ffffff" rx="3"/>
-    <text x="270" y="203" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">git add</text>
-  </g>
-
-  <!-- Command 2: git commit -->
-  <g>
-    <path d="M440,240 L711,240" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="520" y="228" width="100" height="22" fill="#ffffff" rx="3"/>
-    <text x="570" y="243" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">git commit</text>
-  </g>
-
-  <!-- Command 3: git restore <file> (index 내용으로 파일을 되돌린다) -->
-  <g>
-    <path d="M440,290 L169,290" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-    <rect x="200" y="278" width="180" height="22" fill="#ffffff" rx="3"/>
-    <text x="290" y="293" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">git restore &lt;file&gt;</text>
-    <text x="170" y="320" font-size="11.5" fill="#52606d">(index 내용으로 파일을 되돌린다)</text>
-  </g>
-
-  <!-- Command 4: git restore - -staged <file> (HEAD 내용으로 index만 되돌린다) -->
-  <g>
-    <path d="M720,360 L449,360" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-    <rect x="460" y="348" width="230" height="22" fill="#ffffff" rx="3"/>
-    <text x="575" y="363" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">git restore --staged &lt;file&gt;</text>
-    <text x="450" y="390" font-size="11.5" fill="#52606d">(HEAD 내용으로 index만 되돌린다)</text>
-  </g>
-
-  <!-- Command 5: git reset - -hard <c> (세 영역을 전부 특정 커밋 상태로) -->
-  <g>
-    <path d="M720,430 L169,430" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="360" y="418" width="180" height="22" fill="#ffffff" rx="3"/>
-    <text x="450" y="433" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">git reset --hard &lt;c&gt;</text>
-    <text x="180" y="460" font-size="11.5" fill="#52606d">(세 영역을 전부 특정 커밋 상태로)</text>
-  </g>
-
-  <!-- Remote Section Separator Line -->
-  <line x1="40" y1="490" x2="840" y2="490" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2"/>
-
-  <!-- Remote Section -->
-  <!-- 4. 원격 저장소 (origin) -->
-  <g>
-    <rect x="460" y="520" width="240" height="110" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="580" y="560" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">원격 저장소</text>
-    <text x="580" y="585" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">origin</text>
-  </g>
-
-  <!-- Command: git push -->
-  <g>
-    <path d="M160,545 L451,545" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <rect x="230" y="533" width="90" height="22" fill="#ffffff" rx="3"/>
-    <text x="275" y="548" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">git push</text>
-  </g>
-
-  <!-- Command: git fetch -->
-  <g>
-    <path d="M460,605 L169,605" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <rect x="230" y="593" width="90" height="22" fill="#ffffff" rx="3"/>
-    <text x="275" y="608" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">git fetch</text>
-  </g>
-
-  <!-- Subnote / Footer Text from Diagram -->
-  <text x="40" y="680" font-size="12" fill="#52606d">git pull = git fetch + git merge (또는 --rebase 시 rebase)</text>
-
+  <!-- pull 정의 -->
+  <rect x="34" y="598" width="506" height="48" rx="6" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="50" y="628" font-size="15" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#047857">git pull</tspan> = <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">git fetch</tspan> + <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">git merge</tspan> (또는 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">--rebase</tspan> 시 rebase)</text>
 </svg>

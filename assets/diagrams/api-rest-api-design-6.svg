@@ -1,62 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">7. HATEOAS와 리처드슨 성숙도 모델</title>
-  <desc id="d">리처드슨 성숙도 모델의 Level 0부터 Level 3까지의 단계와 각 레벨에 대한 설명 및 부가 설명을 나타낸 SVG 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">리처드슨 성숙도 모델</title>
+  <desc id="d">Level 0 단일 엔드포인트에서 Level 1 자원, Level 2 HTTP 메서드와 상태 코드, Level 3 하이퍼미디어(HATEOAS)로 올라간다. 실무에서 말하는 REST API는 대개 Level 2이고, 엄밀히는 Level 3까지 가야 REST지만 그런 프로젝트는 극소수다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="500" fill="#ffffff"/>
 
-  <!-- Level 3 (하이퍼미디어) -->
-  <g>
-    <rect x="70" y="30" width="300" height="80" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="86" y="65" font-size="14" font-weight="bold" fill="#7c3aed">Level 3</text>
-    <text x="146" y="65" font-size="14" fill="#1f2933">하이퍼미디어(HATEOAS)</text>
-    
-    <text x="400" y="65" font-size="13" fill="#1f2933">응답에 다음 행동 링크 포함</text>
-    <text x="400" y="90" font-size="11.5" fill="#52606d">└ 극소수. Spring HATEOAS 등을 써야 함</text>
-  </g>
+  <!-- Level 3 -->
+  <rect x="24" y="24" width="832" height="112" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <line x1="280" y1="40" x2="280" y2="120" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="44" y="72" font-size="20" font-weight="bold" fill="#6d28d9">Level 3</text>
+  <text x="44" y="98" font-size="16" font-weight="bold" fill="#111827">하이퍼미디어(HATEOAS)</text>
+  <text x="300" y="58" font-size="16" fill="#111827">응답에 다음 행동 링크 포함</text>
+  <text x="300" y="84" font-size="15" fill="#4b5563">└ 극소수. Spring HATEOAS 등을 써야 함</text>
+  <text x="300" y="112" font-size="15" font-weight="bold" fill="#6d28d9">엄밀히는 여기까지 가야 REST</text>
 
-  <!-- Arrow Level 2 -> Level 3 -->
-  <path d="M220,140 L220,118" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="206" y="129" font-size="13" fill="#1f2933">▲</text>
+  <path d="M134,162 V141" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Level 2 (HTTP 메서드 + 상태 코드) - 실무 표준 강조 -->
-  <g>
-    <rect x="70" y="140" width="300" height="80" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="86" y="175" font-size="14" font-weight="bold" fill="#2563eb">Level 2</text>
-    <text x="146" y="175" font-size="14" fill="#1f2933">HTTP 메서드 + 상태 코드</text>
-    
-    <text x="400" y="175" font-size="13" fill="#1f2933">GET/POST/PUT/DELETE, 200/201/404</text>
-    <text x="400" y="200" font-size="11.5" fill="#2563eb" font-weight="bold">└ 실무에서 말하는 "REST API"는 대개 여기</text>
-  </g>
+  <!-- Level 2 -->
+  <rect x="24" y="164" width="832" height="88" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="3"/>
+  <line x1="280" y1="180" x2="280" y2="236" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="44" y="200" font-size="20" font-weight="bold" fill="#1d4ed8">Level 2</text>
+  <text x="44" y="226" font-size="16" font-weight="bold" fill="#111827">HTTP 메서드 + 상태 코드</text>
+  <text x="300" y="200" font-size="16" fill="#111827">GET/POST/PUT/DELETE, 200/201/404</text>
+  <text x="300" y="226" font-size="15" font-weight="bold" fill="#1d4ed8">└ 실무에서 말하는 "REST API"는 대개 여기</text>
 
-  <!-- Arrow Level 1 -> Level 2 -->
-  <path d="M220,250 L220,228" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="206" y="239" font-size="13" fill="#1f2933">▲</text>
+  <path d="M134,278 V257" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Level 1 (자원) -->
-  <g>
-    <rect x="70" y="250" width="300" height="80" rx="8" ry="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="86" y="285" font-size="14" font-weight="bold" fill="#52606d">Level 1</text>
-    <text x="146" y="285" font-size="14" fill="#1f2933">자원(Resource)</text>
-    
-    <text x="400" y="285" font-size="13" fill="#1f2933">/users/1 처럼 URI가 자원을 가리킴</text>
-    <text x="400" y="310" font-size="11.5" fill="#52606d">└ 근데 전부 POST로 호출</text>
-  </g>
+  <!-- Level 1 -->
+  <rect x="24" y="280" width="832" height="88" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="280" y1="296" x2="280" y2="352" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="316" font-size="20" font-weight="bold" fill="#374151">Level 1</text>
+  <text x="44" y="342" font-size="16" font-weight="bold" fill="#111827">자원(Resource)</text>
+  <text x="300" y="316" font-size="16" fill="#111827">/users/1 처럼 URI가 자원을 가리킴</text>
+  <text x="300" y="342" font-size="15" fill="#4b5563">└ 근데 전부 POST로 호출</text>
 
-  <!-- Arrow Level 0 -> Level 1 -->
-  <path d="M220,360 L220,338" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="206" y="349" font-size="13" fill="#1f2933">▲</text>
+  <path d="M134,394 V373" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Level 0 (단일 엔드포인트) -->
-  <g>
-    <rect x="70" y="360" width="300" height="80" rx="8" ry="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="86" y="395" font-size="14" font-weight="bold" fill="#52606d">Level 0</text>
-    <text x="146" y="395" font-size="14" fill="#1f2933">단일 엔드포인트</text>
-    
-    <text x="400" y="395" font-size="13" fill="#1f2933">POST /api 하나에 body로 명령을 담아 보냄</text>
-    <text x="400" y="420" font-size="11.5" fill="#52606d">└ SOAP·구식 RPC. "POX의 늪"</text>
-  </g>
+  <!-- Level 0 -->
+  <rect x="24" y="396" width="832" height="88" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="280" y1="412" x2="280" y2="468" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="432" font-size="20" font-weight="bold" fill="#374151">Level 0</text>
+  <text x="44" y="458" font-size="16" font-weight="bold" fill="#111827">단일 엔드포인트</text>
+  <text x="300" y="432" font-size="16" fill="#111827">POST /api 하나에 body로 명령을 담아 보냄</text>
+  <text x="300" y="458" font-size="15" fill="#4b5563">└ SOAP·구식 RPC. "POX의 늪"</text>
 </svg>

@@ -211,7 +211,7 @@ commit → tree → (tree | blob) 의 단방향 그래프입니다. 커밋끼리
 ## 4. .git 디렉터리
 
 <!-- diagram:git-git-internals-5 -->
-![4. .git 디렉터리](../assets/diagrams/git-git-internals-5.svg)
+![.git 디렉터리 트리와 항목별 내용](../assets/diagrams/git-git-internals-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

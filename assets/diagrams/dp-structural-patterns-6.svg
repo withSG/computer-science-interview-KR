@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 210" width="880" height="210" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">@Transactional 프록시 호출 흐름</title>
+  <desc id="d">호출부가 부른 메서드는 컨테이너가 대신 주입한 프록시를 먼저 거쳐, 트랜잭션 시작, 실제 서비스 메서드 실행, 커밋 또는 롤백 순서로 진행된다.</desc>
+  <rect width="880" height="210" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+
+  <!-- 단계 번호 -->
+  <g font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <circle cx="68" cy="42" r="12" fill="#4b5563"/>
+    <text x="68" y="47">1</text>
+    <circle cx="221" cy="42" r="12" fill="#1d4ed8"/>
+    <text x="221" y="47">2</text>
+    <circle cx="394" cy="42" r="12" fill="#b45309"/>
+    <text x="394" y="47">3</text>
+    <circle cx="607" cy="42" r="12" fill="#4b5563"/>
+    <text x="607" y="47">4</text>
+    <circle cx="806" cy="42" r="12" fill="#b45309"/>
+    <text x="806" y="47">5</text>
+  </g>
+
+  <!-- 1 호출부 -->
+  <rect x="24" y="66" width="88" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="68" y="98" font-size="16" fill="#111827" text-anchor="middle">호출부</text>
+
+  <!-- 2 프록시 -->
+  <rect x="173" y="66" width="96" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="221" y="98" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">프록시</text>
+
+  <!-- 3 트랜잭션 시작 -->
+  <rect x="330" y="66" width="128" height="52" rx="26" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="394" y="98" font-size="16" fill="#78350f" text-anchor="middle">트랜잭션 시작</text>
+
+  <!-- 4 실제 서비스.메서드() -->
+  <rect x="515" y="66" width="184" height="52" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="607" y="98" font-size="16" fill="#111827" text-anchor="middle">실제 서비스.메서드()</text>
+
+  <!-- 5 커밋/롤백 -->
+  <rect x="756" y="66" width="100" height="52" rx="26" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="806" y="98" font-size="16" fill="#78350f" text-anchor="middle">커밋/롤백</text>
+
+  <!-- 흐름 화살표 -->
+  <g stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ar)">
+    <line x1="116" y1="92" x2="167" y2="92"/>
+    <line x1="273" y1="92" x2="324" y2="92"/>
+    <line x1="462" y1="92" x2="509" y2="92"/>
+    <line x1="703" y1="92" x2="750" y2="92"/>
+  </g>
+
+  <!-- 프록시 주석 -->
+  <line x1="221" y1="152" x2="221" y2="124" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ar-blue)"/>
+  <text x="221" y="176" font-size="16" fill="#1d4ed8" text-anchor="middle">컨테이너가 만들어 대신 주입한 객체</text>
+</svg>

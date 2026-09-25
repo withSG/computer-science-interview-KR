@@ -1,68 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">1단계 — 알고리즘을 인터페이스 뒤로 옮긴다</title>
-  <desc id="d">전략 패턴 적용 전후의 클래스 구조와 관계를 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="430" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">전략 패턴 적용 전후 구조</title>
+  <desc id="d">적용 전에는 ShippingCalculator 한 메서드 안에서 배송 방식별 if 분기가 계속 자라고, 적용 후에는 ShippingCalculator가 ShippingPolicy 인터페이스의 calculate()만 부르며 배송 방식마다 구현 클래스가 하나씩 생겨 새 방식은 클래스 1개 추가로 끝난다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Title section based on document heading -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">1단계 — 알고리즘을 인터페이스 뒤로 옮긴다</text>
+  <!-- 가운데 구분선 -->
+  <line x1="440" y1="36" x2="440" y2="396" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- Left Side Group: [적용 전] -->
-  <g>
-    <text x="30" y="78" font-size="14" font-weight="bold" fill="#dc2626">[적용 전]</text>
+  <!-- ===== 적용 전 ===== -->
+  <text x="24" y="52" font-size="18" font-weight="bold" fill="#b91c1c">적용 전</text>
 
-    <!-- ShippingCalculator Box (Before) -->
-    <rect x="30" y="95" width="370" height="155" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="50" y="125" font-size="14" font-weight="bold" fill="#1f2933">ShippingCalculator</text>
-    
-    <!-- Code logic tree inside -->
-    <path d="M 60,140 L 60,215 M 60,150 L 72,150 M 60,180 L 72,180 M 60,210 L 72,210" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-    <text x="80" y="154" font-size="13" font-family="monospace" fill="#dc2626">if EXPRESS ...</text>
-    <text x="80" y="184" font-size="13" font-family="monospace" fill="#dc2626">if SAME_DAY ...</text>
-    <text x="80" y="214" font-size="13" font-family="monospace" fill="#dc2626">if PICKUP ...</text>
+  <rect x="24" y="72" width="392" height="282" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="44" y="104" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ShippingCalculator</text>
 
-    <!-- Annotation Box (Before) -->
-    <rect x="30" y="270" width="370" height="120" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="50" y="315" font-size="13" fill="#52606d">분기가 한 메서드 안에서</text>
-    <text x="50" y="345" font-size="13" fill="#52606d">계속 자란다</text>
-  </g>
+  <rect x="44" y="122" width="352" height="40" rx="5" fill="#ffffff" stroke="#f87171" stroke-width="1.2"/>
+  <text x="62" y="147" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">if EXPRESS ...</text>
 
-  <!-- Divider line -->
-  <line x1="430" y1="70" x2="430" y2="400" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="44" y="176" width="352" height="40" rx="5" fill="#ffffff" stroke="#f87171" stroke-width="1.2"/>
+  <text x="62" y="201" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">if SAME_DAY ...</text>
 
-  <!-- Right Side Group: [적용 후] -->
-  <g>
-    <text x="460" y="78" font-size="14" font-weight="bold" fill="#059669">[적용 후]</text>
+  <rect x="44" y="230" width="352" height="40" rx="5" fill="#ffffff" stroke="#f87171" stroke-width="1.2"/>
+  <text x="62" y="255" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">if PICKUP ...</text>
 
-    <!-- ShippingCalculator Box (After) -->
-    <rect x="460" y="95" width="390" height="75" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="480" y="125" font-size="14" font-weight="bold" fill="#1f2933">ShippingCalculator</text>
-    <path d="M 490,135 L 490,152 M 490,148 L 502,148" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-    <text x="510" y="152" font-size="13" font-family="monospace" fill="#2563eb">policy.calculate()</text>
+  <rect x="44" y="284" width="352" height="46" rx="5" fill="none" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="62" y="312" font-size="15" font-weight="bold" fill="#b91c1c">+ 새 방식이 생길 때마다 분기 추가</text>
 
-    <!-- Arrow connecting ShippingCalculator to ShippingPolicy -->
-    <path d="M 655,170 L 655,193" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <text x="220" y="390" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">분기가 한 메서드 안에서 계속 자란다</text>
 
-    <!-- ShippingPolicy Interface Box -->
-    <rect x="460" y="200" width="390" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="480" y="230" font-size="14" font-weight="bold" fill="#1f2933">ShippingPolicy <tspan font-size="12" font-weight="normal" fill="#059669">(인터페이스)</tspan></text>
+  <!-- ===== 적용 후 ===== -->
+  <text x="464" y="52" font-size="18" font-weight="bold" fill="#047857">적용 후</text>
 
-    <!-- Implementations Tree -->
-    <path d="M 480,250 L 480,340 M 480,270 L 502,270 M 480,305 L 502,305 M 480,340 L 502,340" stroke="#059669" stroke-width="1.5" fill="none"/>
-    <text x="512" y="274" font-size="13" fill="#1f2933">StandardShipping</text>
-    <text x="512" y="309" font-size="13" fill="#1f2933">ExpressShipping</text>
-    <text x="512" y="344" font-size="13" fill="#1f2933">SameDayShipping</text>
+  <!-- ShippingCalculator -->
+  <rect x="540" y="72" width="240" height="66" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="660" y="99" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ShippingCalculator</text>
+  <text x="660" y="125" font-size="15" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">policy.calculate()</text>
 
-    <!-- Annotation Note (After) -->
-    <rect x="460" y="365" width="390" height="35" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="475" y="387" font-size="12.5" font-weight="bold" fill="#059669">새 방식 = 클래스 1개. 기존 파일은 안 연다</text>
-  </g>
+  <line x1="660" y1="138" x2="660" y2="174" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- ShippingPolicy 인터페이스 -->
+  <rect x="496" y="178" width="328" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="660" y="206" font-size="16" text-anchor="middle" fill="#111827"><tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ShippingPolicy</tspan><tspan fill="#047857" font-size="15"> (인터페이스)</tspan></text>
+
+  <!-- 구현 관계: 빈 삼각형 + 점선 줄기 -->
+  <path d="M660,222 L667,234 L653,234 Z" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <path d="M660,234 L660,331 M660,275 L644,275 M660,331 L644,331 M660,275 L676,275 M660,331 L676,331" fill="none" stroke="#047857" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="672" y="250" font-size="14" fill="#047857">구현</text>
+
+  <rect x="466" y="254" width="178" height="42" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="555" y="280" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">StandardShipping</text>
+
+  <rect x="676" y="254" width="178" height="42" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="765" y="280" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ExpressShipping</text>
+
+  <rect x="466" y="310" width="178" height="42" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="555" y="336" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SameDayShipping</text>
+
+  <rect x="676" y="310" width="178" height="42" rx="6" fill="none" stroke="#047857" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="765" y="336" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">+ 새 방식 클래스</text>
+
+  <text x="660" y="390" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">새 방식 = 클래스 1개. 기존 파일은 안 연다</text>
 </svg>

@@ -1,45 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">OAuth 2.0 vs OIDC 계층 구조</title>
-  <desc id="d">OAuth 2.0 인가 레이어 위에 OpenID Connect 인증 레이어가 확장 형성된 계층 구조 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 240" width="880" height="240" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">OAuth 2.0 위의 OIDC</title>
+  <desc id="d">OAuth 2.0(Grant Type, Access Token, Scope) 층이 인가, 즉 무엇을 할 수 있는가를 맡고, 그 위에 얹힌 OpenID Connect(ID Token, UserInfo, nonce) 층이 인증, 즉 누구인가를 맡는다.</desc>
+  <rect width="880" height="240" fill="#ffffff"/>
   <defs>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 위층: OpenID Connect -->
+  <rect x="24" y="28" width="576" height="88" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="44" y="78" font-size="18" font-weight="bold" fill="#6d28d9">OpenID Connect</text>
+  <rect x="212" y="52" width="104" height="40" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="264" y="77.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">ID Token</text>
+  <rect x="328" y="52" width="104" height="40" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="380" y="77.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">UserInfo</text>
+  <rect x="444" y="52" width="84" height="40" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="486" y="77.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">nonce</text>
 
-  <!-- 헤더 / 타이틀 -->
-  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">6. OAuth(인가) vs OIDC(인증)</text>
+  <!-- 아래층: OAuth 2.0 -->
+  <rect x="24" y="128" width="576" height="88" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="44" y="178" font-size="18" font-weight="bold" fill="#1d4ed8">OAuth 2.0</text>
+  <rect x="212" y="152" width="116" height="40" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="270" y="177.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Grant Type</text>
+  <rect x="340" y="152" width="132" height="40" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="406" y="177.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Access Token</text>
+  <rect x="484" y="152" width="80" height="40" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="524" y="177.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Scope</text>
 
-  <!-- 메인 콘테이너/그룹 (두 레이어를 감싸는 전체 구조) -->
-  <rect x="40" y="70" width="500" height="230" rx="8" ry="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 오른쪽: 각 층의 역할 -->
+  <line x1="652" y1="72" x2="608" y2="72" stroke="#6d28d9" stroke-width="2" marker-end="url(#ahp)"/>
+  <text x="664" y="68" font-size="22" font-weight="bold" fill="#6d28d9">인증</text>
+  <text x="664" y="94" font-size="16" fill="#111827">(누구인가)</text>
 
-  <!-- 상단 레이어: OpenID Connect -->
-  <rect x="40" y="70" width="500" height="115" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <!-- 겹치는 부분의 곡률 가림 및 구분을 위한 사각형 -->
-  <rect x="40" y="175" width="500" height="10" fill="#f5f3ff"/>
-  <line x1="40" y1="185" x2="540" y2="185" stroke="#7c3aed" stroke-width="2"/>
-  <text x="290" y="133" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">OpenID Connect: ID Token/UserInfo/nonce</text>
-
-  <!-- 하단 레이어: OAuth 2.0 -->
-  <rect x="40" y="185" width="500" height="115" rx="0" ry="0" fill="#eff6ff"/>
-  <!-- 하단 모서리 라운딩 처리 -->
-  <path d="M 40,185 L 540,185 L 540,292 A 8,8 0 0,1 532,300 L 48,300 A 8,8 0 0,1 40,292 Z" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="290" y="248" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">OAuth 2.0: Grant Type/Access Token/Scope</text>
-
-  <!-- 상단 설명: 화살표 & 텍스트 (인증) -->
-  <path d="M 540,127.5 L 590,127.5" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="600" y="107.5" width="240" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="612" y="132" font-size="13" font-weight="bold" fill="#7c3aed">← 인증 (누구인가)</text>
-
-  <!-- 하단 설명: 화살표 & 텍스트 (인가) -->
-  <path d="M 540,242.5 L 590,242.5" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="600" y="222.5" width="240" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="612" y="247" font-size="13" font-weight="bold" fill="#2563eb">← 인가 (무엇을 할 수 있는가)</text>
-
+  <line x1="652" y1="172" x2="608" y2="172" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahb)"/>
+  <text x="664" y="168" font-size="22" font-weight="bold" fill="#1d4ed8">인가</text>
+  <text x="664" y="194" font-size="16" fill="#111827">(무엇을 할 수 있는가)</text>
 </svg>

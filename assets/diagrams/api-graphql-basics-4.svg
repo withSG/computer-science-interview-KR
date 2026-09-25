@@ -1,90 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">N+1이 생기는 순간</title>
-  <desc id="d">GraphQL Query.posts 리졸버에서 1번, Post.author 리졸버에서 10번의 SQL 쿼리가 실행되는 N+1 문제 과정 트리 다이어그램</desc>
-  <rect width="880" height="380" fill="#ffffff"/>
-
+  <desc id="d">Query.posts 리졸버가 게시글 10개를 가져오는 쿼리 1번을 보내고, Post.author 리졸버가 게시글마다 독립적으로 호출되어 users 조회를 10번 보내므로 쿼리가 모두 11번 나가며, 같은 3번 유저도 다시 조회된다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="30" y="35" font-size="16" font-weight="bold" fill="#1f2933">N+1이 생기는 순간</text>
+  <!-- 1단계: Query.posts 리졸버 -->
+  <rect x="24" y="24" width="264" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="156" y="58" font-size="17" font-weight="700" fill="#1d4ed8" text-anchor="middle">Query.posts 리졸버</text>
+  <line x1="288" y1="52" x2="333" y2="52" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#ah-blue)"/>
+  <rect x="336" y="32" width="300" height="40" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="486" y="57" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT * FROM posts LIMIT 10</text>
+  <rect x="656" y="34" width="96" height="36" rx="18" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="704" y="57" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">쿼리 1번</text>
 
-  <!-- Query.posts Section (Root Node & Query 1) -->
-  <g>
-    <!-- Query.posts Box -->
-    <rect x="30" y="60" width="220" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="140" y="87" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Query.posts 리졸버</text>
+  <!-- 부모에서 자식 리졸버로: 게시글 10개 -->
+  <line x1="156" y1="80" x2="156" y2="181" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+  <text x="170" y="136" font-size="15" fill="#374151">게시글 10개</text>
 
-    <!-- Arrow to SELECT posts -->
-    <path d="M250,82 L520,82" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 2단계: Post.author 리졸버 -->
+  <rect x="24" y="184" width="264" height="76" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="156" y="215" font-size="17" font-weight="700" fill="#6d28d9" text-anchor="middle">Post.author 리졸버</text>
+  <text x="156" y="243" font-size="15" fill="#4b5563" text-anchor="middle">게시글마다 독립적으로 호출된다</text>
 
-    <!-- SQL Query Box 1 -->
-    <rect x="520" y="60" width="230" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="635" y="87" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">SELECT * FROM posts LIMIT 10</text>
+  <!-- 호출 트리 가지 -->
+  <line x1="288" y1="222" x2="308" y2="222" stroke="#6d28d9" stroke-width="1.5"/>
+  <line x1="308" y1="144" x2="308" y2="300" stroke="#6d28d9" stroke-width="1.5"/>
+  <line x1="308" y1="144" x2="333" y2="144" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ah-purple)"/>
+  <line x1="308" y1="196" x2="333" y2="196" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ah-purple)"/>
+  <line x1="308" y1="248" x2="333" y2="248" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ah-red)"/>
+  <line x1="308" y1="300" x2="333" y2="300" stroke="#6d28d9" stroke-width="1.5" marker-end="url(#ah-purple)"/>
 
-    <!-- Query Count Label 1 -->
-    <rect x="760" y="68" width="90" height="28" rx="4" fill="#eff6ff"/>
-    <text x="805" y="86" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">쿼리 1번</text>
-  </g>
+  <!-- 행 1 -->
+  <rect x="336" y="124" width="300" height="40" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="486" y="149" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT * FROM users WHERE id = 3</text>
+  <rect x="656" y="126" width="96" height="36" rx="18" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="704" y="149" font-size="15" font-weight="700" fill="#6d28d9" text-anchor="middle">쿼리 2번</text>
 
-  <!-- Tree Branch Lines -->
-  <!-- Root to Post.author -->
-  <path d="M140,104 L140,140" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 행 2 -->
+  <rect x="336" y="176" width="300" height="40" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="486" y="201" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT * FROM users WHERE id = 7</text>
 
-  <!-- Post.author Section (Child Node Header) -->
-  <g>
-    <rect x="30" y="140" width="460" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="45" y="167" font-size="14" font-weight="bold" fill="#7c3aed">Post.author 리졸버</text>
-    <text x="185" y="167" font-size="12" fill="#52606d">(게시글마다 독립적으로 호출된다)</text>
-  </g>
+  <!-- 행 3: 중복 조회 -->
+  <rect x="336" y="228" width="300" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="486" y="253" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT * FROM users WHERE id = 3</text>
+  <text x="652" y="253" font-size="15" font-weight="700" fill="#b91c1c">← 3번 유저를 또 조회한다</text>
 
-  <!-- Tree Branch Lines from Post.author to 4 child requests -->
-  <path d="M70,184 L70,322" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 행 4: 나머지 -->
+  <rect x="336" y="280" width="300" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="486" y="305" font-size="15" fill="#374151" text-anchor="middle">... (총 10번)</text>
+  <rect x="656" y="282" width="96" height="36" rx="18" fill="#b91c1c" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="704" y="305" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">쿼리 11번</text>
 
-  <!-- Sub Item 1: Query 2 -->
-  <g>
-    <path d="M70,212 L520,212" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="520" y="194" width="230" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="635" y="216" font-size="13" fill="#1f2933" text-anchor="middle">SELECT * FROM users WHERE id = 3</text>
-
-    <rect x="760" y="198" width="90" height="28" rx="4" fill="#f8fafc"/>
-    <text x="805" y="216" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">쿼리 2번</text>
-  </g>
-
-  <!-- Sub Item 2: User id = 7 -->
-  <g>
-    <path d="M70,252 L520,252" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="520" y="234" width="230" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="635" y="256" font-size="13" fill="#1f2933" text-anchor="middle">SELECT * FROM users WHERE id = 7</text>
-  </g>
-
-  <!-- Sub Item 3: Duplicate Query (Highlighted in Red) -->
-  <g>
-    <path d="M70,292 L520,292" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-    <rect x="520" y="274" width="230" height="36" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="635" y="296" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">SELECT * FROM users WHERE id = 3</text>
-
-    <!-- Annotation Arrow & Text -->
-    <path d="M510,292 L310,292" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="310" y="280" width="190" height="24" rx="4" fill="#fef2f2"/>
-    <text x="405" y="296" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">← 3번 유저를 또 조회한다</text>
-  </g>
-
-  <!-- Sub Item 4: ... (Total 10 times) & Query 11 -->
-  <g>
-    <path d="M70,332 L520,332" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3 3" fill="none" marker-end="url(#a-purple)"/>
-    <text x="520" y="336" font-size="13" fill="#52606d">... (총 10번)</text>
-
-    <rect x="760" y="318" width="90" height="28" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="805" y="336" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">쿼리 11번</text>
-  </g>
+  <!-- 합계 -->
+  <rect x="24" y="348" width="832" height="48" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="440" y="378" font-size="16" fill="#1f2937" text-anchor="middle">Query.posts <tspan font-weight="700" fill="#1d4ed8">1번</tspan>  +  Post.author 게시글마다 <tspan font-weight="700" fill="#6d28d9">10번</tspan>  =  <tspan font-weight="700" fill="#b91c1c">쿼리 11번 (N+1)</tspan></text>
 </svg>

@@ -1,88 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">중간자 공격은 어떤 조건에서 성립하는가</title>
-  <desc id="d">정상 TLS 통신과 중간자 공격(MITM)의 TLS 채널 구조 비교 다이어그램</desc>
-  <defs>
-    <!-- Normal / Ink Marker -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <!-- Attacker / Red Marker -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <!-- Sub-line Marker -->
-    <marker id="a-sub" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
-    </marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">정상 TLS와 중간자 공격의 채널 비교</title>
+  <desc id="d">정상 통신은 Client와 Server 사이에 하나의 TLS 암호화 채널이 있지만, MITM에서는 Attacker가 TLS 채널 A와 B를 따로 맺고 가운데서 풀어 평문을 읽은 뒤 다시 암호화해 전달하며, 양쪽 모두 정상 통신으로 인식합니다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- Background -->
-  <rect width="880" height="440" fill="#ffffff"/>
+  <!-- ===== 정상 ===== -->
+  <rect x="32" y="22" width="68" height="32" rx="16" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="66" y="44" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">정상</text>
 
-  <!-- ==================== SECTION 1: [ 정상 ] ==================== -->
-  <g transform="translate(0, 0)">
-    <!-- Group Label -->
-    <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">[ 정상 ]</text>
+  <!-- TLS 채널 (파이프) -->
+  <rect x="184" y="84" width="512" height="32" fill="#dbeafe"/>
+  <line x1="184" y1="84" x2="696" y2="84" stroke="#1d4ed8" stroke-width="2.5"/>
+  <line x1="184" y1="116" x2="696" y2="116" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="440" y="106" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">TLS</text>
+  <text x="440" y="146" font-size="15" fill="#4b5563" text-anchor="middle">하나의 암호화 채널</text>
 
-    <!-- Normal Flow Box: Client -->
-    <rect x="70" y="65" width="110" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="125" y="92" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+  <rect x="40" y="72" width="140" height="56" rx="8" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="110" y="106" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <rect x="700" y="72" width="140" height="56" rx="8" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="770" y="106" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
 
-    <!-- Connection Line: TLS -->
-    <path d="M180,87 L700,87" stroke="#2563eb" stroke-width="2.5" fill="none"/>
-    
-    <!-- TLS Label Box -->
-    <rect x="365" y="74" width="150" height="26" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="440" y="91" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">TLS</text>
+  <!-- 구분선 -->
+  <line x1="32" y1="176" x2="848" y2="176" stroke="#d1d5db" stroke-width="1" stroke-dasharray="6 5"/>
 
-    <!-- Normal Flow Box: Server -->
-    <rect x="700" y="65" width="110" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="755" y="92" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <!-- ===== MITM ===== -->
+  <rect x="32" y="196" width="80" height="32" rx="16" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="72" y="218" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">MITM</text>
 
-    <!-- Sub explanation -->
-    <text x="440" y="125" font-size="12" fill="#52606d" text-anchor="middle">(하나의 암호화 채널)</text>
-  </g>
+  <!-- TLS 채널 A -->
+  <rect x="184" y="258" width="182" height="32" fill="#dbeafe"/>
+  <line x1="184" y1="258" x2="366" y2="258" stroke="#1d4ed8" stroke-width="2.5"/>
+  <line x1="184" y1="290" x2="366" y2="290" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="275" y="280" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">TLS 채널 A</text>
 
-  <!-- Horizontal Divider -->
-  <line x1="40" y1="150" x2="840" y2="150" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- TLS 채널 B -->
+  <rect x="514" y="258" width="182" height="32" fill="#dbeafe"/>
+  <line x1="514" y1="258" x2="696" y2="258" stroke="#1d4ed8" stroke-width="2.5"/>
+  <line x1="514" y1="290" x2="696" y2="290" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="605" y="280" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">TLS 채널 B</text>
 
-  <!-- ==================== SECTION 2: [ MITM ] ==================== -->
-  <g transform="translate(0, 160)">
-    <!-- Group Label -->
-    <text x="40" y="35" font-size="16" font-weight="bold" fill="#dc2626">[ MITM ]</text>
+  <rect x="40" y="246" width="140" height="56" rx="8" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="110" y="280" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <rect x="370" y="246" width="140" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="440" y="280" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">Attacker</text>
+  <rect x="700" y="246" width="140" height="56" rx="8" fill="#f8fafc" stroke="#334155" stroke-width="1.5"/>
+  <text x="770" y="280" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
 
-    <!-- MITM Flow Box: Client -->
-    <rect x="70" y="55" width="110" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="125" y="82" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
-
-    <!-- Channel A Line -->
-    <path d="M180,77 L385,77" stroke="#dc2626" stroke-width="2.5" fill="none"/>
-    <!-- Channel A Label -->
-    <rect x="225" y="64" width="115" height="26" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
-    <text x="282.5" y="81" font-size="12.5" font-weight="bold" fill="#dc2626" text-anchor="middle">TLS 채널 A</text>
-
-    <!-- MITM Flow Box: Attacker -->
-    <rect x="385" y="55" width="110" height="44" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-    <text x="440" y="82" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">Attacker</text>
-
-    <!-- Channel B Line -->
-    <path d="M495,77 L700,77" stroke="#dc2626" stroke-width="2.5" fill="none"/>
-    <!-- Channel B Label -->
-    <rect x="540" y="64" width="115" height="26" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
-    <text x="597.5" y="81" font-size="12.5" font-weight="bold" fill="#dc2626" text-anchor="middle">TLS 채널 B</text>
-
-    <!-- MITM Flow Box: Server -->
-    <rect x="700" y="55" width="110" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="755" y="82" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
-
-    <!-- Attacker Annotation Lines and Text -->
-    <!-- Vertical connector from Attacker -->
-    <path d="M440,99 L440,122 L460,122" stroke="#52606d" stroke-width="1.5" fill="none"/>
-
-    <!-- Annotation Box -->
-    <rect x="460" y="108" width="350" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="472" y="131" font-size="12" fill="#1f2933">채널 A를 풀어서 평문을 읽고,</text>
-    <text x="472" y="149" font-size="12" fill="#1f2933">채널 B로 다시 암호화해 전달한다.</text>
-    <text x="472" y="167" font-size="12" fill="#1f2933">양쪽 모두 정상 통신으로 인식한다.</text>
-  </g>
+  <!-- Attacker 설명 -->
+  <line x1="440" y1="302" x2="440" y2="326" stroke="#b91c1c" stroke-width="1.5"/>
+  <rect x="196" y="326" width="488" height="110" rx="8" fill="#fff7f7" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="358" font-size="16" fill="#111827" text-anchor="middle">채널 A를 풀어서 <tspan font-weight="bold" fill="#b91c1c">평문을 읽고,</tspan></text>
+  <text x="440" y="384" font-size="16" fill="#111827" text-anchor="middle">채널 B로 다시 암호화해 전달한다.</text>
+  <text x="440" y="418" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">양쪽 모두 정상 통신으로 인식한다.</text>
 </svg>

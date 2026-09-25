@@ -1,65 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">모놀리식이 실제로 아파지는 지점</title>
-  <desc id="d">하나의 프로세스와 DB에 결합된 모놀리식 아키텍처의 배포, 스케일, 조직 결합 문제를 설명하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">모놀리식이 아파지는 세 지점</title>
+  <desc id="d">사용자·주문·결제·정산·알림·검색이 전부 한 프로세스와 하나의 DB에 묶인 모놀리식 구조와, 그 결합이 만드는 배포 결합·스케일 결합·조직 결합 세 가지 문제를 보여줍니다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="570" fill="#ffffff"/>
+  <!-- 모놀리식 구조 -->
+  <text x="24" y="46"><tspan font-size="19" font-weight="bold" fill="#111827">[모놀리식]</tspan><tspan dx="12" font-size="16" fill="#374151">하나의 배포 단위</tspan></text>
 
-  <!-- 메인 다이어그램 구역 -->
-  <g id="diagram">
-    <!-- 헤더 / 배포 단위 라벨 -->
-    <text x="280" y="49.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[모놀리식]</text>
-    <text x="360" y="49.55" font-size="14" fill="#52606d">하나의 배포 단위</text>
-
-    <!-- 프로세스 박스 -->
-    <rect x="180" y="70" width="360" height="60" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="4"/>
-    
-    <!-- 모듈 모음 -->
-    <g font-size="14" fill="#1f2933" text-anchor="middle">
-      <text x="212" y="104.9">사용자</text>
-      <text x="262" y="104.9">주문</text>
-      <text x="312" y="104.9">결제</text>
-      <text x="362" y="104.9">정산</text>
-      <text x="412" y="104.9">알림</text>
-      <text x="462" y="104.9">검색</text>
-    </g>
-
-    <!-- 화살표 (프로세스 <-> 주석) -->
-    <path d="M 548 100 L 582 100" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="590" y="104.55" font-size="13" fill="#52606d">전부 한 프로세스</text>
-
-    <!-- 화살표 (프로세스 -> DB) -->
-    <path d="M 360 130 L 360 160" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-
-    <!-- 하나의 DB 박스 -->
-    <rect x="290" y="160" width="140" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="360" y="184.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">하나의 DB</text>
+  <rect x="24" y="64" width="600" height="80" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <g font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">
+    <rect x="47" y="82" width="84" height="44" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="89" y="110">사용자</text>
+    <rect x="141" y="82" width="84" height="44" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="183" y="110">주문</text>
+    <rect x="235" y="82" width="84" height="44" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="277" y="110">결제</text>
+    <rect x="329" y="82" width="84" height="44" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="371" y="110">정산</text>
+    <rect x="423" y="82" width="84" height="44" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="465" y="110">알림</text>
+    <rect x="517" y="82" width="84" height="44" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+    <text x="559" y="110">검색</text>
   </g>
 
-  <!-- 문제점 카드 구역 -->
-  <g id="issues">
-    <!-- 문제 1 -->
-    <rect x="24" y="230" width="832" height="90" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="6"/>
-    <text x="44" y="258.55" font-size="14" font-weight="bold" fill="#dc2626">문제 1. 배포 결합</text>
-    <text x="64" y="281.025" font-size="13" fill="#1f2933">알림 문구 하나 고쳐도 전체를 재배포한다.</text>
-    <text x="64" y="299.025" font-size="13" fill="#1f2933">배포가 20분이면 20분짜리 리스크를 문구 수정에 지불한다.</text>
-    <text x="64" y="317.025" font-size="13" fill="#1f2933">누군가의 실수 하나로 전체가 내려간다.</text>
+  <path d="M704,104 L634,104" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="714" y="110" font-size="16" font-weight="bold" fill="#1d4ed8">전부 한 프로세스</text>
 
-    <!-- 문제 2 -->
-    <rect x="24" y="340" width="832" height="72" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="6"/>
-    <text x="44" y="368.55" font-size="14" font-weight="bold" fill="#d97706">문제 2. 스케일 결합</text>
-    <text x="64" y="391.025" font-size="13" fill="#1f2933">검색만 CPU를 많이 쓰는데, 늘리려면 사용자·결제·정산까지 함께 복제된다.</text>
-    <text x="64" y="409.025" font-size="13" fill="#1f2933">쓰지도 않는 메모리를 인스턴스 수만큼 산다.</text>
+  <!-- 하나의 DB -->
+  <path d="M324,144 L324,170" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M244,182 L244,222 A80,10 0 0 0 404,222 L404,182" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <ellipse cx="324" cy="182" rx="80" ry="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="324" y="214" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">하나의 DB</text>
 
-    <!-- 문제 3 -->
-    <rect x="24" y="432" width="832" height="90" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="6"/>
-    <text x="44" y="460.55" font-size="14" font-weight="bold" fill="#7c3aed">문제 3. 조직 결합</text>
-    <text x="64" y="483.025" font-size="13" fill="#1f2933">개발자 50명이 한 저장소에 커밋한다.</text>
-    <text x="64" y="501.025" font-size="13" fill="#1f2933">배포 큐가 밀리고, 릴리스마다 "누구 것 때문에 깨졌는지" 회의를 한다.</text>
+  <!-- 문제 1. 배포 결합 -->
+  <rect x="24" y="256" width="832" height="104" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <path d="M32,257 H224 V359 H32 A7,7 0 0 1 25,352 V264 A7,7 0 0 1 32,257 Z" fill="#fef2f2"/>
+  <text x="48" y="299" font-size="15" font-weight="bold" fill="#b91c1c">문제 1</text>
+  <text x="48" y="323" font-size="19" font-weight="bold" fill="#7f1d1d">배포 결합</text>
+  <g font-size="15" fill="#1f2937">
+    <circle cx="252" cy="283" r="3" fill="#6b7280"/>
+    <text x="264" y="288">알림 문구 하나 고쳐도 전체를 재배포한다.</text>
+    <circle cx="252" cy="307" r="3" fill="#6b7280"/>
+    <text x="264" y="312">배포가 20분이면 20분짜리 리스크를 문구 수정에 지불한다.</text>
+    <circle cx="252" cy="331" r="3" fill="#6b7280"/>
+    <text x="264" y="336">누군가의 실수 하나로 전체가 내려간다.</text>
+  </g>
+
+  <!-- 문제 2. 스케일 결합 -->
+  <rect x="24" y="376" width="832" height="80" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <path d="M32,377 H224 V455 H32 A7,7 0 0 1 25,448 V384 A7,7 0 0 1 32,377 Z" fill="#fef2f2"/>
+  <text x="48" y="407" font-size="15" font-weight="bold" fill="#b91c1c">문제 2</text>
+  <text x="48" y="431" font-size="19" font-weight="bold" fill="#7f1d1d">스케일 결합</text>
+  <g font-size="15" fill="#1f2937">
+    <circle cx="252" cy="403" r="3" fill="#6b7280"/>
+    <text x="264" y="408">검색만 CPU를 많이 쓰는데, 늘리려면 사용자·결제·정산까지 함께 복제된다.</text>
+    <circle cx="252" cy="427" r="3" fill="#6b7280"/>
+    <text x="264" y="432">쓰지도 않는 메모리를 인스턴스 수만큼 산다.</text>
+  </g>
+
+  <!-- 문제 3. 조직 결합 -->
+  <rect x="24" y="472" width="832" height="80" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <path d="M32,473 H224 V551 H32 A7,7 0 0 1 25,544 V480 A7,7 0 0 1 32,473 Z" fill="#fef2f2"/>
+  <text x="48" y="503" font-size="15" font-weight="bold" fill="#b91c1c">문제 3</text>
+  <text x="48" y="527" font-size="19" font-weight="bold" fill="#7f1d1d">조직 결합</text>
+  <g font-size="15" fill="#1f2937">
+    <circle cx="252" cy="499" r="3" fill="#6b7280"/>
+    <text x="264" y="504">개발자 50명이 한 저장소에 커밋한다.</text>
+    <circle cx="252" cy="523" r="3" fill="#6b7280"/>
+    <text x="264" y="528">배포 큐가 밀리고, 릴리스마다 "누구 것 때문에 깨졌는지" 회의를 한다.</text>
   </g>
 </svg>

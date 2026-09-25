@@ -1,98 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">실패 지점의 해상도</title>
-  <desc id="d">E2E 테스트만 있을 때와 단위 테스트가 있을 때의 디버깅 범위 및 해상도 비교 다이어그램</desc>
+  <desc id="d">E2E 테스트만 있으면 "결제 시나리오 실패"만 보고되어 브라우저부터 DB까지 다섯 구간 모두를 로그로 뒤져야 하지만, 단위 테스트가 있으면 실패 메시지가 주문서비스 안의 클래스·메서드·입력을 곧바로 가리킨다.</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
     </marker>
   </defs>
 
-  <rect width="880" height="430" fill="#ffffff"/>
+  <!-- ============ 1. E2E만 있을 때 ============ -->
+  <rect x="24" y="24" width="832" height="268" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="48" y="62" font-size="19" font-weight="bold" fill="#b91c1c">E2E만 있을 때</text>
+  <text x="832" y="62" font-size="16" text-anchor="end" fill="#4b5563">알려 주는 것 <tspan font-weight="bold" fill="#b91c1c">무언가 잘못됐다</tspan></text>
 
-  <g>
-    <rect x="30" y="24" width="820" height="176" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="48" y="80" width="784" height="38" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+  <text x="64" y="105" font-size="15" fill="#4b5563">실패 메시지</text>
+  <text x="164" y="105" font-size="16" font-weight="bold" fill="#1f2937">"결제 시나리오 실패"</text>
 
-    <rect x="46" y="40" width="132" height="26" rx="4" fill="#dc2626"/>
-    <text x="112" y="57" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">[E2E만 있을 때]</text>
+  <!-- 호출 체인 -->
+  <rect x="52" y="140" width="120" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="170" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937">브라우저</text>
+  <rect x="216" y="140" width="120" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="276" y="170" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937">API GW</text>
+  <rect x="380" y="140" width="120" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="170" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937">주문서비스</text>
+  <rect x="544" y="140" width="120" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="604" y="170" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937">결제서비스</text>
+  <rect x="708" y="140" width="120" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="768" y="170" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937">DB</text>
 
-    <text x="192" y="57" fill="#dc2626" font-size="13" font-weight="bold">실패 메시지: "결제 시나리오 실패"</text>
+  <path d="M176,164 L210,164" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah-dark)"/>
+  <path d="M340,164 L374,164" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah-dark)"/>
+  <path d="M504,164 L538,164" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah-dark)"/>
+  <path d="M668,164 L702,164" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah-dark)"/>
 
-    <rect x="75" y="86" width="100" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="125" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">브라우저</text>
+  <!-- 어디서 깨졌는지 모름 -->
+  <text x="112" y="222" font-size="22" font-weight="bold" text-anchor="middle" fill="#b91c1c">?</text>
+  <text x="276" y="222" font-size="22" font-weight="bold" text-anchor="middle" fill="#b91c1c">?</text>
+  <text x="440" y="222" font-size="22" font-weight="bold" text-anchor="middle" fill="#b91c1c">?</text>
+  <text x="604" y="222" font-size="22" font-weight="bold" text-anchor="middle" fill="#b91c1c">?</text>
+  <text x="768" y="222" font-size="22" font-weight="bold" text-anchor="middle" fill="#b91c1c">?</text>
 
-    <path d="M175,106 L223,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M60,234 L60,242 L820,242 L820,234" stroke="#b91c1c" stroke-width="1.5" fill="none"/>
+  <path d="M440,242 L440,250" stroke="#b91c1c" stroke-width="1.5" fill="none"/>
+  <text x="440" y="272" font-size="16" font-weight="bold" text-anchor="middle" fill="#b91c1c">로그를 처음부터 뒤진다</text>
 
-    <rect x="225" y="86" width="100" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="275" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">API GW</text>
+  <!-- ============ 2. 단위 테스트가 있을 때 ============ -->
+  <rect x="24" y="312" width="832" height="234" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="48" y="350" font-size="19" font-weight="bold" fill="#1d4ed8">단위 테스트가 있을 때</text>
+  <text x="832" y="350" font-size="16" text-anchor="end" fill="#4b5563">알려 주는 것 <tspan font-weight="bold" fill="#1d4ed8">무엇이 잘못됐다</tspan></text>
 
-    <path d="M325,106 L373,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="48" y="368" width="784" height="38" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="64" y="393" font-size="15" fill="#4b5563">실패 메시지</text>
+  <text x="164" y="393" font-size="15" font-weight="bold" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"DiscountPolicy.apply() expected 900 but was 1000"</text>
 
-    <rect x="375" y="86" width="110" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="430" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">주문서비스</text>
+  <!-- 호출 체인: 주문서비스만 강조 -->
+  <rect x="52" y="428" width="120" height="48" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="112" y="458" font-size="16" text-anchor="middle" fill="#4b5563">브라우저</text>
+  <rect x="216" y="428" width="120" height="48" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="276" y="458" font-size="16" text-anchor="middle" fill="#4b5563">API GW</text>
+  <rect x="380" y="428" width="120" height="48" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="440" y="458" font-size="16" font-weight="bold" text-anchor="middle" fill="#1d4ed8">주문서비스</text>
+  <rect x="544" y="428" width="120" height="48" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="604" y="458" font-size="16" text-anchor="middle" fill="#4b5563">결제서비스</text>
+  <rect x="708" y="428" width="120" height="48" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="768" y="458" font-size="16" text-anchor="middle" fill="#4b5563">DB</text>
 
-    <path d="M485,106 L533,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M176,452 L210,452" stroke="#9ca3af" stroke-width="1.5" fill="none" marker-end="url(#ah-grey)"/>
+  <path d="M340,452 L374,452" stroke="#9ca3af" stroke-width="1.5" fill="none" marker-end="url(#ah-grey)"/>
+  <path d="M504,452 L538,452" stroke="#9ca3af" stroke-width="1.5" fill="none" marker-end="url(#ah-grey)"/>
+  <path d="M668,452 L702,452" stroke="#9ca3af" stroke-width="1.5" fill="none" marker-end="url(#ah-grey)"/>
 
-    <rect x="535" y="86" width="110" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="590" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">결제서비스</text>
-
-    <path d="M645,106 L693,106" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <rect x="695" y="86" width="80" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="735" y="111" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">DB</text>
-
-    <text x="125" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
-    <text x="275" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
-    <text x="430" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
-    <text x="590" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
-    <text x="735" y="152" fill="#dc2626" font-size="15" font-weight="bold" text-anchor="middle">?</text>
-
-    <path d="M125,162 L735,162" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-    <path d="M735,162 L755,162" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-    <rect x="600" y="172" width="170" height="20" fill="#fef2f2" rx="3"/>
-    <text x="685" y="186" fill="#dc2626" font-size="11.5" font-weight="bold" text-anchor="middle">← 로그를 처음부터 뒤진다</text>
-  </g>
-
-  <g>
-    <rect x="30" y="220" width="820" height="186" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-    <rect x="46" y="236" width="165" height="26" rx="4" fill="#2563eb"/>
-    <text x="128" y="253" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">[단위 테스트가 있을 때]</text>
-
-    <text x="225" y="253" fill="#2563eb" font-size="13" font-weight="bold">"DiscountPolicy.apply() expected 900 but was 1000"</text>
-
-    <rect x="75" y="282" width="100" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="125" y="307" fill="#52606d" font-size="13" text-anchor="middle">브라우저</text>
-
-    <path d="M175,302 L223,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <rect x="225" y="282" width="100" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="275" y="307" fill="#52606d" font-size="13" text-anchor="middle">API GW</text>
-
-    <path d="M325,302 L373,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <rect x="375" y="282" width="110" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="430" y="307" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">주문서비스</text>
-
-    <path d="M485,302 L533,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <rect x="535" y="282" width="110" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="590" y="307" fill="#52606d" font-size="13" text-anchor="middle">결제서비스</text>
-
-    <path d="M645,302 L693,302" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <rect x="695" y="282" width="80" height="40" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="735" y="307" fill="#52606d" font-size="13" text-anchor="middle">DB</text>
-
-    <path d="M430,322 L430,358 L448,358" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <rect x="455" y="344" width="220" height="28" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-    <text x="465" y="362" fill="#1e40af" font-size="12.5" font-weight="bold">└ 이 클래스, 이 메서드, 이 입력</text>
-  </g>
+  <path d="M384,488 L384,496 L496,496 L496,488" stroke="#1d4ed8" stroke-width="1.5" fill="none"/>
+  <path d="M440,496 L440,504" stroke="#1d4ed8" stroke-width="1.5" fill="none"/>
+  <text x="440" y="526" font-size="16" font-weight="bold" text-anchor="middle" fill="#1d4ed8">이 클래스, 이 메서드, 이 입력</text>
 </svg>

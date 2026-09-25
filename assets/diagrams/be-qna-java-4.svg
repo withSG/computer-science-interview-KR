@@ -1,43 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">JVM 구조</title>
-  <desc id="d">JVM의 구성 요소인 Class Loader, Runtime Data Area, Execution Engine의 구조를 나타낸 다이어그램입니다.</desc>
+  <desc id="d">JVM 내부는 클래스 로더(Bootstrap → Platform → Application), 런타임 데이터 영역(Method Area, Heap, PC Register, JVM Stack, Native Method), 실행 엔진(Interpreter, JIT Compiler, GC)의 세 부분으로 나뉩니다.</desc>
   <rect width="880" height="500" fill="#ffffff"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
 
-  <!-- Outer Container: JVM -->
-  <rect x="24" y="24" width="832" height="452" rx="12" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="24" y="24" width="832" height="44" rx="12" fill="#eff6ff"/>
-  <!-- Corner correction for header rect bottom edge -->
-  <rect x="24" y="56" width="832" height="12" fill="#eff6ff"/>
-  <line x1="24" y1="68" x2="856" y2="68" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="51" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">JVM</text>
+  <!-- JVM 외곽 -->
+  <rect x="24" y="24" width="832" height="452" rx="12" fill="#f9fafb" stroke="#6b7280" stroke-width="2"/>
+  <text x="48" y="60" font-size="22" font-weight="bold" fill="#111827">JVM</text>
 
-  <!-- 1. Class Loader Section -->
-  <rect x="48" y="88" width="784" height="84" rx="8" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="440" y="117" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Class Loader</text>
-  <text x="440" y="147" font-size="13" fill="#52606d" text-anchor="middle">(Bootstrap → Platform → Application)</text>
+  <!-- 1. Class Loader -->
+  <rect x="44" y="80" width="792" height="80" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="64" y="114" font-size="18" font-weight="bold" fill="#1d4ed8">Class Loader</text>
+  <text x="64" y="139" font-size="15" fill="#4b5563">클래스 로더</text>
 
-  <!-- 2. Runtime Data Area Section -->
-  <rect x="48" y="192" width="784" height="172" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="219" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Runtime Data Area</text>
+  <rect x="284" y="100" width="136" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="352" y="126" font-size="16" fill="#111827" text-anchor="middle">Bootstrap</text>
+  <line x1="428" y1="120" x2="472" y2="120" stroke="#374151" stroke-width="1.8" marker-end="url(#arr)"/>
+  <rect x="482" y="100" width="136" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="550" y="126" font-size="16" fill="#111827" text-anchor="middle">Platform</text>
+  <line x1="626" y1="120" x2="670" y2="120" stroke="#374151" stroke-width="1.8" marker-end="url(#arr)"/>
+  <rect x="680" y="100" width="136" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="748" y="126" font-size="16" fill="#111827" text-anchor="middle">Application</text>
 
-  <!-- Runtime Data Area Inner Boxes -->
-  <!-- Box 1: Method Area -->
-  <rect x="68" y="236" width="232" height="108" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="184" y="283" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Method</text>
-  <text x="184" y="303" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Area</text>
+  <!-- 2. Runtime Data Area -->
+  <rect x="44" y="176" width="792" height="180" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="64" y="260" font-size="18" font-weight="bold" fill="#6d28d9">Runtime Data Area</text>
+  <text x="64" y="285" font-size="15" fill="#4b5563">런타임 데이터 영역</text>
 
-  <!-- Box 2: Heap -->
-  <rect x="324" y="236" width="232" height="108" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="440" y="293" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Heap</text>
+  <rect x="284" y="196" width="144" height="140" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="356" y="272" font-size="16" fill="#111827" text-anchor="middle">Method Area</text>
+  <rect x="444" y="196" width="144" height="140" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="516" y="272" font-size="16" fill="#111827" text-anchor="middle">Heap</text>
 
-  <!-- Box 3: PC Register, JVM Stack, Native Method -->
-  <rect x="580" y="236" width="232" height="108" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="696" y="268" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">PC Register</text>
-  <text x="696" y="293" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">JVM Stack</text>
-  <text x="696" y="318" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Native Method</text>
+  <rect x="604" y="196" width="212" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="710" y="222" font-size="16" fill="#111827" text-anchor="middle">PC Register</text>
+  <rect x="604" y="246" width="212" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="710" y="272" font-size="16" fill="#111827" text-anchor="middle">JVM Stack</text>
+  <rect x="604" y="296" width="212" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="710" y="322" font-size="16" fill="#111827" text-anchor="middle">Native Method</text>
 
-  <!-- 3. Execution Engine Section -->
-  <rect x="48" y="384" width="784" height="72" rx="8" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="440" y="411" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Execution Engine</text>
-  <text x="440" y="437" font-size="13" fill="#52606d" text-anchor="middle">(Interpreter, JIT Compiler, GC)</text>
+  <!-- 3. Execution Engine -->
+  <rect x="44" y="372" width="792" height="84" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="64" y="408" font-size="18" font-weight="bold" fill="#047857">Execution Engine</text>
+  <text x="64" y="433" font-size="15" fill="#4b5563">실행 엔진</text>
+
+  <rect x="284" y="394" width="164" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="366" y="420" font-size="16" fill="#111827" text-anchor="middle">Interpreter</text>
+  <rect x="468" y="394" width="164" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="550" y="420" font-size="16" fill="#111827" text-anchor="middle">JIT Compiler</text>
+  <rect x="652" y="394" width="164" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="734" y="420" font-size="16" fill="#111827" text-anchor="middle">GC</text>
 </svg>

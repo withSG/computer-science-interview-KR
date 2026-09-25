@@ -1,70 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3. 세션을 어디에 저장할 것인가</title>
-  <desc id="d">애플리케이션 메모리, Redis 등 외부 캐시, 관계형 DB에 세션을 저장하는 구조적 비교 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세션 저장 위치 세 가지</title>
+  <desc id="d">[1] 애플리케이션 메모리는 WAS 안의 HashMap에 세션을 두어 프로세스가 죽으면 세션도 사라지고, [2] Redis 등 외부 캐시는 WAS #1과 WAS #2가 Redis 하나를 함께 써서 빠르지만 별도 운영이 필요하며, [3] 관계형 DB는 WAS가 MySQL에 두어 느리지만 영속한다.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">3. 세션을 어디에 저장할 것인가</text>
+  <!-- 패널 -->
+  <rect x="24" y="20" width="256" height="316" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="312" y="20" width="256" height="316" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="600" y="20" width="256" height="316" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
 
   <!-- [1] 애플리케이션 메모리 -->
-  <g transform="translate(30, 60)">
-    <text x="0" y="16" font-size="14" font-weight="bold" fill="#1f2933">[1] 애플리케이션 메모리</text>
-    <rect x="0" y="30" width="230" height="150" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="16" y="55" font-size="13" font-weight="bold" fill="#dc2626">WAS</text>
-
-    <rect x="16" y="70" width="198" height="90" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
-    <text x="115" y="120" font-size="13" text-anchor="middle" font-weight="bold" fill="#dc2626">HashMap</text>
-
-    <text x="0" y="205" font-size="11.5" fill="#52606d">프로세스가 죽으면</text>
-    <text x="0" y="223" font-size="11.5" fill="#52606d">세션도 함께 사라짐</text>
-  </g>
+  <text x="42" y="54" font-size="17" font-weight="bold" fill="#111827">[1] 애플리케이션 메모리</text>
+  <rect x="48" y="80" width="208" height="164" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="152" y="111" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">WAS</text>
+  <rect x="80" y="176" width="144" height="50" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="152" y="207" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">HashMap</text>
+  <line x1="40" y1="262" x2="264" y2="262" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="152" y="292" font-size="16" fill="#374151" text-anchor="middle">프로세스가 죽으면</text>
+  <text x="152" y="315" font-size="16" fill="#374151" text-anchor="middle">세션도 함께 사라짐</text>
 
   <!-- [2] Redis 등 외부 캐시 -->
-  <g transform="translate(300, 60)">
-    <text x="0" y="16" font-size="14" font-weight="bold" fill="#1f2933">[2] Redis 등 외부 캐시</text>
-
-    <!-- WAS #1 & WAS #2 -->
-    <rect x="0" y="30" width="125" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="62.5" y="55" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">WAS #1</text>
-
-    <rect x="145" y="30" width="125" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="207.5" y="55" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">WAS #2</text>
-
-    <!-- Connectors -->
-    <path d="M 62.5,70 L 62.5,95 L 135,95 L 135,120" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-    <path d="M 207.5,70 L 207.5,95 L 135,95" fill="none" stroke="#2563eb" stroke-width="1.5"/>
-
-    <!-- Redis -->
-    <rect x="72.5" y="120" width="125" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="135" y="145" font-size="13" font-weight="bold" text-anchor="middle" fill="#2563eb">Redis</text>
-
-    <text x="0" y="205" font-size="11.5" fill="#52606d">빠름 / 별도 운영</text>
-  </g>
+  <text x="330" y="54" font-size="17" font-weight="bold" fill="#111827">[2] Redis 등 외부 캐시</text>
+  <rect x="328" y="80" width="104" height="50" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="380" y="111" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">WAS #1</text>
+  <rect x="448" y="80" width="104" height="50" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="500" y="111" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">WAS #2</text>
+  <path d="M380,130 V152 H500 V130" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="440" y1="152" x2="440" y2="174" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="380" y="176" width="120" height="50" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="207" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Redis</text>
+  <line x1="328" y1="262" x2="552" y2="262" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="440" y="292" font-size="16" fill="#374151" text-anchor="middle">빠름 / 별도 운영</text>
 
   <!-- [3] 관계형 DB -->
-  <g transform="translate(620, 60)">
-    <text x="0" y="16" font-size="14" font-weight="bold" fill="#1f2933">[3] 관계형 DB</text>
+  <text x="618" y="54" font-size="17" font-weight="bold" fill="#111827">[3] 관계형 DB</text>
+  <rect x="668" y="80" width="120" height="50" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="728" y="111" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">WAS</text>
+  <line x1="728" y1="130" x2="728" y2="174" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="668" y="176" width="120" height="50" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="728" y="207" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">MySQL</text>
+  <line x1="616" y1="262" x2="840" y2="262" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="728" y="292" font-size="16" fill="#374151" text-anchor="middle">느림 / 영속</text>
 
-    <!-- WAS -->
-    <rect x="52.5" y="30" width="125" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="115" y="55" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">WAS</text>
-
-    <!-- Connector -->
-    <path d="M 115,70 L 115,120" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-
-    <!-- MySQL -->
-    <rect x="52.5" y="120" width="125" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="115" y="145" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">MySQL</text>
-
-    <text x="0" y="205" font-size="11.5" fill="#52606d">느림 / 영속</text>
-  </g>
+  <!-- 범례 -->
+  <rect x="24" y="351" width="20" height="16" rx="3" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="54" y="365" font-size="15" fill="#374151">세션이 저장되는 곳</text>
 </svg>

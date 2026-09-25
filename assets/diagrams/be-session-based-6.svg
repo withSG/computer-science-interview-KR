@@ -1,69 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">세션 고정 (Session Fixation)</title>
-  <desc id="d">공격자가 미리 발급받은 세션 ID를 피해자에게 전달하고, 피해자가 그 세션 ID로 로그인하여 공격자도 피해자의 권한을 얻게 되는 세션 고정 공격 시퀀스 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세션 고정 공격 흐름</title>
+  <desc id="d">공격자가 서버에서 세션 ID X를 발급받아 링크로 피해자에게 심고, 피해자가 X 상태로 로그인하면 서버가 X를 kim과 연결해 공격자의 X도 kim으로 인식하는 과정.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="mr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="mb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="540" fill="#ffffff"/>
 
-  <!-- Section Title -->
-  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">6. 세션 고정 (Session Fixation)</text>
+  <!-- 참여자 -->
+  <rect x="50" y="24" width="120" height="40" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="110" y="50" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">공격자</text>
+  <rect x="380" y="24" width="120" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="50" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">피해자</text>
+  <rect x="640" y="24" width="120" height="40" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="700" y="50" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">서버</text>
 
-  <!-- Lifeline Headers -->
-  <!-- Header 1: 공격자 -->
-  <rect x="70" y="70" width="140" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="140" y="94" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">공격자</text>
+  <!-- 생명선 -->
+  <line x1="110" y1="64" x2="110" y2="352" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="440" y1="64" x2="440" y2="352" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="700" y1="64" x2="700" y2="352" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- Header 2: 피해자 -->
-  <rect x="370" y="70" width="140" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="94" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">피해자</text>
+  <!-- (1) 공격자 → 서버 -->
+  <text x="126" y="106" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#b91c1c">(1)</tspan> 방문해서 세션 ID "X"를 발급받음</text>
+  <line x1="110" y1="120" x2="696" y2="120" stroke="#b91c1c" stroke-width="2" marker-end="url(#mr)"/>
 
-  <!-- Header 3: 서버 -->
-  <rect x="670" y="70" width="140" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="740" y="94" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">서버</text>
+  <!-- (2) 공격자 → 피해자 -->
+  <text x="126" y="164" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#b91c1c">(2)</tspan> "이 링크로 들어와"</text>
+  <text x="154" y="188" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">?SESSIONID=X</text>
+  <line x1="110" y1="202" x2="436" y2="202" stroke="#b91c1c" stroke-width="2" marker-end="url(#mr)"/>
 
-  <!-- Lifelines -->
-  <path d="M140,110 L140,490" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M440,110 L440,490" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M740,110 L740,490" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- (3) 피해자 → 서버 -->
+  <text x="456" y="246" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#1d4ed8">(3)</tspan> 세션 ID X 상태로 로그인</text>
+  <line x1="440" y1="260" x2="696" y2="260" stroke="#1d4ed8" stroke-width="2" marker-end="url(#mb)"/>
+  <rect x="716" y="242" width="140" height="36" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="786" y="266" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">X ← kim 연결</text>
 
-  <!-- Sequence Step 1 -->
-  <!-- Arrow (1) 공격자 -> 서버 -->
-  <path d="M140,160 L740,160" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="298" y="148" width="284" height="22" fill="#ffffff" rx="2"/>
-  <text x="440" y="163" font-size="13" fill="#1f2933" text-anchor="middle">(1) 방문해서 세션 ID "X"를 발급받음</text>
+  <!-- (4) 공격자 → 서버 -->
+  <text x="126" y="306" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#b91c1c">(4)</tspan> 공격자도 X를 갖고 있다</text>
+  <line x1="110" y1="320" x2="696" y2="320" stroke="#b91c1c" stroke-width="2" marker-end="url(#mr)"/>
+  <rect x="716" y="302" width="140" height="36" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="786" y="326" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">kim으로 인식</text>
 
-  <!-- Sequence Step 2 -->
-  <!-- Arrow (2) 공격자 -> 피해자 -->
-  <path d="M140,240 L440,240" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="160" y="228" width="260" height="22" fill="#ffffff" rx="2"/>
-  <text x="290" y="243" font-size="13" fill="#1f2933" text-anchor="middle">(2) "이 링크로 들어와" (?SESSIONID=X)</text>
-
-  <!-- Sequence Step 3 -->
-  <!-- Arrow (3) 피해자 -> 서버 -->
-  <path d="M440,320 L740,320" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="473" y="308" width="234" height="22" fill="#ffffff" rx="2"/>
-  <text x="590" y="323" font-size="13" fill="#1f2933" text-anchor="middle">(3) 세션 ID X 상태로 로그인</text>
-
-  <!-- Server Side State 1: X <- kim 연결 -->
-  <rect x="752" y="308" width="100" height="24" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-  <text x="802" y="324" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">X ← kim 연결</text>
-
-  <!-- Sequence Step 4 -->
-  <!-- Arrow (4) 공격자 -> 서버 -->
-  <path d="M140,410 L740,410" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="290" y="398" width="300" height="22" fill="#ffffff" rx="2"/>
-  <text x="440" y="413" font-size="13" fill="#1f2933" text-anchor="middle">(4) 공격자도 X를 갖고 있다</text>
-
-  <!-- Server Side State 2: kim으로 인식 -->
-  <rect x="752" y="398" width="100" height="24" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="3"/>
-  <text x="802" y="414" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">kim으로 인식</text>
+  <!-- 방어 -->
+  <rect x="24" y="382" width="832" height="50" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="440" y="413" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#047857">방어:</tspan> 인증 성공 직후 세션 ID를 새로 발급 → 공격자가 들고 있던 X는 무효</text>
 </svg>

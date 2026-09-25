@@ -1,74 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Access Token과 Refresh Token의 인증 흐름</title>
-  <desc id="d">로그인부터 토큰 발급, API 요청, Access Token 만료에 따른 Refresh Token 재발급, Refresh Token 만료 시 재로그인으로 이어지는 4단계 인증 흐름도</desc>
-  <rect width="880" height="380" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Access·Refresh Token 흐름</title>
+  <desc id="d">로그인하면 Access Token과 Refresh Token이 발급되고, API 요청에는 Access Token을 쓴다. Access Token이 만료되면 Refresh Token으로 재발급받아 다시 API 요청에 쓰고, Refresh Token까지 만료되면 재로그인해 처음 단계로 돌아간다.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Step 1 Card -->
-  <g>
-    <rect x="40" y="40" width="800" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="75" cy="70" r="16" fill="#2563eb"/>
-    <text x="75" y="75" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">1</text>
-    <text x="110" y="75" fill="#1f2933" font-size="15" font-weight="bold">로그인</text>
-    <path d="M170,70 L210,70" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="225" y="52" width="285" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="367.5" y="74.5" fill="#1f2933" font-size="14" font-weight="600" text-anchor="middle">Access Token + Refresh Token 발급</text>
-  </g>
+  <!-- 단계 레일 -->
+  <line x1="52" y1="60" x2="52" y2="318" stroke="#d1d5db" stroke-width="3"/>
 
-  <!-- Connector 1 -> 2 -->
-  <path d="M440,100 L440,118" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- 되돌아가는 화살표 -->
+  <path d="M724,232 H766 V146 H728" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
+  <path d="M724,318 H826 V60 H728" fill="none" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-red)"/>
 
-  <!-- Step 2 Card -->
-  <g>
-    <rect x="40" y="120" width="800" height="60" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <circle cx="75" cy="150" r="16" fill="#059669"/>
-    <text x="75" y="155" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">2</text>
-    <text x="110" y="155" fill="#1f2933" font-size="15" font-weight="bold">API 요청 시</text>
-    <path d="M210,150 L250,150" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-    <rect x="265" y="132" width="170" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="350" y="154.5" fill="#1f2933" font-size="14" font-weight="600" text-anchor="middle">Access Token 사용</text>
-  </g>
+  <!-- 1 -->
+  <circle cx="52" cy="60" r="16" fill="#111827"/>
+  <text x="52" y="66" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="88" y="34" width="230" height="52" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="203" y="66" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">로그인</text>
+  <line x1="322" y1="60" x2="360" y2="60" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="366" y="34" width="358" height="52" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="545" y="66" font-size="17" fill="#111827" text-anchor="middle"><tspan fill="#1d4ed8" font-weight="bold">Access Token</tspan> + <tspan fill="#b45309" font-weight="bold">Refresh Token</tspan> 발급</text>
 
-  <!-- Connector 2 -> 3 -->
-  <path d="M440,180 L440,198" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- 2 -->
+  <circle cx="52" cy="146" r="16" fill="#111827"/>
+  <text x="52" y="152" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="88" y="120" width="230" height="52" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="203" y="152" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">API 요청 시</text>
+  <line x1="322" y1="146" x2="360" y2="146" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="366" y="120" width="358" height="52" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="545" y="152" font-size="17" fill="#111827" text-anchor="middle"><tspan fill="#1d4ed8" font-weight="bold">Access Token</tspan> 사용</text>
 
-  <!-- Step 3 Card -->
-  <g>
-    <rect x="40" y="200" width="800" height="60" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <circle cx="75" cy="230" r="16" fill="#d97706"/>
-    <text x="75" y="235" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">3</text>
-    <text x="110" y="235" fill="#1f2933" font-size="15" font-weight="bold">Access Token 만료</text>
-    <path d="M265,230 L305,230" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-amber)"/>
-    <rect x="320" y="212" width="220" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="430" y="234.5" fill="#1f2933" font-size="14" font-weight="600" text-anchor="middle">Refresh Token으로 재발급</text>
-  </g>
+  <!-- 3 -->
+  <circle cx="52" cy="232" r="16" fill="#111827"/>
+  <text x="52" y="238" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="88" y="206" width="230" height="52" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="203" y="238" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle"><tspan fill="#1d4ed8">Access Token</tspan> 만료</text>
+  <line x1="322" y1="232" x2="360" y2="232" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="366" y="206" width="358" height="52" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="545" y="238" font-size="17" fill="#111827" text-anchor="middle"><tspan fill="#b45309" font-weight="bold">Refresh Token</tspan>으로 재발급</text>
 
-  <!-- Connector 3 -> 4 -->
-  <path d="M440,260 L440,278" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-
-  <!-- Step 4 Card -->
-  <g>
-    <rect x="40" y="280" width="800" height="60" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <circle cx="75" cy="310" r="16" fill="#dc2626"/>
-    <text x="75" y="315" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">4</text>
-    <text x="110" y="315" fill="#1f2933" font-size="15" font-weight="bold">Refresh Token 만료</text>
-    <path d="M275,310 L315,310" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-    <rect x="330" y="292" width="110" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="385" y="314.5" fill="#1f2933" font-size="14" font-weight="600" text-anchor="middle">재로그인</text>
-  </g>
+  <!-- 4 -->
+  <circle cx="52" cy="318" r="16" fill="#111827"/>
+  <text x="52" y="324" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="88" y="292" width="230" height="52" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="203" y="324" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle"><tspan fill="#b45309">Refresh Token</tspan> 만료</text>
+  <line x1="322" y1="318" x2="360" y2="318" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <rect x="366" y="292" width="358" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="545" y="324" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">재로그인</text>
 </svg>

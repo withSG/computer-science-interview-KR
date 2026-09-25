@@ -1,112 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">왜 필요한가</title>
-  <desc id="d">생성 패턴이 없을 때 여러 곳에서 객체를 직접 생성하는 방식과, 생성 책임을 Factory로 분리하여 한 곳에서 관리하는 방식을 비교하는 다이어그램</desc>
-  <rect width="880" height="380" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 590" width="880" height="590" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">생성 책임 분리 전후</title>
+  <desc id="d">생성 패턴 없이는 OrderService, RefundService, BatchJob 세 곳이 각자 new로 Client를 만들어 생성 방법을 아는 곳이 세 군데다. 생성 책임을 분리하면 세 곳이 Factory를 거쳐 Client를 얻으므로 생성 방법을 아는 곳은 Factory 하나다.</desc>
+  <rect width="880" height="590" fill="#ffffff"/>
   <defs>
-    <!-- Arrow marker for problem side (Red/Orange theme) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <!-- Arrow marker for solution side (Blue theme) -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- LEFT SECTION (생성 패턴 없이) -->
-  <g id="left-section">
-    <!-- Section Box/Background -->
-    <rect x="24" y="24" width="400" height="332" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-    
-    <!-- Section Header -->
-    <text x="40" y="58" font-size="16" font-weight="bold" fill="#dc2626">[생성 패턴 없이]</text>
+  <!-- 위: 생성 패턴 없이 -->
+  <rect x="24" y="24" width="832" height="238" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="58" font-size="18" font-weight="bold" fill="#b91c1c">생성 패턴 없이</text>
 
-    <!-- Services Nodes -->
-    <!-- OrderService -->
-    <rect x="40" y="90" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="100" y="114" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">OrderService</text>
+  <path d="M210,100 L437,150" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <path d="M210,160 L437,160" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <path d="M210,220 L437,170" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
 
-    <!-- RefundService -->
-    <rect x="40" y="150" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="100" y="174" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">RefundService</text>
+  <rect x="48" y="78" width="160" height="44" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="128" y="106" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderService</text>
+  <rect x="48" y="138" width="160" height="44" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="128" y="166" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">RefundService</text>
+  <rect x="48" y="198" width="160" height="44" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="128" y="226" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">BatchJob</text>
 
-    <!-- BatchJob -->
-    <rect x="40" y="210" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="100" y="234" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">BatchJob</text>
+  <rect x="266" y="105" width="52" height="26" fill="#f8fafc"/>
+  <text x="292" y="123" font-size="16" font-weight="bold" text-anchor="middle" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">new</text>
+  <rect x="266" y="147" width="52" height="26" fill="#f8fafc"/>
+  <text x="292" y="165" font-size="16" font-weight="bold" text-anchor="middle" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">new</text>
+  <rect x="266" y="189" width="52" height="26" fill="#f8fafc"/>
+  <text x="292" y="207" font-size="16" font-weight="bold" text-anchor="middle" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">new</text>
 
-    <!-- Client Node -->
-    <rect x="284" y="150" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="344" y="174" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Client</text>
+  <rect x="440" y="138" width="100" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="490" y="166" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Client</text>
 
-    <!-- Arrows with "new" labels -->
-    <!-- OrderService -> Client -->
-    <path d="M160,110 L284,155" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="204" y="120" width="36" height="18" fill="#ffffff" rx="2"/>
-    <text x="222" y="133" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">new</text>
+  <text x="580" y="166" font-size="18" font-weight="bold" fill="#b91c1c">생성 방법을 아는 곳이 세 군데</text>
 
-    <!-- RefundService -> Client -->
-    <path d="M160,170 L284,170" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="204" y="161" width="36" height="18" fill="#ffffff" rx="2"/>
-    <text x="222" y="174" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">new</text>
+  <!-- 아래: 생성 책임을 분리하면 -->
+  <rect x="24" y="282" width="832" height="238" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="316" font-size="18" font-weight="bold" fill="#047857">생성 책임을 분리하면</text>
 
-    <!-- BatchJob -> Client -->
-    <path d="M160,230 L284,185" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="204" y="202" width="36" height="18" fill="#ffffff" rx="2"/>
-    <text x="222" y="215" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">new</text>
+  <path d="M208,358 H240 M208,418 H240 M208,478 H240 M240,358 V478" stroke="#4b5563" stroke-width="1.5" fill="none"/>
+  <path d="M240,418 H270" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <path d="M392,418 H437" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
 
-    <!-- Footer Description -->
-    <text x="40" y="300" font-size="13" fill="#dc2626" font-weight="500">생성 방법을 아는 곳이 세 군데</text>
-  </g>
+  <rect x="48" y="336" width="160" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="128" y="364" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderService</text>
+  <rect x="48" y="396" width="160" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="128" y="424" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">RefundService</text>
+  <rect x="48" y="456" width="160" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="128" y="484" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">BatchJob</text>
 
-  <!-- RIGHT SECTION (생성 책임을 분리하면) -->
-  <g id="right-section">
-    <!-- Section Box/Background -->
-    <rect x="456" y="24" width="400" height="332" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-    
-    <!-- Section Header -->
-    <text x="472" y="58" font-size="16" font-weight="bold" fill="#2563eb">[생성 책임을 분리하면]</text>
+  <rect x="272" y="396" width="120" height="44" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+  <text x="332" y="424" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Factory</text>
 
-    <!-- Services Nodes -->
-    <!-- OrderService -->
-    <rect x="472" y="90" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="532" y="114" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">OrderService</text>
+  <rect x="440" y="396" width="100" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="490" y="424" font-size="16" text-anchor="middle" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Client</text>
 
-    <!-- RefundService -->
-    <rect x="472" y="150" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="532" y="174" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">RefundService</text>
+  <text x="580" y="424" font-size="18" font-weight="bold" fill="#047857">아는 곳은 Factory 하나</text>
 
-    <!-- BatchJob -->
-    <rect x="472" y="210" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="532" y="234" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">BatchJob</text>
-
-    <!-- Factory Node -->
-    <rect x="632" y="150" width="90" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
-    <text x="677" y="174" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Factory</text>
-
-    <!-- Client Node -->
-    <rect x="752" y="150" width="88" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="796" y="174" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Client</text>
-
-    <!-- Combined Arrows to Factory -->
-    <!-- OrderService to merge point -->
-    <path d="M592,110 L612,110 L612,170" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    <!-- RefundService to merge point -->
-    <path d="M592,170 L612,170" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    <!-- BatchJob to merge point -->
-    <path d="M592,230 L612,230 L612,170" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    
-    <!-- Merge point to Factory -->
-    <path d="M612,170 L632,170" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Factory to Client -->
-    <path d="M722,170 L752,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Footer Description -->
-    <text x="472" y="300" font-size="13" fill="#2563eb" font-weight="500">아는 곳은 Factory 하나</text>
-  </g>
+  <!-- 범례 -->
+  <rect x="48" y="540" width="20" height="20" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="80" y="556" font-size="15" fill="#374151">= 생성 방법을 아는 곳</text>
 </svg>

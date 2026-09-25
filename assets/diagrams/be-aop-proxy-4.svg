@@ -1,86 +1,77 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">무엇이 문제인가 - 정상 경로 vs self-invocation</title>
-  <desc id="d">정상 경로에서는 Controller가 Proxy를 거쳐 원본 processPayment를 호출하여 트랜잭션이 적용되지만, self-invocation에서는 Proxy가 createOrder에만 개입하고 내부 this.processPayment 호출 시 프록시를 안 거쳐 트랜잭션이 빠지는 문제를 설명하는 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">정상 경로 vs self-invocation</title>
+  <desc id="d">정상 경로에서는 Controller의 호출이 Proxy를 거쳐 트랜잭션을 시작한 뒤 원본 processPayment()에 도달한다. self-invocation에서는 Proxy가 createOrder에 대해서만 개입하고, 원본 createOrder() 안의 this.processPayment() 호출은 프록시를 거치지 않아 트랜잭션이 걸리지 않는다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
+  <rect width="880" height="600" fill="#ffffff"/>
 
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- ===== 왼쪽: 정상 경로 ===== -->
+  <rect x="24" y="24" width="408" height="552" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="44" y="60" font-size="20" font-weight="bold" fill="#1d4ed8">정상 경로</text>
+  <line x1="44" y1="76" x2="412" y2="76" stroke="#1d4ed8" stroke-width="2"/>
 
-  <!-- 정상 경로 영역 -->
-  <rect x="24" y="24" width="400" height="292" fill="#eff6ff" rx="8" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="44" y="52" font-size="16" font-weight="bold" fill="#2563eb">정상 경로</text>
-  <line x1="44" y1="62" x2="404" y2="62" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="138" y="100" width="180" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="228" y="128" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Controller</text>
 
-  <!-- 정상 경로: Controller -->
-  <rect x="132" y="80" width="184" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="224" y="102" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Controller</text>
+  <line x1="228" y1="144" x2="228" y2="179" stroke="#1d4ed8" stroke-width="2" marker-end="url(#a-blue)"/>
 
-  <!-- 정상 경로: Controller -> Proxy 화살표 -->
-  <path d="M224,116 L224,142" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="118" y="180" width="220" height="60" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="228" y="205" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Proxy</text>
+  <text x="228" y="227" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">트랜잭션 시작</text>
 
-  <!-- 정상 경로: [Proxy] -->
-  <rect x="150" y="142" width="148" height="36" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="224" y="164" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[Proxy]</text>
+  <!-- 원본 객체 -->
+  <rect x="44" y="276" width="368" height="212" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="58" y="300" font-size="14" font-weight="bold" fill="#4b5563">원본 객체</text>
 
-  <!-- 정상 경로: Proxy 지시선 & 트랜잭션 시작 -->
-  <path d="M298,160 L320,160" stroke="#52606d" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-  <polygon points="320,160 325,157 325,163" fill="#52606d"/>
-  <text x="330" y="164" font-size="11.5" fill="#52606d">트랜잭션 시작</text>
+  <line x1="228" y1="240" x2="228" y2="411" stroke="#1d4ed8" stroke-width="2" marker-end="url(#a-blue)"/>
 
-  <!-- 정상 경로: Proxy -> 원본 화살표 -->
-  <path d="M224,178 L224,234" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="128" y="412" width="200" height="60" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="228" y="447" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">processPayment()</text>
 
-  <!-- 정상 경로: [원본] processPayment() -->
-  <rect x="108" y="234" width="232" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="224" y="256" font-size="13" fill="#1f2933" text-anchor="middle">[원본] processPayment()</text>
+  <!-- 결과 -->
+  <rect x="44" y="508" width="368" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="228" y="538" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">트랜잭션 적용</text>
 
+  <!-- ===== 오른쪽: self-invocation ===== -->
+  <rect x="448" y="24" width="408" height="552" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="468" y="60" font-size="20" font-weight="bold" fill="#b91c1c">self-invocation</text>
+  <line x1="468" y1="76" x2="836" y2="76" stroke="#b91c1c" stroke-width="2"/>
 
-  <!-- self-invocation 영역 -->
-  <rect x="456" y="24" width="400" height="292" fill="#fef2f2" rx="8" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="476" y="52" font-size="16" font-weight="bold" fill="#dc2626">self-invocation</text>
-  <line x1="476" y1="62" x2="836" y2="62" stroke="#dc2626" stroke-width="1.5"/>
+  <rect x="530" y="100" width="180" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="128" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Controller</text>
 
-  <!-- self-invocation: Controller -->
-  <rect x="564" y="80" width="184" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="656" y="102" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Controller</text>
+  <line x1="620" y1="144" x2="620" y2="179" stroke="#374151" stroke-width="2" marker-end="url(#a-ink)"/>
 
-  <!-- self-invocation: Controller -> Proxy 화살표 -->
-  <path d="M656,116 L656,142" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="490" y="180" width="260" height="60" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="620" y="205" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Proxy</text>
+  <text x="620" y="227" font-size="14" fill="#374151" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">createOrder</tspan>에 대해서만 개입</text>
 
-  <!-- self-invocation: [Proxy] -->
-  <rect x="582" y="142" width="148" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="656" y="164" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[Proxy]</text>
+  <!-- 원본 객체 -->
+  <rect x="468" y="276" width="368" height="212" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="482" y="300" font-size="14" font-weight="bold" fill="#4b5563">원본 객체</text>
 
-  <!-- self-invocation: Proxy 지시선 & 주석 -->
-  <path d="M730,160 L742,160" stroke="#52606d" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-  <polygon points="742,160 747,157 747,163" fill="#52606d"/>
-  <text x="856" y="164" font-size="11.5" fill="#52606d" text-anchor="end">createOrder에 대해서만 개입</text>
+  <line x1="620" y1="240" x2="620" y2="315" stroke="#374151" stroke-width="2" marker-end="url(#a-ink)"/>
 
-  <!-- self-invocation: Proxy -> 원본 createOrder 화살표 -->
-  <path d="M656,178 L656,204" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="530" y="316" width="180" height="48" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="620" y="346" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">createOrder()</text>
 
-  <!-- self-invocation: [원본] createOrder() -->
-  <rect x="556" y="204" width="200" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="656" y="226" font-size="13" fill="#1f2933" text-anchor="middle">[원본] createOrder()</text>
+  <line x1="620" y1="364" x2="620" y2="411" stroke="#b91c1c" stroke-width="2.2" marker-end="url(#a-red)"/>
+  <text x="632" y="393" font-size="14" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">this.processPayment()</text>
 
-  <!-- self-invocation: createOrder -> processPayment 화살표 & 라벨 -->
-  <path d="M656,240 L656,266" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="664" y="244" width="138" height="16" fill="#ffffff"/>
-  <text x="668" y="256" font-size="11.5" fill="#dc2626">this.processPayment()</text>
+  <rect x="510" y="412" width="220" height="60" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="620" y="437" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">processPayment()</text>
+  <text x="620" y="459" font-size="14" font-weight="bold" fill="#b91c1c" text-anchor="middle">프록시를 안 거침</text>
 
-  <!-- self-invocation: [원본] processPayment() 및 프록시를 안 거침 -->
-  <rect x="540" y="266" width="232" height="36" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="656" y="288" font-size="13" fill="#dc2626" text-anchor="middle">[원본] processPayment()</text>
-  <text x="780" y="288" font-size="11.5" fill="#dc2626">← 프록시를 안 거침</text>
-
+  <!-- 결과 -->
+  <rect x="468" y="508" width="368" height="48" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="652" y="538" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">트랜잭션이 걸리지 않음</text>
 </svg>

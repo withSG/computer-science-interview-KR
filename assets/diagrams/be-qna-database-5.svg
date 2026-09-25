@@ -1,36 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">삽입 이상 (Insertion Anomaly)</title>
-  <desc id="d">수강 과목 없이 학생 정보만 등록할 때 기본키 NULL 문제로 인해 데이터 삽입이 불가능한 현상을 설명하는 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">삽입 이상 예시</title>
+  <desc id="d">학생 1003 박민준(BA, 경영학)을 수강 과목 없이 등록하려면 과목코드와 과목명에 NULL을 넣어야 하는데, 기본키(학생ID + 과목코드)에는 NULL이 허용되지 않아 삽입할 수 없음을 보여준다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+  <!-- 문제 -->
+  <rect x="24" y="24" width="832" height="48" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <rect x="40" y="36" width="54" height="24" rx="12" fill="#b91c1c"/>
+  <text x="67" y="53" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">문제</text>
+  <text x="108" y="54" font-size="17" font-weight="bold" fill="#111827">수강 과목 없이 학생 정보만 등록할 수 없음</text>
 
-  <!-- Title / Section Header -->
-  <text x="30" y="42" font-size="16" font-weight="bold" fill="#1f2933">삽입 이상 (Insertion Anomaly)</text>
+  <!-- ① 등록 시도 -->
+  <circle cx="37" cy="106" r="13" fill="#374151"/>
+  <text x="37" y="111" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="60" y="112" font-size="17" font-weight="bold" fill="#111827">학생 1003 박민준(BA, 경영학) 등록하려면?</text>
 
-  <!-- Problem Statement Box -->
-  <rect x="30" y="60" width="820" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="45" y="84" font-size="14" font-weight="bold" fill="#d97706">문제:</text>
-  <text x="90" y="84" font-size="14" fill="#1f2933">수강 과목 없이 학생 정보만 등록할 수 없음</text>
+  <!-- 표: 머리행 + 삽입하려는 행 -->
+  <rect x="24" y="130" width="832" height="44" fill="#e5e7eb"/>
+  <rect x="576" y="174" width="280" height="48" fill="#fee2e2"/>
+  <g stroke="#d1d5db" stroke-width="1">
+    <line x1="148" y1="130" x2="148" y2="222"/>
+    <line x1="272" y1="130" x2="272" y2="222"/>
+    <line x1="408" y1="130" x2="408" y2="222"/>
+    <line x1="712" y1="130" x2="712" y2="222"/>
+  </g>
+  <line x1="576" y1="130" x2="576" y2="222" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="24" y1="174" x2="856" y2="174" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="24" y="130" width="832" height="92" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="577" y="175" width="134" height="46" fill="none" stroke="#b91c1c" stroke-width="2"/>
 
-  <!-- Target Action Box (Input Attempt) -->
-  <rect x="30" y="125" width="820" height="45" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="50" y="152" font-size="14" font-weight="bold" fill="#1f2933">학생 1003 박민준(BA, 경영학) 등록하려면?</text>
+  <g font-size="16" font-weight="bold" fill="#111827">
+    <text x="38" y="158">학생ID</text>
+    <text x="162" y="158">학생명</text>
+    <text x="286" y="158">학과코드</text>
+    <text x="422" y="158">학과명</text>
+    <text x="590" y="158">과목코드</text>
+    <text x="726" y="158">과목명</text>
+  </g>
+  <rect x="100" y="141" width="34" height="22" rx="11" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+  <text x="117" y="157" font-size="14" font-weight="bold" fill="#92400e" text-anchor="middle">PK</text>
+  <rect x="664" y="141" width="34" height="22" rx="11" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+  <text x="681" y="157" font-size="14" font-weight="bold" fill="#92400e" text-anchor="middle">PK</text>
 
-  <!-- Flow Steps -->
-  <!-- Step 1: Null Assignment -->
-  <path d="M 80 170 L 80 195" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="60" y="187" font-size="14" font-weight="bold" fill="#dc2626">→</text>
-  <rect x="85" y="195" width="765" height="38" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="100" y="219" font-size="13" font-weight="bold" fill="#dc2626">과목코드, 과목명에 NULL을 넣어야 함</text>
+  <g font-size="16" fill="#111827">
+    <text x="38" y="204">1003</text>
+    <text x="162" y="204">박민준</text>
+    <text x="286" y="204">BA</text>
+    <text x="422" y="204">경영학</text>
+  </g>
+  <g font-size="16" font-weight="bold" fill="#b91c1c">
+    <text x="590" y="204">NULL</text>
+    <text x="726" y="204">NULL</text>
+  </g>
 
-  <!-- Step 2: Primary Key Violation -->
-  <path d="M 80 233 L 80 258" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="60" y="250" font-size="14" font-weight="bold" fill="#dc2626">→</text>
-  <rect x="85" y="258" width="765" height="48" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="100" y="287" font-size="14" font-weight="bold" fill="#dc2626">기본키(학생ID + 과목코드)에 NULL 불가 → 삽입 불가!</text>
+  <!-- ② NULL 필요 -->
+  <circle cx="37" cy="254" r="13" fill="#374151"/>
+  <text x="37" y="259" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="60" y="260" font-size="17" fill="#111827">과목코드, 과목명에 <tspan font-weight="bold" fill="#b91c1c">NULL</tspan>을 넣어야 함</text>
+
+  <!-- ③ 결과 -->
+  <rect x="24" y="288" width="832" height="64" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <circle cx="51" cy="320" r="13" fill="#b91c1c"/>
+  <text x="51" y="325" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="76" y="326" font-size="17" font-weight="bold" fill="#111827">기본키(학생ID + 과목코드)에 NULL 불가 <tspan fill="#b91c1c">→</tspan> <tspan font-size="20" fill="#b91c1c">삽입 불가!</tspan></text>
 </svg>

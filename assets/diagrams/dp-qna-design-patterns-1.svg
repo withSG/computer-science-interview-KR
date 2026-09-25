@@ -1,78 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">동작 흐름</title>
-  <desc id="d">MVC 패턴의 동작 흐름을 사용자 요청부터 응답까지 순서대로 나타낸 다이어그램</desc>
-  
-  <!-- 배경 -->
-  <rect width="880" height="570" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">MVC 동작 흐름</title>
+  <desc id="d">사용자 요청이 Controller(요청 분석), Model(비즈니스 로직), Controller(결과 전달), View(화면 렌더링)를 차례로 거쳐 사용자 응답으로 돌아오는 6단계 흐름을 역할별 열로 나눠 보여 준다.</desc>
+  <rect width="880" height="600" fill="#ffffff"/>
 
   <defs>
-    <!-- 화살표 마커 - 기본 잉크색 -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <!-- 화살표 마커 - 파랑 -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <!-- 화살표 마커 - 초록 -->
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <!-- 화살표 마커 - 보라 -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <!-- 화살표 마커 - 주황 -->
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 제목 (주어진 문서 헤딩) -->
-  <text x="440" y="35" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">동작 흐름</text>
+  <!-- 역할별 열 -->
+  <rect x="28" y="24" width="200" height="548" rx="10" fill="#f3f4f6"/>
+  <rect x="236" y="24" width="200" height="548" rx="10" fill="#eff6ff"/>
+  <rect x="444" y="24" width="200" height="548" rx="10" fill="#f5f3ff"/>
+  <rect x="652" y="24" width="200" height="548" rx="10" fill="#ecfdf5"/>
+
+  <text x="128" y="54" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">사용자</text>
+  <text x="336" y="54" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Controller</text>
+  <text x="544" y="54" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">Model</text>
+  <text x="752" y="54" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">View</text>
+
+  <!-- 연결선 -->
+  <path d="M212,113 H336 V164" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M420,195 H544 V246" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M460,277 H336 V328" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M420,359 H752 V410" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M668,441 H128 V492" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- 1. 사용자 요청 -->
-  <!-- 글자: "1. 사용자 요청" (11자, 약 108px) -> 박스 폭 200, 중심x 440, y 60~110 -->
-  <rect x="340" y="60" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="89" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 사용자 요청</text>
-
-  <!-- 화살표 1 -> 2 -->
-  <path d="M440,110 L440,133" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="44" y="84" width="168" height="58" rx="8" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <circle cx="68" cy="113" r="14" fill="#374151"/>
+  <text x="68" y="118" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="92" y="109" font-size="16" font-weight="bold" fill="#374151">사용자</text>
+  <text x="92" y="130" font-size="15" fill="#1f2937">요청</text>
 
   <!-- 2. Controller (요청 분석) -->
-  <!-- 글자: "2. Controller (요청 분석)" -> 박스 폭 280, 중심x 440, y 140~190 -->
-  <rect x="300" y="140" width="280" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="169" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">2. Controller (요청 분석)</text>
-
-  <!-- 화살표 2 -> 3 -->
-  <path d="M440,190 L440,213" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="252" y="166" width="168" height="58" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="276" cy="195" r="14" fill="#1d4ed8"/>
+  <text x="276" y="200" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="300" y="191" font-size="16" font-weight="bold" fill="#1d4ed8">Controller</text>
+  <text x="300" y="212" font-size="15" fill="#1f2937">요청 분석</text>
 
   <!-- 3. Model (비즈니스 로직) -->
-  <!-- 글자: "3. Model (비즈니스 로직)" -> 박스 폭 280, 중심x 440, y 220~270 -->
-  <rect x="300" y="220" width="280" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="249" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">3. Model (비즈니스 로직)</text>
-
-  <!-- 화살표 3 -> 4 -->
-  <path d="M440,270 L440,293" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="460" y="248" width="168" height="58" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <circle cx="484" cy="277" r="14" fill="#6d28d9"/>
+  <text x="484" y="282" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="508" y="273" font-size="16" font-weight="bold" fill="#6d28d9">Model</text>
+  <text x="508" y="294" font-size="15" fill="#1f2937">비즈니스 로직</text>
 
   <!-- 4. Controller (결과 전달) -->
-  <!-- 글자: "4. Controller (결과 전달)" -> 박스 폭 280, 중심x 440, y 300~350 -->
-  <rect x="300" y="300" width="280" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="329" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">4. Controller (결과 전달)</text>
-
-  <!-- 화살표 4 -> 5 -->
-  <path d="M440,350 L440,373" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="252" y="330" width="168" height="58" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="276" cy="359" r="14" fill="#1d4ed8"/>
+  <text x="276" y="364" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="300" y="355" font-size="16" font-weight="bold" fill="#1d4ed8">Controller</text>
+  <text x="300" y="376" font-size="15" fill="#1f2937">결과 전달</text>
 
   <!-- 5. View (화면 렌더링) -->
-  <!-- 글자: "5. View (화면 렌더링)" -> 박스 폭 280, 중심x 440, y 380~430 -->
-  <rect x="300" y="380" width="280" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="409" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">5. View (화면 렌더링)</text>
-
-  <!-- 화살표 5 -> 6 -->
-  <path d="M440,430 L440,453" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <rect x="668" y="412" width="168" height="58" rx="8" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <circle cx="692" cy="441" r="14" fill="#047857"/>
+  <text x="692" y="446" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="716" y="437" font-size="16" font-weight="bold" fill="#047857">View</text>
+  <text x="716" y="458" font-size="15" fill="#1f2937">화면 렌더링</text>
 
   <!-- 6. 사용자 응답 -->
-  <!-- 글자: "6. 사용자 응답" -> 박스 폭 200, 중심x 440, y 460~510 -->
-  <rect x="340" y="460" width="200" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="489" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">6. 사용자 응답</text>
+  <rect x="44" y="494" width="168" height="58" rx="8" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <circle cx="68" cy="523" r="14" fill="#374151"/>
+  <text x="68" y="528" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="92" y="519" font-size="16" font-weight="bold" fill="#374151">사용자</text>
+  <text x="92" y="540" font-size="15" fill="#1f2937">응답</text>
 </svg>

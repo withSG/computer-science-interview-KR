@@ -1,17 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Trunk Based Development</title>
-  <desc id="d">Trunk Based Development 워크플로우를 나타낸 다이어그램으로, main 브랜치로 짧은 feature 브랜치들이 직접 병합되는 구조를 설명합니다.</desc>
+  <title id="t">Trunk Based Development 흐름</title>
+  <desc id="d">main 하나를 두고, 수명이 짧은 feature 브랜치 여러 개가 잇달아 main으로 병합되어 빠르게 통합됩니다.</desc>
   <rect width="880" height="320" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
+    <marker id="m-feat" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,1 L10,5 L0,9 z" fill="#b45309"/></marker>
+    <marker id="m-ink" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,1 L10,5 L0,9 z" fill="#374151"/></marker>
   </defs>
-  <path d="M100,100 L780,100" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
-  <text x="80" y="105" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="end">main</text>
-  <path d="M280,210 L280,112" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M440,210 L440,112" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M600,210 L600,112" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="300" y="215" width="280" height="40" rx="6" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="240" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">(짧은 feature 브랜치)</text>
+
+  <!-- 요점 -->
+  <text x="32" y="44" font-size="17" font-weight="bold" fill="#111827">짧은 <tspan fill="#b45309">feature</tspan> 브랜치를 <tspan fill="#1d4ed8">main</tspan>에 잇달아 병합 → 빠른 통합</text>
+
+  <!-- 브랜치 이름 -->
+  <text x="32" y="115" font-size="16" font-weight="bold" fill="#1d4ed8">main</text>
+  <text x="32" y="175" font-size="16" font-weight="bold" fill="#b45309">feature</text>
+
+  <!-- 레인 -->
+  <line x1="150" y1="170" x2="848" y2="170" stroke="#e5e7eb" stroke-width="2"/>
+  <line x1="150" y1="110" x2="848" y2="110" stroke="#1d4ed8" stroke-width="4"/>
+
+  <!-- 짧은 feature 1 -->
+  <path d="M290,119 Q290,170 318,170" fill="none" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#m-feat)"/>
+  <path d="M339,170 Q370,170 370,123" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#m-feat)"/>
+  <!-- 짧은 feature 2 -->
+  <path d="M450,119 Q450,170 478,170" fill="none" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#m-feat)"/>
+  <path d="M499,170 Q530,170 530,123" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#m-feat)"/>
+  <!-- 짧은 feature 3 -->
+  <path d="M610,119 Q610,170 638,170" fill="none" stroke="#b45309" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#m-feat)"/>
+  <path d="M659,170 Q690,170 690,123" fill="none" stroke="#b45309" stroke-width="2.5" marker-end="url(#m-feat)"/>
+
+  <!-- 커밋 -->
+  <g fill="#ffffff" stroke-width="3">
+    <circle cx="290" cy="110" r="7" stroke="#1d4ed8"/>
+    <circle cx="370" cy="110" r="7" stroke="#1d4ed8"/>
+    <circle cx="450" cy="110" r="7" stroke="#1d4ed8"/>
+    <circle cx="530" cy="110" r="7" stroke="#1d4ed8"/>
+    <circle cx="610" cy="110" r="7" stroke="#1d4ed8"/>
+    <circle cx="690" cy="110" r="7" stroke="#1d4ed8"/>
+    <circle cx="330" cy="170" r="7" stroke="#b45309"/>
+    <circle cx="490" cy="170" r="7" stroke="#b45309"/>
+    <circle cx="650" cy="170" r="7" stroke="#b45309"/>
+  </g>
+
+  <!-- 묶음 표시 -->
+  <path d="M290,196 L290,204 L690,204 L690,196" fill="none" stroke="#9ca3af" stroke-width="2"/>
+  <text x="490" y="232" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">(짧은 feature 브랜치)</text>
+
+  <!-- 범례 -->
+  <path d="M32,280 L72,280" fill="none" stroke="#374151" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#m-ink)"/>
+  <text x="82" y="285" font-size="15" fill="#374151">분기</text>
+  <path d="M140,280 L180,280" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#m-ink)"/>
+  <text x="190" y="285" font-size="15" fill="#374151">병합</text>
+  <circle cx="256" cy="280" r="7" fill="#ffffff" stroke="#374151" stroke-width="3"/>
+  <text x="272" y="285" font-size="15" fill="#374151">커밋</text>
 </svg>

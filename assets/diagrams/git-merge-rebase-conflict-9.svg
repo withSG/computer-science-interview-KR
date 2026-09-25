@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">reset과 revert의 히스토리 차이</title>
+  <desc id="d">c1, c2, c3 히스토리에서 reset은 c3를 히스토리에서 없애 c1, c2만 남기고, revert는 기존 커밋을 그대로 두고 c3를 상쇄하는 새 커밋 c4를 뒤에 쌓습니다.</desc>
+  <rect width="880" height="320" fill="#ffffff"/>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+
+  <!-- 열 머리 -->
+  <text x="290" y="44" font-size="15" font-weight="700" fill="#4b5563" text-anchor="middle">되돌리기 전</text>
+  <text x="615" y="44" font-size="15" font-weight="700" fill="#4b5563" text-anchor="middle">되돌린 후</text>
+  <line x1="40" y1="60" x2="840" y2="60" stroke="#d1d5db" stroke-width="1.5"/>
+
+  <!-- ── reset 방식 ── -->
+  <text x="40" y="107" font-size="17" font-weight="700" fill="#b91c1c">reset 방식</text>
+  <text x="40" y="131" font-size="15" fill="#4b5563">히스토리 변경</text>
+
+  <!-- 전 -->
+  <g stroke="#6b7280" stroke-width="2">
+    <line x1="242" y1="112" x2="268" y2="112"/>
+    <line x1="312" y1="112" x2="338" y2="112"/>
+  </g>
+  <g fill="#f3f4f6" stroke="#4b5563" stroke-width="2">
+    <circle cx="220" cy="112" r="22"/>
+    <circle cx="290" cy="112" r="22"/>
+    <circle cx="360" cy="112" r="22"/>
+  </g>
+  <g font-size="16" font-weight="700" fill="#111827" text-anchor="middle">
+    <text x="220" y="118">c1</text>
+    <text x="290" y="118">c2</text>
+    <text x="360" y="118">c3</text>
+  </g>
+
+  <path d="M398,112 H462" stroke="#374151" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+
+  <!-- 후 -->
+  <line x1="532" y1="112" x2="558" y2="112" stroke="#6b7280" stroke-width="2"/>
+  <line x1="602" y1="112" x2="628" y2="112" stroke="#9ca3af" stroke-width="2" stroke-dasharray="4 4"/>
+  <circle cx="510" cy="112" r="22" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="580" cy="112" r="22" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <circle cx="650" cy="112" r="22" fill="#ffffff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="5 4"/>
+  <g font-size="16" font-weight="700" text-anchor="middle">
+    <text x="510" y="118" fill="#111827">c1</text>
+    <text x="580" y="118" fill="#111827">c2</text>
+    <text x="650" y="118" fill="#6b7280">c3</text>
+  </g>
+  <text x="650" y="164" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">c3가 히스토리에서 사라짐</text>
+
+  <line x1="40" y1="190" x2="840" y2="190" stroke="#e5e7eb" stroke-width="1.5"/>
+
+  <!-- ── revert 방식 ── -->
+  <text x="40" y="235" font-size="17" font-weight="700" fill="#047857">revert 방식</text>
+  <text x="40" y="259" font-size="15" fill="#4b5563">히스토리 보존</text>
+
+  <!-- 전 -->
+  <g stroke="#6b7280" stroke-width="2">
+    <line x1="242" y1="240" x2="268" y2="240"/>
+    <line x1="312" y1="240" x2="338" y2="240"/>
+  </g>
+  <g fill="#f3f4f6" stroke="#4b5563" stroke-width="2">
+    <circle cx="220" cy="240" r="22"/>
+    <circle cx="290" cy="240" r="22"/>
+    <circle cx="360" cy="240" r="22"/>
+  </g>
+  <g font-size="16" font-weight="700" fill="#111827" text-anchor="middle">
+    <text x="220" y="246">c1</text>
+    <text x="290" y="246">c2</text>
+    <text x="360" y="246">c3</text>
+  </g>
+
+  <path d="M398,240 H462" stroke="#374151" stroke-width="2.5" fill="none" marker-end="url(#ah)"/>
+
+  <!-- 후 -->
+  <g stroke="#6b7280" stroke-width="2">
+    <line x1="532" y1="240" x2="558" y2="240"/>
+    <line x1="602" y1="240" x2="628" y2="240"/>
+    <line x1="672" y1="240" x2="696" y2="240"/>
+  </g>
+  <g fill="#f3f4f6" stroke="#4b5563" stroke-width="2">
+    <circle cx="510" cy="240" r="22"/>
+    <circle cx="580" cy="240" r="22"/>
+    <circle cx="650" cy="240" r="22"/>
+  </g>
+  <circle cx="720" cy="240" r="24" fill="#d1fae5" stroke="#047857" stroke-width="2.5"/>
+  <g font-size="16" font-weight="700" text-anchor="middle">
+    <text x="510" y="246" fill="#111827">c1</text>
+    <text x="580" y="246" fill="#111827">c2</text>
+    <text x="650" y="246" fill="#111827">c3</text>
+    <text x="720" y="246" fill="#065f46">c4</text>
+  </g>
+  <text x="720" y="294" font-size="15" font-weight="700" fill="#047857" text-anchor="middle">c4 = c3를 상쇄하는 커밋</text>
+</svg>

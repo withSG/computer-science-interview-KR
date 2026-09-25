@@ -1,57 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Salt 적용 여부에 따른 해시 비교</title>
-  <desc id="d">Salt가 없을 때는 동일한 비밀번호가 같은 해시값을 가져 같다는 결과가 나오고, Salt가 있을 때는 사용자별 고유 Salt로 인해 서로 다른 해시값이 생성되어 다르다는 결과를 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="370" fill="#ffffff"/>
-  
-  <defs>
-    <!-- Markers -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Salt 유무에 따른 해시값</title>
+  <desc id="d">Salt가 없으면 같은 비밀번호 "hunter2"를 쓰는 user A와 user B의 해시값이 a3f9c2…로 같다. 사용자마다 다른 Salt를 붙이면 같은 비밀번호라도 해시값이 91be04…와 5cd7ff…로 달라진다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
 
-  <!-- Left Container: [ Salt 없음 ] -->
-  <rect x="30" y="30" width="395" height="310" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  
-  <!-- Title Left -->
-  <rect x="50" y="48" width="120" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="110" y="69.2" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">[ Salt 없음 ]</text>
+  <!-- Salt 없음 -->
+  <rect x="24" y="24" width="832" height="172" rx="10" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="48" y="62" font-size="19" font-weight="bold" fill="#b91c1c">Salt 없음</text>
 
-  <!-- Left Content Box 1: user A -->
-  <rect x="50" y="100" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="65" y="135.2" font-size="13" font-weight="bold" fill="#1f2933">user A:</text>
-  <text x="125" y="135.2" font-size="13" fill="#52606d">hash("hunter2") = a3f9c2…</text>
+  <text x="64" y="110" font-size="16" font-weight="bold" fill="#111827">user A</text>
+  <text x="160" y="110" font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash("hunter2")</text>
+  <text x="430" y="110" font-size="17" text-anchor="middle" fill="#111827">=</text>
+  <rect x="456" y="86" width="140" height="36" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="526" y="110" font-size="17" font-weight="bold" text-anchor="middle" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">a3f9c2…</text>
 
-  <!-- Left Content Box 2: user B -->
-  <rect x="50" y="180" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="65" y="215.2" font-size="13" font-weight="bold" fill="#1f2933">user B:</text>
-  <text x="125" y="215.2" font-size="13" fill="#52606d">hash("hunter2") = a3f9c2…</text>
+  <text x="64" y="160" font-size="16" font-weight="bold" fill="#111827">user B</text>
+  <text x="160" y="160" font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash("hunter2")</text>
+  <text x="430" y="160" font-size="17" text-anchor="middle" fill="#111827">=</text>
+  <rect x="456" y="136" width="140" height="36" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="526" y="160" font-size="17" font-weight="bold" text-anchor="middle" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">a3f9c2…</text>
 
-  <!-- Left Arrow & Result -->
-  <path d="M 285,290 L 285,250" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <text x="285" y="312.2" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">↑ 같다!</text>
+  <path d="M606,104 H626 V154 H606" stroke="#b91c1c" stroke-width="2" fill="none"/>
+  <text x="646" y="126" font-size="20" font-weight="bold" fill="#b91c1c">같다!</text>
+  <text x="646" y="150" font-size="15" fill="#b91c1c">같은 비밀번호 노출</text>
 
-  <!-- Right Container: [ Salt 있음 ] -->
-  <rect x="455" y="30" width="395" height="310" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- Salt 있음 -->
+  <rect x="24" y="214" width="832" height="172" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="48" y="252" font-size="19" font-weight="bold" fill="#047857">Salt 있음</text>
+  <text x="160" y="252" font-size="15" fill="#6d28d9">Salt = 사용자마다 다른 랜덤 값</text>
 
-  <!-- Title Right -->
-  <rect x="475" y="48" width="120" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="535" y="69.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[ Salt 있음 ]</text>
+  <text x="64" y="300" font-size="16" font-weight="bold" fill="#111827">user A</text>
+  <text x="160" y="300" font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash("hunter2" + <tspan font-weight="bold" fill="#6d28d9">"x7Kq2p"</tspan>)</text>
+  <text x="430" y="300" font-size="17" text-anchor="middle" fill="#111827">=</text>
+  <rect x="456" y="276" width="140" height="36" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="526" y="300" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">91be04…</text>
 
-  <!-- Right Content Box 1: user A -->
-  <rect x="475" y="100" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="490" y="135.2" font-size="13" font-weight="bold" fill="#1f2933">user A:</text>
-  <text x="550" y="135.2" font-size="12.5" fill="#52606d">hash("hunter2" + "x7Kq2p") = 91be04…</text>
+  <text x="64" y="350" font-size="16" font-weight="bold" fill="#111827">user B</text>
+  <text x="160" y="350" font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash("hunter2" + <tspan font-weight="bold" fill="#6d28d9">"mZ4Tn8"</tspan>)</text>
+  <text x="430" y="350" font-size="17" text-anchor="middle" fill="#111827">=</text>
+  <rect x="456" y="326" width="140" height="36" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="526" y="350" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">5cd7ff…</text>
 
-  <!-- Right Content Box 2: user B -->
-  <rect x="475" y="180" width="355" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="490" y="215.2" font-size="13" font-weight="bold" fill="#1f2933">user B:</text>
-  <text x="550" y="215.2" font-size="12.5" fill="#52606d">hash("hunter2" + "mZ4Tn8") = 5cd7ff…</text>
-
-  <!-- Right Arrow & Result -->
-  <path d="M 725,290 L 725,250" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  <text x="725" y="312.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">↑ 다르다</text>
+  <path d="M606,294 H626 V344 H606" stroke="#047857" stroke-width="2" fill="none"/>
+  <text x="646" y="316" font-size="20" font-weight="bold" fill="#047857">다르다</text>
+  <text x="646" y="340" font-size="15" fill="#047857">같은 비밀번호 노출 차단</text>
 </svg>

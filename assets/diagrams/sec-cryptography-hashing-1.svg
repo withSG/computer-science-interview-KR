@@ -1,69 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">1. 왜 필요한가 — 되돌릴 수 있어야 하는 것과, 되돌리면 안 되는 것</title>
-  <desc id="d">양방향 암호화와 단방향 해싱의 흐름 및 특징을 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">암호화와 해싱의 방향 차이</title>
+  <desc id="d">암호화는 평문을 키로 암호문으로 바꾸고 같은 키로 복호화해 원본을 되찾는 양방향 흐름이다. 해싱은 입력을 고정 길이 해시값으로 바꾸기만 하고 되돌아오는 화살표가 없는 단방향 흐름이다.</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="320" fill="#ffffff"/>
+  <!-- 암호화: 양방향 -->
+  <rect x="24" y="24" width="404" height="292" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="48" y="62" font-size="20" font-weight="bold" fill="#1d4ed8">암호화 — 양방향</text>
 
-  <!-- [ 암호화 — 양방향 ] 영역 -->
-  <rect x="24" y="20" width="404" height="280" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="44" y="49" font-size="16" font-weight="bold" fill="#2563eb">[ 암호화 — 양방향 ]</text>
+  <rect x="56" y="112" width="100" height="56" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="106" y="146" font-size="17" font-weight="bold" text-anchor="middle" fill="#111827">평문</text>
 
-  <!-- 암호화 흐름 요소 -->
-  <!-- 평문 -->
-  <rect x="44" y="70" width="70" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="79" y="93" font-size="13" text-anchor="middle" fill="#1f2933">평문</text>
+  <rect x="296" y="112" width="108" height="56" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="350" y="146" font-size="17" font-weight="bold" text-anchor="middle" fill="#111827">암호문</text>
 
-  <!-- 평문 -> 암호문 화살표 (암호화(키)) -->
-  <path d="M 114 88 L 290 88" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="157" y="74" width="90" height="20" fill="#ffffff" rx="2"/>
-  <text x="202" y="89" font-size="13" text-anchor="middle" fill="#2563eb">암호화(키)</text>
+  <path d="M158,140 H292" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <text x="226" y="126" font-size="16" text-anchor="middle" fill="#1d4ed8">암호화(키)</text>
 
-  <!-- 암호문 -->
-  <rect x="290" y="70" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="330" y="93" font-size="13" text-anchor="middle" fill="#1f2933">암호문</text>
+  <path d="M350,170 V206 H106 V172" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <text x="228" y="232" font-size="16" text-anchor="middle" fill="#1d4ed8">복호화(키)</text>
 
-  <!-- 복호화 화살표: 암호문 -> 평문 -->
-  <path d="M 330 106 L 330 140 L 79 140 L 79 113" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="157" y="130" width="90" height="20" fill="#ffffff" rx="2"/>
-  <text x="202" y="145" font-size="13" text-anchor="middle" fill="#2563eb">복호화(키)</text>
+  <text x="48" y="274" font-size="16" fill="#1f2937">키를 가진 사람은 원본을 되찾는다.</text>
+  <text x="48" y="298" font-size="16" fill="#1f2937">그것이 목적이다.</text>
 
-  <!-- 암호화 설명 텍스트 -->
-  <text x="44" y="200" font-size="13" fill="#1f2933">키를 가진 사람은 원본을 되찾는다.</text>
-  <text x="44" y="222" font-size="13" fill="#1f2933">그것이 목적이다.</text>
+  <!-- 해싱: 단방향 -->
+  <rect x="452" y="24" width="404" height="292" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="476" y="62" font-size="20" font-weight="bold" fill="#047857">해싱 — 단방향</text>
 
+  <rect x="484" y="112" width="100" height="56" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="534" y="146" font-size="17" font-weight="bold" text-anchor="middle" fill="#111827">입력</text>
 
-  <!-- [ 해싱 — 단방향 ] 영역 -->
-  <rect x="452" y="20" width="404" height="280" rx="8" fill="#ecfdf5" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="472" y="49" font-size="16" font-weight="bold" fill="#059669">[ 해싱 — 단방향 ]</text>
+  <rect x="700" y="112" width="132" height="56" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="766" y="136" font-size="17" font-weight="bold" text-anchor="middle" fill="#111827">해시값</text>
+  <text x="766" y="158" font-size="14" text-anchor="middle" fill="#374151">(고정 길이)</text>
 
-  <!-- 해싱 흐름 요소 -->
-  <!-- 입력 -->
-  <rect x="472" y="70" width="70" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="507" y="93" font-size="13" text-anchor="middle" fill="#1f2933">입력</text>
+  <path d="M586,140 H696" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#ah-green)"/>
+  <text x="641" y="126" font-size="16" text-anchor="middle" fill="#047857">해시</text>
 
-  <!-- 입력 -> 해시값 화살표 (해시) -->
-  <path d="M 542 88 L 650 88" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="568" y="74" width="56" height="20" fill="#ffffff" rx="2"/>
-  <text x="596" y="89" font-size="13" text-anchor="middle" fill="#059669">해시</text>
+  <path d="M766,170 V206 H534 V174" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5" fill="none" marker-end="url(#ah-gray)"/>
+  <path d="M638,194 L662,218 M662,194 L638,218" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <text x="650" y="244" font-size="16" font-weight="bold" text-anchor="middle" fill="#b91c1c">되돌아오는 화살표가 없다</text>
 
-  <!-- 해시값 (고정 길이) -->
-  <rect x="650" y="70" width="160" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="730" y="93" font-size="13" text-anchor="middle" fill="#1f2933">해시값 (고정 길이)</text>
-
-  <!-- X 되돌아오는 화살표가 없다 -->
-  <text x="730" y="140" font-size="13" text-anchor="middle" font-weight="bold" fill="#dc2626">X 되돌아오는 화살표가 없다</text>
-
-  <!-- 해싱 설명 텍스트 -->
-  <text x="472" y="200" font-size="13" fill="#1f2933">키가 없고, 되돌리는 연산 자체가</text>
-  <text x="472" y="222" font-size="13" fill="#1f2933">정의되지 않는다.</text>
-
+  <text x="476" y="274" font-size="16" fill="#1f2937">키가 없고, 되돌리는 연산 자체가</text>
+  <text x="476" y="298" font-size="16" fill="#1f2937">정의되지 않는다.</text>
 </svg>

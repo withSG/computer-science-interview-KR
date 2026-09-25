@@ -121,7 +121,7 @@ Driessen 본인도 2020년에 원문에 주석을 덧붙여, **지속적으로 �
 브랜치를 `main` 하나와 수명이 짧은 기능 브랜치로 줄인 모델입니다.
 
 <!-- diagram:git-branching-strategy-4 -->
-![3. GitHub Flow](../assets/diagrams/git-branching-strategy-4.svg)
+![GitHub Flow: main에서 딴 짧은 브랜치가 PR로 합류](../assets/diagrams/git-branching-strategy-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -154,7 +154,7 @@ Driessen 본인도 2020년에 원문에 주석을 덧붙여, **지속적으로 �
 GitHub Flow의 단순함은 살리면서, "머지 = 즉시 운영 배포"가 아닌 조직을 위해 **환경 브랜치**를 추가한 모델입니다.
 
 <!-- diagram:git-branching-strategy-5 -->
-![4. GitLab Flow](../assets/diagrams/git-branching-strategy-5.svg)
+![GitLab Flow 환경 브랜치: main→staging→production](../assets/diagrams/git-branching-strategy-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -184,7 +184,7 @@ GitLab Flow는 "배포에 승인이나 검증 단계가 필요하지만 Git Flow
 모든 개발자가 **하나의 트렁크(`main`)에 하루에 한 번 이상 통합**합니다. 브랜치를 쓰더라도 수명이 하루이틀을 넘기지 않습니다.
 
 <!-- diagram:git-branching-strategy-6 -->
-![무엇이 다른가](../assets/diagrams/git-branching-strategy-6.svg)
+![트렁크 기반: main에 매일 합류하는 짧은 브랜치들](../assets/diagrams/git-branching-strategy-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

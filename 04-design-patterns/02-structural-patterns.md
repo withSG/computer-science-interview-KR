@@ -299,7 +299,7 @@ public class SecuredDocumentService implements DocumentService {
 `@Transactional`이 붙은 서비스를 주입받으면 컨테이너가 준 것은 원본이 아니라 프록시입니다.
 
 <!-- diagram:dp-structural-patterns-6 -->
-![Spring AOP와의 연결](../assets/diagrams/dp-structural-patterns-6.svg)
+![호출부→프록시→트랜잭션 시작→실제 메서드→커밋/롤백 흐름](../assets/diagrams/dp-structural-patterns-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

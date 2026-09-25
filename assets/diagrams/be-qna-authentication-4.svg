@@ -1,84 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">OAuth 2.0 Authorization Code 흐름</title>
-  <desc id="d">User (Browser), Authorization Server (Google), Backend Server 간의 OAuth 2.0 Authorization Code 발급 및 토큰 요청 시퀀스 다이어그램</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+  <desc id="d">User(Browser)가 소셜 로그인을 눌러 Authorization Server(Google)에서 로그인하고 권한에 동의하면 Authorization Code를 받는다. 이 Code를 Backend Server로 전달하면 Backend Server가 Code로 Access Token을 요청해 발급받는다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Lifelines -->
-  <path d="M140,90 L140,660" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <path d="M740,90 L740,660" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <!-- 참여자 -->
+  <rect x="30" y="24" width="240" height="62" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="150" y="50" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">User</text>
+  <text x="150" y="73" font-size="15" fill="#1e3a8a" text-anchor="middle">(Browser)</text>
 
-  <!-- Top Actor Boxes -->
-  <!-- User (Browser) -->
-  <rect x="50" y="30" width="180" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="140" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">User</text>
-  <text x="140" y="74" font-size="13" fill="#52606d" text-anchor="middle">(Browser)</text>
+  <rect x="320" y="24" width="240" height="62" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="440" y="50" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">Authorization Server</text>
+  <text x="440" y="73" font-size="15" fill="#4c1d95" text-anchor="middle">(Google)</text>
 
-  <!-- Authorization Server (Google) -->
-  <rect x="650" y="30" width="180" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="740" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Authorization</text>
-  <text x="740" y="74" font-size="13" fill="#52606d" text-anchor="middle">Server</text>
-  <text x="740" y="89" font-size="11.5" fill="#52606d" text-anchor="middle">(Google)</text>
+  <rect x="610" y="24" width="240" height="62" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="730" y="61" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">Backend Server</text>
 
-  <!-- Messages 1 to 5 (Between User and Auth Server) -->
+  <!-- 생명선 -->
+  <line x1="150" y1="86" x2="150" y2="516" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="440" y1="86" x2="440" y2="516" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="730" y1="86" x2="730" y2="516" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- Message 1 -->
-  <path d="M140,140 L731,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="361" y="122" width="158" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="137" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">1. 소셜 로그인 클릭</text>
+  <!-- 1 -->
+  <line x1="152" y1="140" x2="436" y2="140" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <circle cx="180" cy="122" r="12" fill="#1d4ed8"/>
+  <text x="180" y="127" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="200" y="128" font-size="16" fill="#1e3a8a">소셜 로그인 클릭</text>
 
-  <!-- Message 2 -->
-  <path d="M740,200 L149,200" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="338" y="182" width="204" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="197" font-size="13" fill="#7c3aed" text-anchor="middle">2. 로그인 페이지 리다이렉트</text>
+  <!-- 2 -->
+  <line x1="438" y1="198" x2="154" y2="198" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <circle cx="180" cy="180" r="12" fill="#6d28d9"/>
+  <text x="180" y="185" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="200" y="186" font-size="16" fill="#4c1d95">로그인 페이지 리다이렉트</text>
 
-  <!-- Message 3 -->
-  <path d="M140,260 L731,260" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="353" y="242" width="174" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="257" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">3. 로그인 + 권한 동의</text>
+  <!-- 3 -->
+  <line x1="152" y1="256" x2="436" y2="256" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <circle cx="180" cy="238" r="12" fill="#1d4ed8"/>
+  <text x="180" y="243" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="200" y="244" font-size="16" fill="#1e3a8a">로그인 + 권한 동의</text>
 
-  <!-- Message 4 -->
-  <path d="M740,320 L149,320" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="331" y="302" width="218" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="317" font-size="13" fill="#7c3aed" text-anchor="middle">4. Authorization Code 발급</text>
+  <!-- 4 -->
+  <line x1="438" y1="314" x2="154" y2="314" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <circle cx="180" cy="296" r="12" fill="#6d28d9"/>
+  <text x="180" y="301" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="200" y="302" font-size="16" fill="#4c1d95"><tspan font-weight="bold">Authorization Code</tspan> 발급</text>
 
-  <!-- Message 5 -->
-  <path d="M140,380 L140,460" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="152" y="409" width="236" height="22" fill="#ffffff" rx="3"/>
-  <text x="156" y="424" font-size="13" fill="#1f2933" text-anchor="start">5. Code를 백엔드 서버로 전달</text>
+  <!-- 5 -->
+  <line x1="152" y1="372" x2="726" y2="372" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <circle cx="180" cy="354" r="12" fill="#1d4ed8"/>
+  <text x="180" y="359" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="200" y="360" font-size="16" fill="#1e3a8a"><tspan font-weight="bold">Code</tspan>를 백엔드 서버로 전달</text>
 
-  <!-- Bottom Actor Boxes -->
-  <!-- Backend Server -->
-  <rect x="50" y="460" width="180" height="200" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="140" y="552" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Backend</text>
-  <text x="140" y="571" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <!-- 6 -->
+  <line x1="728" y1="430" x2="444" y2="430" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <circle cx="470" cy="412" r="12" fill="#047857"/>
+  <text x="470" y="417" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="490" y="418" font-size="16" fill="#064e3b"><tspan font-weight="bold">Code</tspan>로 <tspan font-weight="bold">Access Token</tspan> 요청</text>
 
-  <!-- Auth Server (Bottom box extending) -->
-  <rect x="650" y="460" width="180" height="200" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-
-  <!-- Messages 6 and 7 (Between Backend Server and Auth Server) -->
-
-  <!-- Message 6 -->
-  <path d="M230,520 L641,520" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="323" y="502" width="234" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="517" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">6. Code로 Access Token 요청</text>
-
-  <!-- Message 7 -->
-  <path d="M650,600 L239,600" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="345" y="582" width="190" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="597" font-size="13" fill="#7c3aed" text-anchor="middle">7. Access Token 발급</text>
+  <!-- 7 -->
+  <line x1="442" y1="488" x2="726" y2="488" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <circle cx="470" cy="470" r="12" fill="#6d28d9"/>
+  <text x="470" y="475" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="490" y="476" font-size="16" fill="#4c1d95"><tspan font-weight="bold">Access Token</tspan> 발급</text>
 </svg>

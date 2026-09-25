@@ -1,72 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실무에서의 소셜 로그인 순서도</title>
-  <desc id="d">실무 소셜 로그인 시 수행하는 5단계 처리 과정</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">소셜 로그인 처리 5단계</title>
+  <desc id="d">우리 서비스는 사용자를 공급자 인가 화면으로 보내고, 콜백에서 state를 검증한 뒤 code를 토큰으로 교환하고, id_token을 검증하고, (iss, sub)로 사용자를 찾거나 만든 다음, 여기서부터는 세션 쿠키나 우리가 서명한 JWT 같은 우리 서비스의 인증 체계로 넘어간다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Step 1 -->
-  <g>
-    <rect x="100" y="30" width="680" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="135" cy="62" r="14" fill="#2563eb"/>
-    <text x="135" y="67" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="165" y="66" font-size="13" font-weight="bold" fill="#1f2933">사용자를 공급자 인가 화면으로 보낸다</text>
-    <text x="415" y="66" font-size="13" fill="#52606d">(state, nonce, PKCE 포함)</text>
-  </g>
+  <!-- 단계 사이 화살표 -->
+  <line x1="52" y1="85" x2="52" y2="134" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahb)"/>
+  <line x1="52" y1="173" x2="52" y2="222" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahb)"/>
+  <line x1="52" y1="261" x2="52" y2="310" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahb)"/>
+  <line x1="52" y1="349" x2="52" y2="432" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ahp)"/>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M440,94 L440,124" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 1 -->
+  <circle cx="52" cy="66" r="17" fill="#1d4ed8"/>
+  <text x="52" y="72" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="88" y="24" width="768" height="84" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="108" y="56" font-size="17" font-weight="bold" fill="#111827">사용자를 공급자 인가 화면으로 보낸다</text>
+  <rect x="108" y="70" width="64" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="140" y="89" font-size="15" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">state</text>
+  <rect x="180" y="70" width="64" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="212" y="89" font-size="15" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">nonce</text>
+  <rect x="252" y="70" width="64" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="284" y="89" font-size="15" fill="#1d4ed8" text-anchor="middle">PKCE</text>
+  <text x="326" y="89" font-size="15" fill="#374151">포함</text>
 
-  <!-- Step 2 -->
-  <g>
-    <rect x="100" y="124" width="680" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="135" cy="156" r="14" fill="#2563eb"/>
-    <text x="135" y="161" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="165" y="160" font-size="13" font-weight="bold" fill="#1f2933">콜백에서 state 검증</text>
-    <path d="M315,156 L345,156" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <text x="360" y="160" font-size="13" font-weight="bold" fill="#1f2933">code를 토큰으로 교환</text>
-  </g>
+  <!-- 2 -->
+  <circle cx="52" cy="154" r="17" fill="#1d4ed8"/>
+  <text x="52" y="160" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="88" y="124" width="768" height="60" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="108" y="160" font-size="17" font-weight="bold" fill="#111827">콜백에서 <tspan fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">state</tspan> 검증  →  <tspan fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">code</tspan>를 토큰으로 교환</text>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M440,188 L440,218" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 3 -->
+  <circle cx="52" cy="242" r="17" fill="#1d4ed8"/>
+  <text x="52" y="248" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="88" y="200" width="768" height="84" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="108" y="232" font-size="17" font-weight="bold" fill="#111827"><tspan fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">id_token</tspan> 검증</text>
+  <rect x="108" y="246" width="56" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="136" y="265" font-size="15" fill="#1d4ed8" text-anchor="middle">서명</text>
+  <rect x="172" y="246" width="52" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="198" y="265" font-size="15" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">iss</text>
+  <rect x="232" y="246" width="52" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="258" y="265" font-size="15" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">aud</text>
+  <rect x="292" y="246" width="52" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="318" y="265" font-size="15" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">exp</text>
+  <rect x="352" y="246" width="64" height="28" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="384" y="265" font-size="15" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">nonce</text>
 
-  <!-- Step 3 -->
-  <g>
-    <rect x="100" y="218" width="680" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="135" cy="250" r="14" fill="#2563eb"/>
-    <text x="135" y="255" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="165" y="254" font-size="13" fill="#1f2933">id_token의 서명 / iss / aud / exp / nonce 검증</text>
-  </g>
+  <!-- 4 -->
+  <circle cx="52" cy="330" r="17" fill="#1d4ed8"/>
+  <text x="52" y="336" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="88" y="300" width="768" height="60" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="108" y="336" font-size="17" font-weight="bold" fill="#111827"><tspan fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(iss, sub)</tspan>로 우리 DB에서 사용자를 찾거나 새로 만든다</text>
 
-  <!-- Arrow 3 -> 4 -->
-  <path d="M440,282 L440,312" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Step 4 -->
-  <g>
-    <rect x="100" y="312" width="680" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="135" cy="344" r="14" fill="#2563eb"/>
-    <text x="135" y="349" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-    <text x="165" y="348" font-size="13" fill="#1f2933">(iss, sub)로 우리 DB에서 사용자를 찾거나 새로 만든다</text>
-  </g>
-
-  <!-- Arrow 4 -> 5 -->
-  <path d="M440,376 L440,406" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Step 5 (Important Highlight) -->
-  <g>
-    <rect x="100" y="406" width="680" height="74" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <circle cx="135" cy="443" r="14" fill="#7c3aed"/>
-    <text x="135" y="448" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
-    <text x="165" y="438" font-size="13" font-weight="bold" fill="#7c3aed">여기서부터는 우리 서비스의 인증 체계로</text>
-    <text x="165" y="458" font-size="12" fill="#52606d">(세션 쿠키 또는 우리가 서명한 JWT)</text>
-  </g>
+  <!-- 5 -->
+  <circle cx="52" cy="452" r="18" fill="#6d28d9"/>
+  <text x="52" y="458" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="88" y="388" width="768" height="128" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="108" y="424" font-size="19" font-weight="bold" fill="#6d28d9">여기서부터는 우리 서비스의 인증 체계로</text>
+  <rect x="108" y="440" width="96" height="32" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="156" y="461" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">세션 쿠키</text>
+  <text x="222" y="461" font-size="15" fill="#374151">또는</text>
+  <rect x="264" y="440" width="168" height="32" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1.2"/>
+  <text x="348" y="461" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">우리가 서명한 JWT</text>
+  <text x="108" y="500" font-size="15" fill="#4b5563">구글 Access Token을 우리 서비스의 인증 수단으로 계속 쓰지 않는다</text>
 </svg>

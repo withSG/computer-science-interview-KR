@@ -1,62 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">격리 수준으로는 안 풀리는 문제</title>
-  <desc id="d">재고 10개에서 두 사용자가 동시에 주문할 때 갱신 손실이 발생하는 과정을 나타낸 시퀀스 다이어그램</desc>
-  <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
-  <rect width="880" height="540" fill="#ffffff"/>
-  
-  <!-- Header Title (From Section Heading) -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">6.1 격리 수준으로는 안 풀리는 문제</text>
-  <text x="40" y="70" font-size="13" fill="#52606d">재고 10개, 두 사용자가 동시에 1개씩 주문</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">갱신 손실 발생 순서</title>
+  <desc id="d">재고 10개에서 두 사용자가 동시에 1개씩 주문한다. 트랜잭션 A와 B가 모두 stock 10을 읽고, 각자 10 - 1 = 9로 UPDATE해 A의 차감이 덮어써진다. 2개 팔렸는데 재고는 1개만 줄었다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
 
-  <!-- Swimlane Header Boxes -->
-  <!-- Transaction A Box -->
-  <rect x="180" y="95" width="220" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="290" y="120" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">트랜잭션 A</text>
+  <text x="40" y="42" font-size="18" font-weight="bold" fill="#1f2937">재고 10개, 두 사용자가 동시에 1개씩 주문</text>
 
-  <!-- Transaction B Box -->
-  <rect x="480" y="95" width="220" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="590" y="120" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">트랜잭션 B</text>
+  <!-- 열 머리 -->
+  <text x="58" y="92" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">순서</text>
+  <rect x="96" y="66" width="260" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="226" y="92" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">트랜잭션 A</text>
+  <rect x="376" y="66" width="260" height="40" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="506" y="92" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">트랜잭션 B</text>
+  <rect x="656" y="66" width="190" height="40" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="751" y="92" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">DB의 stock</text>
 
-  <!-- Lifelines -->
-  <path d="M 290 135 L 290 420" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <path d="M 590 135 L 590 420" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <!-- 생명선 -->
+  <line x1="226" y1="106" x2="226" y2="408" stroke="#93c5fd" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="506" y1="106" x2="506" y2="408" stroke="#c4b5fd" stroke-width="2" stroke-dasharray="6 5"/>
 
-  <!-- Step 1: Transaction A SELECT stock -->
-  <path d="M 290 170 L 400 170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="300" y="156" width="130" height="22" fill="#ffffff"/>
-  <text x="305" y="172" font-size="13" fill="#1f2933">SELECT stock → 10</text>
+  <!-- 순서 축 -->
+  <line x1="58" y1="151" x2="58" y2="379" stroke="#9ca3af" stroke-width="2"/>
+  <circle cx="58" cy="151" r="16" fill="#374151"/>
+  <text x="58" y="157" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <circle cx="58" cy="227" r="16" fill="#374151"/>
+  <text x="58" y="233" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <circle cx="58" cy="303" r="16" fill="#374151"/>
+  <text x="58" y="309" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <circle cx="58" cy="379" r="16" fill="#b91c1c"/>
+  <text x="58" y="385" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
 
-  <!-- Step 2: Transaction B SELECT stock -->
-  <path d="M 590 220 L 480 220" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="450" y="206" width="130" height="22" fill="#ffffff"/>
-  <text x="455" y="222" font-size="13" fill="#1f2933">SELECT stock → 10</text>
+  <!-- 1: A SELECT -->
+  <rect x="96" y="122" width="260" height="58" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="226" y="157" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT stock → 10</text>
+  <rect x="656" y="122" width="190" height="58" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="751" y="158" font-size="18" fill="#4b5563" text-anchor="middle">10</text>
 
-  <!-- Step 3: Transaction A UPDATE stock = 9 -->
-  <path d="M 290 270 L 400 270" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="300" y="256" width="200" height="22" fill="#ffffff"/>
-  <text x="305" y="272" font-size="13" fill="#1f2933">UPDATE stock = 9   (10 - 1)</text>
+  <!-- 2: B SELECT -->
+  <rect x="376" y="198" width="260" height="58" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="506" y="233" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT stock → 10</text>
+  <rect x="656" y="198" width="190" height="58" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="751" y="234" font-size="18" fill="#4b5563" text-anchor="middle">10</text>
 
-  <!-- Step 4: Transaction B UPDATE stock = 9 + Lost Update Warning -->
-  <path d="M 590 330 L 480 330" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="380" y="316" width="200" height="22" fill="#ffffff"/>
-  <text x="385" y="332" font-size="13" fill="#dc2626" font-weight="bold">UPDATE stock = 9   (10 - 1)</text>
+  <!-- 3: A UPDATE -->
+  <rect x="96" y="274" width="260" height="58" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="226" y="299" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">UPDATE stock = 9</text>
+  <text x="226" y="322" font-size="15" fill="#4b5563" text-anchor="middle">(10 - 1)</text>
+  <rect x="656" y="274" width="190" height="58" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="751" y="310" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">10 → 9</text>
 
-  <!-- Callout Annotation for Lost Update -->
-  <rect x="580" y="360" width="240" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <path d="M 590 330 L 610 360" stroke="#dc2626" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
-  <text x="590" y="381" font-size="12" fill="#dc2626" font-weight="bold">← A의 차감이 덮어써졌다</text>
+  <!-- 4: B UPDATE (갱신 손실) -->
+  <rect x="376" y="350" width="260" height="58" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="506" y="375" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">UPDATE stock = 9</text>
+  <text x="506" y="398" font-size="15" fill="#b91c1c" text-anchor="middle">(10 - 1)</text>
+  <rect x="656" y="350" width="190" height="58" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="751" y="374" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">9 → 9</text>
+  <text x="751" y="398" font-size="15" fill="#b91c1c" text-anchor="middle">A의 차감이 덮어써졌다</text>
 
-  <!-- Footer Result Box -->
-  <rect x="40" y="440" width="800" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="471" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">2개 팔렸는데 재고는 1개만 줄었다</text>
+  <!-- 결과 -->
+  <rect x="40" y="436" width="806" height="50" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="443" y="468" font-size="19" font-weight="bold" fill="#b91c1c" text-anchor="middle">2개 팔렸는데 재고는 1개만 줄었다</text>
 </svg>

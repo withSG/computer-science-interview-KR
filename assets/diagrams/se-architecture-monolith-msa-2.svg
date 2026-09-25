@@ -1,70 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">네트워크는 신뢰할 수 없다</title>
-  <desc id="d">모놀리식 환경과 MSA 환경에서의 호출 결과 차이를 나타낸 다이어그램입니다. MSA 환경에서는 네트워크로 인해 다양한 결과 케이스와 타임아웃 같은 불확실성이 발생함을 설명합니다.</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">로컬 호출과 네트워크 호출의 결과</title>
+  <desc id="d">모놀리식의 로컬 호출은 결과가 성공 또는 예외 두 가지뿐이지만, MSA에서 주문 서비스가 HTTP로 재고 서비스를 부르면 결과가 최소 다섯 가지이고 그중 처리 여부를 알 수 없는 타임아웃이 가장 어렵다는 것을 보여줍니다.</desc>
+  <rect width="880" height="490" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">네트워크는 신뢰할 수 없다</text>
+  <!-- 모놀리식 -->
+  <rect x="24" y="24" width="252" height="278" rx="10" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="40" y="55" font-size="18" font-weight="bold" fill="#111827">[모놀리식]</text>
 
-  <!-- Monolith Section -->
-  <rect x="40" y="70" width="800" height="130" rx="6" fill="#f8fafc" stroke="#e4e7eb" stroke-width="1"/>
-  
-  <!-- [모놀리식] 주문 -> 재고 (로컬 호출) -->
-  <text x="60" y="105" font-size="14" font-weight="bold" fill="#1f2933">[모놀리식]</text>
-  
-  <!-- Monolith Diagram Box -->
-  <rect x="150" y="87" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="185" y="106" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">주문</text>
-  
-  <path d="M220,102 L280,102" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  
-  <rect x="290" y="87" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="325" y="106" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">재고</text>
-  
-  <text x="375" y="106" font-size="13" fill="#52606d">(로컬 호출)</text>
+  <rect x="40" y="84" width="72" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="76" y="112" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">주문</text>
+  <path d="M116,114 L182,114" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arr-ink)"/>
+  <text x="150" y="102" font-size="14" fill="#374151" text-anchor="middle">로컬 호출</text>
+  <rect x="188" y="84" width="72" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="224" y="112" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">재고</text>
 
-  <!-- Monolith Result -->
-  <text x="60" y="160" font-size="13" fill="#1f2933">결과는 두 가지: 성공, 또는 예외</text>
+  <text x="40" y="170" font-size="17" font-weight="bold" fill="#111827">결과는 두 가지</text>
+  <rect x="40" y="186" width="220" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="150" y="214" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">성공</text>
+  <rect x="40" y="240" width="220" height="44" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="150" y="268" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">또는 예외</text>
 
-  <!-- MSA Section -->
-  <rect x="40" y="220" width="800" height="280" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-  
-  <!-- [MSA] 주문 서비스 - -HTTP--> 재고 서비스 -->
-  <text x="60" y="255" font-size="14" font-weight="bold" fill="#2563eb">[MSA]</text>
-  
-  <rect x="120" y="237" width="105" height="30" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="172" y="256" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">주문 서비스</text>
-  
-  <path d="M225,252 L360,252" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="268" y="243" width="48" height="18" fill="#ffffff"/>
-  <text x="292" y="256" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">HTTP</text>
-  
-  <rect x="370" y="237" width="105" height="30" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="422" y="256" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">재고 서비스</text>
+  <!-- MSA -->
+  <rect x="296" y="24" width="560" height="440" rx="10" fill="#f8faff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="312" y="55" font-size="18" font-weight="bold" fill="#1d4ed8">[MSA]</text>
 
-  <!-- MSA Results Header -->
-  <text x="60" y="305" font-size="13" font-weight="bold" fill="#1f2933">결과는 최소 다섯 가지:</text>
+  <rect x="312" y="84" width="120" height="44" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="372" y="112" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">주문 서비스</text>
+  <path d="M436,114 L560,114" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="498" y="102" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">HTTP</text>
+  <rect x="566" y="84" width="120" height="44" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="626" y="112" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">재고 서비스</text>
 
-  <!-- Results List -->
-  <text x="90" y="335" font-size="13" fill="#059669" font-weight="bold">1. 성공</text>
+  <text x="312" y="170" font-size="17" font-weight="bold" fill="#111827">결과는 최소 다섯 가지</text>
 
-  <text x="90" y="365" font-size="13" fill="#dc2626">2. 재고 서비스가 500을 반환 (실패 응답은 받았다)</text>
+  <!-- 1 -->
+  <rect x="312" y="186" width="528" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="336" cy="208" r="12" fill="#047857"/>
+  <text x="336" y="213" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="360" y="214" font-size="16" font-weight="bold" fill="#047857">성공</text>
 
-  <!-- Item 3 Highlighted -->
-  <rect x="82" y="380" width="730" height="30" rx="4" fill="#fffbeb" stroke="#fef3c7" stroke-width="1"/>
-  <text x="90" y="400" font-size="13" font-weight="bold" fill="#d97706">3. 타임아웃 — 처리됐는지 안 됐는지 알 수 없다</text>
-  <text x="450" y="400" font-size="13" font-weight="bold" fill="#d97706">← 가장 어렵다</text>
+  <!-- 2 -->
+  <rect x="312" y="240" width="528" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="336" cy="262" r="12" fill="#4b5563"/>
+  <text x="336" y="267" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="360" y="267" font-size="15" fill="#1f2937">재고 서비스가 500을 반환 (실패 응답은 받았다)</text>
 
-  <text x="90" y="435" font-size="13" fill="#52606d">4. 커넥션 거부 (서비스가 죽었거나 배포 중)</text>
+  <!-- 3: 가장 어렵다 -->
+  <rect x="312" y="294" width="528" height="44" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <circle cx="336" cy="316" r="12" fill="#b45309"/>
+  <text x="336" y="321" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="360" y="321" font-size="15" font-weight="bold" fill="#92400e">타임아웃 — 처리됐는지 안 됐는지 알 수 없다</text>
+  <rect x="720" y="302" width="110" height="28" rx="14" fill="#b45309"/>
+  <text x="775" y="321" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">← 가장 어렵다</text>
 
-  <text x="90" y="465" font-size="13" fill="#52606d">5. 응답은 왔는데 그 사이 네트워크가 끊겨 주문 쪽이 못 받음</text>
+  <!-- 4 -->
+  <rect x="312" y="348" width="528" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="336" cy="370" r="12" fill="#4b5563"/>
+  <text x="336" y="375" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="360" y="375" font-size="15" fill="#1f2937">커넥션 거부 (서비스가 죽었거나 배포 중)</text>
+
+  <!-- 5 -->
+  <rect x="312" y="402" width="528" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="336" cy="424" r="12" fill="#4b5563"/>
+  <text x="336" y="429" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="360" y="429" font-size="15" fill="#1f2937">응답은 왔는데 그 사이 네트워크가 끊겨 주문 쪽이 못 받음</text>
 </svg>

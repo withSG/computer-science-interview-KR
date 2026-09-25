@@ -91,7 +91,7 @@ AOP(Aspect-Oriented Programming, 관점 지향 프로그래밍)는 횡단 관심
 ### Weaving 시점 세 가지
 
 <!-- diagram:be-aop-proxy-5 -->
-![Weaving 시점 세 가지](../../assets/diagrams/be-aop-proxy-5.svg)
+![컴파일·클래스 로드·런타임 위빙 비교](../../assets/diagrams/be-aop-proxy-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

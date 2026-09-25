@@ -1,135 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Authorization Code Grant — 프론트채널과 백채널의 분리</title>
-  <desc id="d">OAuth 2.0 Authorization Code Grant 표준 흐름을 프론트채널과 백채널로 구분하여 나타낸 시퀀스 다이어그램입니다.</desc>
-  
-  <!-- 배경 (GitHub 다크모드 대응 필수 흰색 배경) -->
-  <rect width="880" height="770" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1030" width="880" height="1030" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Authorization Code Grant 흐름</title>
+  <desc id="d">사용자(브라우저), Client(우리 서버), Authorization Server, Resource Server 사이의 9단계 시퀀스입니다. (1)~(5)는 브라우저를 거치는 Front-channel, (6)(7) 토큰 교환은 서버 대 서버 Back-channel, (8)(9)는 Access Token으로 자원에 접근하고 로그인을 완료하는 구간입니다.</desc>
+  <rect width="880" height="1030" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 정의 (팔레트 색상별) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
+    <marker id="mF" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker>
+    <marker id="mK" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
+    <marker id="mG" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
   </defs>
-
-  <!-- 제목 영역 -->
-  <text x="30" y="35" font-size="17" font-weight="600" fill="#1f2933">Authorization Code Grant — 프론트채널과 백채널의 분리</text>
-  <text x="30" y="55" font-size="11.5" font-weight="400" fill="#52606d">브라우저를 경유하는 위험한 경로에는 단명 코드만, 백엔드 직통 안전한 경로로 토큰을 교환</text>
-
-  <!-- 구간 구분 배경 영역 (Front-channel vs Back-channel) -->
-  <!-- Front-channel background: Y=130~430 ( height=300 ) -->
-  <rect x="20" y="130" width="840" height="300" fill="#eff6ff" rx="4"/>
-  <rect x="710" y="140" width="140" height="26" fill="#2563eb" rx="4"/>
-  <text x="780" y="157" font-size="11.5" font-weight="600" fill="#ffffff" text-anchor="middle">Front-channel (위험)</text>
-
-  <!-- Back-channel background: Y=440~560 — (6)(7)만 감싼다.
-       문서가 "(6)(7)만 서버 대 서버 통신이다. 이 구분이 핵심"이라고 못박은 경계다.
-       (8)(9)까지 덮으면 브라우저를 거치는 (9)가 백채널로 읽힌다. -->
-  <rect x="20" y="440" width="840" height="120" fill="#f5f3ff" rx="4"/>
-  <rect x="710" y="450" width="140" height="26" fill="#7c3aed" rx="4"/>
-  <text x="780" y="467" font-size="11.5" font-weight="600" fill="#ffffff" text-anchor="middle">Back-channel (안전)</text>
-
-  <!-- 자원 접근 · 응답: Y=570~670 — 토큰 교환이 끝난 뒤의 구간 -->
-  <rect x="20" y="570" width="840" height="100" fill="#f8fafc" rx="4"/>
-  <rect x="710" y="580" width="140" height="26" fill="#52606d" rx="4"/>
-  <text x="780" y="597" font-size="11.5" font-weight="600" fill="#ffffff" text-anchor="middle">자원 접근 · 응답</text>
-
-  <!-- 4개 참여자 Lifeline (세로 점선) -->
-  <!-- X 좌표: 100, 290, 480, 670 -->
-  <line x1="100" y1="120" x2="100" y2="700" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="290" y1="120" x2="290" y2="700" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="480" y1="120" x2="480" y2="700" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="670" y1="120" x2="670" y2="700" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-
-  <!-- 4개 참여자 박스 (헤더) -->
-  <!-- 1. 사용자(브라우저) : text length ~130, box width 160 -->
-  <rect x="20" y="75" width="160" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="100" y="97" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">사용자(브라우저)</text>
-
-  <!-- 2. Client(우리 서버) : text length ~135, box width 160 -->
-  <rect x="210" y="75" width="160" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="290" y="97" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Client(우리 서버)</text>
-
-  <!-- 3. Authorization Server : text length ~145, box width 170 -->
-  <rect x="395" y="75" width="170" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="480" y="97" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Authorization Server</text>
-
-  <!-- 4. Resource Server : text length ~120, box width 150 -->
-  <rect x="595" y="75" width="150" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="670" y="97" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Resource Server</text>
-
-  <!-- ==================== 시퀀스 메시지 흐름 ==================== -->
-
-  <!-- (1) "구글로 로그인" 클릭 (100 -> 290) Y=170 -->
-  <path d="M100,170 L290,170" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="130" y="154" width="130" height="15" fill="#ffffff"/>
-  <text x="195" y="165" font-size="11.5" font-weight="400" fill="#1f2933" text-anchor="middle">(1) "구글로 로그인"</text>
-
-  <!-- (2) 302 리다이렉트 (290 -> 100) Y=220 -->
-  <path d="M290,220 L100,220" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="115" y="204" width="160" height="15" fill="#ffffff"/>
-  <text x="195" y="215" font-size="11.5" font-weight="400" fill="#2563eb" text-anchor="middle">(2) 302 → /authorize?...</text>
-
-  <!-- (3) 로그인 + 동의 (100 -> 480) Y=270 -->
-  <path d="M100,270 L480,270" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="190" y="254" width="200" height="15" fill="#ffffff"/>
-  <text x="290" y="265" font-size="11.5" font-weight="400" fill="#1f2933" text-anchor="middle">(3) 로그인 + 권한 동의(Consent)</text>
-
-  <!-- (4) 302 리다이렉트 code 전달 (480 -> 100) Y=320 -->
-  <path d="M480,320 L100,320" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="175" y="304" width="230" height="15" fill="#ffffff"/>
-  <text x="290" y="315" font-size="11.5" font-weight="400" fill="#2563eb" text-anchor="middle">(4) 302 → /callback?code=Splxl..</text>
-
-  <!-- (5) GET /callback (100 -> 290) Y=370 -->
-  <path d="M100,370 L290,370" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="120" y="354" width="150" height="15" fill="#ffffff"/>
-  <text x="195" y="365" font-size="11.5" font-weight="400" fill="#1f2933" text-anchor="middle">(5) GET /callback?code=..</text>
-
-  <!-- (6) POST /token (백엔드 직통) (290 -> 480) Y=480 -->
-  <path d="M290,480 L480,480" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="305" y="464" width="160" height="15" fill="#ffffff"/>
-  <text x="385" y="475" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">(6) POST /token (code+secret)</text>
-
-  <!-- (7) access_token 발급 (480 -> 290) Y=530 -->
-  <path d="M480,530 L290,530" stroke="#7c3aed" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="315" y="514" width="140" height="15" fill="#ffffff"/>
-  <text x="385" y="525" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">(7) access_token 응답</text>
-
-  <!-- (8) GET /calendar (290 -> 670) Y=590 -->
-  <path d="M290,590 L670,590" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="390" y="574" width="180" height="15" fill="#ffffff"/>
-  <text x="480" y="585" font-size="11.5" font-weight="400" fill="#059669" text-anchor="middle">(8) GET /calendar (Bearer AT)</text>
-
-  <!-- (9) 로그인 완료 응답 (290 -> 100) Y=640 -->
-  <path d="M290,640 L100,640" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="145" y="624" width="100" height="15" fill="#ffffff"/>
-  <text x="195" y="635" font-size="11.5" font-weight="400" fill="#1f2933" text-anchor="middle">(9) 로그인 완료</text>
-
-  <!-- 범례 영역 (Legend) -->
-  <rect x="30" y="705" width="820" height="35" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="45" y="727" font-size="11" font-weight="600" fill="#1f2933">범례:</text>
-
-  <line x1="90" y1="723" x2="120" y2="723" stroke="#1f2933" stroke-width="1.5"/>
-  <text x="128" y="727" font-size="11" fill="#52606d">직접 요청</text>
-
-  <line x1="200" y1="723" x2="230" y2="723" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text x="238" y="727" font-size="11" fill="#52606d">302 리다이렉트 (Front-channel)</text>
-
-  <line x1="430" y1="723" x2="460" y2="723" stroke="#7c3aed" stroke-width="2"/>
-  <text x="468" y="727" font-size="11" fill="#52606d">토큰 교환 (Back-channel)</text>
-
-  <line x1="640" y1="723" x2="670" y2="723" stroke="#059669" stroke-width="1.5"/>
-  <text x="678" y="727" font-size="11" fill="#52606d">자원 접근 (Bearer AT)</text>
-
-  <!-- 결론 캡션 -->
-  <text x="440" y="758" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: 위험한 브라우저 구간에는 단명 Authorization Code만 노출하고, 강력한 Access Token은 안전한 백엔드 간 통신으로만 교환한다.</text>
+  <!-- 구간 배경 -->
+  <rect x="24" y="94" width="832" height="401" rx="8" fill="#fff7ed"/>
+  <rect x="24" y="505" width="832" height="222" rx="8" fill="#ecfdf5"/>
+  <rect x="24" y="737" width="832" height="235" rx="8" fill="#f3f4f6"/>
+  <!-- 생명선 -->
+  <line x1="80" y1="80" x2="80" y2="972" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="340" y1="80" x2="340" y2="972" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="610" y1="80" x2="610" y2="972" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="790" y1="80" x2="790" y2="972" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <!-- 참여자 -->
+  <rect x="30" y="24" width="100" height="56" rx="6" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="80" y="47" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">사용자</text>
+  <text x="80" y="69" font-size="15" fill="#111827" text-anchor="middle">(브라우저)</text>
+  <rect x="275" y="24" width="130" height="56" rx="6" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="340" y="47" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <text x="340" y="69" font-size="15" fill="#111827" text-anchor="middle">(우리 서버)</text>
+  <rect x="530" y="24" width="160" height="56" rx="6" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="610" y="47" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Authorization</text>
+  <text x="610" y="69" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
+  <rect x="735" y="24" width="110" height="56" rx="6" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="790" y="47" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Resource</text>
+  <text x="790" y="69" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
+  <!-- 구간 이름표 -->
+  <rect x="36" y="104" width="356" height="30" rx="15" fill="#ffedd5" stroke="#fdba74" stroke-width="1"/>
+  <text x="52" y="124" font-size="15" font-weight="bold" fill="#9a3412">(1)~(5) 브라우저 경유 · Front-channel (위험)</text>
+  <rect x="36" y="515" width="344" height="30" rx="15" fill="#d1fae5" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="52" y="535" font-size="15" font-weight="bold" fill="#065f46">(6)(7) 서버 대 서버 · Back-channel (안전)</text>
+  <rect x="36" y="747" width="200" height="30" rx="15" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="52" y="767" font-size="15" font-weight="bold" fill="#1f2937">(8)(9) 자원 접근 · 응답</text>
+  <!-- 메시지 -->
+  <line x1="93" y1="177" x2="339" y2="177" stroke="#b45309" stroke-width="2" marker-end="url(#mF)"/>
+  <circle cx="80" cy="177" r="12" fill="#b45309"/>
+  <text x="80" y="182" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="210" y="165" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">"구글로 로그인"</tspan></text>
+  <line x1="327" y1="250" x2="81" y2="250" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mF)"/>
+  <circle cx="340" cy="250" r="12" fill="#b45309"/>
+  <text x="340" y="255" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="210" y="218" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">302 → /authorize?client_id=..</tspan></text>
+  <text x="210" y="238" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">&amp;state=..&amp;code_challenge=..</tspan></text>
+  <line x1="93" y1="323" x2="609" y2="323" stroke="#b45309" stroke-width="2" marker-end="url(#mF)"/>
+  <circle cx="80" cy="323" r="12" fill="#b45309"/>
+  <text x="80" y="328" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="210" y="291" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">로그인 + 동의(Consent)</tspan></text>
+  <text x="210" y="311" font-size="15" fill="#111827" text-anchor="middle"><tspan fill="#4b5563">"이 앱이 캘린더를 읽어도 될까요?"</tspan></text>
+  <line x1="597" y1="396" x2="81" y2="396" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mF)"/>
+  <circle cx="610" cy="396" r="12" fill="#b45309"/>
+  <text x="610" y="401" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="475" y="364" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">302 → https://myapp.com/callback</tspan></text>
+  <text x="475" y="384" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">?code=Splxl..&amp;state=..</tspan></text>
+  <line x1="93" y1="469" x2="339" y2="469" stroke="#b45309" stroke-width="2" marker-end="url(#mF)"/>
+  <circle cx="80" cy="469" r="12" fill="#b45309"/>
+  <text x="80" y="474" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="210" y="437" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" font-size="14">GET /callback</tspan></text>
+  <text x="210" y="457" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">?code=..&amp;state=..</tspan></text>
+  <line x1="353" y1="628" x2="609" y2="628" stroke="#047857" stroke-width="2.5" marker-end="url(#mK)"/>
+  <circle cx="340" cy="628" r="12" fill="#047857"/>
+  <text x="340" y="633" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="475" y="576" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" font-size="14">POST /token</tspan></text>
+  <text x="475" y="596" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">code + client_secret</tspan></text>
+  <text x="475" y="616" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">+ code_verifier</tspan></text>
+  <line x1="597" y1="701" x2="341" y2="701" stroke="#047857" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#mK)"/>
+  <circle cx="610" cy="701" r="12" fill="#047857"/>
+  <text x="610" y="706" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="475" y="669" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" font-size="14">access_token</tspan></text>
+  <text x="475" y="689" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">(+ id_token, refresh_token)</tspan></text>
+  <line x1="353" y1="840" x2="789" y2="840" stroke="#374151" stroke-width="2" marker-end="url(#mG)"/>
+  <circle cx="340" cy="840" r="12" fill="#374151"/>
+  <text x="340" y="845" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">8</text>
+  <text x="475" y="808" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" font-size="14">GET /calendar</tspan></text>
+  <text x="475" y="828" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14">Authorization: Bearer AT</tspan></text>
+  <line x1="788" y1="893" x2="341" y2="893" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mG)"/>
+  <text x="700" y="881" font-size="15" fill="#111827" text-anchor="middle">응답</text>
+  <line x1="327" y1="946" x2="81" y2="946" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mG)"/>
+  <circle cx="340" cy="946" r="12" fill="#374151"/>
+  <text x="340" y="951" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">9</text>
+  <text x="210" y="934" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">로그인 완료</tspan></text>
+  <!-- 범례 -->
+  <line x1="36" y1="1002" x2="84" y2="1002" stroke="#374151" stroke-width="2" marker-end="url(#mG)"/>
+  <text x="94" y="1007" font-size="14" fill="#374151">요청</text>
+  <line x1="150" y1="1002" x2="198" y2="1002" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#mG)"/>
+  <text x="208" y="1007" font-size="14" fill="#374151">응답 · 302 리다이렉트</text>
+  <circle cx="380" cy="1002" r="11" fill="#374151"/>
+  <text x="380" y="1007" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">n</text>
+  <text x="398" y="1007" font-size="14" fill="#374151">단계 번호 (보내는 쪽에 표시)</text>
 </svg>

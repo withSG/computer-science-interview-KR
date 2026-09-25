@@ -1,129 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Git 객체 그래프 - commit, tree, blob의 DAG 구조</title>
-  <desc id="d">refs/heads/main 포인터가 최신 커밋 c3를 가리키고, c3는 이전 커밋 parent c2와 루트 트리 T0를 가리킵니다. 트리 T0는 README blob B1과 src 트리 T1을 가리키며, T1은 LoginService blob B2를 가리키는 방향성 비순환 그래프(DAG) 구조를 나타냅니다.</desc>
-  
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 590" width="880" height="590" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Git 객체 그래프</title>
+  <desc id="d">refs/heads/main이 commit c3를 가리키고, c3는 parent로 c2를, c2는 c1을 가리킨다. c3의 루트 tree T0는 README.md 내용인 blob B1과 src/ 디렉터리인 tree T1을 가리키고, T1은 LoginService.java 내용인 blob B2를 가리킨다. commit → tree → (tree | blob) 방향으로만 이어지는 DAG다.</desc>
+  <rect width="880" height="590" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
+  <g transform="translate(0,-48)">
 
-  <!-- Title & Legend -->
-  <text x="30" y="42" font-size="17" font-weight="600" fill="#1f2933">Git 객체 그래프 (Git Object Graph)</text>
-  <text x="30" y="62" font-size="11.5" font-weight="400" fill="#52606d">commit → tree → (tree | blob) 방향성 비순환 그래프 (DAG)</text>
+  <!-- ref -->
+  <rect x="24" y="76" width="168" height="42" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="108" y="102" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">refs/heads/main</text>
+  <line x1="194" y1="97" x2="220" y2="97" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
 
-  <!-- Legend Box -->
-  <rect x="580" y="24" width="270" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <rect x="590" y="38" width="12" height="12" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="607" y="48" font-size="11" fill="#1f2933">Ref</text>
-  <rect x="640" y="38" width="12" height="12" rx="2" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="657" y="48" font-size="11" fill="#1f2933">Commit</text>
-  <rect x="710" y="38" width="12" height="12" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="727" y="48" font-size="11" fill="#1f2933">Tree</text>
-  <rect x="770" y="38" width="12" height="12" rx="2" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="787" y="48" font-size="11" fill="#1f2933">Blob</text>
-
-  <!-- Reference Pointer -->
-  <g transform="translate(30, 100)">
-    <rect x="0" y="0" width="150" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="75" y="24" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">refs/heads/main</text>
+  <!-- commit c3 -->
+  <rect x="224" y="76" width="236" height="132" rx="8" fill="#ffffff"/>
+  <path d="M224,110 V84 Q224,76 232,76 H452 Q460,76 460,84 V110 Z" fill="#ede9fe"/>
+  <line x1="224" y1="110" x2="460" y2="110" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="224" y="76" width="236" height="132" rx="8" fill="none" stroke="#6d28d9" stroke-width="2"/>
+  <text x="240" y="99" font-size="16" font-weight="bold" fill="#5b21b6">commit c3</text>
+  <g font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="240" y="136">tree<tspan x="304" fill="#047857" font-weight="bold">→ T0</tspan></text>
+    <text x="240" y="162">parent<tspan x="304" fill="#6d28d9" font-weight="bold">→ c2</tspan></text>
+    <text x="240" y="188">msg<tspan x="304">"feat: 로그인"</tspan></text>
   </g>
 
-  <!-- Commit Chain (Horizontal) -->
-  <!-- Commit c3 -->
-  <g transform="translate(230, 100)">
-    <rect x="0" y="0" width="200" height="100" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <rect x="0" y="0" width="200" height="26" rx="4" fill="#7c3aed"/>
-    <!-- Overwrite bottom rounded corners of header -->
-    <rect x="0" y="20" width="200" height="6" fill="#7c3aed"/>
-    <text x="10" y="18" font-size="13" font-weight="600" fill="#ffffff">commit c3</text>
-    <text x="10" y="44" font-size="11.5" fill="#1f2933">tree   → T0</text>
-    <text x="10" y="64" font-size="11.5" fill="#1f2933">parent → c2</text>
-    <text x="10" y="84" font-size="11.5" fill="#52606d">msg "feat: 로그인"</text>
+  <!-- c3 → c2 -->
+  <line x1="462" y1="157" x2="508" y2="157" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- commit c2 -->
+  <rect x="512" y="121" width="156" height="72" rx="8" fill="#ffffff"/>
+  <path d="M512,151 V129 Q512,121 520,121 H660 Q668,121 668,129 V151 Z" fill="#ede9fe"/>
+  <line x1="512" y1="151" x2="668" y2="151" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="512" y="121" width="156" height="72" rx="8" fill="none" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="528" y="142" font-size="16" font-weight="bold" fill="#5b21b6">commit c2</text>
+  <text x="528" y="178" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">parent<tspan x="592" fill="#6d28d9" font-weight="bold">→ c1</tspan></text>
+
+  <!-- c2 → c1 -->
+  <line x1="670" y1="157" x2="700" y2="157" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- commit c1 -->
+  <rect x="704" y="121" width="152" height="72" rx="8" fill="#ffffff"/>
+  <path d="M704,151 V129 Q704,121 712,121 H848 Q856,121 856,129 V151 Z" fill="#ede9fe"/>
+  <line x1="704" y1="151" x2="856" y2="151" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="704" y="121" width="152" height="72" rx="8" fill="none" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="720" y="142" font-size="16" font-weight="bold" fill="#5b21b6">commit c1</text>
+  <text x="780" y="178" font-size="15" fill="#4b5563" text-anchor="middle">(이전 커밋 계속)</text>
+
+  <!-- c3 → T0 -->
+  <line x1="342" y1="210" x2="342" y2="246" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- tree T0 -->
+  <rect x="200" y="250" width="300" height="104" rx="8" fill="#ffffff"/>
+  <path d="M200,284 V258 Q200,250 208,250 H492 Q500,250 500,258 V284 Z" fill="#d1fae5"/>
+  <line x1="200" y1="284" x2="500" y2="284" stroke="#047857" stroke-width="1"/>
+  <rect x="200" y="250" width="300" height="104" rx="8" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="216" y="273" font-size="16" font-weight="bold" fill="#065f46">tree T0 (루트)</text>
+  <g font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="216" y="312">100644<tspan x="282" fill="#b45309" font-weight="bold">blob B1</tspan><tspan x="358">README.md</tspan></text>
+    <text x="216" y="340">040000<tspan x="282" fill="#047857" font-weight="bold">tree T1</tspan><tspan x="358">src/</tspan></text>
   </g>
 
-  <!-- Commit c2 -->
-  <g transform="translate(480, 100)">
-    <rect x="0" y="0" width="160" height="60" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="80" y="25" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">commit c2</text>
-    <text x="80" y="45" font-size="11.5" fill="#52606d" text-anchor="middle">parent → c1</text>
+  <!-- 읽는 법 -->
+  <rect x="540" y="246" width="316" height="124" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="558" y="274" font-size="15" font-weight="bold" fill="#111827">화살표 = 해시로 가리킴 (한 방향)</text>
+  <text x="558" y="300" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">commit → tree → (tree | blob)</text>
+  <text x="558" y="326" font-size="15" fill="#374151">커밋끼리는 parent로만 연결</text>
+  <text x="558" y="352" font-size="15" fill="#374151">→ 순환 없음: DAG</text>
+
+  <!-- T0 → B1, T0 → T1 -->
+  <line x1="240" y1="356" x2="240" y2="396" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="440" y1="356" x2="440" y2="396" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- blob B1 -->
+  <rect x="100" y="400" width="240" height="80" rx="8" fill="#ffffff"/>
+  <path d="M100,432 V408 Q100,400 108,400 H332 Q340,400 340,408 V432 Z" fill="#fef3c7"/>
+  <line x1="100" y1="432" x2="340" y2="432" stroke="#b45309" stroke-width="1"/>
+  <rect x="100" y="400" width="240" height="80" rx="8" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <text x="116" y="422" font-size="16" font-weight="bold" fill="#92400e">blob B1</text>
+  <text x="116" y="462" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"# 프로젝트..."</text>
+
+  <!-- tree T1 -->
+  <rect x="420" y="400" width="340" height="80" rx="8" fill="#ffffff"/>
+  <path d="M420,432 V408 Q420,400 428,400 H752 Q760,400 760,408 V432 Z" fill="#d1fae5"/>
+  <line x1="420" y1="432" x2="760" y2="432" stroke="#047857" stroke-width="1"/>
+  <rect x="420" y="400" width="340" height="80" rx="8" fill="none" stroke="#047857" stroke-width="1.5"/>
+  <text x="436" y="422" font-size="16" font-weight="bold" fill="#065f46">tree T1 (src/)</text>
+  <text x="436" y="462" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">100644<tspan x="502" fill="#b45309" font-weight="bold">blob B2</tspan><tspan x="578">LoginService.java</tspan></text>
+
+  <!-- T1 → B2 -->
+  <line x1="590" y1="482" x2="590" y2="526" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- blob B2 -->
+  <rect x="480" y="530" width="220" height="80" rx="8" fill="#ffffff"/>
+  <path d="M480,562 V538 Q480,530 488,530 H692 Q700,530 700,538 V562 Z" fill="#fef3c7"/>
+  <line x1="480" y1="562" x2="700" y2="562" stroke="#b45309" stroke-width="1"/>
+  <rect x="480" y="530" width="220" height="80" rx="8" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <text x="496" y="552" font-size="16" font-weight="bold" fill="#92400e">blob B2</text>
+  <text x="496" y="592" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"public class ..."</text>
   </g>
-
-  <!-- Commit c1 -->
-  <g transform="translate(690, 100)">
-    <rect x="0" y="0" width="160" height="60" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="80" y="25" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">commit c1</text>
-    <text x="80" y="45" font-size="11.5" fill="#52606d" text-anchor="middle">(이전 커밋 계속)</text>
-  </g>
-
-  <!-- Commit Chain Arrows -->
-  <!-- Ref -> c3 -->
-  <path d="M180,120 L230,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- c3 parent -> c2 -->
-  <path d="M430,130 L480,130" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- c2 parent -> c1 -->
-  <path d="M640,130 L690,130" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Tree T0 (Root) -->
-  <g transform="translate(200, 240)">
-    <rect x="0" y="0" width="260" height="80" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <rect x="0" y="0" width="260" height="26" rx="4" fill="#059669"/>
-    <rect x="0" y="20" width="260" height="6" fill="#059669"/>
-    <text x="10" y="18" font-size="13" font-weight="600" fill="#ffffff">tree T0 (루트)</text>
-    <text x="10" y="44" font-size="11.5" fill="#1f2933">100644 blob B1  README.md</text>
-    <text x="10" y="66" font-size="11.5" fill="#1f2933">040000 tree T1  src/</text>
-  </g>
-
-  <!-- Commit c3 tree -> Tree T0 Arrow -->
-  <path d="M300,200 L300,240" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Level 2 Objects (Blob B1 & Tree T1) -->
-  <!-- Blob B1 -->
-  <g transform="translate(30, 370)">
-    <rect x="0" y="0" width="220" height="70" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <rect x="0" y="0" width="220" height="26" rx="4" fill="#d97706"/>
-    <rect x="0" y="20" width="220" height="6" fill="#d97706"/>
-    <text x="10" y="18" font-size="13" font-weight="600" fill="#ffffff">blob B1</text>
-    <text x="10" y="48" font-size="11.5" fill="#1f2933">"# 프로젝트..."</text>
-  </g>
-
-  <!-- Tree T1 (src/) -->
-  <g transform="translate(300, 370)">
-    <rect x="0" y="0" width="260" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <rect x="0" y="0" width="260" height="26" rx="4" fill="#059669"/>
-    <rect x="0" y="20" width="260" height="6" fill="#059669"/>
-    <text x="10" y="18" font-size="13" font-weight="600" fill="#ffffff">tree T1 (src/)</text>
-    <text x="10" y="48" font-size="11.5" fill="#1f2933">100644 blob B2 LoginService.java</text>
-  </g>
-
-  <!-- T0 -> B1 Arrow -->
-  <path d="M250,320 L140,370" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- T0 -> T1 Arrow -->
-  <path d="M410,320 L410,370" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- Level 3 Object (Blob B2) -->
-  <g transform="translate(600, 370)">
-    <rect x="0" y="0" width="250" height="70" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <rect x="0" y="0" width="250" height="26" rx="4" fill="#d97706"/>
-    <rect x="0" y="20" width="250" height="6" fill="#d97706"/>
-    <text x="10" y="18" font-size="13" font-weight="600" fill="#ffffff">blob B2</text>
-    <text x="10" y="48" font-size="11.5" fill="#1f2933">"public class ..."</text>
-  </g>
-
-  <!-- T1 -> B2 Arrow -->
-  <path d="M560,405 L600,405" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- Caption -->
-  <text x="440" y="480" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: Git은 커밋, 트리, 블롭 객체가 단방향으로 참조 연결된 비순환 구조(DAG)로 버전을 관리합니다.</text>
 </svg>

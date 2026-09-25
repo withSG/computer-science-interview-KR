@@ -1,110 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">서버를 늘리면 세션이 깨진다 - 해법 3가지</title>
-  <desc id="d">Sticky Session, Session Clustering, 외부 세션 저장소 방식의 구조 비교 다이어그램</desc>
-  <rect width="880" height="380" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 550" width="880" height="550" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세션 공유 해법 3가지</title>
+  <desc id="d">Sticky Session은 WAS마다 자기 세션만 들고 있어 서버가 죽으면 소실되고, Session Clustering은 모든 WAS가 세션을 전부 복사해 복제 비용이 폭발한다. 외부 세션 저장소는 모든 WAS가 공용 Redis에 세션을 두어 WAS가 무상태가 된다.</desc>
+  <rect width="880" height="550" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-ink-both" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-ink-rev" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M10,0 L0,5 L10,10 z" fill="#1f2933"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 그룹 1: Sticky Session -->
-  <g id="sticky-session">
-    <text x="135" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Sticky Session</text>
-    
-    <!-- 서버 1 -->
-    <rect x="35" y="55" width="50" height="55" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-    <text x="60" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-    <text x="60" y="98" font-size="13" fill="#52606d" text-anchor="middle">A,B</text>
+  <!-- ① Sticky Session -->
+  <rect x="24" y="24" width="832" height="116" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <circle cx="52" cy="70" r="14" fill="#111827"/>
+  <text x="52" y="75" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="76" y="76" font-size="18" font-weight="bold" fill="#111827">Sticky</text>
+  <text x="76" y="100" font-size="18" font-weight="bold" fill="#111827">Session</text>
 
-    <!-- 서버 2 -->
-    <rect x="110" y="55" width="50" height="55" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-    <text x="135" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
-    <text x="135" y="98" font-size="13" fill="#52606d" text-anchor="middle">C,D</text>
+  <rect x="216" y="48" width="84" height="68" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="258" y="73" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 1</text>
+  <text x="258" y="100" font-size="16" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A,B</text>
+  <rect x="336" y="48" width="84" height="68" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="378" y="73" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 2</text>
+  <text x="378" y="100" font-size="16" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">C,D</text>
+  <rect x="456" y="48" width="84" height="68" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="498" y="73" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 3</text>
+  <text x="498" y="100" font-size="16" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">E,F</text>
 
-    <!-- 서버 3 -->
-    <rect x="185" y="55" width="50" height="55" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-    <text x="210" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
-    <text x="210" y="98" font-size="13" fill="#52606d" text-anchor="middle">E,F</text>
+  <text x="576" y="60" font-size="16" fill="#111827">각자 자기 것만</text>
+  <text x="576" y="87" font-size="16" font-weight="bold" fill="#b91c1c">→ 서버가 죽으면 소실</text>
+  <text x="576" y="113" font-size="15" fill="#4b5563">배포·서버 축소 때도 세션 끊김</text>
 
-    <!-- 설명 -->
-    <text x="135" y="145" font-size="13" fill="#1f2933" text-anchor="middle">각자 자기 것만</text>
-    <text x="135" y="170" font-size="13" fill="#dc2626" text-anchor="middle">→ 서버가 죽으면 소실</text>
-  </g>
+  <!-- ② Session Clustering -->
+  <rect x="24" y="156" width="832" height="160" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <circle cx="52" cy="206" r="14" fill="#111827"/>
+  <text x="52" y="211" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="76" y="212" font-size="18" font-weight="bold" fill="#111827">Session</text>
+  <text x="76" y="236" font-size="18" font-weight="bold" fill="#111827">Clustering</text>
 
-  <!-- 구분선 1 -->
-  <line x1="285" y1="25" x2="285" y2="340" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="216" y="180" width="84" height="68" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="258" y="205" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 1</text>
+  <text x="258" y="232" font-size="16" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A,B,C</text>
+  <rect x="336" y="180" width="84" height="68" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="378" y="205" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 2</text>
+  <text x="378" y="232" font-size="16" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A,B,C</text>
+  <rect x="456" y="180" width="84" height="68" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="498" y="205" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 3</text>
+  <text x="498" y="232" font-size="16" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A,B,C</text>
 
-  <!-- 그룹 2: Session Clustering -->
-  <g id="session-clustering">
-    <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Session Clustering</text>
+  <!-- 서로 복제 -->
+  <path d="M304,214 L332,214" fill="none" stroke="#6d28d9" stroke-width="1.8" marker-start="url(#ak)" marker-end="url(#ak)"/>
+  <path d="M424,214 L452,214" fill="none" stroke="#6d28d9" stroke-width="1.8" marker-start="url(#ak)" marker-end="url(#ak)"/>
+  <path d="M258,254 Q378,314 498,254" fill="none" stroke="#6d28d9" stroke-width="1.8" marker-start="url(#ak)" marker-end="url(#ak)"/>
 
-    <!-- 서버 1 -->
-    <rect x="340" y="55" width="50" height="55" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-    <text x="365" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-    <text x="365" y="98" font-size="13" fill="#52606d" text-anchor="middle">ABC</text>
+  <text x="576" y="208" font-size="16" fill="#111827">모두가 전부 복사</text>
+  <text x="576" y="235" font-size="16" font-weight="bold" fill="#b91c1c">→ 복제 비용 폭발</text>
+  <text x="576" y="261" font-size="15" fill="#4b5563">세션 쓰기 1번에 n-1번 전송</text>
 
-    <!-- 서버 2 -->
-    <rect x="415" y="55" width="50" height="55" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-    <text x="440" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
-    <text x="440" y="98" font-size="13" fill="#52606d" text-anchor="middle">ABC</text>
+  <!-- ③ 외부 세션 저장소 -->
+  <rect x="24" y="332" width="832" height="190" rx="10" fill="#f9fafb" stroke="#047857" stroke-width="2"/>
+  <circle cx="52" cy="382" r="14" fill="#111827"/>
+  <text x="52" y="387" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="76" y="388" font-size="18" font-weight="bold" fill="#111827">외부 세션</text>
+  <text x="76" y="412" font-size="18" font-weight="bold" fill="#111827">저장소</text>
 
-    <!-- 서버 3 -->
-    <rect x="490" y="55" width="50" height="55" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-    <text x="515" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
-    <text x="515" y="98" font-size="13" fill="#52606d" text-anchor="middle">ABC</text>
+  <rect x="216" y="356" width="84" height="68" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="258" y="381" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 1</text>
+  <text x="258" y="408" font-size="15" fill="#4b5563" text-anchor="middle">없음</text>
+  <rect x="336" y="356" width="84" height="68" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="378" y="381" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 2</text>
+  <text x="378" y="408" font-size="15" fill="#4b5563" text-anchor="middle">없음</text>
+  <rect x="456" y="356" width="84" height="68" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="498" y="381" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">WAS 3</text>
+  <text x="498" y="408" font-size="15" fill="#4b5563" text-anchor="middle">없음</text>
 
-    <!-- 양방향 화살표 1 <-> 2 -->
-    <path d="M390,82 L415,82" stroke="#1f2933" stroke-width="1.5" fill="none" marker-start="url(#a-ink-rev)" marker-end="url(#a-ink)"/>
+  <line x1="258" y1="426" x2="258" y2="454" stroke="#047857" stroke-width="1.8" marker-end="url(#ag)"/>
+  <line x1="378" y1="426" x2="378" y2="454" stroke="#047857" stroke-width="1.8" marker-end="url(#ag)"/>
+  <line x1="498" y1="426" x2="498" y2="454" stroke="#047857" stroke-width="1.8" marker-end="url(#ag)"/>
 
-    <!-- 양방향 화살표 2 <-> 3 -->
-    <path d="M465,82 L490,82" stroke="#1f2933" stroke-width="1.5" fill="none" marker-start="url(#a-ink-rev)" marker-end="url(#a-ink)"/>
+  <rect x="216" y="458" width="324" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="378" y="486" font-size="17" fill="#111827" text-anchor="middle"><tspan font-weight="bold">Redis</tspan><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#047857" dx="12">A,B,C,D,E</tspan></text>
 
-    <!-- 설명 -->
-    <text x="440" y="145" font-size="13" fill="#1f2933" text-anchor="middle">모두가 전부 복사</text>
-    <text x="440" y="170" font-size="13" fill="#dc2626" text-anchor="middle">→ 복제 비용 폭발</text>
-  </g>
-
-  <!-- 구분선 2 -->
-  <line x1="595" y1="25" x2="595" y2="340" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- 그룹 3: 외부 세션 저장소 -->
-  <g id="external-session-store">
-    <text x="745" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">외부 세션 저장소</text>
-
-    <!-- 서버 1 -->
-    <rect x="645" y="55" width="50" height="35" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="670" y="77" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-
-    <!-- 서버 2 -->
-    <rect x="720" y="55" width="50" height="35" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="745" y="77" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
-
-    <!-- 서버 3 -->
-    <rect x="795" y="55" width="50" height="35" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="820" y="77" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
-
-    <!-- 연결선 및 외부 저장소 지정 화살표 -->
-    <!-- 서버 1,2,3 하단 선 -->
-    <path d="M670,90 L670,115" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-    <path d="M745,90 L745,115" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-    <path d="M820,90 L820,115" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-    
-    <!-- 가로 합류선 -->
-    <path d="M670,115 L820,115" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-
-    <!-- 중앙에서 Redis로 내려가는 화살표 -->
-    <path d="M745,115 L745,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <!-- Redis 박스 -->
-    <rect x="630" y="140" width="230" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="745" y="165" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Redis  A,B,C,D,E</text>
-  </g>
+  <text x="576" y="408" font-size="16" fill="#111827">WAS는 완전한 무상태</text>
+  <text x="576" y="435" font-size="16" font-weight="bold" fill="#047857">→ 실무 표준</text>
+  <text x="576" y="461" font-size="15" fill="#4b5563">단, Redis가 SPOF → 이중화</text>
 </svg>

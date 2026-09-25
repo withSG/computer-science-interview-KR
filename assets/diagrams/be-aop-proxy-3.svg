@@ -1,84 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">JDK 동적 프록시 vs CGLIB</title>
-  <desc id="d">JDK 동적 프록시의 인터페이스 구현 방식과 CGLIB의 클래스 상속 방식을 비교한 구조도</desc>
+  <desc id="d">JDK 동적 프록시는 원본 KakaoPayService와 같은 인터페이스 PaymentService를 구현한 $Proxy0을 만들고 원본을 내부 참조하며, CGLIB는 원본 클래스를 상속한 KakaoPayService$$SpringCGLIB$$0을 만들어 오버라이드 가능한 메서드를 전부 재정의한다. 그래서 JDK 프록시는 PaymentService 타입일 뿐이고 CGLIB 프록시는 KakaoPayService 타입으로도 주입할 수 있다.</desc>
   <defs>
-    <!-- Arrowhead markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="tri" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M1,1 L11,6 L1,11 z" fill="#ffffff" stroke="#374151" stroke-width="1.4"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <!-- Triangle markers for inheritance/implementation (empty triangle) -->
-    <marker id="m-tri-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-    </marker>
-    <marker id="m-tri-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
+  <rect width="880" height="480" fill="#ffffff"/>
 
-  <!-- Background -->
-  <rect width="880" height="540" fill="#ffffff"/>
+  <!-- ===== 왼쪽: JDK 동적 프록시 ===== -->
+  <rect x="24" y="24" width="408" height="432" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="44" y="60" font-size="20" font-weight="bold" fill="#111827">JDK 동적 프록시</text>
+  <text x="44" y="86" font-size="15" font-weight="bold" fill="#1d4ed8">인터페이스 구현</text>
+  <line x1="44" y1="102" x2="412" y2="102" stroke="#d1d5db" stroke-width="1"/>
 
-  <!-- Outer Container 1: JDK 동적 프록시 -->
-  <rect x="24" y="20" width="832" height="230" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="44" y="52" font-size="16" font-weight="bold" fill="#1f2933">[JDK 동적 프록시 - 인터페이스 구현]</text>
-
-  <!-- JDK Section Nodes -->
   <!-- interface PaymentService -->
-  <rect x="330" y="70" width="220" height="44" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="96.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">interface PaymentService</text>
+  <rect x="60" y="124" width="336" height="60" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="228" y="148" font-size="14" fill="#4b5563" text-anchor="middle">interface</text>
+  <text x="228" y="171" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PaymentService</text>
+
+  <!-- implements (점선 + 빈 삼각형) -->
+  <line x1="126" y1="250" x2="126" y2="185" stroke="#374151" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+  <text x="138" y="223" font-size="14" fill="#374151">implements</text>
+  <line x1="330" y1="250" x2="330" y2="185" stroke="#374151" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#tri)"/>
+  <text x="318" y="223" font-size="14" fill="#374151" text-anchor="end">implements</text>
 
   <!-- KakaoPayService (원본) -->
-  <rect x="110" y="170" width="200" height="54" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="210" y="193.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">KakaoPayService</text>
-  <text x="210" y="211" font-size="11.5" fill="#52606d" text-anchor="middle">(원본)</text>
+  <rect x="44" y="250" width="164" height="60" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="126" y="276" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">KakaoPayService</text>
+  <text x="126" y="297" font-size="14" fill="#047857" text-anchor="middle">(원본)</text>
 
   <!-- $Proxy0 (프록시) -->
-  <rect x="570" y="170" width="200" height="54" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="670" y="193.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">$Proxy0</text>
-  <text x="670" y="211" font-size="11.5" fill="#52606d" text-anchor="middle">(프록시)</text>
+  <rect x="248" y="250" width="164" height="60" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="330" y="276" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">$Proxy0</text>
+  <text x="330" y="297" font-size="14" fill="#1d4ed8" text-anchor="middle">(프록시)</text>
 
-  <!-- JDK Lines & Arrows -->
-  <!-- Left implements arrow: KakaoPayService -> interface PaymentService -->
-  <path d="M210,170 L400,114" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#m-tri-blue)"/>
-  <rect x="272" y="128" width="76" height="18" fill="#ffffff"/>
-  <text x="310" y="141.5" font-size="11.5" fill="#52606d" text-anchor="middle">implements</text>
+  <!-- 내부 참조: $Proxy0 → KakaoPayService -->
+  <path d="M330,310 L330,352 L126,352 L126,312" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="228" y="340" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">내부 참조</text>
 
-  <!-- Right implements arrow: $Proxy0 -> interface PaymentService -->
-  <path d="M670,170 L480,114" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#m-tri-blue)"/>
-  <rect x="532" y="128" width="76" height="18" fill="#ffffff"/>
-  <text x="570" y="141.5" font-size="11.5" fill="#52606d" text-anchor="middle">implements</text>
+  <!-- 결과 -->
+  <rect x="44" y="376" width="368" height="60" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="228" y="400" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">$Proxy0</tspan>은 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PaymentService</tspan> 타입일 뿐</text>
+  <text x="228" y="423" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">KakaoPayService</tspan> 타입으로 주입하면 실패</text>
 
-  <!-- Target reference arrow: $Proxy0 -> KakaoPayService -->
-  <path d="M570,197 L310,197" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="382" y="178" width="116" height="36" fill="#ffffff"/>
-  <text x="440" y="193.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">KakaoPayService</text>
-  <text x="440" y="208" font-size="11.5" fill="#52606d" text-anchor="middle">(내부 참조)</text>
+  <!-- ===== 오른쪽: CGLIB ===== -->
+  <rect x="448" y="24" width="408" height="432" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="468" y="60" font-size="20" font-weight="bold" fill="#111827">CGLIB</text>
+  <text x="468" y="86" font-size="15" font-weight="bold" fill="#1d4ed8">클래스 상속</text>
+  <line x1="468" y1="102" x2="836" y2="102" stroke="#d1d5db" stroke-width="1"/>
 
-
-  <!-- Outer Container 2: CGLIB -->
-  <rect x="24" y="270" width="832" height="250" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="44" y="302" font-size="16" font-weight="bold" fill="#1f2933">[CGLIB - 클래스 상속]</text>
-
-  <!-- CGLIB Section Nodes -->
   <!-- KakaoPayService (원본) -->
-  <rect x="290" y="320" width="300" height="54" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="343.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">KakaoPayService</text>
-  <text x="440" y="361" font-size="11.5" fill="#52606d" text-anchor="middle">(원본)</text>
+  <rect x="552" y="124" width="200" height="60" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="652" y="149" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">KakaoPayService</text>
+  <text x="652" y="171" font-size="14" fill="#047857" text-anchor="middle">(원본)</text>
+
+  <!-- extends (실선 + 빈 삼각형) -->
+  <line x1="652" y1="250" x2="652" y2="185" stroke="#374151" stroke-width="1.5" marker-end="url(#tri)"/>
+  <text x="666" y="223" font-size="14" fill="#374151">extends</text>
 
   <!-- KakaoPayService$$SpringCGLIB$$0 (프록시) -->
-  <rect x="180" y="440" width="520" height="54" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="463.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">KakaoPayService$$SpringCGLIB$$0</text>
-  <text x="440" y="481" font-size="11.5" fill="#52606d" text-anchor="middle">(프록시, 오버라이드 가능한 메서드를 전부 재정의)</text>
+  <rect x="482" y="250" width="340" height="84" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="652" y="275" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">KakaoPayService$$SpringCGLIB$$0</text>
+  <text x="652" y="298" font-size="14" fill="#1d4ed8" text-anchor="middle">(프록시)</text>
+  <text x="652" y="320" font-size="14" fill="#374151" text-anchor="middle">오버라이드 가능한 메서드를 전부 재정의</text>
 
-  <!-- CGLIB Lines & Arrows -->
-  <!-- extends arrow: KakaoPayService$$SpringCGLIB$$0 -> KakaoPayService -->
-  <path d="M440,440 L440,374" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#m-tri-purple)"/>
-  <rect x="410" y="398" width="60" height="18" fill="#ffffff"/>
-  <text x="440" y="411.5" font-size="11.5" fill="#52606d" text-anchor="middle">extends</text>
+  <!-- 결과 -->
+  <rect x="468" y="376" width="368" height="60" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="652" y="400" font-size="15" fill="#111827" text-anchor="middle">원본 클래스를 상속하므로</text>
+  <text x="652" y="423" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">KakaoPayService</tspan> 타입으로도 주입 가능</text>
 </svg>

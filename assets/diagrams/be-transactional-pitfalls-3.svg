@@ -1,103 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">REQUIRED와 REQUIRES_NEW의 차이</title>
-  <desc id="d">Spring Framework 트랜잭션 전파 속성인 REQUIRED와 REQUIRES_NEW의 동작 및 트랜잭션 공유/분리 차이를 나타낸 다이어그램</desc>
+  <title id="t">REQUIRED와 REQUIRES_NEW 비교</title>
+  <desc id="d">REQUIRED에서는 inner()가 outer()와 같은 커넥션, 같은 물리 트랜잭션을 공유해 inner에서 예외가 나면 전체가 롤백된다. REQUIRES_NEW에서는 outer 트랜잭션을 보류하고 inner가 별도 커넥션으로 BEGIN과 COMMIT을 따로 수행한 뒤 outer가 재개되므로, 두 트랜잭션의 커밋과 롤백이 서로 영향을 주지 않는다.</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="570" fill="#ffffff"/>
+  <!-- ===== REQUIRED ===== -->
+  <rect x="24" y="24" width="832" height="236" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="40" y="40" width="112" height="30" rx="6" fill="#1f2937"/>
+  <text x="96" y="61" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">REQUIRED</text>
+  <text x="166" y="62" font-size="18" font-weight="bold" fill="#111827">하나의 물리 트랜잭션을 공유한다</text>
 
-  <!-- ==================== SECTION 1: REQUIRED ==================== -->
-  <g>
-    <!-- 영역 구분을 위한 섹션 컨테이너 -->
-    <rect x="24" y="24" width="832" height="230" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
-    
-    <!-- 섹션 헤더 -->
-    <rect x="40" y="40" width="110" height="28" rx="4" fill="#2563eb"/>
-    <text x="95" y="58" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">[REQUIRED]</text>
-    <text x="162" y="58" fill="#1f2933" font-size="14" font-weight="bold">하나의 물리 트랜잭션을 공유한다</text>
+  <text x="40" y="118" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">outer()</text>
+  <text x="40" y="175" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">inner()</text>
 
-    <!-- 타임라인/실행 흐름 -->
-    <!-- outer() -->
-    <text x="60" y="115" fill="#1f2933" font-size="13" font-weight="bold">outer()</text>
-    
-    <path d="M120,110 L200,110" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
-    <text x="210" y="114" fill="#2563eb" font-size="13" font-weight="bold">BEGIN</text>
+  <!-- 물리 트랜잭션 하나 -->
+  <rect x="160" y="88" width="680" height="152" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="176" y="118" font-size="15" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">BEGIN</text>
+  <line x1="232" y1="113" x2="674" y2="113" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="824" y="118" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">COMMIT/ROLLBACK</text>
 
-    <path d="M260,110 L680,110" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4"/>
-    <path d="M680,110 L720,110" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
-    <text x="730" y="114" fill="#2563eb" font-size="13" font-weight="bold">COMMIT/ROLLBACK</text>
+  <line x1="320" y1="113" x2="320" y2="147" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <rect x="304" y="150" width="300" height="40" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="454" y="175" font-size="15" fill="#1e3a8a" text-anchor="middle">같은 커넥션, 같은 트랜잭션</text>
 
-    <!-- inner() 계층 구조 관계선 -->
-    <path d="M230,110 L230,155 L250,155" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    
-    <!-- inner() 내용 -->
-    <text x="260" y="159" fill="#1f2933" font-size="13" font-weight="bold">inner()</text>
-    <text x="315" y="159" fill="#52606d" font-size="13">(같은 커넥션, 같은 트랜잭션)</text>
+  <path d="M320,190 V214 H334" stroke="#b91c1c" stroke-width="2" fill="none"/>
+  <text x="342" y="219" font-size="15" font-weight="bold" fill="#b91c1c">여기서 예외 → 전체가 롤백된다</text>
 
-    <!-- 예외 발생 영향 -->
-    <path d="M280,165 L280,205 L300,205" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-    <text x="310" y="209" fill="#dc2626" font-size="13" font-weight="bold">여기서 예외 → 전체가 롤백된다</text>
-  </g>
+  <!-- ===== REQUIRES_NEW ===== -->
+  <rect x="24" y="280" width="832" height="266" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="40" y="296" width="150" height="30" rx="6" fill="#1f2937"/>
+  <text x="115" y="317" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">REQUIRES_NEW</text>
+  <text x="204" y="318" font-size="18" font-weight="bold" fill="#111827">물리 트랜잭션이 두 개다</text>
 
-  <!-- ==================== SECTION 2: REQUIRES_NEW ==================== -->
-  <g>
-    <!-- 영역 구분을 위한 섹션 컨테이너 -->
-    <rect x="24" y="274" width="832" height="272" rx="8" fill="#f5f3ff" stroke="#cbd2d9" stroke-width="1"/>
-    
-    <!-- 섹션 헤더 -->
-    <rect x="40" y="290" width="140" height="28" rx="4" fill="#7c3aed"/>
-    <text x="110" y="308" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">[REQUIRES_NEW]</text>
-    <text x="192" y="308" fill="#1f2933" font-size="14" font-weight="bold">물리 트랜잭션이 두 개다</text>
+  <text x="40" y="369" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">outer()</text>
+  <text x="40" y="449" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">inner()</text>
 
-    <!-- outer() 상단 흐름 -->
-    <text x="60" y="365" fill="#1f2933" font-size="13" font-weight="bold">outer()</text>
-    
-    <path d="M120,360 L200,360" stroke="#7c3aed" stroke-width="2" marker-end="url(#a-purple)"/>
-    <text x="210" y="364" fill="#7c3aed" font-size="13" font-weight="bold">BEGIN</text>
+  <!-- outer 트랜잭션 -->
+  <rect x="160" y="344" width="146" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="176" y="369" font-size="15" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">BEGIN</text>
+  <rect x="312" y="344" width="60" height="40" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="342" y="369" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">보류</text>
+  <line x1="376" y1="364" x2="574" y2="364" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="6 5"/>
+  <rect x="578" y="344" width="60" height="40" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="608" y="369" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">재개</text>
+  <rect x="644" y="344" width="196" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="826" y="369" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">COMMIT/ROLLBACK</text>
 
-    <path d="M260,360 L290,360" stroke="#7c3aed" stroke-width="2"/>
-    
-    <!-- [보류] -->
-    <rect x="290" y="346" width="54" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="317" y="363" fill="#d97706" font-size="12" font-weight="bold" text-anchor="middle">보류</text>
+  <!-- 제어 이동 -->
+  <line x1="342" y1="384" x2="342" y2="421" stroke="#b45309" stroke-width="2" marker-end="url(#ah-amber)"/>
+  <line x1="608" y1="424" x2="608" y2="387" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
 
-    <path d="M344,360 L410,360" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- inner 트랜잭션 -->
+  <rect x="326" y="424" width="298" height="40" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="342" y="449" font-size="15" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">BEGIN</text>
+  <line x1="396" y1="444" x2="546" y2="444" stroke="#6d28d9" stroke-width="2"/>
+  <text x="608" y="449" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">COMMIT</text>
+  <text x="638" y="449" font-size="15" fill="#374151">(별도 커넥션)</text>
 
-    <!-- [재개] -->
-    <rect x="410" y="346" width="54" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="437" y="363" fill="#059669" font-size="12" font-weight="bold" text-anchor="middle">재개</text>
-
-    <path d="M464,360 L680,360" stroke="#7c3aed" stroke-width="2"/>
-    <path d="M680,360 L720,360" stroke="#7c3aed" stroke-width="2" marker-end="url(#a-purple)"/>
-    <text x="730" y="364" fill="#7c3aed" font-size="13" font-weight="bold">COMMIT/ROLLBACK</text>
-
-    <!-- outer() -> inner() 제어권 이전 화살표 (보류에서 아래로) -->
-    <path d="M317,372 L317,422" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-ink)"/>
-    
-    <!-- inner() -> outer() 제어권 복귀 화살표 (재개로 위로) -->
-    <path d="M437,422 L437,378" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-ink)"/>
-
-    <!-- inner() 하단 흐름 -->
-    <text x="60" y="435" fill="#1f2933" font-size="13" font-weight="bold">inner()</text>
-
-    <text x="210" y="435" fill="#059669" font-size="13" font-weight="bold">BEGIN</text>
-    <path d="M260,431 L380,431" stroke="#059669" stroke-width="2"/>
-    <text x="385" y="435" fill="#059669" font-size="13" font-weight="bold">COMMIT</text>
-    <text x="455" y="435" fill="#52606d" font-size="13">(별도 커넥션)</text>
-
-    <!-- inner() 설명 텍스트 -->
-    <path d="M230,442 L230,475 L250,475" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    <text x="260" y="479" fill="#1f2933" font-size="12.5">inner 가 롤백돼도 outer 는 영향받지 않고,</text>
-    <text x="260" y="501" fill="#1f2933" font-size="12.5">outer 가 롤백돼도 inner 커밋은 남는다</text>
-  </g>
+  <path d="M342,464 V490 H356" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <text x="364" y="495" font-size="16" fill="#111827">inner 가 롤백돼도 outer 는 영향받지 않고,</text>
+  <text x="364" y="521" font-size="16" fill="#111827">outer 가 롤백돼도 inner 커밋은 남는다</text>
 </svg>

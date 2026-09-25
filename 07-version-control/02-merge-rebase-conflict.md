@@ -367,7 +367,7 @@ git cherry-pick a3d0e54      # main의 핫픽스 커밋 하나만 가져온다
 ```
 
 <!-- diagram:git-merge-rebase-conflict-8 -->
-![Cherry-pick — 커밋 하나만 골라 오기](../assets/diagrams/git-merge-rebase-conflict-8.svg)
+![cherry-pick: 핫픽스 c3만 release에 c3'로 복제](../assets/diagrams/git-merge-rebase-conflict-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -402,7 +402,7 @@ git cherry-pick a3d0e54      # main의 핫픽스 커밋 하나만 가져온다
 ### revert가 왜 안전한가
 
 <!-- diagram:git-merge-rebase-conflict-9 -->
-![revert가 왜 안전한가](../assets/diagrams/git-merge-rebase-conflict-9.svg)
+![reset은 c3를 지우고 revert는 상쇄 커밋 c4를 쌓는다](../assets/diagrams/git-merge-rebase-conflict-9.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

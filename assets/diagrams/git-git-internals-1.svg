@@ -1,90 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">델타 방식과 그 비용</title>
-  <desc id="d">파일 단위로 변경분을 쌓는 델타 기반 버전 관리 방식과 v50 시점 복원 시 발생하는 연산 비용을 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">델타 기반 저장과 복원 비용</title>
+  <desc id="d">델타 기반 도구는 파일마다 v1 전체 뒤에 변경분(+3줄, -1줄, +7줄 …)을 쌓는다. v50 시점의 A.java를 보려면 v1을 꺼내 델타 49개를 순서대로 적용해야 한다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 캡션 -->
+  <text x="24" y="42" font-size="19" font-weight="bold" fill="#111827">델타 기반<tspan dx="14" font-size="16" font-weight="normal" fill="#4b5563">파일 단위로 변경분을 쌓는다</tspan></text>
 
-  <!-- 헤딩 / 섹션 영역 -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">[델타 기반]</text>
-  <text x="130" y="38" font-size="14" fill="#52606d">파일 단위로 변경분을 쌓는다</text>
+  <!-- A.java 레인 -->
+  <rect x="24" y="68" width="832" height="64" rx="10" fill="#f3f4f6"/>
+  <text x="42" y="106" font-size="17" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A.java</text>
+  <rect x="150" y="80" width="104" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="202" y="106" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">v1(전체)</text>
+  <line x1="256" y1="100" x2="286" y2="100" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="290" y="80" width="76" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="328" y="106" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">+3줄</text>
+  <line x1="368" y1="100" x2="398" y2="100" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="402" y="80" width="76" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="440" y="106" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">-1줄</text>
+  <line x1="480" y1="100" x2="510" y2="100" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="514" y="80" width="76" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="552" y="106" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">+7줄</text>
+  <line x1="592" y1="100" x2="622" y2="100" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="650" y="106" font-size="20" font-weight="bold" fill="#4b5563" text-anchor="middle">…</text>
+  <line x1="678" y1="100" x2="706" y2="100" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="710" y="80" width="90" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="755" y="106" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">v57</text>
 
-  <!-- 메인 다이어그램 박스 (A.java) -->
-  <rect x="30" y="65" width="820" height="60" rx="6" fill="#f8fafc" stroke="#e4e7eb" stroke-width="1"/>
+  <!-- B.java 레인 -->
+  <rect x="24" y="144" width="832" height="64" rx="10" fill="#f3f4f6"/>
+  <text x="42" y="182" font-size="17" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">B.java</text>
+  <rect x="150" y="156" width="104" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="202" y="182" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">v1(전체)</text>
+  <line x1="256" y1="176" x2="286" y2="176" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="290" y="156" width="76" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="328" y="182" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">+2줄</text>
+  <line x1="368" y1="176" x2="398" y2="176" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="426" y="182" font-size="20" font-weight="bold" fill="#4b5563" text-anchor="middle">…</text>
+  <line x1="454" y1="176" x2="706" y2="176" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#ah)"/>
+  <rect x="710" y="156" width="90" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="755" y="182" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">v41</text>
 
-  <rect x="45" y="77" width="75" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="82.5" y="99.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">A.java</text>
+  <!-- 복원 비용 -->
+  <rect x="24" y="234" width="832" height="162" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+  <text x="44" y="270" font-size="18" font-weight="bold" fill="#111827">“v50 시점의 A.java를 보여줘”</text>
+  <text x="44" y="302" font-size="17" font-weight="bold" fill="#b91c1c">→ v1을 꺼내서 델타 49개를 순서대로 적용해야 한다</text>
 
-  <path d="M120,95 L145,95" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="145" y="79" width="80" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="185" y="99.2" font-size="12" fill="#1f2933" text-anchor="middle">v1(전체)</text>
-
-  <path d="M225,95 L250,95" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="250" y="81" width="55" height="28" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="277.5" y="99.2" font-size="12" fill="#059669" text-anchor="middle">+3줄</text>
-
-  <path d="M305,95 L330,95" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="330" y="81" width="55" height="28" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="357.5" y="99.2" font-size="12" fill="#dc2626" text-anchor="middle">-1줄</text>
-
-  <path d="M385,95 L410,95" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="410" y="81" width="55" height="28" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="437.5" y="99.2" font-size="12" fill="#059669" text-anchor="middle">+7줄</text>
-
-  <path d="M465,95 L490,95" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <text x="515" y="99.2" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">...</text>
-
-  <path d="M540,95 L565,95" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="565" y="79" width="60" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="595" y="99.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">v57</text>
-
-
-  <!-- 메인 다이어그램 박스 (B.java) -->
-  <rect x="30" y="135" width="820" height="60" rx="6" fill="#f8fafc" stroke="#e4e7eb" stroke-width="1"/>
-
-  <rect x="45" y="147" width="75" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="82.5" y="169.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">B.java</text>
-
-  <path d="M120,165 L145,165" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="145" y="149" width="80" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="185" y="169.2" font-size="12" fill="#1f2933" text-anchor="middle">v1(전체)</text>
-
-  <path d="M225,165 L250,165" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="250" y="151" width="55" height="28" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="277.5" y="169.2" font-size="12" fill="#059669" text-anchor="middle">+2줄</text>
-
-  <path d="M305,165 L330,165" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <text x="357.5" y="169.2" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">...</text>
-
-  <path d="M385,165 L565,165" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="565" y="149" width="60" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="595" y="169.2" font-size="12" font-weight="bold" fill="#1f2933" text-anchor="middle">v41</text>
-
-
-  <!-- 문제점 / 비용 설명 영역 -->
-  <rect x="30" y="220" width="820" height="90" rx="6" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
-
-  <text x="60" y="254" font-size="13.5" font-weight="bold" fill="#991b1b">"v50 시점의 A.java를 보여줘"</text>
-
-  <path d="M75,268 L75,286 L95,286" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <text x="105" y="290" font-size="13" fill="#dc2626">v1을 꺼내서 델타 49개를 순서대로 적용해야 한다</text>
+  <rect x="44" y="326" width="110" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="99" y="352" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">v1(전체)</text>
+  <line x1="156" y1="346" x2="190" y2="346" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ahr)"/>
+  <rect x="194" y="326" width="96" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="242" y="352" font-size="16" fill="#111827" text-anchor="middle">델타 1</text>
+  <line x1="292" y1="346" x2="326" y2="346" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ahr)"/>
+  <rect x="330" y="326" width="96" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="378" y="352" font-size="16" fill="#111827" text-anchor="middle">델타 2</text>
+  <line x1="428" y1="346" x2="462" y2="346" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ahr)"/>
+  <text x="490" y="352" font-size="20" font-weight="bold" fill="#4b5563" text-anchor="middle">…</text>
+  <line x1="516" y1="346" x2="548" y2="346" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ahr)"/>
+  <rect x="552" y="326" width="100" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="602" y="352" font-size="16" fill="#111827" text-anchor="middle">델타 49</text>
+  <line x1="654" y1="346" x2="688" y2="346" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ahr)"/>
+  <rect x="692" y="326" width="96" height="40" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="740" y="352" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">v50</text>
 </svg>

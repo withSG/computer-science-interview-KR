@@ -1,113 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실무 N+1 해결책 판단 순서</title>
-  <desc id="d">연관 데이터 필요 여부에 따라 fetch join, batch size, DTO 직접 조회 등 적절한 해결책을 선택하는 의사결정 트리 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">연관 데이터 조회 전략 선택</title>
+  <desc id="d">연관 데이터가 필요 없으면 LAZY 그대로 둔다. 필요하면 상황에 따라 단건 조회는 fetch join 또는 @EntityGraph, 목록과 페이징에서 ToOne은 fetch join, 컬렉션은 LAZY와 batch size, 컬렉션이 두 개 이상이면 하나만 fetch join하고 나머지는 batch size, 읽기 전용은 DTO 직접 조회를 고른다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="570" fill="#ffffff"/>
+  <!-- 질문 -->
+  <rect x="24" y="24" width="264" height="52" rx="26" fill="#1f2937"/>
+  <text x="156" y="56" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">연관 데이터가 필요한가?</text>
 
-  <!-- 문서 헤딩 / 제목 -->
-  <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">8. 실무에서는</text>
+  <!-- 아니오 -->
+  <text x="415" y="42" font-size="15" font-weight="700" fill="#374151" text-anchor="middle">아니오</text>
+  <line x1="292" y1="50" x2="538" y2="50" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="544" y="26" width="312" height="48" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="560" y="56" font-size="16" fill="#111827"><tspan font-weight="700">LAZY 그대로 둔다.</tspan> 문제 없음.</text>
 
-  <!-- 1. 시작 노드: 연관 데이터가 필요한가? -->
-  <rect x="330" y="55" width="220" height="42" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="81" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">연관 데이터가 필요한가?</text>
+  <!-- 예: 줄기 -->
+  <text x="64" y="98" font-size="15" font-weight="700" fill="#374151">예</text>
+  <line x1="52" y1="78" x2="52" y2="396" stroke="#374151" stroke-width="2"/>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#ah)">
+    <line x1="52" y1="132" x2="78" y2="132"/>
+    <line x1="52" y1="230" x2="78" y2="230"/>
+    <line x1="52" y1="328" x2="78" y2="328"/>
+    <line x1="52" y1="396" x2="78" y2="396"/>
+  </g>
 
-  <!-- 분기 1-1: 아니오 -->
-  <path d="M 330 76 L 160 76 L 160 125" fill="none" stroke="#52606d" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <rect x="210" y="66" width="54" height="20" fill="#ffffff" rx="3"/>
-  <text x="237" y="80" font-size="11.5" font-weight="bold" fill="#52606d" text-anchor="middle">아니오</text>
+  <!-- 상황 -->
+  <g fill="#ffffff" stroke="#374151" stroke-width="1.5">
+    <rect x="80" y="108" width="300" height="48" rx="8"/>
+    <rect x="80" y="206" width="300" height="48" rx="8"/>
+    <rect x="80" y="304" width="300" height="48" rx="8"/>
+    <rect x="80" y="372" width="300" height="48" rx="8"/>
+  </g>
+  <g font-size="16" fill="#111827">
+    <text x="96" y="138">단건 조회이고 확실히 함께 쓴다</text>
+    <text x="96" y="236">목록 + 페이징이 필요하다</text>
+    <text x="96" y="334">컬렉션이 두 개 이상이다</text>
+    <text x="96" y="402">읽기 전용이고 필드 몇 개만 필요하다</text>
+  </g>
 
-  <!-- 노드: LAZY 그대로 둔다. 문제 없음. -->
-  <rect x="40" y="125" width="240" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="160" y="150" font-size="13" fill="#52606d" text-anchor="middle">LAZY 그대로 둔다. 문제 없음.</text>
+  <!-- 목록 + 페이징 갈래 -->
+  <path d="M 382 230 H 392 M 392 200 V 260" fill="none" stroke="#374151" stroke-width="2"/>
+  <g stroke="#374151" stroke-width="2" marker-end="url(#ah)">
+    <line x1="391" y1="200" x2="402" y2="200"/>
+    <line x1="391" y1="260" x2="402" y2="260"/>
+  </g>
+  <g fill="#f9fafb" stroke="#6b7280" stroke-width="1.5">
+    <rect x="404" y="176" width="112" height="48" rx="8"/>
+    <rect x="404" y="236" width="112" height="48" rx="8"/>
+  </g>
+  <g font-size="16" fill="#111827" text-anchor="middle">
+    <text x="460" y="206">ToOne 관계</text>
+    <text x="460" y="266">컬렉션</text>
+  </g>
 
-  <!-- 분기 1-2: 예 -->
-  <path d="M 440 97 L 440 125" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="425" y="100" width="30" height="20" fill="#ffffff" rx="3"/>
-  <text x="440" y="114" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">예</text>
+  <!-- 상황 → 선택 화살표 -->
+  <g stroke="#374151" stroke-width="2" marker-end="url(#ah)">
+    <line x1="384" y1="132" x2="538" y2="132"/>
+    <line x1="520" y1="200" x2="538" y2="200"/>
+    <line x1="520" y1="260" x2="538" y2="260"/>
+    <line x1="384" y1="328" x2="538" y2="328"/>
+    <line x1="384" y1="396" x2="538" y2="396"/>
+  </g>
 
-  <!-- 2. 예 노드 / 분기점 영역 -->
-  <!-- 2-1. 단건 조회이고 확실히 함께 쓴다 -->
-  <path d="M 440 125 L 170 125 L 170 160" fill="none" stroke="#9aa5b1" stroke-width="1.5"/>
-  <path d="M 170 160 L 170 185" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="40" y="185" width="260" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="170" y="210" font-size="13" fill="#1f2933" text-anchor="middle">단건 조회이고 확실히 함께 쓴다</text>
-
-  <!-- 결과 화살표 & 결과: fetch join / @EntityGraph -->
-  <path d="M 300 205 L 435 205" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="330" y="195" width="32" height="20" fill="#ffffff" rx="3"/>
-  <text x="346" y="209" font-size="11.5" fill="#52606d" text-anchor="middle">→</text>
-  <rect x="435" y="185" width="240" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="555" y="210" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">fetch join / @EntityGraph</text>
-
-  <!-- 2-2. 목록 + 페이징이 필요하다 -->
-  <path d="M 440 125 L 170 125 L 170 250" fill="none" stroke="#9aa5b1" stroke-width="1.5"/>
-  <path d="M 170 250 L 170 275" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="40" y="275" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="150" y="300" font-size="13" fill="#1f2933" text-anchor="middle">목록 + 페이징이 필요하다</text>
-
-  <!-- 하위 분기: ToOne 관계 -->
-  <path d="M 150 315 L 150 350 L 220 350" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="220" y="330" width="130" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="285" y="355" font-size="13" fill="#1f2933" text-anchor="middle">ToOne 관계</text>
-  
-  <path d="M 350 350 L 435 350" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="375" y="340" width="32" height="20" fill="#ffffff" rx="3"/>
-  <text x="391" y="354" font-size="11.5" fill="#52606d" text-anchor="middle">→</text>
-  <rect x="435" y="330" width="310" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="590" y="355" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">fetch join (행이 안 늘어남)</text>
-
-  <!-- 하위 분기: 컬렉션 -->
-  <path d="M 150 315 L 150 410 L 220 410" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="220" y="390" width="130" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="285" y="415" font-size="13" fill="#1f2933" text-anchor="middle">컬렉션</text>
-
-  <path d="M 350 410 L 435 410" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="375" y="400" width="32" height="20" fill="#ffffff" rx="3"/>
-  <text x="391" y="414" font-size="11.5" fill="#52606d" text-anchor="middle">→</text>
-  <rect x="435" y="390" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="545" y="415" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">LAZY + batch size</text>
-
-  <!-- 2-3. 컬렉션이 두 개 이상이다 -->
-  <path d="M 440 125 L 170 125 L 170 450" fill="none" stroke="#9aa5b1" stroke-width="1.5"/>
-  <path d="M 170 450 L 170 470" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <rect x="40" y="470" width="220" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="150" y="495" font-size="13" fill="#1f2933" text-anchor="middle">컬렉션이 두 개 이상이다</text>
-
-  <path d="M 260 490 L 435 490" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <rect x="320" y="480" width="32" height="20" fill="#ffffff" rx="3"/>
-  <text x="336" y="494" font-size="11.5" fill="#52606d" text-anchor="middle">→</text>
-  <rect x="435" y="470" width="380" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="625" y="495" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">하나만 fetch join + 나머지 batch size</text>
-
-  <!-- 2-4. 읽기 전용이고 필드 몇 개만 필요하다 -->
-  <path d="M 440 125 L 170 125 L 170 510" fill="none" stroke="#9aa5b1" stroke-width="1.5"/>
-  <path d="M 170 510 L 170 530" fill="none" stroke="#059669" stroke-width="1.5"/>
-  <path d="M 170 530 L 40 530 L 40 550" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  
-  <!-- 원본 구조의 트리 분기 형태로 배치 -->
-  <rect x="40" y="520" width="340" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="210" y="545" font-size="13" fill="#1f2933" text-anchor="middle">읽기 전용이고 필드 몇 개만 필요하다</text>
-
-  <path d="M 380 540 L 435 540" fill="none" stroke="#059669" stroke-width="1.5"/>
-  <!-- 마커 정의 없이 일반 색상 라인 적용 -->
-  <path d="M 425 535 L 435 540 L 425 545 z" fill="#059669"/>
-  <rect x="395" y="530" width="32" height="20" fill="#ffffff" rx="3"/>
-  <text x="411" y="544" font-size="11.5" fill="#52606d" text-anchor="middle">→</text>
-
-  <rect x="435" y="520" width="180" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="525" y="545" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">DTO 직접 조회</text>
-
+  <!-- 선택 -->
+  <g fill="#ecfdf5" stroke="#047857" stroke-width="1.5">
+    <rect x="544" y="108" width="312" height="48" rx="8"/>
+    <rect x="544" y="176" width="312" height="48" rx="8"/>
+    <rect x="544" y="236" width="312" height="48" rx="8"/>
+    <rect x="544" y="304" width="312" height="48" rx="8"/>
+    <rect x="544" y="372" width="312" height="48" rx="8"/>
+  </g>
+  <g font-size="16" font-weight="700" fill="#111827">
+    <text x="560" y="138">fetch join / @EntityGraph</text>
+    <text x="560" y="206">fetch join <tspan font-weight="400" fill="#4b5563">(행이 안 늘어남)</tspan></text>
+    <text x="560" y="266">LAZY + batch size</text>
+    <text x="560" y="334">하나만 fetch join + 나머지 batch size</text>
+    <text x="560" y="402">DTO 직접 조회</text>
+  </g>
 </svg>

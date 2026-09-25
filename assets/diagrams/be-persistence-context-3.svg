@@ -1,68 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">flush와 commit의 차이</title>
-  <desc id="d">flush와 commit 과정에서의 동작, DB 반영 여부, 롤백 가능 여부, 1차 캐시 상태의 차이를 비교하는 다이어그램</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
+  <desc id="d">commit()은 flush()(변경 감지, SQL 생성, 쓰기 지연 저장소의 SQL을 DB로 전송)를 먼저 수행한 다음 트랜잭션을 확정한다. flush 후에는 아직 커밋 전이라 ROLLBACK이 가능하고 1차 캐시도 그대로지만, commit 후에는 되돌릴 수 없고 트랜잭션 종료와 함께 영속성 컨텍스트도 닫힌다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- flush() Column Background -->
-  <rect x="24" y="24" width="404" height="342" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  
-  <!-- commit() Column Background -->
-  <rect x="452" y="24" width="404" height="342" rx="8" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
+  <!-- commit() 영역: flush() 전체 + 트랜잭션 확정 -->
+  <rect x="24" y="24" width="832" height="196" rx="12" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="44" y="58" font-size="20" font-weight="bold" fill="#5b21b6" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">commit()</text>
+  <text x="150" y="57" font-size="15" fill="#374151">flush()를 먼저 수행하고, 그 다음 트랜잭션을 확정한다</text>
 
-  <!-- Column Header: flush() -->
-  <rect x="24" y="24" width="404" height="48" rx="8" fill="#2563eb"/>
-  <!-- Bottom rounding reset for flush header -->
-  <rect x="24" y="64" width="404" height="8" fill="#2563eb"/>
-  <text x="226" y="53" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">flush()</text>
+  <!-- flush() 영역 -->
+  <rect x="44" y="76" width="556" height="128" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="64" y="104" font-size="18" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">flush()</text>
 
-  <!-- Column Header: commit() -->
-  <rect x="452" y="24" width="404" height="48" rx="8" fill="#7c3aed"/>
-  <!-- Bottom rounding reset for commit header -->
-  <rect x="452" y="64" width="404" height="8" fill="#7c3aed"/>
-  <text x="654" y="53" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">commit()</text>
+  <!-- 단계 -->
+  <rect x="64" y="120" width="120" height="64" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="124" y="158" font-size="16" text-anchor="middle" fill="#111827">변경 감지</text>
+  <path d="M190,152 L214,152" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
 
-  <!-- Divider lines below headers -->
-  <line x1="24" y1="72" x2="428" y2="72" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="452" y1="72" x2="856" y2="72" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="220" y="120" width="120" height="64" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="280" y="158" font-size="16" text-anchor="middle" fill="#111827">SQL 생성</text>
+  <path d="M346,152 L370,152" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
 
-  <!-- flush() Section 1: Process -->
-  <rect x="40" y="88" width="372" height="70" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="120" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">변경 감지</text>
-  <path d="M152,124 L168,124" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="176" y="128" text-anchor="start" font-size="13" font-weight="bold" fill="#1f2933">SQL 생성</text>
-  <text x="226" y="148" text-anchor="middle" font-size="13" fill="#1f2933">쓰기 지연 저장소의 SQL을 DB로 전송</text>
+  <rect x="376" y="120" width="204" height="64" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="478" y="147" font-size="15" text-anchor="middle" fill="#111827">쓰기 지연 저장소의 SQL을</text>
+  <text x="478" y="169" font-size="15" text-anchor="middle" fill="#111827">DB로 전송</text>
+  <path d="M586,152 L634,152" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
 
-  <!-- flush() Section 2: DB Status & Rollback -->
-  <rect x="40" y="174" width="372" height="76" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="226" y="206" text-anchor="middle" font-size="13" fill="#1f2933">이 시점에 DB에는 반영됐지만</text>
-  <text x="226" y="232" text-anchor="middle" font-size="13" fill="#1f2933">아직 커밋 전 → <tspan font-weight="bold" fill="#dc2626">ROLLBACK 가능</tspan></text>
+  <rect x="640" y="120" width="196" height="64" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="738" y="158" font-size="17" font-weight="bold" text-anchor="middle" fill="#4c1d95">트랜잭션 확정</text>
 
-  <!-- flush() Section 3: 1st Level Cache -->
-  <rect x="40" y="266" width="372" height="84" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="226" y="298" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">1차 캐시는 그대로 유지된다</text>
-  <text x="226" y="324" text-anchor="middle" font-size="11.5" fill="#52606d">(flush는 캐시를 비우는 게 아니다)</text>
+  <!-- 각 시점 이후 상태 -->
+  <path d="M478,190 L478,254" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <path d="M738,190 L738,254" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
 
-  <!-- commit() Section 1: Process -->
-  <rect x="468" y="88" width="372" height="70" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="654" y="115" text-anchor="middle" font-size="13" fill="#1f2933"><tspan font-weight="bold" fill="#2563eb">flush()</tspan> 를 먼저 수행하고</text>
-  <text x="654" y="141" text-anchor="middle" font-size="13" fill="#1f2933">그 다음 트랜잭션을 확정한다</text>
+  <rect x="24" y="262" width="516" height="154" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="44" y="292" font-size="17" font-weight="bold" fill="#1d4ed8"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">flush()</tspan> 후</text>
+  <line x1="44" y1="306" x2="520" y2="306" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="44" y="336" font-size="15" fill="#111827">이 시점에 DB에는 반영됐지만 아직 커밋 전 →<tspan dx="7" font-weight="bold" fill="#047857">ROLLBACK 가능</tspan></text>
+  <text x="44" y="368" font-size="15" fill="#111827">1차 캐시는 그대로 유지된다</text>
+  <text x="44" y="392" font-size="14" fill="#4b5563">(flush는 캐시를 비우는 게 아니다)</text>
 
-  <!-- commit() Section 2: DB Status & Rollback -->
-  <rect x="468" y="174" width="372" height="76" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="654" y="219" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">이 시점 이후 되돌릴 수 없다</text>
-
-  <!-- commit() Section 3: Context Close -->
-  <rect x="468" y="266" width="372" height="84" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="590" y="308" text-anchor="middle" font-size="13" fill="#1f2933">트랜잭션 종료</text>
-  <path d="M638,304 L654,304" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="662" y="308" text-anchor="start" font-size="13" fill="#1f2933">영속성 컨텍스트도 닫힌다</text>
+  <rect x="560" y="262" width="296" height="154" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="580" y="292" font-size="17" font-weight="bold" fill="#6d28d9"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">commit()</tspan> 후</text>
+  <line x1="580" y1="306" x2="836" y2="306" stroke="#ddd6fe" stroke-width="1.5"/>
+  <text x="580" y="336" font-size="15" font-weight="bold" fill="#b91c1c">이 시점 이후 되돌릴 수 없다</text>
+  <text x="580" y="368" font-size="15" fill="#111827">트랜잭션 종료 →</text>
+  <text x="580" y="392" font-size="15" fill="#111827">영속성 컨텍스트도 닫힌다</text>
 </svg>

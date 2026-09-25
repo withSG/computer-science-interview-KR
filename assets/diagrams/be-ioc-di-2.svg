@@ -1,82 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3. DI: 컨테이너는 실제로 무엇을 하나</title>
-  <desc id="d">Spring DI 컨테이너가 애플리케이션 시작 시 수행하는 6단계 라이프사이클 절차 (스캔, 등록, 순서 결정, 생성 및 주입, 초기화, 보관)</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">컨테이너가 하는 일 6단계</title>
+  <desc id="d">IoC 컨테이너가 스캔, 등록, 순서 결정, 생성 + 주입, 초기화, 보관을 시간 순으로 수행한다. DI의 가치가 나오는 3번 순서 결정 단계에서는 PaymentService → OrderService 순으로 만들 순서를 정한다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
+  <rect width="880" height="600" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="770" fill="#ffffff"/>
+  <!-- 타임라인 연결 화살표 -->
+  <path d="M60,82 V137" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M60,178 V251" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M60,292 V365" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M60,406 V449" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M60,490 V521" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
 
-  <!-- 전체 외곽 바운딩 영역 (원본 ASCII의 가장자리 ┌┐└┘ 틀 구현) -->
-  <rect x="40" y="30" width="800" height="710" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- 1. 스캔 -->
+  <circle cx="60" cy="62" r="18" fill="#1d4ed8"/>
+  <text x="60" y="68" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="100" y="24" width="756" height="76" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="124" y="68" font-size="18" font-weight="bold" fill="#111827">스캔</text>
+  <text x="256" y="55" font-size="16" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">@Component/@Service/@Repository</tspan> 붙은
+    <tspan x="256" dy="24">클래스와 </tspan><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">@Bean</tspan> 메서드를 전부 찾는다</text>
 
-  <!-- Step 1: 스캔 -->
-  <g transform="translate(70, 50)">
-    <rect x="0" y="0" width="740" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="30" y="35" font-size="16" font-weight="bold" fill="#2563eb">1. 스캔</text>
-    <text x="130" y="35" font-size="14" fill="#1f2933">@Component/@Service/@Repository 붙은</text>
-    <text x="130" y="59" font-size="14" fill="#1f2933">클래스와 @Bean 메서드를 전부 찾는다</text>
-  </g>
+  <!-- 2. 등록 -->
+  <circle cx="60" cy="158" r="18" fill="#1d4ed8"/>
+  <text x="60" y="164" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="100" y="120" width="756" height="76" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="124" y="164" font-size="18" font-weight="bold" fill="#111827">등록</text>
+  <text x="256" y="151" font-size="16" fill="#1f2937">찾은 것들을 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">BeanDefinition</tspan>(설계도)으로
+    <tspan x="256" dy="24">변환해 컨테이너에 저장</tspan></text>
 
-  <!-- 화살표 1 -> 2 -->
-  <path d="M440,130 L440,152" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 3. 순서 결정 (강조) -->
+  <circle cx="60" cy="272" r="18" fill="#b45309"/>
+  <text x="60" y="278" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="100" y="216" width="756" height="112" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <text x="124" y="278" font-size="18" font-weight="bold" fill="#92400e">순서 결정</text>
+  <text x="256" y="252" font-size="16" fill="#1f2937">의존 그래프를 보고 무엇부터 만들지 정한다</text>
+  <rect x="256" y="268" width="156" height="36" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="334" y="291" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PaymentService</text>
+  <path d="M416,286 H447" fill="none" stroke="#b45309" stroke-width="2" marker-end="url(#arr-amber)"/>
+  <rect x="452" y="268" width="136" height="36" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="520" y="291" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderService</text>
+  <text x="600" y="291" font-size="16" fill="#1f2937">순</text>
+  <rect x="648" y="232" width="192" height="30" rx="15" fill="#b45309"/>
+  <text x="744" y="252" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">DI의 가치가 나오는 단계</text>
 
-  <!-- Step 2: 등록 -->
-  <g transform="translate(70, 160)">
-    <rect x="0" y="0" width="740" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="30" y="35" font-size="16" font-weight="bold" fill="#2563eb">2. 등록</text>
-    <text x="130" y="35" font-size="14" fill="#1f2933">찾은 것들을 BeanDefinition(설계도)으로</text>
-    <text x="130" y="59" font-size="14" fill="#1f2933">변환해 컨테이너에 저장</text>
-  </g>
+  <!-- 4. 생성 + 주입 -->
+  <circle cx="60" cy="386" r="18" fill="#1d4ed8"/>
+  <text x="60" y="392" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="100" y="348" width="756" height="76" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="124" y="392" font-size="18" font-weight="bold" fill="#111827">생성 + 주입</text>
+  <text x="256" y="379" font-size="16" fill="#1f2937">설계도대로 인스턴스를 만들고,
+    <tspan x="256" dy="24">생성자/필드에 다른 Bean을 꽂아 넣는다</tspan></text>
 
-  <!-- 화살표 2 -> 3 -->
-  <path d="M440,240 L440,262" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-amber)"/>
+  <!-- 5. 초기화 -->
+  <circle cx="60" cy="470" r="18" fill="#1d4ed8"/>
+  <text x="60" y="476" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="100" y="444" width="756" height="52" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="124" y="476" font-size="18" font-weight="bold" fill="#111827">초기화</text>
+  <text x="256" y="475" font-size="16" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">@PostConstruct</tspan> 등 초기화 콜백 실행</text>
 
-  <!-- Step 3: 순서 결정 (핵심 단계 강조) -->
-  <g transform="translate(70, 270)">
-    <rect x="0" y="0" width="740" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-    <text x="30" y="35" font-size="16" font-weight="bold" fill="#d97706">3. 순서 결정</text>
-    <text x="150" y="35" font-size="14" fill="#1f2933">의존 그래프를 보고 무엇부터 만들지 정한다</text>
-    <text x="150" y="59" font-size="14" font-weight="bold" fill="#d97706">PaymentService → OrderService 순</text>
-  </g>
-
-  <!-- 화살표 3 -> 4 -->
-  <path d="M440,350 L440,372" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Step 4: 생성 + 주입 -->
-  <g transform="translate(70, 380)">
-    <rect x="0" y="0" width="740" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="30" y="35" font-size="16" font-weight="bold" fill="#2563eb">4. 생성 + 주입</text>
-    <text x="170" y="35" font-size="14" fill="#1f2933">설계도대로 인스턴스를 만들고,</text>
-    <text x="170" y="59" font-size="14" fill="#1f2933">생성자/필드에 다른 Bean을 꽂아 넣는다</text>
-  </g>
-
-  <!-- 화살표 4 -> 5 -->
-  <path d="M440,460 L440,482" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 5: 초기화 -->
-  <g transform="translate(70, 490)">
-    <rect x="0" y="0" width="740" height="80" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="30" y="46" font-size="16" font-weight="bold" fill="#1f2933">5. 초기화</text>
-    <text x="130" y="46" font-size="14" fill="#1f2933">@PostConstruct 등 초기화 콜백 실행</text>
-  </g>
-
-  <!-- 화살표 5 -> 6 -->
-  <path d="M440,570 L440,592" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 6: 보관 -->
-  <g transform="translate(70, 600)">
-    <rect x="0" y="0" width="740" height="80" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="30" y="46" font-size="16" font-weight="bold" fill="#059669">6. 보관</text>
-    <text x="130" y="46" font-size="14" fill="#1f2933">싱글톤 레지스트리에 담아두고 요청 시 제공</text>
-  </g>
+  <!-- 6. 보관 -->
+  <circle cx="60" cy="542" r="18" fill="#1d4ed8"/>
+  <text x="60" y="548" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <rect x="100" y="516" width="756" height="52" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="124" y="548" font-size="18" font-weight="bold" fill="#111827">보관</text>
+  <text x="256" y="547" font-size="16" fill="#1f2937">싱글톤 레지스트리에 담아두고 요청 시 제공</text>
 </svg>

@@ -1,74 +1,65 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Authorization Code Grant 흐름 (가장 일반적)</title>
-  <desc id="d">사용자, Client Server, Authorization Server 간의 OAuth 2.0 Authorization Code Grant 인증 흐름 시퀀스 다이어그램</desc>
+  <title id="t">Authorization Code Grant 흐름</title>
+  <desc id="d">사용자(브라우저)가 Authorization Server에서 로그인하고 권한에 동의하면 Authorization Code와 함께 redirect되고, 그 Code를 받은 Client Server가 Authorization Server와 Code를 Access Token으로 교환해 발급받는 6단계 흐름.</desc>
+  <rect width="880" height="620" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="620" fill="#ffffff"/>
+  <!-- 참여자 -->
+  <rect x="60" y="24" width="220" height="52" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="170" y="56" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">사용자 (브라우저)</text>
+  <rect x="580" y="24" width="260" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="710" y="56" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Authorization Server</text>
 
-  <!-- 제목 헤딩 -->
-  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">Authorization Code Grant 흐름 (가장 일반적)</text>
+  <!-- 생명선 -->
+  <line x1="170" y1="76" x2="170" y2="314" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="710" y1="76" x2="710" y2="590" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- 생명선 (Lifelines) -->
-  <line x1="160" y1="130" x2="160" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="160" y1="530" x2="160" y2="580" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="720" y1="130" x2="720" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 1. 로그인 버튼 클릭 -->
+  <circle cx="232" cy="115" r="13" fill="#1d4ed8"/>
+  <text x="232" y="120" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="254" y="121" font-size="16" fill="#111827">로그인 버튼 클릭</text>
+  <line x1="170" y1="134" x2="709" y2="134" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 화살표 1: 1. 로그인 버튼 클릭 -->
-  <path d="M160,170 L720,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="365" y="156" width="150" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="172" font-size="13" fill="#1f2933" text-anchor="middle">1. 로그인 버튼 클릭</text>
+  <!-- 2. 로그인 페이지 (Google) -->
+  <circle cx="232" cy="175" r="13" fill="#1d4ed8"/>
+  <text x="232" y="180" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="254" y="181" font-size="16" fill="#111827">로그인 페이지 (Google)</text>
+  <line x1="710" y1="194" x2="171" y2="194" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah)"/>
 
-  <!-- 화살표 2: 2. 로그인 페이지 (Google) -->
-  <path d="M720,230 L160,230" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="345" y="216" width="190" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="232" font-size="13" fill="#1f2933" text-anchor="middle">2. 로그인 페이지 (Google)</text>
+  <!-- 3. 로그인 + 권한 동의 -->
+  <circle cx="232" cy="235" r="13" fill="#1d4ed8"/>
+  <text x="232" y="240" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="254" y="241" font-size="16" fill="#111827">로그인 + 권한 동의</text>
+  <line x1="170" y1="254" x2="709" y2="254" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 화살표 3: 3. 로그인 + 권한 동의 -->
-  <path d="M160,290 L720,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="350" y="276" width="180" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="292" font-size="13" fill="#1f2933" text-anchor="middle">3. 로그인 + 권한 동의</text>
+  <!-- 4. Authorization Code + redirect -->
+  <circle cx="232" cy="295" r="13" fill="#1d4ed8"/>
+  <text x="232" y="300" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="254" y="301" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#b45309">Authorization Code</tspan> + redirect</text>
+  <line x1="710" y1="314" x2="171" y2="314" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah)"/>
 
-  <!-- 화살표 4: 4. Authorization Code + redirect -->
-  <path d="M720,350 L160,350" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="300" y="336" width="280" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="352" font-size="13" fill="#1f2933" text-anchor="middle">4. Authorization Code + redirect</text>
+  <!-- 브라우저 → Client Server (redirect) -->
+  <line x1="170" y1="320" x2="170" y2="395" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="186" y="364" font-size="15" fill="#4b5563">redirect로 Code 전달</text>
 
-  <!-- 화살표 5: 5. Code -> Access Token 교환 -->
-  <path d="M160,490 L720,490" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="325" y="476" width="230" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="492" font-size="13" fill="#1f2933" text-anchor="middle">5. Code → Access Token 교환</text>
+  <!-- Client Server -->
+  <rect x="60" y="396" width="220" height="52" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="170" y="428" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Client Server</text>
+  <line x1="170" y1="448" x2="170" y2="590" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- 화살표 6: 6. Access Token 발급 -->
-  <path d="M720,550 L160,550" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="355" y="536" width="170" height="22" fill="#ffffff" rx="3"/>
-  <text x="440" y="552" font-size="13" fill="#1f2933" text-anchor="middle">6. Access Token 발급</text>
+  <!-- 5. Code → Access Token 교환 -->
+  <circle cx="232" cy="487" r="13" fill="#1d4ed8"/>
+  <text x="232" y="492" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="254" y="493" font-size="16" fill="#111827">Code → Access Token 교환</text>
+  <line x1="170" y1="506" x2="709" y2="506" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 박스: 사용자 (브라우저) [위] -->
-  <rect x="80" y="70" width="160" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="160" y="94.55" font-size="13" fill="#1f2933" text-anchor="middle">사용자</text>
-  <text x="160" y="114.55" font-size="13" fill="#1f2933" text-anchor="middle">(브라우저)</text>
-
-  <!-- 박스: Authorization Server [통합형] -->
-  <rect x="620" y="70" width="200" height="520" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="720" y="94.55" font-size="13" fill="#1f2933" text-anchor="middle">Authorization</text>
-  <text x="720" y="114.55" font-size="13" fill="#1f2933" text-anchor="middle">Server</text>
-
-  <!-- 박스: Client Server [아래] -->
-  <rect x="80" y="470" width="160" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="160" y="494.55" font-size="13" fill="#1f2933" text-anchor="middle">Client</text>
-  <text x="160" y="514.55" font-size="13" fill="#1f2933" text-anchor="middle">Server</text>
+  <!-- 6. Access Token 발급 -->
+  <circle cx="232" cy="547" r="13" fill="#1d4ed8"/>
+  <text x="232" y="552" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="254" y="553" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#047857">Access Token</tspan> 발급</text>
+  <line x1="710" y1="566" x2="171" y2="566" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah)"/>
 </svg>

@@ -1,81 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">8. LazyInitializationException</title>
-  <desc id="d">Service와 Controller 레이어 사이에서 영속성 컨텍스트가 닫힌 후 프록시 객체 초기화 시도로 예외가 발생 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">LazyInitializationException 발생 과정</title>
+  <desc id="d">Service에서 트랜잭션이 시작되며 영속성 컨텍스트가 열리고, member를 프록시로 남긴 채 Order를 조회한 뒤 return과 함께 트랜잭션이 끝나 영속성 컨텍스트가 닫힌다. 이후 Controller에서 proxy.getName()이 초기화를 요청하지만 컨텍스트가 이미 닫혀 있어 예외가 발생한다.</desc>
+  <rect width="880" height="470" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="40" y="35.6" font-size="16" font-weight="bold" fill="#1f2933">8. LazyInitializationException</text>
+  <!-- 열 머리 -->
+  <rect x="24" y="24" width="140" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="94" y="52" font-size="15" font-weight="bold" text-anchor="middle" fill="#065f46">영속성 컨텍스트</text>
+  <rect x="184" y="24" width="356" height="44" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="362" y="53" font-size="18" font-weight="bold" text-anchor="middle" fill="#1d4ed8">[Service]</text>
+  <rect x="560" y="24" width="296" height="44" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="708" y="53" font-size="18" font-weight="bold" text-anchor="middle" fill="#6d28d9">[Controller]</text>
 
-  <!-- Service Layer Section Background -->
-  <rect x="30" y="55" width="820" height="185" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <!-- 영속성 컨텍스트 수명 -->
+  <rect x="82" y="96" width="24" height="196" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="114" y="116" font-size="15" font-weight="bold" fill="#047857">열림</text>
+  <path d="M86,296 L102,312 M102,296 L86,312" stroke="#b91c1c" stroke-width="2.5" fill="none"/>
+  <text x="114" y="310" font-size="15" font-weight="bold" fill="#b91c1c">닫힘</text>
+  <path d="M94,318 L94,334" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <rect x="40" y="336" width="108" height="108" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="94" y="395" font-size="15" text-anchor="middle" fill="#374151">닫혀 있음</text>
 
-  <!-- Controller Layer Section Background -->
-  <rect x="30" y="260" width="820" height="215" rx="8" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5"/>
+  <!-- 닫힌 시점 경계 -->
+  <path d="M156,304 L856,304" stroke="#b91c1c" stroke-width="1.2" stroke-dasharray="6 5" fill="none"/>
 
-  <!-- [Service] Label Box -->
-  <rect x="45" y="70" width="95" height="30" rx="4" fill="#2563eb"/>
-  <text x="92.5" y="89.55" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[Service]</text>
+  <!-- Service 단계 -->
+  <rect x="204" y="88" width="320" height="44" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="226" cy="110" r="11" fill="#1d4ed8"/>
+  <text x="226" y="115" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+  <text x="246" y="115" font-size="15" fill="#111827">트랜잭션 시작 → 영속성 컨텍스트 열림</text>
 
-  <!-- Spine Line (Service) -->
-  <path d="M 180 100 L 180 230" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <rect x="204" y="152" width="320" height="60" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="226" cy="182" r="11" fill="#1d4ed8"/>
+  <text x="226" y="187" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+  <text x="246" y="177" font-size="15" fill="#111827">Order 조회</text>
+  <text x="246" y="200" font-size="15" fill="#374151">(member 는 프록시로 남겨둠)</text>
 
-  <!-- Step 1: 트랜잭션 시작 → 영속성 컨텍스트 열림 -->
-  <path d="M 140 85 L 171 85" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="180" y="70" width="270" height="30" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-  <text x="315" y="89.55" font-size="13" fill="#1e40af" text-anchor="middle">트랜잭션 시작 → 영속성 컨텍스트 열림</text>
+  <rect x="204" y="232" width="320" height="60" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.8"/>
+  <circle cx="226" cy="262" r="11" fill="#1d4ed8"/>
+  <text x="226" y="267" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">3</text>
+  <text x="246" y="257" font-size="15" fill="#111827">return → 트랜잭션 종료 →</text>
+  <text x="246" y="280" font-size="15" font-weight="bold" fill="#b91c1c">영속성 컨텍스트 닫힘 ✕</text>
 
-  <!-- Step 2: ├─ Order 조회 (member 는 프록시로 남겨둠) -->
-  <path d="M 180 135 L 211 135" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="220" y="120" width="290" height="30" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
-  <text x="365" y="139.55" font-size="13" fill="#1f2933" text-anchor="middle">Order 조회 (member 는 프록시로 남겨둠)</text>
+  <!-- Controller 로 넘어감 -->
+  <path d="M530,262 L620,262 L620,330" stroke="#374151" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+  <text x="634" y="267" font-size="15" fill="#111827">Order 반환</text>
+  <text x="634" y="289" font-size="14" fill="#4b5563"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">member</tspan> 는 미초기화 프록시</text>
 
-  <!-- Step 3: return → 트랜잭션 종료 → 영속성 컨텍스트 닫힘 ✕ -->
-  <path d="M 180 185 L 211 185" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="220" y="170" width="350" height="30" rx="4" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
-  <text x="395" y="189.55" font-size="13" font-weight="bold" fill="#b45309" text-anchor="middle">return → 트랜잭션 종료 → 영속성 컨텍스트 닫힘 ✕</text>
+  <!-- Controller 단계 -->
+  <rect x="588" y="336" width="252" height="44" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="610" cy="358" r="11" fill="#6d28d9"/>
+  <text x="610" y="363" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">4</text>
+  <text x="630" y="364" font-size="16" font-weight="bold" fill="#4c1d95" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">proxy.getName()</text>
 
-  <!-- Connection between Service and Controller spine -->
-  <path d="M 180 230 L 180 275" stroke="#52606d" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 초기화 요청 → 닫힌 컨텍스트 -->
+  <path d="M582,358 L156,358" stroke="#6d28d9" stroke-width="1.8" fill="none" marker-end="url(#ar-p)"/>
+  <circle cx="236" cy="339" r="11" fill="#6d28d9"/>
+  <text x="236" y="344" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">5</text>
+  <text x="256" y="345" font-size="15" fill="#5b21b6">"영속성 컨텍스트야, 초기화해줘"</text>
 
-  <!-- [Controller] Label Box -->
-  <rect x="45" y="275" width="105" height="30" rx="4" fill="#7c3aed"/>
-  <text x="97.5" y="294.55" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[Controller]</text>
-
-  <!-- Spine Line (Controller) -->
-  <path d="M 180 280 L 180 340" stroke="#7c3aed" stroke-width="2" fill="none"/>
-
-  <!-- Step 4: └─ proxy.getName() -->
-  <path d="M 180 325 L 211 325" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="220" y="310" width="155" height="30" rx="4" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
-  <text x="297.5" y="329.55" font-size="13" font-weight="bold" fill="#4c1d95" text-anchor="middle">proxy.getName()</text>
-
-  <!-- Branch from proxy.getName() to Step 5 -->
-  <path d="M 297.5 340 L 297.5 380 L 321 380" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Step 5: └─ "영속성 컨텍스트야, 초기화해줘" -->
-  <rect x="330" y="365" width="250" height="30" rx="4" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
-  <text x="455" y="384.55" font-size="13" fill="#5b21b6" text-anchor="middle">"영속성 컨텍스트야, 초기화해줘"</text>
-
-  <!-- Branch from Step 5 to Step 6 -->
-  <path d="M 455 395 L 455 435 L 471 435" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Step 6: → 이미 닫혀 있음 → 예외 -->
-  <rect x="480" y="420" width="195" height="30" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
-  <text x="577.5" y="439.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">→ 이미 닫혀 있음 → 예외</text>
-
+  <!-- 예외 -->
+  <path d="M152,420 L580,420" stroke="#b91c1c" stroke-width="1.8" stroke-dasharray="7 4" fill="none" marker-end="url(#ar-r)"/>
+  <circle cx="236" cy="402" r="11" fill="#b91c1c"/>
+  <text x="236" y="407" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">6</text>
+  <text x="256" y="408" font-size="15" font-weight="bold" fill="#b91c1c">이미 닫혀 있음 → 예외</text>
+  <rect x="588" y="398" width="252" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="714" y="425" font-size="14" font-weight="bold" text-anchor="middle" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LazyInitializationException</text>
 </svg>

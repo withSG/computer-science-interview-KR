@@ -1,102 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">왜 빠른가</title>
-  <desc id="d">B-Tree 인덱스 구조에서 id 90 미만의 위치를 B-Tree 탐색으로 O(log N)만에 찾고, 연결된 리스트의 리프 노드에서 10개만 순차로 읽는 과정을 보여주는 다이어그램</desc>
-
-  <rect width="880" height="430" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">커서 방식이 빠른 이유</title>
+  <desc id="d">id 인덱스(B-Tree)에서 "id &lt; 90" 조건은 트리 높이만큼만 내려가 시작 위치를 찾고(O(log N)), 정렬된 연결 리스트인 리프 노드에서 거기서부터 10개만 순차로 읽는다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (잉크색/검은색) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <!-- 화살표 마커 (파란색) -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <!-- 화살표 마커 (주황색) -->
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5"
-            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 다이어그램 헤더 / 타이틀 -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">id 인덱스 (B-Tree)</text>
+  <text x="24" y="40" font-size="19" font-weight="bold" fill="#111827">id 인덱스 (B-Tree)</text>
 
-  <!-- B-Tree 트리 노드 연결선 -->
-  <!-- [50] -> [25] -->
-  <path d="M 285 85 L 200 120" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <!-- [50] -> [90] (탐색 경로 강조) -->
-  <path d="M 315 85 L 400 120" stroke="#2563eb" stroke-width="2" fill="none"/>
-  <!-- [25] -> [10] -->
-  <path d="M 180 155 L 145 190" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <!-- [25] -> [40] -->
-  <path d="M 220 155 L 255 190" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <!-- [90] -> [70] (탐색 경로 강조) -->
-  <path d="M 380 155 L 345 190" stroke="#2563eb" stroke-width="2" fill="none"/>
-  <!-- [90] -> [95] -->
-  <path d="M 420 155 L 455 190" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <!-- 트리 간선: 회색 = 가지 않는 길, 파랑 = "id < 90" 탐색 경로 -->
+  <line x1="276" y1="106" x2="170" y2="152" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="324" y1="106" x2="410" y2="152" stroke="#1d4ed8" stroke-width="3"/>
+  <line x1="130" y1="196" x2="98" y2="242" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="170" y1="196" x2="202" y2="242" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="410" y1="196" x2="378" y2="242" stroke="#1d4ed8" stroke-width="3"/>
+  <line x1="450" y1="196" x2="482" y2="242" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- B-Tree 노드 [50] -->
-  <rect x="270" y="55" width="60" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="300" y="74" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[50]</text>
+  <!-- 1단계: 루트 -->
+  <rect x="264" y="62" width="72" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="300" y="90" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">50</text>
 
-  <!-- B-Tree 노드 [25] -->
-  <rect x="170" y="125" width="60" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="200" y="144" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[25]</text>
+  <!-- 2단계 -->
+  <rect x="114" y="152" width="72" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="150" y="180" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">25</text>
+  <rect x="394" y="152" width="72" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="430" y="180" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">90</text>
 
-  <!-- B-Tree 노드 [90] (목표 노드 강조) -->
-  <rect x="370" y="125" width="60" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="400" y="144" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[90]</text>
+  <!-- 3단계 -->
+  <rect x="54" y="242" width="72" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="90" y="270" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">10</text>
+  <rect x="174" y="242" width="72" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="210" y="270" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">40</text>
+  <rect x="334" y="242" width="72" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="370" y="270" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">70</text>
+  <rect x="454" y="242" width="72" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="490" y="270" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">95</text>
 
-  <!-- B-Tree 노드 레벨 3 -->
-  <rect x="115" y="195" width="60" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="145" y="214" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[10]</text>
+  <!-- 설명: "id < 90"은 여기까지 바로 내려온다 -->
+  <line x1="572" y1="174" x2="480" y2="174" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="584" y="170" font-size="17" font-weight="bold" fill="#1d4ed8">"id &lt; 90"은</text>
+  <text x="584" y="194" font-size="17" font-weight="bold" fill="#1d4ed8">여기까지 바로 내려온다</text>
+  <text x="584" y="230" font-size="16" fill="#374151">트리 높이만큼만 탐색 = <tspan font-weight="bold" fill="#111827">O(log N)</tspan></text>
 
-  <rect x="225" y="195" width="60" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="255" y="214" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[40]</text>
+  <!-- 리프 노드 영역 -->
+  <rect x="24" y="316" width="832" height="180" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="346" font-size="17" font-weight="bold" fill="#374151">리프 노드가 정렬된 연결 리스트</text>
 
-  <rect x="315" y="195" width="60" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="345" y="214" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[70]</text>
+  <!-- 리프로 내려가는 경로 -->
+  <line x1="370" y1="286" x2="370" y2="378" stroke="#1d4ed8" stroke-width="3" marker-end="url(#ah-blue)"/>
 
-  <rect x="425" y="195" width="60" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="455" y="214" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[95]</text>
+  <text x="138" y="412" font-size="20" font-weight="bold" fill="#4b5563" text-anchor="middle">…</text>
+  <line x1="160" y1="406" x2="184" y2="406" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="194" y="384" width="72" height="44" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="230" y="412" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">88</text>
+  <line x1="266" y1="406" x2="334" y2="406" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="334" y="384" width="72" height="44" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <text x="370" y="412" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">89</text>
+  <line x1="406" y1="406" x2="474" y2="406" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="474" y="384" width="72" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="510" y="412" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">90</text>
+  <line x1="546" y1="406" x2="614" y2="406" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="614" y="384" width="72" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="650" y="412" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">91</text>
+  <line x1="686" y1="406" x2="710" y2="406" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="732" y="412" font-size="20" font-weight="bold" fill="#4b5563" text-anchor="middle">…</text>
 
-  <!-- 오른쪽 지시 화살표 및 수평설명 ("id < 90"은 여기까지 바로 내려온다 / 트리 높이만큼만 탐색 = O(log N)) -->
-  <path d="M 505 140 L 440 140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="515" y="144" font-size="13" font-weight="bold" fill="#2563eb">← "id &lt; 90"은 여기까지 바로 내려온다</text>
-  <text x="530" y="165" font-size="12" fill="#52606d">트리 높이만큼만 탐색 = O(log N)</text>
-
-  <!-- [70] 노드에서 리프 노드 영역으로 내려가는 연결선 -->
-  <path d="M 345 225 L 345 285" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-
-  <!-- 리프 노드 영역 구분선 및 라벨 (─── 리프 노드가 정렬된 연결 리스트 ───) -->
-  <line x1="30" y1="270" x2="220" y2="270" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="440" y="274" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">리프 노드가 정렬된 연결 리스트</text>
-  <line x1="660" y1="270" x2="850" y2="270" stroke="#cbd2d9" stroke-width="1.5"/>
-
-  <!-- 리프 노드 (연결 리스트) -->
-  <text x="210" y="319" font-size="13" fill="#52606d" text-anchor="middle">...</text>
-
-  <rect x="230" y="300" width="60" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="260" y="319" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[88]</text>
-
-  <rect x="315" y="300" width="60" height="30" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="345" y="319" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">[89]</text>
-
-  <rect x="400" y="300" width="60" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="430" y="319" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[90]</text>
-
-  <rect x="485" y="300" width="60" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="515" y="319" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[91]</text>
-
-  <text x="565" y="319" font-size="13" fill="#52606d" text-anchor="middle">...</text>
-
-  <!-- 하단 순차 읽기 화살표 및 라벨 (◄──── 여기서부터 10개만 순차로 읽는다) -->
-  <path d="M 420 370 L 320 370" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-amber)"/>
-  <text x="430" y="374" font-size="13" font-weight="bold" fill="#d97706">여기서부터 10개만 순차로 읽는다</text>
+  <!-- 순차 읽기 -->
+  <line x1="400" y1="458" x2="130" y2="458" stroke="#b45309" stroke-width="3" marker-end="url(#ah-amber)"/>
+  <text x="416" y="464" font-size="17" font-weight="bold" fill="#b45309">여기서부터 10개만 순차로 읽는다</text>
 </svg>

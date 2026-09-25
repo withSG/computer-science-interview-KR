@@ -1,47 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">구현 1. Double-Checked Locking</title>
-  <desc id="d">JIT/CPU 명령어 재배치로 인해 volatile 없는 Double-Checked Locking에서 발생하는 문제점 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">volatile 없는 DCL의 명령어 재배치</title>
+  <desc id="d">instance = new ConnectionPool()은 ① 힙에 메모리 할당, ② 생성자 실행, ③ instance에 주소 대입의 세 단계다. JIT/CPU가 ②와 ③을 바꿔 ① → ③ → ② 순서가 되면, 그 틈에 다른 스레드가 1차 검사를 통과해 instance != null 이지만 커넥션은 아직 안 열린 객체를 받는다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ar-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-  <rect width="880" height="300" fill="#ffffff"/>
+  <rect width="880" height="510" fill="#ffffff"/>
 
-  <!-- 정상 객체 생성 순서 -->
-  <g id="normal-sequence">
-    <!-- ① 힙에 메모리 할당 -->
-    <rect x="40" y="30" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="150" y="60" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">① 힙에 메모리 할당</text>
+  <!-- 캡션: 한 줄 대입이 세 단계 -->
+  <text x="24" y="46" font-size="17" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="700">instance = new ConnectionPool()</tspan><tspan>은 한 덩어리가 아니다 — 세 단계로 나뉜다</tspan></text>
 
-    <!-- 화살표 1 -> 2 -->
-    <path d="M260,55 L320,55" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 줄 A: 원래 순서 -->
+  <text x="24" y="90" font-size="15" font-weight="700" fill="#4b5563">원래 순서</text>
+  <rect x="24" y="102" width="220" height="52" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="134" y="134" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">① 힙에 메모리 할당</text>
+  <rect x="330" y="102" width="220" height="52" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="440" y="134" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">② 생성자 실행</text>
+  <rect x="636" y="102" width="220" height="52" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="746" y="134" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">③ instance에 주소 대입</text>
+  <path d="M248,128 H324" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar-ink)"/>
+  <path d="M554,128 H630" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar-ink)"/>
 
-    <!-- ② 생성자 실행 -->
-    <rect x="330" y="30" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="440" y="60" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">② 생성자 실행</text>
+  <!-- 재배치 설명 -->
+  <rect x="24" y="170" width="220" height="86" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text font-size="15" fill="#92400e" text-anchor="middle">
+    <tspan x="134" y="196" font-weight="700">JIT/CPU는 성능을 위해</tspan>
+    <tspan x="134" y="218">②와 ③의 순서를</tspan>
+    <tspan x="134" y="240">바꿀 수 있다</tspan>
+  </text>
+  <!-- ②·③ 자리 바꿈 -->
+  <path d="M452,160 L734,288" stroke="#b45309" stroke-width="1.8" stroke-dasharray="6 5" fill="none" marker-end="url(#ar-amber)"/>
+  <path d="M734,160 L452,288" stroke="#b45309" stroke-width="1.8" stroke-dasharray="6 5" fill="none" marker-end="url(#ar-amber)"/>
 
-    <!-- 화살표 2 -> 3 -->
-    <path d="M550,55 L610,55" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 줄 B: 재배치된 순서 -->
+  <text x="24" y="286" font-size="15" font-weight="700" fill="#b91c1c">재배치된 순서 (volatile 없을 때)</text>
+  <rect x="24" y="298" width="220" height="52" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="134" y="330" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">① 힙에 메모리 할당</text>
+  <rect x="330" y="298" width="220" height="52" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="440" y="330" font-size="16" font-weight="700" fill="#b91c1c" text-anchor="middle">③ instance에 주소 대입</text>
+  <rect x="636" y="298" width="220" height="52" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="746" y="330" font-size="16" font-weight="600" fill="#111827" text-anchor="middle">② 생성자 실행</text>
+  <path d="M248,324 H324" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar-ink)"/>
+  <path d="M554,324 H630" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ar-ink)"/>
 
-    <!-- ③ instance에 주소 대입 -->
-    <rect x="620" y="30" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="730" y="60" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">③ instance에 주소 대입</text>
-  </g>
+  <!-- 그 틈에 -->
+  <path d="M593,330 V394" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ar-red)"/>
+  <text x="604" y="372" font-size="15" font-weight="700" fill="#b91c1c">그 틈에</text>
 
-  <!-- JIT/CPU 재배치 및 스레드 경쟁 상태 영역 -->
-  <g id="reordering-problem">
-    <rect x="40" y="105" width="800" height="165" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-
-    <!-- JIT/CPU 설명 -->
-    <text x="440" y="137" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">JIT/CPU는 성능을 위해 ②와 ③의 순서를 바꿀 수 있다.</text>
-
-    <!-- 재배치 순서 강조 박스 -->
-    <rect x="290" y="153" width="300" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="440" y="174" font-size="13.5" font-weight="700" fill="#dc2626" text-anchor="middle">①  →  ③  →  ②</text>
-
-    <!-- 문제 발생 조건 및 영향 설명 -->
-    <text x="440" y="212" font-size="13" fill="#1f2933" text-anchor="middle">가 되면, 그 틈에 다른 스레드가 1차 검사를 통과해</text>
-    <text x="440" y="238" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">instance != null 이지만 커넥션은 아직 안 열린 객체를 받는다.</text>
-  </g>
+  <!-- 결과 -->
+  <rect x="150" y="398" width="580" height="86" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="440" y="430" font-size="17" font-weight="700" fill="#b91c1c" text-anchor="middle">다른 스레드가 1차 검사를 통과해</text>
+  <text x="440" y="462" font-size="16" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="700">instance != null</tspan><tspan> 이지만 커넥션은 아직 안 열린 객체를 받는다</tspan></text>
 </svg>

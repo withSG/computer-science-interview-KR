@@ -1,103 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 680" width="880" height="680" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">안전한 리팩터링 절차</title>
-  <desc id="d">테스트 존재 여부 확인부터 시작해 아주 작은 단위로 진행하고, 테스트 성공 시 커밋하여 안전지대를 확정하는 안전한 리팩터링 절차 다이어그램</desc>
-  <rect width="880" height="780" fill="#ffffff"/>
-
+  <desc id="d">테스트가 있는지 확인하고(없으면 특성화 테스트로 현재 동작을 고정), 테스트가 전부 초록인지 확인한 뒤, 아주 작은 한 걸음을 옮기고 테스트를 재실행해 빨강이면 그 걸음만 되돌리고 초록이면 커밋한다. 목표 구조가 될 때까지 2~4단계를 반복한다.</desc>
+  <rect width="880" height="680" fill="#ffffff"/>
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="m-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="m-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="m-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="m-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Outer Container Frame (Original Diagram Border) -->
-  <rect x="30" y="30" width="820" height="720" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 0. 테스트가 있는가? -->
+  <rect x="40" y="24" width="400" height="64" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="240" y="62" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">0. 테스트가 있는가?</text>
 
-  <!-- Step 0: Test check -->
-  <rect x="70" y="60" width="410" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="90" y="90" font-size="14" font-weight="bold" fill="#1f2933">0. 테스트가 있는가?</text>
+  <!-- 없다 → 특성화 테스트 -->
+  <path d="M440,56 L518,56" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#m-amber)"/>
+  <text x="479" y="46" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">없다</text>
+  <rect x="520" y="24" width="280" height="64" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="660" y="52" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">특성화 테스트부터 작성</text>
+  <text x="660" y="74" font-size="15" fill="#4b5563" text-anchor="middle">현재 동작을 고정</text>
+  <path d="M660,88 L660,168 L442,168" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#m-amber)"/>
 
-  <!-- Branch: 없다 -> 特性化 테스트 -->
-  <path d="M480,85 L540,85" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="492" y="74" width="36" height="20" fill="#ffffff"/>
-  <text x="510" y="89" font-size="11.5" fill="#52606d" text-anchor="middle">없다</text>
+  <!-- 있다 ↓ -->
+  <path d="M240,88 L240,134" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
+  <text x="254" y="117" font-size="15" font-weight="bold" fill="#374151">있다</text>
 
-  <rect x="540" y="60" width="280" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="680" y="90" font-size="13" fill="#1f2933" text-anchor="middle">특성화 테스트부터 작성 (현재 동작을 고정)</text>
+  <!-- 1 -->
+  <rect x="40" y="136" width="400" height="64" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="240" y="164" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">1. 테스트 전부 초록인지 확인</text>
+  <text x="240" y="186" font-size="15" fill="#4b5563" text-anchor="middle">시작점 고정</text>
 
-  <!-- Branch: 있다 -> Downwards -->
-  <path d="M270,110 L270,165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="252" y="122" width="36" height="20" fill="#ffffff"/>
-  <text x="270" y="137" font-size="11.5" fill="#2563eb" font-weight="bold" text-anchor="middle">있다</text>
+  <path d="M240,200 L240,246" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
 
-  <!-- Step 1 -->
-  <rect x="70" y="165" width="410" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="90" y="195" font-size="14" fill="#1f2933">1. 테스트 전부 초록인지 확인 (시작점 고정)</text>
+  <!-- 2 -->
+  <rect x="40" y="248" width="400" height="64" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="240" y="276" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">2. <tspan fill="#1d4ed8">아주 작은</tspan> 한 걸음</text>
+  <text x="240" y="298" font-size="15" fill="#4b5563" text-anchor="middle">함수 하나 추출 / 이름 하나 변경</text>
 
-  <!-- Connector 1 -> 2 -->
-  <path d="M270,215 L270,250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M240,312 L240,358" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
 
-  <!-- Step 2 -->
-  <rect x="70" y="250" width="480" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="90" y="280" font-size="14" fill="#1f2933">2. 아주 작은 한 걸음 (함수 하나 추출 / 이름 하나 변경)</text>
+  <!-- 3 -->
+  <rect x="40" y="360" width="400" height="64" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="240" y="398" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">3. 테스트 재실행</text>
 
-  <!-- Connector 2 -> 3 -->
-  <path d="M270,300 L270,335" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 빨강 → 되돌리기 -->
+  <path d="M440,392 L518,392" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#m-red)"/>
+  <text x="479" y="382" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">빨강</text>
+  <rect x="520" y="360" width="280" height="64" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="660" y="388" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">방금 한 걸음만 되돌린다</text>
+  <text x="660" y="410" font-size="15" fill="#4b5563" text-anchor="middle">범위가 작아 쉽다</text>
 
-  <!-- Step 3 -->
-  <rect x="70" y="335" width="410" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="90" y="365" font-size="14" fill="#1f2933">3. 테스트 재실행</text>
+  <!-- 초록 ↓ -->
+  <path d="M240,424 L240,470" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#m-green)"/>
+  <text x="254" y="453" font-size="15" font-weight="bold" fill="#047857">초록</text>
 
-  <!-- Branch: 빨강 -> 되돌린다 -->
-  <path d="M480,360 L540,360" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="492" y="349" width="36" height="20" fill="#ffffff"/>
-  <text x="510" y="364" font-size="11.5" fill="#dc2626" font-weight="bold" text-anchor="middle">빨강</text>
+  <!-- 4 -->
+  <rect x="40" y="472" width="400" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="240" y="500" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">4. 커밋</text>
+  <text x="240" y="522" font-size="15" fill="#4b5563" text-anchor="middle">여기까지는 안전지대로 확정</text>
 
-  <rect x="540" y="335" width="280" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="680" y="365" font-size="13" fill="#1f2933" text-anchor="middle">방금 한 걸음만 되돌린다 (범위가 작아 쉽다)</text>
+  <path d="M240,536 L240,582" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
 
-  <!-- Branch: 초록 -> Downwards -->
-  <path d="M270,385 L270,440" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="252" y="398" width="36" height="20" fill="#ffffff"/>
-  <text x="270" y="413" font-size="11.5" fill="#059669" font-weight="bold" text-anchor="middle">초록</text>
+  <!-- 5 -->
+  <rect x="40" y="584" width="400" height="64" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="240" y="622" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">5. 목표 구조가 될 때까지 2~4 반복</text>
 
-  <!-- Step 4 -->
-  <rect x="70" y="440" width="410" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="90" y="470" font-size="14" fill="#1f2933">4. 커밋 (여기까지는 안전지대로 확정)</text>
-
-  <!-- Connector 4 -> 5 -->
-  <path d="M270,490 L270,525" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 5 -->
-  <rect x="70" y="525" width="410" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="90" y="555" font-size="14" fill="#1f2933">5. 목표 구조가 될 때까지 2~4 반복</text>
-
-  <!-- Loop Path: 5 back to 2 -->
-  <path d="M480,550 L600,550 L600,275 L560,275" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="560" y="402" width="80" height="20" fill="#ffffff"/>
-  <text x="600" y="417" font-size="11.5" fill="#2563eb" text-anchor="middle">2~4 반복</text>
-
-  <!-- Legend -->
-  <rect x="70" y="615" width="750" height="100" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="90" y="640" font-size="13" font-weight="bold" fill="#1f2933">범례 / 상태 안내</text>
-  
-  <rect x="90" y="655" width="16" height="16" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="115" y="668" font-size="11.5" fill="#52606d">사전 작업 (테스트 작성)</text>
-
-  <rect x="280" y="655" width="16" height="16" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="305" y="668" font-size="11.5" fill="#52606d">실패 시 복구 (롤백)</text>
-
-  <rect x="470" y="655" width="16" height="16" rx="3" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="495" y="668" font-size="11.5" fill="#52606d">성공 / 안전지대 확정</text>
-
-  <text x="90" y="698" font-size="11" fill="#52606d">* 본 다이어그램은 06-software-engineering/03-clean-code-refactoring.md 의 '7. 안전한 리팩터링 절차' 전사본입니다.</text>
+  <!-- 반복 루프: 5 → 2 -->
+  <path d="M440,616 L840,616 L840,280 L442,280" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#m-blue)"/>
+  <text x="640" y="604" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">2~4 반복</text>
 </svg>

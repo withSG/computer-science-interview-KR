@@ -1,55 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 필요한가 — 브라우저가 아니면 존재하지 않는 문제</title>
-  <desc id="d">브라우저 내 탭 A(bank.com)와 탭 B(evil.com) 사이의 교차 출처 요청 문제 및 정보 유출 위험을 설명하는 다이어그램</desc>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">브라우저 안의 교차 출처 위험</title>
+  <desc id="d">한 브라우저에 로그인된 bank.com 탭과 공격자의 evil.com 탭이 함께 열려 있을 때, evil.com의 JS가 bank.com에 fetch하면 브라우저가 bank.com용 쿠키를 자동으로 붙이고 서버는 정상 사용자로 인식한다. 그 응답을 evil.com의 JS가 읽을 수 있다면 잔액과 계좌번호가 그대로 넘어간다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <!-- Red Arrow Marker for Evil JS Fetch Request -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <!-- Purple Arrow Marker for Cookie Auto-Attach -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <!-- Red Arrow Marker for Response Read / Info Leak -->
-    <marker id="a-red-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="440" fill="#ffffff"/>
+  <!-- 브라우저 -->
+  <rect x="24" y="24" width="400" height="284" rx="10" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="44" y="54" font-size="16" font-weight="bold" fill="#374151">브라우저 하나 안에서</text>
 
-  <!-- Main Container Outer Box: Browser Scope -->
-  <rect x="40" y="30" width="800" height="380" rx="10" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="60" text-anchor="middle" font-size="16" font-weight="bold" fill="#1f2933">브라우저 하나 안에서</text>
+  <!-- 탭 A -->
+  <rect x="44" y="72" width="360" height="84" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="62" y="104" font-size="18" font-weight="bold" fill="#1d4ed8">탭 A: bank.com</text>
+  <text x="62" y="136" font-size="15" fill="#374151">로그인됨, 세션 쿠키 보유</text>
 
-  <!-- Inner Tab Container -->
-  <rect x="60" y="80" width="760" height="130" rx="8" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- 탭 B -->
+  <rect x="44" y="176" width="360" height="116" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="62" y="208" font-size="18" font-weight="bold" fill="#b91c1c">탭 B: evil.com</text>
+  <text x="62" y="236" font-size="15" fill="#374151">공격자가 만든 페이지의 JS</text>
+  <rect x="56" y="250" width="336" height="30" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
+  <text x="224" y="270" font-size="14" text-anchor="middle" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">fetch('https://bank.com/api/accounts')</text>
 
-  <!-- Tab A Box -->
-  <rect x="80" y="100" width="720" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="100" y="126" font-size="13" font-weight="bold" fill="#2563eb">탭 A: bank.com</text>
-  <text x="210" y="126" font-size="13" fill="#52606d">(로그인됨, 세션 쿠키 보유)</text>
+  <!-- bank.com 서버 -->
+  <rect x="660" y="72" width="196" height="220" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="758" y="104" font-size="18" font-weight="bold" text-anchor="middle" fill="#1d4ed8">bank.com 서버</text>
+  <line x1="676" y1="120" x2="840" y2="120" stroke="#93c5fd" stroke-width="1"/>
+  <text x="758" y="218" font-size="15" font-weight="bold" text-anchor="middle" fill="#111827">② 정상 사용자로 인식</text>
 
-  <!-- Tab B Box -->
-  <rect x="80" y="152" width="720" height="42" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="100" y="178" font-size="13" font-weight="bold" fill="#dc2626">탭 B: evil.com</text>
-  <text x="210" y="178" font-size="13" fill="#52606d">(공격자가 만든 페이지)</text>
+  <!-- 쿠키: 탭 A의 세션 쿠키가 탭 B의 요청에 붙는다 -->
+  <path d="M404,131 H452 V206" fill="none" stroke="#6d28d9" stroke-width="2" stroke-dasharray="5 4"/>
+  <circle cx="452" cy="212" r="5" fill="#6d28d9"/>
+  <text x="466" y="152" font-size="15" font-weight="bold" fill="#6d28d9">bank.com용 쿠키를</text>
+  <text x="466" y="174" font-size="15" font-weight="bold" fill="#6d28d9">브라우저가 자동으로 붙임</text>
 
-  <!-- Description Section below Tabs -->
-  <!-- Line 1: Fetch Call Request -->
-  <path d="M 80,245 L 790,245" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="180" y="233" width="480" height="24" fill="#ffffff" rx="4"/>
-  <text x="420" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">evil.com의 JS가 fetch('https://bank.com/api/accounts') 를 호출한다면?</text>
+  <!-- ① 요청 -->
+  <line x1="404" y1="212" x2="654" y2="212" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="466" y="236" font-size="15" font-weight="bold" fill="#111827">① fetch 요청</text>
 
-  <!-- Line 2: Cookie Auto-Attach & Server Recognition -->
-  <path d="M 80,300 L 790,300" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="100" y="288" width="640" height="24" fill="#ffffff" rx="4"/>
-  <text x="420" y="305" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">브라우저는 bank.com용 쿠키를 자동으로 붙이고, 서버는 정상 사용자로 인식한다.</text>
+  <!-- ③ 응답 -->
+  <line x1="660" y1="258" x2="410" y2="258" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-red)"/>
+  <text x="466" y="282" font-size="15" font-weight="bold" fill="#b91c1c">③ 응답: 잔액, 계좌번호</text>
 
-  <!-- Line 3: Info Leak Warning -->
-  <path d="M 80,355 L 790,355" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red-dash)"/>
-  <rect x="110" y="343" width="620" height="24" fill="#ffffff" rx="4"/>
-  <text x="420" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">응답을 evil.com의 JS가 읽을 수 있다면 → 잔액, 계좌번호가 그대로 넘어간다.</text>
+  <!-- 결론 -->
+  <rect x="24" y="332" width="832" height="64" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="370" font-size="17" font-weight="bold" text-anchor="middle" fill="#b91c1c">응답을 evil.com의 JS가 읽을 수 있다면? → 잔액, 계좌번호가 그대로 넘어간다</text>
 </svg>

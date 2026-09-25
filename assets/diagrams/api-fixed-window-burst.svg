@@ -1,122 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Fixed Window 경계 버스트 — 고정 창과 실제 1분 구간의 어긋남</title>
-  <desc id="d">고정 창 알고리즘에서 창 경계 부근에 요청이 몰릴 경우 4초 만에 한도 5개의 2배인 10개의 요청이 통과하는 경계 버스트 현상과 Sliding Window와의 차이를 비교 설명하는 다이어그램입니다.</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Fixed Window 경계 버스트</title>
+  <desc id="d">한도가 분당 5개인 Fixed Window에서 12:00:58에 5개(12:00 창), 12:01:00 창 전환으로 카운터 리셋, 12:01:02에 5개(12:01 창)가 통과해 4초 동안 10개가 지나간다. 12:00:58 ~ 12:01:58 1분 구간에 한도의 2배가 통과한 것이다. 같은 요청을 Sliding Window로 세면 12:01:02 기준 지난 1분 안에 앞의 5개가 남아 있어 뒤의 5개는 거절(429)된다.</desc>
+  <rect width="880" height="610" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 메인 제목 -->
-  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">Fixed Window 경계 버스트 — 고정 창과 실제 1분 구간의 어긋남</text>
-  <text x="440" y="58" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">설정 한도: 분당 5개 (Fixed Window Rate Limiting)</text>
+  <!-- 한도 배지 + 축척 메모 -->
+  <rect x="32" y="22" width="152" height="36" rx="18" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="108" y="46" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">한도: 분당 5개</text>
+  <text x="848" y="46" font-size="15" fill="#4b5563" text-anchor="end">창 경계 12:01:00 전후를 확대한 시간축</text>
 
-  <!-- 영역 구분 배경 -->
-  <rect x="30" y="70" width="820" height="230" fill="#f8fafc" rx="6" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="30" y="320" width="820" height="150" fill="#f8fafc" rx="6" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- ===== Fixed Window ===== -->
+  <text x="32" y="98" font-size="18" font-weight="bold" fill="#111827">Fixed Window</text>
 
-  <!-- 레인 1: Fixed Window 섹션 라벨 -->
-  <text x="50" y="95" font-size="14" font-weight="600" fill="#1f2933">1. Fixed Window (고정 창 방식)</text>
+  <!-- 창 띠 -->
+  <rect x="40" y="112" width="416" height="36" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="248" y="136" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">12:00 창 · 카운터 5/5</text>
+  <rect x="464" y="112" width="386" height="36" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="657" y="136" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">12:01 창 · 카운터 5/5</text>
 
-  <!-- 가로 시간축 라인 -->
-  <path d="M180,160 L800,160" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="815" y="164" font-size="11.5" font-weight="400" fill="#52606d">시간</text>
+  <!-- 창 경계선 -->
+  <line x1="460" y1="104" x2="460" y2="272" stroke="#6d28d9" stroke-width="3"/>
+  <rect x="370" y="162" width="180" height="32" rx="16" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="460" y="183.5" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">창 전환 · 카운터 리셋</text>
 
-  <!-- 시간축 눈금 및 세로 가이드라인 -->
-  <!-- 12:00:00 (x=200) -->
-  <path d="M200,155 L200,165" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="200" y="180" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">12:00:00</text>
+  <!-- 요청 5개 @12:00:58 -->
+  <rect x="287" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="309" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="331" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="353" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="375" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <text x="340" y="252" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">5개 통과 (12:00 창)</text>
 
-  <!-- 12:00:58 (x=420) -->
-  <path d="M420,110 L420,250" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="420" y="105" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">12:00:58</text>
+  <!-- 요청 5개 @12:01:02 -->
+  <rect x="527" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="549" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="571" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="593" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="615" y="208" width="18" height="18" rx="3" fill="#047857"/>
+  <text x="580" y="252" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">5개 통과 (12:01 창)</text>
 
-  <!-- 12:01:00 (x=460) - 창 경계 (강조) -->
-  <path d="M460,110 L460,285" stroke="#7c3aed" stroke-width="2.5"/>
-  <rect x="415" y="118" width="90" height="22" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="3"/>
-  <text x="460" y="133" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">창 경계 (리셋)</text>
-  <text x="460" y="180" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">12:01:00</text>
+  <!-- 시간축 A -->
+  <line x1="40" y1="272" x2="846" y2="272" stroke="#374151" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="340" y1="266" x2="340" y2="278" stroke="#374151" stroke-width="1.5"/>
+  <line x1="580" y1="266" x2="580" y2="278" stroke="#374151" stroke-width="1.5"/>
+  <text x="340" y="296" font-size="15" fill="#374151" text-anchor="middle">12:00:58</text>
+  <text x="460" y="296" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">12:01:00</text>
+  <text x="580" y="296" font-size="15" fill="#374151" text-anchor="middle">12:01:02</text>
 
-  <!-- 12:01:02 (x=500) -->
-  <path d="M500,110 L500,250" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="500" y="105" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">12:01:02</text>
+  <!-- 4초 치수선 -->
+  <line x1="340" y1="308" x2="340" y2="324" stroke="#b91c1c" stroke-width="2"/>
+  <line x1="580" y1="308" x2="580" y2="324" stroke="#b91c1c" stroke-width="2"/>
+  <line x1="340" y1="316" x2="580" y2="316" stroke="#b91c1c" stroke-width="2"/>
+  <text x="460" y="346" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">4초 — 이 구간에 10개가 통과했다</text>
+  <text x="460" y="370" font-size="15" fill="#374151" text-anchor="middle">12:00:58 ~ 12:01:58 1분 구간에 10개 = 한도(분당 5개)의 2배</text>
 
-  <!-- 12:01:58 (x=720) -->
-  <path d="M720,155 L720,250" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="720" y="180" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">12:01:58</text>
+  <line x1="32" y1="394" x2="848" y2="394" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <!-- 12:02:00 (x=760) -->
-  <path d="M760,155 L760,165" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="760" y="180" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">12:02:00</text>
+  <!-- ===== Sliding Window 비교 ===== -->
+  <text x="32" y="428" font-size="18" font-weight="bold" fill="#111827">비교: Sliding Window<tspan font-size="15" font-weight="normal" fill="#4b5563"> — 12:01:02 기준 지난 1분을 센다</tspan></text>
 
-  <!-- 고정 창 범위 표시 (12:00 창 & 12:01 창) -->
-  <rect x="200" y="135" width="255" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="2" opacity="0.6"/>
-  <text x="325" y="148" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">12:00 창 (카운터: 5/5)</text>
+  <rect x="40" y="444" width="540" height="36" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="310" y="468" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">◀ 윈도: 12:00:02 ~ 12:01:02</text>
 
-  <rect x="465" y="135" width="290" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="2" opacity="0.6"/>
-  <text x="610" y="148" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">12:01 창 (카운터: 5/5)</text>
+  <!-- 요청 5개 @12:00:58 (윈도 안) -->
+  <rect x="287" y="498" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="309" y="498" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="331" y="498" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="353" y="498" width="18" height="18" rx="3" fill="#047857"/>
+  <rect x="375" y="498" width="18" height="18" rx="3" fill="#047857"/>
+  <text x="340" y="542" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">5개 통과 · 아직 윈도 안</text>
 
-  <!-- 요청 발생 블록 (버스트) -->
-  <!-- 12:00:58에 5개 요청 -->
-  <g>
-    <rect x="390" y="195" width="26" height="20" fill="#dc2626" rx="3"/>
-    <text x="403" y="209" font-size="11.5" font-weight="600" fill="#ffffff" text-anchor="middle">5개</text>
-    <text x="403" y="228" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">통과</text>
-  </g>
+  <!-- 요청 5개 @12:01:02 (거절) -->
+  <rect x="527" y="498" width="18" height="18" rx="3" fill="#b91c1c"/>
+  <rect x="549" y="498" width="18" height="18" rx="3" fill="#b91c1c"/>
+  <rect x="571" y="498" width="18" height="18" rx="3" fill="#b91c1c"/>
+  <rect x="593" y="498" width="18" height="18" rx="3" fill="#b91c1c"/>
+  <rect x="615" y="498" width="18" height="18" rx="3" fill="#b91c1c"/>
+  <text x="580" y="542" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">5개 거절 (429)</text>
 
-  <!-- 12:01:02에 5개 요청 -->
-  <g>
-    <rect x="504" y="195" width="26" height="20" fill="#dc2626" rx="3"/>
-    <text x="517" y="209" font-size="11.5" font-weight="600" fill="#ffffff" text-anchor="middle">5개</text>
-    <text x="517" y="228" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">통과</text>
-  </g>
-
-  <!-- 임의의 1분 구간 오버레이 (12:00:58 ~ 12:01:58) -->
-  <rect x="420" y="235" width="300" height="48" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  
-  <!-- 4초 구간 화살표 표시 -->
-  <path d="M425,248 L495,248" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)" marker-start="url(#a-red)"/>
-  <text x="460" y="244" font-size="11" font-weight="600" fill="#dc2626" text-anchor="middle">4초 간격</text>
-
-  <!-- 실제 1분 구간 내 10개 통과 강조 라벨 -->
-  <text x="570" y="264" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">실제 1분 구간(12:00:58 ~ 12:01:58): 총 10개 요청 통과!</text>
-  <text x="570" y="278" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">(설정 한도인 분당 5개의 2배 허용됨)</text>
-
-
-  <!-- 레인 2: Sliding Window 방지 원리 섹션 -->
-  <text x="50" y="345" font-size="14" font-weight="600" fill="#1f2933">2. Sliding Window (슬라이딩 윈도우 방식 비교)</text>
-
-  <!-- 가로 시간축 라인 -->
-  <path d="M180,410 L800,410" stroke="#9aa5b1" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 슬라이딩 윈도우 동적 범주 (12:00:58 기준 1분) -->
-  <rect x="420" y="375" width="300" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="2" rx="4" opacity="0.8"/>
-  <text x="570" y="393" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">실시간 연속 1분 창 (Sliding Window)</text>
-
-  <!-- 12:00:58 요청 5개 -->
-  <circle cx="420" cy="410" r="12" fill="#059669"/>
-  <text x="420" y="414" font-size="11" font-weight="600" fill="#ffffff" text-anchor="middle">5</text>
-
-  <!-- 12:01:02 차단 시도 5개 -->
-  <circle cx="500" cy="410" r="12" fill="#dc2626"/>
-  <text x="500" y="414" font-size="11" font-weight="600" fill="#ffffff" text-anchor="middle">5</text>
-
-  <!-- 차단 안내 박스 -->
-  <rect x="520" y="428" width="115" height="22" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="3"/>
-  <text x="577" y="443" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">5개 요청 차단 (429)</text>
-
-  <!-- 설명 텍스트 -->
-  <text x="200" y="443" font-size="12" font-weight="500" fill="#1f2933">현재 시점 기준 이전 1분을 동적으로 계산하여 버스트 방지</text>
-
-
-  <!-- 하단 캡션 (결론) -->
-  <text x="440" y="500" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: Fixed Window는 경계 지점에서 순간적으로 한도의 최대 2배까지 요청을 허용하는 경계 버스트 문제가 발생한다.</text>
+  <!-- 시간축 B -->
+  <line x1="40" y1="562" x2="846" y2="562" stroke="#374151" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="340" y1="556" x2="340" y2="568" stroke="#374151" stroke-width="1.5"/>
+  <line x1="460" y1="556" x2="460" y2="568" stroke="#374151" stroke-width="1.5"/>
+  <line x1="580" y1="556" x2="580" y2="568" stroke="#374151" stroke-width="1.5"/>
+  <text x="340" y="586" font-size="15" fill="#374151" text-anchor="middle">12:00:58</text>
+  <text x="460" y="586" font-size="15" fill="#374151" text-anchor="middle">12:01:00</text>
+  <text x="580" y="586" font-size="15" fill="#374151" text-anchor="middle">12:01:02</text>
+  <text x="846" y="586" font-size="15" fill="#374151" text-anchor="end">시간</text>
 </svg>

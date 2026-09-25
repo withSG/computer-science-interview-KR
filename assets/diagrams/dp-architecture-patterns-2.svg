@@ -1,106 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">무엇을 뒤집는가</title>
-  <desc id="d">레이어드 아키텍처와 헥사고날 아키텍처의 의존성 방향 비교 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">레이어드와 헥사고날의 의존 방향 비교</title>
+  <desc id="d">레이어드에서는 Controller → Service → JpaRepository → DB로 의존이 아래로 흘러 도메인이 기술을 의존한다. 헥사고날에서는 Web·JPA·Kafka·외부 API 어댑터가 모두 포트(인터페이스)를 향해 안쪽으로 의존하고, 가운데 도메인/유스케이스는 기술을 모른다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-  
-  <!-- 전체 배경 -->
-  <rect width="880" height="490" fill="#ffffff"/>
+  <rect width="880" height="540" fill="#ffffff"/>
 
-  <!-- 구역 구분 가로/세로 영역 및 범례 -->
-  <rect x="24" y="24" width="380" height="442" fill="#f8fafc" rx="8" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="428" y="24" width="428" height="442" fill="#eff6ff" rx="8" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- ───── 레이어드 ───── -->
+  <rect x="24" y="24" width="360" height="492" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="60" font-size="19" font-weight="bold" fill="#111827">레이어드</text>
+  <text x="134" y="60" font-size="15" fill="#374151">의존이 아래로 흐른다</text>
 
-  <!-- 헤더 (섹션 타이틀) -->
-  <text x="44" y="58" font-size="16" font-weight="bold" fill="#dc2626">[레이어드]</text>
-  <text x="135" y="58" font-size="14" fill="#52606d">의존이 아래로 흐른다</text>
+  <rect x="48" y="100" width="180" height="44" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="138" y="128" font-size="16" font-weight="bold" text-anchor="middle" fill="#1d4ed8">Controller</text>
+  <path d="M138,146 V201" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah-gray)"/>
 
-  <text x="448" y="58" font-size="16" font-weight="bold" fill="#2563eb">[헥사고날]</text>
-  <text x="539" y="58" font-size="14" fill="#52606d">의존이 안쪽으로만 향한다</text>
+  <rect x="48" y="204" width="180" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="138" y="232" font-size="16" font-weight="bold" text-anchor="middle" fill="#047857">Service</text>
+  <path d="M138,250 V305" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <text x="156" y="283" font-size="15" font-weight="bold" fill="#b91c1c">도메인이 기술을 의존한다</text>
 
-  <!-- [왼쪽] 레이어드 아키텍처 -->
-  <!-- Controller 박스 -->
-  <rect x="124" y="90" width="180" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="214" y="114" font-size="14" fill="#1f2933" text-anchor="middle">Controller</text>
+  <rect x="48" y="308" width="180" height="44" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="138" y="336" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">JpaRepository</text>
+  <path d="M138,354 V409" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah-gray)"/>
 
-  <!-- Controller -> Service 화살표 -->
-  <path d="M214,130 L214,168" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="48" y="412" width="180" height="44" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="138" y="440" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">DB</text>
 
-  <!-- Service 박스 -->
-  <rect x="44" y="170" width="100" height="40" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="94" y="194" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">Service</text>
+  <!-- ───── 헥사고날 ───── -->
+  <rect x="400" y="24" width="456" height="492" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="420" y="60" font-size="19" font-weight="bold" fill="#111827">헥사고날</text>
+  <text x="510" y="60" font-size="15" fill="#374151">의존이 안쪽으로만 향한다</text>
 
-  <!-- Service -> JpaRepository 화살표 -->
-  <path d="M144,190 L172,190" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="453" y="88" width="150" height="40" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="528" y="114" font-size="16" text-anchor="middle" fill="#111827">Web 어댑터</text>
+  <rect x="653" y="88" width="150" height="40" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="728" y="114" font-size="16" text-anchor="middle" fill="#111827">JPA 어댑터</text>
 
-  <!-- JpaRepository 박스 -->
-  <rect x="174" y="170" width="130" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="239" y="194" font-size="13" fill="#1f2933" text-anchor="middle">JpaRepository</text>
+  <path d="M528,130 V161" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-gray)"/>
+  <path d="M728,130 V161" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-gray)"/>
 
-  <!-- JpaRepository -> DB 화살표 -->
-  <path d="M304,190 L332,190" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <polygon points="428,274 488,164 768,164 828,274 768,384 488,384" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="628" y="200" font-size="16" font-weight="bold" text-anchor="middle" fill="#6d28d9">포트(인터페이스)</text>
+  <rect x="528" y="220" width="200" height="108" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="628" y="268" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857">도메인/유스케이스</text>
+  <text x="628" y="296" font-size="15" text-anchor="middle" fill="#047857">기술을 모른다</text>
 
-  <!-- DB 박스 -->
-  <rect x="334" y="170" width="50" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="359" y="194" font-size="14" fill="#1f2933" text-anchor="middle">DB</text>
+  <path d="M528,418 V387" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-gray)"/>
+  <path d="M728,418 V387" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-gray)"/>
 
-  <!-- '도메인이 기술을 의존한다' 주석/경고 -->
-  <path d="M94,260 L94,212" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-red)"/>
-  <rect x="44" y="265" width="220" height="26" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="4"/>
-  <text x="154" y="282" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">도메인이 기술을 의존한다</text>
+  <rect x="453" y="420" width="150" height="40" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="528" y="446" font-size="16" text-anchor="middle" fill="#111827">Kafka 어댑터</text>
+  <rect x="653" y="420" width="150" height="40" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="728" y="446" font-size="16" text-anchor="middle" fill="#111827">외부 API 어댑터</text>
 
-
-  <!-- [오른쪽] 헥사고날 아키텍처 -->
-  
-  <!-- 외부 어댑터들 (상단, 하단) -->
-  <!-- Web 어댑터 -->
-  <rect x="448" y="100" width="110" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="503" y="122" font-size="13" fill="#1f2933" text-anchor="middle">Web 어댑터</text>
-
-  <!-- JPA 어댑터 -->
-  <rect x="726" y="100" width="110" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="781" y="122" font-size="13" fill="#1f2933" text-anchor="middle">JPA 어댑터</text>
-
-  <!-- Kafka 어댑터 -->
-  <rect x="448" y="340" width="110" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="503" y="362" font-size="13" fill="#1f2933" text-anchor="middle">Kafka 어댑터</text>
-
-  <!-- 외부 API 어댑터 -->
-  <rect x="726" y="340" width="110" height="36" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="781" y="362" font-size="13" fill="#1f2933" text-anchor="middle">외부 API 어댑터</text>
-
-  <!-- 바깥 경계: 포트(인터페이스) 영역 -->
-  <rect x="520" y="170" width="244" height="136" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
-  <text x="530" y="190" font-size="12" font-weight="bold" fill="#2563eb">포트(인터페이스)</text>
-
-  <!-- 안쪽 경계: 도메인/유스케이스 영역 -->
-  <rect x="542" y="202" width="200" height="90" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="554" y="226" font-size="13" font-weight="bold" fill="#059669">도메인/유스케이스</text>
-  <text x="554" y="252" font-size="12" fill="#059669">기술을 모른다</text>
-
-  <!-- 화살표들 (모두 안쪽을 향함) -->
-  <!-- Web 어댑터 -> 포트 -->
-  <path d="M503,136 L503,160 L570,160 L570,168" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- JPA 어댑터 -> 포트 -->
-  <path d="M781,136 L781,160 L714,160 L714,168" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Kafka 어댑터 -> 포트 -->
-  <path d="M503,340 L503,316 L570,316 L570,308" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 외부 API 어댑터 -> 포트 -->
-  <path d="M781,340 L781,316 L714,316 L714,308" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 하단 강조문구: 모든 화살표가 안쪽을 향한다 -->
-  <rect x="532" y="420" width="220" height="28" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="642" y="438" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">모든 화살표가 안쪽을 향한다</text>
+  <text x="628" y="494" font-size="16" font-weight="bold" text-anchor="middle" fill="#111827">모든 화살표가 안쪽을 향한다</text>
 </svg>

@@ -1,79 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">4. Access Token과 Refresh Token</title>
-  <desc id="d">Client, Auth Server, Resource API 간의 Access Token과 Refresh Token 발급, 인증, 만료 및 Refresh Token Rotation 흐름 시퀀스 다이어그램</desc>
-  <rect width="880" height="620" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 670" width="880" height="670" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Access Token 만료와 Refresh Token 재발급 흐름</title>
+  <desc id="d">로그인하면 AT(15분)와 RT(14일, HttpOnly 쿠키)를 받고, API는 AT로 호출한다. 15분 뒤 AT가 exp 초과로 401을 받으면 RT 쿠키로 /token/refresh를 호출하고, Auth Server가 저장된 RT와 대조한 뒤 새 AT와 새 RT를 내준다(Rotation).</desc>
+  <rect width="880" height="670" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ahr" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">4. Access Token과 Refresh Token</text>
+  <!-- 참여자 -->
+  <rect x="60" y="24" width="140" height="44" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="130" y="52" font-size="17" font-weight="bold" fill="#0f172a" text-anchor="middle">Client</text>
+  <rect x="380" y="24" width="180" height="44" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="470" y="52" font-size="17" font-weight="bold" fill="#0f172a" text-anchor="middle">Auth Server</text>
+  <rect x="670" y="24" width="180" height="44" rx="8" fill="#f1f5f9" stroke="#334155" stroke-width="1.5"/>
+  <text x="760" y="52" font-size="17" font-weight="bold" fill="#0f172a" text-anchor="middle">Resource API</text>
 
-  <!-- Lifelines -->
-  <line x1="140" y1="100" x2="140" y2="570" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="440" y1="100" x2="440" y2="570" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="740" y1="100" x2="740" y2="570" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 생명선 -->
+  <line x1="130" y1="68" x2="130" y2="606" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="470" y1="68" x2="470" y2="606" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="760" y1="68" x2="760" y2="606" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- Participant Headers -->
-  <rect x="70" y="65" width="140" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="140" y="87.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+  <!-- 1. 로그인 -->
+  <circle cx="40" cy="106" r="12" fill="#334155"/>
+  <text x="40" y="111" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <path d="M131,120 H468" stroke="#1f2937" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <text x="300" y="110" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">POST /login</text>
 
-  <rect x="360" y="65" width="160" height="36" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="87.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Auth Server</text>
+  <!-- 2. 토큰 발급 -->
+  <circle cx="40" cy="166" r="12" fill="#334155"/>
+  <text x="40" y="171" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <path d="M469,180 H132" stroke="#1f2937" stroke-width="1.6" stroke-dasharray="7 4" fill="none" marker-end="url(#ah)"/>
+  <text x="300" y="170" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#1d4ed8">AT(15분)</tspan> + <tspan font-weight="bold" fill="#6d28d9">RT(14일, HttpOnly 쿠키)</tspan></text>
 
-  <rect x="655" y="65" width="170" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="740" y="87.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Resource API</text>
+  <!-- 3. API 호출 -->
+  <circle cx="40" cy="226" r="12" fill="#334155"/>
+  <text x="40" y="231" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <path d="M131,240 H758" stroke="#1f2937" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <text x="300" y="230" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET /orders</text>
+  <text x="300" y="264" font-size="14" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Authorization: Bearer <tspan font-weight="bold" fill="#1d4ed8">AT</tspan></text>
 
-  <!-- Message 1: POST /login -->
-  <path d="M140,140 L440,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="232" y="125" width="116" height="20" fill="#ffffff"/>
-  <text x="290" y="139.025" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">POST /login</text>
+  <!-- 시간 경과 -->
+  <rect x="24" y="286" width="832" height="36" rx="6" fill="#f3f4f6"/>
+  <text x="440" y="309" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">… 15분 경과 …</text>
 
-  <!-- Message 2: AT(15분) + RT(14일, HttpOnly 쿠키) -->
-  <path d="M440,190 L140,190" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="156" y="175" width="268" height="20" fill="#ffffff"/>
-  <text x="290" y="189.025" font-size="13" fill="#7c3aed" text-anchor="middle">AT(15분) + RT(14일, HttpOnly 쿠키)</text>
+  <!-- 4. 만료된 AT로 호출 -->
+  <circle cx="40" cy="356" r="12" fill="#334155"/>
+  <text x="40" y="361" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <path d="M131,370 H758" stroke="#1f2937" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <text x="300" y="360" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET /orders</text>
 
-  <!-- Message 3: GET /orders Authorization: Bearer AT -->
-  <path d="M140,250 L740,250" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="296" y="235" width="288" height="20" fill="#ffffff"/>
-  <text x="440" y="249.025" font-size="13" fill="#2563eb" text-anchor="middle">GET /orders   Authorization: Bearer AT</text>
+  <!-- 5. 401 -->
+  <circle cx="40" cy="416" r="12" fill="#334155"/>
+  <text x="40" y="421" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <path d="M759,430 H132" stroke="#b91c1c" stroke-width="1.6" stroke-dasharray="7 4" fill="none" marker-end="url(#ahr)"/>
+  <text x="610" y="420" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">401 Unauthorized (exp 초과)</text>
 
-  <!-- Time lapse: … 15분 경과 … -->
-  <rect x="355" y="295" width="170" height="26" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="312.025" font-size="13" font-style="italic" fill="#52606d" text-anchor="middle">… 15분 경과 …</text>
+  <!-- 6. 재발급 요청 -->
+  <circle cx="40" cy="476" r="12" fill="#334155"/>
+  <text x="40" y="481" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <path d="M131,490 H468" stroke="#1f2937" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <text x="300" y="480" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">POST /token/refresh</text>
+  <text x="300" y="514" font-size="15" fill="#374151" text-anchor="middle"><tspan font-weight="bold" fill="#6d28d9">RT</tspan> 쿠키 자동 전송</text>
+  <rect x="488" y="472" width="160" height="36" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="568" y="495" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">저장된 RT와 대조</text>
 
-  <!-- Message 4: GET /orders → 401 Unauthorized (exp 초과) -->
-  <path d="M140,370 L740,370" stroke="#dc2626" stroke-width="1.5" fill="none" marker-start="url(#a-red)"/>
-  <rect x="230" y="355" width="420" height="20" fill="#ffffff"/>
-  <text x="440" y="369.025" font-size="13" fill="#dc2626" text-anchor="middle">GET /orders   → 401 Unauthorized (exp 초과)</text>
+  <!-- 7. 새 토큰 -->
+  <circle cx="40" cy="562" r="12" fill="#334155"/>
+  <text x="40" y="567" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <path d="M469,576 H132" stroke="#1f2937" stroke-width="1.6" stroke-dasharray="7 4" fill="none" marker-end="url(#ah)"/>
+  <text x="300" y="566" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#1d4ed8">새 AT</tspan> + <tspan font-weight="bold" fill="#6d28d9">새 RT</tspan> (Rotation)</text>
 
-  <!-- Message 5: POST /token/refresh (RT 쿠키 자동 전송) -->
-  <path d="M140,450 L440,450" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="162" y="435" width="256" height="20" fill="#ffffff"/>
-  <text x="290" y="449.025" font-size="13" fill="#1f2933" text-anchor="middle">POST /token/refresh  (RT 쿠키 자동 전송)</text>
-
-  <!-- Annotation: 저장된 RT와 대조 -->
-  <rect x="455" y="437" width="135" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="522.5" y="454.025" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">저장된 RT와 대조</text>
-
-  <!-- Message 6: 새 AT + 새 RT (Rotation) -->
-  <path d="M440,520 L140,520" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="195" y="505" width="190" height="20" fill="#ffffff"/>
-  <text x="290" y="519.025" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">새 AT + 새 RT (Rotation)</text>
+  <!-- 범례 -->
+  <text x="40" y="644" font-size="15" fill="#374151"><tspan font-weight="bold" fill="#1d4ed8">AT</tspan> = Access Token<tspan dx="28" font-weight="bold" fill="#6d28d9">RT</tspan> = Refresh Token<tspan dx="28">실선 = 요청, 점선 = 응답</tspan></text>
 </svg>

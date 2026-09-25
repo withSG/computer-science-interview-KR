@@ -1,36 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">JVM Stack (스택)</title>
-  <desc id="d">calc() 실행 중 add() 호출 시점의 JVM 스택 프레임 구조를 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="440" fill="#ffffff"/>
-
-  <!-- 헤딩 / 설명 -->
-  <text x="440" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">JVM Stack (스택)</text>
-  <text x="440" y="74" font-size="13" fill="#52606d" text-anchor="middle">calc() 실행 중 add() 호출 시점의 스택</text>
-
-  <!-- 마커 정의 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">add 호출 시점의 JVM Stack</title>
+  <desc id="d">calc() 실행 중 add()를 호출한 순간의 스택. 맨 아래 main 프레임 위에 calc 프레임(a=10, b=?)이, 그 위에 가장 최근에 쌓인 add 프레임(x=10, y=5)이 있다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
+  <rect width="880" height="380" fill="#ffffff"/>
 
-  <!-- 스택 프레임 컨테이너 / 박스들 -->
-  <!-- 가장 최근 프레임 (add 프레임) - 강조 색상 (파랑) -->
-  <rect x="290" y="110" width="300" height="80" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="4"/>
-  <text x="440" y="141" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">add 프레임</text>
-  <text x="440" y="169" font-size="13" fill="#1f2933" text-anchor="middle">x=10, y=5</text>
+  <text x="440" y="46" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">calc() 실행 중 add() 호출 시점의 스택</text>
 
-  <!-- calc 프레임 - 회색/보조 -->
-  <rect x="290" y="190" width="300" height="80" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="0"/>
-  <text x="440" y="221" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">calc 프레임</text>
-  <text x="440" y="249" font-size="13" fill="#1f2933" text-anchor="middle">a=10, b=?</text>
+  <!-- 스택 용기 -->
+  <path d="M318,80 V312 H582 V80" fill="none" stroke="#9ca3af" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="450" y="340" font-size="15" fill="#4b5563" text-anchor="middle">JVM Stack</text>
 
-  <!-- main 프레임 - 회색/보조 -->
-  <rect x="290" y="270" width="300" height="60" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="0"/>
-  <text x="440" y="306" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">main 프레임</text>
+  <!-- main 프레임 -->
+  <rect x="330" y="244" width="240" height="56" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="450" y="278" font-size="17" font-weight="bold" fill="#374151" text-anchor="middle">main 프레임</text>
 
-  <!-- 주석 화살표 및 라벨 -->
-  <path d="M 230,150 L 281,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="54" y="138" width="168" height="24" fill="#ffffff"/>
-  <text x="222" y="154" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="end">← 가장 최근에 쌓인 프레임</text>
+  <!-- calc 프레임 -->
+  <rect x="330" y="164" width="240" height="80" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="450" y="196" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">calc 프레임</text>
+  <text x="450" y="224" font-size="16" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">a=10, b=?</text>
+
+  <!-- add 프레임 (맨 위) -->
+  <rect x="330" y="84" width="240" height="80" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="450" y="116" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">add 프레임</text>
+  <text x="450" y="144" font-size="16" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">x=10, y=5</text>
+
+  <!-- 쌓이는 방향 -->
+  <line x1="280" y1="296" x2="280" y2="96" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-gray)"/>
+  <text x="264" y="186" font-size="15" fill="#4b5563" text-anchor="end">호출하면</text>
+  <text x="264" y="208" font-size="15" fill="#4b5563" text-anchor="end">위에 쌓임</text>
+
+  <!-- 최근 프레임 표시 -->
+  <line x1="636" y1="124" x2="576" y2="124" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="648" y="120" font-size="16" font-weight="bold" fill="#1d4ed8">가장 최근에 쌓인 프레임</text>
+  <text x="648" y="144" font-size="15" fill="#4b5563">add가 끝나면 사라짐</text>
 </svg>

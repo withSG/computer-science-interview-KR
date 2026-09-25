@@ -1,76 +1,79 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">HEAD와 브랜치는 그냥 포인터다</title>
-  <desc id="d">브랜치 생성 전과 git switch -c feature 실행 후의 커밋 그래프 및 HEAD와 브랜치 포인터 변화를 나타낸 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">브랜치 생성 전후 포인터</title>
+  <desc id="d">git switch -c feature 실행 전후를 나란히 비교한다. 커밋 c1, c2, c3 그래프는 그대로이고, 실행 후에는 c3를 가리키는 feature 브랜치가 새로 생기며 HEAD가 main 대신 feature를 가리킨다.</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
+
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ar-amber" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="ar-green" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Left Side: 브랜치 생성 전 -->
-  <text x="50" y="44" font-size="16" font-weight="bold" fill="#1f2933">브랜치 생성 전</text>
+  <!-- ─── 왼쪽: 브랜치 생성 전 ─── -->
+  <rect x="24" y="24" width="404" height="286" rx="10" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="56" font-size="17" font-weight="bold" fill="#111827">브랜치 생성 전</text>
 
-  <!-- Commits Left -->
-  <rect x="50" y="70" width="54" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="77" y="92" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">c1</text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" text-anchor="middle">
+    <rect x="44" y="84" width="60" height="40" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="74" y="110" font-size="16" fill="#111827">c1</text>
+    <rect x="139" y="84" width="60" height="40" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="169" y="110" font-size="16" fill="#111827">c2</text>
+    <rect x="234" y="84" width="60" height="40" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="264" y="110" font-size="16" fill="#111827">c3</text>
+    <line x1="136" y1="104" x2="107" y2="104" stroke="#4b5563" stroke-width="2" marker-end="url(#ar-gray)"/>
+    <line x1="231" y1="104" x2="202" y2="104" stroke="#4b5563" stroke-width="2" marker-end="url(#ar-gray)"/>
 
-  <path d="M129,88 L113,88" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="228" y="172" width="72" height="34" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="264" y="195" font-size="16" fill="#1d4ed8">main</text>
+    <line x1="264" y1="170" x2="264" y2="128" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ar-blue)"/>
 
-  <rect x="138" y="70" width="54" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="165" y="92" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">c2</text>
+    <rect x="228" y="250" width="72" height="34" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+    <text x="264" y="273" font-size="16" fill="#b45309">HEAD</text>
+    <line x1="264" y1="248" x2="264" y2="210" stroke="#b45309" stroke-width="2" marker-end="url(#ar-amber)"/>
+  </g>
 
-  <path d="M217,88 L201,88" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- ─── 오른쪽: git switch -c feature 실행 후 ─── -->
+  <rect x="452" y="24" width="404" height="286" rx="10" fill="#f8fafc" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="472" y="56" font-size="17" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">git switch -c feature</tspan> 실행 후</text>
 
-  <rect x="226" y="70" width="54" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="253" y="92" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">c3</text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" text-anchor="middle">
+    <rect x="472" y="84" width="60" height="40" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="502" y="110" font-size="16" fill="#111827">c1</text>
+    <rect x="567" y="84" width="60" height="40" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="597" y="110" font-size="16" fill="#111827">c2</text>
+    <rect x="662" y="84" width="60" height="40" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="692" y="110" font-size="16" fill="#111827">c3</text>
+    <line x1="564" y1="104" x2="535" y2="104" stroke="#4b5563" stroke-width="2" marker-end="url(#ar-gray)"/>
+    <line x1="659" y1="104" x2="630" y2="104" stroke="#4b5563" stroke-width="2" marker-end="url(#ar-gray)"/>
 
-  <path d="M253,137 L253,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+    <rect x="656" y="172" width="72" height="34" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="692" y="195" font-size="16" fill="#1d4ed8">main</text>
+    <line x1="692" y1="170" x2="692" y2="128" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ar-blue)"/>
 
-  <text x="253" y="154" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">main</text>
+    <rect x="744" y="172" width="96" height="34" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+    <text x="792" y="195" font-size="16" fill="#047857">feature</text>
+    <line x1="774" y1="170" x2="716" y2="128" stroke="#047857" stroke-width="2" marker-end="url(#ar-green)"/>
 
-  <text x="253" y="181" font-size="13" fill="#52606d" text-anchor="middle">(HEAD ──&gt; main)</text>
+    <rect x="756" y="250" width="72" height="34" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+    <text x="792" y="273" font-size="16" fill="#b45309">HEAD</text>
+    <line x1="792" y1="248" x2="792" y2="210" stroke="#047857" stroke-width="2.5" marker-end="url(#ar-green)"/>
+  </g>
 
-  <!-- Divider Line -->
-  <line x1="440" y1="30" x2="440" y2="210" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 바뀐 곳 표시 -->
+  <text x="800" y="162" font-size="18" font-weight="bold" fill="#047857">①</text>
+  <text x="804" y="236" font-size="18" font-weight="bold" fill="#047857">②</text>
 
-  <!-- Right Side: git switch -c feature 실행 후 -->
-  <text x="480" y="44" font-size="16" font-weight="bold" fill="#1f2933">git switch -c feature 실행 후</text>
-
-  <!-- Commits Right -->
-  <rect x="480" y="70" width="54" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="507" y="92" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">c1</text>
-
-  <path d="M559,88 L543,88" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="568" y="70" width="54" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="595" y="92" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">c2</text>
-
-  <path d="M647,88 L631,88" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="656" y="70" width="54" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="683" y="92" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">c3</text>
-
-  <path d="M683,137 L683,115" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <text x="683" y="154" font-size="13" font-weight="bold" text-anchor="middle">
-    <tspan fill="#2563eb">main</tspan><tspan fill="#52606d">, </tspan><tspan fill="#059669">feature</tspan>
-  </text>
-
-  <text x="683" y="181" font-size="13" fill="#52606d" text-anchor="middle">(HEAD ──&gt; feature)</text>
-
-  <!-- Bottom Text Description -->
-  <rect x="30" y="240" width="820" height="60" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="275" font-size="13" fill="#1f2933" text-anchor="middle">
-    커밋 그래프는 손도 대지 않는다. .git/refs/heads/feature 파일 하나가 생기고 .git/HEAD 한 줄이 바뀐 게 전부다.
-  </text>
+  <!-- 캡션 -->
+  <rect x="24" y="330" width="832" height="76" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="360" font-size="16" font-weight="bold" fill="#111827">커밋 그래프는 손도 대지 않는다.</text>
+  <text x="44" y="390" font-size="15" fill="#1f2937"><tspan font-weight="bold" fill="#047857">① </tspan><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#047857">.git/refs/heads/feature</tspan> 파일 하나가 생기고 <tspan font-weight="bold" fill="#047857">② </tspan><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#047857">.git/HEAD</tspan> 한 줄이 바뀐 게 전부다.</text>
 </svg>

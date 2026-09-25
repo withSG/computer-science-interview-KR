@@ -52,7 +52,7 @@
 JWT는 `.`으로 구분된 세 조각입니다. 아래는 jwt.io에서 오랫동안 예제로 쓰인 실제 토큰입니다.
 
 <!-- diagram:be-jwt-token-6 -->
-![2. 구조 — 실제 토큰을 뜯어보자](../../assets/diagrams/be-jwt-token-6.svg)
+![JWT 예제 토큰의 Header·Payload·Signature 세 조각](../../assets/diagrams/be-jwt-token-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

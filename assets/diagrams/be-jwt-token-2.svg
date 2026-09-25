@@ -1,113 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">HS256 vs RS256</title>
-  <desc id="d">HS256 대칭키 방식과 RS256 비대칭키 방식의 발급 및 검증 구조 비교 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">HS256과 RS256의 키 구조</title>
+  <desc id="d">HS256은 발급 서버와 검증 서버가 같은 secret으로 서명하고 검증하므로 검증하려면 서명할 수 있는 키를 그대로 줘야 한다. RS256은 인증 서버가 개인키로 서명하고 검증 서버 A/B/C는 공개키로 검증만 하므로 공개키가 유출돼도 토큰을 만들 수 없다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="aht" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/>
     </marker>
   </defs>
 
-  <!-- 전체 배경 -->
-  <rect width="880" height="390" fill="#ffffff"/>
+  <!-- ============ HS256 ============ -->
+  <rect x="24" y="24" width="404" height="372" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M25,67 V34 Q25,25 34,25 H418 Q427,25 427,34 V67 Z" fill="#f3f4f6"/>
+  <line x1="25" y1="67" x2="427" y2="67" stroke="#9ca3af" stroke-width="1"/>
+  <text x="226" y="53" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">HS256 — 대칭키</text>
 
-  <!-- ==================== LEFT COLUMN: HS256 (대칭키) ==================== -->
-  <!-- HS256 구역 배경 -->
-  <rect x="24" y="20" width="404" height="350" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <!-- HS256 제목 -->
-  <text x="226" y="49.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[HS256 — 대칭키]</text>
+  <!-- 발급 서버 -->
+  <rect x="40" y="88" width="372" height="64" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="54" y="126" font-size="16" font-weight="bold" fill="#374151">발급 서버</text>
+  <rect x="136" y="100" width="96" height="40" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="184" y="126" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">secret</text>
+  <line x1="236" y1="120" x2="308" y2="120" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="270" y="112" font-size="15" fill="#111827" text-anchor="middle">서명</text>
+  <rect x="312" y="100" width="84" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="354" y="126" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">JWT</text>
 
-  <!-- 발급 서버 섹션 -->
-  <text x="120" y="88.2" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">발급 서버</text>
-  
-  <!-- secret 박스 (HS256 발급) -->
-  <rect x="52" y="102" width="64" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="84" y="122.05" font-size="13" fill="#d97706" text-anchor="middle">secret</text>
+  <!-- 검증 서버 -->
+  <rect x="40" y="212" width="372" height="72" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="54" y="254" font-size="16" font-weight="bold" fill="#374151">검증 서버</text>
+  <rect x="136" y="228" width="96" height="40" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="184" y="254" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">secret</text>
+  <line x1="236" y1="248" x2="308" y2="248" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="270" y="240" font-size="15" fill="#111827" text-anchor="middle">검증</text>
+  <rect x="312" y="228" width="84" height="40" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="354" y="254" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">OK</text>
 
-  <!-- 서명 화살표 (HS256) -->
-  <path d="M116,118 L170,118" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="127" y="106" width="32" height="20" fill="#ffffff"/>
-  <text x="143" y="120.05" font-size="11.5" fill="#1f2933" text-anchor="middle">서명</text>
+  <!-- 전달 (컨테이너 위에 그려 화살촉이 가려지지 않게) -->
+  <line x1="354" y1="144" x2="354" y2="223" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahb)"/>
+  <line x1="184" y1="156" x2="184" y2="223" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#aha)"/>
+  <text x="196" y="190" font-size="15" font-weight="bold" fill="#b45309">secret 그대로 전달</text>
 
-  <!-- JWT 박스 (HS256) -->
-  <rect x="172" y="102" width="56" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="200" y="122.05" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">JWT</text>
+  <!-- 결론 -->
+  <rect x="40" y="304" width="372" height="72" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="60" y="334" font-size="16" font-weight="bold" fill="#b91c1c">→ 검증하려면 서명할 수 있는</text>
+  <text x="80" y="360" font-size="16" font-weight="bold" fill="#b91c1c">키를 그대로 줘야 한다</text>
 
-  <!-- JWT 이동 화살표 (HS256) -->
-  <path d="M200,134 L200,174" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ============ RS256 ============ -->
+  <rect x="452" y="24" width="404" height="372" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M453,67 V34 Q453,25 462,25 H846 Q855,25 855,34 V67 Z" fill="#f3f4f6"/>
+  <line x1="453" y1="67" x2="855" y2="67" stroke="#9ca3af" stroke-width="1"/>
+  <text x="654" y="53" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">RS256 — 비대칭키</text>
 
-  <!-- 검증 서버 섹션 -->
-  <text x="120" y="168.2" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">검증 서버</text>
+  <!-- 인증 서버 -->
+  <rect x="468" y="88" width="372" height="64" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="482" y="126" font-size="16" font-weight="bold" fill="#374151">인증 서버</text>
+  <rect x="564" y="100" width="96" height="40" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="612" y="126" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">개인키</text>
+  <line x1="664" y1="120" x2="736" y2="120" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="698" y="112" font-size="15" fill="#111827" text-anchor="middle">서명</text>
+  <rect x="740" y="100" width="84" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="782" y="126" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">JWT</text>
 
-  <!-- secret 박스 (HS256 검증) -->
-  <rect x="52" y="182" width="64" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="84" y="202.05" font-size="13" fill="#d97706" text-anchor="middle">secret</text>
+  <!-- 검증 서버 A/B/C -->
+  <rect x="468" y="212" width="372" height="72" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="482" y="244" font-size="16" font-weight="bold" fill="#374151">검증 서버</text>
+  <text x="482" y="265" font-size="16" font-weight="bold" fill="#374151">A/B/C</text>
+  <rect x="564" y="228" width="96" height="40" rx="6" fill="#f0fdfa" stroke="#0f766e" stroke-width="1.5"/>
+  <text x="612" y="254" font-size="16" font-weight="bold" fill="#0f766e" text-anchor="middle">공개키</text>
+  <line x1="664" y1="248" x2="736" y2="248" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="698" y="240" font-size="15" fill="#111827" text-anchor="middle">검증</text>
+  <rect x="740" y="228" width="84" height="40" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="782" y="254" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">OK</text>
 
-  <!-- 검증 화살표 (HS256) -->
-  <path d="M116,198 L170,198" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="127" y="186" width="32" height="20" fill="#ffffff"/>
-  <text x="143" y="200.05" font-size="11.5" fill="#1f2933" text-anchor="middle">검증</text>
+  <!-- 전달 -->
+  <line x1="782" y1="144" x2="782" y2="223" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahb)"/>
+  <line x1="612" y1="156" x2="612" y2="223" stroke="#0f766e" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#aht)"/>
+  <text x="624" y="190" font-size="15" font-weight="bold" fill="#0f766e">공개키만 전달</text>
 
-  <!-- OK 박스 (HS256) -->
-  <rect x="172" y="182" width="48" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="196" y="202.05" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">OK</text>
-
-  <!-- HS256 설명 / 주석 -->
-  <rect x="44" y="244" width="364" height="106" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="56" y="272.05" font-size="13" fill="#dc2626">→ 검증하려면 서명할 수 있는</text>
-  <text x="74" y="298.05" font-size="13" fill="#dc2626">키를 그대로 줘야 한다</text>
-
-
-  <!-- ==================== RIGHT COLUMN: RS256 (비대칭키) ==================== -->
-  <!-- RS256 구역 배경 -->
-  <rect x="452" y="20" width="404" height="350" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- RS256 제목 -->
-  <text x="654" y="49.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[RS256 — 비대칭키]</text>
-
-  <!-- 인증 서버 섹션 -->
-  <text x="548" y="88.2" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">인증 서버</text>
-
-  <!-- 개인키 박스 -->
-  <rect x="480" y="102" width="64" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="512" y="122.05" font-size="13" fill="#7c3aed" text-anchor="middle">개인키</text>
-
-  <!-- 서명 화살표 (RS256) -->
-  <path d="M544,118 L598,118" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="555" y="106" width="32" height="20" fill="#ffffff"/>
-  <text x="571" y="120.05" font-size="11.5" fill="#1f2933" text-anchor="middle">서명</text>
-
-  <!-- JWT 박스 (RS256) -->
-  <rect x="600" y="102" width="56" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="628" y="122.05" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">JWT</text>
-
-  <!-- JWT 이동 화살표 (RS256) -->
-  <path d="M628,134 L628,174" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 검증 서버 A/B/C 섹션 -->
-  <text x="548" y="168.2" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">검증 서버 A/B/C</text>
-
-  <!-- 공개키 박스 -->
-  <rect x="480" y="182" width="64" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="512" y="202.05" font-size="13" fill="#7c3aed" text-anchor="middle">공개키</text>
-
-  <!-- 검증 화살표 (RS256) -->
-  <path d="M544,198 L598,198" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="555" y="186" width="32" height="20" fill="#ffffff"/>
-  <text x="571" y="200.05" font-size="11.5" fill="#1f2933" text-anchor="middle">검증</text>
-
-  <!-- OK 박스 (RS256) -->
-  <rect x="600" y="182" width="48" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="624" y="202.05" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">OK</text>
-
-  <!-- RS256 설명 / 주석 -->
-  <rect x="472" y="244" width="364" height="106" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="484" y="272.05" font-size="13" fill="#059669">→ 검증만 가능. 공개키가 유출돼도</text>
-  <text x="502" y="298.05" font-size="13" fill="#059669">토큰을 만들 수 없다</text>
+  <!-- 결론 -->
+  <rect x="468" y="304" width="372" height="72" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="488" y="334" font-size="16" font-weight="bold" fill="#047857">→ 검증만 가능. 공개키가 유출돼도</text>
+  <text x="508" y="360" font-size="16" font-weight="bold" fill="#047857">토큰을 만들 수 없다</text>
 </svg>

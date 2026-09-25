@@ -1,60 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">3NF 예시</title>
-  <desc id="d">2NF의 이행 함수 종속이 3NF의 학생 및 학과 테이블로 정규화되는 과정을 나타낸 다이어그램</desc>
-  
-  <rect width="880" height="340" fill="#ffffff"/>
+  <desc id="d">2NF 테이블에서 학생ID → 학과코드 → 학과명으로 이어지는 이행 함수 종속이 있다. 3NF는 두 종속을 각각 학생(학생ID, 학과코드)과 학과(학과코드, 학과명) 테이블로 분해한다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Section 1: 2NF -->
-  <g id="section-2nf">
-    <rect x="40" y="30" width="800" height="110" rx="6" fill="#fffbeb" stroke="#fef3c7" stroke-width="1"/>
-    
-    <text x="60" y="60" font-size="14" font-weight="bold" fill="#d97706">[2NF - 이행 함수 종속]</text>
-    
-    <!-- Box 1: 학생ID -->
-    <rect x="180" y="75" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="240" y="99" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">학생ID</text>
-    
-    <!-- Arrow 1 -->
-    <path d="M300,95 L380,95" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-    
-    <!-- Box 2: 학과코드 -->
-    <rect x="380" y="75" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="440" y="99" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">학과코드</text>
-    
-    <!-- Arrow 2 -->
-    <path d="M500,95 L580,95" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-    
-    <!-- Box 3: 학과명 -->
-    <rect x="580" y="75" width="120" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="640" y="99" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">학과명</text>
-  </g>
+  <!-- ===== 2NF : 이행 함수 종속 ===== -->
+  <rect x="24" y="20" width="832" height="180" rx="10" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="48" y="54" font-size="18" font-weight="bold" fill="#92400e">2NF — 이행 함수 종속</text>
 
-  <!-- Transition Arrow -->
-  <g id="transition">
-    <path d="M440,140 L440,170" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  </g>
+  <!-- 이행 종속 (학생ID ⇢ 학과명) -->
+  <text x="440" y="90" font-size="16" text-anchor="middle" fill="#92400e"><tspan font-weight="bold">학생ID → 학과명</tspan> (학과코드를 거친 이행 종속)</text>
+  <path d="M200,122 V100 H680 V118" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#arr-amber)"/>
 
-  <!-- Section 2: 3NF -->
-  <g id="section-3nf">
-    <rect x="40" y="180" width="800" height="130" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
-    
-    <text x="60" y="210" font-size="14" font-weight="bold" fill="#059669">[3NF]</text>
-    
-    <!-- Table 1: 학생 -->
-    <rect x="180" y="230" width="230" height="50" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-    <text x="295" y="260" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">학생(학생ID, 학과코드)</text>
-    
-    <!-- Table 2: 학과 -->
-    <rect x="470" y="230" width="230" height="50" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-    <text x="585" y="260" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">학과(학과코드, 학과명)</text>
-  </g>
+  <!-- 종속 사슬 -->
+  <rect x="120" y="124" width="160" height="52" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <text x="200" y="156" font-size="17" font-weight="bold" text-anchor="middle" fill="#1f2937">학생ID</text>
+
+  <path d="M282,144 H354" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <circle cx="318" cy="166" r="11" fill="#1d4ed8"/>
+  <text x="318" y="171" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+
+  <rect x="360" y="124" width="160" height="52" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="440" y="156" font-size="17" font-weight="bold" text-anchor="middle" fill="#78350f">학과코드</text>
+
+  <path d="M522,144 H594" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <circle cx="558" cy="166" r="11" fill="#1d4ed8"/>
+  <text x="558" y="171" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+
+  <rect x="600" y="124" width="160" height="52" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <text x="680" y="156" font-size="17" font-weight="bold" text-anchor="middle" fill="#1f2937">학과명</text>
+
+  <!-- ===== 분해 ===== -->
+  <path d="M440,204 V236" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="456" y="226" font-size="15" font-weight="bold" fill="#374151">분해</text>
+
+  <!-- ===== 3NF ===== -->
+  <rect x="24" y="244" width="832" height="182" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="48" y="278" font-size="18" font-weight="bold" fill="#047857">3NF</text>
+
+  <!-- 학생 테이블 -->
+  <rect x="100" y="296" width="300" height="34" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="250" y="319" font-size="16" font-weight="bold" text-anchor="middle" fill="#065f46">학생</text>
+  <rect x="100" y="330" width="150" height="46" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <rect x="250" y="330" width="150" height="46" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <text x="175" y="359" font-size="16" text-anchor="middle" fill="#1f2937">학생ID</text>
+  <text x="325" y="359" font-size="16" text-anchor="middle" fill="#1f2937">학과코드</text>
+  <circle cx="176" cy="400" r="11" fill="#1d4ed8"/>
+  <text x="176" y="405" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+  <text x="194" y="406" font-size="16" fill="#1f2937">학생ID → 학과코드</text>
+
+  <!-- 학과 테이블 -->
+  <rect x="480" y="296" width="300" height="34" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="630" y="319" font-size="16" font-weight="bold" text-anchor="middle" fill="#065f46">학과</text>
+  <rect x="480" y="330" width="150" height="46" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <rect x="630" y="330" width="150" height="46" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <text x="555" y="359" font-size="16" text-anchor="middle" fill="#1f2937">학과코드</text>
+  <text x="705" y="359" font-size="16" text-anchor="middle" fill="#1f2937">학과명</text>
+  <circle cx="560" cy="400" r="11" fill="#1d4ed8"/>
+  <text x="560" y="405" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+  <text x="578" y="406" font-size="16" fill="#1f2937">학과코드 → 학과명</text>
 </svg>

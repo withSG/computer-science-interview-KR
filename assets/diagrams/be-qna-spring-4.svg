@@ -1,46 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">프론트 컨트롤러 패턴</title>
-  <desc id="d">DispatcherServlet이 모든 요청의 진입점으로서 Controller1, Controller2, Controller3으로 요청을 위임하는 구조 다이어그램</desc>
-  <rect width="880" height="260" fill="#ffffff"/>
-  
+  <desc id="d">여러 요청이 모두 DispatcherServlet 하나로 들어오고, DispatcherServlet이 이를 Controller1, Controller2, Controller3 중 적절한 컨트롤러에 위임하는 구조.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Central DispatcherServlet Box -->
-  <rect x="290" y="40" width="300" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="71" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">DispatcherServlet</text>
+  <!-- 들어오는 요청들 -->
+  <rect x="258" y="28" width="84" height="34" rx="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="300" y="51" font-size="15" fill="#374151" text-anchor="middle">요청</text>
+  <rect x="398" y="28" width="84" height="34" rx="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="440" y="51" font-size="15" fill="#374151" text-anchor="middle">요청</text>
+  <rect x="538" y="28" width="84" height="34" rx="17" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="580" y="51" font-size="15" fill="#374151" text-anchor="middle">요청</text>
 
-  <!-- Side Note / Annotation -->
-  <text x="610" y="70" font-size="13" fill="#52606d">← 모든 요청의 진입점</text>
+  <path d="M306,64 L390,110" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ah-gray)"/>
+  <path d="M440,64 L440,110" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ah-gray)"/>
+  <path d="M574,64 L490,110" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ah-gray)"/>
 
-  <!-- Flow Lines & Arrowheads -->
-  <!-- Main vertical trunk from DispatcherServlet -->
-  <path d="M440,90 L440,150" stroke="#2563eb" stroke-width="2" fill="none"/>
-  
-  <!-- Horizontal distribution branch -->
-  <path d="M170,150 L710,150" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <!-- DispatcherServlet: 단일 진입점 -->
+  <rect x="240" y="114" width="400" height="80" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="440" y="149" font-size="22" font-weight="bold" fill="#1e3a8a" text-anchor="middle">DispatcherServlet</text>
+  <text x="440" y="178" font-size="15" fill="#1e40af" text-anchor="middle">프론트 컨트롤러 · 모든 요청의 진입점</text>
 
-  <!-- Left Branch & Arrow to Controller1 -->
-  <path d="M170,150 L170,180" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- Middle Branch & Arrow to Controller2 -->
-  <path d="M440,150 L440,180" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- Right Branch & Arrow to Controller3 -->
-  <path d="M710,150 L710,180" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 컨트롤러로 위임 -->
+  <path d="M440,196 L440,236" stroke="#1d4ed8" stroke-width="2" fill="none"/>
+  <path d="M170,236 L710,236" stroke="#1d4ed8" stroke-width="2" fill="none"/>
+  <path d="M170,236 L170,278" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <path d="M440,236 L440,278" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <path d="M710,236 L710,278" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <text x="454" y="224" font-size="15" fill="#1d4ed8">적절한 컨트롤러에 위임</text>
 
-  <!-- Controller 1 -->
-  <rect x="90" y="180" width="160" height="44" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="170" y="207" font-size="14" fill="#1f2933" text-anchor="middle">Controller1</text>
-
-  <!-- Controller 2 -->
-  <rect x="360" y="180" width="160" height="44" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="207" font-size="14" fill="#1f2933" text-anchor="middle">Controller2</text>
-
-  <!-- Controller 3 -->
-  <rect x="630" y="180" width="160" height="44" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="710" y="207" font-size="14" fill="#1f2933" text-anchor="middle">Controller3</text>
+  <rect x="70" y="282" width="200" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="170" y="316" font-size="17" fill="#111827" text-anchor="middle">Controller1</text>
+  <rect x="340" y="282" width="200" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="316" font-size="17" fill="#111827" text-anchor="middle">Controller2</text>
+  <rect x="610" y="282" width="200" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="710" y="316" font-size="17" fill="#111827" text-anchor="middle">Controller3</text>
 </svg>

@@ -1,88 +1,130 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">복합 인덱스와 선행 컬럼 규칙</title>
-  <desc id="d">(status, created_at) 복합 인덱스의 리프 노드 정렬 순서와 WHERE 조건별 인덱스 탐색 방식을 나타낸 다이어그램입니다.</desc>
+  <title id="t">복합 인덱스 리프 순서와 조건별 탐색</title>
+  <desc id="d">(status, created_at) 인덱스의 리프 7행을 세 WHERE 조건으로 읽은 모습입니다. status = 'DONE' 조건은 한데 모인 DONE 구간으로 바로 점프하고, created_at 조건을 더하면 그 구간 안에서 다시 좁히지만, created_at 만으로 거르면 맞는 행이 CANCELED·DONE·PENDING 곳곳에 흩어져 있어 선행 컬럼 없이는 좁힐 수 없습니다.</desc>
+  <defs>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/></marker>
+  </defs>
   <rect width="880" height="540" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+  <!-- 캡션 -->
+  <text x="24" y="46" font-size="18" font-weight="bold" fill="#111827">(status, created_at) 인덱스의 리프 순서</text>
+  <text x="24" y="74" font-size="15" fill="#4b5563">status 로 먼저 뭉쳐 있다 (같은 status 안에서는 created_at 순)</text>
+  <text x="856" y="74" font-size="15" fill="#4b5563" text-anchor="end">색칠한 행 = 조건에 맞는 행이 있는 곳</text>
 
-  <!-- 제목 -->
-  <text x="30" y="35" font-size="16" font-weight="bold" fill="#1f2933">(status, created_at) 인덱스의 리프 순서</text>
+  <!-- 패널: WHERE status = 'DONE' -->
+  <rect x="24" y="96" width="266" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="157.0" y="131" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">WHERE status = 'DONE'</text>
+  <rect x="36" y="170" width="220" height="32" fill="#f3f4f6"/>
+  <text x="86" y="191" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">status</text>
+  <text x="196" y="191" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">created_at</text>
+  <rect x="36" y="262" width="220" height="30" fill="#dbeafe"/>
+  <rect x="36" y="292" width="220" height="30" fill="#dbeafe"/>
+  <rect x="36" y="322" width="220" height="30" fill="#dbeafe"/>
+  <line x1="36" y1="232" x2="256" y2="232" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="36" y1="262" x2="256" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="36" y1="292" x2="256" y2="292" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="36" y1="322" x2="256" y2="322" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="36" y1="352" x2="256" y2="352" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="36" y1="382" x2="256" y2="382" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="36" y1="202" x2="256" y2="202" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="136" y1="170" x2="136" y2="412" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="36" y="170" width="220" height="242" fill="none" stroke="#9ca3af" stroke-width="1"/>
+  <text x="86" y="222" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CANCELED</text>
+  <text x="196" y="222" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-03</text>
+  <text x="86" y="252" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CANCELED</text>
+  <text x="196" y="252" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-02-11</text>
+  <text x="86" y="282" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="196" y="282" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-05</text>
+  <text x="86" y="312" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="196" y="312" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-09</text>
+  <text x="86" y="342" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="196" y="342" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-03-02</text>
+  <text x="86" y="372" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PENDING</text>
+  <text x="196" y="372" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-01</text>
+  <text x="86" y="402" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PENDING</text>
+  <text x="196" y="402" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-02-20</text>
+  <path d="M262,266 L272,266 L272,348 L262,348" fill="none" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="36" y="444" font-size="15" fill="#1d4ed8">→ DONE 구간으로 바로 점프</text>
+  <text x="36" y="468" font-size="16" font-weight="bold" fill="#1d4ed8">인덱스 사용</text>
 
-  <!-- 테이블 인덱스 리프 영역 -->
-  <g id="table-group">
-    <!-- 헤더 배경 -->
-    <rect x="30" y="60" width="280" height="35" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="90" y="82.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">status</text>
-    <text x="230" y="82.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">created_at</text>
-    <line x1="30" y1="95" x2="310" y2="95" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- 패널: WHERE status = 'DONE' AND created_at > ? -->
+  <rect x="307" y="96" width="266" height="60" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="440.0" y="121" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">WHERE status = 'DONE'</text>
+  <text x="440.0" y="142" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">AND created_at &gt; ?</text>
+  <rect x="319" y="170" width="220" height="32" fill="#f3f4f6"/>
+  <text x="369" y="191" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">status</text>
+  <text x="479" y="191" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">created_at</text>
+  <rect x="319" y="262" width="220" height="30" fill="#d1fae5"/>
+  <rect x="319" y="292" width="220" height="30" fill="#d1fae5"/>
+  <rect x="319" y="322" width="220" height="30" fill="#d1fae5"/>
+  <line x1="319" y1="232" x2="539" y2="232" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="319" y1="262" x2="539" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="319" y1="292" x2="539" y2="292" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="319" y1="322" x2="539" y2="322" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="319" y1="352" x2="539" y2="352" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="319" y1="382" x2="539" y2="382" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="319" y1="202" x2="539" y2="202" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="419" y1="170" x2="419" y2="412" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="319" y="170" width="220" height="242" fill="none" stroke="#9ca3af" stroke-width="1"/>
+  <text x="369" y="222" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CANCELED</text>
+  <text x="479" y="222" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-03</text>
+  <text x="369" y="252" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CANCELED</text>
+  <text x="479" y="252" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-02-11</text>
+  <text x="369" y="282" font-size="15" font-weight="bold" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="479" y="282" font-size="15" font-weight="bold" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-05</text>
+  <text x="369" y="312" font-size="15" font-weight="bold" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="479" y="312" font-size="15" font-weight="bold" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-09</text>
+  <text x="369" y="342" font-size="15" font-weight="bold" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="479" y="342" font-size="15" font-weight="bold" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-03-02</text>
+  <text x="369" y="372" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PENDING</text>
+  <text x="479" y="372" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-01</text>
+  <text x="369" y="402" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PENDING</text>
+  <text x="479" y="402" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-02-20</text>
+  <line x1="553" y1="266" x2="553" y2="348" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="319" y="444" font-size="15" fill="#047857">→ DONE 구간 안에서 다시 좁힌다</text>
+  <text x="319" y="468" font-size="14" fill="#4b5563">(DONE 안에서는 created_at 순)</text>
+  <text x="319" y="492" font-size="16" font-weight="bold" fill="#047857">최적</text>
 
-    <!-- 행 1, 2 (CANCELED 그룹) -->
-    <rect x="30" y="95" width="280" height="60" fill="#f8fafc" stroke="#cbd2d9" stroke-dasharray="2 2"/>
-    <text x="90" y="119.2" font-size="13" fill="#52606d" text-anchor="middle">CANCELED</text>
-    <text x="230" y="119.2" font-size="13" fill="#52606d" text-anchor="middle">2024-01-03</text>
-    <text x="90" y="143.2" font-size="13" fill="#52606d" text-anchor="middle">CANCELED</text>
-    <text x="230" y="143.2" font-size="13" fill="#52606d" text-anchor="middle">2024-02-11</text>
-
-    <!-- 행 3, 4, 5 (DONE 그룹 - 강조 영역) -->
-    <rect x="30" y="155" width="280" height="90" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="90" y="179.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">DONE</text>
-    <text x="230" y="179.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">2024-01-05</text>
-    <text x="90" y="203.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">DONE</text>
-    <text x="230" y="203.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">2024-01-09</text>
-    <text x="90" y="227.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">DONE</text>
-    <text x="230" y="227.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">2024-03-02</text>
-
-    <!-- 행 6, 7 (PENDING 그룹) -->
-    <rect x="30" y="245" width="280" height="60" fill="#f8fafc" stroke="#cbd2d9" stroke-dasharray="2 2"/>
-    <text x="90" y="269.2" font-size="13" fill="#52606d" text-anchor="middle">PENDING</text>
-    <text x="230" y="269.2" font-size="13" fill="#52606d" text-anchor="middle">2024-01-01</text>
-    <text x="90" y="293.2" font-size="13" fill="#52606d" text-anchor="middle">PENDING</text>
-    <text x="230" y="293.2" font-size="13" fill="#52606d" text-anchor="middle">2024-02-20</text>
-    
-    <!-- 전체 테두리 -->
-    <rect x="30" y="60" width="280" height="245" fill="none" stroke="#9aa5b1" stroke-width="1.5"/>
-  </g>
-
-  <!-- 원본 주석: ← status 로 먼저 뭉쳐 있다 -->
-  <path d="M310,180 L350,180" stroke="#059669" stroke-width="1.5" fill="none" marker-start="url(#a-green)"/>
-  <text x="360" y="184.2" font-size="13" font-weight="bold" fill="#059669">← status 로 먼저 뭉쳐 있다</text>
-
-  <!-- 조건 1 영역 -->
-  <g id="cond1-group">
-    <rect x="30" y="325" width="280" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="40" y="347.2" font-size="13" font-weight="bold" fill="#2563eb">WHERE status = 'DONE'</text>
-    
-    <path d="M310,343 L540,343" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <text x="550" y="347.2" font-size="13" fill="#2563eb">→ DONE 구간으로 바로 점프. 인덱스 사용</text>
-  </g>
-
-  <!-- 조건 2 영역 -->
-  <g id="cond2-group">
-    <rect x="30" y="375" width="415" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="40" y="397.2" font-size="13" font-weight="bold" fill="#059669">WHERE status = 'DONE' AND created_at &gt; ?</text>
-    
-    <path d="M445,393 L540,393" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <text x="550" y="397.2" font-size="13" fill="#059669">→ DONE 구간 안에서 다시 좁힌다. 최적</text>
-  </g>
-
-  <!-- 조건 3 영역 -->
-  <g id="cond3-group">
-    <rect x="30" y="425" width="310" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="40" y="447.2" font-size="13" font-weight="bold" fill="#dc2626">WHERE created_at &gt; '2024-02-01'</text>
-    
-    <path d="M340,443 L540,443" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <text x="550" y="447.2" font-size="13" fill="#dc2626">→ created_at 은 전체적으로 정렬돼 있지 않다</text>
-    <text x="566" y="471.2" font-size="11.5" fill="#52606d">(CANCELED 2월과 DONE 1월이 뒤섞임)</text>
-    <text x="550" y="495.2" font-size="13" fill="#dc2626">→ 선행 컬럼 없이는 못 좁힌다</text>
-  </g>
+  <!-- 패널: WHERE created_at > '2024-02-01' -->
+  <rect x="590" y="96" width="266" height="60" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="723.0" y="121" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">WHERE created_at &gt;</text>
+  <text x="723.0" y="142" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'2024-02-01'</text>
+  <rect x="602" y="170" width="220" height="32" fill="#f3f4f6"/>
+  <text x="652" y="191" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">status</text>
+  <text x="762" y="191" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">created_at</text>
+  <rect x="602" y="232" width="220" height="30" fill="#fee2e2"/>
+  <rect x="602" y="322" width="220" height="30" fill="#fee2e2"/>
+  <rect x="602" y="382" width="220" height="30" fill="#fee2e2"/>
+  <line x1="602" y1="232" x2="822" y2="232" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="602" y1="262" x2="822" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="602" y1="292" x2="822" y2="292" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="602" y1="322" x2="822" y2="322" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="602" y1="352" x2="822" y2="352" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="602" y1="382" x2="822" y2="382" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="602" y1="202" x2="822" y2="202" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="702" y1="170" x2="702" y2="412" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="602" y="170" width="220" height="242" fill="none" stroke="#9ca3af" stroke-width="1"/>
+  <text x="652" y="222" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CANCELED</text>
+  <text x="762" y="222" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-03</text>
+  <text x="652" y="252" font-size="15" font-weight="bold" fill="#7f1d1d" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CANCELED</text>
+  <text x="762" y="252" font-size="15" font-weight="bold" fill="#7f1d1d" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-02-11</text>
+  <text x="652" y="282" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="762" y="282" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-05</text>
+  <text x="652" y="312" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="762" y="312" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-09</text>
+  <text x="652" y="342" font-size="15" font-weight="bold" fill="#7f1d1d" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">DONE</text>
+  <text x="762" y="342" font-size="15" font-weight="bold" fill="#7f1d1d" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-03-02</text>
+  <text x="652" y="372" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PENDING</text>
+  <text x="762" y="372" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-01-01</text>
+  <text x="652" y="402" font-size="15" font-weight="bold" fill="#7f1d1d" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PENDING</text>
+  <text x="762" y="402" font-size="15" font-weight="bold" fill="#7f1d1d" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2024-02-20</text>
+  <path d="M828,236 L838,236 L838,258 L828,258" fill="none" stroke="#b91c1c" stroke-width="2.5"/>
+  <path d="M828,326 L838,326 L838,348 L828,348" fill="none" stroke="#b91c1c" stroke-width="2.5"/>
+  <path d="M828,386 L838,386 L838,408 L828,408" fill="none" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="602" y="444" font-size="15" fill="#b91c1c">→ created_at 은 전체적으로</text>
+  <text x="602" y="468" font-size="15" fill="#b91c1c">정렬돼 있지 않다</text>
+  <text x="602" y="492" font-size="14" fill="#4b5563">(CANCELED 2월과 DONE 1월이 뒤섞임)</text>
+  <text x="602" y="516" font-size="16" font-weight="bold" fill="#b91c1c">→ 선행 컬럼 없이는 못 좁힌다</text>
 </svg>

@@ -1,75 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">화면 하나에 요청 세 번</title>
-  <desc id="d">REST API에서 사용자 정보를 조회하기 위해 세 번의 HTTP GET 요청과 응답이 발생하는 과정을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
-
-  <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
-
-  <!-- Row 1: GET /users/1 -->
-  <!-- Box 1a: Request -->
-  <rect x="30" y="30" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">GET /users/1</text>
-
-  <!-- Arrow 1 -->
-  <path d="M 190 50 L 222 50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Box 1b: Response Data -->
-  <rect x="230" y="20" width="370" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="245" y="45" font-size="13" fill="#1f2933">→ { id, name, email, phone, address, bio, profileImage,</text>
-  <text x="261" y="65" font-size="13" fill="#1f2933">createdAt, updatedAt, lastLoginAt, ... }</text>
-
-  <!-- Arrow 1 Notice -->
-  <path d="M 610 50 L 632 50" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Annotation 1 -->
-  <rect x="640" y="30" width="210" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="745" y="55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">이름만 필요한데 전부 옴</text>
-
-
-  <!-- Row 2: GET /users/1/posts -->
-  <!-- Box 2a: Request -->
-  <rect x="30" y="130" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="155" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">GET /users/1/posts</text>
-
-  <!-- Arrow 2 -->
-  <path d="M 190 150 L 222 150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Box 2b: Response Data -->
-  <rect x="230" y="130" width="370" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="245" y="155" font-size="13" fill="#1f2933">→ [{ id, title, content, imageUrls, likeCount, ... }]</text>
-
-  <!-- Arrow 2 Notice -->
-  <path d="M 610 150 L 632 150" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Annotation 2 -->
-  <rect x="640" y="130" width="210" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="745" y="155" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">제목만 필요한데 본문까지</text>
-
-
-  <!-- Row 3: GET /users/1/followers -->
-  <!-- Box 3a: Request -->
-  <rect x="30" y="210" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="235" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">GET /users/1/followers</text>
-
-  <!-- Arrow 3 -->
-  <path d="M 190 230 L 222 230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Box 3b: Response Data -->
-  <rect x="230" y="210" width="370" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="245" y="235" font-size="13" fill="#1f2933">→ [{ id, name, email, ... }]</text>
-
-
-  <!-- Separator Line -->
-  <line x1="30" y1="290" x2="850" y2="290" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- Summary Footer -->
-  <rect x="340" y="315" width="200" height="45" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="343" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">총 3번의 왕복</text>
+  <desc id="d">REST로 프로필 화면을 그리려면 GET 요청을 세 번 보내야 하고(Under-fetching), 응답마다 이름·제목처럼 필요한 필드 외에 안 쓰는 필드까지 함께 온다(Over-fetching).</desc>
+  <rect width="880" height="610" fill="#ffffff"/>
+  <text x="32" y="46" font-size="17" font-weight="bold" fill="#111827">프로필 화면에 필요한 것</text>
+  <rect x="236" y="26" width="108" height="30" rx="15" fill="#dcfce7" stroke="#047857" stroke-width="1.5"/>
+  <text x="290" y="46" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">사용자 이름</text>
+  <rect x="354" y="26" width="142" height="30" rx="15" fill="#dcfce7" stroke="#047857" stroke-width="1.5"/>
+  <text x="425" y="46" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">게시글 제목 목록</text>
+  <rect x="506" y="26" width="142" height="30" rx="15" fill="#dcfce7" stroke="#047857" stroke-width="1.5"/>
+  <text x="577" y="46" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">팔로워 이름 목록</text>
+  <text x="32" y="90" font-size="14" fill="#4b5563">범례</text>
+  <rect x="72" y="74" width="34" height="22" rx="5" fill="#dcfce7" stroke="#047857" stroke-width="2"/>
+  <text x="116" y="90" font-size="14" fill="#1f2937">화면에 쓰는 필드</text>
+  <rect x="248" y="74" width="34" height="22" rx="5" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="292" y="90" font-size="14" fill="#1f2937">받기만 하고 안 쓰는 필드 <tspan font-weight="bold" fill="#b91c1c">= Over-fetching</tspan></text>
+  <rect x="32" y="116" width="816" height="146" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="62" cy="146" r="15" fill="#1d4ed8"/>
+  <text x="62" y="152" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="90" y="152" font-size="17" font-weight="bold" fill="#1e3a8a" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET /users/1</text>
+  <text x="828" y="152" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">← 이름만 필요한데 전부 옴</text>
+  <text x="62" y="193" font-size="14" font-weight="bold" fill="#4b5563" text-anchor="middle">응답</text>
+  <text x="90" y="194" font-size="18" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{</text>
+  <rect x="106" y="172" width="41" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="126.5" y="193" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">id</text>
+  <rect x="155" y="172" width="58" height="32" rx="6" fill="#dcfce7" stroke="#047857" stroke-width="2"/>
+  <text x="184" y="193" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">name</text>
+  <rect x="221" y="172" width="66" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="254" y="193" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">email</text>
+  <rect x="295" y="172" width="66" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="328" y="193" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">phone</text>
+  <rect x="369" y="172" width="83" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="410.5" y="193" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">address</text>
+  <rect x="460" y="172" width="49" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="484.5" y="193" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">bio</text>
+  <rect x="517" y="172" width="125" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="579.5" y="193" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">profileImage</text>
+  <rect x="90" y="212" width="100" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="140" y="233" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">createdAt</text>
+  <rect x="198" y="212" width="100" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="248" y="233" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">updatedAt</text>
+  <rect x="306" y="212" width="116" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="364" y="233" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">lastLoginAt</text>
+  <text x="430" y="233" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">...</text>
+  <text x="461" y="234" font-size="18" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">}</text>
+  <rect x="32" y="276" width="816" height="106" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="62" cy="306" r="15" fill="#1d4ed8"/>
+  <text x="62" y="312" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="90" y="312" font-size="17" font-weight="bold" fill="#1e3a8a" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET /users/1/posts</text>
+  <text x="828" y="312" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">← 제목만 필요한데 본문까지</text>
+  <text x="62" y="353" font-size="14" font-weight="bold" fill="#4b5563" text-anchor="middle">응답</text>
+  <text x="90" y="354" font-size="18" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[{</text>
+  <rect x="116" y="332" width="41" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="136.5" y="353" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">id</text>
+  <rect x="165" y="332" width="66" height="32" rx="6" fill="#dcfce7" stroke="#047857" stroke-width="2"/>
+  <text x="198" y="353" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">title</text>
+  <rect x="239" y="332" width="83" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="280.5" y="353" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">content</text>
+  <rect x="330" y="332" width="100" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="380" y="353" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">imageUrls</text>
+  <rect x="438" y="332" width="100" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="488" y="353" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">likeCount</text>
+  <text x="546" y="353" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">...</text>
+  <text x="577" y="354" font-size="18" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">}]</text>
+  <rect x="32" y="396" width="816" height="106" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="62" cy="426" r="15" fill="#1d4ed8"/>
+  <text x="62" y="432" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="90" y="432" font-size="17" font-weight="bold" fill="#1e3a8a" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET /users/1/followers</text>
+  <text x="62" y="473" font-size="14" font-weight="bold" fill="#4b5563" text-anchor="middle">응답</text>
+  <text x="90" y="474" font-size="18" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[{</text>
+  <rect x="116" y="452" width="41" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="136.5" y="473" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">id</text>
+  <rect x="165" y="452" width="58" height="32" rx="6" fill="#dcfce7" stroke="#047857" stroke-width="2"/>
+  <text x="194" y="473" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">name</text>
+  <rect x="231" y="452" width="66" height="32" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="264" y="473" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">email</text>
+  <text x="305" y="473" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">...</text>
+  <text x="336" y="474" font-size="18" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">}]</text>
+  <rect x="32" y="522" width="816" height="60" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="56" y="560" font-size="20" font-weight="bold" fill="#92400e">총 3번의 왕복</text>
+  <text x="228" y="559" font-size="15" fill="#1f2937">한 화면을 채우려고 여러 번 왕복 <tspan font-weight="bold" fill="#92400e">= Under-fetching</tspan></text>
 </svg>

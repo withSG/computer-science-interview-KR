@@ -1,46 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">비대칭키 암호화</title>
-  <desc id="d">송신자와 수신자 간의 공개키 전달, 공개키 암호화, 개인키 복호화 과정을 나타낸 시퀀스 다이어그램</desc>
+  <desc id="d">수신자가 공개키를 송신자에게 전달하고, 송신자는 그 공개키로 암호화해 보내며, 수신자는 개인키로 복호화한다.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="440" fill="#ffffff"/>
+  <!-- 참여자 -->
+  <rect x="140" y="30" width="160" height="50" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="220" y="62" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">송신자</text>
+  <rect x="580" y="30" width="160" height="50" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="660" y="62" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">수신자</text>
 
-  <!-- Participants Header Boxes -->
-  <!-- Sender (송신자) -->
-  <rect x="200" y="40" width="160" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="280" y="70" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">송신자</text>
+  <!-- 생명선 -->
+  <path d="M220,80 L220,340" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
+  <path d="M660,80 L660,268" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
+  <path d="M660,316 L660,340" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
 
-  <!-- Receiver (수신자) -->
-  <rect x="520" y="40" width="160" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="600" y="70" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">수신자</text>
+  <!-- ① 공개키 전달 -->
+  <text x="440" y="136" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">① 공개키 전달</text>
+  <path d="M652,150 L230,150" stroke="#047857" stroke-width="2.5" fill="none" marker-end="url(#ag)"/>
 
-  <!-- Lifelines -->
-  <path d="M280,90 L280,390" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
-  <path d="M600,90 L600,390" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- ② 공개키로 암호화 -->
+  <text x="440" y="216" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">② 공개키로 암호화</text>
+  <path d="M228,230 L650,230" stroke="#047857" stroke-width="2.5" fill="none" marker-end="url(#ag)"/>
 
-  <!-- Step 1: 공개키 전달 (수신자 -> 송신자) -->
-  <path d="M590,150 L290,150" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="388" y="137" width="104" height="26" fill="#ffffff" rx="4"/>
-  <text x="440" y="154" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">공개키 전달</text>
-
-  <!-- Step 2: 공개키로 암호화 (송신자 -> 수신자) -->
-  <path d="M290,230 L590,230" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="376" y="217" width="128" height="26" fill="#ffffff" rx="4"/>
-  <text x="440" y="234" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">공개키로 암호화</text>
-
-  <!-- Step 3: 개인키로 복호화 (수신자 자체 동작) -->
-  <rect x="520" y="300" width="160" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="600" y="327" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">개인키로 복호화</text>
-
-  <!-- End Participants Bottom Boxes -->
-  <rect x="200" y="390" width="160" height="10" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <rect x="520" y="390" width="160" height="10" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
+  <!-- ③ 개인키로 복호화 -->
+  <rect x="560" y="268" width="200" height="48" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="660" y="298" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">③ 개인키로 복호화</text>
 </svg>

@@ -1,67 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Stop-the-World</title>
-  <desc id="d">애플리케이션 스레드 T1, T2, T3가 GC 스레드 작업에 의해 정지되는 Stop-the-World (STW) 과정을 보여주는 타임라인 다이어그램입니다.</desc>
-  <rect width="880" height="380" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Stop-the-World 타임라인</title>
+  <desc id="d">애플리케이션 스레드 T1, T2, T3가 실행되다가 STW 구간에서 동시에 모두 멈춘다. 첫 번째는 GC 스레드 작업으로 인한 긴 정지이고, 두 번째는 동시 수집형 GC의 짧은 STW다.</desc>
+  <rect width="880" height="340" fill="#ffffff"/>
 
-  <!-- Y-Axis Section Header -->
-  <text x="30" y="45" font-size="14" font-weight="bold" fill="#1f2933">애플리케이션 스레드</text>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+  </defs>
 
-  <!-- Y-Axis Row Labels -->
-  <text x="50" y="93.2" font-size="13" font-weight="bold" fill="#52606d">T1</text>
-  <text x="50" y="143.2" font-size="13" font-weight="bold" fill="#52606d">T2</text>
-  <text x="50" y="193.2" font-size="13" font-weight="bold" fill="#52606d">T3</text>
+  <!-- 머리: 그룹 라벨과 시간 방향 -->
+  <text x="32" y="38" font-size="16" font-weight="bold" fill="#111827">애플리케이션 스레드</text>
+  <text x="756" y="38" font-size="15" fill="#4b5563" text-anchor="end">시간</text>
+  <line x1="766" y1="33" x2="846" y2="33" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- STW Region Background Highlights -->
-  <rect x="230" y="65" width="200" height="150" fill="#fef2f2" rx="4"/>
-  <rect x="620" y="65" width="100" height="150" fill="#fef2f2" rx="4"/>
+  <!-- STW 구간 (세 스레드 전체를 가로지름) -->
+  <rect x="300" y="56" width="224" height="148" fill="#fee2e2"/>
+  <rect x="700" y="56" width="64" height="148" fill="#fee2e2"/>
+  <line x1="300" y1="52" x2="300" y2="208" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="524" y1="52" x2="524" y2="208" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="700" y1="52" x2="700" y2="208" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="764" y1="52" x2="764" y2="208" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
 
-  <!-- Timeline Guide Lines (Dotted) -->
-  <line x1="80" y1="90" x2="830" y2="90" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <line x1="80" y1="140" x2="830" y2="140" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <line x1="80" y1="190" x2="830" y2="190" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 스레드 라벨 -->
+  <text x="40" y="88" font-size="16" font-weight="bold" fill="#374151">T1</text>
+  <text x="40" y="136" font-size="16" font-weight="bold" fill="#374151">T2</text>
+  <text x="40" y="184" font-size="16" font-weight="bold" fill="#374151">T3</text>
 
-  <!-- Thread Execution Bars (Active Run Phase: Blue) -->
-  <!-- T1 execution -->
-  <rect x="80" y="78" width="150" height="24" fill="#2563eb" rx="3"/>
-  <rect x="430" y="78" width="190" height="24" fill="#2563eb" rx="3"/>
-  <rect x="720" y="78" width="110" height="24" fill="#2563eb" rx="3"/>
+  <!-- 실행 구간 막대 -->
+  <rect x="96" y="68" width="204" height="28" rx="3" fill="#2563eb"/>
+  <rect x="524" y="68" width="176" height="28" rx="3" fill="#2563eb"/>
+  <rect x="764" y="68" width="84" height="28" rx="3" fill="#2563eb"/>
 
-  <!-- T2 execution -->
-  <rect x="80" y="128" width="150" height="24" fill="#2563eb" rx="3"/>
-  <rect x="430" y="128" width="190" height="24" fill="#2563eb" rx="3"/>
-  <rect x="720" y="128" width="110" height="24" fill="#2563eb" rx="3"/>
+  <rect x="96" y="116" width="204" height="28" rx="3" fill="#2563eb"/>
+  <rect x="524" y="116" width="176" height="28" rx="3" fill="#2563eb"/>
+  <rect x="764" y="116" width="84" height="28" rx="3" fill="#2563eb"/>
 
-  <!-- T3 execution -->
-  <rect x="80" y="178" width="150" height="24" fill="#2563eb" rx="3"/>
-  <rect x="430" y="178" width="190" height="24" fill="#2563eb" rx="3"/>
-  <rect x="720" y="178" width="110" height="24" fill="#2563eb" rx="3"/>
+  <rect x="96" y="164" width="204" height="28" rx="3" fill="#2563eb"/>
+  <rect x="524" y="164" width="176" height="28" rx="3" fill="#2563eb"/>
+  <rect x="764" y="164" width="84" height="28" rx="3" fill="#2563eb"/>
 
-  <!-- STW Boundaries & Labels -->
-  <!-- First STW Pause Boundary Lines -->
-  <line x1="230" y1="70" x2="230" y2="210" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <line x1="430" y1="70" x2="430" y2="210" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <text x="330" y="144.55" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">STW</text>
+  <!-- STW 라벨 -->
+  <text x="412" y="137" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle">STW</text>
+  <text x="732" y="136" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">STW</text>
 
-  <!-- Second STW Pause Boundary Lines -->
-  <line x1="620" y1="70" x2="620" y2="210" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <line x1="720" y1="70" x2="720" y2="210" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <text x="670" y="144.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">STW</text>
+  <!-- 구간 설명 괄호 -->
+  <path d="M300,216 V228 H524 V216" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="412" y="254" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">GC 스레드 작업</text>
+  <text x="412" y="276" font-size="15" fill="#4b5563" text-anchor="middle">(긴 정지)</text>
 
-  <!-- Brackets and Descriptions (Original Annotations) -->
-  <!-- Bracket 1: GC 스레드 작업 (긴 정지) -->
-  <path d="M 230,225 L 230,240 L 430,240 L 430,225" fill="none" stroke="#52606d" stroke-width="1.5"/>
-  <text x="330" y="263.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">GC 스레드 작업</text>
-  <text x="330" y="284.0" font-size="12" fill="#52606d" text-anchor="middle">(긴 정지)</text>
+  <path d="M700,216 V228 H764 V216" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="732" y="254" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">짧은 STW</text>
+  <text x="732" y="276" font-size="15" fill="#4b5563" text-anchor="middle">(동시 수집형 GC)</text>
 
-  <!-- Bracket 2: 짧은 STW (동시 수집형 GC) -->
-  <path d="M 620,225 L 620,240 L 720,240 L 720,225" fill="none" stroke="#52606d" stroke-width="1.5"/>
-  <text x="670" y="263.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">짧은 STW</text>
-  <text x="670" y="284.0" font-size="12" fill="#52606d" text-anchor="middle">(동시 수집형 GC)</text>
-
-  <!-- Legend -->
-  <rect x="230" y="320" width="16" height="16" fill="#2563eb" rx="2"/>
-  <text x="254" y="333.0" font-size="12" fill="#52606d">애플리케이션 실행 구간</text>
-
-  <rect x="430" y="320" width="16" height="16" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="2"/>
-  <text x="454" y="333.0" font-size="12" fill="#52606d">Stop-the-World (스레드 정지 구간)</text>
+  <!-- 범례 -->
+  <rect x="32" y="304" width="24" height="16" rx="3" fill="#2563eb"/>
+  <text x="64" y="317" font-size="15" fill="#111827">애플리케이션 실행</text>
+  <rect x="236" y="304" width="24" height="16" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="268" y="317" font-size="15" fill="#111827">Stop-the-World: 모든 애플리케이션 스레드 정지</text>
 </svg>

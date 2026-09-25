@@ -1,67 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">TDD 한 바퀴 — 실제로 돌려보기</title>
-  <desc id="d">RED(실패하는 테스트), GREEN(통과하는 최소 코드), REFACTOR(구조만 개선) 세 단계를 순환하는 TDD 사이클 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TDD 한 바퀴</title>
+  <desc id="d">RED(실패하는 테스트) → GREEN(통과하는 최소 코드) → REFACTOR(구조만 개선)를 거쳐 다시 RED로 돌아가는 TDD 사이클. 한 바퀴 목표 시간은 몇 분이며, 30분짜리 사이클은 이미 단계가 너무 크다.</desc>
+  <rect width="880" height="330" fill="#ffffff"/>
   <defs>
-    <!-- RED 화살표 마커 -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <!-- GREEN 화살표 마커 -->
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <!-- PURPLE (Refactor->Red) 화살표 마커 -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- RED 박스 -->
-  <!-- Center: X=190, Y=105 | Box: W=200, H=110 | Top-Left: X=90, Y=50 -->
-  <rect x="90" y="50" width="200" height="110" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="190" y="80.5" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">RED</text>
-  <text x="190" y="109.55" font-size="13" fill="#1f2933" text-anchor="middle">실패하는</text>
-  <text x="190" y="132.55" font-size="13" fill="#1f2933" text-anchor="middle">테스트</text>
+  <!-- 되돌아가는 루프 (REFACTOR → RED) -->
+  <path d="M716,82 L716,44 L164,44 L164,78" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-dark)"/>
+  <rect x="340" y="30" width="200" height="28" fill="#ffffff"/>
+  <text x="440" y="50" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">한 바퀴 목표 시간: 몇 분</text>
 
-  <!-- GREEN 박스 -->
-  <!-- Center: X=440, Y=105 | Box: W=200, H=110 | Top-Left: X=340, Y=50 -->
-  <rect x="340" y="50" width="200" height="110" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="440" y="80.5" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">GREEN</text>
-  <text x="440" y="109.55" font-size="13" fill="#1f2933" text-anchor="middle">통과하는</text>
-  <text x="440" y="132.55" font-size="13" fill="#1f2933" text-anchor="middle">최소 코드</text>
+  <!-- 1. RED -->
+  <rect x="56" y="84" width="216" height="120" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <circle cx="82" cy="110" r="14" fill="#b91c1c"/>
+  <text x="82" y="115" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">1</text>
+  <text x="164" y="130" font-size="22" font-weight="bold" text-anchor="middle" fill="#b91c1c">RED</text>
+  <text x="164" y="172" font-size="16" text-anchor="middle" fill="#1f2937">실패하는 테스트</text>
 
-  <!-- REFACTOR 박스 -->
-  <!-- Center: X=690, Y=105 | Box: W=200, H=110 | Top-Left: X=590, Y=50 -->
-  <rect x="590" y="50" width="200" height="110" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="690" y="80.5" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">REFACTOR</text>
-  <text x="690" y="109.55" font-size="13" fill="#1f2933" text-anchor="middle">구조만</text>
-  <text x="690" y="132.55" font-size="13" fill="#1f2933" text-anchor="middle">개선</text>
+  <!-- 2. GREEN -->
+  <rect x="332" y="84" width="216" height="120" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <circle cx="358" cy="110" r="14" fill="#047857"/>
+  <text x="358" y="115" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">2</text>
+  <text x="440" y="130" font-size="22" font-weight="bold" text-anchor="middle" fill="#047857">GREEN</text>
+  <text x="440" y="172" font-size="16" text-anchor="middle" fill="#1f2937">통과하는 최소 코드</text>
 
-  <!-- 하단 텍스트 라벨 (각 박스 아래 정렬) -->
-  <text x="190" y="184.025" font-size="11.5" fill="#52606d" text-anchor="middle">"무엇을</text>
-  <text x="190" y="202.025" font-size="11.5" fill="#52606d" text-anchor="middle">원하는가"</text>
+  <!-- 3. REFACTOR -->
+  <rect x="608" y="84" width="216" height="120" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <circle cx="634" cy="110" r="14" fill="#1d4ed8"/>
+  <text x="634" y="115" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">3</text>
+  <text x="716" y="130" font-size="22" font-weight="bold" text-anchor="middle" fill="#1d4ed8">REFACTOR</text>
+  <text x="716" y="172" font-size="16" text-anchor="middle" fill="#1f2937">구조만 개선</text>
 
-  <text x="440" y="184.025" font-size="11.5" fill="#52606d" text-anchor="middle">"일단</text>
-  <text x="440" y="202.025" font-size="11.5" fill="#52606d" text-anchor="middle">되게 하라"</text>
+  <!-- 진행 화살표 -->
+  <path d="M276,144 L326,144" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-dark)"/>
+  <path d="M552,144 L602,144" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-dark)"/>
 
-  <text x="690" y="184.025" font-size="11.5" fill="#52606d" text-anchor="middle">"테스트는 계속</text>
-  <text x="690" y="202.025" font-size="11.5" fill="#52606d" text-anchor="middle">초록인 채로"</text>
+  <!-- 단계별 한마디 -->
+  <text x="164" y="238" font-size="16" text-anchor="middle" fill="#374151">"무엇을 원하는가"</text>
+  <text x="440" y="238" font-size="16" text-anchor="middle" fill="#374151">"일단 되게 하라"</text>
+  <text x="716" y="238" font-size="16" text-anchor="middle" fill="#374151">"테스트는 계속 초록인 채로"</text>
 
-  <!-- 순환 화살표 (순차 흐름) -->
-  <!-- RED -> GREEN -->
-  <path d="M 290 105 L 340 105" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- GREEN -> REFACTOR -->
-  <path d="M 540 105 L 590 105" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- REFACTOR -> RED (상단 되돌아가는 루프) -->
-  <path d="M 690 50 L 690 25 L 190 25 L 190 50" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- 하단 각주 / 요약 문구 -->
-  <rect x="90" y="250" width="700" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="273.85" font-size="13" fill="#1f2933" text-anchor="middle">한 바퀴 목표 시간은 몇 분. 30분짜리 사이클은 이미 단계가 너무 크다.</text>
+  <!-- 주의 -->
+  <rect x="250" y="264" width="380" height="40" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="440" y="290" font-size="16" text-anchor="middle" fill="#92400e">30분짜리 사이클은 이미 단계가 너무 크다</text>
 </svg>

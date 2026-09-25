@@ -1,59 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">401 vs 403</title>
-  <desc id="d">401 Unauthorized와 403 Forbidden 상태 코드의 의미, 원인, 그리고 클라이언트가 할 일을 비교하는 다이어그램입니다.</desc>
-  <rect width="880" height="370" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">401 Unauthorized와 403 Forbidden 구분</title>
+  <desc id="d">다시 로그인하면 해결되는가로 401과 403을 가른다. 401은 누군지 모르는 상태(토큰 없음·만료·위조)라 로그인이나 토큰 갱신으로 풀리고, 403은 누군지는 알지만 권한이 없는 상태(일반 회원이 관리자 API 호출)라 다시 로그인해도 소용없다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 401 Unauthorized Block -->
-  <rect x="24" y="24" width="832" height="150" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  
-  <!-- 401 Status Tag -->
-  <rect x="44" y="44" width="180" height="36" rx="4" fill="#2563eb"/>
-  <text x="134" y="66" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">401 Unauthorized</text>
+  <!-- 판별 질문 -->
+  <rect x="369" y="24" width="320" height="48" rx="24" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="529" y="54" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">다시 로그인하면 해결되는가?</text>
 
-  <!-- Arrow 1 -->
-  <path d="M234,62 L266,62" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M450,72 V92 H362 V124" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="374" y="114" font-size="15" font-weight="bold" fill="#1d4ed8">해결되면</text>
+  <path d="M608,72 V92 H695 V124" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <text x="683" y="114" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">안 되면</text>
 
-  <!-- 401 Quote -->
-  <text x="280" y="66" font-size="16" font-weight="bold" fill="#1f2933">"당신이 누군지 모르겠습니다"</text>
+  <!-- 머리행 -->
+  <rect x="202" y="128" width="321" height="52" rx="6" fill="#1d4ed8"/>
+  <text x="362" y="161" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">401 Unauthorized</text>
+  <rect x="535" y="128" width="321" height="52" rx="6" fill="#b91c1c"/>
+  <text x="695" y="161" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">403 Forbidden</text>
 
-  <!-- 401 Causes -->
-  <text x="280" y="98" font-size="13" fill="#52606d">토큰 없음 / 만료 / 위조</text>
+  <!-- 행 1: 의미 -->
+  <rect x="24" y="190" width="166" height="80" rx="4" fill="#f3f4f6"/>
+  <text x="40" y="235" font-size="15" font-weight="bold" fill="#374151">의미</text>
+  <rect x="202" y="190" width="321" height="80" rx="4" fill="#eff6ff"/>
+  <text x="220" y="236" font-size="17" font-weight="bold" fill="#111827">“당신이 누군지 모르겠습니다”</text>
+  <rect x="535" y="190" width="321" height="80" rx="4" fill="#fef2f2"/>
+  <text x="553" y="223" font-size="17" font-weight="bold" fill="#111827">“당신이 누군진 알겠는데,</text>
+  <text x="561" y="249" font-size="17" font-weight="bold" fill="#111827">그건 안 됩니다”</text>
 
-  <!-- Arrow 2 -->
-  <path d="M234,130 L266,130" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 행 2: 대표 상황 -->
+  <rect x="24" y="280" width="166" height="52" rx="4" fill="#f3f4f6"/>
+  <text x="40" y="311" font-size="15" font-weight="bold" fill="#374151">대표 상황</text>
+  <rect x="202" y="280" width="321" height="52" rx="4" fill="#eff6ff"/>
+  <text x="220" y="312" font-size="16" fill="#111827">토큰 없음 / 만료 / 위조</text>
+  <rect x="535" y="280" width="321" height="52" rx="4" fill="#fef2f2"/>
+  <text x="553" y="312" font-size="16" fill="#111827">일반 회원이 관리자 API 호출</text>
 
-  <!-- 401 Action -->
-  <text x="280" y="134" font-size="13" font-weight="bold" fill="#2563eb">클라이언트가 할 일: 로그인, 토큰 갱신</text>
-
-
-  <!-- 403 Forbidden Block -->
-  <rect x="24" y="196" width="832" height="150" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-
-  <!-- 403 Status Tag -->
-  <rect x="44" y="216" width="180" height="36" rx="4" fill="#7c3aed"/>
-  <text x="134" y="238" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">403 Forbidden</text>
-
-  <!-- Arrow 3 -->
-  <path d="M234,234 L266,234" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- 403 Quote -->
-  <text x="280" y="238" font-size="16" font-weight="bold" fill="#1f2933">"당신이 누군진 알겠는데, 그건 안 됩니다"</text>
-
-  <!-- 403 Causes -->
-  <text x="280" y="270" font-size="13" fill="#52606d">일반 회원이 관리자 API 호출</text>
-
-  <!-- Arrow 4 -->
-  <path d="M234,302 L266,302" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- 403 Action -->
-  <text x="280" y="306" font-size="13" font-weight="bold" fill="#7c3aed">클라이언트가 할 일: 없음. 다시 로그인해도 소용없다</text>
+  <!-- 행 3: 클라이언트가 할 일 -->
+  <rect x="24" y="342" width="166" height="68" rx="4" fill="#f3f4f6"/>
+  <text x="40" y="370" font-size="15" font-weight="bold" fill="#374151">클라이언트가</text>
+  <text x="40" y="392" font-size="15" font-weight="bold" fill="#374151">할 일</text>
+  <rect x="202" y="342" width="321" height="68" rx="4" fill="#eff6ff"/>
+  <text x="220" y="382" font-size="17" font-weight="bold" fill="#1d4ed8">로그인, 토큰 갱신</text>
+  <rect x="535" y="342" width="321" height="68" rx="4" fill="#fef2f2"/>
+  <text x="553" y="382" font-size="17" font-weight="bold" fill="#b91c1c">없음. 다시 로그인해도 소용없다</text>
 </svg>

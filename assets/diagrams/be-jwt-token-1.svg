@@ -1,65 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">1. 왜 필요한가 — 저장소 조회를 없애고 싶다</title>
-  <desc id="d">세션 방식에서 요청이 WAS를 거쳐 Redis 조회를 수행하고, 사용자 확인 후 처리되는 흐름 및 Redis 조회의 문제점 목록을 설명하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세션 방식의 요청 처리 흐름</title>
+  <desc id="d">세션 방식에서 요청은 WAS를 거쳐 Redis 조회, 사용자 확인, 처리 순으로 진행된다. 매 요청마다 끼는 Redis 조회 때문에 네트워크 왕복, Redis 장애 시 전원 로그아웃, 모든 서비스가 같은 Redis를 바라봐야 하는 부담이 생긴다.</desc>
+  <rect width="880" height="320" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 행 라벨 -->
+  <rect x="24" y="50" width="64" height="36" rx="18" fill="#eef2ff" stroke="#4338ca" stroke-width="1.5"/>
+  <text x="56" y="74" font-size="16" font-weight="bold" fill="#3730a3" text-anchor="middle">세션</text>
 
-  <!-- 타이틀 Header -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">1. 왜 필요한가 — 저장소 조회를 없애고 싶다</text>
+  <!-- 흐름 -->
+  <rect x="112" y="40" width="88" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="156" y="74" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">요청</text>
 
-  <!-- 메인 프로세스 그룹 [세션] 요청 -> WAS -> Redis 조회 -> 사용자 확인 -> 처리 -->
-  <!-- [세션] 라벨 -->
-  <text x="40" y="93" font-size="14" font-weight="bold" fill="#2563eb">[세션]</text>
+  <line x1="204" y1="68" x2="240" y2="68" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 1: 요청 -->
-  <rect x="100" y="70" width="80" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="94" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">요청</text>
+  <rect x="244" y="40" width="88" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="288" y="74" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">WAS</text>
 
-  <!-- Arrow 1 -->
-  <path d="M180,90 L210,90" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="336" y1="68" x2="372" y2="68" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 2: WAS -->
-  <rect x="210" y="70" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="94" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">WAS</text>
+  <rect x="376" y="40" width="140" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="446" y="74" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">Redis 조회</text>
 
-  <!-- Arrow 2 -->
-  <path d="M290,90 L320,90" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="520" y1="68" x2="556" y2="68" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 3: Redis 조회 -->
-  <rect x="320" y="70" width="120" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="380" y="94" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Redis 조회</text>
+  <rect x="560" y="40" width="132" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="626" y="74" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">사용자 확인</text>
 
-  <!-- Arrow 3 -->
-  <path d="M440,90 L470,90" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="696" y1="68" x2="732" y2="68" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 4: 사용자 확인 -->
-  <rect x="470" y="70" width="120" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="530" y="94" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자 확인</text>
+  <rect x="736" y="40" width="88" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="780" y="74" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">처리</text>
 
-  <!-- Arrow 4 -->
-  <path d="M590,90 L620,90" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Redis 조회가 만드는 부담 -->
+  <line x1="446" y1="150" x2="446" y2="102" stroke="#b91c1c" stroke-width="2" marker-end="url(#ahr)"/>
 
-  <!-- Step 5: 처리 -->
-  <rect x="620" y="70" width="80" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="660" y="94" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">처리</text>
-
-  <!-- 문제점 지적 연결 화살표 (위쪽을 향함: ↑) -->
-  <path d="M380,180 L380,118" stroke="#dc2626" stroke-width="1.5" fill="none" stroke-dasharray="5 4" marker-end="url(#a-red)"/>
-
-  <!-- 문제점 상세 설명 박스 -->
-  <rect x="395" y="150" width="445" height="150" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-
-  <!-- 문제점 텍스트 리스트 -->
-  <text x="415" y="185" font-size="13" font-weight="bold" fill="#dc2626">매 요청마다 네트워크 왕복</text>
-  <text x="415" y="220" font-size="13" font-weight="bold" fill="#dc2626">Redis가 죽으면 전원 로그아웃</text>
-  <text x="415" y="255" font-size="13" font-weight="bold" fill="#dc2626">서비스가 10개면 10개 모두 이 Redis를 바라봐야 함</text>
+  <rect x="206" y="150" width="480" height="140" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <circle cx="232" cy="181" r="5" fill="#b91c1c"/>
+  <text x="248" y="187" font-size="16" font-weight="bold" fill="#111827">매 요청마다 네트워크 왕복</text>
+  <circle cx="232" cy="220" r="5" fill="#b91c1c"/>
+  <text x="248" y="226" font-size="16" fill="#111827">Redis가 죽으면 전원 로그아웃</text>
+  <circle cx="232" cy="259" r="5" fill="#b91c1c"/>
+  <text x="248" y="265" font-size="16" fill="#111827">서비스가 10개면 10개 모두 이 Redis를 바라봐야 함</text>
 </svg>

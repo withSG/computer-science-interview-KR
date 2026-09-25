@@ -297,7 +297,7 @@ WIP 제한이 칸반을 지탱합니다. 이것이 없으면 보드는 그냥 �
 ### PR 크기가 리뷰 품질을 결정한다
 
 <!-- diagram:se-agile-process-6 -->
-![PR 크기가 리뷰 품질을 결정한다](../assets/diagrams/se-agile-process-6.svg)
+![PR 크기별 리뷰어의 실제 행동 비교표](../assets/diagrams/se-agile-process-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

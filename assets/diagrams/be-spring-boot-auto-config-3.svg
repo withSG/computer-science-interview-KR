@@ -1,39 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 덮어쓰기가 항상 이기나</title>
-  <desc id="d">개발자의 Configuration 및 Component 등록 후 자동 설정 평가가 진행되어 @ConditionalOnMissingBean이 정확히 판단하는 과정을 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 350" width="880" height="350" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">내 Bean 등록 뒤 자동 설정 평가</title>
+  <desc id="d">시간 축에서 내 @Configuration, @Component 등록이 먼저 끝나고 자동 설정 평가가 그 뒤에 온다. 그래서 평가 시점에는 내 Bean이 이미 컨테이너에 있어 @ConditionalOnMissingBean이 정확히 판단할 수 있다.</desc>
+  <rect width="880" height="350" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="330" fill="#ffffff"/>
 
   <!-- 시간 축 -->
-  <text x="40" y="45" font-size="13" font-weight="bold" fill="#52606d">시간 축</text>
-  <path d="M95,41 L830,41" stroke="#52606d" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#a-ink)"/>
+  <text x="40" y="46" font-size="15" font-weight="bold" fill="#4b5563">시간 축</text>
+  <line x1="112" y1="41" x2="838" y2="41" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- [내 @Configuration, @Component 등록] -->
-  <rect x="40" y="85" width="310" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="195" y="120" font-size="14" font-weight="bold" fill="#1e40af" text-anchor="middle">[내 @Configuration, @Component 등록]</text>
+  <!-- ① 내 등록 -->
+  <rect x="40" y="76" width="370" height="88" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <circle cx="74" cy="120" r="16" fill="#1d4ed8"/>
+  <text x="74" y="126" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">1</text>
+  <text x="104" y="114" font-size="16" font-weight="bold" fill="#111827">내 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">@Configuration, @Component</tspan> 등록</text>
+  <text x="104" y="142" font-size="14" fill="#4b5563">사용자 정의 설정 · 컴포넌트 스캔</text>
 
-  <!-- 화살표: 내 등록 -> 자동 설정 평가 -->
-  <path d="M350,115 L430,115" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="412" y1="120" x2="474" y2="120" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- [자동 설정 평가] -->
-  <rect x="430" y="85" width="180" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="520" y="120" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[자동 설정 평가]</text>
+  <!-- ② 자동 설정 평가 -->
+  <rect x="478" y="76" width="362" height="88" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="512" cy="120" r="16" fill="#374151"/>
+  <text x="512" y="126" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">2</text>
+  <text x="542" y="126" font-size="17" font-weight="bold" fill="#111827">자동 설정 평가</text>
 
-  <!-- 연결선: [자동 설정 평가] 아래에서 오른쪽 설명 박스로 -->
-  <path d="M520,145 L520,180 L545,180" stroke="#52606d" stroke-width="1.5" fill="none"/>
-
-  <!-- 설명 텍스트 카드 -->
-  <rect x="545" y="158" width="295" height="135" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-
-  <text x="565" y="188" font-size="13" fill="#92400e">이 시점에는 내 Bean이</text>
-  <text x="565" y="213" font-size="13" fill="#92400e">이미 컨테이너에 있다</text>
-
-  <!-- 내부 화살표: -> @ConditionalOnMissingBean 이 -->
-  <path d="M565,233 L585,233" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="592" y="238" font-size="13" font-weight="bold" fill="#b45309">@ConditionalOnMissingBean 이</text>
-  <text x="592" y="263" font-size="13" font-weight="bold" fill="#b45309">정확히 판단할 수 있다</text>
+  <!-- 평가 시점의 상태 -->
+  <line x1="659" y1="166" x2="659" y2="200" stroke="#059669" stroke-width="2"/>
+  <rect x="220" y="202" width="620" height="124" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="250" y="244" font-size="17" fill="#111827">이 시점에는 내 Bean이 <tspan font-weight="bold">이미 컨테이너에 있다</tspan></text>
+  <text x="250" y="290" font-size="17" font-weight="bold" fill="#047857">→ <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">@ConditionalOnMissingBean</tspan> 이 정확히 판단할 수 있다</text>
 </svg>

@@ -1,60 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">증명 1 — 원시 타입</title>
-  <desc id="d">main 프레임과 modify 프레임에서 원시 타입 변수 a의 값 10이 x로 복사되고, modify 프레임 내에서 x가 999로 변경되지만 곧 사라짐을 보여주는 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">증명 1 — 원시 타입 값의 복사</title>
+  <desc id="d">main 프레임의 a 값 10이 modify 프레임의 x로 복사된다. x = 999로 바뀌는 것은 곧 사라질 modify 프레임 안의 x뿐이고 main의 a는 10 그대로다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- main 프레임 그룹 -->
-  <g>
-    <!-- main 프레임 제목 -->
-    <text x="170" y="55" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">main 프레임</text>
-    
-    <!-- main 변수 박스 a | 10 -->
-    <rect x="70" y="75" width="200" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <line x1="170" y1="75" x2="170" y2="125" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="120" y="105" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">a</text>
-    <text x="220" y="105" fill="#1f2933" font-size="14" text-anchor="middle">10</text>
-  </g>
+  <!-- main 프레임 -->
+  <rect x="40" y="32" width="300" height="300" rx="10" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="190" y="66" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">main 프레임</text>
 
-  <!-- modify 프레임 영역 (상단) -->
-  <g>
-    <!-- modify 프레임 제목 -->
-    <text x="510" y="55" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">modify 프레임</text>
-    
-    <!-- modify 변수 박스 x | 10 -->
-    <rect x="410" y="75" width="200" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <line x1="510" y1="75" x2="510" y2="125" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="460" y="105" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">x</text>
-    <text x="560" y="105" fill="#1f2933" font-size="14" text-anchor="middle">10</text>
-  </g>
+  <rect x="90" y="92" width="200" height="48" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="154" y1="92" x2="154" y2="140" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="122" y="122" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">a</text>
+  <text x="222" y="122" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10</text>
 
-  <!-- 복사 화살표 및 라벨 -->
-  <path d="M270,100 L410,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="315" y="86" width="50" height="26" fill="#ffffff"/>
-  <text x="340" y="104" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">복사▶</text>
+  <text x="190" y="254" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a는 그대로 10 <tspan font-size="15" font-weight="normal" fill="#4b5563">(메서드 밖: 10)</tspan></text>
 
-  <!-- 프레임 내부 변경 화살표 및 라벨 -->
-  <path d="M510,125 L510,195" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="518" y="147" width="70" height="26" fill="#ffffff"/>
-  <text x="523" y="165" fill="#52606d" font-size="13" text-anchor="start">x = 999</text>
+  <!-- modify 프레임 (호출이 끝나면 사라짐) -->
+  <rect x="500" y="32" width="340" height="300" rx="10" fill="#ffffff" stroke="#475569" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="670" y="66" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">modify 프레임</text>
 
-  <!-- modify 프레임 영역 (하단: 변경 후) -->
-  <g>
-    <!-- modify 변수 박스 x | 999 -->
-    <rect x="410" y="195" width="200" height="50" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-    <line x1="510" y1="195" x2="510" y2="245" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="460" y="225" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">x</text>
-    <text x="560" y="225" fill="#d97706" font-size="14" font-weight="bold" text-anchor="middle">999</text>
+  <rect x="570" y="92" width="200" height="48" rx="4" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="634" y1="92" x2="634" y2="140" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="602" y="122" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">x</text>
+  <text x="702" y="122" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10</text>
 
-    <!-- 부가 주석: ← 이 프레임은 곧 사라진다 -->
-    <text x="625" y="224" fill="#dc2626" font-size="13" text-anchor="start">← 이 프레임은 곧 사라진다</text>
-  </g>
+  <!-- ① 복사 -->
+  <line x1="292" y1="116" x2="566" y2="116" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="429" y="104" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">① 값 복사</text>
+
+  <!-- ② x = 999 -->
+  <line x1="670" y1="142" x2="670" y2="220" stroke="#b45309" stroke-width="2" marker-end="url(#ah-amber)"/>
+  <text x="684" y="186" font-size="16" font-weight="bold" fill="#b45309">② <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">x = 999</tspan></text>
+
+  <rect x="570" y="224" width="200" height="48" rx="4" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="634" y1="224" x2="634" y2="272" stroke="#b45309" stroke-width="1"/>
+  <text x="602" y="254" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">x</text>
+  <text x="702" y="254" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">999</text>
+
+  <text x="670" y="312" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">이 프레임은 곧 사라진다</text>
 </svg>

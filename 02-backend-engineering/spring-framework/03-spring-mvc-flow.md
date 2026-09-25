@@ -182,7 +182,7 @@ URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리�
 Spring MVC는 `@Controller` 메서드만 처리하지 않습니다. 정적 리소스를 내보내는 핸들러도 있고, 옛 방식인 `Controller` 인터페이스 구현체도 있습니다. 이들은 시그니처가 전혀 다릅니다.
 
 <!-- diagram:be-spring-mvc-flow-5 -->
-![HandlerMapping과 HandlerAdapter는 왜 둘인가](../../assets/diagrams/be-spring-mvc-flow-5.svg)
+![핸들러 종류별 HandlerMapping과 HandlerAdapter 짝](../../assets/diagrams/be-spring-mvc-flow-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

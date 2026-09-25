@@ -1,54 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">CSRF 성립 조건 세 가지 Sequence Diagram</title>
-  <desc id="d">피해자 브라우저와 bank.com 간의 CSRF 공격 시나리오 시퀀스 다이어그램</desc>
+  <title id="t">CSRF 공격 시나리오</title>
+  <desc id="d">피해자가 bank.com에 로그인해 세션 쿠키를 보관한 상태에서 evil.com을 방문하면, 자동 제출 폼이 bank.com/transfer로 POST를 보내고 브라우저가 bank.com 쿠키를 자동 첨부해 서버는 세션이 유효하다고 보고 송금을 처리한다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- 생명선 -->
+  <line x1="150" y1="84" x2="150" y2="498" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="730" y1="84" x2="730" y2="498" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- Actor Lifelines -->
-  <line x1="220" y1="90" x2="220" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="660" y1="90" x2="660" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <!-- 참여자 -->
+  <rect x="40" y="24" width="220" height="60" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="2"/>
+  <text x="150" y="60" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">피해자 브라우저</text>
 
-  <!-- Actor Boxes -->
-  <rect x="120" y="30" width="200" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="220" y="60" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[피해자 브라우저]</text>
+  <rect x="620" y="24" width="220" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="730" y="60" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">bank.com</text>
 
-  <rect x="560" y="30" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="660" y="60" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[bank.com]</text>
+  <!-- ① 로그인 -->
+  <text x="440" y="130" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">① 로그인 → 세션 쿠키 보관</text>
+  <line x1="726" y1="142" x2="156" y2="142" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ar-blue)"/>
 
-  <!-- Message 1: Normal Login Response (Arrow pointing Left) -->
-  <path d="M660,120 L220,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="348" y="105" width="184" height="22" fill="#ffffff"/>
-  <text x="440" y="120" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">① 로그인 → 세션 쿠키 보관</text>
-
-  <!-- Message 2: Internal Malicious Execution (Self/Evil Site Box) -->
-  <g transform="translate(140, 155)">
-    <rect x="0" y="0" width="450" height="155" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="16" y="24" font-size="13" font-weight="bold" fill="#d97706">② evil.com 방문 (다른 탭이어도 무방)</text>
-    <rect x="28" y="36" width="394" height="104" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="40" y="56" font-family="monospace" font-size="12" fill="#1f2933">&lt;form action="https://bank.com/transfer"</text>
-    <text x="40" y="74" font-family="monospace" font-size="12" fill="#1f2933">      method="POST" id="f"&gt;</text>
-    <text x="40" y="92" font-family="monospace" font-size="12" fill="#1f2933">  &lt;input name="to" value="attacker"&gt;</text>
-    <text x="40" y="110" font-family="monospace" font-size="12" fill="#1f2933">  &lt;input name="amount" value="1000000"&gt;</text>
-    <text x="40" y="128" font-family="monospace" font-size="12" fill="#1f2933">&lt;/form&gt;  &lt;script&gt;f.submit()&lt;/script&gt;</text>
+  <!-- ② evil.com 방문: 브라우저 안에서 열린 공격 페이지 -->
+  <rect x="60" y="166" width="500" height="208" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="2"/>
+  <text x="80" y="194" font-size="16" font-weight="bold" fill="#9a3412">② evil.com 방문 <tspan font-weight="normal" fill="#374151">(다른 탭이어도 무방)</tspan></text>
+  <rect x="76" y="208" width="468" height="150" rx="6" fill="#ffffff" stroke="#d6d3d1" stroke-width="1"/>
+  <g font-size="15" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="92" y="236" xml:space="preserve">&lt;form action="https://bank.com/transfer"</text>
+    <text x="92" y="261" xml:space="preserve">      method="POST" id="f"&gt;</text>
+    <text x="92" y="286" xml:space="preserve">  &lt;input name="to" <tspan fill="#b91c1c" font-weight="bold">value="attacker"</tspan>&gt;</text>
+    <text x="92" y="311" xml:space="preserve">  &lt;input name="amount" <tspan fill="#b91c1c" font-weight="bold">value="1000000"</tspan>&gt;</text>
+    <text x="92" y="336" xml:space="preserve">&lt;/form&gt;  <tspan fill="#b91c1c" font-weight="bold">&lt;script&gt;f.submit()&lt;/script&gt;</tspan></text>
   </g>
 
-  <!-- Message 3: CSRF Request (Arrow pointing Right) -->
-  <path d="M220,350 L660,350" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="300" y="335" width="280" height="22" fill="#ffffff"/>
-  <text x="440" y="350" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">③ 브라우저가 bank.com 쿠키를 자동 첨부해 전송</text>
+  <!-- ③ 쿠키 자동 첨부 전송 -->
+  <text x="440" y="414" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">③ 브라우저가 bank.com 쿠키를 자동 첨부해 전송</text>
+  <line x1="154" y1="426" x2="724" y2="426" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ar-red)"/>
 
-  <!-- Message 4: Server Processing -->
-  <g transform="translate(560, 395)">
-    <rect x="0" y="0" width="200" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="100" y="24" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">④ 세션 유효 → 송금 처리</text>
-  </g>
+  <!-- ④ 송금 처리 -->
+  <rect x="610" y="444" width="240" height="38" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="730" y="468" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">④ 세션 유효 → 송금 처리</text>
 </svg>

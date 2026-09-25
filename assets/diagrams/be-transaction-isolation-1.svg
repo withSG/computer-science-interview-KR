@@ -1,53 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Dirty Read — 커밋되지 않은 값을 읽는다</title>
-  <desc id="d">트랜잭션 A가 값을 2000으로 수정하고 롤백하기 전에 트랜잭션 B가 그 값을 읽는 Dirty Read 이상 현상을 나타낸 다이어그램입니다.</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Dirty Read: 롤백될 값을 다른 트랜잭션이 읽음</title>
+  <desc id="d">트랜잭션 A가 balance를 1000에서 2000으로 UPDATE하고 아직 커밋하지 않은 사이 트랜잭션 B가 SELECT로 2000을 읽고, 이후 A가 ROLLBACK해서 B는 존재한 적 없는 값을 읽은 셈이 되는 Dirty Read를 시간 순서로 보여준다.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 시간 축 표시 -->
+  <text x="856" y="30" font-size="14" fill="#4b5563" text-anchor="end">시간 →</text>
 
-  <text x="40" y="35" font-size="13" font-weight="bold" fill="#52606d">시간 →</text>
+  <!-- 레인 선 -->
+  <path d="M148,96 L852,96" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#arr-ink)"/>
+  <path d="M148,246 L852,246" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#arr-ink)"/>
 
-  <rect x="30" y="60" width="820" height="100" rx="8" fill="#f8fafc" stroke="#f0f4f8" stroke-width="1"/>
-  <text x="50" y="114" font-size="14" font-weight="bold" fill="#1f2933">트랜잭션 A</text>
+  <!-- A의 커밋 전 값이 B에게 보임 -->
+  <path d="M560,101 L560,211" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="574" y="162" font-size="15" font-weight="bold" fill="#1d4ed8">커밋 전 값 2000</text>
 
-  <rect x="30" y="180" width="820" height="100" rx="8" fill="#f8fafc" stroke="#f0f4f8" stroke-width="1"/>
-  <text x="50" y="234" font-size="14" font-weight="bold" fill="#1f2933">트랜잭션 B</text>
+  <!-- 레인 라벨 -->
+  <rect x="24" y="76" width="124" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="86" y="101.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">트랜잭션 A</text>
+  <rect x="24" y="226" width="124" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="86" y="251.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">트랜잭션 B</text>
 
-  <path d="M150,110 L230,110" stroke="#1f2933" stroke-width="2" fill="none"/>
-  
-  <rect x="230" y="90" width="230" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="345" y="115" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">balance 1000 → 2000 UPDATE</text>
+  <!-- ① A의 UPDATE (커밋 전) -->
+  <text x="172" y="56" font-size="15" font-weight="bold" fill="#1d4ed8">① 변경 (커밋 전)</text>
+  <rect x="172" y="66" width="200" height="60" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="272" y="89" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">UPDATE balance</text>
+  <text x="272" y="115" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">1000 → 2000</text>
 
-  <path d="M460,110 L640,110" stroke="#1f2933" stroke-width="2" fill="none"/>
+  <!-- ② B의 SELECT -->
+  <text x="400" y="206" font-size="15" font-weight="bold" fill="#b45309">② 조회</text>
+  <rect x="400" y="216" width="200" height="60" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="500" y="239" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT</text>
+  <text x="500" y="265" font-size="18" font-weight="bold" fill="#7c2d12" text-anchor="middle">→ 2000 읽음</text>
 
-  <rect x="640" y="90" width="110" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="695" y="115" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">ROLLBACK</text>
+  <!-- ③ A의 ROLLBACK -->
+  <text x="640" y="56" font-size="15" font-weight="bold" fill="#b91c1c">③ 롤백</text>
+  <rect x="640" y="66" width="180" height="60" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="730" y="89" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ROLLBACK</text>
+  <text x="730" y="115" font-size="16" fill="#111827" text-anchor="middle">→ 1000으로 되돌림</text>
 
-  <path d="M750,110 L820,110" stroke="#1f2933" stroke-width="2" fill="none"/>
-
-  <path d="M150,230 L450,230" stroke="#1f2933" stroke-width="2" fill="none"/>
-
-  <rect x="450" y="210" width="180" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="540" y="235" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">SELECT → 2000 읽음</text>
-
-  <path d="M630,230 L820,230" stroke="#1f2933" stroke-width="2" fill="none"/>
-
-  <path d="M345,130 L345,230" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
-
-  <path d="M540,295 L540,253" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  
-  <rect x="420" y="295" width="240" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="540" y="316" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">존재한 적 없는 값을 읽었다</text>
-
+  <!-- 요점: B가 읽은 값은 존재한 적 없는 값 -->
+  <path d="M500,320 L500,282" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <rect x="24" y="322" width="832" height="44" rx="8" fill="#f3f4f6"/>
+  <text x="440" y="349.5" font-size="16" fill="#111827" text-anchor="middle">B는 <tspan font-weight="bold" fill="#b91c1c">존재한 적 없는 값</tspan>을 읽었다 · A가 롤백하면 2000은 DB 어디에도 없었던 값이 된다</text>
 </svg>

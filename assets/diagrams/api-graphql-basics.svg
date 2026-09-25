@@ -1,113 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 670" width="880" height="670" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">리졸버 호출 트리와 DataLoader 배치 — 11번이 2번이 되는 지점</title>
-  <desc id="d">GraphQL 쿼리 실행 시 발생하는 N+1 문제와 DataLoader를 통한 배치 처리 및 중복 제거로 쿼리 수가 11번에서 2번으로 줄어드는 과정을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-
+  <desc id="d">posts(first: 10) 쿼리를 실행할 때 DataLoader가 없으면 Post.author 리졸버가 게시글마다 따로 조회해 쿼리가 1 + 10 = 11번 나가고, DataLoader가 있으면 같은 틱의 키를 모아 중복을 제거한 뒤 IN 쿼리 한 번으로 조회해 1 + 1 = 2번이 된다.</desc>
+  <rect width="880" height="670" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 메인 제목 -->
-  <text x="24" y="40" font-size="17" font-weight="600" fill="#1f2933">리졸버 호출 트리와 DataLoader 배치 — 11번이 2번이 되는 지점</text>
+  <!-- 실행한 쿼리 -->
+  <rect x="24" y="24" width="832" height="52" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <text x="44" y="56" font-size="15" font-weight="700" fill="#374151">쿼리</text>
+  <text x="100" y="56" font-size="15" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">query { <tspan font-weight="700" fill="#1d4ed8">posts(first: 10)</tspan> { title  <tspan font-weight="700" fill="#6d28d9">author { name }</tspan> } }</text>
 
-  <!-- 왼쪽 영역: GraphQL 쿼리 & 리졸버 트리 (N+1 문제) -->
-  <rect x="24" y="60" width="400" height="420" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="40" y="88" font-size="14" font-weight="600" fill="#1f2933">1. GraphQL 쿼리 실행과 N+1 문제</text>
-  
-  <!-- GraphQL Query Box -->
-  <rect x="40" y="105" width="160" height="110" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="52" y="127" font-size="11.5" font-weight="600" fill="#2563eb">query {</text>
-  <text x="64" y="145" font-size="11.5" font-weight="500" fill="#1f2933">posts(first: 10) {</text>
-  <text x="76" y="163" font-size="11.5" fill="#52606d">title</text>
-  <text x="76" y="181" font-size="11.5" font-weight="500" fill="#1f2933">author { name }</text>
-  <text x="64" y="199" font-size="11.5" fill="#52606d">}</text>
-  <text x="52" y="209" font-size="11.5" fill="#2563eb">}</text>
+  <!-- 열 머리 -->
+  <rect x="24" y="96" width="420" height="44" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="234" y="124" font-size="18" font-weight="700" fill="#b91c1c" text-anchor="middle">DataLoader 없음 — N+1 문제</text>
+  <rect x="464" y="96" width="392" height="44" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="660" y="124" font-size="18" font-weight="700" fill="#047857" text-anchor="middle">DataLoader 있음 — 배치·중복 제거</text>
 
-  <!-- Resolver Call Tree -->
-  <!-- Query.posts Root Node -->
-  <rect x="230" y="105" width="170" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="315" y="126" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">Query.posts 리졸버</text>
+  <!-- 1행: Query.posts (양쪽 동일) -->
+  <rect x="24" y="156" width="420" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="40" y="182" font-size="16" font-weight="700" fill="#1d4ed8">Query.posts 리졸버</text>
+  <text x="40" y="208" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT * FROM posts LIMIT 10</text>
+  <rect x="346" y="166" width="84" height="30" rx="15" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="388" y="186" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">쿼리 1번</text>
 
-  <!-- DB Query 1 (posts) -->
-  <path d="M315,139 L315,160" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="220" y="160" width="190" height="26" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="315" y="177" font-size="11.5" fill="#1f2933" text-anchor="middle">SELECT * FROM posts LIMIT 10</text>
-  
-  <!-- Connector to authors -->
-  <path d="M315,186 L315,215" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  
-  <!-- Fan-out text -->
-  <rect x="255" y="193" width="120" height="18" fill="#ffffff"/>
-  <text x="315" y="206" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">게시글 10개 팬아웃</text>
+  <rect x="464" y="156" width="392" height="64" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="480" y="182" font-size="16" font-weight="700" fill="#1d4ed8">Query.posts 리졸버</text>
+  <text x="480" y="208" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT * FROM posts LIMIT 10</text>
+  <rect x="758" y="166" width="84" height="30" rx="15" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="800" y="186" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">쿼리 1번</text>
 
-  <!-- Author Resolvers (10 calls) -->
-  <rect x="40" y="230" width="360" height="120" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="52" y="250" font-size="13" font-weight="600" fill="#dc2626">Post.author 리졸버 (독립 10회 호출)</text>
-  
-  <text x="52" y="273" font-size="11.5" fill="#1f2933">├─&gt; SELECT * FROM users WHERE id = 3</text>
-  <text x="325" y="273" font-size="11" fill="#52606d">(쿼리 2번)</text>
+  <!-- 게시글 10개 팬아웃 -->
+  <line x1="234" y1="220" x2="234" y2="261" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
+  <text x="248" y="247" font-size="15" fill="#374151">게시글 10개 팬아웃</text>
+  <line x1="660" y1="220" x2="660" y2="261" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
+  <text x="674" y="247" font-size="15" fill="#374151">게시글 10개 팬아웃</text>
 
-  <text x="52" y="293" font-size="11.5" fill="#1f2933">├─&gt; SELECT * FROM users WHERE id = 7</text>
+  <!-- 왼쪽: Post.author 리졸버가 독립적으로 10번 -->
+  <rect x="24" y="264" width="420" height="264" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="40" y="292" font-size="16" font-weight="700" fill="#b91c1c">Post.author 리졸버 · 독립 10회 호출</text>
+  <line x1="48" y1="304" x2="48" y2="471" stroke="#b91c1c" stroke-width="1.5"/>
+  <line x1="48" y1="333" x2="68" y2="333" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ah-red)"/>
+  <line x1="48" y1="379" x2="68" y2="379" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ah-red)"/>
+  <line x1="48" y1="425" x2="68" y2="425" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ah-red)"/>
+  <line x1="48" y1="471" x2="68" y2="471" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ah-red)"/>
+  <g font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">
+    <text x="74" y="338">SELECT * FROM users WHERE id = 3</text>
+    <text x="74" y="384">SELECT * FROM users WHERE id = 7</text>
+    <text x="74" y="430" font-weight="700" fill="#b91c1c">SELECT * FROM users WHERE id = 3</text>
+  </g>
+  <text x="74" y="476" font-size="15" fill="#111827">... (총 10번 반복)</text>
+  <text x="428" y="338" font-size="15" font-weight="700" fill="#374151" text-anchor="end">쿼리 2번</text>
+  <text x="428" y="430" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="end">중복 조회</text>
+  <text x="428" y="476" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="end">쿼리 11번</text>
 
-  <text x="52" y="313" font-size="11.5" font-weight="600" fill="#dc2626">├─&gt; SELECT * FROM users WHERE id = 3</text>
-  <text x="280" y="313" font-size="11" fill="#dc2626">(중복 조회 발생)</text>
+  <!-- 오른쪽: 키 수집 → DataLoader → 배치 쿼리 -->
+  <rect x="464" y="264" width="392" height="64" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="480" y="290" font-size="16" font-weight="700" fill="#111827">Post.author 호출 키 수집 (같은 틱)</text>
+  <text x="480" y="316" font-size="15" fill="#374151">요청 ID 키: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">[3, 7, 3, 5, 7, 3, 5, 3, 7, 5]</tspan></text>
 
-  <text x="52" y="333" font-size="11.5" fill="#1f2933">└─&gt; ... (총 10번 반복)</text>
-  <text x="325" y="333" font-size="11" font-weight="600" fill="#dc2626">(쿼리 11번)</text>
+  <line x1="660" y1="328" x2="660" y2="349" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
 
-  <!-- Summary Badge Left -->
-  <rect x="40" y="365" width="360" height="30" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
-  <text x="220" y="384" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">총 쿼리 수: 1 + 10 = 11번 (N+1 문제 발생)</text>
+  <rect x="464" y="352" width="392" height="88" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="660" y="378" font-size="16" font-weight="700" fill="#6d28d9" text-anchor="middle">DataLoader (Batching &amp; Deduplication)</text>
+  <text x="660" y="404" font-size="15" fill="#111827" text-anchor="middle">중복 제거 → 고유 ID <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="700">[3, 7, 5]</tspan></text>
+  <text x="660" y="428" font-size="15" fill="#4b5563" text-anchor="middle">10개의 요청을 단 1개의 배치 쿼리로 통합</text>
 
+  <line x1="660" y1="440" x2="660" y2="461" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
 
-  <!-- 오른쪽 영역: DataLoader 적용 후 (최적화) -->
-  <rect x="456" y="60" width="400" height="420" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="472" y="88" font-size="14" font-weight="600" fill="#1f2933">2. DataLoader 배치 및 중복 제거</text>
+  <rect x="464" y="464" width="392" height="64" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="480" y="490" font-size="16" font-weight="700" fill="#047857">배치 쿼리 (IN 절 한 번)</text>
+  <text x="480" y="516" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT * FROM users WHERE id IN (3, 7, 5)</text>
+  <rect x="758" y="474" width="84" height="30" rx="15" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="800" y="494" font-size="15" font-weight="700" fill="#047857" text-anchor="middle">쿼리 2번</text>
 
-  <!-- Step 1: Query posts -->
-  <rect x="472" y="105" width="360" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="652" y="126" font-size="12" font-weight="500" fill="#2563eb" text-anchor="middle">1번 쿼리: SELECT * FROM posts LIMIT 10 (게시글 10개)</text>
+  <!-- 합계 -->
+  <rect x="24" y="548" width="420" height="64" rx="8" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <text x="234" y="576" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle">총 쿼리 1 + 10 = 11번</text>
+  <text x="234" y="600" font-size="15" fill="#b91c1c" text-anchor="middle">N+1 문제 발생</text>
+  <rect x="464" y="548" width="392" height="64" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="660" y="576" font-size="20" font-weight="700" fill="#047857" text-anchor="middle">총 쿼리 1 + 1 = 2번</text>
+  <text x="660" y="600" font-size="15" fill="#047857" text-anchor="middle">N+1 최적화 완료</text>
 
-  <!-- Arrow down -->
-  <path d="M652,139 L652,160" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 2: Key collection -->
-  <rect x="472" y="160" width="360" height="55" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="484" y="180" font-size="13" font-weight="500" fill="#1f2933">Post.author 호출 키 수집 (같은 틱)</text>
-  <text x="484" y="200" font-size="11.5" fill="#52606d">요청 ID 키: [3, 7, 3, 5, 7, 3, 5, 3, 7, 5]</text>
-
-  <!-- Arrow down to DataLoader -->
-  <path d="M652,215 L652,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Step 3: DataLoader Batch & Deduplicate -->
-  <rect x="472" y="240" width="360" height="75" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="652" y="262" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">DataLoader (Batching &amp; Deduplication)</text>
-  <line x1="488" y1="272" x2="816" y2="272" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="652" y="292" font-size="11.5" fill="#1f2933" text-anchor="middle">중복 제거 및 고유 ID 추출: [3, 7, 5]</text>
-  <text x="652" y="307" font-size="11" fill="#52606d" text-anchor="middle">(10개의 요청을 단 1개의 배치 쿼리로 통합)</text>
-
-  <!-- Arrow down to DB -->
-  <path d="M652,315 L652,340" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- Step 4: Batch DB Query -->
-  <rect x="472" y="340" width="360" height="34" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="652" y="361" font-size="12" font-weight="600" fill="#059669" text-anchor="middle">2번 쿼리: SELECT * FROM users WHERE id IN (3, 7, 5)</text>
-
-  <!-- Summary Badge Right -->
-  <rect x="472" y="390" width="360" height="30" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="652" y="409" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">최종 쿼리 수: 1 + 1 = 2번 (N+1 최적화 완료)</text>
-
-  <!-- 하단 캡션 -->
-  <text x="440" y="515" font-size="11.5" fill="#52606d" text-anchor="middle">결론: DataLoader는 개별 리졸버 호출을 수집·중복 제거하여 11번의 DB 쿼리를 2번의 배치 쿼리로 최적화한다.</text>
+  <text x="440" y="642" font-size="15" fill="#374151" text-anchor="middle">DataLoader는 개별 리졸버 호출을 수집·중복 제거해 DB 쿼리 11번을 2번으로 줄인다.</text>
 </svg>

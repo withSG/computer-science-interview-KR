@@ -1,41 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3.2 조회 경로</title>
-  <desc id="d">email 보조 인덱스에서 PK 값인 42를 찾은 뒤, 42를 이용해 클러스터드 인덱스에서 실제 행 데이터를 탐색하는 2단계 조회 경로 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">보조 인덱스 조회 경로</title>
+  <desc id="d">email 보조 인덱스의 리프에서 PK 값 42를 찾고, 그 42로 클러스터드 인덱스(id)를 루트부터 다시 탐색해 행 전체를 얻습니다. 트리를 두 번 타므로 보조 인덱스 조회는 클러스터드보다 비쌉니다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
+  <rect width="880" height="520" fill="#ffffff"/>
 
-  <!-- SQL 쿼리문 및 설명 -->
-  <text x="40" y="38" font-size="14" font-weight="bold" fill="#1f2933">SELECT * FROM member WHERE email = 'kim@example.com';</text>
-  <text x="50" y="60" font-size="11.5" fill="#52606d">(email 에 보조 인덱스가 있고, 기본키는 id)</text>
+  <!-- 쿼리 -->
+  <rect x="24" y="24" width="832" height="48" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+  <text x="44" y="54" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-weight="bold" fill="#1d4ed8">SELECT</tspan> * <tspan font-weight="bold" fill="#1d4ed8">FROM</tspan> member <tspan font-weight="bold" fill="#1d4ed8">WHERE</tspan> email = 'kim@example.com';</text>
+  <text x="24" y="98" font-size="15" fill="#4b5563">(email 에 보조 인덱스가 있고, 기본키는 id)</text>
 
-  <!-- Step 1: 보조 인덱스(email) 탐색 -->
-  <text x="180" y="98" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">① 보조 인덱스(email) 탐색</text>
-  <rect x="40" y="110" width="280" height="120" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="138" font-size="13" fill="#52606d">...</text>
-  <rect x="56" y="152" width="220" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="2"/>
-  <text x="64" y="169" font-size="13" fill="#1f2933">[kim@example.com → 42]</text>
-  <text x="60" y="208" font-size="13" fill="#52606d">...</text>
-  <text x="180" y="252" font-size="11.5" fill="#52606d" text-anchor="middle">리프에 PK 값만 있다</text>
+  <!-- ① 보조 인덱스(email) -->
+  <text x="204" y="148" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">① 보조 인덱스(email) 탐색</text>
+  <rect x="129" y="166" width="150" height="40" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="204" y="191" font-size="15" fill="#374151" text-anchor="middle">루트</text>
+  <line x1="204" y1="207" x2="204" y2="245" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <rect x="24" y="250" width="360" height="130" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="46" y="280" font-size="16" fill="#4b5563">...</text>
+  <rect x="34" y="294" width="340" height="44" rx="4" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="46" y="322" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kim@example.com</text>
+  <text x="192" y="322" font-size="16" fill="#111827">→</text>
+  <rect x="220" y="301" width="48" height="30" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="244" y="322" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">42</text>
+  <text x="46" y="364" font-size="16" fill="#4b5563">...</text>
+  <text x="204" y="410" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">리프에 PK 값만 있다</text>
 
-  <!-- 연결 화살표 및 라벨 '42' -->
-  <path d="M 320,165 L 530,165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="405" y="152" width="40" height="22" fill="#ffffff"/>
-  <text x="425" y="168" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">42</text>
+  <!-- 42 를 들고 두 번째 트리로 -->
+  <path d="M374,316 L440,316 L440,186 L596,186" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <rect x="408" y="236" width="64" height="30" rx="15" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="256" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">PK 42</text>
 
-  <!-- Step 2: 클러스터드 인덱스(id) 탐색 -->
-  <text x="680" y="98" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">② 클러스터드 인덱스(id) 탐색</text>
-  <rect x="530" y="110" width="300" height="120" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="550" y="138" font-size="13" fill="#52606d">...</text>
-  <rect x="546" y="152" width="268" height="42" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="2"/>
-  <text x="554" y="169" font-size="13" fill="#1f2933">[42 → (42, 김개발,</text>
-  <text x="600" y="187" font-size="13" fill="#1f2933">kim@example.com)]</text>
-  <text x="550" y="215" font-size="13" fill="#52606d">...</text>
-  <text x="680" y="252" font-size="11.5" fill="#52606d" text-anchor="middle">리프에 행 전체가 있다</text>
+  <!-- ② 클러스터드 인덱스(id) -->
+  <text x="676" y="148" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">② 클러스터드 인덱스(id) 탐색</text>
+  <rect x="601" y="166" width="150" height="40" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="676" y="191" font-size="15" fill="#374151" text-anchor="middle">루트</text>
+  <line x1="676" y1="207" x2="676" y2="245" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <rect x="496" y="250" width="360" height="130" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="518" y="280" font-size="16" fill="#4b5563">...</text>
+  <rect x="506" y="294" width="340" height="44" rx="4" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="518" y="322" font-size="16" font-weight="bold" fill="#1e3a8a" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">42</text>
+  <text x="546" y="322" font-size="16" fill="#111827">→</text>
+  <rect x="574" y="301" width="42" height="30" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="595" y="322" font-size="15" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">42</text>
+  <rect x="616" y="301" width="68" height="30" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="650" y="322" font-size="15" fill="#064e3b" text-anchor="middle">김개발</text>
+  <rect x="684" y="301" width="150" height="30" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="759" y="322" font-size="15" fill="#064e3b" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kim@example.com</text>
+  <text x="518" y="364" font-size="16" fill="#4b5563">...</text>
+  <text x="676" y="410" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">리프에 행 전체가 있다</text>
 
-  <!-- 하단 결론 / 설명 -->
-  <text x="440" y="304" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">트리를 두 번 탄다 → 보조 인덱스 조회는 클러스터드보다 비싸다</text>
+  <!-- 결론 -->
+  <rect x="24" y="438" width="832" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="440" y="472" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">트리를 두 번 탄다 → 보조 인덱스 조회는 클러스터드보다 비싸다</text>
 </svg>

@@ -1,135 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">G1 GC Region 기반 힙 구조</title>
-  <desc id="d">G1 GC의 Region 기반 힙 구조를 보여주는 다이어그램입니다. Eden, Survivor, Old, Humongous, Free 영역이 격자로 배치되어 있습니다.</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">G1 GC의 Region 기반 힙</title>
+  <desc id="d">G1은 힙을 동일 크기 Region 8×3 격자로 나누고, 각 Region이 Eden, Survivor, Old, Humongous, Free 중 하나의 역할을 맡는다. 같은 세대의 Region이 흩어져 있어 세대가 물리적으로 붙어 있지 않고, Region 하나가 비면 곧바로 다른 역할로 재배정된다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
 
-  <!-- 문서 헤딩 (원본 위치 문맥의 섹션 제목) -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">G1 GC가 동작하는 방식</text>
-  
-  <!-- 상단 부가설명 라벨 (원본 텍스트) -->
-  <text x="40" y="78" font-size="13" fill="#52606d">Region 기반 힙 (E=Eden, S=Survivor, O=Old, H=Humongous, 빈칸=Free)</text>
+  <text x="44" y="42" font-size="18" font-weight="bold" fill="#111827">Region 기반 힙</text>
 
-  <!-- 범례 (Legend) - visual clarity enhancement for regions -->
-  <g transform="translate(40, 95)">
-    <rect x="0" y="0" width="18" height="18" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="24" y="14" font-size="12" fill="#1f2933">E (Eden)</text>
+  <!-- 범례 -->
+  <rect x="44" y="62" width="20" height="20" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="72" y="78" font-size="15" fill="#111827">E = Eden</text>
+  <rect x="197" y="62" width="20" height="20" rx="3" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="225" y="78" font-size="15" fill="#111827">S = Survivor</text>
+  <rect x="373" y="62" width="20" height="20" rx="3" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="401" y="78" font-size="15" fill="#111827">O = Old</text>
+  <rect x="521" y="62" width="20" height="20" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="549" y="78" font-size="15" fill="#111827">H = Humongous</text>
+  <rect x="728" y="62" width="20" height="20" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="756" y="78" font-size="15" fill="#111827">빈칸 = Free</text>
 
-    <rect x="100" y="0" width="18" height="18" rx="3" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="124" y="14" font-size="12" fill="#1f2933">S (Survivor)</text>
+  <!-- 1행: E O · S O E H H -->
+  <rect x="44" y="108" width="92" height="64" rx="5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="90" y="148" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">E</text>
+  <rect x="144" y="108" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="190" y="148" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
+  <rect x="244" y="108" width="92" height="64" rx="5" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="344" y="108" width="92" height="64" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="390" y="148" font-size="22" font-weight="bold" fill="#065f46" text-anchor="middle">S</text>
+  <rect x="444" y="108" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="490" y="148" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
+  <rect x="544" y="108" width="92" height="64" rx="5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="590" y="148" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">E</text>
+  <rect x="644" y="108" width="92" height="64" rx="5" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="690" y="148" font-size="22" font-weight="bold" fill="#92400e" text-anchor="middle">H</text>
+  <rect x="744" y="108" width="92" height="64" rx="5" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="790" y="148" font-size="22" font-weight="bold" fill="#92400e" text-anchor="middle">H</text>
 
-    <rect x="220" y="0" width="18" height="18" rx="3" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="244" y="14" font-size="12" fill="#1f2933">O (Old)</text>
+  <!-- 2행: O E S · O · E O -->
+  <rect x="44" y="180" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="90" y="220" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
+  <rect x="144" y="180" width="92" height="64" rx="5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="190" y="220" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">E</text>
+  <rect x="244" y="180" width="92" height="64" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="290" y="220" font-size="22" font-weight="bold" fill="#065f46" text-anchor="middle">S</text>
+  <rect x="344" y="180" width="92" height="64" rx="5" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="444" y="180" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="490" y="220" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
+  <rect x="544" y="180" width="92" height="64" rx="5" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="644" y="180" width="92" height="64" rx="5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="690" y="220" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">E</text>
+  <rect x="744" y="180" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="790" y="220" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
 
-    <rect x="320" y="0" width="18" height="18" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="344" y="14" font-size="12" fill="#1f2933">H (Humongous)</text>
+  <!-- 3행: · O E O · S O E -->
+  <rect x="44" y="252" width="92" height="64" rx="5" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="144" y="252" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="190" y="292" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
+  <rect x="244" y="252" width="92" height="64" rx="5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="290" y="292" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">E</text>
+  <rect x="344" y="252" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="390" y="292" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
+  <rect x="444" y="252" width="92" height="64" rx="5" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="544" y="252" width="92" height="64" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="590" y="292" font-size="22" font-weight="bold" fill="#065f46" text-anchor="middle">S</text>
+  <rect x="644" y="252" width="92" height="64" rx="5" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="690" y="292" font-size="22" font-weight="bold" fill="#5b21b6" text-anchor="middle">O</text>
+  <rect x="744" y="252" width="92" height="64" rx="5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="790" y="292" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">E</text>
 
-    <rect x="450" y="0" width="18" height="18" rx="3" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="3 3"/>
-    <text x="474" y="14" font-size="12" fill="#1f2933">빈칸 (Free)</text>
-  </g>
-
-  <!-- Region Grid Container -->
-  <!-- 8 cols x 3 rows grid of regions. Box size 90x60, gap 8 -->
-  <!-- Start X: 40, Start Y: 135 -->
-  <g transform="translate(40, 135)">
-    <!-- ROW 1 -->
-    <!-- Col 0: E -->
-    <rect x="0" y="0" width="92" height="64" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="46" y="37" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-
-    <!-- Col 1: O -->
-    <rect x="100" y="0" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="146" y="37" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- Col 2: Free -->
-    <rect x="200" y="0" width="92" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-
-    <!-- Col 3: S -->
-    <rect x="300" y="0" width="92" height="64" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="346" y="37" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">S</text>
-
-    <!-- Col 4: O -->
-    <rect x="400" y="0" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="446" y="37" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- Col 5: E -->
-    <rect x="500" y="0" width="92" height="64" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="546" y="37" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-
-    <!-- Col 6: H -->
-    <rect x="600" y="0" width="92" height="64" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="646" y="37" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">H</text>
-
-    <!-- Col 7: H -->
-    <rect x="700" y="0" width="92" height="64" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="746" y="37" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">H</text>
-
-    <!-- ROW 2 -->
-    <!-- Col 0: O -->
-    <rect x="0" y="72" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="46" y="109" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- Col 1: E -->
-    <rect x="100" y="72" width="92" height="64" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="146" y="109" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-
-    <!-- Col 2: S -->
-    <rect x="200" y="72" width="92" height="64" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="246" y="109" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">S</text>
-
-    <!-- Col 3: Free -->
-    <rect x="300" y="72" width="92" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-
-    <!-- Col 4: O -->
-    <rect x="400" y="72" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="446" y="109" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- Col 5: Free -->
-    <rect x="500" y="72" width="92" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-
-    <!-- Col 6: E -->
-    <rect x="600" y="72" width="92" height="64" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="646" y="109" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-
-    <!-- Col 7: O -->
-    <rect x="700" y="72" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="746" y="109" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- ROW 3 -->
-    <!-- Col 0: Free -->
-    <rect x="0" y="144" width="92" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-
-    <!-- Col 1: O -->
-    <rect x="100" y="144" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="146" y="181" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- Col 2: E -->
-    <rect x="200" y="144" width="92" height="64" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="246" y="181" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-
-    <!-- Col 3: O -->
-    <rect x="300" y="144" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="346" y="181" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- Col 4: Free -->
-    <rect x="400" y="144" width="92" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-
-    <!-- Col 5: S -->
-    <rect x="500" y="144" width="92" height="64" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="546" y="181" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">S</text>
-
-    <!-- Col 6: O -->
-    <rect x="600" y="144" width="92" height="64" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="646" y="181" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">O</text>
-
-    <!-- Col 7: E -->
-    <rect x="700" y="144" width="92" height="64" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="746" y="181" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-  </g>
-
-  <!-- 구분선 -->
-  <line x1="40" y1="375" x2="840" y2="375" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 하단 원본 설명 텍스트 (2줄) -->
-  <text x="40" y="415" font-size="14" fill="#1f2933">세대가 물리적으로 붙어 있지 않다.</text>
-  <text x="40" y="445" font-size="14" fill="#1f2933">Region 하나가 비면 곧바로 다른 역할로 재배정된다.</text>
+  <!-- 요점 -->
+  <rect x="44" y="340" width="792" height="84" rx="6" fill="#f3f4f6"/>
+  <text x="64" y="374" font-size="16" fill="#111827">• 세대가 <tspan font-weight="bold">물리적으로 붙어 있지 않다.</tspan></text>
+  <text x="64" y="404" font-size="16" fill="#111827">• Region 하나가 비면 곧바로 <tspan font-weight="bold">다른 역할로 재배정</tspan>된다.</text>
 </svg>

@@ -101,7 +101,7 @@ def add(a, b):
 ### 테스트 피라미드
 
 <!-- diagram:se-qna-software-engineering-8 -->
-![테스트 피라미드](../assets/diagrams/se-qna-software-engineering-8.svg)
+![Unit이 많고 E2E가 적은 테스트 피라미드](../assets/diagrams/se-qna-software-engineering-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

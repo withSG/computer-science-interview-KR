@@ -1,65 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">MVCC — 락 없이 일관된 읽기</title>
-  <desc id="d">현재 테이블과 언두 로그의 과거 버전 체인에서 트랜잭션 130과 100이 서로 다른 버전을 읽는 과정을 나타낸 MVCC 다이어그램</desc>
-  
-  <rect width="880" height="430" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">MVCC 버전 체인과 읽기</title>
+  <desc id="d">balance 행의 현재 버전(balance = 2000, trx_id = 120)이 언두 로그의 과거 버전(balance = 1000, trx_id = 90)을 가리킨다. trx 130은 120이 이미 커밋됐으므로 최신 버전을 읽고, trx 100은 120이 자기 시작 이후이므로 과거 버전을 따라가 읽는다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
   <defs>
-    <!-- Dark Ink Arrowhead -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <!-- Blue Arrowhead -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <!-- Purple Arrowhead -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Title/Header -->
-  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">MVCC — 락 없이 일관된 읽기</text>
+  <!-- 열 머리 -->
+  <text x="280" y="46" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">현재 테이블</text>
+  <text x="680" y="46" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">언두 로그 (과거 버전 체인)</text>
 
-  <!-- Column Headers -->
-  <text x="250" y="80" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">현재 테이블</text>
-  <text x="630" y="80" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">언두 로그 (과거 버전 체인)</text>
+  <!-- 행 라벨 -->
+  <text x="40" y="117" font-size="16" font-weight="bold" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">balance</text>
 
-  <!-- Label 'balance' -->
-  <text x="50" y="139" font-size="13" font-weight="bold" fill="#1f2933">balance</text>
+  <!-- 현재 버전 -->
+  <rect x="150" y="66" width="260" height="90" rx="6" fill="#ffffff" stroke="#1f2937" stroke-width="2"/>
+  <text x="180" y="101" font-size="18" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">balance</text>
+  <text x="272" y="101" font-size="18" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">= 2000</text>
+  <text x="180" y="135" font-size="18" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">trx_id</text>
+  <text x="272" y="135" font-size="18" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">= 120</text>
 
-  <!-- Table 1: Current Table Box -->
-  <rect x="140" y="100" width="220" height="80" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="131" font-size="13" fill="#1f2933" text-anchor="middle">balance = 2000</text>
-  <text x="250" y="159" font-size="13" fill="#1f2933" text-anchor="middle">trx_id  = 120</text>
+  <!-- 과거 버전 (언두 로그) -->
+  <rect x="550" y="66" width="260" height="90" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="580" y="101" font-size="18" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">balance</text>
+  <text x="672" y="101" font-size="18" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">= 1000</text>
+  <text x="580" y="135" font-size="18" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">trx_id</text>
+  <text x="672" y="135" font-size="18" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">= 90</text>
 
-  <!-- Table 2: Undo Log Box -->
-  <rect x="520" y="100" width="220" height="80" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="630" y="131" font-size="13" fill="#1f2933" text-anchor="middle">balance = 1000</text>
-  <text x="630" y="159" font-size="13" fill="#1f2933" text-anchor="middle">trx_id  = 90</text>
+  <!-- 버전 체인 포인터 -->
+  <line x1="412" y1="111" x2="546" y2="111" stroke="#4b5563" stroke-width="2.5" marker-end="url(#ah-gray)"/>
 
-  <!-- Pointer Arrow: Current Table to Undo Log -->
-  <path d="M360,140 L520,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 읽는 트랜잭션 -->
+  <line x1="280" y1="240" x2="280" y2="162" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+  <line x1="680" y1="240" x2="680" y2="162" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-purple)"/>
 
-  <!-- Transaction 130 Block -->
-  <!-- Text: trx 130 이 읽으면 -->
-  <text x="70" y="249" font-size="13" font-weight="bold" fill="#2563eb">trx 130 이 읽으면</text>
-  
-  <!-- Arrow: trx 130 -> Bottom of Current Table Box -->
-  <path d="M200,245 L250,245 L250,180" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- Subtext: (120은 이미 커밋됨 → 최신 버전 사용) -->
-  <text x="70" y="279" font-size="11.5" fill="#52606d">(120은 이미 커밋됨 → 최신 버전 사용)</text>
+  <rect x="130" y="240" width="300" height="106" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="280" y="272" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">trx 130 이 읽으면</text>
+  <text x="280" y="302" font-size="16" fill="#1f2937" text-anchor="middle">120은 이미 커밋됨</text>
+  <text x="280" y="328" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">→ 최신 버전 사용</text>
 
-  <!-- Transaction 100 Block -->
-  <!-- Text: trx 100 이 읽으면 -->
-  <text x="70" y="349" font-size="13" font-weight="bold" fill="#7c3aed">trx 100 이 읽으면</text>
-
-  <!-- Arrow: trx 100 -> Bottom of Undo Log Box -->
-  <path d="M200,345 L630,345 L630,180" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Subtext: (120은 내 시작 이후 → 과거 버전을 따라간다) -->
-  <text x="70" y="379" font-size="11.5" fill="#52606d">(120은 내 시작 이후 → 과거 버전을 따라간다)</text>
-
+  <rect x="530" y="240" width="300" height="106" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="680" y="272" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">trx 100 이 읽으면</text>
+  <text x="680" y="302" font-size="16" fill="#1f2937" text-anchor="middle">120은 내 시작 이후</text>
+  <text x="680" y="328" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">→ 과거 버전을 따라간다</text>
 </svg>
