@@ -1,37 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Consistent Hashing</title>
-  <desc id="d">리샤딩 시 최소한의 데이터만 이동하는 Consistent Hashing 개념도</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Consistent Hashing 리샤딩</title>
+  <desc id="d">기존 해시는 서버 추가 시 데이터를 전체 재배치하지만, Consistent Hash는 Hash Ring 위에서 새 노드와 인접한 구간의 데이터만 옮겨 리샤딩 시 이동량을 최소화합니다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
 
-  <!-- Top Title & Description Text -->
-  <text x="440" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">리샤딩 시 최소한의 데이터만 이동</text>
+  <!-- 요점 -->
+  <text x="440" y="50" text-anchor="middle" font-size="20" font-weight="bold" fill="#111827">리샤딩 시 최소한의 데이터만 이동</text>
 
-  <text x="440" y="84" font-size="13" fill="#059669" text-anchor="middle">기존 해시: 서버 추가 시 전체 재배치</text>
-  <text x="440" y="108" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Consistent Hash: 인접 노드에만 영향</text>
+  <!-- 비교 -->
+  <rect x="40" y="76" width="390" height="84" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="235" y="108" text-anchor="middle" font-size="18" font-weight="bold" fill="#374151">기존 해시</text>
+  <text x="235" y="140" text-anchor="middle" font-size="17" fill="#1f2937">서버 추가 시 <tspan font-weight="bold" fill="#b91c1c">전체 재배치</tspan></text>
 
-  <!-- Hash Ring Container Box -->
-  <rect x="240" y="140" width="400" height="320" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="175" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Hash Ring</text>
+  <rect x="450" y="76" width="390" height="84" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="645" y="108" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d4ed8">Consistent Hash</text>
+  <text x="645" y="140" text-anchor="middle" font-size="17" fill="#1f2937"><tspan font-weight="bold" fill="#1d4ed8">인접 노드</tspan>에만 영향</text>
 
-  <!-- Connecting Lines between Nodes A, B, C -->
-  <!-- A to B (Horizontal) -->
-  <path d="M370,230 L510,230" stroke="#2563eb" stroke-width="2" fill="none"/>
-  
-  <!-- A to C (Diagonal) -->
-  <path d="M340,260 L415,370" stroke="#2563eb" stroke-width="2" fill="none"/>
-  
-  <!-- B to C (Diagonal) -->
-  <path d="M540,260 L465,370" stroke="#2563eb" stroke-width="2" fill="none"/>
+  <!-- Hash Ring -->
+  <circle cx="440" cy="390" r="140" fill="none" stroke="#9ca3af" stroke-width="3"/>
+  <path d="M308.44,342.12 A140,140 0 0 1 440,250" fill="none" stroke="#d97706" stroke-width="10" stroke-linecap="round"/>
+  <text x="440" y="396" text-anchor="middle" font-size="18" font-weight="bold" fill="#374151">Hash Ring</text>
 
-  <!-- Node A -->
-  <rect x="310" y="200" width="60" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="340" y="235" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
+  <!-- 노드 -->
+  <circle cx="308.44" cy="342.12" r="20" fill="#1d4ed8"/>
+  <text x="308.44" y="348.5" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">A</text>
+  <circle cx="571.56" cy="342.12" r="20" fill="#1d4ed8"/>
+  <text x="571.56" y="348.5" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">B</text>
+  <circle cx="440" cy="530" r="20" fill="#1d4ed8"/>
+  <text x="440" y="536.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#ffffff">C</text>
 
-  <!-- Node B -->
-  <rect x="510" y="200" width="60" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="540" y="235" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">B</text>
+  <!-- 새 노드 -->
+  <circle cx="440" cy="250" r="20" fill="#fff7ed" stroke="#b45309" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="440" y="256" text-anchor="middle" font-size="18" font-weight="bold" fill="#92400e">+</text>
+  <text x="440" y="214" text-anchor="middle" font-size="16" font-weight="bold" fill="#92400e">새 노드 추가</text>
 
-  <!-- Node C -->
-  <rect x="410" y="370" width="60" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="405" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">C</text>
+  <!-- 이동 구간 설명 -->
+  <text x="322" y="262" text-anchor="end" font-size="16" font-weight="bold" fill="#92400e">이 구간의 데이터만 이동</text>
+  <text x="322" y="285" text-anchor="end" font-size="15" fill="#374151">(인접 노드 → 새 노드)</text>
 </svg>

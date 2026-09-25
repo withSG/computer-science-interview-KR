@@ -1,66 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">커밋 순서가 보장 수준을 결정한다</title>
-  <desc id="d">at-most-once와 at-least-once의 커밋 및 처리 순서 비교 다이어그램</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">커밋 순서와 전달 보장</title>
+  <desc id="d">at-most-once는 poll, commit offset, 처리 순서라 처리 중에 죽으면 그 메시지가 영영 유실되고, at-least-once는 poll, 처리, commit offset 순서라 커밋 단계에서 죽으면 재시작 후 같은 메시지를 또 처리해 중복이 생긴다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="arr-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Left Column Group: at-most-once -->
-  <rect x="24" y="24" width="404" height="342" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="226" y="55.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[at-most-once]</text>
+  <!-- ===== at-most-once ===== -->
+  <rect x="24" y="24" width="404" height="402" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="60" font-size="20" font-weight="700" fill="#b91c1c">at-most-once</text>
+  <text x="48" y="86" font-size="15" fill="#374151">처리 <tspan font-weight="700">전에</tspan> 오프셋 커밋</text>
 
-  <!-- Left Steps -->
-  <rect x="136" y="80" width="180" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="226" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">1. poll</text>
+  <rect x="48" y="108" width="200" height="44" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="148" y="136" font-size="16" fill="#111827" text-anchor="middle">1. poll</text>
+  <line x1="148" y1="152" x2="148" y2="173" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="48" y="176" width="200" height="44" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="148" y="204" font-size="16" font-weight="700" fill="#6d28d9" text-anchor="middle">2. commit offset</text>
+  <line x1="148" y1="220" x2="148" y2="241" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="48" y="244" width="200" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="148" y="272" font-size="16" fill="#111827" text-anchor="middle">3. 처리</text>
 
-  <path d="M226,120 L226,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="250" y1="266" x2="266" y2="266" stroke="#b91c1c" stroke-width="2"/>
+  <rect x="268" y="248" width="140" height="36" rx="18" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="338" y="272" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">여기서 죽으면</text>
+  <line x1="338" y1="284" x2="338" y2="317" stroke="#b91c1c" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-red)"/>
 
-  <rect x="136" y="140" width="180" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="226" y="164.55" font-size="13" fill="#1f2933" text-anchor="middle">2. commit offset</text>
+  <rect x="48" y="320" width="360" height="80" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="228" y="352" font-size="18" font-weight="700" fill="#b91c1c" text-anchor="middle">그 메시지는 영영 유실</text>
+  <text x="228" y="380" font-size="15" fill="#374151" text-anchor="middle">커밋이 먼저 끝나 다시 읽지 않는다</text>
 
-  <path d="M226,180 L226,200" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- ===== at-least-once ===== -->
+  <rect x="452" y="24" width="404" height="402" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="476" y="60" font-size="20" font-weight="700" fill="#b45309">at-least-once</text>
+  <text x="476" y="86" font-size="15" fill="#374151">처리 <tspan font-weight="700">후에</tspan> 오프셋 커밋</text>
 
-  <rect x="136" y="200" width="180" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="226" y="224.55" font-size="13" fill="#1f2933" text-anchor="middle">3. 처리</text>
+  <rect x="476" y="108" width="200" height="44" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="576" y="136" font-size="16" fill="#111827" text-anchor="middle">1. poll</text>
+  <line x1="576" y1="152" x2="576" y2="173" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="476" y="176" width="200" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="576" y="204" font-size="16" fill="#111827" text-anchor="middle">2. 처리</text>
+  <line x1="576" y1="220" x2="576" y2="241" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="476" y="244" width="200" height="44" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="576" y="272" font-size="16" font-weight="700" fill="#6d28d9" text-anchor="middle">3. commit offset</text>
 
-  <!-- Left Annotation Arrow & Text -->
-  <path d="M226,240 L226,270" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <text x="226" y="260.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">← 여기서 죽으면</text>
-  
-  <rect x="44" y="280" width="364" height="64" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="226" y="318.025" font-size="11.5" fill="#dc2626" text-anchor="middle">그 메시지는 영영 유실</text>
+  <line x1="678" y1="266" x2="694" y2="266" stroke="#b45309" stroke-width="2"/>
+  <rect x="696" y="248" width="140" height="36" rx="18" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="766" y="272" font-size="15" font-weight="700" fill="#b45309" text-anchor="middle">여기서 죽으면</text>
+  <line x1="766" y1="284" x2="766" y2="317" stroke="#b45309" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr-amber)"/>
 
-  <!-- Right Column Group: at-least-once -->
-  <rect x="452" y="24" width="404" height="342" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="654" y="55.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[at-least-once]</text>
-
-  <!-- Right Steps -->
-  <rect x="564" y="80" width="180" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="654" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">1. poll</text>
-
-  <path d="M654,120 L654,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="564" y="140" width="180" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="654" y="164.55" font-size="13" fill="#1f2933" text-anchor="middle">2. 처리</text>
-
-  <path d="M654,180 L654,200" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <rect x="564" y="200" width="180" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="654" y="224.55" font-size="13" fill="#1f2933" text-anchor="middle">3. commit offset</text>
-
-  <!-- Right Annotation Arrow & Text -->
-  <path d="M654,240 L654,270" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-amber)"/>
-  <text x="654" y="260.55" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">← 여기서 죽으면</text>
-
-  <rect x="472" y="280" width="364" height="64" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="654" y="318.025" font-size="11.5" fill="#d97706" text-anchor="middle">재시작 후 같은 메시지를 또 처리 = 중복</text>
+  <rect x="476" y="320" width="360" height="80" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="656" y="352" font-size="18" font-weight="700" fill="#b45309" text-anchor="middle">재시작 후 같은 메시지를 또 처리</text>
+  <text x="656" y="380" font-size="15" fill="#374151" text-anchor="middle">= <tspan font-weight="700" fill="#b45309">중복</tspan> (커밋 전이라 다시 읽는다)</text>
 </svg>

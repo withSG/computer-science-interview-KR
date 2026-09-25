@@ -66,7 +66,7 @@
 앞의 스팸 필터 예시를 이 표에 채워 넣으면 이렇습니다. 여기서는 스팸이 Positive입니다.
 
 <!-- diagram:ai-evaluation-metrics-8 -->
-![2. 혼동 행렬 — 모든 분류 지표의 출발점](../../assets/diagrams/ai-evaluation-metrics-8.svg)
+![스팸 필터 예시를 채운 혼동 행렬 표(합계 포함)](../../assets/diagrams/ai-evaluation-metrics-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

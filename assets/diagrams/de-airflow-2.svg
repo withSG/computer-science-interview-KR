@@ -1,71 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 자정 DAG가 다음 날 도는가</title>
-  <desc id="d">Airflow의 데이터 구간(data interval)과 실제 실행 시각의 관계 및 관련 변수들의 의미를 보여주는 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">자정 DAG가 다음 날 도는 이유</title>
+  <desc id="d">하루 단위 데이터 구간은 구간이 닫힌 직후에 실행된다. 03-02 00:00 ~ 03-03 00:00 구간의 실행에서 data_interval_start·logical_date·ds는 구간의 시작(03-02)을, data_interval_end와 실제 실행 시각은 03-03 00:00을 가리킨다.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 열 머리 -->
+  <text x="250" y="42" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">데이터 구간(data interval)</text>
+  <text x="658" y="42" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">실제 실행 시각</text>
 
-  <!-- Column Headers -->
-  <text x="180" y="44.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">데이터 구간(data interval)</text>
-  <text x="630" y="44.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">실제 실행 시각</text>
+  <!-- 1행 -->
+  <rect x="100" y="62" width="300" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="250" y="93" font-size="17" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan fill="#1d4ed8" font-weight="bold">03-01 00:00</tspan><tspan fill="#374151"> ~ </tspan><tspan fill="#047857" font-weight="bold">03-02 00:00</tspan></text>
+  <line x1="408" y1="87" x2="540" y2="87" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="548" y="62" width="220" height="50" rx="25" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="658" y="93" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">03-02 00:00 에 실행</text>
+  <text x="250" y="138" font-size="15" fill="#4b5563" text-anchor="middle">이 구간의 데이터를 처리</text>
+  <text x="658" y="138" font-size="15" fill="#4b5563" text-anchor="middle">(구간이 닫힌 직후)</text>
 
-  <!-- Row 1 Box -->
-  <rect x="40" y="60" width="280" height="44" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="180" y="86.55" font-size="13" fill="#1f2933" text-anchor="middle">03-01 00:00 ~ 03-02 00:00</text>
+  <!-- 2행 -->
+  <rect x="100" y="162" width="300" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+  <text x="250" y="193" font-size="17" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan fill="#1d4ed8" font-weight="bold">03-02 00:00</tspan><tspan fill="#374151"> ~ </tspan><tspan fill="#047857" font-weight="bold">03-03 00:00</tspan></text>
+  <line x1="408" y1="187" x2="540" y2="187" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="548" y="162" width="220" height="50" rx="25" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+  <text x="658" y="193" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">03-03 00:00 에 실행</text>
 
-  <!-- Row 1 Arrow & Exec Time -->
-  <path d="M320,82 L460,82" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="475" y="86.55" font-size="13" font-weight="bold" fill="#2563eb">03-02 00:00 에 실행</text>
+  <!-- 2행 → 표 -->
+  <line x1="250" y1="218" x2="250" y2="244" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="40" y="266" font-size="16" font-weight="bold" fill="#111827">이 두 번째 구간 실행분의 값</text>
 
-  <!-- Row 1 Subtext / Annotations -->
-  <text x="180" y="128.02" font-size="11.5" fill="#52606d" text-anchor="middle">이 구간의 데이터를 처리</text>
-  <text x="475" y="108.02" font-size="11.5" fill="#52606d">(구간이 닫힌 직후)</text>
+  <!-- 표 -->
+  <rect x="40" y="282" width="800" height="40" fill="#f3f4f6"/>
+  <text x="56" y="308" font-size="15" font-weight="bold" fill="#111827">이름</text>
+  <text x="306" y="308" font-size="15" font-weight="bold" fill="#111827">값</text>
+  <text x="476" y="308" font-size="15" font-weight="bold" fill="#111827">의미</text>
 
-  <!-- Row 2 Box -->
-  <rect x="40" y="150" width="280" height="44" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="180" y="176.55" font-size="13" fill="#1f2933" text-anchor="middle">03-02 00:00 ~ 03-03 00:00</text>
+  <line x1="40" y1="322" x2="840" y2="322" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="40" y1="364" x2="840" y2="364" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="40" y1="406" x2="840" y2="406" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="40" y1="448" x2="840" y2="448" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="40" y1="490" x2="840" y2="490" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="290" y1="282" x2="290" y2="532" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="460" y1="282" x2="460" y2="532" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="40" y="282" width="800" height="250" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- Row 2 Arrow & Exec Time -->
-  <path d="M320,172 L460,172" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="475" y="176.55" font-size="13" font-weight="bold" fill="#7c3aed">03-03 00:00 에 실행</text>
+  <g font-size="16" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="56" y="349" font-weight="bold" fill="#111827">data_interval_start</text>
+    <text x="306" y="349" font-weight="bold" fill="#1d4ed8">03-02 00:00</text>
+    <text x="56" y="391" font-weight="bold" fill="#111827">data_interval_end</text>
+    <text x="306" y="391" font-weight="bold" fill="#047857">03-03 00:00</text>
+    <text x="56" y="433" font-weight="bold" fill="#111827">logical_date</text>
+    <text x="306" y="433" font-weight="bold" fill="#1d4ed8">03-02 00:00</text>
+    <text x="56" y="475" font-weight="bold" fill="#111827">ds</text>
+    <text x="306" y="475" font-weight="bold" fill="#1d4ed8">"2026-03-02"</text>
+    <text x="306" y="517" font-weight="bold" fill="#047857">03-03 00:00</text>
+  </g>
+  <text x="56" y="517" font-size="16" font-weight="bold" fill="#111827">실제 실행 시각</text>
 
-  <!-- Key-Value Section Container -->
-  <rect x="40" y="220" width="800" height="250" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-
-  <!-- Key-Value Lines -->
-  <!-- Line 1: data_interval_start -->
-  <text x="70" y="260.55" font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">data_interval_start</text>
-  <text x="250" y="260.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">=</text>
-  <text x="270" y="260.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">03-02 00:00</text>
-
-  <!-- Line 2: data_interval_end -->
-  <text x="70" y="300.55" font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">data_interval_end</text>
-  <text x="250" y="300.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">=</text>
-  <text x="270" y="300.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">03-03 00:00</text>
-
-  <!-- Line 3: logical_date -->
-  <text x="70" y="340.55" font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">logical_date</text>
-  <text x="250" y="340.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">=</text>
-  <text x="270" y="340.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">03-02 00:00</text>
-  <text x="400" y="340.55" font-size="13" fill="#52606d">(= 구간의 시작. 예전 이름은 execution_date)</text>
-
-  <!-- Line 4: ds -->
-  <text x="70" y="380.55" font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">ds</text>
-  <text x="250" y="380.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">=</text>
-  <text x="270" y="380.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#059669">"2026-03-02"</text>
-  <text x="400" y="380.55" font-size="13" fill="#52606d">(logical_date의 날짜 부분)</text>
-
-  <!-- Line 5: 실제 실행 시각 -->
-  <text x="70" y="420.55" font-size="13" font-weight="bold" fill="#1f2933">실제 실행 시각</text>
-  <text x="250" y="420.55" font-size="13" font-family="'Courier New', Courier, monospace" fill="#1f2933">=</text>
-  <text x="270" y="420.55" font-size="13" font-family="'Courier New', Courier, monospace" stroke-width="0.5" fill="#1f2933">03-03 00:00</text>
-  <text x="400" y="420.55" font-size="13" fill="#52606d">(start_date 컬럼에 기록)</text>
+  <g font-size="15" fill="#374151">
+    <text x="476" y="349">구간의 시작</text>
+    <text x="476" y="391">구간의 끝</text>
+    <text x="476" y="433">= 구간의 시작. 예전 이름은 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">execution_date</tspan></text>
+    <text x="476" y="475"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">logical_date</tspan>의 날짜 부분</text>
+    <text x="476" y="517"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">start_date</tspan> 컬럼에 기록</text>
+  </g>
 </svg>

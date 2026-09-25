@@ -1,65 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">캐시 스탬피드 (Cache Stampede / Thundering Herd)</title>
-  <desc id="d">만료 직전 정상 처리 상태와 만료 순간 DB 장애가 발생하는 캐시 스탬피드 현상을 비교하는 다이어그램</desc>
-  <rect width="880" height="380" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 550" width="880" height="550" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">캐시 스탬피드</title>
+  <desc id="d">만료 직전에는 App의 5000 rps를 캐시가 받아 DB가 한산하지만, 만료 순간에는 키가 없어 5000 rps가 전부 캐시를 통과해 DB로 몰리고 5000개 동시 쿼리가 커넥션 풀 고갈과 장애로 이어진다.</desc>
+  <rect width="880" height="550" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Left Side: Normal State (~ 만료 직전) -->
-  <text x="220" y="45" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">~ 만료 직전</text>
+  <!-- ① 만료 직전 -->
+  <rect x="24" y="24" width="400" height="500" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="224" y="60" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">① 만료 직전</text>
 
-  <!-- Cache Box (Left) -->
-  <rect x="150" y="70" width="140" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="220" y="100" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Cache</text>
+  <rect x="124" y="84" width="200" height="64" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="224" y="122" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Cache</text>
 
-  <!-- Arrow: App -> Cache (5000 rps) -->
-  <path d="M220,190 L220,120" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="180" y="145" width="80" height="20" fill="#ffffff"/>
-  <text x="220" y="159" font-size="11.5" fill="#52606d" text-anchor="middle">5000 rps</text>
+  <line x1="224" y1="250" x2="224" y2="156" stroke="#1d4ed8" stroke-width="3" marker-end="url(#ah-blue)"/>
+  <text x="240" y="208" font-size="16" font-weight="bold" fill="#1d4ed8">5000 rps</text>
 
-  <!-- App Box (Left) -->
-  <rect x="150" y="190" width="140" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="220" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
+  <rect x="124" y="252" width="200" height="56" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="224" y="286" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">App</text>
 
-  <!-- DB is quiet Note -->
-  <text x="220" y="280" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">DB는 한산</text>
+  <rect x="124" y="408" width="200" height="56" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="224" y="442" font-size="18" font-weight="bold" fill="#374151" text-anchor="middle">DB</text>
+  <text x="224" y="500" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">DB는 한산</text>
 
+  <!-- ② 만료 순간 -->
+  <rect x="456" y="24" width="400" height="500" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="656" y="60" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">② 만료 순간</text>
 
-  <!-- Center Divider / Distinction -->
-  <line x1="440" y1="40" x2="440" y2="340" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="556" y="84" width="200" height="64" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="656" y="110" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Cache</text>
+  <text x="656" y="135" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">(키 없음)</text>
 
+  <line x1="656" y1="250" x2="656" y2="156" stroke="#1d4ed8" stroke-width="3" marker-end="url(#ah-blue)"/>
+  <text x="672" y="208" font-size="16" font-weight="bold" fill="#1d4ed8">5000 rps</text>
 
-  <!-- Right Side: Stampede State (~ 만료 순간) -->
-  <text x="660" y="45" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">~ 만료 순간</text>
+  <rect x="556" y="252" width="200" height="56" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="656" y="286" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">App</text>
 
-  <!-- Cache Box (Right) -->
-  <rect x="580" y="70" width="160" height="50" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-dasharray="5 4" stroke-width="1.5"/>
-  <text x="630" y="100" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Cache</text>
-  <text x="700" y="100" font-size="11.5" fill="#52606d" text-anchor="middle">(키 없음)</text>
+  <line x1="656" y1="310" x2="656" y2="394" stroke="#b91c1c" stroke-width="6" marker-end="url(#ah-red)"/>
+  <text x="676" y="358" font-size="16" font-weight="bold" fill="#b91c1c">5000 rps 전부 통과</text>
 
-  <!-- Arrow: Cache -> App (5000 rps 전부 통과) -->
-  <path d="M660,120 L660,190" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="590" y="145" width="140" height="20" fill="#ffffff"/>
-  <text x="660" y="159" font-size="11.5" fill="#dc2626" font-weight="bold" text-anchor="middle">5000 rps 전부 통과</text>
-
-  <!-- App Box (Right) -->
-  <rect x="590" y="190" width="140" height="50" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="660" y="220" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
-
-  <!-- Arrow: App -> DB -->
-  <path d="M660,240 L660,280" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- DB Box (Right) -->
-  <rect x="600" y="280" width="120" height="50" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="660" y="310" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">DB</text>
-
-  <!-- Failure Note -->
-  <text x="660" y="355" font-size="11.5" fill="#dc2626" font-weight="bold" text-anchor="middle">5000개 동시 쿼리 → 커넥션 풀 고갈 → 장애</text>
+  <rect x="556" y="408" width="200" height="56" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="656" y="442" font-size="18" font-weight="bold" fill="#7f1d1d" text-anchor="middle">DB</text>
+  <text x="656" y="500" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">5000개 동시 쿼리 → 커넥션 풀 고갈 → 장애</text>
 </svg>

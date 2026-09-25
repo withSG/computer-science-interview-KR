@@ -79,7 +79,7 @@ LCP는 뷰포트 안에서 가장 큰 이미지나 텍스트 블록이 렌더링
 LCP를 개선하려면 **그 시간이 어디서 소모됐는지 나눠 봐야 합니다.**
 
 <!-- diagram:sd-web-performance-2 -->
-![LCP — 왜 느린지를 네 조각으로 나눠라](../../assets/diagrams/sd-web-performance-2.svg)
+![LCP를 이루는 네 조각: TTFB·발견 지연·다운로드·렌더 지연](../../assets/diagrams/sd-web-performance-2.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

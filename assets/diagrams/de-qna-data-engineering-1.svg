@@ -1,75 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">ETL vs ELT</title>
-  <desc id="d">ETL과 ELT의 프로세스 흐름 및 특징을 비교하는 다이어그램입니다.</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
-  
+  <desc id="d">ETL은 소스에서 추출한 데이터를 변환 서버에서 가공한 뒤 DW에 적재하고, ELT는 추출한 원본을 먼저 DW/Lake에 적재한 뒤 DW 안에서 변환한다. 같은 열에 놓인 변환과 적재 단계의 순서가 서로 뒤바뀐다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- ETL Container -->
-  <rect x="30" y="30" width="820" height="155" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="50" y="63" font-size="16" font-weight="bold" fill="#2563eb">ETL (Extract → Transform → Load)</text>
-  
-  <!-- ETL Flow -->
-  <!-- 소스 -->
-  <rect x="50" y="80" width="80" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="90" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">소스</text>
-  
-  <path d="M130,100 L180,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- 추출 -->
-  <rect x="180" y="80" width="80" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="220" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">추출</text>
-  
-  <path d="M260,100 L310,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- [변환 서버에서 가공] -->
-  <rect x="310" y="80" width="180" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="400" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">[변환 서버에서 가공]</text>
-  
-  <path d="M490,100 L540,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- DW 적재 -->
-  <rect x="540" y="80" width="100" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="590" y="105" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">DW 적재</text>
-  
-  <!-- ETL Description -->
-  <text x="50" y="155" font-size="13" fill="#52606d">- 적재 전에 변환 (정제된 데이터만 저장)</text>
+  <!-- ETL -->
+  <rect x="24" y="24" width="832" height="186" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="58" font-size="16" fill="#374151"><tspan font-size="20" font-weight="bold" fill="#111827">ETL</tspan><tspan dx="12">(Extract → </tspan><tspan fill="#b45309" font-weight="bold">Transform</tspan><tspan> → </tspan><tspan fill="#1d4ed8" font-weight="bold">Load</tspan><tspan>)</tspan></text>
 
+  <rect x="48" y="78" width="108" height="64" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="102" y="116" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">소스</text>
 
-  <!-- ELT Container -->
-  <rect x="30" y="205" width="820" height="155" rx="8" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="50" y="238" font-size="16" font-weight="bold" fill="#7c3aed">ELT (Extract → Load → Transform)</text>
-  
-  <!-- ELT Flow -->
-  <!-- 소스 -->
-  <rect x="50" y="255" width="80" height="40" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="90" y="280" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">소스</text>
-  
-  <path d="M130,275 L180,275" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  
-  <!-- 추출 -->
-  <rect x="180" y="255" width="80" height="40" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="220" y="280" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">추출</text>
-  
-  <path d="M260,275 L310,275" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  
-  <!-- DW/Lake 적재 -->
-  <rect x="310" y="255" width="130" height="40" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="375" y="280" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">DW/Lake 적재</text>
-  
-  <path d="M440,275 L490,275" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  
-  <!-- [DW 안에서 변환] -->
-  <rect x="490" y="255" width="160" height="40" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="570" y="280" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">[DW 안에서 변환]</text>
-  
-  <!-- ELT Description -->
-  <text x="50" y="330" font-size="13" fill="#52606d">- 일단 원본 적재 후 변환 (대용량/클라우드 DW에 적합)</text>
+  <rect x="208" y="78" width="108" height="64" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="262" y="104" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">추출</text>
+  <text x="262" y="128" font-size="14" fill="#4b5563" text-anchor="middle">Extract</text>
+
+  <rect x="368" y="78" width="206" height="64" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+  <text x="471" y="104" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">변환 서버에서 가공</text>
+  <text x="471" y="128" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">Transform</text>
+
+  <rect x="626" y="78" width="206" height="64" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="729" y="104" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">DW 적재</text>
+  <text x="729" y="128" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Load</text>
+
+  <path d="M160,110 L203,110" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+  <path d="M320,110 L363,110" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+  <path d="M578,110 L621,110" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+
+  <text x="48" y="184" font-size="16" fill="#1f2937"><tspan font-weight="bold" fill="#b45309">적재 전에 변환</tspan><tspan> (정제된 데이터만 저장)</tspan></text>
+
+  <!-- ELT -->
+  <rect x="24" y="230" width="832" height="186" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="264" font-size="16" fill="#374151"><tspan font-size="20" font-weight="bold" fill="#111827">ELT</tspan><tspan dx="12">(Extract → </tspan><tspan fill="#1d4ed8" font-weight="bold">Load</tspan><tspan> → </tspan><tspan fill="#b45309" font-weight="bold">Transform</tspan><tspan>)</tspan></text>
+
+  <rect x="48" y="284" width="108" height="64" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="102" y="322" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">소스</text>
+
+  <rect x="208" y="284" width="108" height="64" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="262" y="310" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">추출</text>
+  <text x="262" y="334" font-size="14" fill="#4b5563" text-anchor="middle">Extract</text>
+
+  <rect x="368" y="284" width="206" height="64" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="471" y="310" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">DW/Lake 적재</text>
+  <text x="471" y="334" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Load</text>
+
+  <rect x="626" y="284" width="206" height="64" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="2"/>
+  <text x="729" y="310" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">DW 안에서 변환</text>
+  <text x="729" y="334" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">Transform</text>
+
+  <path d="M160,316 L203,316" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+  <path d="M320,316 L363,316" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+  <path d="M578,316 L621,316" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
+
+  <text x="48" y="390" font-size="16" fill="#1f2937"><tspan font-weight="bold" fill="#1d4ed8">일단 원본 적재 후 변환</tspan><tspan> (대용량/클라우드 DW에 적합)</tspan></text>
 </svg>

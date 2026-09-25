@@ -1,55 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">과적합 vs 과소적합 그래프</title>
-  <desc id="d">모델 복잡도 및 학습량에 따른 학습 오차와 검증 오차의 변화를 보여주는 그래프. 적정 지점과 과적합 구간을 표시함.</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">모델 복잡도에 따른 학습·검증 오차</title>
+  <desc id="d">모델 복잡도나 학습량이 늘면 학습 오차는 계속 줄지만 검증 오차는 적정 지점(검증 오차 최소)을 지나 다시 커진다. 적정 지점 왼쪽은 과소적합, 오른쪽은 과적합 구간이다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커들 -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ax" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 과적합 영역 배경 강조 -->
-  <rect x="420" y="80" width="370" height="340" fill="#fef2f2" rx="4"/>
+  <!-- 구간 음영 -->
+  <rect x="92" y="60" width="288" height="358" fill="#fffbeb"/>
+  <rect x="380" y="60" width="380" height="358" fill="#fef2f2"/>
 
-  <!-- 축 (Y축, X축) -->
-  <path d="M 130 80 L 130 420 L 790 420" stroke="#1f2933" stroke-width="2" fill="none" marker-start="url(#a-ink)" marker-end="url(#a-ink)"/>
+  <!-- 구간 머리글 -->
+  <text x="236" y="90" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">과소적합 구간</text>
+  <text x="236" y="112" font-size="15" fill="#4b5563" text-anchor="middle">학습·검증 오차 모두 높음</text>
+  <text x="575" y="90" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">과적합 구간</text>
+  <text x="575" y="112" font-size="15" fill="#4b5563" text-anchor="middle">검증 오차 다시 증가</text>
 
-  <!-- 축 라벨 -->
-  <text x="130" y="55" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">오차</text>
-  <text x="790" y="450" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="end">모델 복잡도/학습량</text>
+  <!-- 축 -->
+  <path d="M 90 64 L 90 420 L 764 420" stroke="#374151" stroke-width="2" fill="none" marker-start="url(#ax)" marker-end="url(#ax)"/>
+  <text x="90" y="46" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">오차</text>
+  <text x="764" y="450" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">모델 복잡도/학습량</text>
 
-  <!-- 적정 지점 세로 점선 -->
-  <path d="M 420 120 L 420 420" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <!-- 적정 지점 -->
+  <path d="M 380 60 L 380 418" stroke="#047857" stroke-width="1.5" stroke-dasharray="6 5" fill="none"/>
 
-  <!-- 곡선: 학습 오차 (계속 감소) -->
-  <path d="M 150 150 C 230 310, 350 380, 750 395" stroke="#2563eb" stroke-width="3" fill="none"/>
+  <!-- 곡선 -->
+  <path d="M 110 150 C 190 310, 340 365, 730 385" stroke="#1d4ed8" stroke-width="3.5" fill="none"/>
+  <path d="M 110 130 C 200 250, 300 262, 380 262 C 470 262, 600 195, 730 105" stroke="#b91c1c" stroke-width="3.5" fill="none"/>
+  <circle cx="380" cy="262" r="6" fill="#047857" stroke="#ffffff" stroke-width="2"/>
 
-  <!-- 곡선: 검증 오차 (감소 후 증가) -->
-  <path d="M 150 190 C 250 340, 360 380, 420 380 C 500 380, 600 190, 750 130" stroke="#dc2626" stroke-width="3" fill="none"/>
+  <!-- 곡선 이름표 -->
+  <text x="742" y="112" font-size="16" font-weight="bold" fill="#b91c1c">검증 오차</text>
+  <text x="742" y="382" font-size="16" font-weight="bold" fill="#1d4ed8">학습 오차</text>
+  <text x="742" y="402" font-size="15" fill="#1d4ed8">(계속 감소)</text>
 
-  <!-- 적정 지점 화살표 및 라벨 -->
-  <path d="M 420 470 L 420 430" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="250" y="472" width="340" height="32" fill="#ffffff" stroke="#059669" stroke-width="1" rx="4"/>
-  <text x="420" y="493" font-size="13" fill="#059669" text-anchor="middle" font-weight="bold">적정 지점(검증 오차 최소)</text>
+  <!-- 격차 -->
+  <path d="M 694 138 L 706 138 M 700 138 L 700 372 M 694 372 L 706 372" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <text x="688" y="262" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">학습·검증 오차 격차</text>
+  <text x="688" y="284" font-size="15" fill="#4b5563" text-anchor="end">(generalization gap)</text>
 
-  <!-- 검증 오차 라벨 -->
-  <rect x="475" y="120" width="80" height="24" fill="#ffffff" rx="2"/>
-  <text x="515" y="137" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">검증 오차</text>
-
-  <!-- 학습 오차 라벨 -->
-  <rect x="490" y="340" width="160" height="24" fill="#ffffff" rx="2"/>
-  <text x="570" y="357" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">학습 오차 (계속 감소)</text>
-
-  <!-- 과적합 구간 라벨 및 화살표 -->
-  <path d="M 525 210 L 470 210" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="530" y="196" width="230" height="28" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
-  <text x="540" y="215" font-size="13" fill="#dc2626" font-weight="bold">← 과적합 구간 (검증 오차 다시 증가)</text>
+  <!-- 적정 지점 라벨 -->
+  <text x="380" y="450" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">적정 지점</text>
+  <text x="380" y="472" font-size="15" fill="#047857" text-anchor="middle">(검증 오차 최소)</text>
 </svg>

@@ -1,62 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">풀어야 할 질문 - 워터마크 동작 방식</title>
-  <desc id="d">최대 이벤트 시간과 워터마크 지연 설정으로 계산된 워터마크가 윈도우 마감 및 늦은 이벤트 처리에 미치는 영향을 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">워터마크 계산과 판정</title>
+  <desc id="d">현재까지 본 최대 이벤트 시간 10:12에서 워터마크 지연 설정 5분을 빼 워터마크 10:07을 얻고, 이를 기준으로 10:00~10:10 윈도우는 열어 두고 09:50~10:00 윈도우는 마감해 결과를 확정하고 상태를 해제하며, 이후 도착한 09:55 이벤트는 버린다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- 1. 워터마크 계산 -->
+  <circle cx="40" cy="40" r="15" fill="#111827"/>
+  <text x="40" y="46" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="66" y="46" font-size="18" font-weight="700" fill="#111827">워터마크 계산</text>
 
-  <!-- Top Calculation Area -->
-  <rect x="40" y="30" width="800" height="130" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <text x="60" y="68" fill="#1f2933" font-size="14" font-weight="bold">현재까지 본 최대 이벤트 시간 = 10:12</text>
-  <text x="60" y="98" fill="#52606d" font-size="14">워터마크 지연 설정 = 5분</text>
-  
-  <!-- Arrow for Watermark Calculation -->
-  <path d="M60,128 L80,128" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <text x="92" y="133" fill="#2563eb" font-size="15" font-weight="bold">워터마크 = 10:07</text>
+  <rect x="64" y="66" width="250" height="70" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="189" y="92" font-size="15" fill="#374151" text-anchor="middle">현재까지 본 최대 이벤트 시간</text>
+  <text x="189" y="123" font-size="22" font-weight="700" fill="#1d4ed8" text-anchor="middle">10:12</text>
 
-  <!-- Middle Windows Status Area -->
-  <!-- Window 1: Open -->
-  <rect x="40" y="180" width="800" height="100" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="60" y="200" width="220" height="60" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="170" y="235" fill="#2563eb" font-size="14" font-weight="bold" text-anchor="middle">10:00 ~ 10:10 윈도우</text>
-  
-  <text x="300" y="235" fill="#1f2933" font-size="14">
-    <tspan stroke="none">:</tspan> 
-    <tspan fill="#2563eb" font-weight="bold"> 워터마크(10:07)</tspan>가 아직 안 지났다 
-    <tspan fill="#52606d"> → </tspan>
-    <tspan fill="#2563eb" font-weight="bold">열려 있음</tspan>
-  </text>
+  <text x="339" y="111" font-size="28" font-weight="700" fill="#111827" text-anchor="middle">−</text>
 
-  <!-- Window 2: Closed -->
-  <rect x="40" y="300" width="800" height="100" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <rect x="60" y="320" width="220" height="60" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="170" y="355" fill="#059669" font-size="14" font-weight="bold" text-anchor="middle">09:50 ~ 10:00 윈도우</text>
-  
-  <text x="300" y="355" fill="#1f2933" font-size="14">
-    <tspan stroke="none">:</tspan> 
-    <tspan fill="#059669" font-weight="bold"> 워터마크가 지났다</tspan> 
-    <tspan fill="#52606d"> → </tspan>
-    <tspan fill="#059669" font-weight="bold">마감하고 결과 확정, 상태 해제</tspan>
-  </text>
+  <rect x="364" y="66" width="190" height="70" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="459" y="92" font-size="15" fill="#374151" text-anchor="middle">워터마크 지연 설정</text>
+  <text x="459" y="123" font-size="22" font-weight="700" fill="#111827" text-anchor="middle">5분</text>
 
-  <!-- Bottom Late Event Area -->
-  <rect x="40" y="420" width="800" height="70" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  
-  <text x="60" y="460" fill="#1f2933" font-size="14">
-    <tspan font-weight="bold">이후 09:55짜리 이벤트가 도착하면?</tspan>
-    <tspan fill="#52606d"> → </tspan>
-    <tspan fill="#dc2626" font-weight="bold">워터마크보다 뒤처졌으므로 버려진다</tspan>
-  </text>
+  <text x="579" y="111" font-size="28" font-weight="700" fill="#111827" text-anchor="middle">=</text>
+
+  <rect x="604" y="66" width="190" height="70" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="699" y="92" font-size="15" fill="#5b21b6" text-anchor="middle">워터마크</text>
+  <text x="699" y="123" font-size="22" font-weight="700" fill="#6d28d9" text-anchor="middle">10:07</text>
+
+  <line x1="24" y1="158" x2="856" y2="158" stroke="#e5e7eb" stroke-width="1.5"/>
+
+  <!-- 2. 윈도우 판정 -->
+  <circle cx="40" cy="184" r="15" fill="#111827"/>
+  <text x="40" y="190" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="66" y="190" font-size="18" font-weight="700" fill="#111827">윈도우 판정</text>
+
+  <rect x="64" y="206" width="180" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="154" y="233" font-size="15" font-weight="700" fill="#065f46" text-anchor="middle">10:00 ~ 10:10 윈도우</text>
+  <text x="260" y="233" font-size="15" fill="#111827">워터마크(10:07)가 아직 안 지났다</text>
+  <line x1="510" y1="228" x2="552" y2="228" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="564" y="206" width="292" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="710" y="233" font-size="15" font-weight="700" fill="#047857" text-anchor="middle">열려 있음</text>
+
+  <rect x="64" y="264" width="180" height="44" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="154" y="291" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">09:50 ~ 10:00 윈도우</text>
+  <text x="260" y="291" font-size="15" fill="#111827">워터마크가 지났다</text>
+  <line x1="510" y1="286" x2="552" y2="286" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="564" y="264" width="292" height="44" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="710" y="291" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">마감하고 결과 확정, 상태 해제</text>
+
+  <line x1="24" y1="330" x2="856" y2="330" stroke="#e5e7eb" stroke-width="1.5"/>
+
+  <!-- 3. 늦은 이벤트 -->
+  <circle cx="40" cy="356" r="15" fill="#111827"/>
+  <text x="40" y="362" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="66" y="362" font-size="18" font-weight="700" fill="#111827">늦은 이벤트</text>
+
+  <rect x="64" y="378" width="434" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="281" y="405" font-size="15" fill="#111827" text-anchor="middle">이후 09:55짜리 이벤트가 도착하면?</text>
+  <line x1="510" y1="400" x2="552" y2="400" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="564" y="378" width="292" height="44" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="710" y="405" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">워터마크보다 뒤처졌으므로 버려진다</text>
 </svg>

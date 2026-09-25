@@ -1,56 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Blue-Green — 통째로 두 벌 만들고 스위치를 넘긴다</title>
-  <desc id="d">Load Balancer에서 Blue(v1) 및 Green(v2)으로의 트래픽 흐름과 전환, 롤백, 정리 절차를 보여주는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Blue-Green 배포 구조</title>
+  <desc id="d">Load Balancer가 트래픽 100%를 Blue(v1)로, 0%를 Green(v2)으로 보낸다. Green은 미리 다 띄우고 검증해 두며, 전환은 트래픽 100%를 Green으로 넘기는 것, 롤백은 다시 Blue로 돌리는 것, 정리는 안정화 확인 후 Blue 회수다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="3" refY="5" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
-    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
     </marker>
   </defs>
-  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- Load Balancer Box -->
-  <rect x="340" y="30" width="200" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="59.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Load Balancer</text>
+  <!-- Load Balancer -->
+  <rect x="340" y="28" width="200" height="52" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="440" y="60" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">Load Balancer</text>
 
-  <!-- Connectors from Load Balancer -->
-  <!-- Left Path to Blue (100%) -->
-  <path d="M440,80 L440,110 L210,110 L210,150" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
-  <rect x="290" y="100" width="50" height="20" fill="#ffffff" rx="3"/>
-  <text x="315" y="114.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">100%</text>
+  <!-- 트래픽 경로 -->
+  <path d="M440,110 H650 V156" fill="none" stroke="#9ca3af" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ar-gray)"/>
+  <path d="M440,80 V110 H230 V146" fill="none" stroke="#2563eb" stroke-width="4" marker-end="url(#ar-blue)"/>
+  <text x="246" y="146" font-size="20" font-weight="bold" fill="#1d4ed8">100%</text>
+  <text x="666" y="146" font-size="20" font-weight="bold" fill="#4b5563">0%</text>
 
-  <!-- Right Path to Green (0%) -->
-  <path d="M440,80 L440,110 L610,110 L610,150" fill="none" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-gray)"/>
-  <rect x="540" y="100" width="40" height="20" fill="#ffffff" rx="3"/>
-  <text x="560" y="114.2" text-anchor="middle" font-size="13" font-weight="bold" fill="#52606d">0%</text>
+  <!-- Blue (v1) -->
+  <rect x="90" y="166" width="280" height="186" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="230" y="200" text-anchor="middle" font-size="20" font-weight="bold" fill="#1d4ed8">Blue (v1)</text>
+  <text x="230" y="226" text-anchor="middle" font-size="16" fill="#374151">현재 운영</text>
+  <rect x="132" y="244" width="56" height="44" rx="5" fill="#1d4ed8"/>
+  <text x="160" y="272" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">v1</text>
+  <rect x="202" y="244" width="56" height="44" rx="5" fill="#1d4ed8"/>
+  <text x="230" y="272" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">v1</text>
+  <rect x="272" y="244" width="56" height="44" rx="5" fill="#1d4ed8"/>
+  <text x="300" y="272" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">v1</text>
 
-  <!-- Blue Box -->
-  <rect x="100" y="150" width="220" height="130" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="210" y="184.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">Blue (v1)</text>
-  <text x="210" y="214.55" text-anchor="middle" font-size="13" fill="#52606d">현재 운영</text>
-  <text x="210" y="244.55" text-anchor="middle" font-size="13" fill="#2563eb">[■][■][■]</text>
+  <!-- Green (v2) -->
+  <rect x="510" y="166" width="280" height="186" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="650" y="200" text-anchor="middle" font-size="20" font-weight="bold" fill="#047857">Green (v2)</text>
+  <text x="650" y="226" text-anchor="middle" font-size="16" fill="#374151">배포 완료</text>
+  <rect x="552" y="244" width="56" height="44" rx="5" fill="#047857"/>
+  <text x="580" y="272" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">v2</text>
+  <rect x="622" y="244" width="56" height="44" rx="5" fill="#047857"/>
+  <text x="650" y="272" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">v2</text>
+  <rect x="692" y="244" width="56" height="44" rx="5" fill="#047857"/>
+  <text x="720" y="272" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">v2</text>
+  <text x="650" y="324" text-anchor="middle" font-size="15" font-weight="bold" fill="#047857">↑ 미리 다 띄우고 검증</text>
 
-  <!-- Green Box -->
-  <rect x="500" y="150" width="220" height="130" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="610" y="184.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">Green (v2)</text>
-  <text x="610" y="214.55" text-anchor="middle" font-size="13" fill="#52606d">배포 완료</text>
-  <text x="610" y="244.55" text-anchor="middle" font-size="13" fill="#059669">[■][■][■]</text>
+  <!-- 전환 / 롤백 / 정리 -->
+  <rect x="40" y="384" width="252" height="100" rx="8" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="60" y="414" font-size="18" font-weight="bold" fill="#047857">전환</text>
+  <text x="60" y="442" font-size="15" fill="#1f2937">트래픽 100%를 Green으로.</text>
+  <text x="60" y="465" font-size="15" fill="#1f2937">순간적으로 전부 v2.</text>
 
-  <!-- Annotation next to Green Box -->
-  <text x="735" y="244.55" text-anchor="start" font-size="13" fill="#059669">← 미리 다 띄우고 검증</text>
+  <rect x="314" y="384" width="252" height="100" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="334" y="414" font-size="18" font-weight="bold" fill="#1d4ed8">롤백</text>
+  <text x="334" y="442" font-size="15" fill="#1f2937">다시 Blue로.</text>
+  <text x="334" y="465" font-size="15" fill="#1f2937">초 단위.</text>
 
-  <!-- Summary Section Box -->
-  <rect x="100" y="315" width="680" height="115" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <text x="120" y="348.55" font-size="13" fill="#1f2933">
-    <tspan font-weight="bold" fill="#059669">전환:</tspan>  트래픽 100%를 Green으로. 순간적으로 전부 v2.
-  </text>
-  <text x="120" y="378.55" font-size="13" fill="#1f2933">
-    <tspan font-weight="bold" fill="#2563eb">롤백:</tspan>  다시 Blue로. 초 단위.
-  </text>
-  <text x="120" y="408.55" font-size="13" fill="#1f2933">
-    <tspan font-weight="bold" fill="#52606d">정리:</tspan>  안정화 확인 후 Blue 회수.
-  </text>
+  <rect x="588" y="384" width="252" height="100" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="608" y="414" font-size="18" font-weight="bold" fill="#374151">정리</text>
+  <text x="608" y="442" font-size="15" fill="#1f2937">안정화 확인 후</text>
+  <text x="608" y="465" font-size="15" fill="#1f2937">Blue 회수.</text>
 </svg>

@@ -1,103 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">시계열 분할 — 무작위 분할이 곧 누수인 경우</title>
-  <desc id="d">무작위 K-Fold와 시계열 분할의 차이를 보여주는 다이어그램으로, 무작위 분할 시 미래 정보 누수 문제와 시계열 분할의 누적 학습 방식을 시각화합니다.</desc>
-  
-  <!-- 배경 -->
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 690" width="880" height="690" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">무작위 K-Fold와 시계열 분할</title>
+  <desc id="d">무작위 K-Fold는 학습·검증 구간을 시간축에 섞어, 검증 구간의 정답을 오른쪽(미래) 학습 구간이 이미 알고 있게 된다. 시계열 분할은 split 1~4에서 학습 구간을 누적하고 검증 구간을 항상 학습 구간의 오른쪽에 두어, 과거로 학습해 미래를 예측한다.</desc>
   <defs>
-    <!-- 화살표 마커 (잉크색) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <!-- 화살표 마커 (빨강) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
     </marker>
   </defs>
+  <rect width="880" height="690" fill="#ffffff"/>
 
-  <!-- ==================== Section 1: [안티패턴] 무작위 K-Fold ==================== -->
-  <g id="anti-pattern">
-    <!-- 섹션 제목 -->
-    <text x="40" y="44" font-size="16" font-weight="bold" fill="#dc2626">[안티패턴] 무작위 K-Fold</text>
+  <!-- ===== [안티패턴] 무작위 K-Fold ===== -->
+  <rect x="24" y="24" width="832" height="272" rx="10" fill="#ffffff" stroke="#fca5a5" stroke-width="2"/>
+  <text x="48" y="58" font-size="18" font-weight="bold" fill="#b91c1c">[안티패턴] 무작위 K-Fold</text>
 
-    <!-- 시간축 -->
-    <text x="70" y="84" font-size="13" fill="#52606d">시간축</text>
-    <path d="M125,80 L790,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="48" y="105" font-size="15" fill="#4b5563">시간축</text>
+  <text x="136" y="88" font-size="14" fill="#4b5563">과거</text>
+  <text x="828" y="88" font-size="14" fill="#4b5563" text-anchor="end">미래</text>
+  <line x1="136" y1="100" x2="826" y2="100" stroke="#374151" stroke-width="1.5" marker-end="url(#ah)"/>
 
-    <!-- 박스 그룹 (총 폭: 670, X: 125 ~ 795) -->
-    <!-- [학습] (110) | [검증] (110) | [학습] (110) | [학습] (110) | [검증] (110) | [학습] (120) -->
-    
-    <!-- 1. 학습 -->
-    <rect x="125" y="105" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="180" y="128" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">학습</text>
+  <!-- 오른쪽 학습 구간 → 검증 구간 (정답이 새어 듦) -->
+  <path d="M424,194 C424,164 326,164 326,192" stroke="#dc2626" stroke-width="1.75" stroke-dasharray="5 4" fill="none" marker-end="url(#ahr)"/>
+  <path d="M540,194 C540,144 308,144 308,192" stroke="#dc2626" stroke-width="1.75" stroke-dasharray="5 4" fill="none" marker-end="url(#ahr)"/>
+  <path d="M772,194 C772,114 290,114 290,192" stroke="#dc2626" stroke-width="1.75" stroke-dasharray="5 4" fill="none" marker-end="url(#ahr)"/>
 
-    <!-- 2. 검증 (이 검증 구간) -->
-    <rect x="237" y="105" width="110" height="36" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-    <text x="292" y="128" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">검증</text>
+  <rect x="136" y="196" width="112" height="44" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="192" y="223" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
+  <rect x="252" y="196" width="112" height="44" rx="4" fill="#c2410c" stroke="#9a3412" stroke-width="1"/>
+  <text x="308" y="223" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
+  <rect x="368" y="196" width="112" height="44" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="424" y="223" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
+  <rect x="484" y="196" width="112" height="44" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="540" y="223" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
+  <rect x="600" y="196" width="112" height="44" rx="4" fill="#c2410c" stroke="#9a3412" stroke-width="1"/>
+  <text x="656" y="223" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
+  <rect x="716" y="196" width="112" height="44" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="772" y="223" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
 
-    <!-- 3. 학습 -->
-    <rect x="349" y="105" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="404" y="128" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">학습</text>
+  <line x1="308" y1="282" x2="308" y2="246" stroke="#b91c1c" stroke-width="1.75" marker-end="url(#ahr)"/>
+  <text x="322" y="276" font-size="16" font-weight="bold" fill="#b91c1c">이 검증 구간의 정답을 오른쪽 학습 구간이 이미 알고 있다</text>
 
-    <!-- 4. 학습 (오른쪽 학습 구간) -->
-    <rect x="461" y="105" width="110" height="36" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-    <text x="516" y="128" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">학습</text>
+  <!-- ===== [개선] 시계열 분할 ===== -->
+  <rect x="24" y="316" width="832" height="350" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="2"/>
+  <text x="48" y="350" font-size="18" font-weight="bold" fill="#047857">[개선] 시계열 분할 — 항상 과거로 학습해 미래를 예측</text>
 
-    <!-- 5. 검증 -->
-    <rect x="573" y="105" width="110" height="36" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-    <text x="628" y="128" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">검증</text>
+  <text x="48" y="397" font-size="15" fill="#4b5563">시간축</text>
+  <text x="136" y="380" font-size="14" fill="#4b5563">과거</text>
+  <text x="828" y="380" font-size="14" fill="#4b5563" text-anchor="end">미래</text>
+  <line x1="136" y1="392" x2="826" y2="392" stroke="#374151" stroke-width="1.5" marker-end="url(#ah)"/>
 
-    <!-- 6. 학습 -->
-    <rect x="685" y="105" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="740" y="128" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">학습</text>
+  <!-- split 1 -->
+  <text x="48" y="438" font-size="16" font-weight="bold" fill="#1f2937">split 1</text>
+  <rect x="136" y="412" width="112" height="40" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="192" y="437" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
+  <rect x="252" y="412" width="112" height="40" rx="4" fill="#c2410c" stroke="#9a3412" stroke-width="1"/>
+  <text x="308" y="437" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
 
-    <!-- 경고 화살표 및 부가 설명 문자열 -->
-    <path d="M292,170 L292,147" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <text x="302" y="174" font-size="12" fill="#dc2626">이 검증 구간의 정답을 오른쪽 학습 구간이 이미 알고 있다</text>
-  </g>
+  <!-- split 2 -->
+  <text x="48" y="490" font-size="16" font-weight="bold" fill="#1f2937">split 2</text>
+  <rect x="136" y="464" width="228" height="40" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="250" y="489" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
+  <rect x="368" y="464" width="112" height="40" rx="4" fill="#c2410c" stroke="#9a3412" stroke-width="1"/>
+  <text x="424" y="489" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
 
-  <!-- 구분선 -->
-  <path d="M40,205 L840,205" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- split 3 -->
+  <text x="48" y="542" font-size="16" font-weight="bold" fill="#1f2937">split 3</text>
+  <rect x="136" y="516" width="344" height="40" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="308" y="541" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
+  <rect x="484" y="516" width="112" height="40" rx="4" fill="#c2410c" stroke="#9a3412" stroke-width="1"/>
+  <text x="540" y="541" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
 
-  <!-- ==================== Section 2: [개선] 시계열 분할 ==================== -->
-  <g id="improvement">
-    <!-- 섹션 제목 -->
-    <text x="40" y="235" font-size="16" font-weight="bold" fill="#059669">[개선] 시계열 분할 — 항상 과거로 학습해 미래를 예측</text>
+  <!-- split 4 -->
+  <text x="48" y="594" font-size="16" font-weight="bold" fill="#1f2937">split 4</text>
+  <rect x="136" y="568" width="460" height="40" rx="4" fill="#dbeafe" stroke="#60a5fa" stroke-width="1"/>
+  <text x="366" y="593" font-size="15" fill="#1e3a8a" text-anchor="middle">학습</text>
+  <rect x="600" y="568" width="112" height="40" rx="4" fill="#c2410c" stroke="#9a3412" stroke-width="1"/>
+  <text x="656" y="593" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
 
-    <!-- 시간축 -->
-    <text x="70" y="275" font-size="13" fill="#52606d">시간축</text>
-    <path d="M125,271 L790,271" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <!-- split 1 -->
-    <text x="60" y="318" font-size="13" font-weight="bold" fill="#52606d">split 1</text>
-    <rect x="125" y="297" width="130" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="190" y="318" font-size="13" fill="#2563eb" text-anchor="middle">학습</text>
-    <rect x="257" y="297" width="100" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="307" y="318" font-size="13" fill="#059669" text-anchor="middle">검증</text>
-
-    <!-- split 2 -->
-    <text x="60" y="358" font-size="13" font-weight="bold" fill="#52606d">split 2</text>
-    <rect x="125" y="337" width="232" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="241" y="358" font-size="13" fill="#2563eb" text-anchor="middle">학습</text>
-    <rect x="359" y="337" width="100" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="409" y="358" font-size="13" fill="#059669" text-anchor="middle">검증</text>
-
-    <!-- split 3 -->
-    <text x="60" y="398" font-size="13" font-weight="bold" fill="#52606d">split 3</text>
-    <rect x="125" y="377" width="334" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="292" y="398" font-size="13" fill="#2563eb" text-anchor="middle">학습</text>
-    <rect x="461" y="377" width="100" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="511" y="398" font-size="13" fill="#059669" text-anchor="middle">검증</text>
-
-    <!-- split 4 -->
-    <text x="60" y="438" font-size="13" font-weight="bold" fill="#52606d">split 4</text>
-    <rect x="125" y="417" width="436" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="343" y="438" font-size="13" fill="#2563eb" text-anchor="middle">학습</text>
-    <rect x="563" y="417" width="100" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="613" y="438" font-size="13" fill="#059669" text-anchor="middle">검증</text>
-
-    <!-- 각주 설명 -->
-    <text x="410" y="482" font-size="12" fill="#52606d" text-anchor="middle">학습 구간은 누적되고, 검증 구간은 항상 학습 구간의 오른쪽에 있다</text>
-  </g>
+  <text x="48" y="642" font-size="16" fill="#374151">학습 구간은 누적되고, 검증 구간은 항상 학습 구간의 오른쪽에 있다</text>
 </svg>

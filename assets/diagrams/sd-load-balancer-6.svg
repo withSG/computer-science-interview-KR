@@ -1,71 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">능동 vs 수동</title>
-  <desc id="d">능동(Active) 및 수동(Passive) 헬스체크 방식의 흐름과 장단점 비교 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 444" width="880" height="444" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">능동 헬스체크와 수동 헬스체크</title>
+  <desc id="d">능동 방식은 LB가 5초마다 GET /health로 서버를 먼저 찔러 보고, 수동 방식은 실제 요청이 타임아웃이나 5xx로 끝나면 실패 카운트를 올린다. 각 방식의 장점과 단점을 함께 보여준다.</desc>
+  <rect width="880" height="444" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ahB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ahG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ahR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="440" fill="#ffffff"/>
+  <!-- 능동 -->
+  <rect x="24" y="24" width="832" height="190" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="60" font-size="20" font-weight="700" fill="#1d4ed8">능동(Active)</text>
+  <text x="190" y="60" font-size="16" fill="#374151">LB가 주기적으로 먼저 찔러본다</text>
 
-  <!-- Section 1: Active Health Check -->
-  <rect x="30" y="30" width="820" height="180" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <!-- Active Title & Description -->
-  <text x="50" y="62" font-size="16" font-weight="bold" fill="#2563eb">능동(Active)</text>
-  <text x="150" y="62" font-size="14" fill="#52606d">LB가 주기적으로 먼저 찔러본다</text>
+  <rect x="44" y="84" width="90" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="89" y="112" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">LB</text>
+  <line x1="142" y1="106" x2="352" y2="106" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahB)"/>
+  <text x="247" y="96" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET /health</text>
+  <text x="247" y="127" font-size="15" fill="#4b5563" text-anchor="middle">5초마다</text>
+  <rect x="360" y="84" width="120" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="420" y="112" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Server</text>
 
-  <!-- Active Diagram Nodes -->
-  <rect x="60" y="85" width="80" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="100" y="107" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
+  <rect x="44" y="148" width="388" height="44" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="60" y="175" font-size="15" font-weight="700" fill="#047857">장점</text>
+  <text x="106" y="175" font-size="15" fill="#111827">트래픽이 없어도 상태를 안다</text>
+  <rect x="448" y="148" width="388" height="44" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="464" y="175" font-size="15" font-weight="700" fill="#b91c1c">단점</text>
+  <text x="510" y="175" font-size="15" fill="#111827">서버 수 × 주기만큼 추가 요청</text>
 
-  <path d="M140,103 L320,103" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="180" y="92" width="100" height="20" fill="#ffffff" rx="2"/>
-  <text x="230" y="106" font-size="11.5" fill="#2563eb" text-anchor="middle">GET /health</text>
+  <!-- 수동 -->
+  <rect x="24" y="230" width="832" height="190" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="266" font-size="20" font-weight="700" fill="#6d28d9">수동(Passive)</text>
+  <text x="190" y="266" font-size="16" fill="#374151">실제 요청의 실패를 관찰한다</text>
 
-  <rect x="320" y="85" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="365" y="107" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <rect x="44" y="290" width="90" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="89" y="318" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">LB</text>
+  <line x1="142" y1="312" x2="352" y2="312" stroke="#374151" stroke-width="2" marker-end="url(#ahG)"/>
+  <text x="247" y="302" font-size="15" font-weight="700" fill="#374151" text-anchor="middle">실제 요청</text>
+  <rect x="360" y="290" width="120" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="420" y="318" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Server</text>
+  <line x1="488" y1="312" x2="660" y2="312" stroke="#b91c1c" stroke-width="2" marker-end="url(#ahR)"/>
+  <text x="574" y="302" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">타임아웃/5xx</text>
+  <rect x="668" y="290" width="168" height="44" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="752" y="317" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">실패 카운트 증가</text>
 
-  <text x="430" y="107" font-size="13" fill="#52606d">5초마다</text>
-
-  <!-- Active Pros & Cons -->
-  <text x="60" y="152" font-size="13" fill="#059669">장점: <tspan fill="#1f2933">트래픽이 없어도 상태를 안다</tspan></text>
-  <text x="60" y="180" font-size="13" fill="#dc2626">단점: <tspan fill="#1f2933">서버 수 × 주기만큼 추가 요청</tspan></text>
-
-  <!-- Section 2: Passive Health Check -->
-  <rect x="30" y="230" width="820" height="180" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- Passive Title & Description -->
-  <text x="50" y="262" font-size="16" font-weight="bold" fill="#d97706">수동(Passive)</text>
-  <text x="150" y="262" font-size="14" fill="#52606d">실제 요청의 실패를 관찰한다</text>
-
-  <!-- Passive Diagram Nodes -->
-  <rect x="60" y="285" width="80" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="100" y="307" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">LB</text>
-
-  <path d="M140,303 L250,303" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="158" y="292" width="74" height="20" fill="#ffffff" rx="2"/>
-  <text x="195" y="306" font-size="11.5" fill="#d97706" text-anchor="middle">실제 요청</text>
-
-  <rect x="250" y="285" width="90" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="295" y="307" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
-
-  <path d="M340,303 L490,303" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="353" y="292" width="124" height="20" fill="#ffffff" rx="2"/>
-  <text x="415" y="306" font-size="11.5" fill="#dc2626" text-anchor="middle">타임아웃/5xx</text>
-
-  <rect x="490" y="285" width="130" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="555" y="307" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">실패 카운트 증가</text>
-
-  <!-- Passive Pros & Cons -->
-  <text x="60" y="352" font-size="13" fill="#059669">장점: <tspan fill="#1f2933">추가 비용 0, 진짜 트래픽으로 판단</tspan></text>
-  <text x="60" y="380" font-size="13" fill="#dc2626">단점: <tspan fill="#1f2933">사용자 요청 몇 개는 이미 실패한 뒤에 감지</tspan></text>
+  <rect x="44" y="354" width="388" height="44" rx="6" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="60" y="381" font-size="15" font-weight="700" fill="#047857">장점</text>
+  <text x="106" y="381" font-size="15" fill="#111827">추가 비용 0, 진짜 트래픽으로 판단</text>
+  <rect x="448" y="354" width="388" height="44" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="464" y="381" font-size="15" font-weight="700" fill="#b91c1c">단점</text>
+  <text x="510" y="381" font-size="15" fill="#111827">사용자 요청 몇 개는 이미 실패한 뒤에 감지</text>
 </svg>

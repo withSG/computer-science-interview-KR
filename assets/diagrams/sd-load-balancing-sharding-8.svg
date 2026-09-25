@@ -1,78 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">다중 마스터는 왜 기본값이 아닌가</title>
-  <desc id="d">단일 프라이머리와 다중 마스터의 쓰기 흐름 및 충돌 여부를 비교하는 다이어그램</desc>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">단일 프라이머리와 다중 마스터 비교</title>
+  <desc id="d">단일 프라이머리는 쓰기가 P 한 곳으로만 들어가 순서가 한 곳에서 정해지므로 충돌이 생길 수 없고, 다중 마스터는 M1과 M2가 각각 쓰기를 받고 양방향 복제하므로 같은 행을 동시에 고치면 무엇이 최종 값인지 아무도 모릅니다.</desc>
   <defs>
-    <!-- Dark Ink Arrow Marker -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <!-- Blue Arrow Marker -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <!-- Red Arrow Marker -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
+  <rect width="880" height="370" fill="#ffffff"/>
 
-  <!-- Background -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 왼쪽: 단일 프라이머리 -->
+  <rect x="24" y="24" width="404" height="322" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="226" y="60" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle">단일 프라이머리</text>
 
-  <!-- Left Container: Single Primary (Safe/Blue) -->
-  <rect x="30" y="20" width="390" height="300" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="225" y="52" fill="#2563eb" font-size="16" font-weight="bold" text-anchor="middle">[단일 프라이머리]</text>
+  <text x="140" y="102" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">쓰기</text>
+  <path d="M140,110 V134" stroke="#1d4ed8" stroke-width="2.5" fill="none" marker-end="url(#ab)"/>
+  <rect x="104" y="140" width="72" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="140" y="175" font-size="20" font-weight="bold" fill="#1d4ed8" text-anchor="middle">P</text>
 
-  <!-- Left Content: Flow -->
-  <text x="60" y="104.55" fill="#1f2933" font-size="13" font-weight="bold">쓰기</text>
-  <path d="M90,100 L118,100" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M176,168 H232" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M232,134 V202" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M232,134 H280" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ak)"/>
+  <path d="M232,202 H280" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#ak)"/>
+  <rect x="286" y="112" width="80" height="44" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="326" y="140" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">R1</text>
+  <rect x="286" y="180" width="80" height="44" rx="8" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="326" y="208" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">R2</text>
 
-  <!-- Box P -->
-  <rect x="125" y="80" width="40" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
-  <text x="145" y="104.55" fill="#2563eb" font-size="14" font-weight="bold" text-anchor="middle">P</text>
+  <text x="226" y="264" font-size="16" fill="#111827" text-anchor="middle">순서가 P 한 곳에서 정해진다</text>
+  <rect x="48" y="282" width="356" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="226" y="310" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">→ 충돌이 생길 수 없다</text>
 
-  <path d="M172,100 L200,100" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 오른쪽: 다중 마스터 -->
+  <rect x="452" y="24" width="404" height="322" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="654" y="60" font-size="19" font-weight="bold" fill="#b91c1c" text-anchor="middle">다중 마스터</text>
 
-  <!-- Box R1, R2 -->
-  <rect x="207" y="80" width="80" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="247" y="104.55" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">R1, R2</text>
+  <text x="530" y="102" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">쓰기</text>
+  <path d="M530,110 V134" stroke="#b91c1c" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="494" y="140" width="72" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="530" y="175" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle">M1</text>
 
-  <!-- Left Content: Explanations -->
-  <text x="60" y="174.55" fill="#1f2933" font-size="13">순서가 P 한 곳에서 정해진다</text>
-  
-  <path d="M60,205 L72,205" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="80" y="209.55" fill="#059669" font-size="13" font-weight="bold">충돌이 생길 수 없다</text>
+  <text x="778" y="102" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">쓰기</text>
+  <path d="M778,110 V134" stroke="#b91c1c" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="742" y="140" width="72" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="778" y="175" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle">M2</text>
 
+  <text x="654" y="156" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">양방향 복제</text>
+  <path d="M572,168 H736" stroke="#b91c1c" stroke-width="2" fill="none" marker-start="url(#ar)" marker-end="url(#ar)"/>
 
-  <!-- Right Container: Multi-Master (Warning/Red) -->
-  <rect x="460" y="20" width="390" height="300" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="655" y="52" fill="#dc2626" font-size="16" font-weight="bold" text-anchor="middle">[다중 마스터]</text>
-
-  <!-- Right Content: Flow -->
-  <!-- Left Write -->
-  <text x="475" y="104.55" fill="#1f2933" font-size="13" font-weight="bold">쓰기</text>
-  <path d="M505,100 L518,100" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Box M1 -->
-  <rect x="525" y="80" width="40" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
-  <text x="545" y="104.55" fill="#dc2626" font-size="14" font-weight="bold" text-anchor="middle">M1</text>
-
-  <!-- Bidirectional Replication Link -->
-  <path d="M573,100 L717,100" stroke="#dc2626" stroke-width="2" fill="none" marker-start="url(#a-red)" marker-end="url(#a-red)"/>
-  
-  <rect x="587" y="89" width="116" height="22" fill="#ffffff" rx="2" stroke="#fef2f2"/>
-  <text x="645" y="104.05" fill="#dc2626" font-size="11.5" font-weight="bold" text-anchor="middle">양방향 복제</text>
-
-  <!-- Box M2 -->
-  <rect x="725" y="80" width="40" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
-  <text x="745" y="104.55" fill="#dc2626" font-size="14" font-weight="bold" text-anchor="middle">M2</text>
-
-  <!-- Right Write -->
-  <path d="M805,100 L772,100" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  <text x="812" y="104.55" fill="#1f2933" font-size="13" font-weight="bold">쓰기</text>
-
-  <!-- Right Content: Explanations -->
-  <text x="480" y="174.55" fill="#1f2933" font-size="13">M1과 M2가 같은 행을 동시에 고치면</text>
-  <text x="480" y="209.55" fill="#dc2626" font-size="13" font-weight="bold">무엇이 최종 값인지 아무도 모른다</text>
+  <text x="654" y="264" font-size="16" fill="#111827" text-anchor="middle">M1과 M2가 같은 행을 동시에 고치면</text>
+  <rect x="476" y="282" width="356" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="654" y="310" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">무엇이 최종 값인지 아무도 모른다</text>
 </svg>

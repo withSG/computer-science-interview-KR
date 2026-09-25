@@ -218,7 +218,7 @@ public DependencyStatus dependencies() {
 ### 안티패턴: 시간이나 자동 증가 값을 샤딩 키로
 
 <!-- diagram:sd-load-balancing-sharding-9 -->
-![안티패턴: 시간이나 자동 증가 값을 샤딩 키로](../../assets/diagrams/sd-load-balancing-sharding-9.svg)
+![created_at 월 단위 분할 시 쓰기가 샤드7로 몰리는 핫 샤드](../../assets/diagrams/sd-load-balancing-sharding-9.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

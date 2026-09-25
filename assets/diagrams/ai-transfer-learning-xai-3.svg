@@ -1,47 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">디버깅 — 실무에서 가장 자주 쓰는 용도</title>
-  <desc id="d">실제로 자주 발견되는 XAI 디버깅 사례 4가지를 보여주는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 530" width="880" height="530" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">XAI 디버깅으로 드러나는 문제</title>
+  <desc id="d">설명을 열어보면 실제로 자주 발견되는 네 가지 사례로, 배경을 보는 이미지 분류기, 머리글의 부서 코드를 보는 문서 분류기, '해지 처리일' 파생 컬럼에 의존해 데이터 누수가 드러나는 이탈 예측 모델, 학교명이나 성별과 상관된 특성에 의존해 공정성 문제가 드러나는 채용 모델을 보여준다.</desc>
+  <rect width="880" height="530" fill="#ffffff"/>
 
-  <!-- Outer Container / Title Group -->
-  <rect x="24" y="24" width="832" height="452" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <rect x="40" y="40" width="800" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="67" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[실제로 자주 발견되는 것들]</text>
+  <text x="32" y="46" font-size="19" font-weight="bold" fill="#111827">실제로 자주 발견되는 것들</text>
+  <text x="48" y="82" font-size="14" font-weight="bold" fill="#4b5563">모델</text>
+  <text x="232" y="82" font-size="14" font-weight="bold" fill="#4b5563">무엇을 보고 있었나</text>
 
-  <!-- Item 1: Image Classifier -->
-  <g transform="translate(40, 100)">
-    <rect x="0" y="0" width="800" height="76" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <circle cx="28" cy="38" r="10" fill="#2563eb"/>
-    <text x="28" y="42" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="48" y="33" font-size="14" font-weight="bold" fill="#1f2933">- 이미지 분류기가 대상이 아니라 배경을 보고 있다</text>
-    <text x="60" y="55" font-size="13" fill="#52606d">(늑대 vs 개 분류기가 실은 '눈 덮인 배경'을 보고 있었다)</text>
-  </g>
+  <!-- 1. 이미지 분류기 -->
+  <path d="M40,94 H216 V178 H40 Q32,178 32,170 V102 Q32,94 40,94 Z" fill="#f3f4f6"/>
+  <rect x="32" y="94" width="816" height="84" rx="8" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="58" cy="136" r="13" fill="#374151"/>
+  <text x="58" y="141" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="82" y="142" font-size="16" font-weight="bold" fill="#111827">이미지 분류기</text>
+  <text x="232" y="127" font-size="16" fill="#111827">대상이 아니라 <tspan font-weight="bold" fill="#c2410c">배경</tspan>을 보고 있다</text>
+  <text x="232" y="157" font-size="15" fill="#4b5563">(늑대 vs 개 분류기가 실은 '눈 덮인 배경'을 보고 있었다)</text>
 
-  <!-- Item 2: Document Classifier -->
-  <g transform="translate(40, 188)">
-    <rect x="0" y="0" width="800" height="60" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <circle cx="28" cy="30" r="10" fill="#2563eb"/>
-    <text x="28" y="34" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="48" y="35" font-size="14" font-weight="bold" fill="#1f2933">- 문서 분류기가 본문이 아니라 머리글의 부서 코드를 보고 있다</text>
-  </g>
+  <!-- 2. 문서 분류기 -->
+  <path d="M40,192 H216 V252 H40 Q32,252 32,244 V200 Q32,192 40,192 Z" fill="#f3f4f6"/>
+  <rect x="32" y="192" width="816" height="60" rx="8" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="58" cy="222" r="13" fill="#374151"/>
+  <text x="58" y="227" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="82" y="228" font-size="16" font-weight="bold" fill="#111827">문서 분류기</text>
+  <text x="232" y="228" font-size="16" fill="#111827">본문이 아니라 <tspan font-weight="bold" fill="#c2410c">머리글의 부서 코드</tspan>를 보고 있다</text>
 
-  <!-- Item 3: Churn Prediction Model (Highlighted - Data Leakage) -->
-  <g transform="translate(40, 260)">
-    <rect x="0" y="0" width="800" height="96" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <circle cx="28" cy="38" r="10" fill="#d97706"/>
-    <text x="28" y="42" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="48" y="33" font-size="14" font-weight="bold" fill="#1f2933">- 이탈 예측 모델이 '해지 처리일' 파생 컬럼에 거의 전부를 의존한다</text>
-    <rect x="56" y="48" width="720" height="34" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="70" y="70" font-size="13" font-weight="bold" fill="#dc2626">→ 데이터 누수의 발견. 지표만 봐서는 절대 안 보인다</text>
-  </g>
+  <!-- 3. 이탈 예측 모델 (특히 중요) -->
+  <path d="M41,267 H216 V377 H41 Q33,377 33,369 V275 Q33,267 41,267 Z" fill="#fffbeb"/>
+  <rect x="32" y="266" width="816" height="112" rx="8" fill="none" stroke="#b45309" stroke-width="2.5"/>
+  <circle cx="58" cy="322" r="13" fill="#b45309"/>
+  <text x="58" y="327" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="82" y="328" font-size="16" font-weight="bold" fill="#111827">이탈 예측 모델</text>
+  <text x="232" y="300" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#c2410c">'해지 처리일' 파생 컬럼</tspan>에 거의 전부를 의존한다</text>
+  <rect x="742" y="281" width="92" height="26" rx="13" fill="#b45309"/>
+  <text x="788" y="299" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">특히 중요</text>
+  <rect x="232" y="316" width="602" height="46" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="248" y="345" font-size="16" fill="#991b1b">→ <tspan font-weight="bold">데이터 누수의 발견.</tspan> 지표만 봐서는 절대 안 보인다</text>
 
-  <!-- Item 4: Hiring Model (Fairness Issue) -->
-  <g transform="translate(40, 368)">
-    <rect x="0" y="0" width="800" height="92" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <circle cx="28" cy="36" r="10" fill="#7c3aed"/>
-    <text x="28" y="40" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-    <text x="48" y="31" font-size="14" font-weight="bold" fill="#1f2933">- 채용 모델이 특정 학교명이나 성별과 상관된 특성에 의존한다</text>
-    <rect x="56" y="46" width="720" height="34" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="70" y="68" font-size="13" font-weight="bold" fill="#7c3aed">→ 공정성 문제</text>
-  </g>
+  <!-- 4. 채용 모델 -->
+  <path d="M40,392 H216 V496 H40 Q32,496 32,488 V400 Q32,392 40,392 Z" fill="#f3f4f6"/>
+  <rect x="32" y="392" width="816" height="104" rx="8" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="58" cy="444" r="13" fill="#374151"/>
+  <text x="58" y="449" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="82" y="450" font-size="16" font-weight="bold" fill="#111827">채용 모델</text>
+  <text x="232" y="424" font-size="16" fill="#111827">특정 <tspan font-weight="bold" fill="#c2410c">학교명이나 성별과 상관된 특성</tspan>에 의존한다</text>
+  <rect x="232" y="440" width="602" height="42" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="248" y="467" font-size="16" fill="#5b21b6">→ <tspan font-weight="bold">공정성 문제</tspan></text>
 </svg>

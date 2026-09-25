@@ -1,31 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 160" width="880" height="160" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">복제 방식 - Master-Master (Multi-Master)</title>
-  <desc id="d">Master 1과 Master 2가 양방향으로 복제되며 두 노드 모두 읽기 및 쓰기를 처리하는 다이어그램</desc>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 240" width="880" height="240" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Master-Master 복제</title>
+  <desc id="d">Master 1과 Master 2가 서로에게 변경을 복제하는 양방향 구조이며, 두 노드 모두 읽기/쓰기를 처리합니다.</desc>
+  <rect width="880" height="240" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="160" fill="#ffffff"/>
+  <!-- Master 1 -->
+  <rect x="120" y="40" width="220" height="130" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="230" y="88" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Master 1</text>
+  <rect x="170" y="110" width="120" height="36" rx="18" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="230" y="134" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">읽기/쓰기</text>
 
-  <!-- Master 1 Box -->
-  <rect x="230" y="20" width="160" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="310" y="64.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Master 1</text>
+  <!-- Master 2 -->
+  <rect x="540" y="40" width="220" height="130" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="650" y="88" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Master 2</text>
+  <rect x="590" y="110" width="120" height="36" rx="18" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="650" y="134" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">읽기/쓰기</text>
 
-  <!-- Master 2 Box -->
-  <rect x="490" y="20" width="160" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="570" y="64.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Master 2</text>
+  <!-- Replication both ways -->
+  <line x1="532" y1="78" x2="349" y2="78" stroke="#b45309" stroke-width="2.5" marker-end="url(#arr)"/>
+  <line x1="348" y1="134" x2="531" y2="134" stroke="#b45309" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="440" y="112" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">양방향 복제</text>
 
-  <!-- Top Arrow: Master 2 -> Master 1 (Leftward) -->
-  <path d="M 490 48 L 390 48" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Bottom Arrow: Master 1 -> Master 2 (Rightward) -->
-  <path d="M 390 72 L 490 72" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Sub-labels under boxes -->
-  <text x="310" y="124.025" fill="#52606d" font-size="11.5" text-anchor="middle">읽기/쓰기</text>
-  <text x="570" y="124.025" fill="#52606d" font-size="11.5" text-anchor="middle">읽기/쓰기</text>
+  <!-- Caption -->
+  <text x="440" y="210" font-size="15" fill="#4b5563" text-anchor="middle">두 Master 모두 읽기/쓰기를 받고, 변경 내용을 서로에게 복제</text>
 </svg>

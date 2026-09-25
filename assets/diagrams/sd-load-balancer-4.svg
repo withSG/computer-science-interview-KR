@@ -1,105 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">TLS 종료의 세 가지 형태</title>
-  <desc id="d">TLS 종료의 세 가지 형태인 종료(Termination), 통과(Passthrough), 재암호화를 나타낸 다이어그램</desc>
+  <desc id="d">① 종료는 LB에서 복호화하고 서버까지는 평문 HTTP로 보낸다. ② 통과는 LB가 암호문을 그대로 서버에 전달해 L4로만 동작한다. ③ 재암호화는 LB가 풀어서 라우팅을 판단한 뒤 서버 쪽으로 다시 HTTPS로 암호화하며 비용이 두 배다.</desc>
+  <rect width="880" height="490" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="14" markerHeight="14" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="390" fill="#ffffff"/>
+  <!-- 범례 -->
+  <line x1="24" y1="36" x2="68" y2="36" stroke="#047857" stroke-width="5"/>
+  <text x="78" y="41" font-size="15" font-weight="bold" fill="#047857">HTTPS 암호문</text>
+  <line x1="220" y1="36" x2="264" y2="36" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="6 4"/>
+  <text x="274" y="41" font-size="15" font-weight="bold" fill="#4b5563">HTTP 평문</text>
 
-  <!-- ① 종료 (Termination) -->
-  <g id="section-1">
-    <rect x="24" y="20" width="832" height="100" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    
-    <!-- Title & Description -->
-    <text x="44" y="48" font-size="14" font-weight="bold" fill="#1f2933">① 종료(Termination)</text>
-    <text x="44" y="100" font-size="11.5" fill="#52606d">LB에서 복호화하고 뒤는 평문. 인증서 갱신이 LB 한 곳으로 모인다.</text>
+  <!-- ① 종료 -->
+  <rect x="24" y="60" width="832" height="124" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="98" font-size="18" font-weight="bold" fill="#111827">① 종료</text>
+  <text x="44" y="122" font-size="15" fill="#4b5563">(Termination)</text>
+  <rect x="256" y="76" width="104" height="56" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="308" y="110" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <line x1="360" y1="104" x2="481" y2="104" stroke="#047857" stroke-width="5" marker-end="url(#ah-green)"/>
+  <text x="422" y="92" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">HTTPS</text>
+  <rect x="484" y="76" width="150" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="559" y="99" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">LB</text>
+  <text x="559" y="121" font-size="15" fill="#1d4ed8" text-anchor="middle">복호화</text>
+  <line x1="634" y1="104" x2="741" y2="104" stroke="#4b5563" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#ah-gray)"/>
+  <text x="689" y="92" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">HTTP</text>
+  <rect x="744" y="76" width="96" height="56" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="792" y="110" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
+  <text x="44" y="166" font-size="15" fill="#374151">LB에서 복호화하고 뒤는 평문. <tspan font-weight="bold" fill="#111827">인증서 갱신이 LB 한 곳으로 모인다.</tspan></text>
 
-    <!-- Nodes -->
-    <!-- Client Box -->
-    <rect x="280" y="32" width="70" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="315" y="52" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
-
-    <!-- LB Box -->
-    <rect x="490" y="32" width="60" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="520" y="52" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">LB</text>
-
-    <!-- Server Box -->
-    <rect x="680" y="32" width="70" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="715" y="52" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
-
-    <!-- Arrows & Labels -->
-    <!-- Client to LB (HTTPS) -->
-    <path d="M350,48 L490,48" stroke="#2563eb" stroke-width="2.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="388" y="39" width="64" height="18" fill="#ffffff"/>
-    <text x="420" y="52" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">HTTPS</text>
-
-    <!-- LB to Server (HTTP) -->
-    <path d="M550,48 L680,48" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-gray)"/>
-    <rect x="587" y="39" width="56" height="18" fill="#ffffff"/>
-    <text x="615" y="52" font-size="11.5" fill="#52606d" text-anchor="middle">HTTP</text>
-  </g>
-
-  <!-- ② 통과 (Passthrough) -->
-  <g id="section-2">
-    <rect x="24" y="135" width="832" height="100" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-    <!-- Title & Description -->
-    <text x="44" y="163" font-size="14" font-weight="bold" fill="#1f2933">② 통과(Passthrough)</text>
-    <text x="44" y="215" font-size="11.5" fill="#52606d">암호문 그대로 전달. 내용을 못 보므로 L4로만 동작 가능.</text>
-
-    <!-- Nodes -->
-    <!-- Client Box -->
-    <rect x="280" y="147" width="70" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="315" y="167" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
-
-    <!-- Server Box -->
-    <rect x="680" y="147" width="70" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="715" y="167" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
-
-    <!-- Arrows & Labels -->
-    <!-- Client to Server (HTTPS) -->
-    <path d="M350,163 L680,163" stroke="#2563eb" stroke-width="2.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="483" y="154" width="64" height="18" fill="#ffffff"/>
-    <text x="515" y="167" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">HTTPS</text>
-  </g>
+  <!-- ② 통과 -->
+  <rect x="24" y="200" width="832" height="124" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="238" font-size="18" font-weight="bold" fill="#111827">② 통과</text>
+  <text x="44" y="262" font-size="15" fill="#4b5563">(Passthrough)</text>
+  <rect x="256" y="216" width="104" height="56" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="308" y="250" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <line x1="360" y1="244" x2="481" y2="244" stroke="#047857" stroke-width="5" marker-end="url(#ah-green)"/>
+  <text x="422" y="232" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">HTTPS</text>
+  <rect x="484" y="216" width="150" height="56" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="559" y="239" font-size="16" font-weight="bold" fill="#4b5563" text-anchor="middle">LB</text>
+  <text x="559" y="261" font-size="15" fill="#4b5563" text-anchor="middle">그대로 전달</text>
+  <line x1="634" y1="244" x2="741" y2="244" stroke="#047857" stroke-width="5" marker-end="url(#ah-green)"/>
+  <text x="689" y="232" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">HTTPS</text>
+  <rect x="744" y="216" width="96" height="56" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="792" y="250" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
+  <text x="44" y="306" font-size="15" fill="#374151">암호문 그대로 전달. <tspan font-weight="bold" fill="#111827">내용을 못 보므로 L4로만 동작 가능.</tspan></text>
 
   <!-- ③ 재암호화 -->
-  <g id="section-3">
-    <rect x="24" y="250" width="832" height="100" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-    <!-- Title & Description -->
-    <text x="44" y="278" font-size="14" font-weight="bold" fill="#1f2933">③ 재암호화</text>
-    <text x="44" y="330" font-size="11.5" fill="#52606d">LB가 풀어서 라우팅을 판단하고 뒤로는 다시 암호화. 비용은 두 배.</text>
-
-    <!-- Nodes -->
-    <!-- Client Box -->
-    <rect x="280" y="262" width="70" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="315" y="282" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
-
-    <!-- LB Box -->
-    <rect x="490" y="262" width="60" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="520" y="282" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">LB</text>
-
-    <!-- Server Box -->
-    <rect x="680" y="262" width="70" height="32" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="715" y="282" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
-
-    <!-- Arrows & Labels -->
-    <!-- Client to LB (HTTPS) -->
-    <path d="M350,278 L490,278" stroke="#2563eb" stroke-width="2.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="388" y="269" width="64" height="18" fill="#ffffff"/>
-    <text x="420" y="282" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">HTTPS</text>
-
-    <!-- LB to Server (HTTPS) -->
-    <path d="M550,278 L680,278" stroke="#2563eb" stroke-width="2.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="583" y="269" width="64" height="18" fill="#ffffff"/>
-    <text x="615" y="282" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">HTTPS</text>
-  </g>
+  <rect x="24" y="340" width="832" height="124" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="390" font-size="18" font-weight="bold" fill="#111827">③ 재암호화</text>
+  <rect x="256" y="356" width="104" height="56" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="308" y="390" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <line x1="360" y1="384" x2="481" y2="384" stroke="#047857" stroke-width="5" marker-end="url(#ah-green)"/>
+  <text x="422" y="372" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">HTTPS</text>
+  <rect x="484" y="356" width="150" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="559" y="379" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">LB</text>
+  <text x="559" y="401" font-size="15" fill="#1d4ed8" text-anchor="middle">복호화·재암호화</text>
+  <line x1="634" y1="384" x2="741" y2="384" stroke="#047857" stroke-width="5" marker-end="url(#ah-green)"/>
+  <text x="689" y="372" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">HTTPS</text>
+  <rect x="744" y="356" width="96" height="56" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="792" y="390" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
+  <text x="44" y="446" font-size="15" fill="#374151">LB가 풀어서 라우팅을 판단하고 뒤로는 다시 암호화. <tspan font-weight="bold" fill="#111827">비용은 두 배.</tspan></text>
 </svg>

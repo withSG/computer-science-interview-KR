@@ -364,7 +364,7 @@ AWS ALB에서는 **등록 취소 지연(deregistration delay)** 설정이 이 �
 로그인 세션을 서버 메모리에 들고 있으면 문제가 생깁니다.
 
 <!-- diagram:sd-load-balancer-10 -->
-![왜 생겼나](../assets/diagrams/sd-load-balancer-10.svg)
+![다음 요청이 세션 없는 서버2로 가 로그인을 다시 요구받는 흐름](../assets/diagrams/sd-load-balancer-10.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

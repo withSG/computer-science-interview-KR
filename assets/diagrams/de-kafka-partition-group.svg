@@ -1,116 +1,101 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">토픽 파티션과 컨슈머 그룹의 두 층 배정 구조</title>
-  <desc id="d">카프카 토픽 orders의 파티션 P0, P1, P2에서 각 컨슈머 그룹 billing과 analytics로 데이터가 배정되고 흐르는 구조를 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-
+  <desc id="d">토픽 orders의 파티션 P0, P1, P2를 billing 그룹은 C1(P0, P1)과 C2(P2)가 나눠 갖고, analytics 그룹은 C1 하나가 전부 읽는다. 두 그룹은 파티션마다 커밋 오프셋을 따로 관리하고, 최신 오프셋과의 차이가 컨슈머 랙이다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
     </marker>
   </defs>
 
-  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">토픽 파티션과 컨슈머 그룹의 두 층 배정 구조</text>
+  <!-- ===== 토픽 ===== -->
+  <rect x="24" y="24" width="832" height="264" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="48" y="58" font-size="19" font-weight="700" fill="#111827">Topic: orders</text>
+  <text x="182" y="58" font-size="15" fill="#4b5563">(P0, P1, P2 · append-only 로그)</text>
 
-  <!-- TOPIC BOX -->
-  <rect x="40" y="60" width="800" height="170" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="88" font-size="14" font-weight="600" fill="#1f2933">Topic: orders (Append-Only 로그)</text>
+  <!-- 파티션 로그 막대: 칸 8개, 오른쪽 끝(x=576)이 최신 오프셋 -->
+  <text x="64" y="126" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">P0</text>
+  <rect x="96" y="108" width="480" height="24" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+  <path d="M156,108 V132 M216,108 V132 M276,108 V132 M336,108 V132 M396,108 V132 M456,108 V132 M516,108 V132" stroke="#cbd5e1" stroke-width="1"/>
 
-  <!-- PARTITION 0 -->
-  <text x="60" y="118" font-size="13" font-weight="500" fill="#1f2933">P0</text>
-  <rect x="90" y="105" width="600" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <line x1="210" y1="105" x2="210" y2="125" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="330" y1="105" x2="330" y2="125" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="450" y1="105" x2="450" y2="125" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="570" y1="105" x2="570" y2="125" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="450" y="105" width="240" height="20" fill="#fef2f2" opacity="0.6"/>
-  <line x1="450" y1="100" x2="450" y2="130" stroke="#7c3aed" stroke-width="2"/>
-  <circle cx="450" cy="100" r="3" fill="#7c3aed"/>
-  <line x1="570" y1="100" x2="570" y2="130" stroke="#2563eb" stroke-width="2"/>
-  <circle cx="570" cy="100" r="3" fill="#2563eb"/>
+  <text x="64" y="186" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">P1</text>
+  <rect x="96" y="168" width="480" height="24" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+  <path d="M156,168 V192 M216,168 V192 M276,168 V192 M336,168 V192 M396,168 V192 M456,168 V192 M516,168 V192" stroke="#cbd5e1" stroke-width="1"/>
 
-  <!-- PARTITION 1 -->
-  <text x="60" y="158" font-size="13" font-weight="500" fill="#1f2933">P1</text>
-  <rect x="90" y="145" width="600" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <line x1="210" y1="145" x2="210" y2="165" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="330" y1="145" x2="330" y2="165" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="450" y1="145" x2="450" y2="165" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="570" y1="145" x2="570" y2="165" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="330" y="145" width="360" height="20" fill="#fef2f2" opacity="0.6"/>
-  <line x1="330" y1="140" x2="330" y2="170" stroke="#7c3aed" stroke-width="2"/>
-  <circle cx="330" cy="140" r="3" fill="#7c3aed"/>
-  <line x1="570" y1="140" x2="570" y2="170" stroke="#2563eb" stroke-width="2"/>
-  <circle cx="570" cy="140" r="3" fill="#2563eb"/>
+  <text x="64" y="246" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">P2</text>
+  <rect x="96" y="228" width="480" height="24" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+  <path d="M156,228 V252 M216,228 V252 M276,228 V252 M336,228 V252 M396,228 V252 M456,228 V252 M516,228 V252" stroke="#cbd5e1" stroke-width="1"/>
 
-  <!-- PARTITION 2 -->
-  <text x="60" y="198" font-size="13" font-weight="500" fill="#1f2933">P2</text>
-  <rect x="90" y="185" width="600" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <line x1="210" y1="185" x2="210" y2="205" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="330" y1="185" x2="330" y2="205" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="450" y1="185" x2="450" y2="205" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="570" y1="185" x2="570" y2="205" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="450" y="185" width="240" height="20" fill="#fef2f2" opacity="0.6"/>
-  <line x1="450" y1="180" x2="450" y2="210" stroke="#2563eb" stroke-width="2"/>
-  <circle cx="450" cy="180" r="3" fill="#2563eb"/>
-  <line x1="570" y1="180" x2="570" y2="210" stroke="#7c3aed" stroke-width="2"/>
-  <circle cx="570" cy="180" r="3" fill="#7c3aed"/>
+  <!-- 최신 오프셋 (LEO) -->
+  <line x1="576" y1="96" x2="576" y2="268" stroke="#111827" stroke-width="2" stroke-dasharray="5 4"/>
 
-  <text x="700" y="158" font-size="11.5" fill="#52606d">← 최신 오프셋 (LEO)</text>
+  <!-- billing 커밋 오프셋 (막대 위 ▼, 보라) -->
+  <path d="M456,108 V132 M276,168 V192 M396,228 V252" stroke="#6d28d9" stroke-width="3"/>
+  <polygon points="449,95 463,95 456,106" fill="#6d28d9"/>
+  <polygon points="269,155 283,155 276,166" fill="#6d28d9"/>
+  <polygon points="389,215 403,215 396,226" fill="#6d28d9"/>
 
-  <!-- CONSUMER GROUP 1: billing -->
-  <rect x="40" y="270" width="380" height="190" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="60" y="298" font-size="14" font-weight="600" fill="#7c3aed">Consumer Group "billing"</text>
-  <text x="60" y="318" font-size="11.5" fill="#52606d">용도: 결제 처리 (파티션 작업 분담 = 스케일 아웃)</text>
+  <!-- analytics 커밋 오프셋 (막대 아래 ▲, 파랑) -->
+  <path d="M336,108 V132 M516,168 V192 M456,228 V252" stroke="#1d4ed8" stroke-width="3"/>
+  <polygon points="329,145 343,145 336,134" fill="#1d4ed8"/>
+  <polygon points="509,205 523,205 516,194" fill="#1d4ed8"/>
+  <polygon points="449,265 463,265 456,254" fill="#1d4ed8"/>
 
-  <rect x="60" y="335" width="160" height="105" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="140" y="360" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Consumer C1</text>
-  <text x="140" y="388" font-size="11.5" fill="#52606d" text-anchor="middle">배정 파티션:</text>
-  <text x="140" y="410" font-size="13" font-weight="500" fill="#7c3aed" text-anchor="middle">P0, P1</text>
+  <!-- 예: P0에서 billing의 랙 -->
+  <path d="M458,92 V86 H574 V92" fill="none" stroke="#6d28d9" stroke-width="1.8"/>
+  <text x="516" y="78" font-size="14" font-weight="700" fill="#6d28d9" text-anchor="middle">billing 랙</text>
 
-  <rect x="240" y="335" width="160" height="105" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="320" y="360" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Consumer C2</text>
-  <text x="320" y="388" font-size="11.5" fill="#52606d" text-anchor="middle">배정 파티션:</text>
-  <text x="320" y="410" font-size="13" font-weight="500" fill="#7c3aed" text-anchor="middle">P2</text>
+  <!-- 범례 -->
+  <polygon points="612,112 626,112 619,123" fill="#6d28d9"/>
+  <text x="636" y="123" font-size="15" fill="#111827">billing 커밋 오프셋</text>
+  <polygon points="612,155 626,155 619,144" fill="#1d4ed8"/>
+  <text x="636" y="155" font-size="15" fill="#111827">analytics 커밋 오프셋</text>
+  <line x1="619" y1="172" x2="619" y2="192" stroke="#111827" stroke-width="2" stroke-dasharray="5 4"/>
+  <text x="636" y="187" font-size="15" fill="#111827">최신 오프셋 (LEO)</text>
+  <path d="M612,220 V213 H626 V220" fill="none" stroke="#6d28d9" stroke-width="1.8"/>
+  <text x="636" y="221" font-size="15" font-weight="700" fill="#111827">컨슈머 랙</text>
+  <text x="636" y="243" font-size="15" fill="#4b5563">= 최신 오프셋과의 차이</text>
 
-  <!-- CONSUMER GROUP 2: analytics -->
-  <rect x="460" y="270" width="380" height="190" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="480" y="298" font-size="14" font-weight="600" fill="#2563eb">Consumer Group "analytics"</text>
-  <text x="480" y="318" font-size="11.5" fill="#52606d">용도: 데이터 분석 (독립 소비 = 단일 컨슈머)</text>
+  <!-- ===== 두 그룹으로 갈라짐 ===== -->
+  <path d="M440,288 V308 H228 V334" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M440,308 H652 V334" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="570" y="335" width="160" height="105" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
-  <text x="650" y="360" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Consumer C1</text>
-  <text x="650" y="388" font-size="11.5" fill="#52606d" text-anchor="middle">배정 파티션:</text>
-  <text x="650" y="410" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">P0, P1, P2</text>
+  <!-- ===== billing 그룹 ===== -->
+  <rect x="24" y="338" width="404" height="218" rx="10" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <polygon points="44,357 58,357 51,368" fill="#6d28d9"/>
+  <text x="66" y="369" font-size="18" font-weight="700" fill="#6d28d9">Consumer Group "billing"</text>
+  <text x="44" y="394" font-size="14" fill="#4b5563">용도: 결제 처리</text>
 
-  <!-- FLOW ARROWS (Partition -> Consumer) -->
-  <path d="M 120,205 Q 120,240 140,335" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <path d="M 330,205 Q 260,250 160,335" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <path d="M 570,205 Q 460,250 320,335" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
+  <rect x="44" y="408" width="200" height="76" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="144" y="432" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">C1</text>
+  <rect x="80" y="444" width="56" height="28" rx="5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="108" y="464" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">P0</text>
+  <rect x="152" y="444" width="56" height="28" rx="5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="180" y="464" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">P1</text>
 
-  <path d="M 210,205 Q 400,240 630,335" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <path d="M 450,205 Q 560,240 650,335" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <path d="M 650,205 Q 670,250 670,335" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+  <rect x="260" y="408" width="148" height="76" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="334" y="432" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">C2</text>
+  <rect x="306" y="444" width="56" height="28" rx="5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="334" y="464" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">P2</text>
 
-  <!-- LEGEND -->
-  <rect x="40" y="475" width="800" height="30" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="60" y1="490" x2="80" y2="490" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <text x="90" y="494" font-size="11" fill="#1f2933">파티션 데이터 흐름 및 배정 (Partition → Consumer)</text>
+  <text x="44" y="516" font-size="16" font-weight="700" fill="#111827">각 파티션을 나눠 갖는다</text>
+  <text x="44" y="540" font-size="15" fill="#4b5563">(작업 분담 = 스케일 아웃)</text>
 
-  <line x1="330" y1="485" x2="330" y2="495" stroke="#7c3aed" stroke-width="2"/>
-  <circle cx="330" cy="485" r="2.5" fill="#7c3aed"/>
-  <text x="340" y="494" font-size="11" fill="#1f2933">billing 커밋 오프셋</text>
+  <!-- ===== analytics 그룹 ===== -->
+  <rect x="452" y="338" width="404" height="218" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <polygon points="472,368 486,368 479,357" fill="#1d4ed8"/>
+  <text x="494" y="369" font-size="18" font-weight="700" fill="#1d4ed8">Consumer Group "analytics"</text>
+  <text x="472" y="394" font-size="14" fill="#4b5563">용도: 데이터 분석</text>
 
-  <line x1="470" y1="485" x2="470" y2="495" stroke="#2563eb" stroke-width="2"/>
-  <circle cx="470" cy="485" r="2.5" fill="#2563eb"/>
-  <text x="480" y="494" font-size="11" fill="#1f2933">analytics 커밋 오프셋</text>
+  <rect x="472" y="408" width="252" height="76" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="598" y="432" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">C1</text>
+  <rect x="498" y="444" width="56" height="28" rx="5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="526" y="464" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">P0</text>
+  <rect x="570" y="444" width="56" height="28" rx="5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="598" y="464" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">P1</text>
+  <rect x="642" y="444" width="56" height="28" rx="5" fill="#ffffff" stroke="#475569" stroke-width="1.2"/>
+  <text x="670" y="464" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">P2</text>
 
-  <rect x="620" y="483" width="15" height="12" fill="#fef2f2" stroke="#dc2626" stroke-width="0.5"/>
-  <text x="640" y="494" font-size="11" fill="#1f2933">컨슈머 랙 (최신 오프셋과의 차이)</text>
-
-  <text x="440" y="525" font-size="11.5" fill="#52606d" text-anchor="middle">결론: 그룹 내에서는 파티션을 분할 소비하고, 그룹 간에는 오프셋을 독립적으로 관리하며 동일 데이터 전체를 개별 소비한다.</text>
+  <text x="472" y="516" font-size="16" font-weight="700" fill="#111827">다른 그룹은 독립적으로 전체를 읽는다</text>
+  <text x="472" y="540" font-size="15" fill="#4b5563">(오프셋도 따로 관리)</text>
 </svg>

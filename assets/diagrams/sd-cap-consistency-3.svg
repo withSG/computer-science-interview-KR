@@ -1,97 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">일관성 모델 스펙트럼</title>
-  <desc id="d">강한 일관성부터 약한 일관성까지의 스펙트럼과 각각의 특징을 설명하는 다이어그램</desc>
+  <desc id="d">왼쪽 강함(느림, 조율 비용 큼)에서 오른쪽 약함(빠름, 조율 없음) 순으로 선형성, 순차 일관성, 인과 일관성, 세션 보장, 최종 일관성을 나란히 놓고 각 모델이 보장하는 내용을 적은 그림.</desc>
+  <rect width="880" height="290" fill="#ffffff"/>
   <defs>
-    <marker id="a-left" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M10,0 L0,5 L10,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-right" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="390" fill="#ffffff"/>
 
-  <!-- 상단 스펙트럼 화살표 및 라벨 -->
-  <path d="M 80,45 L 800,45" stroke="#1f2933" stroke-width="1.5" fill="none" marker-start="url(#a-left)" marker-end="url(#a-right)"/>
-  
-  <text x="40" y="49" font-size="14" font-weight="bold" fill="#1f2933">강함</text>
-  <text x="840" y="49" font-size="14" font-weight="bold" fill="#1f2933">약함</text>
-  
-  <text x="180" y="70" font-size="11.5" fill="#52606d" text-anchor="middle">(느림, 조율 비용 큼)</text>
-  <text x="700" y="70" font-size="11.5" fill="#52606d" text-anchor="middle">(빠름, 조율 없음)</text>
+  <!-- 축 -->
+  <text x="24" y="44" font-size="19" font-weight="bold" fill="#111827">강함</text>
+  <text x="856" y="44" text-anchor="end" font-size="19" font-weight="bold" fill="#111827">약함</text>
+  <line x1="82" y1="37" x2="798" y2="37" stroke="#374151" stroke-width="2" marker-start="url(#ah-ink)" marker-end="url(#ah-ink)"/>
+  <text x="24" y="72" font-size="15" fill="#4b5563">(느림, 조율 비용 큼)</text>
+  <text x="856" y="72" text-anchor="end" font-size="15" fill="#4b5563">(빠름, 조율 없음)</text>
 
-  <!-- 메인 스펙트럼 바 배경 -->
-  <rect x="40" y="85" width="800" height="12" rx="6" fill="#f8fafc" stroke="#cbd2d9"/>
-  <rect x="40" y="85" width="160" height="12" rx="6" fill="#2563eb" opacity="0.8"/>
-  <rect x="200" y="85" width="160" height="12" fill="#7c3aed" opacity="0.8"/>
-  <rect x="360" y="85" width="160" height="12" fill="#d97706" opacity="0.8"/>
-  <rect x="520" y="85" width="160" height="12" fill="#059669" opacity="0.8"/>
-  <rect x="680" y="85" width="160" height="12" rx="6" fill="#52606d" opacity="0.8"/>
+  <!-- 1. 선형성 -->
+  <rect x="24" y="96" width="160" height="170" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <path d="M25,105 A8,8 0 0 1 33,97 H175 A8,8 0 0 1 183,105 V166 H25 Z" fill="#93c5fd"/>
+  <text x="104" y="127" text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">선형성</text>
+  <text x="104" y="153" text-anchor="middle" font-size="15" fill="#1e3a8a">Linearizable</text>
+  <text x="104" y="196" text-anchor="middle" font-size="15" fill="#1f2937">
+    <tspan x="104">전역 실시간</tspan>
+    <tspan x="104" dy="22">순서까지 일치</tspan>
+  </text>
 
-  <!-- 열 1: 선형성 (Linearizable) -->
-  <g transform="translate(40, 110)">
-    <rect x="0" y="0" width="144" height="64" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="72" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">선형성</text>
-    <text x="72" y="48" font-size="13" fill="#2563eb" text-anchor="middle">Linearizable</text>
+  <!-- 2. 순차 일관성 -->
+  <rect x="192" y="96" width="160" height="170" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <path d="M193,105 A8,8 0 0 1 201,97 H343 A8,8 0 0 1 351,105 V166 H193 Z" fill="#b1d5fd"/>
+  <text x="272" y="127" text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">순차 일관성</text>
+  <text x="272" y="153" text-anchor="middle" font-size="15" fill="#1e3a8a">Sequential</text>
+  <text x="272" y="196" text-anchor="middle" font-size="15" fill="#1f2937">
+    <tspan x="272">모든 노드가</tspan>
+    <tspan x="272" dy="22">같은 순서로 본다</tspan>
+    <tspan x="272" dy="22" fill="#4b5563">(실시간 순서는 무관)</tspan>
+  </text>
 
-    <path d="M 72,64 L 72,110" stroke="#2563eb" stroke-width="1.5" fill="none"/>
+  <!-- 3. 인과 일관성 -->
+  <rect x="360" y="96" width="160" height="170" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <path d="M361,105 A8,8 0 0 1 369,97 H511 A8,8 0 0 1 519,105 V166 H361 Z" fill="#cfe4fe"/>
+  <text x="440" y="127" text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">인과 일관성</text>
+  <text x="440" y="153" text-anchor="middle" font-size="15" fill="#1e3a8a">Causal</text>
+  <text x="440" y="196" text-anchor="middle" font-size="15" fill="#1f2937">
+    <tspan x="440">원인과 결과의</tspan>
+    <tspan x="440" dy="22">순서만 보장</tspan>
+  </text>
 
-    <rect x="-8" y="110" width="160" height="130" rx="6" fill="#f8fafc" stroke="#cbd2d9"/>
-    <text x="72" y="138" font-size="13" fill="#1f2933" text-anchor="middle">전역 실시간</text>
-    <text x="72" y="161" font-size="13" fill="#1f2933" text-anchor="middle">순서까지 일치</text>
-  </g>
+  <!-- 4. 세션 보장 -->
+  <rect x="528" y="96" width="160" height="170" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <path d="M529,105 A8,8 0 0 1 537,97 H679 A8,8 0 0 1 687,105 V166 H529 Z" fill="#e3effe"/>
+  <text x="608" y="127" text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">세션 보장</text>
+  <text x="608" y="153" text-anchor="middle" font-size="15" fill="#1e3a8a">Session</text>
+  <text x="608" y="196" text-anchor="middle" font-size="15" fill="#1f2937">
+    <tspan x="608">"내가 쓴 건</tspan>
+    <tspan x="608" dy="22">내가 본다"</tspan>
+  </text>
 
-  <!-- 열 2: 순차 일관성 (Sequential) -->
-  <g transform="translate(204, 110)">
-    <rect x="0" y="0" width="144" height="64" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="72" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">순차 일관성</text>
-    <text x="72" y="48" font-size="13" fill="#7c3aed" text-anchor="middle">Sequential</text>
-
-    <path d="M 72,64 L 72,110" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-
-    <rect x="-8" y="110" width="160" height="130" rx="6" fill="#f8fafc" stroke="#cbd2d9"/>
-    <text x="72" y="138" font-size="13" fill="#1f2933" text-anchor="middle">모든 노드가</text>
-    <text x="72" y="161" font-size="13" fill="#1f2933" text-anchor="middle">같은 순서로</text>
-    <text x="72" y="184" font-size="13" fill="#1f2933" text-anchor="middle">본다(실시간</text>
-    <text x="72" y="207" font-size="13" fill="#1f2933" text-anchor="middle">순서는 무관)</text>
-  </g>
-
-  <!-- 열 3: 인과 일관성 (Causal) -->
-  <g transform="translate(368, 110)">
-    <rect x="0" y="0" width="144" height="64" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="72" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">인과 일관성</text>
-    <text x="72" y="48" font-size="13" fill="#d97706" text-anchor="middle">Causal</text>
-
-    <path d="M 72,64 L 72,110" stroke="#d97706" stroke-width="1.5" fill="none"/>
-
-    <rect x="-8" y="110" width="160" height="130" rx="6" fill="#f8fafc" stroke="#cbd2d9"/>
-    <text x="72" y="138" font-size="13" fill="#1f2933" text-anchor="middle">원인과 결과의</text>
-    <text x="72" y="161" font-size="13" fill="#1f2933" text-anchor="middle">순서만 보장</text>
-  </g>
-
-  <!-- 열 4: 세션 보장 (Session) -->
-  <g transform="translate(532, 110)">
-    <rect x="0" y="0" width="144" height="64" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="72" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">세션 보장</text>
-    <text x="72" y="48" font-size="13" fill="#059669" text-anchor="middle">Session</text>
-
-    <path d="M 72,64 L 72,110" stroke="#059669" stroke-width="1.5" fill="none"/>
-
-    <rect x="-8" y="110" width="160" height="130" rx="6" fill="#f8fafc" stroke="#cbd2d9"/>
-    <text x="72" y="138" font-size="13" fill="#1f2933" text-anchor="middle">"내가 쓴 건</text>
-    <text x="72" y="161" font-size="13" fill="#1f2933" text-anchor="middle">내가 본다"</text>
-  </g>
-
-  <!-- 열 5: 최종 일관성 (Eventual) -->
-  <g transform="translate(696, 110)">
-    <rect x="0" y="0" width="144" height="64" rx="6" fill="#f8fafc" stroke="#52606d" stroke-width="1.5"/>
-    <text x="72" y="27" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">최종 일관성</text>
-    <text x="72" y="48" font-size="13" fill="#52606d" text-anchor="middle">Eventual</text>
-
-    <path d="M 72,64 L 72,110" stroke="#52606d" stroke-width="1.5" fill="none"/>
-
-    <rect x="-8" y="110" width="160" height="130" rx="6" fill="#f8fafc" stroke="#cbd2d9"/>
-    <text x="72" y="138" font-size="13" fill="#1f2933" text-anchor="middle">언젠가는</text>
-    <text x="72" y="161" font-size="13" fill="#1f2933" text-anchor="middle">같아진다</text>
-  </g>
+  <!-- 5. 최종 일관성 -->
+  <rect x="696" y="96" width="160" height="170" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <path d="M697,105 A8,8 0 0 1 705,97 H847 A8,8 0 0 1 855,105 V166 H697 Z" fill="#f1f7ff"/>
+  <text x="776" y="127" text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">최종 일관성</text>
+  <text x="776" y="153" text-anchor="middle" font-size="15" fill="#1e3a8a">Eventual</text>
+  <text x="776" y="196" text-anchor="middle" font-size="15" fill="#1f2937">
+    <tspan x="776">언젠가는</tspan>
+    <tspan x="776" dy="22">같아진다</tspan>
+  </text>
 </svg>

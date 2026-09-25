@@ -1,83 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">개선 - 측정, 원인, 조치, 결과 흐름도</title>
-  <desc id="d">성능 개선 서술의 4단계인 측정, 원인, 조치, 결과의 내용과 각 단계별 부가 설명 주석을 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">성능 개선 답변 예시: 측정 → 원인 → 조치 → 결과</title>
+  <desc id="d">상품 목록 리렌더링 문제를 측정, 원인, 조치, 결과 네 단계로 서술한 개선 예시. 측정의 정성적 표현, 조치를 하나씩 적용한 점, 결과의 트레이드오프 문장을 강조하고 각각 왜 좋은지 주석을 달았다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-emerald" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-sub" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,10 L5,0 L10,10 z" fill="#52606d"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
     </marker>
   </defs>
+  <rect width="880" height="730" fill="#ffffff"/>
 
-  <rect width="880" height="770" fill="#ffffff"/>
-
-  <!-- 메인 헤더/제목 -->
-  <rect x="24" y="20" width="832" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="45.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[개선 - 측정 → 원인 → 조치 → 결과]</text>
+  <text x="24" y="46" font-size="18" font-weight="bold" fill="#1f2933">개선: 측정 → 원인 → 조치 → 결과</text>
 
   <!-- 1. 측정 -->
-  <g>
-    <rect x="24" y="80" width="832" height="88" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="44" y="105.6" font-size="14" font-weight="bold" fill="#2563eb">측정:</text>
-    <text x="85" y="105.6" font-size="13" fill="#1f2933">"상품 목록에서 스크롤이 끊기는 제보가 있어서 React DevTools Profiler로 재봤습니다.</text>
-    <text x="85" y="127.6" font-size="13" fill="#1f2933">필터 체크박스를 한 번 누를 때 목록 아이템 200개가 전부 리렌더링됐고,</text>
-    <text x="85" y="149.6" font-size="13" fill="#1f2933">커밋 시간이 한 자릿수 밀리초대가 아니라 눈에 띄게 길게 잡혔습니다."</text>
+  <rect x="24" y="68" width="832" height="144" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="34" y="78" width="92" height="124" rx="6" fill="#eff6ff"/>
+  <circle cx="80" cy="106" r="15" fill="#1d4ed8"/>
+  <text x="80" y="111.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="80" y="146" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">측정</text>
+  <text x="148" y="100" font-size="15" fill="#1f2933">"상품 목록에서 스크롤이 끊기는 제보가 있어서 React DevTools Profiler로 재봤습니다.</text>
+  <text x="148" y="124" font-size="15" fill="#1f2933">필터 체크박스를 한 번 누를 때 목록 아이템 200개가 전부 리렌더링됐고,</text>
+  <text x="148" y="148" font-size="15" fill="#1f2933">커밋 시간이 한 자릿수 밀리초대가 아니라 <tspan font-weight="bold" fill="#b45309">눈에 띄게 길게 잡혔습니다</tspan>."</text>
+  <rect x="144" y="162" width="400" height="34" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
+  <text x="158" y="184" font-size="15" font-weight="bold" fill="#b45309">↑ 정확히 기억나지 않는 값은 이렇게 정성적으로</text>
 
-    <!-- 측정 주석 -->
-    <path d="M 400 196 L 400 173" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-sub)"/>
-    <text x="412" y="209.025" font-size="11.5" fill="#52606d">↑ 정확히 기억나지 않는 값은 이렇게 정성적으로</text>
-  </g>
-
-  <!-- 단계 연결 화살표 1->2 -->
-  <path d="M 440 220 L 440 237" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="80" y1="218" x2="80" y2="243" stroke="#64748b" stroke-width="2" marker-end="url(#ah)"/>
 
   <!-- 2. 원인 -->
-  <g>
-    <rect x="24" y="240" width="832" height="88" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="44" y="265.6" font-size="14" font-weight="bold" fill="#7c3aed">원인:</text>
-    <text x="85" y="265.6" font-size="13" fill="#1f2933">"필터 상태를 부모가 들고 있고, 아이템에 넘기는 onClick 핸들러를</text>
-    <text x="85" y="287.6" font-size="13" fill="#1f2933">렌더링마다 새로 만들고 있었습니다. 아이템 입장에서는 매번 새 props라</text>
-    <text x="85" y="309.6" font-size="13" fill="#1f2933">변경이 없어도 다시 그릴 수밖에 없는 구조였습니다."</text>
-  </g>
+  <rect x="24" y="250" width="832" height="106" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="34" y="260" width="92" height="86" rx="6" fill="#eff6ff"/>
+  <circle cx="80" cy="288" r="15" fill="#1d4ed8"/>
+  <text x="80" y="293.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="80" y="328" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">원인</text>
+  <text x="148" y="282" font-size="15" fill="#1f2933">"필터 상태를 부모가 들고 있고, 아이템에 넘기는 onClick 핸들러를</text>
+  <text x="148" y="306" font-size="15" fill="#1f2933">렌더링마다 새로 만들고 있었습니다. 아이템 입장에서는 매번 새 props라</text>
+  <text x="148" y="330" font-size="15" fill="#1f2933">변경이 없어도 다시 그릴 수밖에 없는 구조였습니다."</text>
 
-  <!-- 단계 연결 화살표 2->3 -->
-  <path d="M 440 330 L 440 347" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <line x1="80" y1="362" x2="80" y2="387" stroke="#64748b" stroke-width="2" marker-end="url(#ah)"/>
 
   <!-- 3. 조치 -->
-  <g>
-    <rect x="24" y="350" width="832" height="66" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="44" y="375.6" font-size="14" font-weight="bold" fill="#d97706">조치:</text>
-    <text x="85" y="375.6" font-size="13" fill="#1f2933">"핸들러를 useCallback으로 고정하고 아이템을 React.memo로 감쌌습니다.</text>
-    <text x="85" y="397.6" font-size="13" fill="#1f2933">먼저 이 둘만 적용해서 다시 측정했고, 그 다음에 리스트 가상화를 얹었습니다."</text>
+  <rect x="24" y="394" width="832" height="124" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="34" y="404" width="92" height="104" rx="6" fill="#eff6ff"/>
+  <circle cx="80" cy="432" r="15" fill="#1d4ed8"/>
+  <text x="80" y="437.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="80" y="472" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">조치</text>
+  <text x="148" y="426" font-size="15" fill="#1f2933">"핸들러를 useCallback으로 고정하고 아이템을 React.memo로 감쌌습니다.</text>
+  <text x="148" y="450" font-size="15" fill="#1f2933"><tspan font-weight="bold" fill="#b45309">먼저 이 둘만 적용해서 다시 측정했고</tspan>, 그 다음에 리스트 가상화를 얹었습니다."</text>
+  <rect x="144" y="466" width="360" height="34" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
+  <text x="158" y="488" font-size="15" font-weight="bold" fill="#b45309">↑ 한 번에 하나씩. 효과를 분리할 수 있다</text>
 
-    <!-- 조치 주석 -->
-    <path d="M 400 442 L 400 421" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-sub)"/>
-    <text x="412" y="455.025" font-size="11.5" fill="#52606d">↑ 한 번에 하나씩. 효과를 분리할 수 있다</text>
-  </g>
-
-  <!-- 단계 연결 화살표 3->4 -->
-  <path d="M 440 466 L 440 483" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <line x1="80" y1="524" x2="80" y2="549" stroke="#64748b" stroke-width="2" marker-end="url(#ah)"/>
 
   <!-- 4. 결과 -->
-  <g>
-    <rect x="24" y="486" width="832" height="88" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="44" y="511.6" font-size="14" font-weight="bold" fill="#059669">결과:</text>
-    <text x="85" y="511.6" font-size="13" fill="#1f2933">"필터 조작 시 리렌더링되는 아이템 수가 200개에서 실제 변경된 항목만으로 줄었고,</text>
-    <text x="85" y="533.6" font-size="13" fill="#1f2933">Profiler 커밋 시간도 같은 조건에서 눈에 띄게 짧아졌습니다.</text>
-    <text x="85" y="555.6" font-size="13" fill="#1f2933">대신 memo 비교 비용이 생기므로, 자주 바뀌는 헤더 컴포넌트에는 붙이지 않았습니다."</text>
-
-    <!-- 결과 주석 -->
-    <path d="M 400 600 L 400 579" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-sub)"/>
-    <text x="412" y="613.025" font-size="11.5" fill="#52606d">↑ 트레이드오프를 아는 사람이라는 신호</text>
-  </g>
+  <rect x="24" y="556" width="832" height="144" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="34" y="566" width="92" height="124" rx="6" fill="#eff6ff"/>
+  <circle cx="80" cy="594" r="15" fill="#1d4ed8"/>
+  <text x="80" y="599.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="80" y="634" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">결과</text>
+  <text x="148" y="588" font-size="15" fill="#1f2933">"필터 조작 시 리렌더링되는 아이템 수가 200개에서 실제 변경된 항목만으로 줄었고,</text>
+  <text x="148" y="612" font-size="15" fill="#1f2933">Profiler 커밋 시간도 같은 조건에서 눈에 띄게 짧아졌습니다.</text>
+  <text x="148" y="636" font-size="15" fill="#1f2933"><tspan font-weight="bold" fill="#b45309">대신 memo 비교 비용이 생기므로, 자주 바뀌는 헤더 컴포넌트에는 붙이지 않았습니다</tspan>."</text>
+  <rect x="144" y="650" width="340" height="34" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
+  <text x="158" y="672" font-size="15" font-weight="bold" fill="#b45309">↑ 트레이드오프를 아는 사람이라는 신호</text>
 </svg>

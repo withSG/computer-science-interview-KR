@@ -1,155 +1,115 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">일관된 해싱 링 — 노드 증감 시 이동하는 키와 가상 노드</title>
-  <desc id="d">일관된 해싱 공간에서 노드 B 이탈 시 B 담당 키만 이동하는 원리와 가상 노드를 통한 부하 분산 구조를 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="580" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 980" width="880" height="980" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">일관된 해싱 링</title>
+  <desc id="d">키와 노드를 같은 원형 해시 공간(0 / 2³²)에 올리고, 키는 시계 방향으로 가다 처음 만나는 노드에 배정합니다. 노드 A·B·C가 있을 때 키1은 노드B, 키2와 키3은 노드C로 갑니다. 노드B를 제거하면 B가 담당하던 키1만 노드C로 옮겨 가고 나머지 키는 움직이지 않습니다. 노드 하나를 A#1 … A#150처럼 여러 가상 노드로 뿌리면 구간이 균등해지고 빠진 노드의 부하가 나머지 모든 노드에 골고루 분산됩니다.</desc>
+  <rect width="880" height="980" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-
-  <!-- 메인 제목 -->
-  <text x="24" y="36" font-size="17" font-weight="600" fill="#1f2933">일관된 해싱 링 (Consistent Hashing Ring)</text>
-
-  <!-- 패널 1: 기본 링 & 키 배정 (좌측) -->
-  <rect x="24" y="50" width="400" height="420" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="40" y="76" font-size="14" font-weight="600" fill="#1f2933">1. 기본 링 및 노드 B 이탈</text>
-
-  <!-- 링 (패널 1 중심: 224, 250 / 반지름 110) -->
-  <circle cx="224" cy="250" r="110" fill="none" stroke="#9aa5b1" stroke-width="2.5"/>
-
-  <!-- 0 / 2^32 지점 (상단 12시 방향) -->
-  <line x1="224" y1="130" x2="224" y2="150" stroke="#1f2933" stroke-width="2"/>
-  <rect x="189" y="112" width="70" height="20" fill="#ffffff" stroke="#cbd2d9" rx="3"/>
-  <text x="224" y="126" font-size="11.5" font-weight="500" fill="#1f2933" text-anchor="middle">0 / 2^32</text>
-
-  <!-- 노드 A (1시 30분, 각도 45도: x=302, y=172) -->
-  <circle cx="302" cy="172" r="19" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="302" y="176" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">노드A</text>
-
-  <!-- 노드 B (5시 30분, 각도 135도: x=302, y=328) -->
-  <circle cx="302" cy="328" r="19" fill="#fef2f2" stroke="#dc2626" stroke-width="2" stroke-dasharray="3 3"/>
-  <text x="302" y="332" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">노드B</text>
-  <text x="302" y="362" font-size="11" fill="#dc2626" text-anchor="middle">(이탈)</text>
-
-  <!-- 노드 C (9시 30분, 각도 225도: x=146, y=328) -->
-  <circle cx="146" cy="328" r="19" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="146" y="332" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">노드C</text>
-
-  <!-- 키1 (2시 15분, 각도 67.5도: x=326, y=208) -->
-  <circle cx="326" cy="208" r="6" fill="#1f2933"/>
-  <text x="340" y="212" font-size="11.5" font-weight="500" fill="#1f2933">키1</text>
-
-  <!-- 키2 (6시 45분, 각도 202.5도: x=182, y=352) -->
-  <circle cx="182" cy="352" r="6" fill="#1f2933"/>
-  <text x="172" y="372" font-size="11.5" font-weight="500" fill="#1f2933">키2</text>
-
-  <!-- 키3 (10시 30분, 각도 292.5도: x=122, y=208) -->
-  <circle cx="122" cy="208" r="6" fill="#1f2933"/>
-  <text x="96" y="212" font-size="11.5" font-weight="500" fill="#1f2933">키3</text>
-
-  <!-- 키 배정 화살표들 -->
-  <!-- 키1 -> 노드B (정상 시) -->
-  <path d="M 326,214 Q 320,258 307,308" fill="none" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a-ink)"/>
-
-  <!-- 키2 -> 노드C -->
-  <path d="M 176,352 Q 165,348 160,343" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-ink)"/>
-
-  <!-- 키3 -> 노드A (0지점 넘어 래핑) -->
-  <path d="M 122,202 Q 130,130 216,138 Q 256,142 284,160" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
-  
-  <rect x="80" y="88" width="180" height="20" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
-  <text x="170" y="102" font-size="11" font-weight="500" fill="#2563eb" text-anchor="middle">키3 → 노드A (링을 한 바퀴 돌아)</text>
-
-  <!-- B 이탈 시 키1의 이동 화살표 -->
-  <path d="M 332,208 Q 369,249 319,318" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <path d="M 326,208 Q 357,173 323,170" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#a-red)"/>
-  
-  <rect x="290" y="250" width="124" height="34" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="3"/>
-  <text x="352" y="264" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">노드B 이탈 시</text>
-  <text x="352" y="278" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">키1만 노드C로 재배정</text>
-
-  <!-- 패널 1 하단 요약 범례 -->
-  <rect x="40" y="390" width="368" height="64" fill="#ffffff" stroke="#cbd2d9" rx="4"/>
-  <text x="52" y="410" font-size="11.5" fill="#1f2933">• 키1 → 노드B (이탈 시 노드C로 이동)</text>
-  <text x="52" y="428" font-size="11.5" fill="#1f2933">• 키2 → 노드C (이동 없음)</text>
-  <text x="52" y="446" font-size="11.5" fill="#1f2933">• 키3 → 노드A (링을 한 바퀴 돌아 배정)</text>
-
-
-  <!-- 패널 2: 가상 노드 (우측) -->
-  <rect x="456" y="50" width="400" height="420" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="472" y="76" font-size="14" font-weight="600" fill="#1f2933">2. 가상 노드(vnode)를 통한 부하 분산</text>
-
-  <!-- 링 (패널 2 중심: 656, 230 / 반지름 100) -->
-  <circle cx="656" cy="230" r="100" fill="none" stroke="#9aa5b1" stroke-width="2.5"/>
-
-  <!-- 가상 노드배치 (A: 파랑, B: 빨강, C: 초록) -->
-  <!-- A#1 ~ A#4 -->
-  <circle cx="726" cy="159" r="12.5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="726" y="162" font-size="10.5" font-weight="600" fill="#2563eb" text-anchor="middle">A#1</text>
-
-  <circle cx="586" cy="301" r="12.5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="586" y="304" font-size="10.5" font-weight="600" fill="#2563eb" text-anchor="middle">A#2</text>
-
-  <circle cx="566" cy="180" r="12.5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="566" y="183" font-size="10.5" font-weight="600" fill="#2563eb" text-anchor="middle">A#3</text>
-
-  <circle cx="746" cy="274" r="12.5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="746" y="277" font-size="10.5" font-weight="600" fill="#2563eb" text-anchor="middle">A#4</text>
-
-  <!-- B#1 ~ B#4 -->
-  <circle cx="756" cy="230" r="12.5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="756" y="233" font-size="10.5" font-weight="600" fill="#dc2626" text-anchor="middle">B#1</text>
-
-  <circle cx="656" cy="330" r="12.5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="656" y="333" font-size="10.5" font-weight="600" fill="#dc2626" text-anchor="middle">B#2</text>
-
-  <circle cx="556" cy="230" r="12.5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="556" y="233" font-size="10.5" font-weight="600" fill="#dc2626" text-anchor="middle">B#3</text>
-
-  <circle cx="656" cy="130" r="12.5" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="656" y="133" font-size="10.5" font-weight="600" fill="#dc2626" text-anchor="middle">B#4</text>
-
-  <!-- C#1 ~ C#4 -->
-  <circle cx="586" cy="159" r="12.5" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="586" y="162" font-size="10.5" font-weight="600" fill="#059669" text-anchor="middle">C#1</text>
-
-  <circle cx="726" cy="301" r="12.5" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="726" y="304" font-size="10.5" font-weight="600" fill="#059669" text-anchor="middle">C#2</text>
-
-  <circle cx="686" cy="324" r="12.5" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="686" y="327" font-size="10.5" font-weight="600" fill="#059669" text-anchor="middle">C#3</text>
-
-  <circle cx="626" cy="136" r="12.5" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="626" y="139" font-size="10.5" font-weight="600" fill="#059669" text-anchor="middle">C#4</text>
-
-  <!-- 중앙 설명 박스 -->
-  <rect x="596" y="210" width="120" height="40" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="656" y="226" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">1개 물리 노드 당</text>
-  <text x="656" y="242" font-size="11.5" font-weight="600" fill="#7c3aed" text-anchor="middle">수십~수백 개 vnode</text>
-
-  <!-- 패널 2 효과 설명 -->
-  <rect x="472" y="360" width="368" height="94" fill="#ffffff" stroke="#cbd2d9" rx="4"/>
-  <text x="484" y="380" font-size="11.5" font-weight="600" fill="#1f2933">가상 노드의 도입 효과</text>
-  <text x="484" y="400" font-size="11" fill="#52606d">• 해시 공간의 구간이 잘게 쪼개져 통계적으로 균등해짐</text>
-  <text x="484" y="418" font-size="11" fill="#52606d">• 특정 노드 이탈 시 부하가 나머지 노드 전체에 골고루 분산</text>
-  <text x="484" y="436" font-size="11" fill="#52606d">• 활용 사례: Cassandra(vnode), Redis Cluster(해시 슬롯)</text>
-
-  <!-- 데이터 이동 수치 비교 박스 -->
-  <rect x="24" y="484" width="832" height="56" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="6"/>
-  <text x="40" y="506" font-size="12" font-weight="600" fill="#7c3aed">노드 증감 시 이동 데이터 비율 비교 (N개 → N+1개 변경 시)</text>
-  <text x="40" y="526" font-size="11.5" fill="#1f2933">기존 모듈러(나머지 % N) 방식: 약 N / (N + 1) 이동 (노드 3→4 시 약 75% 이동)</text>
-  <text x="480" y="526" font-size="11.5" font-weight="600" fill="#2563eb">일관된 해싱 방식: 약 1 / (N + 1) 이동 (노드 3→4 시 약 25%만 이동)</text>
-
-  <!-- 하단 캡션 -->
-  <text x="440" y="562" font-size="11.5" fill="#52606d" text-anchor="middle">일관된 해싱은 노드가 변동될 때 최소한의 키만 이동시켜 캐시 클러스터의 안정성을 보장합니다.</text>
+  <text x="440" y="48" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">키는 시계 방향으로 가다 처음 만나는 노드에 배정된다</text>
+  <text x="440" y="76" font-size="15" fill="#4b5563" text-anchor="middle">링의 색 = 그 구간의 키를 받는 노드</text>
+  <!-- ① 기본 배정 -->
+  <rect x="24" y="96" width="404" height="504" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="128" font-size="17" font-weight="bold" fill="#111827">① 노드 A·B·C: 기본 배정</text>
+  <circle cx="226" cy="292" r="118" fill="none" stroke="#e5e7eb" stroke-width="10"/>
+  <path d="M150.2,201.6 A118,118 0 0 1 301.8,201.6" fill="none" stroke="#2563eb" stroke-width="10"/>
+  <path d="M301.8,201.6 A118,118 0 0 1 226,410" fill="none" stroke="#d97706" stroke-width="10"/>
+  <path d="M226,410 A118,118 0 0 1 150.2,201.6" fill="none" stroke="#059669" stroke-width="10"/>
+  <line x1="226" y1="162" x2="226" y2="186" stroke="#111827" stroke-width="2.5"/>
+  <text x="226" y="154" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0 / 2³²</text>
+  <path d="M197.5,228.1 A70,70 0 0 1 254.5,228.1" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-ink)"/>
+  <text x="226" y="262" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">시계 방향</text>
+  <text x="226" y="282" font-size="14" fill="#4b5563" text-anchor="middle">(해시값이 커지는 쪽)</text>
+  <circle cx="342.2" cy="271.5" r="8" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="371.8" y="272.3" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">키1</text>
+  <circle cx="150.2" cy="382.4" r="8" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="117.2" y="422.6" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">키2</text>
+  <circle cx="112" cy="261.5" r="8" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="83" y="259.7" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">키3</text>
+  <rect x="259.8" y="184.6" width="84" height="34" rx="17" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="301.8" y="207.6" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">노드A</text>
+  <rect x="184" y="393" width="84" height="34" rx="17" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+  <text x="226" y="416" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">노드B</text>
+  <rect x="108.2" y="184.6" width="84" height="34" rx="17" fill="#d1fae5" stroke="#059669" stroke-width="2.5"/>
+  <text x="150.2" y="207.6" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">노드C</text>
+  <rect x="44" y="464" width="364" height="108" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="68" y="496" font-size="17" fill="#111827"><tspan font-weight="bold">키1</tspan> → <tspan font-weight="bold" fill="#b45309">노드B</tspan></text>
+  <text x="68" y="528" font-size="17" fill="#111827"><tspan font-weight="bold">키2</tspan> → <tspan font-weight="bold" fill="#047857">노드C</tspan></text>
+  <text x="68" y="560" font-size="17" fill="#111827"><tspan font-weight="bold">키3</tspan> → <tspan font-weight="bold" fill="#047857">노드C</tspan></text>
+  <!-- ② 노드B 제거 -->
+  <rect x="452" y="96" width="404" height="504" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="472" y="128" font-size="17" font-weight="bold" fill="#111827">② 노드B 제거: B의 키만 이동</text>
+  <circle cx="654" cy="292" r="118" fill="none" stroke="#e5e7eb" stroke-width="10"/>
+  <path d="M578.2,201.6 A118,118 0 0 1 729.8,201.6" fill="none" stroke="#2563eb" stroke-width="10"/>
+  <path d="M729.8,201.6 A118,118 0 1 1 578.2,201.6" fill="none" stroke="#059669" stroke-width="10"/>
+  <line x1="654" y1="162" x2="654" y2="186" stroke="#111827" stroke-width="2.5"/>
+  <text x="654" y="154" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0 / 2³²</text>
+  <path d="M625.5,228.1 A70,70 0 0 1 682.5,228.1" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#ah-ink)"/>
+  <text x="654" y="262" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">시계 방향</text>
+  <text x="654" y="282" font-size="14" fill="#4b5563" text-anchor="middle">(해시값이 커지는 쪽)</text>
+  <path d="M643,399 L665,421 M643,421 L665,399" stroke="#4b5563" stroke-width="3.5" fill="none"/>
+  <text x="654" y="450" font-size="16" font-weight="bold" fill="#4b5563" text-anchor="middle">노드B 제거</text>
+  <path d="M747.9,288.7 A94,94 0 1 1 582,231.6" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#ah-red)"/>
+  <circle cx="770.2" cy="271.5" r="8" fill="#ffffff" stroke="#b91c1c" stroke-width="3"/>
+  <text x="799.8" y="272.3" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">키1</text>
+  <circle cx="578.2" cy="382.4" r="8" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="545.2" y="422.6" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">키2</text>
+  <circle cx="540" cy="261.5" r="8" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="511" y="259.7" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">키3</text>
+  <rect x="687.8" y="184.6" width="84" height="34" rx="17" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="729.8" y="207.6" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">노드A</text>
+  <rect x="536.2" y="184.6" width="84" height="34" rx="17" fill="#d1fae5" stroke="#059669" stroke-width="2.5"/>
+  <text x="578.2" y="207.6" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">노드C</text>
+  <rect x="472" y="464" width="364" height="108" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="496" y="496" font-size="17" fill="#111827"><tspan font-weight="bold">키1</tspan> → <tspan font-weight="bold" fill="#047857">노드C</tspan></text>
+  <text x="646" y="496" font-size="16" font-weight="bold" fill="#b91c1c">이동</text>
+  <text x="496" y="528" font-size="17" fill="#111827"><tspan font-weight="bold">키2</tspan> → <tspan font-weight="bold" fill="#047857">노드C</tspan></text>
+  <text x="646" y="528" font-size="16" font-weight="bold" fill="#4b5563">그대로</text>
+  <text x="496" y="560" font-size="17" fill="#111827"><tspan font-weight="bold">키3</tspan> → <tspan font-weight="bold" fill="#047857">노드C</tspan></text>
+  <text x="646" y="560" font-size="16" font-weight="bold" fill="#4b5563">그대로</text>
+  <!-- ③ 가상 노드 -->
+  <rect x="24" y="624" width="832" height="332" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="658" font-size="17" font-weight="bold" fill="#111827">③ 가상 노드: 노드 하나를 링 위 여러 지점에</text>
+  <circle cx="184" cy="794" r="92" fill="none" stroke="#e5e7eb" stroke-width="8"/>
+  <path d="M152.5,707.5 A92,92 0 0 1 215.5,707.5" fill="none" stroke="#2563eb" stroke-width="8"/>
+  <path d="M215.5,707.5 A92,92 0 0 1 263.7,748" fill="none" stroke="#059669" stroke-width="8"/>
+  <path d="M263.7,748 A92,92 0 0 1 274.6,810" fill="none" stroke="#d97706" stroke-width="8"/>
+  <path d="M274.6,810 A92,92 0 0 1 243.1,864.5" fill="none" stroke="#2563eb" stroke-width="8"/>
+  <path d="M243.1,864.5 A92,92 0 0 1 184,886" fill="none" stroke="#059669" stroke-width="8"/>
+  <path d="M184,886 A92,92 0 0 1 124.9,864.5" fill="none" stroke="#d97706" stroke-width="8"/>
+  <path d="M124.9,864.5 A92,92 0 0 1 93.4,810" fill="none" stroke="#059669" stroke-width="8"/>
+  <path d="M93.4,810 A92,92 0 0 1 104.3,748" fill="none" stroke="#2563eb" stroke-width="8"/>
+  <path d="M104.3,748 A92,92 0 0 1 152.5,707.5" fill="none" stroke="#d97706" stroke-width="8"/>
+  <rect x="189.5" y="693.5" width="52" height="28" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="215.5" y="712.5" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A#1</text>
+  <rect x="237.7" y="734" width="52" height="28" rx="14" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+  <text x="263.7" y="753" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">C#1</text>
+  <rect x="248.6" y="796" width="52" height="28" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="274.6" y="815" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">B#1</text>
+  <rect x="217.1" y="850.5" width="52" height="28" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="243.1" y="869.5" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A#2</text>
+  <rect x="158" y="872" width="52" height="28" rx="14" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+  <text x="184" y="891" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">C#2</text>
+  <rect x="98.9" y="850.5" width="52" height="28" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="124.9" y="869.5" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">B#2</text>
+  <rect x="67.4" y="796" width="52" height="28" rx="14" fill="#d1fae5" stroke="#059669" stroke-width="2"/>
+  <text x="93.4" y="815" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">C#3</text>
+  <rect x="78.3" y="734" width="52" height="28" rx="14" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="104.3" y="753" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A#3</text>
+  <rect x="126.5" y="693.5" width="52" height="28" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="152.5" y="712.5" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">B#3</text>
+  <text x="184" y="790" font-size="14" fill="#4b5563" text-anchor="middle">그림은 노드당 3개</text>
+  <text x="184" y="810" font-size="14" fill="#4b5563" text-anchor="middle">(예: 150개)</text>
+  <text x="356" y="702" font-size="17" font-weight="bold" fill="#b91c1c">가상 노드가 없으면</text>
+  <text x="356" y="732" font-size="15" fill="#1f2937">· 구간 크기가 고르지 않다 (한 노드가 링의 절반을 맡을 수도)</text>
+  <text x="356" y="758" font-size="15" fill="#1f2937">· 노드가 빠지면 부하가 바로 다음 노드 한 대에만 몰린다 (②의 노드C)</text>
+  <text x="356" y="800" font-size="17" font-weight="bold" fill="#047857">노드 A → <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">A#1, A#2, … A#150</tspan> (가상 노드 150개)</text>
+  <text x="356" y="830" font-size="15" fill="#1f2937">· 구간이 잘게 쪼개져 통계적으로 균등해진다</text>
+  <text x="356" y="856" font-size="15" fill="#1f2937">· 노드 A가 빠지면 부하가 나머지 모든 노드에 골고루 분산된다</text>
+  <text x="356" y="898" font-size="15" font-weight="bold" fill="#1f2937">Cassandra: 가상 노드(vnode) · Redis Cluster: 해시 슬롯 16384개</text>
+  <text x="356" y="924" font-size="15" fill="#1f2937">→ 캐시 클러스터에서 노드 한 대가 죽어도 캐시 전체가 날아가지 않는다</text>
 </svg>

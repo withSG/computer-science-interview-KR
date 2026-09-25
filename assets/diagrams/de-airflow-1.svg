@@ -1,57 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 230" width="880" height="230"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">DAG — 방향성 비순환 그래프</title>
-  <desc id="d">wait_source, extract, transform, validate 태스크가 순차적으로 실행되고, validate 이후 load_mart와 load_cache가 병렬로 실행되는 Airflow DAG 흐름도입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 270" width="880" height="270" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Airflow DAG 예시: 순차 실행 후 병렬 적재</title>
+  <desc id="d">Sensor인 wait_source가 소스 파일을 기다린 뒤 extract, transform, validate가 차례로 실행되고, validate 다음에 서로 의존하지 않는 load_mart와 load_cache가 병렬로 실행된다. validate가 실패하면 아래 적재가 전부 멈춘다.</desc>
+  <rect width="880" height="270" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="230" fill="#ffffff"/>
 
-  <!-- Legend -->
-  <rect x="30" y="24" width="12" height="12" rx="2" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="48" y="34.025" font-size="11.5" fill="#52606d">Sensor (대기)</text>
-  
-  <rect x="150" y="24" width="12" height="12" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="168" y="34.025" font-size="11.5" fill="#52606d">Task (처리)</text>
-  
-  <rect x="250" y="24" width="12" height="12" rx="2" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="268" y="34.025" font-size="11.5" fill="#52606d">Validation (검증)</text>
-  
-  <rect x="370" y="24" width="12" height="12" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="388" y="34.025" font-size="11.5" fill="#52606d">Load (적재)</text>
+  <!-- 화살표의 뜻 -->
+  <line x1="24" y1="34" x2="62" y2="34" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="74" y="39" font-size="15" fill="#374151">선후 관계 = 방향성(Directed)</text>
+  <text x="320" y="39" font-size="15" fill="#374151">되돌아오는 화살표 없음 = 비순환(Acyclic)</text>
 
-  <!-- Arrows -->
-  <path d="M142,80 L168,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M262,80 L288,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M392,80 L418,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M522,80 L548,80" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M470,102 L470,165 L548,165" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 순차 구간 화살표 -->
+  <line x1="156" y1="150" x2="190" y2="150" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="306" y1="150" x2="340" y2="150" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="456" y1="150" x2="490" y2="150" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <!-- validate 다음 갈래 -->
+  <path d="M646,150 H684 V85 H721" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <path d="M646,150 H684 V215 H721" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Nodes -->
-  <!-- wait_source -->
-  <rect x="30" y="58" width="112" height="44" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="86" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">wait_source</text>
+  <!-- wait_source : Sensor -->
+  <rect x="24" y="121" width="130" height="58" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="89" y="145" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">wait_source</text>
+  <text x="89" y="168" font-size="14" fill="#b45309" text-anchor="middle">Sensor (대기)</text>
 
-  <!-- extract -->
-  <rect x="168" y="58" width="94" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="215" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">extract</text>
+  <!-- extract : Task -->
+  <rect x="194" y="121" width="110" height="58" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="249" y="145" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">extract</text>
+  <text x="249" y="168" font-size="14" fill="#1d4ed8" text-anchor="middle">Task (처리)</text>
 
-  <!-- transform -->
-  <rect x="288" y="58" width="104" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">transform</text>
+  <!-- transform : Task -->
+  <rect x="344" y="121" width="110" height="58" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="399" y="145" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">transform</text>
+  <text x="399" y="168" font-size="14" fill="#1d4ed8" text-anchor="middle">Task (처리)</text>
 
-  <!-- validate -->
-  <rect x="418" y="58" width="104" height="44" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="470" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">validate</text>
+  <!-- validate : Validation -->
+  <rect x="494" y="121" width="150" height="58" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="569" y="145" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">validate</text>
+  <text x="569" y="168" font-size="14" fill="#6d28d9" text-anchor="middle">Validation (검증)</text>
 
-  <!-- load_mart -->
-  <rect x="548" y="58" width="104" height="44" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="600" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">load_mart</text>
+  <!-- load_mart : Load -->
+  <rect x="726" y="56" width="130" height="58" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="791" y="80" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">load_mart</text>
+  <text x="791" y="103" font-size="14" fill="#047857" text-anchor="middle">Load (적재)</text>
 
-  <!-- load_cache -->
-  <rect x="548" y="143" width="104" height="44" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="600" y="169.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">load_cache</text>
+  <!-- load_cache : Load -->
+  <rect x="726" y="186" width="130" height="58" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="791" y="210" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">load_cache</text>
+  <text x="791" y="233" font-size="14" fill="#047857" text-anchor="middle">Load (적재)</text>
+
+  <!-- 병렬 설명 (두 적재 사이) -->
+  <text x="791" y="146" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">병렬 실행</text>
+  <text x="791" y="166" font-size="14" fill="#374151" text-anchor="middle">서로 의존하지 않음</text>
+
+  <!-- 노드 아래 설명 -->
+  <text x="24" y="206" font-size="15" fill="#4b5563">소스 파일 도착까지 대기</text>
+  <text x="569" y="206" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">실패하면 아래 적재가 전부 멈춤</text>
 </svg>

@@ -1,42 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">데이터 분할이라는 최소 장치</title>
-  <desc id="d">전체 데이터를 학습셋, 검증셋, 테스트셋으로 분할하고 각각의 역할을 설명하는 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">데이터 분할과 세 셋의 역할</title>
+  <desc id="d">전체 데이터를 학습셋, 검증셋, 테스트셋으로 나눈다. 학습셋은 가중치 업데이트, 검증셋은 하이퍼파라미터 선택과 조기 종료 시점 결정, 테스트셋은 딱 한 번 최종 보고용으로만 쓴다.</desc>
+  <rect width="880" height="320" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Title/Header Area -->
-  <rect x="40" y="30" width="800" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">데이터 분할이라는 최소 장치</text>
+  <!-- 전체 데이터 -->
+  <rect x="320" y="24" width="240" height="52" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="2"/>
+  <text x="440" y="57" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">전체 데이터</text>
 
-  <!-- Root Box -->
-  <rect x="60" y="100" width="160" height="180" rx="8" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
-  <text x="140" y="195" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">전체 데이터</text>
+  <!-- 분할 연결선 -->
+  <path d="M440,76 L440,98 M160,98 L720,98" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M160,98 L160,124" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M440,98 L440,124" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M720,98 L720,124" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- Tree Lines -->
-  <path d="M 220 190 L 260 190 L 260 120 L 280 120" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M 260 190 L 280 190" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M 260 190 L 260 260 L 280 260" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 학습셋 -->
+  <rect x="32" y="128" width="256" height="164" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <path d="M32,178 L32,138 A10,10 0 0 1 42,128 L278,128 A10,10 0 0 1 288,138 L288,178 Z" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="160" y="160" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle">학습셋<tspan font-size="16" font-weight="normal">(train)</tspan></text>
+  <text x="52" y="214" font-size="16" fill="#111827">· 가중치 업데이트에 쓴다</text>
 
-  <!-- Node 1: 학습셋(train) -->
-  <rect x="280" y="100" width="180" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="370" y="125" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">학습셋(train)</text>
-  <text x="475" y="125" font-size="13" fill="#52606d" text-anchor="start">:</text>
-  <text x="495" y="125" font-size="13" fill="#1f2933" text-anchor="start">가중치를 업데이트하는 데 쓴다</text>
+  <!-- 검증셋 -->
+  <rect x="312" y="128" width="256" height="164" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+  <path d="M312,178 L312,138 A10,10 0 0 1 322,128 L558,128 A10,10 0 0 1 568,138 L568,178 Z" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="440" y="160" font-size="20" font-weight="bold" fill="#78350f" text-anchor="middle">검증셋<tspan font-size="16" font-weight="normal">(validation)</tspan></text>
+  <text x="332" y="214" font-size="16" fill="#111827">· 하이퍼파라미터를 고른다</text>
+  <text x="332" y="240" font-size="16" fill="#111827">· 조기 종료 시점을 정한다</text>
 
-  <!-- Node 2: 검증셋(validation) -->
-  <rect x="280" y="170" width="180" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="370" y="195" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">검증셋(validation)</text>
-  <text x="475" y="195" font-size="13" fill="#52606d" text-anchor="start">:</text>
-  <text x="495" y="195" font-size="13" fill="#1f2933" text-anchor="start">하이퍼파라미터를 고르고 조기 종료 시점을 정한다</text>
-
-  <!-- Node 3: 테스트셋(test) -->
-  <rect x="280" y="240" width="180" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="370" y="265" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">테스트셋(test)</text>
-  <text x="475" y="265" font-size="13" fill="#52606d" text-anchor="start">:</text>
-  <text x="495" y="265" font-size="13" fill="#1f2933" text-anchor="start">딱 한 번, 최종 보고용으로만 쓴다</text>
+  <!-- 테스트셋 -->
+  <rect x="592" y="128" width="256" height="164" rx="10" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <path d="M592,178 L592,138 A10,10 0 0 1 602,128 L838,128 A10,10 0 0 1 848,138 L848,178 Z" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="720" y="160" font-size="20" font-weight="bold" fill="#064e3b" text-anchor="middle">테스트셋<tspan font-size="16" font-weight="normal">(test)</tspan></text>
+  <text x="612" y="214" font-size="16" font-weight="bold" fill="#065f46">· 딱 한 번만 쓴다</text>
+  <text x="612" y="240" font-size="16" fill="#111827">· 최종 보고용으로만 쓴다</text>
+  <rect x="612" y="252" width="140" height="28" rx="14" fill="#ffffff" stroke="#047857" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="682" y="271" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">마지막까지 봉인</text>
 </svg>

@@ -1,36 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">CAP 조합</title>
-  <desc id="d">분산 시스템의 CAP 정리 중 P의 필수성과 CP 대 AP 선택 및 예시 시스템 다이어그램</desc>
-  <rect width="880" height="430" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CP와 AP 선택</title>
+  <desc id="d">분산 시스템에서 P(Partition Tolerance)는 필수이므로 실제로는 CP와 AP 중 하나를 고릅니다. CP는 일관성을 우선해 네트워크 분할 시 일부 요청을 거부하고(MongoDB, HBase), AP는 가용성을 우선해 분할 시에도 응답합니다(오래된 데이터 가능, Cassandra, DynamoDB, CouchDB).</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 상단 핵심 전제 상자 -->
-  <rect x="190" y="30" width="500" height="70" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="440" y="62" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">분산 시스템에서 P(Partition Tolerance)는 필수</text>
-  
-  <!-- 화살표 및 전환 라벨 -->
-  <path d="M440,100 L440,128" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="360" y="106" width="160" height="20" fill="#ffffff"/>
-  <text x="440" y="120" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">→ 실제로는 CP vs AP 선택</text>
+  <!-- 전제 -->
+  <rect x="170" y="24" width="540" height="56" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="440" y="58" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">분산 시스템에서 P(Partition Tolerance)는 필수</text>
 
-  <!-- CP 섹션 박스 -->
-  <rect x="40" y="150" width="385" height="240" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="232.5" y="185" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">CP (Consistency + Partition Tolerance)</text>
-  
-  <text x="60" y="225" font-size="13" fill="#1f2933">- 일관성 우선</text>
-  <text x="60" y="260" font-size="13" fill="#1f2933">- 네트워크 분할 시 일부 요청 거부</text>
-  <text x="60" y="295" font-size="13" fill="#1f2933">- 예: MongoDB, HBase</text>
+  <line x1="440" y1="80" x2="440" y2="102" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- AP 섹션 박스 -->
-  <rect x="455" y="150" width="385" height="240" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="647.5" y="185" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">AP (Availability + Partition Tolerance)</text>
-  
-  <text x="475" y="225" font-size="13" fill="#1f2933">- 가용성 우선</text>
-  <text x="475" y="260" font-size="13" fill="#1f2933">- 네트워크 분할 시에도 응답 (오래된 데이터 가능)</text>
-  <text x="475" y="295" font-size="13" fill="#1f2933">- 예: Cassandra, DynamoDB, CouchDB</text>
+  <rect x="300" y="106" width="280" height="40" rx="20" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="440" y="132" text-anchor="middle" font-size="17" font-weight="bold" fill="#92400e">실제로는 CP vs AP 선택</text>
+
+  <path d="M440,146 V162 M360,162 H680" fill="none" stroke="#4b5563" stroke-width="2"/>
+  <line x1="360" y1="162" x2="360" y2="186" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="680" y1="162" x2="680" y2="186" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 표: 칸 채움 -->
+  <rect x="200" y="190" width="320" height="76" fill="#eff6ff"/>
+  <rect x="520" y="190" width="320" height="76" fill="#ecfdf5"/>
+  <rect x="40" y="266" width="160" height="184" fill="#f3f4f6"/>
+
+  <!-- 표: 격자 -->
+  <path d="M200,190 H840 V450 H40 V266 H200 Z M40,318 H840 M40,398 H840 M200,266 H840 M520,190 V450" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+
+  <!-- 머리행 -->
+  <text x="360" y="222" text-anchor="middle" font-size="22" font-weight="bold" fill="#1d4ed8">CP</text>
+  <text x="360" y="250" text-anchor="middle" font-size="15" fill="#1e3a8a">Consistency + Partition Tolerance</text>
+  <text x="680" y="222" text-anchor="middle" font-size="22" font-weight="bold" fill="#047857">AP</text>
+  <text x="680" y="250" text-anchor="middle" font-size="15" fill="#065f46">Availability + Partition Tolerance</text>
+
+  <!-- 행 이름 -->
+  <text x="120" y="298" text-anchor="middle" font-size="16" font-weight="bold" fill="#374151">우선</text>
+  <text x="120" y="364" text-anchor="middle" font-size="16" font-weight="bold" fill="#374151">네트워크 분할 시</text>
+  <text x="120" y="430" text-anchor="middle" font-size="16" font-weight="bold" fill="#374151">예</text>
+
+  <!-- CP 칸 -->
+  <text x="360" y="298" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">일관성 우선</text>
+  <text x="360" y="364" text-anchor="middle" font-size="17" fill="#1f2937">일부 요청 거부</text>
+  <text x="360" y="430" text-anchor="middle" font-size="17" fill="#1f2937">MongoDB, HBase</text>
+
+  <!-- AP 칸 -->
+  <text x="680" y="298" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">가용성 우선</text>
+  <text x="680" y="352" text-anchor="middle" font-size="17" fill="#1f2937">분할 시에도 응답</text>
+  <text x="680" y="377" text-anchor="middle" font-size="15" fill="#4b5563">(오래된 데이터 가능)</text>
+  <text x="680" y="430" text-anchor="middle" font-size="17" fill="#1f2937">Cassandra, DynamoDB, CouchDB</text>
 </svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">세션을 서버 메모리에 둘 때의 문제</title>
+  <desc id="d">사용자의 로그인 요청은 서버1로 가서 세션이 서버1에 저장되지만, 다음 요청이 서버2로 가면 서버2에는 세션이 없어 "로그인이 필요합니다"가 된다.</desc>
+  <rect width="880" height="310" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="40" font-size="16" fill="#4b5563">로그인 세션을 서버 메모리에 들고 있을 때</text>
+
+  <!-- 사용자 -->
+  <rect x="24" y="148" width="140" height="48" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="94" y="178" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">사용자</text>
+
+  <!-- ① 로그인 요청 → 서버1 -->
+  <path d="M164,162 H206 V112 H384" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="224" y="100" font-size="16" font-weight="bold" fill="#111827">① 로그인 요청</text>
+
+  <!-- ② 다음 요청 → 서버2 -->
+  <path d="M164,182 H206 V232 H384" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="224" y="220" font-size="16" font-weight="bold" fill="#111827">② 다음 요청</text>
+
+  <!-- 서버1 -->
+  <rect x="392" y="66" width="220" height="92" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="412" y="94" font-size="17" font-weight="bold" fill="#111827">서버1</text>
+  <rect x="412" y="108" width="180" height="36" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="502" y="132" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">세션 저장</text>
+
+  <!-- 서버2 -->
+  <rect x="392" y="186" width="220" height="92" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="412" y="214" font-size="17" font-weight="bold" fill="#111827">서버2</text>
+  <rect x="412" y="228" width="180" height="36" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="502" y="252" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">세션 없음</text>
+
+  <!-- 결과 -->
+  <path d="M612,232 H646" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <rect x="654" y="208" width="202" height="48" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="755" y="238" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">"로그인이 필요합니다"</text>
+</svg>

@@ -1,74 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">주기와 임계값은 감으로 정하지 않는다</title>
-  <desc id="d">나쁜 설정과 무난한 설정에서 GC 발생 시 서버가 트래픽에서 제외되는지 여부를 비교하는 타임라인 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 474" width="880" height="474" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">헬스체크 임계값과 GC 정지</title>
+  <desc id="d">임계값 1회·주기 1초의 나쁜 설정에서는 GC 한 번에 서버가 즉시 제외되고 부하가 남은 서버로 몰려 연쇄적으로 전부 빠진다. 임계값 3회·주기 5초의 무난한 설정에서는 GC 중 실패가 1회로 끝나고 다음 성공에 카운트가 리셋되어 제외되지 않는다.</desc>
+  <rect width="880" height="474" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ahR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ahG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="580" fill="#ffffff"/>
+  <!-- 나쁜 설정 -->
+  <rect x="24" y="24" width="408" height="426" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="42" y="58" font-size="18" font-weight="700" fill="#111827">임계값 1회, 주기 1초</text>
+  <rect x="322" y="38" width="92" height="28" rx="14" fill="#b91c1c"/>
+  <text x="368" y="57" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">나쁜 설정</text>
+  <line x1="24" y1="80" x2="432" y2="80" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <!-- 메인 제목 -->
-  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">주기와 임계값은 감으로 정하지 않는다</text>
+  <line x1="66" y1="134" x2="66" y2="177" stroke="#9ca3af" stroke-width="2"/>
+  <rect x="40" y="106" width="52" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="66" y="125" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">0초</text>
+  <rect x="104" y="98" width="312" height="44" rx="6" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="118" y="125" font-size="15" fill="#111827">GC 시작 → 헬스체크 실패 → <tspan font-weight="700" fill="#b91c1c">즉시 제외</tspan></text>
 
-  <!-- ==================== 구역 1: 나쁜 설정 ==================== -->
-  <rect x="24" y="60" width="832" height="230" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="44" y="90" font-size="14" font-weight="bold" fill="#dc2626">[임계값 1회, 주기 1초]</text>
-  <text x="210" y="90" font-size="13" font-weight="bold" fill="#dc2626">← 나쁜 설정</text>
+  <rect x="40" y="177" width="52" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="66" y="196" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">2초</text>
+  <rect x="104" y="160" width="312" height="62" rx="6" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="118" y="185" font-size="15" fill="#111827">GC 끝, 서버는 완전히 정상인데</text>
+  <text x="118" y="207" font-size="15" font-weight="700" fill="#b91c1c">이미 트래픽에서 빠짐</text>
 
-  <!-- 시퀀스/타임라인 항목 1 -->
-  <text x="44" y="130" font-size="13" font-weight="bold" fill="#1f2933">0초</text>
-  <text x="80" y="130" font-size="13" fill="#1f2933">GC 시작</text>
-  
-  <path d="M140,126 L162,126" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="170" y="130" font-size="13" fill="#dc2626">헬스체크 실패</text>
+  <line x1="260" y1="226" x2="260" y2="250" stroke="#b91c1c" stroke-width="2" marker-end="url(#ahR)"/>
+  <rect x="104" y="256" width="312" height="38" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="260" y="280" font-size="15" fill="#b91c1c" text-anchor="middle">남은 서버로 부하가 몰림</text>
+  <line x1="260" y1="298" x2="260" y2="318" stroke="#b91c1c" stroke-width="2" marker-end="url(#ahR)"/>
+  <rect x="104" y="324" width="312" height="38" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="260" y="348" font-size="15" fill="#b91c1c" text-anchor="middle">그 서버도 GC</text>
+  <line x1="260" y1="366" x2="260" y2="386" stroke="#b91c1c" stroke-width="2" marker-end="url(#ahR)"/>
+  <rect x="104" y="392" width="312" height="38" rx="6" fill="#b91c1c"/>
+  <text x="260" y="417" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">연쇄적으로 전부 빠짐</text>
 
-  <path d="M268,126 L290,126" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="298" y="130" font-size="13" font-weight="bold" fill="#dc2626">즉시 제외</text>
+  <!-- 무난한 설정 -->
+  <rect x="448" y="24" width="408" height="426" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="466" y="58" font-size="18" font-weight="700" fill="#111827">임계값 3회, 주기 5초</text>
+  <rect x="738" y="38" width="100" height="28" rx="14" fill="#047857"/>
+  <text x="788" y="57" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">무난한 설정</text>
+  <line x1="448" y1="80" x2="856" y2="80" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <!-- 시퀀스/타임라인 항목 2 -->
-  <text x="44" y="170" font-size="13" font-weight="bold" fill="#1f2933">2초</text>
-  <text x="80" y="170" font-size="13" fill="#1f2933">GC 끝, 서버는 완전히 정상인데 이미 트래픽에서 빠짐</text>
+  <line x1="490" y1="134" x2="490" y2="177" stroke="#9ca3af" stroke-width="2"/>
+  <rect x="464" y="106" width="52" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="490" y="125" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">0초</text>
+  <rect x="528" y="98" width="312" height="44" rx="6" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="542" y="125" font-size="15" fill="#111827">실패 (GC 중) → <tspan font-weight="700" fill="#b45309">1회</tspan></text>
 
-  <!-- 결과 설명 -->
-  <path d="M44,216 L60,216" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="68" y="220" font-size="13" fill="#dc2626">남은 서버로 부하가 몰림</text>
+  <rect x="464" y="177" width="52" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="490" y="196" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">5초</text>
+  <rect x="528" y="160" width="312" height="62" rx="6" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="542" y="196" font-size="15" fill="#111827">성공 (GC 끝) → <tspan font-weight="700" fill="#047857">카운트 리셋</tspan></text>
 
-  <path d="M232,216 L248,216" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="256" y="220" font-size="13" fill="#dc2626">그 서버도 GC</text>
-
-  <path d="M352,216 L368,216" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="376" y="220" font-size="13" font-weight="bold" fill="#dc2626">연쇄적으로 전부 빠짐</text>
-
-
-  <!-- ==================== 구역 2: 무난한 설정 ==================== -->
-  <rect x="24" y="310" width="832" height="230" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="44" y="340" font-size="14" font-weight="bold" fill="#059669">[임계값 3회, 주기 5초]</text>
-  <text x="210" y="340" font-size="13" font-weight="bold" fill="#059669">← 무난한 설정</text>
-
-  <!-- 시퀀스/타임라인 항목 1 -->
-  <text x="44" y="380" font-size="13" font-weight="bold" fill="#1f2933">0초</text>
-  <text x="80" y="380" font-size="13" fill="#1f2933">실패 (GC 중)</text>
-
-  <path d="M172,376 L194,376" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="202" y="380" font-size="13" fill="#1f2933">1회</text>
-
-  <!-- 시퀀스/타임라인 항목 2 -->
-  <text x="44" y="420" font-size="13" font-weight="bold" fill="#1f2933">5초</text>
-  <text x="80" y="420" font-size="13" fill="#1f2933">성공 (GC 끝)</text>
-
-  <path d="M172,416 L194,416" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="202" y="420" font-size="13" fill="#1f2933">카운트 리셋</text>
-
-  <!-- 결과 설명 -->
-  <path d="M44,466 L60,466" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="68" y="470" font-size="13" font-weight="bold" fill="#059669">제외되지 않음</text>
+  <line x1="684" y1="226" x2="684" y2="250" stroke="#047857" stroke-width="2" marker-end="url(#ahG)"/>
+  <rect x="528" y="256" width="312" height="38" rx="6" fill="#047857"/>
+  <text x="684" y="281" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">제외되지 않음</text>
 </svg>

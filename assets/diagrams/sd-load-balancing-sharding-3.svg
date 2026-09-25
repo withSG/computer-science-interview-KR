@@ -1,75 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3. L4와 L7</title>
-  <desc id="d">L4 로드 밸런서와 L7 로드 밸런서의 동작 방식 차이를 보여주는 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 660" width="880" height="660" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">L4와 L7이 읽는 범위</title>
+  <desc id="d">L4 로드 밸런서는 패킷 헤더의 출발지/목적지 IP와 포트까지만 읽고 바로 전달하며 페이로드는 열어보지 않는다. L7 로드 밸런서는 페이로드를 열어 URL, 헤더, 쿠키를 읽고 /api/*는 API 서버로, /static/*는 정적 서버로 보내며 쿠키 기반 세션 고정, TLS 종료, 압축, WAF를 할 수 있다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="520" fill="#ffffff"/>
+  <rect width="880" height="660" fill="#ffffff"/>
 
-  <!-- L4 Section -->
-  <g id="l4-section">
-    <!-- Main L4 Container -->
-    <rect x="40" y="30" width="800" height="200" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    
-    <!-- Title and Subtitle -->
-    <text x="60" y="66" font-size="16" font-weight="bold" fill="#2563eb">[L4 로드 밸런서]</text>
-    <text x="210" y="66" font-size="14" fill="#52606d">전송 계층. IP와 포트만 본다</text>
+  <!-- L4 -->
+  <rect x="24" y="24" width="832" height="216" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="48" y="62" font-size="20" font-weight="bold" fill="#1d4ed8">L4 로드 밸런서</text>
+  <text x="212" y="62" font-size="16" fill="#374151">전송 계층. IP와 포트만 본다</text>
+  <text x="48" y="100" font-size="15" font-weight="bold" fill="#374151">패킷</text>
+  <rect x="48" y="110" width="320" height="52" fill="#dbeafe"/>
+  <rect x="48" y="162" width="320" height="52" fill="#f3f4f6"/>
+  <rect x="48" y="110" width="320" height="104" fill="none" stroke="#374151" stroke-width="1.5"/>
+  <line x1="48" y1="162" x2="368" y2="162" stroke="#374151" stroke-width="1.5"/>
+  <rect x="48" y="110" width="320" height="52" fill="none" stroke="#1d4ed8" stroke-width="3"/>
+  <text x="208" y="141" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">헤더: 출발지/목적지 IP, 포트</text>
+  <text x="208" y="193" font-size="15" fill="#4b5563" text-anchor="middle">페이로드: HTTP 요청 본문</text>
+  <line x1="426" y1="136" x2="378" y2="136" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="438" y="142" font-size="16" font-weight="bold" fill="#1d4ed8">여기까지만 읽고 바로 전달</text>
+  <line x1="426" y1="188" x2="378" y2="188" stroke="#6b7280" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#ak)"/>
+  <text x="438" y="194" font-size="16" fill="#4b5563">안 열어본다</text>
 
-    <!-- Packet Structure Box -->
-    <text x="90" y="106" font-size="13" font-weight="bold" fill="#1f2933">패킷</text>
-    
-    <!-- Outer Packet Rectangle -->
-    <rect x="135" y="85" width="280" height="120" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    
-    <!-- Header Portion -->
-    <rect x="135" y="85" width="280" height="50" fill="#dbeafe" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="275" y="115" font-size="13" fill="#1f2933" text-anchor="middle">헤더: 출발지/목적지 IP, 포트</text>
-    
-    <!-- Divider Line -->
-    <line x1="135" y1="135" x2="415" y2="135" stroke="#9aa5b1" stroke-width="1.5"/>
-    
-    <!-- Payload Portion -->
-    <text x="275" y="175" font-size="13" fill="#52606d" text-anchor="middle">페이로드: HTTP 요청 본문</text>
+  <!-- L7 -->
+  <rect x="24" y="264" width="832" height="372" rx="12" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="48" y="302" font-size="20" font-weight="bold" fill="#6d28d9">L7 로드 밸런서</text>
+  <text x="212" y="302" font-size="16" fill="#374151">응용 계층. 페이로드를 파싱한다</text>
+  <text x="48" y="340" font-size="15" font-weight="bold" fill="#374151">패킷</text>
+  <rect x="48" y="350" width="320" height="52" fill="#f3f4f6"/>
+  <rect x="48" y="402" width="320" height="52" fill="#ede9fe"/>
+  <rect x="48" y="350" width="320" height="104" fill="none" stroke="#374151" stroke-width="1.5"/>
+  <line x1="48" y1="402" x2="368" y2="402" stroke="#374151" stroke-width="1.5"/>
+  <rect x="48" y="402" width="320" height="52" fill="none" stroke="#6d28d9" stroke-width="3"/>
+  <text x="208" y="381" font-size="15" fill="#374151" text-anchor="middle">헤더: 출발지/목적지 IP, 포트</text>
+  <text x="208" y="433" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">페이로드: HTTP 요청 본문</text>
+  <line x1="426" y1="428" x2="378" y2="428" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
+  <text x="438" y="434" font-size="16" font-weight="bold" fill="#6d28d9">페이로드를 열어 URL, 헤더, 쿠키를 읽는다</text>
 
-    <!-- Header Arrow and Annotations -->
-    <path d="M425,110 L480,110" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
-    <text x="495" y="114" font-size="13" fill="#2563eb" font-weight="bold">← 여기까지만 읽고 바로 전달</text>
+  <!-- 읽은 내용으로 하는 일 -->
+  <line x1="72" y1="455" x2="72" y2="586" stroke="#6d28d9" stroke-width="2"/>
+  <line x1="72" y1="486" x2="100" y2="486" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
+  <line x1="72" y1="536" x2="100" y2="536" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
+  <line x1="72" y1="586" x2="100" y2="586" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
 
-    <!-- Payload Arrow and Annotations -->
-    <path d="M425,170 L480,170" stroke="#52606d" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
-    <text x="495" y="174" font-size="13" fill="#52606d">← 안 열어본다</text>
-  </g>
+  <rect x="108" y="466" width="120" height="40" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="168" y="492" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/api/*</text>
+  <line x1="236" y1="486" x2="282" y2="486" stroke="#374151" stroke-width="2" marker-end="url(#ak)"/>
+  <rect x="290" y="466" width="140" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="360" y="492" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">API 서버</text>
 
-  <!-- L7 Section -->
-  <g id="l7-section">
-    <!-- Main L7 Container -->
-    <rect x="40" y="260" width="800" height="230" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    
-    <!-- Title and Subtitle -->
-    <text x="60" y="296" font-size="16" font-weight="bold" fill="#7c3aed">[L7 로드 밸런서]</text>
-    <text x="210" y="296" font-size="14" fill="#52606d">응용 계층. 페이로드를 파싱한다</text>
+  <rect x="108" y="516" width="120" height="40" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="168" y="542" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/static/*</text>
+  <line x1="236" y1="536" x2="282" y2="536" stroke="#374151" stroke-width="2" marker-end="url(#ak)"/>
+  <rect x="290" y="516" width="140" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="360" y="542" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">정적 서버</text>
 
-    <!-- Action Text -->
-    <text x="135" y="336" font-size="13" font-weight="bold" fill="#1f2933">페이로드를 열어 URL, 헤더, 쿠키를 읽는다</text>
-
-    <!-- Arrows and Routes -->
-    <!-- Line 1: /api/* -->
-    <path d="M135,365 L175,365" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <text x="185" y="369" font-size="13" font-weight="bold" fill="#7c3aed">/api/*</text>
-    <text x="255" y="369" font-size="13" fill="#1f2933">는 API 서버로</text>
-
-    <!-- Line 2: /static/* -->
-    <path d="M135,400 L175,400" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <text x="185" y="404" font-size="13" font-weight="bold" fill="#7c3aed">/static/*</text>
-    <text x="265" y="404" font-size="13" fill="#1f2933">는 정적 서버로</text>
-
-    <!-- Line 3: Cookies & Other Features -->
-    <path d="M135,435 L175,435" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <text x="185" y="439" font-size="13" fill="#1f2933">쿠키 기반 세션 고정, TLS 종료, 압축, WAF</text>
-  </g>
+  <rect x="108" y="566" width="170" height="40" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <text x="193" y="591" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">쿠키 기반 세션 고정</text>
+  <rect x="288" y="566" width="96" height="40" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <text x="336" y="591" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">TLS 종료</text>
+  <rect x="394" y="566" width="68" height="40" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <text x="428" y="591" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">압축</text>
+  <rect x="472" y="566" width="68" height="40" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <text x="506" y="591" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">WAF</text>
 </svg>

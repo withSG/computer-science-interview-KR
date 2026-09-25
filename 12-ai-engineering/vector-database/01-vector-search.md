@@ -264,7 +264,7 @@ IVF(Inverted File Index)는 벡터 공간을 **미리 구역으로 나눠두고,
 IVF는 여기서 근본적으로 약합니다.
 
 <!-- diagram:ai-vector-search-4 -->
-![클러스터 경계 문제](../../assets/diagrams/ai-vector-search-4.svg)
+![경계 건너편 정답을 놓치는 IVF와 nprobe=1·2 비교](../../assets/diagrams/ai-vector-search-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

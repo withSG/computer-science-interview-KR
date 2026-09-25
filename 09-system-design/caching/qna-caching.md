@@ -62,7 +62,7 @@
 ### Cache Hit vs Cache Miss
 
 <!-- diagram:sd-qna-caching-6 -->
-![Cache Hit vs Cache Miss](../../assets/diagrams/sd-qna-caching-6.svg)
+![Hit은 즉시 반환, Miss는 DB 조회·캐시 저장 후 반환](../../assets/diagrams/sd-qna-caching-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

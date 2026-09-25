@@ -43,7 +43,7 @@ ELT (Extract → Load → Transform)
 ### 데이터 파이프라인 구성 요소
 
 <!-- diagram:de-qna-data-engineering-7 -->
-![데이터 파이프라인 구성 요소](../assets/diagrams/de-qna-data-engineering-7.svg)
+![수집→저장→처리→서빙 4단계와 단계별 대표 도구](../assets/diagrams/de-qna-data-engineering-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -297,7 +297,7 @@ result.show()  # 이때 실제 실행 (Action) → 전체 계획을 최적화해
 ### 카파 아키텍처 (Kappa)
 
 <!-- diagram:de-qna-data-engineering-8 -->
-![카파 아키텍처 (Kappa)](../assets/diagrams/de-qna-data-engineering-8.svg)
+![단일 스트리밍 레이어로 처리하는 카파 아키텍처 흐름](../assets/diagrams/de-qna-data-engineering-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

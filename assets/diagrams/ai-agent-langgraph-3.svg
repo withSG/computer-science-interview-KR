@@ -1,68 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">그래프 구성</title>
-  <desc id="d">LangGraph의 ReAct 루프 구조를 나타낸 흐름도로, START에서 model 노드를 거쳐 conditional edge로 tools 노드 또는 END로 분기하는 순환 흐름을 보여줍니다.</desc>
-
+  <title id="t">LangGraph 에이전트 그래프</title>
+  <desc id="d">START에서 model 노드로 가고, model은 도구 호출이 있으면 tools로, 없으면 END로 갑니다. tools는 결과를 State에 넣고 다시 model로 돌아가며, 이 순환이 ReAct 루프입니다. 실선은 무조건 가는 add_edge, 점선은 State를 보고 갈림길을 고르는 add_conditional_edges입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <!-- Arrowhead Markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ahp" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- START -->
+  <rect x="180" y="24" width="120" height="40" rx="20" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="240" y="50" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">START</text>
+  <path d="M240,64 L240,120" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-  <!-- Legend / Note Container for ReAct Loop Description -->
-  <rect x="40" y="380" width="800" height="100" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  
-  <text x="60" y="415" font-size="13" font-weight="bold" fill="#1f2933">이 순환이 ReAct 루프다. add_edge는 무조건 가는 길,</text>
-  <text x="60" y="445" font-size="13" font-weight="bold" fill="#1f2933">add_conditional_edges는 State를 보고 갈림길을 고르는 길이다.</text>
+  <!-- model -->
+  <rect x="150" y="124" width="180" height="72" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="240" y="156" font-size="20" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">model</text>
+  <text x="240" y="181" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">call_model</text>
 
-  <!-- Flow Edges & Paths -->
+  <!-- tools -->
+  <rect x="560" y="124" width="180" height="72" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="650" y="156" font-size="20" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">tools</text>
+  <text x="650" y="181" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ToolNode(tools)</text>
 
-  <!-- 1. START -> model -->
-  <path d="M280,70 L280,102" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- model -> tools (조건부) -->
+  <path d="M330,160 L556,160" stroke="#6d28d9" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#ahp)"/>
+  <text x="445" y="146" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">도구 호출 있음</text>
 
-  <!-- 2. model -> tools (도구 호출 있음) -->
-  <path d="M350,135 L522,135" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- Label background & text -->
-  <rect x="382" y="121" width="108" height="24" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="436" y="138" font-size="12" fill="#2563eb" text-anchor="middle">도구 호출 있음</text>
+  <!-- tools -> model (무조건, 순환) -->
+  <path d="M650,196 L650,262 L290,262 L290,200" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ahp)"/>
+  <text x="470" y="288" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">결과를 State에 넣고 다시 model로</text>
 
-  <!-- 3. model -> END (도구 호출 없음) -->
-  <path d="M280,165 L280,242" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <!-- Label background & text -->
-  <rect x="226" y="191" width="108" height="24" fill="#ffffff" stroke="#52606d" stroke-width="1" rx="4"/>
-  <text x="280" y="208" font-size="12" fill="#52606d" text-anchor="middle">도구 호출 없음</text>
+  <!-- 순환 표시 -->
+  <text x="470" y="236" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">이 순환이 ReAct 루프</text>
 
-  <!-- 4. tools -> END / Return path to model (결과를 State에 넣고 다시 model로) -->
-  <path d="M600,165 L600,315 L180,315 L180,135 L207,135" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- Label background & text for loop back -->
-  <rect x="340" y="302" width="220" height="26" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="4"/>
-  <text x="450" y="319" font-size="12" fill="#7c3aed" text-anchor="middle">결과를 State에 넣고 다시 model로</text>
+  <!-- model -> END (조건부) -->
+  <path d="M240,196 L240,326" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#ah)"/>
+  <text x="226" y="272" font-size="15" font-weight="bold" fill="#374151" text-anchor="end">도구 호출 없음</text>
 
-  <!-- Nodes / Elements -->
+  <!-- END -->
+  <rect x="180" y="330" width="120" height="40" rx="20" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="240" y="356" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">END</text>
 
-  <!-- START Node -->
-  <rect x="230" y="30" width="100" height="40" rx="20" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="280" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">START</text>
-
-  <!-- model Node -->
-  <rect x="210" y="105" width="140" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="280" y="140" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">model</text>
-
-  <!-- tools Node -->
-  <rect x="530" y="105" width="140" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="600" y="140" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">tools</text>
-
-  <!-- END Node -->
-  <rect x="230" y="245" width="100" height="40" rx="20" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="280" y="270" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">END</text>
-
+  <!-- 범례 -->
+  <rect x="40" y="402" width="800" height="94" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <path d="M64,432 L124,432" stroke="#374151" stroke-width="2" fill="none"/>
+  <text x="140" y="438" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">add_edge</text>
+  <text x="360" y="438" font-size="16" fill="#111827">무조건 가는 길</text>
+  <path d="M64,468 L124,468" stroke="#374151" stroke-width="2" stroke-dasharray="7 5" fill="none"/>
+  <text x="140" y="474" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">add_conditional_edges</text>
+  <text x="360" y="474" font-size="16" fill="#111827">State를 보고 갈림길을 고르는 길</text>
 </svg>

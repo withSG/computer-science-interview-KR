@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">캐시와 DB의 불일치 구간</title>
+  <desc id="d">시각 t1에는 DB와 캐시 모두 가격 10000으로 일치한다. t2에 관리자가 가격을 9000으로 수정하면 DB만 9000이 되고 캐시는 10000 그대로 남아 불일치(stale)가 생기며, t3에 사용자에게 10000원이 보인다.</desc>
+  <rect width="880" height="310" fill="#ffffff"/>
+  <defs>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <!-- 열 머리: DB / 캐시 -->
+  <text x="408" y="42" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">DB</text>
+  <text x="592" y="42" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">캐시</text>
+
+  <!-- 시간 축 (위에서 아래로) -->
+  <rect x="24" y="74" width="80" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="64" y="93" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">시각 t1</text>
+  <line x1="64" y1="102" x2="64" y2="154" stroke="#6b7280" stroke-width="2" marker-end="url(#ah-gray)"/>
+  <rect x="24" y="158" width="80" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="64" y="177" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">시각 t2</text>
+  <line x1="64" y1="186" x2="64" y2="238" stroke="#6b7280" stroke-width="2" marker-end="url(#ah-gray)"/>
+  <rect x="24" y="242" width="80" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="64" y="261" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">시각 t3</text>
+
+  <!-- t2 사건: 관리자가 DB 가격 수정 -->
+  <rect x="116" y="142" width="184" height="60" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="208" y="166" font-size="15" fill="#1f2937" text-anchor="middle">관리자가 가격을</text>
+  <text x="208" y="188" font-size="15" fill="#1f2937" text-anchor="middle">9000으로 수정</text>
+  <line x1="300" y1="172" x2="334" y2="172" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+
+  <!-- DB 레인 -->
+  <rect x="340" y="62" width="136" height="52" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="408" y="94" font-size="16" fill="#111827" text-anchor="middle">가격 10000</text>
+  <rect x="340" y="140" width="136" height="144" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="408" y="178" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">가격 9000</text>
+
+  <!-- 캐시 레인 -->
+  <rect x="524" y="62" width="136" height="52" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="592" y="94" font-size="16" fill="#111827" text-anchor="middle">가격 10000</text>
+  <rect x="524" y="140" width="136" height="144" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="592" y="178" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">가격 10000</text>
+
+  <!-- DB와 캐시 비교 기호 -->
+  <text x="500" y="96" font-size="24" font-weight="bold" fill="#047857" text-anchor="middle">=</text>
+  <text x="500" y="180" font-size="24" font-weight="bold" fill="#b91c1c" text-anchor="middle">≠</text>
+
+  <!-- 상태 -->
+  <rect x="700" y="72" width="72" height="32" rx="16" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="736" y="93" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">일치</text>
+  <rect x="700" y="156" width="150" height="32" rx="16" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="775" y="177" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">불일치(stale)</text>
+
+  <!-- t3 결과: 사용자는 캐시 값을 본다 -->
+  <line x1="660" y1="256" x2="694" y2="256" stroke="#b45309" stroke-width="2" marker-end="url(#ah-amber)"/>
+  <rect x="700" y="228" width="156" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="778" y="251" font-size="15" fill="#1f2937" text-anchor="middle">사용자에게</text>
+  <text x="778" y="273" font-size="15" fill="#1f2937" text-anchor="middle"><tspan font-weight="bold" fill="#b91c1c">10000원</tspan>이 보인다</text>
+</svg>

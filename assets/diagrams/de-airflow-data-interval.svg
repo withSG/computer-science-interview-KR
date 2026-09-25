@@ -1,111 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Airflow 데이터 구간과 실제 실행 시각의 어긋남 타임라인</title>
-  <desc id="d">Airflow에서 data_interval_start, logical_date, ds가 가리키는 처리 대상 구간의 시작 시각과, 구간이 닫힌 후 작업이 실제 실행되는 시각의 차이를 보여주는 타임라인 다이어그램입니다.</desc>
-  <rect width="880" height="420" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">데이터 구간과 실제 실행 시각</title>
+  <desc id="d">schedule="@daily"인 DAG에서 3월 2일치 구간은 구간이 닫히는 03-03 00:00에 실행되지만, data_interval_start·logical_date·ds는 구간의 시작인 03-02 00:00을 가리킨다. 태스크 안에서 now()나 today()를 읽으면 실행 시각인 03-03 00:00을 읽게 된다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- 제목 및 범례 헤더 -->
-  <text x="24" y="36" font-size="17" font-weight="600" fill="#1f2933">Airflow 데이터 구간과 실제 실행 시각의 어긋남 (schedule="@daily")</text>
-  
-  <!-- 범례 -->
-  <rect x="520" y="20" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="2"/>
-  <text x="538" y="30" font-size="11.5" fill="#1f2933">처리 대상 데이터 구간</text>
+  <!-- 전제 -->
+  <text x="24" y="38" font-size="15" fill="#374151"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#111827">schedule="@daily"</tspan> · Airflow 2 기본 시간표(<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CronDataIntervalTimetable</tspan>) 기준</text>
 
-  <rect x="670" y="20" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="2"/>
-  <text x="688" y="30" font-size="11.5" fill="#1f2933">실제 실행 시점</text>
+  <!-- 시간축 -->
+  <text x="200" y="86" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">03-01 00:00</text>
+  <text x="450" y="86" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">03-02 00:00</text>
+  <text x="700" y="86" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">03-03 00:00</text>
+  <line x1="184" y1="102" x2="848" y2="102" stroke="#6b7280" stroke-width="2" marker-end="url(#ak)"/>
 
-  <circle cx="800" cy="26" r="5" fill="#dc2626"/>
-  <text x="810" y="30" font-size="11.5" fill="#dc2626" font-weight="600">안티패턴</text>
+  <!-- 세로 안내선 -->
+  <line x1="200" y1="106" x2="200" y2="186" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="450" y1="106" x2="450" y2="244" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="700" y1="106" x2="700" y2="244" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <circle cx="200" cy="102" r="5" fill="#111827"/>
+  <circle cx="450" cy="102" r="5" fill="#111827"/>
+  <circle cx="700" cy="102" r="5" fill="#111827"/>
 
-  <!-- 시간축 배경 가이드 라인 (x = 220: 03-01 00:00, x = 460: 03-02 00:00, x = 700: 03-03 00:00) -->
-  <line x1="220" y1="60" x2="220" y2="340" stroke="#cbd2d9" stroke-dasharray="5 4" stroke-width="1.5"/>
-  <line x1="460" y1="60" x2="460" y2="340" stroke="#cbd2d9" stroke-dasharray="5 4" stroke-width="1.5"/>
-  <line x1="700" y1="60" x2="700" y2="340" stroke="#cbd2d9" stroke-dasharray="5 4" stroke-width="1.5"/>
+  <!-- 레인 1: 데이터 구간 -->
+  <text x="24" y="148" font-size="16" font-weight="bold" fill="#111827">데이터 구간</text>
+  <text x="24" y="168" font-size="14" fill="#4b5563">(data interval)</text>
 
-  <!-- 상단 시각 라벨 (메인 타임라인 축) -->
-  <path d="M180,80 L840,80" stroke="#9aa5b1" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  
-  <circle cx="220" cy="80" r="4" fill="#1f2933"/>
-  <text x="220" y="70" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">03-01 00:00</text>
+  <rect x="203" y="122" width="244" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="325" y="147" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[03-01 00:00, 03-02 00:00)</text>
+  <text x="325" y="170" font-size="14" fill="#374151" text-anchor="middle">3월 1일치 데이터 수집 구간</text>
 
-  <circle cx="460" cy="80" r="4" fill="#1f2933"/>
-  <text x="460" y="70" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">03-02 00:00</text>
+  <rect x="453" y="122" width="244" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="575" y="147" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[03-02 00:00, 03-03 00:00)</text>
+  <text x="575" y="170" font-size="14" fill="#374151" text-anchor="middle">3월 2일치 데이터 수집 구간</text>
 
-  <circle cx="700" cy="80" r="4" fill="#1f2933"/>
-  <text x="700" y="70" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">03-03 00:00</text>
+  <!-- 구간 종료 → 실행 -->
+  <line x1="450" y1="188" x2="450" y2="238" stroke="#047857" stroke-width="2.5" marker-end="url(#ag)"/>
+  <line x1="700" y1="188" x2="700" y2="238" stroke="#047857" stroke-width="2.5" marker-end="url(#ag)"/>
+  <text x="440" y="218" font-size="14" font-weight="bold" fill="#047857" text-anchor="end">구간 종료 즉시 실행</text>
+  <text x="690" y="218" font-size="14" font-weight="bold" fill="#047857" text-anchor="end">구간 종료 즉시 실행</text>
 
-  <!-- 레인 1: 데이터 구간 (Data Interval) -->
-  <text x="24" y="130" font-size="14" font-weight="600" fill="#1f2933">데이터 구간</text>
-  <text x="24" y="148" font-size="11.5" fill="#52606d">(data interval)</text>
+  <!-- 레인 2: 실제 실행 시각 -->
+  <text x="24" y="256" font-size="16" font-weight="bold" fill="#111827">실제 실행 시각</text>
+  <text x="24" y="276" font-size="14" fill="#4b5563">(start_date 기록)</text>
 
-  <!-- 구간 1: [03-01, 03-02) -->
-  <rect x="220" y="110" width="240" height="45" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="340" y="130" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">[03-01 00:00, 03-02 00:00)</text>
-  <text x="340" y="146" font-size="11.5" fill="#52606d" text-anchor="middle">3월 1일치 데이터 수집 구간</text>
+  <path d="M450,243 L459,252 L450,261 L441,252 z" fill="#059669"/>
+  <text x="432" y="257" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">03-02 00:00 실행</text>
+  <text x="432" y="279" font-size="14" fill="#374151" text-anchor="end">3월 1일치 데이터 처리</text>
 
-  <!-- 구간 2: [03-02, 03-03) -->
-  <rect x="460" y="110" width="240" height="45" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="580" y="130" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">[03-02 00:00, 03-03 00:00)</text>
-  <text x="580" y="146" font-size="11.5" fill="#52606d" text-anchor="middle">3월 2일치 데이터 수집 구간</text>
+  <path d="M700,243 L709,252 L700,261 L691,252 z" fill="#059669"/>
+  <text x="682" y="257" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">03-03 00:00 실행</text>
+  <text x="682" y="279" font-size="14" fill="#374151" text-anchor="end">3월 2일치 데이터 처리</text>
 
-  <!-- 구간 종료 -> 실제 실행 트리거 화살표 -->
-  <!-- 03-02 구간 종료 시점 화살표 -->
-  <path d="M460,155 L460,200" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="468" y="168" width="130" height="22" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="2"/>
-  <text x="472" y="183" font-size="11" fill="#059669" font-weight="600">구간 종료 즉시 실행</text>
+  <!-- 레인 3: 값이 가리키는 시각 (03-03 00:00 실행분) -->
+  <text x="24" y="364" font-size="16" font-weight="bold" fill="#111827">Airflow 변수가</text>
+  <text x="24" y="385" font-size="16" font-weight="bold" fill="#111827">가리키는 시각</text>
+  <text x="24" y="408" font-size="14" fill="#4b5563">(03-03 00:00 실행분)</text>
 
-  <!-- 03-03 구간 종료 시점 화살표 -->
-  <path d="M700,155 L700,200" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="708" y="168" width="130" height="22" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="2"/>
-  <text x="712" y="183" font-size="11" fill="#059669" font-weight="600">구간 종료 즉시 실행</text>
+  <line x1="466" y1="322" x2="466" y2="187" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ab)"/>
+  <text x="476" y="214" font-size="14" font-weight="bold" fill="#1d4ed8">구간 시작</text>
+  <rect x="250" y="324" width="310" height="134" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="266" y="350" font-size="16" font-weight="bold" fill="#1d4ed8">처리 대상 구간의 시작</text>
+  <g font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">
+    <text x="266" y="376">data_interval_start</text>
+    <text x="430" y="376" font-weight="bold" fill="#1d4ed8">= 03-02 00:00</text>
+    <text x="266" y="400">logical_date</text>
+    <text x="430" y="400" font-weight="bold" fill="#1d4ed8">= 03-02 00:00</text>
+    <text x="266" y="444">ds</text>
+    <text x="430" y="444" font-weight="bold" fill="#1d4ed8">= "2026-03-02"</text>
+  </g>
+  <text x="282" y="421" font-size="14" fill="#4b5563">(예전 이름 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">execution_date</tspan>)</text>
 
-  <!-- 레인 2: 실제 실행 시각 (Execution) -->
-  <text x="24" y="225" font-size="14" font-weight="600" fill="#1f2933">실제 실행 시각</text>
-  <text x="24" y="243" font-size="11.5" fill="#52606d">(start_date 기록)</text>
+  <line x1="700" y1="322" x2="700" y2="270" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#ar)"/>
+  <rect x="590" y="324" width="266" height="134" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="606" y="350" font-size="16" font-weight="bold" fill="#b91c1c">안티패턴: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">now() / today()</tspan></text>
+  <text x="606" y="378" font-size="15" font-weight="bold" fill="#b91c1c">→ 03-03 00:00 을 읽어 버림</text>
+  <text x="606" y="406" font-size="14" fill="#374151">3월 2일치가 아닌</text>
+  <text x="606" y="427" font-size="14" fill="#374151">3월 3일을 조회할 위험</text>
 
-  <!-- 실행 1 카드 -->
-  <rect x="380" y="205" width="160" height="45" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="460" y="224" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">03-02 00:00 실행</text>
-  <text x="460" y="240" font-size="11.5" fill="#52606d" text-anchor="middle">(3월 1일치 DAG 처리)</text>
-
-  <!-- 실행 2 카드 -->
-  <rect x="620" y="205" width="160" height="45" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="700" y="224" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">03-03 00:00 실행</text>
-  <text x="700" y="240" font-size="11.5" fill="#52606d" text-anchor="middle">(3월 2일치 DAG 처리)</text>
-
-  <!-- 레인 3: Airflow 변수 및 지시선 (03-02 00:00 기준) -->
-  <text x="24" y="305" font-size="14" font-weight="600" fill="#1f2933">Airflow 변수가</text>
-  <text x="24" y="323" font-size="14" font-weight="600" fill="#1f2933">가리키는 시각</text>
-
-  <!-- 03-02 00:00 지시선 그룹 (올바른 변수들) -->
-  <path d="M460,335 L460,260" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- 지시선 박스: 03-02 00:00을 가리키는 변수들 -->
-  <rect x="290" y="280" width="340" height="65" fill="#f8fafc" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="300" y="300" font-size="12" font-weight="600" fill="#2563eb">data_interval_start = 03-02 00:00</text>
-  <text x="300" y="318" font-size="12" font-weight="600" fill="#2563eb">logical_date / execution_date = 03-02 00:00</text>
-  <text x="300" y="336" font-size="12" font-weight="600" fill="#2563eb">ds = "2026-03-02"</text>
-
-  <!-- 안티패턴 표시: today() 사용 시 (실제 실행 시점인 03-03 00:00을 가리킴) -->
-  <path d="M700,335 L700,260" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  
-  <rect x="640" y="280" width="220" height="65" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="650" y="298" font-size="12" font-weight="600" fill="#dc2626">안티패턴: now() / today()</text>
-  <text x="650" y="316" font-size="11.5" fill="#dc2626">→ 03-03 00:00 을 읽어버림</text>
-  <text x="650" y="334" font-size="11" fill="#52606d">(3월 2일치가 아닌 3월 3일 조회 위험)</text>
-
-  <!-- 하단 결론 캡션 -->
-  <rect x="24" y="375" width="832" height="30" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="440" y="394" font-size="11.5" font-weight="600" fill="#52606d" text-anchor="middle">핵심: Airflow 2 기본 시간표에서 logical_date(ds)는 실제 실행 시각이 아니라 "처리 대상 데이터 구간의 시작 시각"을 가리킨다.</text>
+  <!-- 핵심 -->
+  <rect x="24" y="486" width="832" height="70" rx="6" fill="#f3f4f6"/>
+  <text x="440" y="514" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">핵심: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">logical_date(ds)</tspan>는 실제 실행 시각이 아니라</text>
+  <text x="440" y="541" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle"><tspan fill="#1d4ed8">처리 대상 데이터 구간의 시작 시각</tspan>을 가리킨다</text>
 </svg>

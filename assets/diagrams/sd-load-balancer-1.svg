@@ -1,92 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 필요한가 — 서버 한 대의 천장</title>
-  <desc id="d">로드 밸런서가 없을 때와 있을 때의 서버 구조 및 요청 흐름 비교 다이어그램</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">로드 밸런서가 없을 때와 있을 때</title>
+  <desc id="d">로드 밸런서가 없으면 사용자가 서버 IP 3개 중 무엇을 쓸지, 2번(10.0.0.2)이 죽었는지를 스스로 알아야 한다. 로드 밸런서가 있으면 사용자는 api.example.com 하나만 알고, 로드 밸런서가 죽은 10.0.0.2를 제외한 채 나머지 서버로 요청을 보낸다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
   <defs>
-    <!-- Dark Ink Arrowhead -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <!-- Blue Arrowhead -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Title Labels -->
-  <text x="210" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[로드 밸런서가 없을 때]</text>
-  <text x="630" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[로드 밸런서가 있을 때]</text>
+  <!-- 패널 -->
+  <rect x="24" y="24" width="400" height="362" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="456" y="24" width="400" height="362" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="224" y="58" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">로드 밸런서가 없을 때</text>
+  <text x="656" y="58" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">로드 밸런서가 있을 때</text>
 
-  <!-- Middle Divider Line -->
-  <path d="M420,25 L420,365" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <!-- ===== 왼쪽: 로드 밸런서 없음 ===== -->
+  <rect x="84" y="76" width="280" height="104" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="224" y="102" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">사용자</text>
+  <text x="224" y="134" font-size="15" fill="#b91c1c" text-anchor="middle">“IP가 3개인데 뭘 쓰지?”</text>
+  <text x="224" y="160" font-size="15" fill="#b91c1c" text-anchor="middle">“2번이 죽은 건 어떻게 알지?”</text>
 
-  <!-- ==================== LEFT SIDE: Without Load Balancer ==================== -->
+  <line x1="184" y1="180" x2="98" y2="292" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah-gray)"/>
+  <line x1="224" y1="180" x2="224" y2="292" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah-gray)"/>
+  <line x1="264" y1="180" x2="350" y2="292" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah-gray)"/>
 
-  <!-- User Box (Left) -->
-  <rect x="150" y="70" width="120" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="210" y="94" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자</text>
+  <rect x="40" y="296" width="112" height="60" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="96" y="331" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.1</text>
 
-  <!-- Left Side Speech / Thought Labels -->
-  <text x="220" y="140" font-size="11.5" fill="#52606d">"IP가 3개인데 뭘 쓰지?"</text>
-  <text x="220" y="180" font-size="11.5" fill="#52606d">"2번이 죽은 건 어떻게 알지?"</text>
+  <rect x="168" y="296" width="112" height="60" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="224" y="320" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.2</text>
+  <text x="224" y="344" font-size="15" fill="#b91c1c" text-anchor="middle">(죽음)</text>
 
-  <!-- User Arrow Down (Left) -->
-  <path d="M210,110 L210,212" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="296" y="296" width="112" height="60" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="352" y="331" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.3</text>
 
-  <!-- Left Side Servers -->
-  <!-- Server 1 (Left) -->
-  <rect x="40" y="220" width="100" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="90" y="244" font-size="13" fill="#1f2933" text-anchor="middle">10.0.0.1</text>
+  <!-- ===== 오른쪽: 로드 밸런서 있음 ===== -->
+  <rect x="526" y="76" width="260" height="60" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="656" y="100" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">사용자</text>
+  <text x="656" y="124" font-size="15" fill="#1d4ed8" text-anchor="middle">api.example.com 하나만 안다</text>
 
-  <!-- Server 2 (Left - Dead) -->
-  <rect x="160" y="220" width="100" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="210" y="244" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">10.0.0.2</text>
-  <text x="210" y="280" font-size="13" fill="#dc2626" text-anchor="middle">(죽음)</text>
+  <line x1="656" y1="136" x2="656" y2="168" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
 
-  <!-- Server 3 (Left) -->
-  <rect x="280" y="220" width="100" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="330" y="244" font-size="13" fill="#1f2933" text-anchor="middle">10.0.0.3</text>
+  <rect x="526" y="172" width="260" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="656" y="197" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Load Balancer</text>
+  <text x="656" y="221" font-size="15" fill="#1f2937" text-anchor="middle">죽은 서버는 알아서 뺀다</text>
 
+  <line x1="600" y1="232" x2="530" y2="292" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <line x1="712" y1="232" x2="782" y2="292" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <line x1="656" y1="232" x2="656" y2="294" stroke="#9ca3af" stroke-width="2" stroke-dasharray="5 4"/>
+  <line x1="647" y1="254" x2="665" y2="272" stroke="#b91c1c" stroke-width="3"/>
+  <line x1="665" y1="254" x2="647" y2="272" stroke="#b91c1c" stroke-width="3"/>
 
-  <!-- ==================== RIGHT SIDE: With Load Balancer ==================== -->
+  <rect x="472" y="296" width="112" height="60" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="528" y="331" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.1</text>
 
-  <!-- User Box (Right) -->
-  <rect x="520" y="70" width="120" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="580" y="94" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자</text>
-  <text x="650" y="94" font-size="13" fill="#2563eb">api.example.com 하나만 안다</text>
+  <rect x="600" y="296" width="112" height="60" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="656" y="320" font-size="15" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.2</text>
+  <text x="656" y="344" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">(제외됨)</text>
 
-  <!-- User to Load Balancer Arrow -->
-  <path d="M580,110 L580,148" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Load Balancer Box -->
-  <rect x="500" y="150" width="160" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="580" y="176" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Load Balancer</text>
-  <text x="670" y="176" font-size="13" fill="#52606d">죽은 서버는 알아서 뺀다</text>
-
-  <!-- Distribution Lines from Load Balancer -->
-  <!-- Vertical down from LB -->
-  <path d="M580,194 L580,210" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Horizontal branching line -->
-  <path d="M490,210 L670,210" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Arrow down to Server 1 -->
-  <path d="M490,210 L490,228" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <!-- Arrow down to Server 2 -->
-  <path d="M580,210 L580,228" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <!-- Arrow down to Server 3 -->
-  <path d="M670,210 L670,228" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Right Side Servers -->
-  <!-- Server 1 (Right) -->
-  <rect x="450" y="230" width="80" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="490" y="254" font-size="13" fill="#1f2933" text-anchor="middle">10.0.0.1</text>
-
-  <!-- Server 2 (Right - Excluded) -->
-  <rect x="540" y="230" width="80" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="580" y="254" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">10.0.0.2</text>
-  <text x="580" y="290" font-size="13" fill="#dc2626" text-anchor="middle">(제외됨)</text>
-
-  <!-- Server 3 (Right) -->
-  <rect x="630" y="230" width="80" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="670" y="254" font-size="13" fill="#1f2933" text-anchor="middle">10.0.0.3</text>
+  <rect x="728" y="296" width="112" height="60" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="784" y="331" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.3</text>
 </svg>

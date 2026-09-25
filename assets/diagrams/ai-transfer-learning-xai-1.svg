@@ -1,76 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">신경망은 특징을 계층으로 쌓는다</title>
-  <desc id="d">신경망의 계층적 특징 추출 과정을 설명하는 트라이 구조 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">층별로 배우는 특징과 공유 정도</title>
+  <desc id="d">입력 이미지가 초기 층, 중간 층, 후반 층, 출력 층을 차례로 지나며, 초기 층의 특징은 어떤 이미지에도 똑같이 필요하고 뒤로 갈수록 학습한 도메인과 원래 과제에 특화되어 출력 층은 우리 과제와 무관하다는 것을 보여준다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Root Input Box -->
-  <rect x="40" y="30" width="150" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="115" y="57" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">입력 이미지</text>
+  <!-- 입력 + 열 머리 -->
+  <rect x="40" y="28" width="160" height="46" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="120" y="57" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">입력 이미지</text>
+  <text x="216" y="60" font-size="15" font-weight="bold" fill="#4b5563">층이 배우는 특징</text>
+  <text x="516" y="60" font-size="15" font-weight="bold" fill="#4b5563">다른 과제와 얼마나 공유되나</text>
 
-  <!-- Main Tree Trunk Line -->
-  <path d="M 115,74 V 460" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <line x1="120" y1="74" x2="120" y2="94" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Branch 1: 초기 층 -->
-  <path d="M 115,130 H 150" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  
-  <rect x="150" y="105" width="290" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="165" y="135" font-size="14" font-weight="bold" fill="#2563eb">초기 층</text>
-  <text x="215" y="135" font-size="13" fill="#1f2933">: 에지, 색상 경계, 방향성 있는 선</text>
+  <!-- 1. 초기 층 -->
+  <path d="M48,96 H200 V172 H48 Q40,172 40,164 V104 Q40,96 48,96 Z" fill="#ecfdf5"/>
+  <rect x="40" y="96" width="800" height="76" rx="8" fill="none" stroke="#047857" stroke-width="1.5"/>
+  <line x1="200" y1="96" x2="200" y2="172" stroke="#047857" stroke-width="1.5"/>
+  <line x1="500" y1="108" x2="500" y2="160" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="120" y="140" font-size="18" font-weight="bold" fill="#065f46" text-anchor="middle">초기 층</text>
+  <text x="216" y="140" font-size="16" fill="#111827">에지, 색상 경계, 방향성 있는 선</text>
+  <text x="516" y="127" font-size="15" fill="#374151">고양이든 X-ray든 위성 사진이든</text>
+  <text x="516" y="152" font-size="16" font-weight="bold" fill="#047857">똑같이 필요하다</text>
 
-  <path d="M 440,130 L 475,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="120" y1="172" x2="120" y2="194" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="485" y="105" width="355" height="50" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="500" y="134" font-size="11.5" fill="#52606d">→ 고양이든 X-ray든 위성 사진이든 똑같이 필요하다</text>
+  <!-- 2. 중간 층 -->
+  <path d="M48,196 H200 V272 H48 Q40,272 40,264 V204 Q40,196 48,196 Z" fill="#eff6ff"/>
+  <rect x="40" y="196" width="800" height="76" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="200" y1="196" x2="200" y2="272" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="500" y1="208" x2="500" y2="260" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="120" y="240" font-size="18" font-weight="bold" fill="#1e40af" text-anchor="middle">중간 층</text>
+  <text x="216" y="240" font-size="16" fill="#111827">질감, 반복 패턴, 모서리 조합</text>
+  <text x="516" y="227" font-size="16" font-weight="bold" fill="#1d4ed8">상당 부분 공유되지만</text>
+  <text x="516" y="252" font-size="15" fill="#374151">도메인 색이 조금 묻기 시작</text>
 
-  <!-- Branch 2: 중간 층 -->
-  <path d="M 115,220 H 150" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <line x1="120" y1="272" x2="120" y2="294" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="150" y="195" width="290" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="165" y="225" font-size="14" font-weight="bold" fill="#7c3aed">중간 층</text>
-  <text x="215" y="225" font-size="13" fill="#1f2933">: 질감, 반복 패턴, 모서리 조합</text>
+  <!-- 3. 후반 층 -->
+  <path d="M48,296 H200 V372 H48 Q40,372 40,364 V304 Q40,296 48,296 Z" fill="#fffbeb"/>
+  <rect x="40" y="296" width="800" height="76" rx="8" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="200" y1="296" x2="200" y2="372" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="500" y1="308" x2="500" y2="360" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="120" y="340" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">후반 층</text>
+  <text x="216" y="340" font-size="16" fill="#111827">눈, 바퀴, 얼굴 같은 부분 구조</text>
+  <text x="516" y="340" font-size="16" font-weight="bold" fill="#b45309">학습한 도메인에 특화됨</text>
 
-  <path d="M 440,220 L 475,220" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <line x1="120" y1="372" x2="120" y2="394" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="485" y="195" width="355" height="50" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="500" y="224" font-size="11.5" fill="#52606d">→ 상당 부분 공유되지만 도메인 색이 조금 묻기 시작</text>
-
-  <!-- Branch 3: 후반 층 -->
-  <path d="M 115,310 H 150" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-
-  <rect x="150" y="285" width="290" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="165" y="315" font-size="14" font-weight="bold" fill="#d97706">후반 층</text>
-  <text x="215" y="315" font-size="13" fill="#1f2933">: 눈, 바퀴, 얼굴 같은 부분 구조</text>
-
-  <path d="M 440,310 L 475,310" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-
-  <rect x="485" y="285" width="355" height="50" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="500" y="314" font-size="11.5" fill="#52606d">→ 학습한 도메인에 특화됨</text>
-
-  <!-- Branch 4: 출력 층 -->
-  <path d="M 115,400 H 150" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-
-  <rect x="150" y="375" width="290" height="110" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="165" y="405" font-size="14" font-weight="bold" fill="#dc2626">출력 층</text>
-  <text x="215" y="405" font-size="13" fill="#1f2933">: "이 1000개 클래스 중</text>
-  <text x="227" y="425" font-size="13" fill="#1f2933">무엇인가"</text>
-
-  <path d="M 440,430 L 475,430" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <rect x="485" y="405" width="355" height="50" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="500" y="434" font-size="11.5" fill="#52606d">→ 완전히 원래 과제 전용. 우리 과제와 무관</text>
+  <!-- 4. 출력 층 -->
+  <path d="M48,396 H200 V472 H48 Q40,472 40,464 V404 Q40,396 48,396 Z" fill="#fef2f2"/>
+  <rect x="40" y="396" width="800" height="76" rx="8" fill="none" stroke="#b91c1c" stroke-width="1.5"/>
+  <line x1="200" y1="396" x2="200" y2="472" stroke="#b91c1c" stroke-width="1.5"/>
+  <line x1="500" y1="408" x2="500" y2="460" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="120" y="440" font-size="18" font-weight="bold" fill="#991b1b" text-anchor="middle">출력 층</text>
+  <text x="216" y="440" font-size="16" fill="#111827">"이 1000개 클래스 중 무엇인가"</text>
+  <text x="516" y="427" font-size="16" font-weight="bold" fill="#b91c1c">완전히 원래 과제 전용</text>
+  <text x="516" y="452" font-size="15" fill="#374151">우리 과제와 무관</text>
 </svg>

@@ -1,35 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Chain-of-Thought — 중간 계산을 출력하게 만든다</title>
-  <desc id="d">안티패턴과 개선 방법을 비교하는 다이어그램. 안티패턴은 즉시 답을 요구하여 검산이 불가능하고, 개선안은 단계별 계산 과정을 출력하도록 유도합니다.</desc>
-  <rect width="880" height="370" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 550" width="880" height="550" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Chain-of-Thought 프롬프트 비교</title>
+  <desc id="d">숫자만 답하라는 안티패턴은 중간 단계 없이 그럴듯한 숫자 하나가 나와 검산할 수 없다. 개선안은 각 주문 금액, 합계, 부가세 10%, 최종 숫자를 차례로 출력하게 해 사람이 어디서 틀렸는지 볼 수 있다.</desc>
+  <defs>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="ar-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+  </defs>
+  <rect width="880" height="550" fill="#ffffff"/>
 
-  <!-- 안티패턴 그룹 영역 -->
-  <rect x="24" y="24" width="832" height="146" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <rect x="40" y="12" width="90" height="24" rx="4" fill="#dc2626"/>
-  <text x="85" y="28.6" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">안티패턴:</text>
+  <!-- ── 안티패턴 ── -->
+  <rect x="24" y="24" width="832" height="228" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <rect x="44" y="40" width="96" height="30" rx="15" fill="#b91c1c"/>
+  <text x="92" y="60.6" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">안티패턴</text>
 
-  <!-- 안티패턴 내용 -->
-  <!-- 프롬프트 박스 -->
-  <rect x="44" y="48" width="792" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="60" y="72.6" fill="#1f2933" font-size="13">"주문 3건의 총액과 부가세를 계산해서 숫자만 답하세요."</text>
+  <text x="44" y="112.3" font-size="15" font-weight="bold" fill="#4b5563">프롬프트</text>
+  <rect x="130" y="84" width="706" height="46" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <text x="148" y="112.6" font-size="16" fill="#111827">"주문 3건의 총액과 부가세를 계산해서 숫자만 답하세요."</text>
 
-  <!-- 화살표 및 설명 -->
-  <text x="44" y="118.6" fill="#dc2626" font-size="14" font-weight="bold">→</text>
-  <text x="64" y="118.6" fill="#dc2626" font-size="13">중간 단계 없이 그럴듯한 숫자가 나온다. 검산 불가능.</text>
+  <text x="44" y="174.3" font-size="15" font-weight="bold" fill="#4b5563">출력</text>
+  <rect x="130" y="146" width="520" height="46" rx="6" fill="#fef2f2" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="390" y="174.6" font-size="16" fill="#4b5563" text-anchor="middle">중간 단계 없음</text>
+  <line x1="654" y1="169" x2="677" y2="169" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ar-gray)"/>
+  <rect x="682" y="146" width="152" height="46" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="758" y="174.6" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">그럴듯한 숫자</text>
 
+  <text x="44" y="226.3" font-size="15" font-weight="bold" fill="#4b5563">결과</text>
+  <text x="130" y="226.6" font-size="16" fill="#b91c1c">중간 단계 없이 그럴듯한 숫자가 나온다. <tspan font-weight="bold">검산 불가능.</tspan></text>
 
-  <!-- 개선 그룹 영역 -->
-  <rect x="24" y="194" width="832" height="152" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <rect x="40" y="182" width="60" height="24" rx="4" fill="#059669"/>
-  <text x="70" y="198.6" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">개선:</text>
+  <!-- ── 개선 ── -->
+  <rect x="24" y="272" width="832" height="254" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <rect x="44" y="288" width="64" height="30" rx="15" fill="#047857"/>
+  <text x="76" y="308.6" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">개선</text>
 
-  <!-- 개선 내용 -->
-  <!-- 프롬프트 박스 -->
-  <rect x="44" y="218" width="792" height="60" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="60" y="242.6" fill="#1f2933" font-size="13">"먼저 각 주문의 금액을 나열하고, 합계를 구한 뒤, 부가세 10%를 계산하세요.</text>
-  <text x="73" y="262.6" fill="#1f2933" font-size="13">마지막 줄에 '최종: &lt;숫자&gt;' 형식으로 답하세요."</text>
+  <text x="44" y="373.3" font-size="15" font-weight="bold" fill="#4b5563">프롬프트</text>
+  <rect x="130" y="332" width="706" height="72" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <text x="148" y="360.6" font-size="16" fill="#111827">"먼저 각 주문의 금액을 나열하고, 합계를 구한 뒤, 부가세 10%를 계산하세요.</text>
+  <text x="155" y="386.6" font-size="16" fill="#111827">마지막 줄에 '최종: &lt;숫자&gt;' 형식으로 답하세요."</text>
 
-  <!-- 화살표 및 설명 -->
-  <text x="44" y="308.6" fill="#059669" font-size="14" font-weight="bold">→</text>
-  <text x="64" y="308.6" fill="#059669" font-size="13">중간 값이 출력되므로 사람이 어디서 틀렸는지 볼 수 있다.</text>
+  <text x="44" y="448.3" font-size="15" font-weight="bold" fill="#4b5563">출력</text>
+  <rect x="130" y="420" width="152" height="46" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="206" y="448.6" font-size="16" fill="#111827" text-anchor="middle">각 주문 금액</text>
+  <line x1="286" y1="443" x2="309" y2="443" stroke="#047857" stroke-width="1.5" marker-end="url(#ar-green)"/>
+  <rect x="314" y="420" width="152" height="46" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="390" y="448.6" font-size="16" fill="#111827" text-anchor="middle">합계</text>
+  <line x1="470" y1="443" x2="493" y2="443" stroke="#047857" stroke-width="1.5" marker-end="url(#ar-green)"/>
+  <rect x="498" y="420" width="152" height="46" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="574" y="448.6" font-size="16" fill="#111827" text-anchor="middle">부가세 10%</text>
+  <line x1="654" y1="443" x2="677" y2="443" stroke="#047857" stroke-width="1.5" marker-end="url(#ar-green)"/>
+  <rect x="682" y="420" width="152" height="46" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="758" y="448.6" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">최종: &lt;숫자&gt;</text>
+
+  <text x="44" y="500.3" font-size="15" font-weight="bold" fill="#4b5563">결과</text>
+  <text x="130" y="500.6" font-size="16" fill="#047857">중간 값이 출력되므로 <tspan font-weight="bold">사람이 어디서 틀렸는지 볼 수 있다.</tspan></text>
 </svg>

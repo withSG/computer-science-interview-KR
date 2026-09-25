@@ -1,53 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">DAG (Directed Acyclic Graph)</title>
-  <desc id="d">방향성 있고 순환하지 않는 그래프로 작업 간 실행 순서와 의존성을 나타내는 DAG 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DAG 작업 의존성</title>
+  <desc id="d">DAG는 방향성 있고 순환하지 않는 그래프로 작업 간 실행 순서와 의존성을 나타낸다. extract 다음 transform이 실행되고, transform 뒤에 load와 notify가 이어지며, 사이클이 없어 무한 루프를 막는다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- 상단 부제목/설명 -->
-  <text x="440" y="38" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">방향성 있고 순환하지 않는 그래프 = 작업 간 실행 순서/의존성</text>
+  <rect x="24" y="24" width="832" height="48" rx="8" fill="#f1f5f9"/>
+  <text x="440" y="54" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">방향성 있고 순환하지 않는 그래프 = 작업 간 실행 순서/의존성</text>
 
-  <!-- 노드 1: extract -->
-  <rect x="70" y="70" width="120" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="130" y="98.2" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">extract</text>
+  <!-- 그래프 -->
+  <rect x="125" y="100" width="150" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="200" y="132" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">extract</text>
 
-  <!-- 노드 2: transform -->
-  <rect x="270" y="70" width="120" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="98.2" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">transform</text>
+  <rect x="365" y="100" width="150" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="132" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">transform</text>
 
-  <!-- 노드 3: load -->
-  <rect x="470" y="70" width="120" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="530" y="98.2" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">load</text>
+  <rect x="605" y="100" width="150" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="680" y="132" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">load</text>
 
-  <!-- 노드 4: notify -->
-  <rect x="470" y="150" width="120" height="48" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="530" y="178.2" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">notify</text>
+  <rect x="605" y="184" width="150" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="680" y="216" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">notify</text>
 
-  <!-- 화살표: extract -> transform -->
-  <path d="M190,94 L270,94" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M279,126 L360,126" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M519,126 L600,126" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M440,156 L440,210 L600,210" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- 화살표: transform -> load -->
-  <path d="M390,94 L470,94" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 성질 -->
+  <rect x="24" y="266" width="404" height="90" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="298" font-size="18" font-weight="bold" fill="#1d4ed8">방향성</text>
+  <text x="48" y="332" font-size="16" fill="#1f2937">실행 순서 (<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">extract</tspan> 다음 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">transform</tspan>)</text>
 
-  <!-- 화살표/경로: transform -> notify -->
-  <path d="M330,118 L330,174 L470,174" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- 하단 항목 구분선 및 영역 -->
-  <line x1="40" y1="230" x2="840" y2="230" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 항목 1: 방향성 -->
-  <text x="50" y="263.025" font-size="13" fill="#1f2933" font-weight="bold">- 방향성:</text>
-  <text x="115" y="263.025" font-size="13" fill="#52606d">실행 순서 (extract 다음 transform)</text>
-
-  <!-- 항목 2: 비순환 -->
-  <text x="50" y="298.025" font-size="13" fill="#1f2933" font-weight="bold">- 비순환:</text>
-  <text x="115" y="298.025" font-size="13" fill="#52606d">사이클 없음 (무한 루프 방지)</text>
+  <rect x="452" y="266" width="404" height="90" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="476" y="298" font-size="18" font-weight="bold" fill="#047857">비순환</text>
+  <text x="476" y="332" font-size="16" fill="#1f2937">사이클 없음 (무한 루프 방지)</text>
 </svg>

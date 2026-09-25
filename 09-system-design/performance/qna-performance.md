@@ -486,7 +486,7 @@ CDN은 전 세계 엣지 서버에 콘텐츠를 분산 저장합니다. 사용�
 ### 동작 흐름
 
 <!-- diagram:sd-qna-performance-8 -->
-![동작 흐름](../../assets/diagrams/sd-qna-performance-8.svg)
+![CDN 엣지 서버의 캐시 HIT·MISS별 응답 흐름](../../assets/diagrams/sd-qna-performance-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

@@ -1,79 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">캐싱 레이어</title>
-  <desc id="d">Client부터 Browser Cache, CDN, Application Cache, Database까지 이어지는 캐싱 레이어 구조도</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+  <desc id="d">요청은 Client에서 Browser Cache(L1, 가장 빠름), CDN(L2, 정적 리소스), Application Cache(L3, Redis, Memcached)를 차례로 지나 원본 데이터가 있는 Database에 닿습니다.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
   </defs>
 
+  <!-- 캐시 3단 묶음 -->
+  <rect x="40" y="104" width="800" height="276" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="140" y="248" font-size="17" font-weight="bold" fill="#334155" text-anchor="middle">캐싱 레이어</text>
+
   <!-- Client -->
-  <g transform="translate(240, 40)">
-    <rect x="0" y="0" width="220" height="60" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="110" y="35" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
-  </g>
+  <rect x="300" y="30" width="280" height="56" rx="8" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="440" y="64" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
 
-  <!-- Arrow 1 -->
-  <path d="M350,100 L350,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="440" y1="88" x2="440" y2="118" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Browser Cache -->
-  <g transform="translate(240, 150)">
-    <rect x="0" y="0" width="220" height="60" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="110" y="35" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Browser Cache</text>
-  </g>
+  <!-- L1 Browser Cache -->
+  <rect x="300" y="122" width="280" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="156" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Browser Cache</text>
+  <rect x="604" y="134" width="48" height="32" rx="16" fill="#1d4ed8"/>
+  <text x="628" y="156" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">L1</text>
+  <text x="666" y="156" font-size="16" fill="#1f2937">가장 빠름</text>
 
-  <!-- Side Note L1 -->
-  <path d="M460,180 L520,180" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="532" y="184" font-size="13" fill="#2563eb" font-weight="bold">L1 (가장 빠름)</text>
+  <line x1="440" y1="180" x2="440" y2="210" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Arrow 2 -->
-  <path d="M350,210 L350,260" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- L2 CDN -->
+  <rect x="300" y="214" width="280" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="248" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">CDN</text>
+  <rect x="604" y="226" width="48" height="32" rx="16" fill="#047857"/>
+  <text x="628" y="248" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">L2</text>
+  <text x="666" y="248" font-size="16" fill="#1f2937">정적 리소스</text>
 
-  <!-- CDN -->
-  <g transform="translate(240, 260)">
-    <rect x="0" y="0" width="220" height="60" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="110" y="35" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">CDN</text>
-  </g>
+  <line x1="440" y1="272" x2="440" y2="302" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Side Note L2 -->
-  <path d="M460,290 L520,290" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="532" y="294" font-size="13" fill="#059669" font-weight="bold">L2 (정적 리소스)</text>
+  <!-- L3 Application Cache -->
+  <rect x="300" y="306" width="280" height="56" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="440" y="340" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Application Cache</text>
+  <rect x="604" y="318" width="48" height="32" rx="16" fill="#6d28d9"/>
+  <text x="628" y="340" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">L3</text>
+  <text x="666" y="340" font-size="16" fill="#1f2937">Redis, Memcached</text>
 
-  <!-- Arrow 3 -->
-  <path d="M350,320 L350,370" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Application Cache -->
-  <g transform="translate(240, 370)">
-    <rect x="0" y="0" width="220" height="80" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="110" y="35" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Application</text>
-    <text x="110" y="58" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Cache</text>
-  </g>
-
-  <!-- Side Note L3 -->
-  <path d="M460,410 L520,410" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="532" y="414" font-size="13" fill="#7c3aed" font-weight="bold">L3 (Redis, Memcached)</text>
-
-  <!-- Arrow 4 -->
-  <path d="M350,450 L350,500" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="364" x2="440" y2="394" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- Database -->
-  <g transform="translate(240, 500)">
-    <rect x="0" y="0" width="220" height="60" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="110" y="35" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Database</text>
-  </g>
-
-  <!-- Side Note DB -->
-  <path d="M460,530 L520,530" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="532" y="534" font-size="13" fill="#d97706" font-weight="bold">원본 데이터</text>
+  <rect x="300" y="398" width="280" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="440" y="432" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Database</text>
+  <text x="604" y="432" font-size="16" font-weight="bold" fill="#b45309">원본 데이터</text>
 </svg>

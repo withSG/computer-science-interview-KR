@@ -185,7 +185,7 @@ spring:                       # application.yml
 빨라진 응답만 이득이 아닙니다. **버퍼 효과**가 더 중요합니다.
 
 <!-- diagram:sd-high-traffic-11 -->
-![4. 큐로 부하를 평탄화한다](../assets/diagrams/sd-high-traffic-11.svg)
+![큐 없음은 전부 실패, 큐 있음은 초당 500건씩 10초에 처리](../assets/diagrams/sd-high-traffic-11.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

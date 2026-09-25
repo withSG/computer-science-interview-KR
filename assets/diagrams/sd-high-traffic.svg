@@ -1,142 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">계층별 트래픽 흡수 깔때기 — 100만에서 8천까지</title>
-  <desc id="d">CDN, 로드 밸런서, 애플리케이션, DB 계층을 거치며 트래픽이 100만에서 8천으로 감소하는 깔때기 구조와 늘리기 난이도를 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 830" width="880" height="830" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">계층별 트래픽 흡수 깔때기</title>
+  <desc id="d">초당 1,000,000건 요청이 ① CDN·브라우저 캐시에서 100,000건, ② 로드 밸런서·API Gateway에서 80,000건, ③ 애플리케이션과 Redis 캐시에서 8,000건으로 줄어 ④ DB에 도달한다. 오른쪽 열은 각 계층을 늘리기가 사실상 무제한에서 어려움으로 바뀌는 것을 보여준다.</desc>
+  <rect width="880" height="830" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 제목 및 상단 범례 -->
-  <text x="40" y="45" font-size="17" font-weight="600" fill="#1f2933">계층별 트래픽 흡수 깔때기 — 100만에서 8천까지</text>
-  <text x="40" y="70" font-size="11.5" font-weight="400" fill="#52606d">바깥 계층일수록 트래픽 흡수 비용이 저렴하며, 안쪽 계층일수록 스케일링이 어렵습니다.</text>
+  <!-- 입력 -->
+  <text x="362" y="46" text-anchor="middle" font-size="20" font-weight="bold" fill="#111827">1,000,000 req/s</text>
+  <line x1="362" y1="56" x2="362" y2="77" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <text x="788" y="46" text-anchor="middle" font-size="16" font-weight="bold" fill="#374151">늘리기</text>
 
-  <!-- 늘리기 난이도 범례 (우측 상단) -->
-  <g transform="translate(520, 30)">
-    <rect x="0" y="0" width="320" height="45" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="12" y="27" font-size="11" font-weight="500" fill="#1f2933">늘리기 난이도:</text>
-    <rect x="90" y="15" width="16" height="16" rx="2" fill="#ecfdf5" stroke="#059669"/>
-    <text x="110" y="27" font-size="11" fill="#52606d">무제한</text>
-    <rect x="155" y="15" width="16" height="16" rx="2" fill="#eff6ff" stroke="#2563eb"/>
-    <text x="175" y="27" font-size="11" fill="#52606d">쉬움</text>
-    <rect x="210" y="15" width="16" height="16" rx="2" fill="#fffbeb" stroke="#d97706"/>
-    <text x="230" y="27" font-size="11" fill="#52606d">쉬움(무상태)</text>
-    <rect x="290" y="15" width="16" height="16" rx="2" fill="#fef2f2" stroke="#dc2626"/>
-  </g>
+  <!-- ① CDN -->
+  <rect x="24" y="80" width="676" height="120" rx="10" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="44" y="112" font-size="18" font-weight="bold" fill="#111827">① CDN / 브라우저 캐시</text>
+  <text x="44" y="138" font-size="15" fill="#1f2937">정적 파일, 이미지, 캐시 가능한 API 응답</text>
+  <text x="44" y="162" font-size="15" fill="#1f2937">여기서 끝난 요청은 원본 서버 비용이 0</text>
+  <text x="44" y="186" font-size="14" fill="#4b5563">수단: 엣지 캐시, 정적 자산 분리</text>
+  <rect x="728" y="118" width="120" height="44" rx="22" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="788" y="145" text-anchor="middle" font-size="15" font-weight="bold" fill="#047857">사실상 무제한</text>
 
-  <!-- 최초 요청 유입 -->
-  <path d="M280,95 L280,125" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="210" y="98" width="140" height="20" rx="3" fill="#ffffff"/>
-  <text x="280" y="112" font-size="12" font-weight="600" text-anchor="middle" fill="#1f2933">1,000,000 req/s</text>
+  <!-- ① → ② -->
+  <line x1="362" y1="202" x2="362" y2="257" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <text x="378" y="236"><tspan font-size="17" font-weight="bold" fill="#111827">100,000 req/s</tspan><tspan dx="10" font-size="15" fill="#4b5563">(90% 흡수)</tspan></text>
 
-  <!-- 깔때기 배경 가이드라인 (선택적 시각 보조) -->
-  <path d="M50,130 L110,610" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
-  <path d="M510,130 L450,610" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <!-- ② LB / Gateway -->
+  <rect x="62" y="260" width="600" height="98" rx="10" fill="#eef2ff" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="82" y="292" font-size="18" font-weight="bold" fill="#111827">② 로드 밸런서 / API Gateway</text>
+  <text x="82" y="318" font-size="15" fill="#1f2937">요청 수 제한, 봇 차단, 인증 실패 조기 거절</text>
+  <text x="82" y="342" font-size="14" fill="#4b5563">수단: WAF · 대상: 봇, 매크로, 잘못된 요청</text>
+  <rect x="728" y="287" width="120" height="44" rx="22" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="788" y="314" text-anchor="middle" font-size="15" font-weight="bold" fill="#047857">쉬움</text>
 
-  <!-- ① 계층: CDN / 브라우저 캐시 -->
-  <!-- 박스: x=50, y=130, w=460, h=100 -->
-  <rect x="50" y="130" width="460" height="100" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="70" y="158" font-size="14" font-weight="600" fill="#059669">① CDN / 브라우저 캐시</text>
-  <rect x="380" y="142" width="115" height="22" rx="3" fill="#059669"/>
-  <text x="437" y="157" font-size="11" font-weight="500" text-anchor="middle" fill="#ffffff">늘리기: 사실상 무제한</text>
-  
-  <text x="70" y="184" font-size="13" font-weight="500" fill="#1f2933">• 주요 수단: 엣지 캐시, 정적 자산 분리</text>
-  <text x="70" y="206" font-size="13" font-weight="500" fill="#1f2933">• 처리 대상: 정적 파일, 이미지, 변하지 않는 조회 API</text>
+  <!-- ② → ③ -->
+  <line x1="362" y1="360" x2="362" y2="415" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <text x="378" y="394"><tspan font-size="17" font-weight="bold" fill="#111827">80,000 req/s</tspan><tspan dx="10" font-size="15" fill="#4b5563">(20,000 조기 거절 → 429 응답)</tspan></text>
 
-  <!-- ① 흡수 화살표 (우측으로) -->
-  <path d="M510,180 L590,180" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="600" y="155" width="220" height="50" rx="4" fill="#f8fafc" stroke="#cbd2d9"/>
-  <text x="610" y="176" font-size="12" font-weight="600" fill="#059669">900,000 req/s 흡수 (90%)</text>
-  <text x="610" y="194" font-size="11.5" fill="#52606d">원본 서버 비용 0</text>
+  <!-- ③ 애플리케이션 + Redis -->
+  <rect x="100" y="418" width="524" height="120" rx="10" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="120" y="450" font-size="18" font-weight="bold" fill="#111827">③ 애플리케이션 + Redis 캐시</text>
+  <text x="120" y="476" font-size="15" fill="#1f2937">캐시 적중이면 DB에 가지 않는다</text>
+  <text x="120" y="500" font-size="15" fill="#1f2937">무거운 작업은 큐로 넘긴다</text>
+  <text x="120" y="524" font-size="14" fill="#4b5563">수단: 캐시, 비동기화, 무상태 설계</text>
+  <rect x="728" y="452" width="120" height="52" rx="14" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="788" y="474" text-anchor="middle" font-size="15" font-weight="bold" fill="#047857">쉬움</text>
+  <text x="788" y="494" text-anchor="middle" font-size="14" fill="#047857">(무상태라면)</text>
 
+  <!-- ③ → ④ -->
+  <line x1="362" y1="540" x2="362" y2="595" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <text x="378" y="574"><tspan font-size="17" font-weight="bold" fill="#111827">8,000 req/s</tspan><tspan dx="10" font-size="15" fill="#4b5563">(캐시 적중률 90% 가정)</tspan></text>
 
-  <!-- ① -> ② 이동 화살표 -->
-  <path d="M280,230 L280,260" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="210" y="234" width="140" height="20" rx="3" fill="#ffffff"/>
-  <text x="280" y="248" font-size="12" font-weight="600" text-anchor="middle" fill="#2563eb">100,000 req/s</text>
+  <!-- ④ DB -->
+  <rect x="138" y="598" width="448" height="98" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="158" y="630" font-size="18" font-weight="bold" fill="#b91c1c">④ DB — 가장 비싸고 가장 늘리기 어렵다</text>
+  <text x="158" y="656" font-size="15" fill="#1f2937">여기까지 온 것은 다 처리해야 한다</text>
+  <text x="158" y="680" font-size="14" fill="#4b5563">수단: 읽기 복제본, 샤딩, 인덱스</text>
+  <rect x="728" y="625" width="120" height="44" rx="22" fill="#fef2f2" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="788" y="652" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">어려움</text>
 
-
-  <!-- ② 계층: 로드 밸런서 / API Gateway -->
-  <!-- 박스: x=70, y=260, w=420, h=100 -->
-  <rect x="70" y="260" width="420" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="90" y="288" font-size="14" font-weight="600" fill="#2563eb">② 로드 밸런서 / API Gateway</text>
-  <rect x="390" y="272" width="85" height="22" rx="3" fill="#2563eb"/>
-  <text x="432" y="287" font-size="11" font-weight="500" text-anchor="middle" fill="#ffffff">늘리기: 쉬움</text>
-
-  <text x="90" y="314" font-size="13" font-weight="500" fill="#1f2933">• 주요 수단: 요청 수 제한(Rate Limit), WAF</text>
-  <text x="90" y="336" font-size="13" font-weight="500" fill="#1f2933">• 차단 대상: 봇, 매크로, 인증 실패 조기 거절</text>
-
-  <!-- ② 흡수 화살표 -->
-  <path d="M490,310 L590,310" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="600" y="285" width="220" height="50" rx="4" fill="#f8fafc" stroke="#cbd2d9"/>
-  <text x="610" y="306" font-size="12" font-weight="600" fill="#2563eb">20,000 req/s 차단 및 거절</text>
-  <text x="610" y="324" font-size="11.5" fill="#52606d">429 Too Many Requests 응답</text>
-
-
-  <!-- ② -> ③ 이동 화살표 -->
-  <path d="M280,360 L280,390" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="210" y="364" width="140" height="20" rx="3" fill="#ffffff"/>
-  <text x="280" y="378" font-size="12" font-weight="600" text-anchor="middle" fill="#d97706">80,000 req/s</text>
-
-
-  <!-- ③ 계층: 애플리케이션 + Redis 캐시 -->
-  <!-- 박스: x=90, y=390, w=380, h=100 -->
-  <rect x="90" y="390" width="380" height="100" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="110" y="418" font-size="14" font-weight="600" fill="#d97706">③ 애플리케이션 + Redis 캐시</text>
-  <rect x="335" y="402" width="120" height="22" rx="3" fill="#d97706"/>
-  <text x="395" y="417" font-size="11" font-weight="500" text-anchor="middle" fill="#ffffff">늘리기: 쉬움(무상태)</text>
-
-  <text x="110" y="444" font-size="13" font-weight="500" fill="#1f2933">• 주요 수단: Redis 캐시, 비동기 큐 처리</text>
-  <text x="110" y="466" font-size="13" font-weight="500" fill="#1f2933">• 처리 대상: 반복 조회, 즉시성 없는 작업</text>
-
-  <!-- ③ 흡수 화살표 -->
-  <path d="M470,440 L590,440" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="600" y="415" width="220" height="50" rx="4" fill="#f8fafc" stroke="#cbd2d9"/>
-  <text x="610" y="436" font-size="12" font-weight="600" fill="#d97706">72,000 req/s 처리 (90% 적중)</text>
-  <text x="610" y="454" font-size="11.5" fill="#52606d">DB 미도달 및 비동기 큐 이관</text>
-
-
-  <!-- ③ -> ④ 이동 화살표 -->
-  <path d="M280,490 L280,520" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="210" y="494" width="140" height="20" rx="3" fill="#ffffff"/>
-  <text x="280" y="508" font-size="12" font-weight="600" text-anchor="middle" fill="#dc2626">8,000 req/s</text>
-
-
-  <!-- ④ 계층: DB (데이터베이스) -->
-  <!-- 박스: x=110, y=520, w=340, h=90 -->
-  <rect x="110" y="520" width="340" height="90" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="130" y="548" font-size="14" font-weight="600" fill="#dc2626">④ DB (데이터베이스)</text>
-  <rect x="340" y="532" width="95" height="22" rx="3" fill="#dc2626"/>
-  <text x="387" y="547" font-size="11" font-weight="500" text-anchor="middle" fill="#ffffff">늘리기: 어려움</text>
-
-  <text x="130" y="574" font-size="13" font-weight="500" fill="#1f2933">• 주요 수단: 읽기 복제본, 샤딩, 인덱스</text>
-  <text x="130" y="594" font-size="13" font-weight="500" fill="#1f2933">• 가장 비싸고 스케일링이 어려운 최후 보루</text>
-
-  <!-- ④ 최종 처리 안내 박스 -->
-  <path d="M450,565 L590,565" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="600" y="540" width="220" height="50" rx="4" fill="#f8fafc" stroke="#cbd2d9"/>
-  <text x="610" y="561" font-size="12" font-weight="600" fill="#dc2626">최종 8,000 req/s 도달</text>
-  <text x="610" y="579" font-size="11.5" fill="#52606d">도달한 요청은 반드시 처리</text>
-
-
-  <!-- 하단 구분을 위한 경계선 -->
-  <path d="M40,645 L840,645" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 하단 결론 캡션 -->
-  <text x="440" y="675" font-size="11.5" font-weight="500" text-anchor="middle" fill="#52606d">한 줄 결론: 위로 갈수록 늘리기 쉽고 아래로 갈수록 어렵다. 모든 최적화의 방향은 아래 계층에 도달하는 요청 수를 줄이는 것이다.</text>
+  <!-- 결론 -->
+  <rect x="24" y="726" width="832" height="80" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="758" font-size="17" font-weight="bold" fill="#111827">위로 갈수록 늘리기 쉽고, 아래로 갈수록 어렵다</text>
+  <text x="44" y="786" font-size="15" fill="#374151">모든 최적화는 아래 계층에 도달하는 요청 수를 줄이는 방향으로 간다</text>
 </svg>

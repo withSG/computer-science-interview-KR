@@ -1,106 +1,142 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1260" width="880" height="1260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">전체 파이프라인</title>
-  <desc id="d">RAG의 오프라인 인덱싱 파이프라인과 온라인 질의 파이프라인을 나타낸 상세 흐름도</desc>
-  <rect width="880" height="1260" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 810" width="880" height="810" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">RAG 전체 파이프라인</title>
+  <desc id="d">배포·문서 갱신 시 한 번 도는 오프라인 인덱싱 4단계(로드, 청킹, 임베딩, 인덱싱)와 사용자 요청마다 도는 온라인 질의 6단계(쿼리 처리, 검색, 재순위, 컨텍스트 조립, 생성, 검증)를 나란히 보여준다. 온라인 검색은 오프라인에서 만든 인덱스를 조회한다.</desc>
+  <rect width="880" height="810" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ah-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 오프라인 구역 -->
-  <rect x="40" y="30" width="800" height="430" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
-  <text x="440" y="65" font-size="16" font-weight="bold" fill="#1e40af" text-anchor="middle">━━━━━━━━━ 오프라인: 인덱싱 (배포·문서 갱신 시 1회) ━━━━━━━━━</text>
+  <!-- ===== 오프라인: 인덱싱 ===== -->
+  <rect x="24" y="24" width="384" height="508" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="44" y="63" font-size="20" font-weight="bold" fill="#1e3a8a">오프라인: 인덱싱</text>
+  <rect x="206" y="42" width="170" height="28" rx="14" fill="#ffffff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="291" y="61" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">배포·문서 갱신 시 1회</text>
 
   <!-- [1] 로드 -->
-  <rect x="70" y="90" width="130" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="135" y="117" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[1] 로드</text>
-  
-  <text x="220" y="117" font-size="13" fill="#1f2933">PDF, HTML, Notion, DB</text>
-  <text x="220" y="147" font-size="13" fill="#52606d">→ 텍스트 + 메타데이터(제목, 작성일, 권한)</text>
+  <rect x="44" y="92" width="344" height="112" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <circle cx="74" cy="115" r="15" fill="#1d4ed8"/>
+  <text x="74" y="120" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="100" y="121" font-size="17" font-weight="bold" fill="#111827">로드</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="100" y="145">PDF, HTML, Notion, DB</tspan>
+    <tspan x="100" y="167">→ 텍스트 + 메타데이터</tspan>
+    <tspan x="100" y="189">(제목, 작성일, 권한)</tspan>
+  </text>
 
-  <path d="M440,160 L440,185" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M216,206 V226" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
 
   <!-- [2] 청킹 -->
-  <rect x="70" y="190" width="130" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="135" y="217" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[2] 청킹</text>
-  
-  <text x="220" y="217" font-size="13" fill="#1f2933">긴 문서를 검색 단위로 분할</text>
+  <rect x="44" y="230" width="344" height="68" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <circle cx="74" cy="253" r="15" fill="#1d4ed8"/>
+  <text x="74" y="258" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="100" y="259" font-size="17" font-weight="bold" fill="#111827">청킹</text>
+  <text x="100" y="283" font-size="15" fill="#374151">긴 문서를 검색 단위로 분할</text>
 
-  <path d="M440,240 L440,265" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M216,300 V320" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
 
   <!-- [3] 임베딩 -->
-  <rect x="70" y="270" width="130" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="135" y="297" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[3] 임베딩</text>
-  
-  <text x="220" y="297" font-size="13" fill="#1f2933">각 청크 → 벡터</text>
+  <rect x="44" y="324" width="344" height="68" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <circle cx="74" cy="347" r="15" fill="#1d4ed8"/>
+  <text x="74" y="352" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="100" y="353" font-size="17" font-weight="bold" fill="#111827">임베딩</text>
+  <text x="100" y="377" font-size="15" fill="#374151">각 청크 → 벡터</text>
 
-  <path d="M440,320 L440,345" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M216,394 V414" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
 
   <!-- [4] 인덱싱 -->
-  <rect x="70" y="350" width="130" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="135" y="377" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[4] 인덱싱</text>
-  
-  <text x="220" y="377" font-size="13" fill="#1f2933">벡터 DB 저장 + BM25 등 키워드 인덱스 구축</text>
+  <rect x="44" y="418" width="344" height="90" rx="8" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <circle cx="74" cy="441" r="15" fill="#1d4ed8"/>
+  <text x="74" y="446" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="100" y="447" font-size="17" font-weight="bold" fill="#111827">인덱싱</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="100" y="471">벡터 DB 저장</tspan>
+    <tspan x="100" y="493">+ BM25 등 키워드 인덱스 구축</tspan>
+  </text>
 
+  <!-- 인덱스 → 온라인 검색 연결 -->
+  <path d="M390,463 H440 V398" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <path d="M440,366 V299 H489" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#ah-gray)"/>
+  <text x="440" y="387" font-size="14" font-weight="bold" fill="#374151" text-anchor="middle">인덱스</text>
 
-  <!-- 온라인 구역 -->
-  <rect x="40" y="490" width="800" height="730" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
-  <text x="440" y="525" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle">━━━━━━━━━ 온라인: 질의 (사용자 요청마다) ━━━━━━━━━━━━━━━━━</text>
+  <!-- ===== 온라인: 질의 ===== -->
+  <rect x="472" y="24" width="384" height="762" rx="12" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5"/>
+  <text x="492" y="63" font-size="20" font-weight="bold" fill="#4c1d95">온라인: 질의</text>
+  <rect x="616" y="42" width="136" height="28" rx="14" fill="#ffffff" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="684" y="61" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">사용자 요청마다</text>
 
   <!-- 사용자 질문 -->
-  <rect x="350" y="550" width="180" height="40" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="575" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자 질문</text>
+  <rect x="589" y="92" width="150" height="42" rx="21" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="664" y="119" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">사용자 질문</text>
 
-  <path d="M440,590 L440,615" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M664,136 V156" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#ah-violet)"/>
 
   <!-- [5] 쿼리 처리 -->
-  <rect x="70" y="620" width="160" height="44" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="150" y="647" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[5] 쿼리 처리</text>
-  
-  <text x="250" y="647" font-size="13" fill="#1f2933">대화 맥락 병합 · 재작성 · 확장</text>
+  <rect x="492" y="160" width="344" height="68" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <circle cx="522" cy="183" r="15" fill="#6d28d9"/>
+  <text x="522" y="188" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="548" y="189" font-size="17" font-weight="bold" fill="#111827">쿼리 처리</text>
+  <text x="548" y="213" font-size="15" fill="#374151">대화 맥락 병합 · 재작성 · 확장</text>
 
-  <path d="M440,668 L440,693" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M664,230 V250" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#ah-violet)"/>
 
   <!-- [6] 검색 -->
-  <rect x="70" y="698" width="160" height="44" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="150" y="725" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[6] 검색</text>
-  
-  <text x="250" y="725" font-size="13" fill="#1f2933">벡터 검색 + 키워드 검색 → 후보 N개 (예: 50)</text>
+  <rect x="492" y="254" width="344" height="90" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <circle cx="522" cy="277" r="15" fill="#6d28d9"/>
+  <text x="522" y="282" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="548" y="283" font-size="17" font-weight="bold" fill="#111827">검색</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="548" y="307">벡터 검색 + 키워드 검색</tspan>
+    <tspan x="548" y="329">→ <tspan font-weight="bold" fill="#111827">후보 N개 (예: 50)</tspan></tspan>
+  </text>
 
-  <path d="M440,746 L440,771" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M664,346 V366" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#ah-violet)"/>
 
   <!-- [7] 재순위 -->
-  <rect x="70" y="776" width="160" height="44" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="150" y="803" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[7] 재순위</text>
-  
-  <text x="250" y="803" font-size="13" fill="#1f2933">Cross-encoder로 다시 채점 → 최종 K개 (예: 5)</text>
+  <rect x="492" y="370" width="344" height="90" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <circle cx="522" cy="393" r="15" fill="#6d28d9"/>
+  <text x="522" y="398" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="548" y="399" font-size="17" font-weight="bold" fill="#111827">재순위</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="548" y="423">Cross-encoder로 다시 채점</tspan>
+    <tspan x="548" y="445">→ <tspan font-weight="bold" fill="#111827">최종 K개 (예: 5)</tspan></tspan>
+  </text>
 
-  <path d="M440,824 L440,849" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M664,462 V482" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#ah-violet)"/>
 
   <!-- [8] 컨텍스트 조립 -->
-  <rect x="70" y="854" width="160" height="44" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="150" y="881" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[8] 컨텍스트 조립</text>
-  
-  <text x="250" y="881" font-size="13" fill="#1f2933">번호 붙여 프롬프트에 삽입, 토큰 예산 안에 맞춤</text>
+  <rect x="492" y="486" width="344" height="90" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <circle cx="522" cy="509" r="15" fill="#6d28d9"/>
+  <text x="522" y="514" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">8</text>
+  <text x="548" y="515" font-size="17" font-weight="bold" fill="#111827">컨텍스트 조립</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="548" y="539">번호 붙여 프롬프트에 삽입,</tspan>
+    <tspan x="548" y="561">토큰 예산 안에 맞춤</tspan>
+  </text>
 
-  <path d="M440,902 L440,927" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M664,578 V598" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#ah-violet)"/>
 
   <!-- [9] 생성 -->
-  <rect x="70" y="932" width="160" height="44" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="150" y="959" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[9] 생성</text>
-  
-  <text x="250" y="959" font-size="13" fill="#1f2933">LLM → 답변 + 인용</text>
+  <rect x="492" y="602" width="344" height="68" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <circle cx="522" cy="625" r="15" fill="#6d28d9"/>
+  <text x="522" y="630" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">9</text>
+  <text x="548" y="631" font-size="17" font-weight="bold" fill="#111827">생성</text>
+  <text x="548" y="655" font-size="15" fill="#374151">LLM → 답변 + 인용</text>
 
-  <path d="M440,980 L440,1005" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M664,672 V692" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#ah-violet)"/>
 
   <!-- [10] 검증 -->
-  <rect x="70" y="1010" width="160" height="44" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="150" y="1037" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[10] 검증</text>
-  
-  <text x="250" y="1037" font-size="13" fill="#1f2933">인용이 실제 컨텍스트에 있는지 대조</text>
+  <rect x="492" y="696" width="344" height="68" rx="8" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <circle cx="522" cy="719" r="15" fill="#6d28d9"/>
+  <text x="522" y="724" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">10</text>
+  <text x="548" y="725" font-size="17" font-weight="bold" fill="#111827">검증</text>
+  <text x="548" y="749" font-size="15" fill="#374151">인용이 실제 컨텍스트에 있는지 대조</text>
 </svg>

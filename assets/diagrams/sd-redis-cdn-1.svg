@@ -1,57 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">1. 왜 필요한가</title>
-  <desc id="d">브라우저, CDN 엣지, 오리진 서버, Redis, Database로 이어지는 캐시 계층 구조 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">요청 경로의 캐시 계층</title>
+  <desc id="d">요청은 브라우저, CDN 엣지, 오리진 서버(WAS), Redis, Database 순으로 내려간다. 브라우저 캐시는 네트워크를 타지 않고, CDN 엣지는 사용자 앞쪽 캐시, Redis는 서버 뒤쪽 캐시다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 브라우저 -->
-  <rect x="180" y="30" width="160" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="260" y="57" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">브라우저</text>
+  <!-- 왼쪽: 요청 경로 -->
+  <rect x="40" y="30" width="240" height="60" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="160" y="66" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">브라우저</text>
 
-  <!-- 브라우저 -> CDN 엣지 화살표 및 설명 -->
-  <path d="M260,74 L260,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="280" y="107" font-size="12" fill="#2563eb">← 브라우저 캐시: 아예 네트워크를 안 탄다</text>
+  <line x1="160" y1="92" x2="160" y2="126" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- CDN 엣지 -->
-  <rect x="180" y="130" width="160" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="260" y="157" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">CDN 엣지</text>
+  <rect x="40" y="130" width="240" height="60" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="160" y="166" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d4ed8">CDN 엣지</text>
 
-  <!-- CDN 엣지 옆 설명 -->
-  <text x="360" y="145" font-size="12" fill="#52606d">← 사용자 앞쪽 캐시. 정적 자산, 이미지, 공개 API 응답</text>
-  <text x="372" y="165" font-size="12" fill="#52606d">서울 사용자는 서울 엣지에서 끝난다</text>
+  <line x1="160" y1="192" x2="160" y2="226" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- CDN 엣지 -> 오리진 서버 화살표 -->
-  <path d="M260,174 L260,230" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="40" y="230" width="240" height="60" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="160" y="266" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">오리진 서버 (WAS)</text>
 
-  <!-- 오리진 서버 (WAS) -->
-  <rect x="160" y="230" width="200" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="260" y="257" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">오리진 서버 (WAS)</text>
+  <line x1="160" y1="292" x2="160" y2="326" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- 오리진 서버 -> Redis 화살표 -->
-  <path d="M260,274 L260,330" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="40" y="330" width="240" height="60" rx="8" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
+  <text x="160" y="366" text-anchor="middle" font-size="18" font-weight="bold" fill="#6d28d9">Redis</text>
 
-  <!-- Redis -->
-  <rect x="180" y="330" width="160" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="260" y="357" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">Redis</text>
+  <line x1="160" y1="392" x2="160" y2="426" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Redis 옆 설명 -->
-  <text x="360" y="357" font-size="12" fill="#52606d">← 서버 뒤쪽 캐시. 사용자별 데이터, 세션, 랭킹, 락</text>
+  <rect x="40" y="430" width="240" height="60" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="160" y="466" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">Database</text>
 
-  <!-- Redis -> Database 화살표 -->
-  <path d="M260,374 L260,430" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 오른쪽: 캐시 계층 설명 -->
+  <line x1="282" y1="60" x2="318" y2="60" stroke="#059669" stroke-width="2" stroke-dasharray="4 3"/>
+  <rect x="320" y="28" width="520" height="64" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="340" y="54" font-size="17" font-weight="bold" fill="#047857">브라우저 캐시</text>
+  <text x="340" y="79" font-size="16" fill="#1f2937">아예 네트워크를 안 탄다</text>
 
-  <!-- Database -->
-  <rect x="180" y="430" width="160" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="260" y="457" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Database</text>
+  <line x1="282" y1="160" x2="318" y2="160" stroke="#2563eb" stroke-width="2" stroke-dasharray="4 3"/>
+  <rect x="320" y="116" width="520" height="88" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="340" y="142" font-size="17" font-weight="bold" fill="#1d4ed8">사용자 앞쪽 캐시</text>
+  <text x="340" y="167" font-size="16" fill="#1f2937">정적 자산, 이미지, 공개 API 응답</text>
+  <text x="340" y="191" font-size="16" fill="#1f2937">서울 사용자는 서울 엣지에서 끝난다</text>
+
+  <line x1="282" y1="360" x2="318" y2="360" stroke="#7c3aed" stroke-width="2" stroke-dasharray="4 3"/>
+  <rect x="320" y="328" width="520" height="64" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="340" y="354" font-size="17" font-weight="bold" fill="#6d28d9">서버 뒤쪽 캐시</text>
+  <text x="340" y="379" font-size="16" fill="#1f2937">사용자별 데이터, 세션, 랭킹, 락</text>
 </svg>

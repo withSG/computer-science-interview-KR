@@ -1,61 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">무엇을 관측해야 하나</title>
-  <desc id="d">요청 단위로 관측해야 할 요소 4가지와 각각의 목적을 나타낸 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">요청 단위 관측 항목</title>
+  <desc id="d">에이전트 요청 하나마다 남길 네 가지 기록과 그 쓰임입니다. 총 LLM 호출 수·토큰·비용은 폭주 탐지, 도구별 호출 횟수·성공률·지연은 문제 도구 식별, 종료 사유는 리밋 비율 경보, 전체 궤적은 사후 디버깅의 유일한 단서입니다.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="ahp" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
+    </marker>
+  </defs>
 
-  <!-- Main Root Box -->
-  <rect x="40" y="30" width="800" height="48" rx="6" fill="#1f2933" stroke="#1f2933" stroke-width="1.5"/>
-  <text x="440" y="60" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">요청 단위로 남길 것</text>
+  <!-- 루트 -->
+  <rect x="24" y="24" width="264" height="44" rx="8" fill="#1f2937"/>
+  <text x="156" y="52" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">요청 단위로 남길 것</text>
 
-  <!-- Connectors (Tree Lines) -->
-  <path d="M 75 78 L 75 285" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  
-  <path d="M 75 110 L 105 110" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <path d="M 75 168 L 105 168" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <path d="M 75 226 L 105 226" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <path d="M 75 285 L 105 285" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <!-- 트리 줄기 -->
+  <path d="M56,68 L56,315 M56,117 L88,117 M56,183 L88,183 M56,249 L88,249 M56,315 L88,315" stroke="#9ca3af" stroke-width="2" fill="none"/>
 
-  <!-- Row 1 -->
-  <!-- Left Item -->
-  <rect x="105" y="90" width="370" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="120" y="115" fill="#1f2933" font-size="13" font-weight="bold">총 LLM 호출 수 / 총 토큰 / 총 비용</text>
-  <!-- Arrow -->
-  <path d="M 485 110 L 515 110" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <path d="M 511 106 L 518 110 L 511 114" fill="none" stroke="#d97706" stroke-width="1.5"/>
-  <!-- Right Description -->
-  <rect x="520" y="90" width="320" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="535" y="115" fill="#d97706" font-size="13" font-weight="bold">폭주 탐지</text>
+  <!-- 1 -->
+  <rect x="88" y="92" width="420" height="50" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="108" y="123" font-size="16" fill="#111827">총 LLM 호출 수 / 총 토큰 / 총 비용</text>
+  <path d="M514,117 L552,117" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <text x="566" y="123" font-size="16" fill="#111827">폭주 탐지</text>
 
-  <!-- Row 2 -->
-  <!-- Left Item -->
-  <rect x="105" y="148" width="370" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="120" y="173" fill="#1f2933" font-size="13" font-weight="bold">도구별 호출 횟수 · 성공률 · 지연</text>
-  <!-- Arrow -->
-  <path d="M 485 168 L 515 168" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <path d="M 511 164 L 518 168 L 511 172" fill="none" stroke="#dc2626" stroke-width="1.5"/>
-  <!-- Right Description -->
-  <rect x="520" y="148" width="320" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="535" y="173" fill="#dc2626" font-size="13" font-weight="bold">어느 도구가 문제인지</text>
+  <!-- 2 -->
+  <rect x="88" y="158" width="420" height="50" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="108" y="189" font-size="16" fill="#111827">도구별 호출 횟수 · 성공률 · 지연</text>
+  <path d="M514,183 L552,183" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <text x="566" y="189" font-size="16" fill="#111827">어느 도구가 문제인지</text>
 
-  <!-- Row 3 -->
-  <!-- Left Item -->
-  <rect x="105" y="206" width="370" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="120" y="231" fill="#1f2933" font-size="13" font-weight="bold">종료 사유 (정상 / 예산 소진 / 하드 리밋)</text>
-  <!-- Arrow -->
-  <path d="M 485 226 L 515 226" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <path d="M 511 222 L 518 226 L 511 230" fill="none" stroke="#2563eb" stroke-width="1.5"/>
-  <!-- Right Description -->
-  <rect x="520" y="206" width="320" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="535" y="231" fill="#2563eb" font-size="13" font-weight="bold">리밋 비율이 오르면 경보</text>
+  <!-- 3 -->
+  <rect x="88" y="224" width="420" height="50" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="108" y="255" font-size="16" fill="#111827">종료 사유 (정상 / 예산 소진 / 하드 리밋)</text>
+  <path d="M514,249 L552,249" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah)"/>
+  <text x="566" y="255" font-size="16" fill="#111827">리밋 비율이 오르면 경보</text>
 
-  <!-- Row 4 -->
-  <!-- Left Item -->
-  <rect x="105" y="265" width="370" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="120" y="290" fill="#7c3aed" font-size="13" font-weight="bold">전체 궤적 (Thought-Action-Observation)</text>
-  <!-- Arrow -->
-  <path d="M 485 285 L 515 285" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <path d="M 511 281 L 518 285 L 511 289" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
-  <!-- Right Description -->
-  <rect x="520" y="265" width="320" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="535" y="290" fill="#7c3aed" font-size="13" font-weight="bold">사후 디버깅의 유일한 단서</text>
+  <!-- 4 (강조) -->
+  <rect x="88" y="290" width="420" height="50" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="108" y="321" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#6d28d9">전체 궤적</tspan> (Thought-Action-Observation)</text>
+  <path d="M514,315 L552,315" stroke="#6d28d9" stroke-width="1.8" fill="none" marker-end="url(#ahp)"/>
+  <text x="566" y="321" font-size="16" font-weight="bold" fill="#6d28d9">사후 디버깅의 유일한 단서</text>
 </svg>

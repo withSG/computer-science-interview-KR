@@ -1,64 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Cache-Aside (Lazy Loading)</title>
-  <desc id="d">Cache-Aside 패턴의 동작 순서를 나타낸 다이어그램. Application, Cache, Database 간의 데이터 흐름과 1~6단계 번호가 표시되어 있습니다.</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Cache-Aside 조회 순서</title>
+  <desc id="d">Cache-Aside(Lazy Loading)에서 캐시 미스가 났을 때의 순서. Application이 Cache에 GET user:42를 보내 miss(null)를 받고, Database에 SELECT ... WHERE id=42로 row를 읽은 뒤, Cache에 SET user:42 (TTL 10m)으로 채우고 응답을 반환한다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-dark" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- Title / Section Header -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">Cache-Aside (Lazy Loading)</text>
+  <!-- 참여자 -->
+  <rect x="195" y="24" width="170" height="48" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="280" y="54" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Application</text>
+  <rect x="445" y="24" width="170" height="48" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="530" y="54" font-size="17" font-weight="bold" fill="#78350f" text-anchor="middle">Cache</text>
+  <rect x="675" y="24" width="170" height="48" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="760" y="54" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">Database</text>
 
-  <!-- Application Box -->
-  <rect x="60" y="100" width="180" height="100" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="150" y="155" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Application</text>
+  <!-- 생명선 -->
+  <line x1="280" y1="72" x2="280" y2="416" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="530" y1="72" x2="530" y2="416" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="760" y1="72" x2="760" y2="416" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
 
-  <!-- Cache Box -->
-  <rect x="640" y="100" width="180" height="100" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="730" y="155" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Cache</text>
+  <!-- 단계 묶음 (왼쪽) -->
+  <path d="M244,106 L236,106 L236,180 L244,180" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="148" font-size="15" fill="#4b5563" text-anchor="end">캐시 조회</text>
+  <path d="M244,214 L236,214 L236,288 L244,288" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="256" font-size="15" fill="#4b5563" text-anchor="end">DB 조회</text>
+  <path d="M244,320 L236,320 L236,348 L244,348" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="340" font-size="15" fill="#4b5563" text-anchor="end">캐시 채움</text>
 
-  <!-- Database Box -->
-  <rect x="60" y="340" width="180" height="100" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="150" y="395" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Database</text>
+  <!-- 1. GET user:42 -->
+  <line x1="280" y1="120" x2="527" y2="120" stroke="#374151" stroke-width="2" marker-end="url(#ah-dark)"/>
+  <text x="405" y="110" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">1.</tspan> <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET user:42</tspan></text>
 
-  <!-- Flow 1: Application -> Cache (GET user:42) -->
-  <path d="M 240,125 L 640,125" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="375" y="108" width="130" height="22" fill="#ffffff"/>
-  <text x="440" y="123" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">1. GET user:42</text>
+  <!-- 2. miss (null) -->
+  <line x1="530" y1="168" x2="283" y2="168" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-gray)"/>
+  <text x="405" y="158" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">2.</tspan> <tspan font-weight="bold" fill="#b91c1c">miss (null)</tspan></text>
 
-  <!-- Flow 2: Cache -> Application (miss (null)) -->
-  <path d="M 640,175 L 240,175" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="370" y="158" width="140" height="22" fill="#ffffff"/>
-  <text x="440" y="173" font-size="13" fill="#d97706" font-weight="bold" text-anchor="middle">2. miss (null)</text>
+  <!-- 3. SELECT ... WHERE id=42 -->
+  <line x1="280" y1="228" x2="757" y2="228" stroke="#374151" stroke-width="2" marker-end="url(#ah-dark)"/>
+  <text x="645" y="218" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">3.</tspan> <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT ... WHERE id=42</tspan></text>
 
-  <!-- Flow 3: Application -> Database (SELECT ... WHERE id=42) -->
-  <path d="M 150,200 L 150,340" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="158" y="258" width="230" height="22" fill="#ffffff"/>
-  <text x="165" y="273" font-size="13" fill="#7c3aed" font-weight="bold" text-anchor="start">3. SELECT ... WHERE id=42</text>
+  <!-- 4. row -->
+  <line x1="760" y1="276" x2="283" y2="276" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-gray)"/>
+  <text x="645" y="266" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">4.</tspan> <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">row</tspan></text>
 
-  <!-- Flow 4 & 5: Database -> Cache (4. row / 5. SET user:42 (TTL 10m)) -->
-  <path d="M 240,390 L 730,390 L 730,200" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-green)"/>
+  <!-- 5. SET user:42 (TTL 10m) -->
+  <line x1="280" y1="334" x2="527" y2="334" stroke="#374151" stroke-width="2" marker-end="url(#ah-dark)"/>
+  <text x="405" y="324" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">5.</tspan> <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SET user:42 (TTL 10m)</tspan></text>
 
-  <rect x="340" y="378" width="60" height="22" fill="#ffffff"/>
-  <text x="370" y="393" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">4. row</text>
-
-  <rect x="525" y="288" width="200" height="22" fill="#ffffff"/>
-  <text x="722" y="303" font-size="13" fill="#059669" font-weight="bold" text-anchor="end">5. SET user:42 (TTL 10m)</text>
-
-  <!-- Flow 6: Response Return (6. 응답 반환) -->
-  <rect x="370" y="428" width="100" height="22" fill="#ffffff"/>
-  <text x="420" y="443" font-size="13" fill="#52606d" font-weight="bold" text-anchor="middle">6. 응답 반환</text>
+  <!-- 6. 응답 반환 -->
+  <line x1="280" y1="396" x2="44" y2="396" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="150" y="386" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">6.</tspan> <tspan font-weight="bold" fill="#1d4ed8">응답 반환</tspan></text>
 </svg>

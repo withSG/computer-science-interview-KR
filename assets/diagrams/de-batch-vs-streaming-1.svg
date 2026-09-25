@@ -1,64 +1,98 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">두 시각은 반드시 어긋난다</title>
-  <desc id="d">이벤트 발생 시각과 도착(처리) 시각의 차이 및 지연 데이터로 인한 윈도우 계산 오차를 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이벤트 시간과 도착 시간의 어긋남</title>
+  <desc id="d">이벤트 A~E의 발생 시각과 도착(처리) 시각을 같은 시간축에 놓았다. 09:59에 일어난 B는 10:03에 도착해, 10:00까지 도착한 것만 세어 09:50~10:00 윈도우를 닫으면 통째로 빠진다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ar-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
-  <rect width="880" height="540" fill="#ffffff"/>
 
-  <!-- 배경 구분선 및 세로 경계선 -->
-  <line x1="480" y1="40" x2="480" y2="340" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 09:50~10:00 윈도우 영역 -->
+  <rect x="200" y="84" width="240" height="376" fill="#eff6ff"/>
+  <text x="212" y="108" font-size="15" font-weight="700" fill="#1d4ed8">09:50~10:00 윈도우</text>
 
-  <!-- 시간축 라벨 및 데이터 항목 -->
-  <!-- Header Row: Event Identifiers -->
-  <text x="200" y="45" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">A</text>
-  <text x="320" y="45" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">B</text>
-  <text x="540" y="45" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
-  <text x="660" y="45" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">D</text>
-  <text x="780" y="45" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">E</text>
+  <!-- 윈도우 경계 -->
+  <text x="440" y="40" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">윈도우 경계 10:00</text>
+  <text x="440" y="63" font-size="15" fill="#374151" text-anchor="middle">(09:50~10:00 구간은 여기서 닫힌다)</text>
+  <line x1="440" y1="76" x2="440" y2="460" stroke="#111827" stroke-width="2" stroke-dasharray="7 5"/>
 
-  <!-- Row 1: 이벤트 발생 시각 -->
-  <text x="40" y="80" font-size="13" font-weight="bold" fill="#1f2933">이벤트 발생 시각</text>
-  <text x="200" y="80" font-size="13" fill="#52606d" text-anchor="middle">09:58</text>
-  <text x="320" y="80" font-size="13" fill="#52606d" text-anchor="middle">09:59</text>
-  <text x="540" y="80" font-size="13" fill="#52606d" text-anchor="middle">10:00</text>
-  <text x="660" y="80" font-size="13" fill="#52606d" text-anchor="middle">10:01</text>
-  <text x="780" y="80" font-size="13" fill="#52606d" text-anchor="middle">10:02</text>
+  <!-- 행 이름 -->
+  <text x="24" y="166" font-size="17" font-weight="700" fill="#111827">이벤트 발생 시각</text>
+  <text x="24" y="188" font-size="14" fill="#4b5563">event time</text>
+  <text x="24" y="366" font-size="17" font-weight="700" fill="#111827">도착(처리) 시각</text>
+  <text x="24" y="388" font-size="14" fill="#4b5563">processing time</text>
 
-  <!-- Middle: 윈도우 경계 표시 (가로 구분선 및 라벨) -->
-  <line x1="480" y1="130" x2="520" y2="130" stroke="#2563eb" stroke-width="2"/>
-  <text x="530" y="134" font-size="13" font-weight="bold" fill="#2563eb">윈도우 경계 10:00</text>
-  <text x="530" y="154" font-size="11.5" fill="#52606d">(09:50~10:00 구간은 여기서 닫힌다)</text>
+  <!-- 행 기준선 -->
+  <line x1="200" y1="170" x2="852" y2="170" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="200" y1="370" x2="852" y2="370" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- Row 2: 도착(처리) 시각 -->
-  <text x="40" y="210" font-size="13" font-weight="bold" fill="#1f2933">도착(처리) 시각</text>
-  <text x="200" y="210" font-size="13" fill="#52606d" text-anchor="middle">09:58</text>
-  <text x="320" y="210" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">10:03</text>
-  <text x="540" y="210" font-size="13" fill="#52606d" text-anchor="middle">10:00</text>
-  <text x="660" y="210" font-size="13" fill="#52606d" text-anchor="middle">10:01</text>
-  <text x="780" y="210" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">10:04</text>
+  <!-- 지연 화살표: B (4분), E (2분) -->
+  <line x1="345" y1="228" x2="704.4" y2="362.3" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ar-red)"/>
+  <line x1="630" y1="228" x2="802.4" y2="356.8" stroke="#b45309" stroke-width="2.5" marker-end="url(#ar-amber)"/>
 
-  <!-- Bottom Row: Event Identifiers Repeat -->
-  <text x="200" y="240" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">A</text>
-  <text x="320" y="240" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">B</text>
-  <text x="540" y="240" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
-  <text x="660" y="240" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">D</text>
-  <text x="780" y="240" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">E</text>
+  <rect x="456" y="275" width="168" height="52" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="540" y="296" font-size="15" fill="#111827" text-anchor="middle">지하철에서 오프라인</text>
+  <text x="540" y="317" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">→ 4분 늦게 도착</text>
 
-  <!-- 지연 원인 화살표 & 설명 (B) -->
-  <path d="M320,290 L320,252" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="320" y="308" font-size="11.5" fill="#dc2626" text-anchor="middle">지하철에서 오프라인</text>
-  <text x="320" y="326" font-size="11.5" fill="#dc2626" text-anchor="middle">→ 4분 늦게 도착</text>
+  <rect x="644" y="266" width="144" height="52" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="716" y="287" font-size="15" fill="#111827" text-anchor="middle">네트워크 재시도</text>
+  <text x="716" y="308" font-size="15" font-weight="700" fill="#b45309" text-anchor="middle">→ 2분 늦게 도착</text>
 
-  <!-- 지연 원인 화살표 & 설명 (E) -->
-  <path d="M780,290 L780,252" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="780" y="308" font-size="11.5" fill="#dc2626" text-anchor="middle">네트워크 재시도</text>
-  <text x="780" y="326" font-size="11.5" fill="#dc2626" text-anchor="middle">→ 2분 늦게 도착</text>
+  <!-- 1행: 이벤트 발생 시각 -->
+  <circle cx="250" cy="170" r="16" fill="#1f2937"/>
+  <circle cx="345" cy="170" r="16" fill="#b91c1c"/>
+  <circle cx="440" cy="170" r="16" fill="#1f2937"/>
+  <circle cx="535" cy="170" r="16" fill="#1f2937"/>
+  <circle cx="630" cy="170" r="16" fill="#b45309"/>
+  <text x="250" y="176" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">A</text>
+  <text x="345" y="176" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">B</text>
+  <text x="440" y="176" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">C</text>
+  <text x="535" y="176" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">D</text>
+  <text x="630" y="176" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">E</text>
 
-  <!-- 하단 수식 / 상황 설명 박스 -->
-  <rect x="40" y="370" width="800" height="130" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="6"/>
-  <text x="70" y="415" font-size="13" fill="#1f2933">이벤트 B는 09:59에 일어났지만 10:03에 도착했다.</text>
-  <text x="70" y="455" font-size="13" fill="#1f2933">10:00에 도착한 것만 세어 "09:50~10:00 윈도우"를 닫으면 B가 통째로 빠진다.</text>
+  <rect x="218" y="196" width="64" height="26" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+  <rect x="313" y="196" width="64" height="26" rx="5" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <rect x="408" y="196" width="64" height="26" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+  <rect x="503" y="196" width="64" height="26" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+  <rect x="598" y="196" width="64" height="26" rx="5" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="250" y="214" font-size="15" fill="#111827" text-anchor="middle">09:58</text>
+  <text x="345" y="214" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">09:59</text>
+  <text x="440" y="214" font-size="15" fill="#111827" text-anchor="middle">10:00</text>
+  <text x="535" y="214" font-size="15" fill="#111827" text-anchor="middle">10:01</text>
+  <text x="630" y="214" font-size="15" font-weight="700" fill="#b45309" text-anchor="middle">10:02</text>
+
+  <!-- 2행: 도착(처리) 시각 -->
+  <circle cx="250" cy="370" r="16" fill="#1f2937"/>
+  <circle cx="725" cy="370" r="16" fill="#b91c1c"/>
+  <circle cx="440" cy="370" r="16" fill="#1f2937"/>
+  <circle cx="535" cy="370" r="16" fill="#1f2937"/>
+  <circle cx="820" cy="370" r="16" fill="#b45309"/>
+  <text x="250" y="376" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">A</text>
+  <text x="725" y="376" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">B</text>
+  <text x="440" y="376" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">C</text>
+  <text x="535" y="376" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">D</text>
+  <text x="820" y="376" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">E</text>
+
+  <rect x="218" y="396" width="64" height="26" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+  <rect x="693" y="396" width="64" height="26" rx="5" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <rect x="408" y="396" width="64" height="26" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+  <rect x="503" y="396" width="64" height="26" rx="5" fill="#ffffff" stroke="#9ca3af"/>
+  <rect x="788" y="396" width="64" height="26" rx="5" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="250" y="414" font-size="15" fill="#111827" text-anchor="middle">09:58</text>
+  <text x="725" y="414" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="middle">10:03</text>
+  <text x="440" y="414" font-size="15" fill="#111827" text-anchor="middle">10:00</text>
+  <text x="535" y="414" font-size="15" fill="#111827" text-anchor="middle">10:01</text>
+  <text x="820" y="414" font-size="15" font-weight="700" fill="#b45309" text-anchor="middle">10:04</text>
+
+  <rect x="647" y="432" width="156" height="26" rx="5" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="725" y="450" font-size="14" font-weight="700" fill="#b91c1c" text-anchor="middle">마감 뒤 도착 → 빠짐</text>
+
+  <!-- 결론 -->
+  <rect x="24" y="482" width="832" height="72" rx="8" fill="#f9fafb" stroke="#d1d5db"/>
+  <text x="440" y="511" font-size="16" fill="#111827" text-anchor="middle">이벤트 B는 09:59에 일어났지만 10:03에 도착했다.</text>
+  <text x="440" y="538" font-size="16" fill="#111827" text-anchor="middle">10:00에 도착한 것만 세어 "09:50~10:00 윈도우"를 닫으면 <tspan font-weight="700" fill="#b91c1c">B가 통째로 빠진다.</tspan></text>
 </svg>

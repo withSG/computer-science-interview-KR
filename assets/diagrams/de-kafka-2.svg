@@ -1,79 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">가운데에 로그를 하나 둔다</title>
-  <desc id="d">Kafka 토픽들을 중앙에 두고 생산자와 소비자를 분리한 이벤트 로그 중심 구조 다이어그램</desc>
+  <desc id="d">생산자 3개(주문·결제·가입)는 가운데 Kafka 토픽들에 기록만 하고, 소비자 5개(재고·배송·알림·분석·추천)는 토픽에서 읽어 연결이 3 + 5 = 8개로 줄어든다. 생산자는 누가 읽는지 알 필요도, 알 방법도 없다.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="mb" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="mg" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
     </marker>
   </defs>
-  <rect width="880" height="390" fill="#ffffff"/>
 
-  <!-- 헤더 (제목 및 연결 수) -->
-  <text x="30" y="38.6" fill="#1f2933" font-size="16" font-weight="bold">[이벤트 로그 중심]</text>
-  <text x="185" y="38.6" fill="#52606d" font-size="14">생산자 3 + 소비자 5 = 8개의 연결</text>
+  <!-- 머리말 -->
+  <rect x="24" y="22" width="140" height="32" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="94" y="44" font-size="16" font-weight="700" fill="#047857" text-anchor="middle">이벤트 로그 중심</text>
+  <text x="180" y="44" font-size="16" fill="#1f2937">생산자 3 + 소비자 5 = <tspan font-weight="700" fill="#047857">8개의 연결</tspan></text>
 
-  <!-- 생산자 (왼쪽, 파랑) -->
-  <!-- 주문 -->
-  <rect x="50" y="80" width="80" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="90" y="104.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">주문</text>
+  <text x="140" y="90" font-size="14" fill="#4b5563" text-anchor="middle">생산자</text>
+  <text x="740" y="90" font-size="14" fill="#4b5563" text-anchor="middle">소비자</text>
 
-  <!-- 결제 -->
-  <rect x="50" y="150" width="80" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="90" y="174.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">결제</text>
+  <!-- 연결 수 -->
+  <rect x="229" y="98" width="72" height="26" rx="13" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <text x="265" y="116" font-size="14" font-weight="700" fill="#1d4ed8" text-anchor="middle">연결 3개</text>
+  <rect x="566" y="98" width="72" height="26" rx="13" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
+  <text x="602" y="116" font-size="14" font-weight="700" fill="#047857" text-anchor="middle">연결 5개</text>
 
-  <!-- 가입 -->
-  <rect x="50" y="220" width="80" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="90" y="244.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">가입</text>
+  <!-- 생산자 → Kafka 토픽들 -->
+  <g stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#mb)">
+    <path d="M200,152 L329,211"/>
+    <path d="M200,236 L329,236"/>
+    <path d="M200,320 L329,261"/>
+  </g>
+  <!-- Kafka 토픽들 → 소비자 -->
+  <g stroke="#059669" stroke-width="2" fill="none" marker-end="url(#mg)">
+    <path d="M550,196 L679,124"/>
+    <path d="M550,216 L679,180"/>
+    <path d="M550,236 L679,236"/>
+    <path d="M550,256 L679,292"/>
+    <path d="M550,276 L679,348"/>
+  </g>
 
-  <!-- 중앙: Kafka 토픽들 (보라) -->
-  <rect x="330" y="140" width="180" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="420" y="174.55" fill="#7c3aed" font-size="14" font-weight="bold" text-anchor="middle">[ Kafka 토픽들 ]</text>
+  <!-- 생산자 -->
+  <rect x="80" y="128" width="120" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="158" font-size="17" font-weight="700" fill="#1e40af" text-anchor="middle">주문</text>
+  <rect x="80" y="212" width="120" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="242" font-size="17" font-weight="700" fill="#1e40af" text-anchor="middle">결제</text>
+  <rect x="80" y="296" width="120" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="326" font-size="17" font-weight="700" fill="#1e40af" text-anchor="middle">가입</text>
 
-  <!-- 소비자 (오른쪽, 초록) -->
-  <!-- 재고 -->
-  <rect x="710" y="60" width="80" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="750" y="82.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">재고</text>
+  <!-- 가운데 로그 -->
+  <rect x="330" y="186" width="220" height="100" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2.2"/>
+  <text x="440" y="243" font-size="21" font-weight="700" fill="#5b21b6" text-anchor="middle">Kafka 토픽들</text>
 
-  <!-- 배송 -->
-  <rect x="710" y="110" width="80" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="750" y="132.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">배송</text>
+  <!-- 소비자 -->
+  <rect x="680" y="104" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="740" y="130" font-size="16" font-weight="700" fill="#064e3b" text-anchor="middle">재고</text>
+  <rect x="680" y="160" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="740" y="186" font-size="16" font-weight="700" fill="#064e3b" text-anchor="middle">배송</text>
+  <rect x="680" y="216" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="740" y="242" font-size="16" font-weight="700" fill="#064e3b" text-anchor="middle">알림</text>
+  <rect x="680" y="272" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="740" y="298" font-size="16" font-weight="700" fill="#064e3b" text-anchor="middle">분석</text>
+  <rect x="680" y="328" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="740" y="354" font-size="16" font-weight="700" fill="#064e3b" text-anchor="middle">추천</text>
 
-  <!-- 알림 -->
-  <rect x="710" y="160" width="80" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="750" y="182.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">알림</text>
-
-  <!-- 분석 -->
-  <rect x="710" y="210" width="80" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="750" y="232.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">분석</text>
-
-  <!-- 추천 -->
-  <rect x="710" y="260" width="80" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="750" y="282.55" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">추천</text>
-
-  <!-- 생산자 -> Kafka 토픽들 연결선 및 화살표 -->
-  <!-- 주문 ──┐ -->
-  <path d="M130,100 L230,100 L230,170" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <!-- 결제 ──┼──> -->
-  <path d="M130,170 L330,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 가입 ──┘ -->
-  <path d="M130,240 L230,240 L230,170" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-
-  <!-- Kafka 토픽들 -> 소비자 연결선 및 화살표 -->
-  <!-- ├──> 재고 -->
-  <path d="M510,170 L610,170 L610,78 L710,78" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- ├──> 배송 -->
-  <path d="M610,128 L710,128" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- ├──> 알림 -->
-  <path d="M510,170 L710,170" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- ├──> 분석 -->
-  <path d="M610,228 L710,228" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- └──> 추천 -->
-  <path d="M510,170 L610,170 L610,278 L710,278" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- 하단 텍스트 -->
-  <text x="50" y="334.02" fill="#52606d" font-size="11.5">생산자는 "무슨 일이 일어났는지"만 기록한다</text>
-  <text x="50" y="359.02" fill="#52606d" font-size="11.5">누가 읽는지는 알 필요도, 알 방법도 없다</text>
+  <!-- 핵심 -->
+  <rect x="80" y="388" width="720" height="68" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="440" y="416" font-size="16" fill="#1f2937" text-anchor="middle"><tspan font-weight="700">생산자</tspan>는 "무슨 일이 일어났는지"만 기록한다</text>
+  <text x="440" y="442" font-size="16" fill="#1f2937" text-anchor="middle">누가 읽는지는 알 필요도, 알 방법도 없다</text>
 </svg>

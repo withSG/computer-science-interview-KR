@@ -1,70 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">최소 연결 (Least Connections)</title>
-  <desc id="d">라운드 로빈과 최소 연결 알고리즘의 요청 분산 방식 및 결과 비교 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 350" width="880" height="350" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">라운드 로빈과 최소 연결의 분배 비교</title>
+  <desc id="d">리포트생성(8초)과 조회(10ms)가 번갈아 들어올 때, 라운드 로빈은 요청 수는 반반이지만 리포트가 서버1에 몰려 부하가 완전히 기울고, 최소 연결은 무거운 요청을 자동으로 분산한다.</desc>
+  <rect width="880" height="350" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- 상단 요청 패턴 영역 -->
-  <rect x="40" y="25" width="800" height="45" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="60" y="52" font-size="13" font-weight="bold" fill="#1f2933">요청 패턴:</text>
-  
-  <rect x="140" y="34" width="125" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="202.5" y="51" font-size="12" fill="#d97706" text-anchor="middle">리포트생성 8초</text>
-  
-  <rect x="275" y="34" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="315" y="51" font-size="12" fill="#2563eb" text-anchor="middle">조회 10ms</text>
-  
-  <rect x="365" y="34" width="125" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="427.5" y="51" font-size="12" fill="#d97706" text-anchor="middle">리포트생성 8초</text>
-  
-  <rect x="500" y="34" width="80" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="540" y="51" font-size="12" fill="#2563eb" text-anchor="middle">조회 10ms</text>
-  
-  <text x="590" y="52" font-size="14" font-weight="bold" fill="#52606d">...</text>
+  <!-- 요청 패턴 -->
+  <text x="24" y="63" font-size="16" font-weight="700" fill="#111827">요청 패턴</text>
+  <rect x="110" y="40" width="128" height="36" rx="6" fill="#c2410c"/>
+  <text x="174" y="63" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">리포트생성 8초</text>
+  <rect x="248" y="40" width="96" height="36" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="296" y="63" font-size="15" fill="#1e3a8a" text-anchor="middle">조회 10ms</text>
+  <rect x="354" y="40" width="128" height="36" rx="6" fill="#c2410c"/>
+  <text x="418" y="63" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">리포트생성 8초</text>
+  <rect x="492" y="40" width="96" height="36" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="540" y="63" font-size="15" fill="#1e3a8a" text-anchor="middle">조회 10ms</text>
+  <text x="600" y="63" font-size="16" fill="#4b5563">…</text>
 
-  <!-- 왼쪽: 라운드 로빈 섹션 -->
-  <rect x="40" y="90" width="385" height="225" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="none"/>
-  <text x="60" y="120" font-size="16" font-weight="bold" fill="#dc2626">라운드 로빈</text>
+  <!-- 라운드 로빈 패널 -->
+  <rect x="24" y="100" width="408" height="226" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="42" y="131" font-size="18" font-weight="700" fill="#111827">라운드 로빈</text>
+  <line x1="24" y1="146" x2="432" y2="146" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <!-- 라운드 로빈 서버1 -->
-  <text x="60" y="162" font-size="13" font-weight="bold" fill="#1f2933">서버1</text>
-  <path d="M125,158 L105,158" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="135" y="162" font-size="13" fill="#1f2933">리포트, 리포트, 리포트 …</text>
+  <rect x="40" y="162" width="60" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="70" y="187" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">서버1</text>
+  <line x1="134" y1="182" x2="106" y2="182" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="140" y="165" width="70" height="34" rx="6" fill="#c2410c"/>
+  <text x="175" y="187" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">리포트</text>
+  <rect x="216" y="165" width="70" height="34" rx="6" fill="#c2410c"/>
+  <text x="251" y="187" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">리포트</text>
+  <rect x="292" y="165" width="70" height="34" rx="6" fill="#c2410c"/>
+  <text x="327" y="187" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">리포트</text>
+  <text x="370" y="187" font-size="16" fill="#4b5563">…</text>
 
-  <!-- 라운드 로빈 서버2 -->
-  <text x="60" y="212" font-size="13" font-weight="bold" fill="#1f2933">서버2</text>
-  <path d="M125,208 L105,208" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="135" y="212" font-size="13" fill="#1f2933">조회, 조회, 조회 …</text>
+  <rect x="40" y="214" width="60" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="70" y="239" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">서버2</text>
+  <line x1="134" y1="234" x2="106" y2="234" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="140" y="217" width="54" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="167" y="239" font-size="15" fill="#1e3a8a" text-anchor="middle">조회</text>
+  <rect x="200" y="217" width="54" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="227" y="239" font-size="15" fill="#1e3a8a" text-anchor="middle">조회</text>
+  <rect x="260" y="217" width="54" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="287" y="239" font-size="15" fill="#1e3a8a" text-anchor="middle">조회</text>
+  <text x="322" y="239" font-size="16" fill="#4b5563">…</text>
 
-  <!-- 라운드 로빈 하단 결론 -->
-  <line x1="60" y1="250" x2="405" y2="250" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="60" y="280" font-size="13" font-weight="bold" fill="#dc2626">요청 수는 반반, 부하는 완전히 기움</text>
+  <rect x="40" y="270" width="376" height="40" rx="6" fill="#fef2f2" stroke="#fca5a5"/>
+  <text x="228" y="295" font-size="16" font-weight="700" fill="#b91c1c" text-anchor="middle">요청 수는 반반, 부하는 완전히 기움</text>
 
-  <!-- 오른쪽: 최소 연결 섹션 -->
-  <rect x="455" y="90" width="385" height="225" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="475" y="120" font-size="16" font-weight="bold" fill="#059669">최소 연결</text>
+  <!-- 최소 연결 패널 -->
+  <rect x="448" y="100" width="408" height="226" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="466" y="131" font-size="18" font-weight="700" fill="#111827">최소 연결</text>
+  <line x1="448" y1="146" x2="856" y2="146" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <!-- 최소 연결 서버1 -->
-  <text x="475" y="162" font-size="13" font-weight="bold" fill="#1f2933">서버1</text>
-  <path d="M540,158 L520,158" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="550" y="162" font-size="13" fill="#1f2933">리포트 (연결 1개 점유 중)</text>
+  <rect x="464" y="162" width="60" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="494" y="187" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">서버1</text>
+  <line x1="558" y1="182" x2="530" y2="182" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="564" y="165" width="70" height="34" rx="6" fill="#c2410c"/>
+  <text x="599" y="187" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">리포트</text>
+  <text x="644" y="187" font-size="15" fill="#4b5563">(연결 1개 점유 중)</text>
 
-  <!-- 최소 연결 서버2 -->
-  <text x="475" y="212" font-size="13" font-weight="bold" fill="#1f2933">서버2</text>
-  <path d="M540,208 L520,208" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="550" y="212" font-size="13" fill="#1f2933">조회, 조회, 조회, 리포트 …</text>
+  <rect x="464" y="214" width="60" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="494" y="239" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">서버2</text>
+  <line x1="558" y1="234" x2="530" y2="234" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="564" y="217" width="54" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="591" y="239" font-size="15" fill="#1e3a8a" text-anchor="middle">조회</text>
+  <rect x="624" y="217" width="54" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="651" y="239" font-size="15" fill="#1e3a8a" text-anchor="middle">조회</text>
+  <rect x="684" y="217" width="54" height="34" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+  <text x="711" y="239" font-size="15" fill="#1e3a8a" text-anchor="middle">조회</text>
+  <rect x="744" y="217" width="70" height="34" rx="6" fill="#c2410c"/>
+  <text x="779" y="239" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">리포트</text>
+  <text x="822" y="239" font-size="16" fill="#4b5563">…</text>
 
-  <!-- 최소 연결 하단 결론 -->
-  <line x1="475" y1="250" x2="820" y2="250" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="475" y="280" font-size="13" font-weight="bold" fill="#059669">무거운 요청이 자동으로 분산된다</text>
+  <rect x="464" y="270" width="376" height="40" rx="6" fill="#ecfdf5" stroke="#6ee7b7"/>
+  <text x="652" y="295" font-size="16" font-weight="700" fill="#047857" text-anchor="middle">무거운 요청이 자동으로 분산된다</text>
 </svg>

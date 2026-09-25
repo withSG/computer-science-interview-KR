@@ -1,66 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Canary — 일부에게만 먼저 보낸다</title>
-  <desc id="d">Load Balancer에서 v1(안정)에 95%, v2(카나리)에 5% 트래픽을 전달하고, 메트릭 비교 결과에 따라 정상 시 트래픽을 늘리거나 이상 시 즉시 0%로 롤백하는 Canary 배포 구조도입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Canary 배포 흐름</title>
+  <desc id="d">Load Balancer가 트래픽 95%를 v1(안정)으로, 5%를 v2(카나리)로 보낸다. 에러율, P99 지연, 비즈니스 지표를 비교해 정상이면 25%, 50%, 100%로 늘리고 이상이면 즉시 0%로 되돌린다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="3" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ar-amber" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    </marker>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="ar-green" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="440" fill="#ffffff"/>
-
   <!-- Load Balancer -->
-  <rect x="350" y="30" width="180" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="60.5" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">Load Balancer</text>
+  <rect x="340" y="24" width="200" height="52" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="440" y="56" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">Load Balancer</text>
 
-  <!-- LB -> v1 (95%) Line -->
-  <path d="M 440,80 L 440,110 L 260,110 L 260,150" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="325" y="99" width="40" height="22" fill="#ffffff"/>
-  <text x="345" y="114.5" font-size="13" fill="#1f2933" text-anchor="middle" font-weight="bold">95%</text>
+  <!-- 트래픽 분배 (선 굵기 = 비율) -->
+  <path d="M440,104 H630 V146" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#ar-amber)"/>
+  <path d="M440,76 V104 H250 V136" fill="none" stroke="#2563eb" stroke-width="6" marker-end="url(#ar-blue)"/>
+  <text x="268" y="136" font-size="20" font-weight="bold" fill="#1d4ed8">95%</text>
+  <text x="644" y="136" font-size="20" font-weight="bold" fill="#b45309">5%</text>
 
-  <!-- LB -> v2 (5%) Line -->
-  <path d="M 440,80 L 440,110 L 620,110 L 620,150" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="515" y="99" width="30" height="22" fill="#ffffff"/>
-  <text x="530" y="114.5" font-size="13" fill="#1f2933" text-anchor="middle" font-weight="bold">5%</text>
+  <!-- v1 / v2 -->
+  <rect x="150" y="150" width="200" height="52" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="250" y="182" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d4ed8">v1 (안정)</text>
+  <rect x="530" y="150" width="200" height="52" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="630" y="182" text-anchor="middle" font-size="18" font-weight="bold" fill="#b45309">v2 (카나리)</text>
 
-  <!-- v1 (안정) -->
-  <rect x="180" y="150" width="160" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="260" y="180.5" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">v1 (안정)</text>
+  <!-- 두 버전 메트릭을 모아 비교 -->
+  <line x1="250" y1="206" x2="250" y2="240" stroke="#6b7280" stroke-width="2" marker-end="url(#ar-gray)"/>
+  <line x1="630" y1="206" x2="630" y2="240" stroke="#6b7280" stroke-width="2" marker-end="url(#ar-gray)"/>
+  <rect x="170" y="244" width="540" height="76" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="2"/>
+  <text x="440" y="274" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">메트릭 비교</text>
+  <text x="440" y="303" text-anchor="middle" font-size="16" fill="#374151">에러율, P99 지연, 비즈니스 지표</text>
 
-  <!-- v2 (카나리) -->
-  <rect x="540" y="150" width="160" height="50" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="620" y="180.5" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">v2 (카나리)</text>
+  <!-- 판정 분기 -->
+  <line x1="440" y1="320" x2="440" y2="344" stroke="#6b7280" stroke-width="2"/>
+  <path d="M440,344 H250 V376" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#ar-green)"/>
+  <path d="M440,344 H630 V376" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ar-red)"/>
 
-  <!-- v2 -> 메트릭 비교 Line -->
-  <path d="M 620,200 L 620,230" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 정상: 단계적으로 늘림 -->
+  <rect x="90" y="380" width="320" height="104" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="250" y="410" text-anchor="middle" font-size="18" font-weight="bold" fill="#047857">정상</text>
+  <rect x="118" y="428" width="64" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="150" y="453" text-anchor="middle" font-size="16" font-weight="bold" fill="#047857">25%</text>
+  <line x1="186" y1="447" x2="212" y2="447" stroke="#059669" stroke-width="2" marker-end="url(#ar-green)"/>
+  <rect x="216" y="428" width="64" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="248" y="453" text-anchor="middle" font-size="16" font-weight="bold" fill="#047857">50%</text>
+  <line x1="284" y1="447" x2="310" y2="447" stroke="#059669" stroke-width="2" marker-end="url(#ar-green)"/>
+  <rect x="314" y="428" width="76" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="352" y="453" text-anchor="middle" font-size="16" font-weight="bold" fill="#047857">100%</text>
 
-  <!-- 메트릭 비교 라벨 -->
-  <text x="620" y="248.5" font-size="13" fill="#52606d" text-anchor="middle">메트릭 비교: 에러율, P99 지연, 비즈니스 지표</text>
-
-  <!-- 메트릭 비교 -> 결정 분기 Line -->
-  <path d="M 620,260 L 620,290 L 440,290" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-
-  <!-- 정상 분기 Line -->
-  <path d="M 440,290 L 260,290 L 260,340" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- 이상 분기 Line -->
-  <path d="M 440,290 L 620,290 L 620,340" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- 정상 결과 -->
-  <rect x="80" y="340" width="360" height="50" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="260" y="370.5" font-size="14" fill="#059669" text-anchor="middle" font-weight="bold">정상 → 25% → 50% → 100%</text>
-
-  <!-- 이상 결과 -->
-  <rect x="510" y="340" width="220" height="50" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="620" y="370.5" font-size="14" fill="#dc2626" text-anchor="middle" font-weight="bold">이상 → 즉시 0%로</text>
+  <!-- 이상: 즉시 되돌림 -->
+  <rect x="500" y="380" width="260" height="104" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="630" y="410" text-anchor="middle" font-size="18" font-weight="bold" fill="#b91c1c">이상</text>
+  <text x="630" y="455" text-anchor="middle" font-size="22" font-weight="bold" fill="#b91c1c">즉시 0%로</text>
 </svg>

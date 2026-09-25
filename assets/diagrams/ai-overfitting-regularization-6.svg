@@ -1,128 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">유형 1 — 전처리를 분할 전에 수행</title>
-  <desc id="d">안티패턴과 개선된 데이터 전처리 분할 프로세스를 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">전처리 누수: 분할 전 fit과 분할 후 fit</title>
+  <desc id="d">안티패턴은 전체 데이터로 StandardScaler.fit()을 먼저 한 뒤 분할해 학습셋과 검증셋을 transform하므로 검증셋의 평균·분산이 스케일러에 섞인다. 개선안은 먼저 분할하고 학습셋에서만 fit_transform(), 검증셋은 transform()만 한다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="570" fill="#ffffff"/>
+  <!-- ===== 안티패턴 ===== -->
+  <rect x="24" y="24" width="832" height="264" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="48" y="56" font-size="18" font-weight="bold" fill="#b91c1c">[안티패턴] 전체 데이터로 스케일러를 먼저 학습</text>
 
-  <!-- ==================== SECTION 1: ANTIPATTERN ==================== -->
-  <rect x="24" y="24" width="832" height="246" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="44" y="52" font-size="16" font-weight="bold" fill="#dc2626">[안티패턴] 전체 데이터로 스케일러를 먼저 학습</text>
+  <rect x="48" y="80" width="120" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="108" y="108" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">전체 데이터</text>
 
-  <!-- Nodes Section 1 -->
-  <!-- 전체 데이터 -->
-  <rect x="54" y="90" width="130" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="119" y="114" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">전체 데이터</text>
+  <line x1="168" y1="102" x2="328" y2="102" stroke="#b91c1c" stroke-width="2" marker-end="url(#red)"/>
 
-  <!-- StandardScaler.fit() -->
-  <rect x="284" y="90" width="200" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="384" y="114" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">StandardScaler.fit()</text>
+  <rect x="332" y="80" width="240" height="44" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <circle cx="352" cy="102" r="11" fill="#b91c1c"/>
+  <text x="352" y="107" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="372" y="107" font-size="15" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">StandardScaler.fit()</text>
+  <text x="588" y="107" font-size="15" font-weight="bold" fill="#b91c1c">← 검증셋의 평균·분산이 여기 섞인다</text>
 
-  <!-- Comment 1 -->
-  <text x="504" y="114" font-size="13" fill="#dc2626">← 검증셋의 평균·분산이 여기 섞인다</text>
+  <path d="M108,124 V210 H192" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <rect x="196" y="190" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="216" cy="210" r="11" fill="#b91c1c"/>
+  <text x="216" y="215" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="236" y="216" font-size="16" font-weight="bold" fill="#111827">분할</text>
 
-  <!-- 분할 -->
-  <rect x="184" y="160" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="224" y="182" font-size="13" fill="#1f2933" text-anchor="middle">분할</text>
+  <path d="M292,210 H312 V180 H328" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <path d="M312,210 V240 H328" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
 
-  <!-- 학습셋 -->
-  <rect x="304" y="150" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="344" y="172" font-size="13" fill="#1f2933" text-anchor="middle">학습셋</text>
+  <rect x="332" y="160" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="380" y="186" font-size="16" fill="#111827" text-anchor="middle">학습셋</text>
+  <rect x="332" y="220" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="380" y="246" font-size="16" fill="#111827" text-anchor="middle">검증셋</text>
 
-  <!-- 검증셋 -->
-  <rect x="304" y="200" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="344" y="222" font-size="13" fill="#1f2933" text-anchor="middle">검증셋</text>
+  <line x1="428" y1="180" x2="496" y2="180" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <line x1="428" y1="240" x2="496" y2="240" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <line x1="466" y1="124" x2="466" y2="240" stroke="#b91c1c" stroke-width="2.5"/>
+  <circle cx="466" cy="180" r="5" fill="#b91c1c"/>
+  <circle cx="466" cy="240" r="5" fill="#b91c1c"/>
 
-  <!-- transform 1 (학습셋) -->
-  <rect x="474" y="150" width="100" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="524" y="172" font-size="13" fill="#1f2933" text-anchor="middle">transform</text>
+  <rect x="500" y="160" width="112" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="556" y="185" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">transform</text>
+  <rect x="500" y="220" width="112" height="40" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="556" y="245" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">transform</text>
+  <text x="628" y="245" font-size="15" font-weight="bold" fill="#b91c1c">← 자기 정보를 이미 본 스케일러</text>
 
-  <!-- transform 2 (검증셋) -->
-  <rect x="474" y="200" width="100" height="36" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="524" y="222" font-size="13" fill="#dc2626" text-anchor="middle">transform</text>
+  <!-- ===== 개선 ===== -->
+  <rect x="24" y="312" width="832" height="184" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="48" y="344" font-size="18" font-weight="bold" fill="#047857">[개선] 분할이 먼저, fit은 학습셋에서만</text>
 
-  <!-- Comment 2 -->
-  <text x="590" y="222" font-size="13" fill="#dc2626">(자기 정보를 이미 본 스케일러)</text>
+  <rect x="48" y="396" width="120" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="108" y="424" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">전체 데이터</text>
+  <line x1="168" y1="418" x2="192" y2="418" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
 
-  <!-- Arrows & Paths Section 1 -->
-  <!-- 전체 데이터 ──> StandardScaler.fit() -->
-  <path d="M184,110 L284,110" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="196" y="398" width="96" height="40" rx="6" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <circle cx="216" cy="418" r="11" fill="#047857"/>
+  <text x="216" y="423" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="236" y="424" font-size="16" font-weight="bold" fill="#047857">분할</text>
 
-  <!-- 전체 데이터 └─> 분할 -->
-  <path d="M119,130 L119,178 L184,178" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M292,418 H312 V388 H328" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <path d="M312,418 V448 H328" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
 
-  <!-- 분할 ─> 학습셋 -->
-  <path d="M264,168 L304,168" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="332" y="368" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="380" y="394" font-size="16" fill="#111827" text-anchor="middle">학습셋</text>
+  <rect x="332" y="428" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="380" y="454" font-size="16" fill="#111827" text-anchor="middle">검증셋</text>
 
-  <!-- 분할 ─> 검증셋 -->
-  <path d="M264,188 L274,188 L274,218 L304,218" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="428" y1="388" x2="496" y2="388" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <line x1="428" y1="448" x2="496" y2="448" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
 
-  <!-- 학습셋 ──> transform -->
-  <path d="M384,168 L474,168" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 검증셋 ─────> transform -->
-  <path d="M384,218 L474,218" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- StandardScaler.fit() ──┴──> transform connections -->
-  <path d="M384,130 L384,150" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <path d="M429,130 L429,200" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-
-  <!-- ==================== SECTION 2: IMPROVEMENT ==================== -->
-  <rect x="24" y="294" width="832" height="252" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="44" y="322" font-size="16" font-weight="bold" fill="#059669">[개선] 분할이 먼저, fit은 학습셋에서만</text>
-
-  <!-- Nodes Section 2 -->
-  <!-- 전체 데이터 -->
-  <rect x="54" y="380" width="130" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="119" y="404" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">전체 데이터</text>
-
-  <!-- 분할 -->
-  <rect x="224" y="380" width="80" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="264" y="404" font-size="13" fill="#1f2933" text-anchor="middle">분할</text>
-
-  <!-- 학습셋 -->
-  <rect x="364" y="350" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="404" y="372" font-size="13" fill="#1f2933" text-anchor="middle">학습셋</text>
-
-  <!-- 검증셋 -->
-  <rect x="364" y="430" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="404" y="452" font-size="13" fill="#1f2933" text-anchor="middle">검증셋</text>
-
-  <!-- fit_transform() -->
-  <rect x="494" y="350" width="140" height="36" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="564" y="372" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">fit_transform()</text>
-
-  <!-- transform() -->
-  <rect x="494" y="430" width="140" height="36" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="564" y="452" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">transform()</text>
-
-  <!-- Comment 3 -->
-  <text x="650" y="452" font-size="13" fill="#059669">(fit 하지 않는다)</text>
-
-  <!-- Arrows & Paths Section 2 -->
-  <!-- 전체 데이터 ─ 분할 -->
-  <path d="M184,400 L224,400" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-
-  <!-- 분할 ─┬─> 학습셋 -->
-  <path d="M304,400 L324,400 L324,368 L364,368" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- 분할 └─> 검증셋 -->
-  <path d="M324,400 L324,448 L364,448" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- 학습셋 ──> fit_transform() -->
-  <path d="M444,368 L494,368" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- 검증셋 ──> transform() -->
-  <path d="M444,448 L494,448" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="500" y="368" width="200" height="40" rx="6" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <circle cx="520" cy="388" r="11" fill="#047857"/>
+  <text x="520" y="393" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="540" y="393" font-size="15" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">fit_transform()</text>
+  <rect x="500" y="428" width="200" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="600" y="453" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">transform()</text>
+  <text x="716" y="453" font-size="15" font-weight="bold" fill="#047857">← fit 하지 않는다</text>
 </svg>

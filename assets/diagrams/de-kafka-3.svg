@@ -1,111 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">토픽은 파티션으로 쪼개진다</title>
-  <desc id="d">Topic orders의 Partition 0, 1, 2와 offset, append 및 다음 쓰기 위치를 나타내는 다이어그램</desc>
+  <desc id="d">토픽 orders를 파티션 3개로 나눈 모습. 각 파티션은 offset 0부터 따로 번호가 붙는 append-only 로그로, Partition 0은 0~5, Partition 1은 0~3, Partition 2는 0~7까지 쌓였고 새 레코드는 끝의 다음 쓰기 위치에만 덧붙는다.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="mb" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="mo" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="430" fill="#ffffff"/>
-
-  <!-- 메인 영역 박스 (Topic: orders) -->
-  <rect x="24" y="20" width="832" height="230" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  
-  <!-- Topic Header -->
-  <text x="44" y="52" font-size="16" font-weight="bold" fill="#1f2933">Topic: orders (partition 3개)</text>
+  <!-- 토픽 -->
+  <rect x="24" y="16" width="832" height="284" rx="10" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="48" y="48" font-size="18" font-weight="700" fill="#111827">Topic: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">orders</tspan> <tspan font-weight="400" fill="#374151">(partition 3개)</tspan></text>
 
   <!-- Partition 0 -->
-  <g transform="translate(44, 70)">
-    <text x="0" y="24" font-size="13" font-weight="bold" fill="#1f2933">Partition 0 :</text>
-    
-    <!-- Offset Blocks -->
-    <rect x="100" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="116" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[0]</text>
-
-    <rect x="136" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="152" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-
-    <rect x="172" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="188" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[2]</text>
-
-    <rect x="208" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="224" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[3]</text>
-
-    <rect x="244" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="260" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[4]</text>
-
-    <rect x="280" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="296" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[5]</text>
-
-    <!-- Arrow & Append Label -->
-    <path d="M320,16 L380,16" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <text x="390" y="20" font-size="13" fill="#2563eb">뒤에만 append</text>
-
-    <!-- Next write location Arrow & Label -->
-    <path d="M304,60 L304,38" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-    <text x="316" y="58" font-size="13" fill="#d97706">다음 쓰기 위치</text>
+  <text x="48" y="100" font-size="16" font-weight="700" fill="#1f2937">Partition 0</text>
+  <g fill="#dbeafe" stroke="#2563eb" stroke-width="1.5">
+    <rect x="180" y="72" width="48" height="44" rx="4"/>
+    <rect x="234" y="72" width="48" height="44" rx="4"/>
+    <rect x="288" y="72" width="48" height="44" rx="4"/>
+    <rect x="342" y="72" width="48" height="44" rx="4"/>
+    <rect x="396" y="72" width="48" height="44" rx="4"/>
+    <rect x="450" y="72" width="48" height="44" rx="4"/>
   </g>
+  <g font-size="18" font-weight="700" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="204" y="100">0</text>
+    <text x="258" y="100">1</text>
+    <text x="312" y="100">2</text>
+    <text x="366" y="100">3</text>
+    <text x="420" y="100">4</text>
+    <text x="474" y="100">5</text>
+  </g>
+  <rect x="504" y="72" width="48" height="44" rx="4" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <path d="M562,94 L614,94" stroke="#1d4ed8" stroke-width="2.2" fill="none" marker-end="url(#mb)"/>
+  <text x="626" y="100" font-size="16" font-weight="700" fill="#1d4ed8">뒤에만 append</text>
+  <path d="M528,158 L528,124" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#mo)"/>
+  <text x="542" y="152" font-size="15" font-weight="700" fill="#b45309">다음 쓰기 위치</text>
 
   <!-- Partition 1 -->
-  <g transform="translate(44, 145)">
-    <text x="0" y="24" font-size="13" font-weight="bold" fill="#1f2933">Partition 1 :</text>
-    
-    <!-- Offset Blocks -->
-    <rect x="100" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="116" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[0]</text>
-
-    <rect x="136" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="152" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-
-    <rect x="172" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="188" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[2]</text>
-
-    <rect x="208" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="224" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[3]</text>
+  <text x="48" y="192" font-size="16" font-weight="700" fill="#1f2937">Partition 1</text>
+  <g fill="#dbeafe" stroke="#2563eb" stroke-width="1.5">
+    <rect x="180" y="164" width="48" height="44" rx="4"/>
+    <rect x="234" y="164" width="48" height="44" rx="4"/>
+    <rect x="288" y="164" width="48" height="44" rx="4"/>
+    <rect x="342" y="164" width="48" height="44" rx="4"/>
+  </g>
+  <g font-size="18" font-weight="700" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="204" y="192">0</text>
+    <text x="258" y="192">1</text>
+    <text x="312" y="192">2</text>
+    <text x="366" y="192">3</text>
   </g>
 
   <!-- Partition 2 -->
-  <g transform="translate(44, 195)">
-    <text x="0" y="24" font-size="13" font-weight="bold" fill="#1f2933">Partition 2 :</text>
-    
-    <!-- Offset Blocks -->
-    <rect x="100" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="116" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[0]</text>
-
-    <rect x="136" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="152" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-
-    <rect x="172" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="188" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[2]</text>
-
-    <rect x="208" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="224" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[3]</text>
-
-    <rect x="244" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="260" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[4]</text>
-
-    <rect x="280" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="296" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[5]</text>
-
-    <rect x="316" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="332" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[6]</text>
-
-    <rect x="352" y="0" width="32" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="368" y="21" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[7]</text>
+  <text x="48" y="260" font-size="16" font-weight="700" fill="#1f2937">Partition 2</text>
+  <g fill="#dbeafe" stroke="#2563eb" stroke-width="1.5">
+    <rect x="180" y="232" width="48" height="44" rx="4"/>
+    <rect x="234" y="232" width="48" height="44" rx="4"/>
+    <rect x="288" y="232" width="48" height="44" rx="4"/>
+    <rect x="342" y="232" width="48" height="44" rx="4"/>
+    <rect x="396" y="232" width="48" height="44" rx="4"/>
+    <rect x="450" y="232" width="48" height="44" rx="4"/>
+    <rect x="504" y="232" width="48" height="44" rx="4"/>
+    <rect x="558" y="232" width="48" height="44" rx="4"/>
+  </g>
+  <g font-size="18" font-weight="700" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="204" y="260">0</text>
+    <text x="258" y="260">1</text>
+    <text x="312" y="260">2</text>
+    <text x="366" y="260">3</text>
+    <text x="420" y="260">4</text>
+    <text x="474" y="260">5</text>
+    <text x="528" y="260">6</text>
+    <text x="582" y="260">7</text>
   </g>
 
-  <!-- 하단 설명 영역 (Note Box) -->
-  <rect x="24" y="270" width="832" height="140" rx="6" fill="#fffbeb" stroke="#cbd2d9" stroke-width="1.5"/>
-
-  <g transform="translate(44, 280)">
-    <text x="0" y="24" font-size="13" font-weight="bold" fill="#d97706">대괄호 안 숫자 = offset (파티션 안에서의 순번)</text>
-    <text x="0" y="52" font-size="13" fill="#52606d">- offset은 파티션마다 독립적으로 0부터 증가한다</text>
-    <text x="0" y="78" font-size="13" fill="#52606d">- 한 번 쓰인 레코드는 수정되지 않는다 (append-only)</text>
-    <text x="0" y="104" font-size="13" fill="#52606d">- 소비해도 지워지지 않는다. 보존 기간이 지나야 삭제된다</text>
-  </g>
+  <!-- 설명 -->
+  <rect x="24" y="316" width="832" height="140" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="48" y="330" width="34" height="30" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="65" y="351" font-size="16" font-weight="700" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">3</text>
+  <text x="94" y="351" font-size="16" font-weight="700" fill="#111827">칸 안 숫자 = offset <tspan font-weight="400" fill="#374151">(파티션 안에서의 순번)</tspan></text>
+  <text x="48" y="386" font-size="15" fill="#1f2937">• offset은 파티션마다 독립적으로 0부터 증가한다</text>
+  <text x="48" y="412" font-size="15" fill="#1f2937">• 한 번 쓰인 레코드는 수정되지 않는다 (append-only)</text>
+  <text x="48" y="438" font-size="15" fill="#1f2937">• 소비해도 지워지지 않는다. 보존 기간이 지나야 삭제된다</text>
 </svg>

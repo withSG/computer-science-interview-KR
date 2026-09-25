@@ -1,56 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">6. 로드 밸런서 자신은 누가 지키나 - Active-Standby 고가용성 구조</title>
-  <desc id="d">Active-Standby 구성에서 Virtual IP를 이용한 로드 밸런서 장애 조치 과정과 동작 설명</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Active-Standby 로드 밸런서의 VIP 넘기기</title>
+  <desc id="d">평상시에는 LB-A(Active)가 VIP 203.0.113.10을 보유하고 LB-B(Standby)가 A 신호를 감시한다. A가 죽으면 B가 신호 끊김을 감지해 VIP를 가져오므로 클라이언트는 같은 주소로 계속 접속하지만, 전환 순간 짧은 끊김은 있다.</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
+    </marker>
+    <marker id="ar-big" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="380" fill="#ffffff"/>
+  <!-- 머리 -->
+  <rect x="24" y="22" width="172" height="34" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="110" y="45" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Active-Standby</text>
+  <text x="212" y="46" font-size="18" font-weight="bold" fill="#111827">가상 IP(VIP)를 넘긴다</text>
 
-  <!-- Top Title / Section Subheading -->
-  <text x="30" y="35" font-size="16" font-weight="bold" fill="#1f2933">6. 로드 밸런서 자신은 누가 지키나</text>
+  <!-- ===== 패널 1: 평상시 ===== -->
+  <rect x="24" y="72" width="394" height="364" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="42" y="104" font-size="17" font-weight="bold" fill="#111827">평상시</text>
 
-  <!-- Top Context Header -->
-  <text x="210" y="70" font-size="14" font-weight="bold" fill="#1f2933">[Active-Standby]</text>
-  <text x="330" y="70" font-size="13" fill="#52606d">가상 IP(VIP)를 넘긴다</text>
+  <rect x="153" y="120" width="136" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="221" y="146" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">클라이언트</text>
+  <path d="M221,160 V186" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="121" y="190" width="200" height="40" rx="20" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="221" y="216" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">VIP 203.0.113.10</text>
 
-  <!-- Client Box -->
-  <rect x="200" y="95" width="105" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="252" y="116" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">클라이언트</text>
+  <path d="M221,230 V250 H125 V278" fill="none" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ar-blue)"/>
+  <path d="M221,250 H317 V278" fill="none" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#ar-gray)"/>
 
-  <!-- Arrow: Client -> VIP -->
-  <path d="M305,112 L350,112" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="38" y="284" width="174" height="136" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="125" y="312" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">LB-A (Active)</text>
+  <text x="125" y="338" font-size="15" fill="#374151" text-anchor="middle">실제 10.0.0.11</text>
+  <rect x="77" y="352" width="96" height="28" rx="14" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="125" y="371" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">VIP 보유</text>
 
-  <!-- VIP Text -->
-  <text x="362" y="116" font-size="13" font-weight="bold" fill="#1f2933">VIP 203.0.113.10</text>
+  <rect x="230" y="284" width="174" height="136" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="317" y="312" font-size="16" font-weight="bold" fill="#4b5563" text-anchor="middle">LB-B (Standby)</text>
+  <text x="317" y="338" font-size="15" fill="#374151" text-anchor="middle">실제 10.0.0.12</text>
+  <text x="317" y="371" font-size="15" fill="#4b5563" text-anchor="middle">"A 신호 감시 중"</text>
 
-  <!-- Split Lines to LB-A & LB-B -->
-  <path d="M420,126 L420,145 L252,145 L252,165" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M420,145 L627,145 L627,165" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 패널 사이 화살표 -->
+  <path d="M426,254 H452" fill="none" stroke="#4b5563" stroke-width="4" marker-end="url(#ar-big)"/>
 
-  <!-- LB-A (Active) Box -->
-  <rect x="172" y="165" width="160" height="80" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="252" y="188" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">LB-A (Active)</text>
-  <text x="252" y="210" font-size="13" fill="#1f2933" text-anchor="middle">실제 10.0.0.11</text>
-  <text x="252" y="231" font-size="13" fill="#52606d" text-anchor="middle">VIP 보유</text>
+  <!-- ===== 패널 2: A가 죽으면 ===== -->
+  <rect x="462" y="72" width="394" height="364" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="480" y="104" font-size="17" font-weight="bold" fill="#b91c1c">A가 죽으면</text>
 
-  <!-- LB-B (Standby) Box -->
-  <rect x="532" y="165" width="190" height="80" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="627" y="188" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">LB-B (Standby)</text>
-  <text x="627" y="210" font-size="13" fill="#1f2933" text-anchor="middle">실제 10.0.0.12</text>
-  <text x="627" y="231" font-size="13" fill="#52606d" text-anchor="middle">"A 신호 감시 중"</text>
+  <rect x="591" y="120" width="136" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="659" y="146" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">클라이언트</text>
+  <path d="M659,160 V186" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="559" y="190" width="200" height="40" rx="20" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="659" y="216" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">VIP 203.0.113.10</text>
 
-  <!-- Explanatory Bullet Points -->
-  <g fill="#1f2933" font-size="13">
-    <text x="172" y="285">A가 죽으면 → B가 신호 끊김을 감지 → VIP를 자신이 가져옴</text>
-    <text x="172" y="310">→ 클라이언트는 여전히 203.0.113.10으로 접속. 주소가 바뀌지 않는다</text>
-    <text x="172" y="335">→ 전환 순간 짧은 끊김은 있다</text>
-  </g>
+  <path d="M659,230 V250 H755 V278" fill="none" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ar-blue)"/>
+  <path d="M659,250 H563 V278" fill="none" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#ar-gray)"/>
+
+  <rect x="476" y="284" width="174" height="136" rx="8" fill="#f3f4f6" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="563" y="312" font-size="16" font-weight="bold" fill="#4b5563" text-anchor="middle">LB-A</text>
+  <text x="563" y="338" font-size="15" fill="#4b5563" text-anchor="middle">실제 10.0.0.11</text>
+  <rect x="521" y="352" width="84" height="28" rx="14" fill="#fee2e2" stroke="#b91c1c" stroke-width="1"/>
+  <text x="563" y="371" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">① 죽음</text>
+
+  <rect x="668" y="284" width="174" height="136" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="755" y="312" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">LB-B</text>
+  <text x="755" y="338" font-size="15" fill="#374151" text-anchor="middle">실제 10.0.0.12</text>
+  <text x="755" y="366" font-size="15" fill="#111827" text-anchor="middle">② 신호 끊김을 감지</text>
+  <rect x="685" y="380" width="140" height="28" rx="14" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="755" y="399" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">③ VIP를 가져옴</text>
+
+  <!-- 결과 -->
+  <rect x="24" y="456" width="832" height="88" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="490" font-size="16" fill="#111827">→ 클라이언트는 여전히 <tspan font-weight="bold">203.0.113.10</tspan>으로 접속. <tspan font-weight="bold" fill="#1d4ed8">주소가 바뀌지 않는다</tspan></text>
+  <text x="44" y="524" font-size="16" font-weight="bold" fill="#b45309">→ 전환 순간 짧은 끊김은 있다</text>
 </svg>

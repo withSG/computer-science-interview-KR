@@ -1,90 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">서비스가 늘어날수록 연결선이 제곱으로 는다</title>
-  <desc id="d">직접 연결 구조에서 생산자 3개와 소비자 5개 간의 11개 연결선을 보여주고, 새 소비자 추가 시 생산자 전부를 고쳐야 함을 나타내는 다이어그램</desc>
+  <desc id="d">직접 연결 구조에서 생산자 3개(주문·결제·가입)가 소비자 5개(재고·배송·알림·분석·추천)를 직접 호출해 일부만 붙여도 연결선이 11개(다 붙으면 15개)가 되고, 새 소비자 하나가 늘 때마다 생산자 전부를 고쳐야 한다는 그림.</desc>
+  <rect width="880" height="490" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="m1" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="m2" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="m3" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0d9488"/>
+    </marker>
+    <marker id="mk" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- 머리말 -->
+  <rect x="24" y="22" width="92" height="32" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="70" y="44" font-size="16" font-weight="700" fill="#b91c1c" text-anchor="middle">직접 연결</text>
+  <text x="132" y="44" font-size="16" fill="#1f2937">생산자 3, 소비자 5 — 아래처럼만 붙여도 <tspan font-weight="700" fill="#b91c1c">연결선 11개</tspan> (다 붙으면 15개)</text>
 
-  <!-- 상단 제목/설명 라벨 -->
-  <text x="40" y="42" font-size="14" font-weight="bold" fill="#1f2933">[직접 연결]  생산자 3, 소비자 5 — 아래처럼만 붙여도 연결선 11개 (다 붙으면 15개)</text>
+  <text x="140" y="90" font-size="14" fill="#4b5563" text-anchor="middle">생산자</text>
+  <text x="740" y="90" font-size="14" fill="#4b5563" text-anchor="middle">소비자</text>
 
-  <!-- 생산자 박스 (왼쪽) -->
-  <!-- 주문 -->
-  <rect x="60" y="80" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="104" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">주문</text>
+  <!-- 아직 안 붙은 연결 4개 (다 붙으면 15개) -->
+  <g stroke="#cbd5e1" stroke-width="1.4" stroke-dasharray="5 5" fill="none">
+    <path d="M200,168 L679,338"/>
+    <path d="M200,228 L679,180"/>
+    <path d="M200,304 L679,134"/>
+    <path d="M200,312 L679,190"/>
+  </g>
 
-  <!-- 결제 -->
-  <rect x="60" y="210" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="234" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">결제</text>
+  <!-- 주문 → 재고·배송·알림·분석 -->
+  <g stroke="#2563eb" stroke-width="1.8" fill="none" marker-end="url(#m1)">
+    <path d="M200,136 L679,114"/>
+    <path d="M200,144 L679,170"/>
+    <path d="M200,152 L679,226"/>
+    <path d="M200,160 L679,282"/>
+  </g>
+  <!-- 결제 → 재고·알림·분석·추천 -->
+  <g stroke="#7c3aed" stroke-width="1.8" fill="none" marker-end="url(#m2)">
+    <path d="M200,220 L679,124"/>
+    <path d="M200,236 L679,236"/>
+    <path d="M200,244 L679,292"/>
+    <path d="M200,252 L679,348"/>
+  </g>
+  <!-- 가입 → 알림·분석·추천 -->
+  <g stroke="#0d9488" stroke-width="1.8" fill="none" marker-end="url(#m3)">
+    <path d="M200,320 L679,246"/>
+    <path d="M200,328 L679,302"/>
+    <path d="M200,336 L679,358"/>
+  </g>
 
-  <!-- 가입 -->
-  <rect x="60" y="340" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="364" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">가입</text>
+  <!-- 생산자 -->
+  <rect x="80" y="122" width="120" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="140" y="149" font-size="17" font-weight="700" fill="#1e40af" text-anchor="middle">주문</text>
+  <text x="140" y="171" font-size="14" fill="#1e40af" text-anchor="middle">연결선 4개</text>
+  <rect x="80" y="206" width="120" height="60" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="140" y="233" font-size="17" font-weight="700" fill="#5b21b6" text-anchor="middle">결제</text>
+  <text x="140" y="255" font-size="14" fill="#5b21b6" text-anchor="middle">연결선 4개</text>
+  <rect x="80" y="290" width="120" height="60" rx="8" fill="#f0fdfa" stroke="#0d9488" stroke-width="2"/>
+  <text x="140" y="317" font-size="17" font-weight="700" fill="#115e59" text-anchor="middle">가입</text>
+  <text x="140" y="339" font-size="14" fill="#115e59" text-anchor="middle">연결선 3개</text>
 
-  <!-- 소비자 박스 (오른쪽) -->
-  <!-- 재고 -->
-  <rect x="680" y="80" width="100" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="730" y="104" font-size="13" fill="#1f2933" text-anchor="middle">재고</text>
+  <!-- 소비자 -->
+  <rect x="680" y="104" width="120" height="40" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="740" y="130" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">재고</text>
+  <rect x="680" y="160" width="120" height="40" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="740" y="186" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">배송</text>
+  <rect x="680" y="216" width="120" height="40" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="740" y="242" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">알림</text>
+  <rect x="680" y="272" width="120" height="40" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="740" y="298" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">분석</text>
+  <rect x="680" y="328" width="120" height="40" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="740" y="354" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">추천</text>
 
-  <!-- 배송 -->
-  <rect x="680" y="145" width="100" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="730" y="169" font-size="13" fill="#1f2933" text-anchor="middle">배송</text>
+  <!-- 범례 -->
+  <path d="M80,395 L118,395" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#mk)"/>
+  <text x="128" y="400" font-size="15" fill="#374151">붙어 있는 연결 11개</text>
+  <path d="M320,395 L358,395" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="5 5" fill="none"/>
+  <text x="368" y="400" font-size="15" fill="#374151">아직 안 붙은 연결 4개 (다 붙으면 15개)</text>
 
-  <!-- 알림 -->
-  <rect x="680" y="210" width="100" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="730" y="234" font-size="13" fill="#1f2933" text-anchor="middle">알림</text>
-
-  <!-- 분석 -->
-  <rect x="680" y="275" width="100" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="730" y="299" font-size="13" fill="#1f2933" text-anchor="middle">분석</text>
-
-  <!-- 추천 -->
-  <rect x="680" y="340" width="100" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="730" y="364" font-size="13" fill="#1f2933" text-anchor="middle">추천</text>
-
-  <!-- 연결선 (주문 ──┬──> ) -->
-  <path d="M 160 100 L 320 100" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M 320 100 L 320 295" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <!-- 주문 -> 재고 -->
-  <path d="M 320 100 L 680 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 주문 -> 배송 -->
-  <path d="M 320 165 L 680 165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 주문 -> 알림 -->
-  <path d="M 320 230 L 680 230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 주문 -> 분석 -->
-  <path d="M 320 295 L 680 295" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 연결선 (결제 ──┬──> ) -->
-  <path d="M 160 230 L 420 230" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M 420 100 L 420 360" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <!-- 결제 -> 재고 -->
-  <path d="M 420 100 L 680 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 결제 -> 알림 -->
-  <path d="M 420 230 L 680 230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 결제 -> 분석 -->
-  <path d="M 420 295 L 680 295" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 결제 -> 추천 -->
-  <path d="M 420 360 L 680 360" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 연결선 (가입 ──┬──> ) -->
-  <path d="M 160 360 L 520 360" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M 520 230 L 520 360" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <!-- 가입 -> 알림 -->
-  <path d="M 520 230 L 680 230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 가입 -> 분석 -->
-  <path d="M 520 295 L 680 295" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 가입 -> 추천 -->
-  <path d="M 520 360 L 680 360" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 하단 하이라이트 경고 박스 및 메시지 -->
-  <rect x="180" y="440" width="520" height="42" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="440" y="466" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">새 소비자 하나가 늘 때마다 생산자 전부를 고쳐야 한다</text>
+  <!-- 결론 -->
+  <rect x="160" y="424" width="560" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="452" font-size="17" font-weight="700" fill="#b91c1c" text-anchor="middle">새 소비자 하나가 늘 때마다 생산자 전부를 고쳐야 한다</text>
 </svg>

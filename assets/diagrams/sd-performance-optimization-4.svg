@@ -1,58 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">6. 부하 테스트</title>
-  <desc id="d">부하 테스트의 램프업, 정상 상태, 측정 구간 및 시간축을 보여주는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">부하 테스트 구간</title>
+  <desc id="d">시간에 따라 가상 사용자 수를 서서히 늘리는 램프업, 목표 부하를 유지하는 정상 상태, p50/p95/p99와 에러율을 기록하는 측정 구간이 이어지며, 워밍업이 안 된 초반 구간은 측정에서 제외한다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 구간 배경 -->
+  <rect x="97" y="70" width="203" height="230" fill="#f3f4f6"/>
+  <rect x="300" y="70" width="240" height="230" fill="#f3f4f6"/>
+  <rect x="540" y="70" width="260" height="230" fill="#ecfdf5"/>
+  <line x1="300" y1="70" x2="300" y2="300" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="540" y1="70" x2="540" y2="300" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="5 4"/>
 
-  <!-- 배경 구간 (면) -->
-  <!-- 워밍업 제외 구간 (램프업 + 정상 상태) -->
-  <rect x="50" y="30" width="460" height="180" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  
-  <!-- 측정 구간 -->
-  <rect x="540" y="30" width="290" height="180" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <!-- 구간 설명 -->
+  <g text-anchor="middle">
+    <text x="198.5" y="100" font-size="17" font-weight="bold" fill="#111827">램프업</text>
+    <text x="198.5" y="126" font-size="15" fill="#374151"><tspan x="198.5">가상 사용자를</tspan><tspan x="198.5" dy="22">서서히 증가</tspan></text>
 
-  <!-- 상단 그룹 박스 (1: 램프업) -->
-  <rect x="70" y="50" width="180" height="100" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="160" y="77.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[램프업]</text>
-  <text x="160" y="103.55" font-size="13" fill="#52606d" text-anchor="middle">가상 사용자를</text>
-  <text x="160" y="123.55" font-size="13" fill="#52606d" text-anchor="middle">서서히 증가</text>
+    <text x="420" y="100" font-size="17" font-weight="bold" fill="#111827">정상 상태</text>
+    <text x="420" y="126" font-size="15" fill="#374151"><tspan x="420">목표 부하 유지</tspan><tspan x="420" dy="22">(예: 5분)</tspan></text>
 
-  <!-- 상단 그룹 박스 (2: 정상 상태) -->
-  <rect x="300" y="50" width="180" height="100" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="390" y="77.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[정상 상태]</text>
-  <text x="390" y="103.55" font-size="13" fill="#52606d" text-anchor="middle">목표 부하 유지</text>
-  <text x="390" y="123.55" font-size="13" fill="#52606d" text-anchor="middle">(예: 5분)</text>
+    <text x="670" y="100" font-size="17" font-weight="bold" fill="#047857">측정 구간</text>
+    <text x="670" y="126" font-size="15" fill="#111827"><tspan x="670">이 구간의 p50/p95/p99와</tspan><tspan x="670" dy="22">에러율을 기록한다</tspan></text>
+  </g>
 
-  <!-- 상단 그룹 박스 (3: 측정 구간) -->
-  <rect x="560" y="50" width="250" height="100" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="685" y="77.6" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[측정 구간]</text>
-  <text x="685" y="103.55" font-size="13" fill="#1f2933" text-anchor="middle">이 구간의 p50/p95/p99와</text>
-  <text x="685" y="123.55" font-size="13" fill="#1f2933" text-anchor="middle">에러율을 기록한다</text>
+  <!-- 부하 곡선 -->
+  <polyline points="96,300 300,190 800,190" fill="none" stroke="#1d4ed8" stroke-width="3" stroke-linejoin="round"/>
 
-  <!-- 수직 연결선 (│ 및 ┴ 표시 위치로 내림) -->
-  <path d="M160,150 L160,230" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <path d="M390,150 L390,230" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <path d="M685,150 L685,230" stroke="#059669" stroke-width="1.5" fill="none"/>
+  <!-- 축 -->
+  <line x1="96" y1="300" x2="96" y2="62" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="96" y="46" font-size="15" fill="#374151" text-anchor="middle">가상 사용자 수</text>
+  <line x1="96" y1="300" x2="812" y2="300" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="820" y="306" font-size="16" font-weight="bold" fill="#111827">시간</text>
 
-  <!-- 시간 축 (───┴──────────────┴──────────────────────┴───► 시간) -->
-  <path d="M50,230 L800,230" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  
-  <!-- 시간 축 눈금 (┴) -->
-  <path d="M160,223 L160,237" stroke="#1f2933" stroke-width="2"/>
-  <path d="M390,223 L390,237" stroke="#1f2933" stroke-width="2"/>
-  <path d="M685,223 L685,237" stroke="#059669" stroke-width="2"/>
-
-  <!-- 시간 축 라벨 -->
-  <text x="815" y="234.55" font-size="13" font-weight="bold" fill="#1f2933">시간</text>
-
-  <!-- 하단 설명 문구 -->
-  <text x="270" y="284.55" font-size="13" fill="#dc2626" font-weight="bold">워밍업이 안 된 초반 구간은 측정에서 제외한다</text>
-  <!-- 하단 제외 구간 표시 화살표/주석선 -->
-  <path d="M50,260 L490,260" stroke="#dc2626" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <!-- 측정 제외 / 포함 -->
+  <path d="M98,316 V328 H538 V316" fill="none" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="318" y="354" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">워밍업이 안 된 초반 구간은 측정에서 제외한다</text>
+  <path d="M542,316 V328 H798 V316" fill="none" stroke="#047857" stroke-width="1.5"/>
+  <text x="670" y="354" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">이 구간만 측정</text>
 </svg>

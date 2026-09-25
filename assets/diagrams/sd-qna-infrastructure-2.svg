@@ -1,76 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">L4 vs L7 비교</title>
-  <desc id="d">L4 Transport Layer와 L7 Application Layer의 특징 및 라우팅 방식 비교 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+  <desc id="d">L4(Transport Layer)는 TCP/UDP 기반으로 IP:Port만 보고 라우팅해 빠르고, L7(Application Layer)은 HTTP 기반으로 URL, Header, Cookie를 보고 라우팅해 /api/*는 API 서버, /static/*는 정적 서버로 보내지만 리소스를 더 쓴다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
+  <defs>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
+    </marker>
+  </defs>
 
-  <!-- Legend -->
-  <rect x="580" y="24" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="2"/>
-  <text x="600" y="34.2" font-size="12" fill="#52606d">L4 (전송 계층)</text>
-  <rect x="710" y="24" width="12" height="12" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="2"/>
-  <text x="730" y="34.2" font-size="12" fill="#52606d">L7 (응용 계층)</text>
+  <!-- L4 카드 -->
+  <rect x="24" y="24" width="404" height="332" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M24,34 A10,10 0 0 1 34,24 H418 A10,10 0 0 1 428,34 V80 H24 Z" fill="#1d4ed8"/>
+  <text x="226" y="59" font-size="17" fill="#ffffff" text-anchor="middle"><tspan font-size="22" font-weight="bold">L4</tspan> (Transport Layer)</text>
 
-  <!-- Title -->
-  <text x="40" y="35.6" font-size="16" font-weight="bold" fill="#1f2933">L4 vs L7 비교</text>
+  <text x="52" y="114" font-size="16" fill="#111827"><tspan font-weight="bold">TCP/UDP</tspan> 기반</text>
+  <line x1="40" y1="136" x2="412" y2="136" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="52" y="170" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#1d4ed8">IP:Port</tspan>로 라우팅</text>
+  <line x1="40" y1="192" x2="412" y2="192" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="52" y="252" font-size="16" fill="#111827">패킷 내용 확인 안 함</text>
+  <line x1="40" y1="300" x2="412" y2="300" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="52" y="334" font-size="16" font-weight="bold" fill="#047857">빠른 성능</text>
 
-  <!-- Card 1: L4 -->
-  <g transform="translate(40, 60)">
-    <!-- Main Box -->
-    <rect x="0" y="0" width="380" height="400" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="8"/>
-    
-    <!-- Header Box -->
-    <rect x="0" y="0" width="380" height="54" fill="#2563eb" rx="8"/>
-    <!-- Overwrite bottom rounded corners of header -->
-    <rect x="0" y="44" width="380" height="10" fill="#2563eb"/>
-    <text x="190" y="32.6" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">L4 (Transport Layer)</text>
+  <!-- L7 카드 -->
+  <rect x="452" y="24" width="404" height="332" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M452,34 A10,10 0 0 1 462,24 H846 A10,10 0 0 1 856,34 V80 H452 Z" fill="#6d28d9"/>
+  <text x="654" y="59" font-size="17" fill="#ffffff" text-anchor="middle"><tspan font-size="22" font-weight="bold">L7</tspan> (Application Layer)</text>
 
-    <!-- Content Items -->
-    <!-- Bullet 1 -->
-    <circle cx="32" cy="90" r="4" fill="#2563eb"/>
-    <text x="48" y="94.2" font-size="14" fill="#1f2933">- TCP/UDP 기반</text>
+  <text x="480" y="114" font-size="16" fill="#111827"><tspan font-weight="bold">HTTP</tspan> 기반</text>
+  <line x1="468" y1="136" x2="840" y2="136" stroke="#ddd6fe" stroke-width="1"/>
+  <text x="480" y="170" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#6d28d9">URL, Header, Cookie</tspan>로 라우팅</text>
+  <line x1="468" y1="192" x2="840" y2="192" stroke="#ddd6fe" stroke-width="1"/>
 
-    <!-- Bullet 2 -->
-    <circle cx="32" cy="140" r="4" fill="#2563eb"/>
-    <text x="48" y="144.2" font-size="14" fill="#1f2933">- IP:Port로 라우팅</text>
+  <!-- 경로별 라우팅 예 -->
+  <rect x="480" y="206" width="132" height="34" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+  <text x="546" y="228" font-size="16" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/api/*</text>
+  <line x1="618" y1="223" x2="674" y2="223" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#ah-purple)"/>
+  <rect x="680" y="206" width="144" height="34" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+  <text x="752" y="228" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">API 서버</text>
 
-    <!-- Bullet 3 -->
-    <circle cx="32" cy="190" r="4" fill="#2563eb"/>
-    <text x="48" y="194.2" font-size="14" fill="#1f2933">- 패킷 내용 확인 안 함</text>
+  <rect x="480" y="252" width="132" height="34" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+  <text x="546" y="274" font-size="16" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/static/*</text>
+  <line x1="618" y1="269" x2="674" y2="269" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#ah-purple)"/>
+  <rect x="680" y="252" width="144" height="34" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+  <text x="752" y="274" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">정적 서버</text>
 
-    <!-- Bullet 4 -->
-    <circle cx="32" cy="240" r="4" fill="#2563eb"/>
-    <text x="48" y="244.2" font-size="14" fill="#1f2933">- 빠른 성능</text>
-  </g>
-
-  <!-- Card 2: L7 -->
-  <g transform="translate(460, 60)">
-    <!-- Main Box -->
-    <rect x="0" y="0" width="380" height="400" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="8"/>
-    
-    <!-- Header Box -->
-    <rect x="0" y="0" width="380" height="54" fill="#7c3aed" rx="8"/>
-    <!-- Overwrite bottom rounded corners of header -->
-    <rect x="0" y="44" width="380" height="10" fill="#7c3aed"/>
-    <text x="190" y="32.6" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">L7 (Application Layer)</text>
-
-    <!-- Content Items -->
-    <!-- Bullet 1 -->
-    <circle cx="32" cy="85" r="4" fill="#7c3aed"/>
-    <text x="48" y="89.2" font-size="14" fill="#1f2933">- HTTP 기반</text>
-
-    <!-- Bullet 2 -->
-    <circle cx="32" cy="130" r="4" fill="#7c3aed"/>
-    <text x="48" y="134.2" font-size="14" fill="#1f2933">- URL, Header, Cookie로 라우팅</text>
-
-    <!-- Bullet 3 -->
-    <circle cx="32" cy="180" r="4" fill="#7c3aed"/>
-    <text x="48" y="184.2" font-size="14" fill="#1f2933">- /api/* → API 서버</text>
-
-    <!-- Bullet 4 -->
-    <circle cx="32" cy="225" r="4" fill="#7c3aed"/>
-    <text x="48" y="229.2" font-size="14" fill="#1f2933">- /static/* → 정적 서버</text>
-
-    <!-- Bullet 5 -->
-    <circle cx="32" cy="270" r="4" fill="#7c3aed"/>
-    <text x="48" y="274.2" font-size="14" fill="#1f2933">- 더 많은 리소스 사용</text>
-  </g>
+  <line x1="468" y1="300" x2="840" y2="300" stroke="#ddd6fe" stroke-width="1"/>
+  <text x="480" y="334" font-size="16" font-weight="bold" fill="#b45309">더 많은 리소스 사용</text>
 </svg>

@@ -1,30 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">1. 왜 필요한가</title>
-  <desc id="d">문제 1 로드 밸런싱과 문제 2 샤딩의 난이도 차이를 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">수평 확장이 만드는 두 문제</title>
+  <desc id="d">문제 1(요청을 어느 서버가 처리할까)의 답인 로드 밸런싱은 서버가 무상태라면 아무나 처리해도 되므로 비교적 쉽고, 문제 2(데이터를 어느 DB가 가질까)의 답인 샤딩은 어디에 뒀는지 기억해야 하고 나중에 옮기기가 매우 어렵다는 것을 나란히 비교한다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="300" fill="#ffffff"/>
+  <rect width="880" height="490" fill="#ffffff"/>
 
-  <!-- 문제 1 영역 (로드 밸런싱) -->
-  <rect x="24" y="24" width="832" height="110" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="44" y="52.55" fill="#1f2933" font-size="16" font-weight="bold">문제 1: 들어오는 요청을 어느 서버가 처리할 것인가?</text>
-  
-  <path d="M 64,68 L 64,106 L 94,106" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <text x="110" y="110.55" fill="#2563eb" font-size="14" font-weight="bold">로드 밸런싱.</text>
-  <text x="200" y="110.55" fill="#1f2933" font-size="13">서버들이 무상태라면 아무나 처리해도 되므로 비교적 쉽다</text>
+  <!-- 왼쪽: 문제 1 / 로드 밸런싱 -->
+  <rect x="24" y="24" width="404" height="442" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <rect x="44" y="44" width="72" height="28" rx="14" fill="#1d4ed8"/>
+  <text x="80" y="63" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">문제 1</text>
+  <text x="44" y="104" font-size="16" font-weight="bold" fill="#111827">들어오는 요청을 어느 서버가 처리할 것인가?</text>
+  <rect x="44" y="122" width="170" height="40" rx="8" fill="#1d4ed8"/>
+  <text x="129" y="148" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">→ 로드 밸런싱</text>
 
-  <!-- 문제 2 영역 (샤딩) -->
-  <rect x="24" y="150" width="832" height="126" rx="8" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="44" y="178.55" fill="#1f2933" font-size="16" font-weight="bold">문제 2: 데이터를 어느 DB가 가질 것인가?</text>
+  <rect x="44" y="182" width="364" height="152" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="64" y="238" width="96" height="40" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="112" y="264" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">요청</text>
+  <line x1="164" y1="258" x2="270" y2="214" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <line x1="164" y1="258" x2="270" y2="258" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <line x1="164" y1="258" x2="270" y2="302" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="276" y="196" width="112" height="36" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="332" y="220" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">서버 1</text>
+  <rect x="276" y="240" width="112" height="36" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="332" y="264" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">서버 2</text>
+  <rect x="276" y="284" width="112" height="36" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="332" y="308" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">서버 3</text>
 
-  <path d="M 64,194 L 64,232 L 94,232" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <text x="110" y="222.55" fill="#7c3aed" font-size="14" font-weight="bold">샤딩.</text>
-  <text x="152" y="222.55" fill="#1f2933" font-size="13">데이터는 "아무 데나 두면 되는" 것이 아니다.</text>
-  <text x="152" y="248.55" fill="#52606d" font-size="13">어디에 뒀는지 기억해야 하고, 나중에 옮기기가 매우 어렵다</text>
+  <text x="44" y="366" font-size="15" fill="#1f2937">서버들이 무상태라면</text>
+  <text x="44" y="388" font-size="15" fill="#1f2937">아무나 처리해도 되므로</text>
+  <rect x="44" y="406" width="364" height="40" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="226" y="432" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">비교적 쉽다</text>
+
+  <!-- 오른쪽: 문제 2 / 샤딩 -->
+  <rect x="452" y="24" width="404" height="442" rx="12" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5"/>
+  <rect x="472" y="44" width="72" height="28" rx="14" fill="#6d28d9"/>
+  <text x="508" y="63" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">문제 2</text>
+  <text x="472" y="104" font-size="16" font-weight="bold" fill="#111827">데이터를 어느 DB가 가질 것인가?</text>
+  <rect x="472" y="122" width="170" height="40" rx="8" fill="#6d28d9"/>
+  <text x="557" y="148" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">→ 샤딩</text>
+
+  <rect x="472" y="182" width="364" height="152" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="492" y="238" width="96" height="40" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="540" y="264" font-size="16" font-weight="bold" fill="#4c1d95" text-anchor="middle">데이터</text>
+  <line x1="592" y1="258" x2="698" y2="258" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
+  <rect x="704" y="196" width="112" height="36" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="760" y="220" font-size="15" fill="#4b5563" text-anchor="middle">DB 1</text>
+  <rect x="704" y="240" width="112" height="36" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="760" y="264" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">DB 2</text>
+  <rect x="704" y="284" width="112" height="36" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="760" y="308" font-size="15" fill="#4b5563" text-anchor="middle">DB 3</text>
+
+  <text x="472" y="366" font-size="15" fill="#1f2937">데이터는 "아무 데나 두면 되는" 것이 아니다.</text>
+  <text x="472" y="388" font-size="15" fill="#1f2937">어디에 뒀는지 기억해야 하고,</text>
+  <rect x="472" y="406" width="364" height="40" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="654" y="432" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">나중에 옮기기가 매우 어렵다</text>
 </svg>

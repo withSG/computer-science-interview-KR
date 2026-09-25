@@ -1,53 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">DataFrame은 의도를 선언한다</title>
-  <desc id="d">사용자가 쓴 순서와 옵티마이저가 바꾼 실행 계획의 비교 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 350" width="880" height="350" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Catalyst 옵티마이저의 실행 계획 재작성</title>
+  <desc id="d">사용자가 쓴 순서(파일 전체 읽기, join, filter, select 2개 컬럼)를 옵티마이저가 필요한 컬럼만 읽고(column pruning) 읽는 즉시 filter를 적용한 뒤(predicate pushdown) 줄어든 데이터로 join하는 계획으로 바꾼다.</desc>
+  <rect width="880" height="350" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="300" fill="#ffffff"/>
+  <!-- 왼쪽: 사용자가 쓴 순서 -->
+  <rect x="24" y="24" width="280" height="302" rx="10" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="44" y="56" font-size="18" font-weight="700" fill="#1f2937">사용자가 쓴 순서</text>
+  <text x="44" y="80" font-size="15" fill="#4b5563">비최적화 순서</text>
 
-  <!-- 범례 (의미 구분을 위한 색상 참고) -->
-  <g transform="translate(680, 20)">
-    <rect x="0" y="0" width="12" height="12" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="2"/>
-    <text x="18" y="10" font-size="11" fill="#52606d">비최적화 순서</text>
-    <rect x="100" y="0" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="2"/>
-    <text x="118" y="10" font-size="11" fill="#52606d">최적화 실행 계획</text>
-  </g>
+  <rect x="44" y="96" width="240" height="44" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="68" cy="118" r="12" fill="#4b5563"/>
+  <text x="68" y="123" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="92" y="124" font-size="16" fill="#1f2937">파일 전체 읽기</text>
 
-  <!-- 왼쪽 영역: 사용자가 쓴 순서 -->
-  <!-- Header -->
-  <text x="190" y="50" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자가 쓴 순서</text>
-  
-  <!-- Left Box -->
-  <!-- Box dimension: x=40, y=70, w=300, h=190 -->
-  <rect x="40" y="70" width="300" height="190" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
-  
-  <text x="64" y="112" font-size="13" fill="#1f2933">1. 파일 전체 읽기</text>
-  <text x="64" y="148" font-size="13" fill="#1f2933">2. join</text>
-  <text x="64" y="184" font-size="13" fill="#1f2933">3. filter</text>
-  <text x="64" y="220" font-size="13" fill="#1f2933">4. select 2개 컬럼</text>
+  <rect x="44" y="150" width="240" height="44" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="68" cy="172" r="12" fill="#4b5563"/>
+  <text x="68" y="177" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="92" y="178" font-size="16" fill="#1f2937">join</text>
 
-  <!-- 화살표 (옵티마이저 변환) -->
-  <path d="M360,165 L480,165" stroke="#2563eb" stroke-width="2.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="44" y="204" width="240" height="44" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="68" cy="226" r="12" fill="#4b5563"/>
+  <text x="68" y="231" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="92" y="232" font-size="16" fill="#1f2937">filter</text>
 
-  <!-- 오른쪽 영역: 옵티마이저가 바꾼 실행 계획 -->
-  <!-- Header -->
-  <text x="670" y="50" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">옵티마이저가 바꾼 실행 계획</text>
+  <rect x="44" y="258" width="240" height="44" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="68" cy="280" r="12" fill="#4b5563"/>
+  <text x="68" y="285" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="92" y="286" font-size="16" fill="#1f2937">select 2개 컬럼</text>
 
-  <!-- Right Box -->
-  <!-- Box dimension: x=500, y=70, w=340, h=190 -->
-  <rect x="500" y="70" width="340" height="190" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="6"/>
+  <!-- 가운데: 재작성 -->
+  <text x="390" y="160" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Catalyst</text>
+  <text x="390" y="182" font-size="16" fill="#111827" text-anchor="middle">옵티마이저</text>
+  <line x1="318" y1="202" x2="462" y2="202" stroke="#374151" stroke-width="3" marker-end="url(#ah)"/>
 
-  <text x="524" y="105" font-size="13" fill="#1f2933">1. amount, user_id 컬럼만</text>
-  <text x="542" y="127" font-size="13" fill="#1f2933">읽기 (column pruning)</text>
-  
-  <text x="524" y="160" font-size="13" fill="#1f2933">2. 읽는 즉시 filter 적용</text>
-  <text x="542" y="182" font-size="13" fill="#1f2933">(predicate pushdown)</text>
+  <!-- 오른쪽: 옵티마이저가 바꾼 실행 계획 -->
+  <rect x="476" y="24" width="380" height="302" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="496" y="56" font-size="18" font-weight="700" fill="#065f46">옵티마이저가 바꾼 실행 계획</text>
+  <text x="496" y="80" font-size="15" fill="#047857">최적화 실행 계획</text>
 
-  <text x="524" y="220" font-size="13" fill="#1f2933">3. 줄어든 데이터로 join</text>
+  <rect x="496" y="96" width="340" height="64" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="520" cy="118" r="12" fill="#047857"/>
+  <text x="520" y="123" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="544" y="124" font-size="16" fill="#1f2937">amount, user_id 컬럼만 읽기</text>
+  <text x="544" y="148" font-size="15" font-weight="700" fill="#047857">(column pruning)</text>
+
+  <rect x="496" y="170" width="340" height="64" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="520" cy="192" r="12" fill="#047857"/>
+  <text x="520" y="197" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="544" y="198" font-size="16" fill="#1f2937">읽는 즉시 filter 적용</text>
+  <text x="544" y="222" font-size="15" font-weight="700" fill="#047857">(predicate pushdown)</text>
+
+  <rect x="496" y="244" width="340" height="44" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="520" cy="266" r="12" fill="#047857"/>
+  <text x="520" y="271" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="544" y="272" font-size="16" fill="#1f2937">줄어든 데이터로 join</text>
 </svg>

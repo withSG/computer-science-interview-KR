@@ -1,55 +1,53 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Cache-Aside 읽기 전략 흐름도</title>
-  <desc id="d">애플리케이션이 직접 캐시를 관리하며 캐시 조회, Cache Miss 시 DB 조회, 캐시 저장, 응답 반환을 수행하는 순서도입니다.</desc>
+  <title id="t">Cache-Aside 읽기 흐름</title>
+  <desc id="d">Cache-Aside에서는 애플리케이션이 직접 캐시를 관리합니다. 1. 캐시 조회, 2. Cache Miss이면 DB 조회, 3. 캐시에 저장, 4. 응답 반환 순서로 모든 호출을 애플리케이션이 합니다.</desc>
   <rect width="880" height="520" fill="#ffffff"/>
-
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1e3a8a"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arrM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#64748b"/>
     </marker>
   </defs>
 
-  <!-- 상단 주석 (애플리케이션이 직접 캐시 관리) -->
-  <rect x="250" y="30" width="380" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">애플리케이션이 직접 캐시 관리</text>
+  <!-- 요점 -->
+  <text x="440" y="42" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle">애플리케이션이 직접 캐시 관리</text>
 
-  <!-- 연결선: 상단 주석 -> 1단계 -->
-  <path d="M440,70 L440,100" stroke="#9aa5b1" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+  <!-- 참여자 -->
+  <rect x="100" y="66" width="200" height="52" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="200" y="98" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">애플리케이션</text>
+  <rect x="430" y="66" width="140" height="52" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="500" y="98" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">캐시</text>
+  <rect x="700" y="66" width="140" height="52" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="770" y="98" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">DB</text>
+
+  <!-- 생명선 -->
+  <line x1="200" y1="118" x2="200" y2="494" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="500" y1="118" x2="500" y2="494" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="770" y1="118" x2="770" y2="494" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5 5"/>
 
   <!-- 1. 캐시 조회 -->
-  <rect x="280" y="100" width="320" height="54" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="132" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1. 캐시 조회</text>
+  <text x="350" y="166" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">1. 캐시 조회</text>
+  <line x1="202" y1="178" x2="496" y2="178" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- 연결선: 1단계 -> 2단계 -->
-  <path d="M440,154 L440,200" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <!-- Cache Miss 응답 -->
+  <text x="350" y="220" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">Cache Miss</text>
+  <line x1="498" y1="232" x2="204" y2="232" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrM)"/>
 
-  <!-- 2. Cache Miss -> DB 조회 -->
-  <rect x="280" y="200" width="320" height="54" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="232" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">2. Cache Miss → DB 조회</text>
-
-  <!-- 연결선: 2단계 -> 3단계 -->
-  <path d="M440,254 L440,300" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 2. DB 조회 -->
+  <text x="350" y="284" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">2. DB 조회</text>
+  <line x1="202" y1="296" x2="766" y2="296" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="768" y1="340" x2="204" y2="340" stroke="#64748b" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrR)"/>
 
   <!-- 3. 캐시에 저장 -->
-  <rect x="280" y="300" width="320" height="54" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="332" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">3. 캐시에 저장</text>
-
-  <!-- 연결선: 3단계 -> 4단계 -->
-  <path d="M440,354 L440,400" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <text x="350" y="392" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">3. 캐시에 저장</text>
+  <line x1="202" y1="404" x2="496" y2="404" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- 4. 응답 반환 -->
-  <rect x="280" y="400" width="320" height="54" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="432" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">4. 응답 반환</text>
+  <text x="108" y="450" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">4. 응답 반환</text>
+  <line x1="198" y1="462" x2="34" y2="462" stroke="#1e3a8a" stroke-width="2" marker-end="url(#arr)"/>
 </svg>

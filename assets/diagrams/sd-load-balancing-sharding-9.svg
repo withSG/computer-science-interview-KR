@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">created_at 범위 분할의 핫 샤드</title>
+  <desc id="d">샤딩 키를 created_at으로 잡아 월 단위로 범위 분할하면 새로 들어오는 쓰기가 모두 최신 월 샤드(샤드7: 2026-07)로 몰리고, 샤드1·샤드2 같은 지난 달 샤드는 거의 놀고 있는 핫 샤드 현상을 보여 줍니다.</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
+  <defs>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <!-- 샤딩 키 정의 -->
+  <text x="40" y="66" font-size="21" font-weight="bold" fill="#111827">샤딩 키 = <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1d4ed8">created_at</tspan></text>
+  <text x="40" y="98" font-size="17" fill="#374151">월 단위 범위 분할: 한 달치가 샤드 하나</text>
+
+  <!-- 새 쓰기의 출처 -->
+  <rect x="620" y="32" width="220" height="80" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="730" y="64" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">새로 들어오는 쓰기</text>
+  <text x="730" y="93" font-size="16" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">created_at</tspan> = 지금</text>
+
+  <!-- 모든 쓰기가 마지막 샤드로 -->
+  <g stroke="#b91c1c" stroke-width="3" fill="none" marker-end="url(#ah-red)">
+    <line x1="680" y1="116" x2="680" y2="170"/>
+    <line x1="730" y1="116" x2="730" y2="170"/>
+    <line x1="780" y1="116" x2="780" y2="170"/>
+  </g>
+
+  <!-- 샤드1 -->
+  <rect x="40" y="180" width="200" height="128" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="2"/>
+  <text x="140" y="216" font-size="20" font-weight="bold" fill="#374151" text-anchor="middle">샤드1</text>
+  <text x="140" y="244" font-size="17" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2026-01</text>
+  <rect x="52" y="260" width="176" height="36" rx="6" fill="#f3f4f6"/>
+  <text x="140" y="284" font-size="16" fill="#4b5563" text-anchor="middle">거의 놀고 있음</text>
+
+  <!-- 샤드2 -->
+  <rect x="268" y="180" width="200" height="128" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="2"/>
+  <text x="368" y="216" font-size="20" font-weight="bold" fill="#374151" text-anchor="middle">샤드2</text>
+  <text x="368" y="244" font-size="17" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2026-02</text>
+  <rect x="280" y="260" width="176" height="36" rx="6" fill="#f3f4f6"/>
+  <text x="368" y="284" font-size="16" fill="#4b5563" text-anchor="middle">거의 놀고 있음</text>
+
+  <!-- 생략 -->
+  <text x="549" y="252" font-size="28" font-weight="bold" fill="#4b5563" text-anchor="middle">…</text>
+
+  <!-- 샤드7: 핫 샤드 -->
+  <rect x="630" y="180" width="200" height="128" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="3"/>
+  <text x="730" y="216" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle">샤드7</text>
+  <text x="730" y="244" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">2026-07</text>
+  <rect x="642" y="260" width="176" height="36" rx="6" fill="#fee2e2"/>
+  <text x="730" y="284" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">모든 쓰기가 여기로</text>
+
+  <!-- 결론 -->
+  <rect x="40" y="334" width="800" height="72" rx="10" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="60" y="364" font-size="17" fill="#111827"><tspan font-weight="bold" fill="#b91c1c">핫 샤드(hot shard)</tspan>: 샤드를 여러 개로 나눠도 쓰기 처리량은 한 대짜리와 같다</text>
+  <text x="60" y="392" font-size="15" fill="#374151">자동 증가 기본 키를 범위로 나눠도 정확히 같은 문제가 생긴다</text>
+</svg>

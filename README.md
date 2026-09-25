@@ -15,7 +15,7 @@
 각 주제 폴더는 **세 겹**으로 되어 있습니다. 처음 배우는 주제라면 위에서 아래 순서로 읽으세요.
 
 <!-- diagram:repo-README-1 -->
-![이 저장소를 읽는 법](assets/diagrams/repo-README-1.svg)
+![주제 폴더의 세 겹: README 지도 → 개념 설명 → 면접 QnA](assets/diagrams/repo-README-1.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

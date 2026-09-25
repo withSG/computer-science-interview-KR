@@ -1,50 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">로드 밸런서가 아직 이 서버를 살아 있다고 믿는다</title>
-  <desc id="d">SIGTERM 수신 후 로드 밸런서 목록 제거까지 대기하는 올바른 종료 순서 시퀀스 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 530" width="880" height="530" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">종료 요청 후 올바른 순서</title>
+  <desc id="d">종료 요청을 받으면 ① 준비 상태를 false로 전환하거나 preStop 훅에서 대기하고 ② LB가 목록에서 뺄 때까지(대기 시간 ≥ 헬스체크 주기 × 실패 임계값) 기다린 뒤, ③ 진행 중인 요청만 처리하고 ④ 커넥션 풀·메시지 컨슈머·스케줄러를 정리한 다음 ⑤ 종료하는 다섯 단계.</desc>
+  <rect width="880" height="530" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Title Header -->
-  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">[올바른 순서]  종료 요청을 받으면</text>
+  <!-- 시작 -->
+  <text x="24" y="49" font-size="16" font-weight="bold" fill="#047857">올바른 순서</text>
+  <rect x="170" y="24" width="210" height="40" rx="20" fill="#1f2937"/>
+  <text x="275" y="50" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">종료 요청을 받으면</text>
+  <line x1="202" y1="64" x2="202" y2="80" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Left Main Vertical Line -->
-  <path d="M 60,65 L 60,450" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <!-- 단계 묶음: 먼저 LB에서 빠진다 -->
+  <path d="M158,84 L150,84 L150,290 L158,290" fill="none" stroke="#b45309" stroke-width="2.5"/>
+  <text x="138" y="182" font-size="16" font-weight="bold" fill="#b45309" text-anchor="end">먼저</text>
+  <text x="138" y="204" font-size="16" font-weight="bold" fill="#b45309" text-anchor="end">LB에서 빠진다</text>
 
-  <!-- Step 1 -->
-  <path d="M 60,95 L 80,95" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="80" y="70" width="760" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="100" y="100" font-size="13" font-weight="bold" fill="#2563eb">├─① 준비 상태를 false로 전환(헬스체크 실패) 또는 preStop 훅에서 N초 대기</text>
+  <!-- ① -->
+  <rect x="170" y="84" width="686" height="64" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="202" cy="116" r="16" fill="#b45309"/>
+  <text x="202" y="122" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="236" y="110" font-size="16" fill="#1f2937"><tspan font-weight="bold">준비 상태를 false로 전환</tspan> (헬스체크 실패)</text>
+  <text x="236" y="136" font-size="16" fill="#1f2937">또는 <tspan font-weight="bold">preStop 훅에서 N초 대기</tspan></text>
+  <line x1="202" y1="148" x2="202" y2="168" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 2 (Highlighted/Warning Step) -->
-  <path d="M 60,185 L 80,185" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="80" y="135" width="760" height="100" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="100" y="170" font-size="13" font-weight="bold" fill="#d97706">├─② LB가 목록에서 뺄 때까지 대기. 대기 시간 ≥ 헬스체크 주기 × 실패 임계값</text>
+  <!-- ② (핵심) -->
+  <rect x="170" y="172" width="686" height="118" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="3"/>
+  <circle cx="202" cy="196" r="16" fill="#b45309"/>
+  <text x="202" y="202" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="236" y="202" font-size="17" font-weight="bold" fill="#b45309">LB가 목록에서 뺄 때까지 대기</text>
+  <rect x="236" y="214" width="386" height="32" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="252" y="236" font-size="16" font-weight="bold" fill="#1f2937">대기 시간 ≥ 헬스체크 주기 × 실패 임계값</text>
+  <rect x="236" y="256" width="52" height="26" rx="4" fill="#b91c1c"/>
+  <text x="262" y="274" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">주의</text>
+  <text x="300" y="275" font-size="15" font-weight="bold" fill="#b91c1c">이 구간이 빠지면 원인 2가 그대로 남는다</text>
+  <line x1="202" y1="290" x2="202" y2="310" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 2 Sub Callout Box -->
-  <path d="M 120,180 L 120,215 M 120,215 L 140,215" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="145" y="197" width="370" height="28" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
-  <text x="155" y="215" font-size="12" font-weight="bold" fill="#d97706">← 이 구간이 빠지면 원인 2가 그대로 남는다</text>
+  <!-- 단계 묶음: 그다음 종료 -->
+  <path d="M158,314 L150,314 L150,500 L158,500" fill="none" stroke="#374151" stroke-width="2.5"/>
+  <text x="138" y="402" font-size="16" font-weight="bold" fill="#374151" text-anchor="end">그다음</text>
+  <text x="138" y="424" font-size="16" font-weight="bold" fill="#374151" text-anchor="end">종료 시작</text>
 
-  <!-- Step 3 -->
-  <path d="M 60,270 L 80,270" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="80" y="245" width="760" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="100" y="275" font-size="13" font-weight="bold" fill="#1f2933">├─③ 새 요청은 더 이상 오지 않는다. 진행 중인 것만 처리</text>
+  <!-- ③ -->
+  <rect x="170" y="314" width="686" height="46" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="202" cy="337" r="16" fill="#4b5563"/>
+  <text x="202" y="343" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="236" y="343" font-size="16" fill="#1f2937">새 요청은 더 이상 오지 않는다. <tspan font-weight="bold">진행 중인 것만 처리</tspan></text>
+  <line x1="202" y1="360" x2="202" y2="380" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 4 -->
-  <path d="M 60,345 L 80,345" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="80" y="320" width="760" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="100" y="350" font-size="13" font-weight="bold" fill="#1f2933">├─④ 커넥션 풀·메시지 컨슈머·스케줄러 정리</text>
+  <!-- ④ -->
+  <rect x="170" y="384" width="686" height="46" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="202" cy="407" r="16" fill="#4b5563"/>
+  <text x="202" y="413" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="236" y="413" font-size="16" fill="#1f2937">커넥션 풀 · 메시지 컨슈머 · 스케줄러 정리</text>
+  <line x1="202" y1="430" x2="202" y2="450" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 5 -->
-  <path d="M 60,420 L 80,420" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="80" y="395" width="760" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="100" y="425" font-size="13" font-weight="bold" fill="#059669">└─⑤ 종료</text>
+  <!-- ⑤ -->
+  <rect x="170" y="454" width="686" height="46" rx="8" fill="#374151"/>
+  <circle cx="202" cy="477" r="16" fill="#ffffff"/>
+  <text x="202" y="483" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">5</text>
+  <text x="236" y="483" font-size="16" font-weight="bold" fill="#ffffff">종료</text>
 </svg>

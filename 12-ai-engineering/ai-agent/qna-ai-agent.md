@@ -172,7 +172,7 @@ graph.add_edge("tools", "model")  # 도구 실행 후 다시 모델로 (루프 �
 ### 동작 흐름
 
 <!-- diagram:ai-qna-ai-agent-5 -->
-![동작 흐름](../../assets/diagrams/ai-qna-ai-agent-5.svg)
+![model·tools 순환과 도구 필요 여부에 따른 분기](../../assets/diagrams/ai-qna-ai-agent-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -480,7 +480,7 @@ BMAD(Breakthrough Method of Agile AI-Driven Development)는 **애자일 방법�
 ### 워크플로우
 
 <!-- diagram:ai-qna-ai-agent-6 -->
-![워크플로우](../../assets/diagrams/ai-qna-ai-agent-6.svg)
+![계획 단계(PRD·아키텍처)에서 개발 단계(구현·검증 반복)로](../../assets/diagrams/ai-qna-ai-agent-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

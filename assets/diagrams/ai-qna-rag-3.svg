@@ -1,57 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">임베딩의 원리</title>
-  <desc id="d">텍스트 문장이 각각 벡터로 변환되고, 문장 간 의미적 유사성에 따라 유사함과 다름을 나타내는 코사인 유사도 계산 원리 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+  <desc id="d">세 문장을 임베딩한 벡터를 나란히 놓고, 의미가 비슷한 두 문장(고양이, 강아지)은 벡터도 비슷하고 날씨 문장은 다르다는 것을 앞 두 값의 방향으로도 보여준다. 유사도는 두 벡터의 코사인 유사도로 잰다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
   <defs>
-    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="vb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
-    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="vc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0891b2"/>
     </marker>
-    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="vo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
     </marker>
   </defs>
 
-  <!-- Row 1: "고양이는 귀엽다" -->
-  <rect x="40" y="30" width="220" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="150" y="58" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">"고양이는 귀엽다"</text>
+  <!-- 열 머리 -->
+  <text x="124" y="44" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">텍스트</text>
+  <text x="252" y="44" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">임베딩</text>
+  <text x="390" y="44" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">벡터 (숫자 배열)</text>
 
-  <path d="M 260 53 L 320 53" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#arrow-blue)"/>
+  <!-- 행 1: 고양이 -->
+  <rect x="24" y="60" width="200" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="124" y="90" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">"고양이는 귀엽다"</text>
+  <line x1="230" y1="84" x2="274" y2="84" stroke="#6b7280" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="280" y="60" width="220" height="48" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="390" y="90" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[0.2, 0.8, -0.3, ...]</text>
 
-  <rect x="330" y="30" width="300" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="480" y="58" font-size="14" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#1f2933" text-anchor="middle">[0.2, 0.8, -0.3, ...]</text>
+  <!-- 행 2: 강아지 -->
+  <rect x="24" y="120" width="200" height="48" rx="8" fill="#ecfeff" stroke="#0891b2" stroke-width="1.5"/>
+  <text x="124" y="150" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">"강아지는 사랑스럽다"</text>
+  <line x1="230" y1="144" x2="274" y2="144" stroke="#6b7280" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="280" y="120" width="220" height="48" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="390" y="150" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[0.3, 0.7, -0.2, ...]</text>
 
-  <!-- Row 2: "강아지는 사랑스럽다" -->
-  <rect x="40" y="100" width="220" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="150" y="128" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">"강아지는 사랑스럽다"</text>
+  <!-- 1·2행 묶음: 유사 -->
+  <path d="M508,84 H518 V144 H508" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="526" y="120" font-size="16" font-weight="bold" fill="#047857">유사</text>
 
-  <path d="M 260 123 L 320 123" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrow-green)"/>
+  <!-- 행 3: 날씨 -->
+  <rect x="24" y="196" width="200" height="48" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="124" y="226" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">"오늘 날씨가 좋다"</text>
+  <line x1="230" y1="220" x2="274" y2="220" stroke="#6b7280" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="280" y="196" width="220" height="48" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="390" y="226" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[-0.5, 0.1, 0.9, ...]</text>
+  <text x="526" y="226" font-size="16" font-weight="bold" fill="#b91c1c">다름</text>
 
-  <rect x="330" y="100" width="300" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="480" y="128" font-size="14" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#1f2933" text-anchor="middle">[0.3, 0.7, -0.2, ...]</text>
+  <!-- 오른쪽: 앞 두 값으로 본 방향 -->
+  <rect x="580" y="60" width="276" height="224" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="596" y1="244" x2="840" y2="244" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="700" y1="250" x2="700" y2="72" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="840" y="236" font-size="14" fill="#4b5563" text-anchor="end">차원 1</text>
+  <text x="692" y="86" font-size="14" fill="#4b5563" text-anchor="end">차원 2</text>
 
-  <rect x="650" y="100" width="90" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="695" y="128" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">(유사)</text>
+  <line x1="700" y1="244" x2="736" y2="100" stroke="#2563eb" stroke-width="3" marker-end="url(#vb)"/>
+  <line x1="700" y1="244" x2="754" y2="118" stroke="#0891b2" stroke-width="3" marker-end="url(#vc)"/>
+  <line x1="700" y1="244" x2="610" y2="226" stroke="#d97706" stroke-width="3" marker-end="url(#vo)"/>
+  <text x="736" y="90" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">고양이</text>
+  <text x="764" y="124" font-size="15" font-weight="bold" fill="#0e7490">강아지</text>
+  <text x="612" y="212" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">날씨</text>
+  <text x="718" y="272" font-size="14" fill="#4b5563" text-anchor="middle">각 벡터의 앞 두 값만 표시</text>
 
-  <!-- Row 3: "오늘 날씨가 좋다" -->
-  <rect x="40" y="170" width="220" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="150" y="198" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">"오늘 날씨가 좋다"</text>
-
-  <path d="M 260 193 L 320 193" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#arrow-orange)"/>
-
-  <rect x="330" y="170" width="300" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="480" y="198" font-size="14" font-family="'Consolas', 'Courier New', monospace" font-weight="bold" fill="#1f2933" text-anchor="middle">[-0.5, 0.1, 0.9, ...]</text>
-
-  <rect x="650" y="170" width="90" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="695" y="198" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">(다름)</text>
-
-  <!-- Divider Line -->
-  <line x1="40" y1="242" x2="840" y2="242" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- Formula Section -->
-  <rect x="40" y="262" width="800" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="292" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">유사도 = 코사인 유사도(벡터1, 벡터2)</text>
+  <!-- 유사도 -->
+  <rect x="24" y="304" width="832" height="52" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="336" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">유사도 = 코사인 유사도(벡터1, 벡터2)</text>
 </svg>

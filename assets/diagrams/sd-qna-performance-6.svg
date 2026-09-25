@@ -1,111 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">동기 vs 비동기</title>
-  <desc id="d">동기와 비동기 방식의 요청, 대기, 응답 흐름 비교 다이어그램</desc>
+  <desc id="d">동기는 요청1 뒤 대기하고 응답1을 받은 다음 요청2를 보낸다. 비동기는 요청1·2·3을 연달아 보낸 뒤 응답1·2·3을 받는다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
+  <rect width="880" height="300" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 동기 -->
+  <text x="24" y="44" font-size="18" font-weight="bold" fill="#111827">동기 (Synchronous)</text>
+  <text x="856" y="44" font-size="15" fill="#4b5563" text-anchor="end">응답을 기다린 뒤 다음 요청</text>
 
-  <!-- 제목 헤딩 -->
-  <text x="30" y="37" font-size="16" font-weight="bold" fill="#1f2933">동기 vs 비동기</text>
+  <rect x="24" y="60" width="112" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="80" y="92" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">요청1</text>
+  <path d="M138,86 L164,86" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="168" y="60" width="112" height="52" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="224" y="92" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">대기</text>
+  <path d="M282,86 L308,86" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="312" y="60" width="112" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="368" y="92" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">응답1</text>
+  <path d="M426,86 L452,86" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="456" y="60" width="112" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="512" y="92" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">요청2</text>
+  <path d="M570,86 L596,86" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="600" y="60" width="112" height="52" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="656" y="92" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">대기</text>
+  <path d="M714,86 L740,86" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="744" y="60" width="112" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="800" y="92" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">응답2</text>
 
-  <!-- Section 1: 동기 -->
-  <g transform="translate(0, 30)">
-    <rect x="30" y="30" width="820" height="105" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="45" y="55" font-size="14" font-weight="bold" fill="#1f2933">동기 (Synchronous):</text>
+  <!-- 구분선 -->
+  <line x1="24" y1="138" x2="856" y2="138" stroke="#d1d5db" stroke-width="1"/>
 
-    <!-- Block 1: 요청1 -->
-    <rect x="45" y="70" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="85" y="94.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청1</text>
+  <!-- 비동기 -->
+  <text x="24" y="172" font-size="18" font-weight="bold" fill="#111827">비동기 (Asynchronous)</text>
+  <text x="856" y="172" font-size="15" fill="#4b5563" text-anchor="end">요청 완료를 기다리지 않고 다음 작업 진행</text>
 
-    <!-- Arrow 1 -->
-    <path d="M 125 90 L 165 90" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="24" y="188" width="112" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="80" y="220" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">요청1</text>
+  <path d="M138,214 L164,214" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="168" y="188" width="112" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="224" y="220" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">요청2</text>
+  <path d="M282,214 L308,214" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="312" y="188" width="112" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="368" y="220" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">요청3</text>
+  <path d="M426,214 L452,214" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="456" y="188" width="112" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="512" y="220" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">응답1</text>
+  <path d="M570,214 L596,214" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="600" y="188" width="112" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="656" y="220" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">응답2</text>
+  <path d="M714,214 L740,214" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ar)"/>
+  <rect x="744" y="188" width="112" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="800" y="220" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">응답3</text>
 
-    <!-- Block 2: 대기 -->
-    <rect x="165" y="70" width="70" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="200" y="94.6" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">대기</text>
-
-    <!-- Arrow 2 -->
-    <path d="M 235 90 L 275 90" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-
-    <!-- Block 3: 응답1 -->
-    <rect x="275" y="70" width="80" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="315" y="94.6" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">응답1</text>
-
-    <!-- Arrow 3 -->
-    <path d="M 355 90 L 395 90" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- Block 4: 요청2 -->
-    <rect x="395" y="70" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="435" y="94.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청2</text>
-
-    <!-- Arrow 4 -->
-    <path d="M 475 90 L 515 90" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Block 5: 대기 -->
-    <rect x="515" y="70" width="70" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="550" y="94.6" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">대기</text>
-
-    <!-- Arrow 5 -->
-    <path d="M 585 90 L 625 90" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-
-    <!-- Block 6: 응답2 -->
-    <rect x="625" y="70" width="80" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="665" y="94.6" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">응답2</text>
-  </g>
-
-  <!-- Section 2: 비동기 -->
-  <g transform="translate(0, 170)">
-    <rect x="30" y="30" width="820" height="105" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="45" y="55" font-size="14" font-weight="bold" fill="#1f2933">비동기 (Asynchronous):</text>
-
-    <!-- Block 1: 요청1 -->
-    <rect x="45" y="70" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="85" y="94.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청1</text>
-
-    <!-- Arrow 1 -->
-    <path d="M 125 90 L 165 90" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Block 2: 요청2 -->
-    <rect x="165" y="70" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="205" y="94.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청2</text>
-
-    <!-- Arrow 2 -->
-    <path d="M 245 90 L 285 90" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Block 3: 요청3 -->
-    <rect x="285" y="70" width="80" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="325" y="94.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청3</text>
-
-    <!-- Arrow 3 -->
-    <path d="M 365 90 L 405 90" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Block 4: 응답1 -->
-    <rect x="405" y="70" width="80" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="445" y="94.6" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">응답1</text>
-
-    <!-- Arrow 4 -->
-    <path d="M 485 90 L 525 90" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- Block 5: 응답2 -->
-    <rect x="525" y="70" width="80" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="565" y="94.6" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">응답2</text>
-
-    <!-- Arrow 5 -->
-    <path d="M 605 90 L 645 90" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- Block 6: 응답3 -->
-    <rect x="645" y="70" width="80" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="685" y="94.6" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">응답3</text>
-  </g>
+  <!-- 시간 축 -->
+  <text x="24" y="275" font-size="15" font-weight="bold" fill="#4b5563">시간</text>
+  <path d="M68,270 L852,270" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
 </svg>

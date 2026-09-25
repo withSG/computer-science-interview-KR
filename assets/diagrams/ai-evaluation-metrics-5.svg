@@ -1,43 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">회귀 지표 MAE와 RMSE 비교</title>
-  <desc id="d">모델 X와 모델 Y의 오차 배열을 비교하여 MAE는 동일하지만 RMSE는 큰 오차에 민감하게 반응하여 다른 값을 보여주는 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">MAE와 RMSE의 판정 차이</title>
+  <desc id="d">예측 5건의 오차가 [2, 2, 2, 2, 2]인 모델 X와 [1, 1, 1, 1, 6]인 모델 Y는 MAE가 2.0으로 같지만, RMSE는 2.00과 약 2.83으로 모델 Y를 나쁘다고 판정한다. 제곱이 큰 오차의 비중을 키우기 때문이다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-  </defs>
+  <!-- 표 배경: 머리행, 강조 셀 -->
+  <rect x="24" y="24" width="832" height="64" fill="#f1f5f9"/>
+  <rect x="654" y="268" width="202" height="180" fill="#fef2f2"/>
 
-  <!-- 전체 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 격자 -->
+  <line x1="24" y1="88" x2="856" y2="88" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="24" y1="268" x2="856" y2="268" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="124" y1="24" x2="124" y2="448" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="484" y1="24" x2="484" y2="448" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="654" y1="24" x2="654" y2="448" stroke="#cbd5e1" stroke-width="1"/>
+  <rect x="24" y="24" width="832" height="424" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
 
-  <!-- 모델 X 구역 -->
-  <rect x="24" y="24" width="832" height="96" rx="8" fill="#eff6ff" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <rect x="44" y="44" width="300" height="56" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="56" y="78.05" fill="#1f2933" font-size="14" font-weight="bold">모델 X 오차: [2, 2, 2, 2, 2]</text>
+  <!-- 머리행 -->
+  <text x="74" y="62" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">모델</text>
+  <text x="304" y="62" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">예측 5건의 오차</text>
+  <text x="569" y="52" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">MAE</text>
+  <text x="569" y="75" font-size="14" fill="#4b5563" text-anchor="middle">오차 절댓값의 평균</text>
+  <text x="755" y="52" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">RMSE</text>
+  <text x="755" y="75" font-size="14" fill="#4b5563" text-anchor="middle">제곱해서 평균 낸 뒤 루트</text>
 
-  <path d="M354,72 L424,72" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 모델 X 행 -->
+  <text x="74" y="184" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">모델 X</text>
+  <rect x="148" y="188" width="36" height="36" fill="#2563eb"/>
+  <rect x="202" y="188" width="36" height="36" fill="#2563eb"/>
+  <rect x="256" y="188" width="36" height="36" fill="#2563eb"/>
+  <rect x="310" y="188" width="36" height="36" fill="#2563eb"/>
+  <rect x="364" y="188" width="36" height="36" fill="#2563eb"/>
+  <line x1="138" y1="224" x2="410" y2="224" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="166" y="180" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">2</text>
+  <text x="220" y="180" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">2</text>
+  <text x="274" y="180" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">2</text>
+  <text x="328" y="180" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">2</text>
+  <text x="382" y="180" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">2</text>
+  <text x="274" y="252" font-size="15" fill="#374151" text-anchor="middle">[2, 2, 2, 2, 2]</text>
+  <text x="569" y="188" font-size="26" font-weight="bold" fill="#111827" text-anchor="middle">2.0</text>
+  <text x="755" y="188" font-size="26" font-weight="bold" fill="#111827" text-anchor="middle">2.00</text>
 
-  <rect x="434" y="44" width="402" height="56" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="450" y="78.05" fill="#1f2933" font-size="14" font-weight="bold">MAE = 2.0,  RMSE = 2.00</text>
+  <!-- 모델 Y 행 -->
+  <text x="74" y="364" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">모델 Y</text>
+  <rect x="148" y="386" width="36" height="18" fill="#7c3aed"/>
+  <rect x="202" y="386" width="36" height="18" fill="#7c3aed"/>
+  <rect x="256" y="386" width="36" height="18" fill="#7c3aed"/>
+  <rect x="310" y="386" width="36" height="18" fill="#7c3aed"/>
+  <rect x="364" y="296" width="36" height="108" fill="#dc2626"/>
+  <line x1="138" y1="404" x2="410" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="166" y="378" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">1</text>
+  <text x="220" y="378" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">1</text>
+  <text x="274" y="378" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">1</text>
+  <text x="328" y="378" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">1</text>
+  <text x="382" y="288" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">6</text>
+  <text x="412" y="320" font-size="15" font-weight="bold" fill="#b91c1c">큰 오차</text>
+  <text x="274" y="432" font-size="15" fill="#374151" text-anchor="middle">[1, 1, 1, 1, 6]</text>
+  <text x="569" y="360" font-size="26" font-weight="bold" fill="#111827" text-anchor="middle">2.0</text>
+  <text x="569" y="392" font-size="15" fill="#047857" text-anchor="middle">모델 X와 동일</text>
+  <text x="755" y="360" font-size="26" font-weight="bold" fill="#b91c1c" text-anchor="middle">≈ 2.83</text>
+  <text x="755" y="392" font-size="15" fill="#b91c1c" text-anchor="middle">모델 Y가 더 나쁨</text>
 
-  <!-- 모델 Y 구역 -->
-  <rect x="24" y="136" width="832" height="96" rx="8" fill="#f5f3ff" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <rect x="44" y="156" width="300" height="56" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="56" y="190.05" fill="#1f2933" font-size="14" font-weight="bold">모델 Y 오차: [1, 1, 1, 1, 6]</text>
-
-  <path d="M354,184 L424,184" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="434" y="156" width="402" height="56" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="450" y="190.05" fill="#1f2933" font-size="14" font-weight="bold">MAE = 2.0,  RMSE ≈ 2.83</text>
-
-  <!-- 하단 설명 및 시사점 -->
-  <rect x="24" y="248" width="832" height="68" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="44" y="274.55" fill="#1f2933" font-size="13">MAE는 동일하지만 RMSE는 모델 Y가 나쁘다고 판정한다.</text>
-  <text x="44" y="298.55" fill="#52606d" font-size="13">제곱이 큰 오차의 비중을 키우기 때문이다.</text>
+  <!-- 결론 -->
+  <rect x="24" y="468" width="832" height="88" rx="8" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="48" y="504" font-size="17" font-weight="bold" fill="#111827">MAE는 동일하지만 RMSE는 모델 Y가 나쁘다고 판정한다.</text>
+  <text x="48" y="536" font-size="16" fill="#374151">제곱이 큰 오차의 비중을 키우기 때문이다.</text>
 </svg>

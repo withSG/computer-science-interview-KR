@@ -1,52 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Rate Limiting 고정 윈도우의 경계 문제</title>
-  <desc id="d">고정 윈도우 방식에서 윈도우 경계 시점에 한도의 두 배에 해당하는 요청이 통과하는 문제를 보여주는 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">고정 윈도우의 경계 문제</title>
+  <desc id="d">한도가 분당 100인 고정 윈도우에서 12:00:59에 100건(12:00 윈도우), 12:01:01에 100건(12:01 윈도우)이 통과한다. 경계를 사이에 둔 2초 동안 200건, 한도의 두 배가 통과한다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
 
-  <!-- 메인 박스 -->
-  <rect x="40" y="30" width="800" height="280" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- 머리: 제목과 한도 -->
+  <text x="40" y="47" font-size="20" font-weight="bold" fill="#111827">고정 윈도우의 경계 문제</text>
+  <rect x="650" y="22" width="190" height="36" rx="18" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="745" y="46" text-anchor="middle" font-size="16" font-weight="bold" fill="#92400e">한도 = 분당 100</text>
 
-  <!-- 제목 (원본: [고정 윈도우의 경계 문제]  한도 = 분당 100) -->
-  <text x="60" y="71" font-size="16" font-weight="bold" fill="#1f2933">[고정 윈도우의 경계 문제]</text>
-  <text x="280" y="71" font-size="14" fill="#52606d">한도 = 분당 100</text>
+  <!-- 두 윈도우 영역 -->
+  <rect x="40" y="96" width="400" height="194" fill="#eff6ff"/>
+  <rect x="440" y="96" width="400" height="194" fill="#f5f3ff"/>
+  <text x="60" y="124" font-size="17" font-weight="bold" fill="#1d4ed8">12:00 윈도우</text>
+  <text x="820" y="124" text-anchor="end" font-size="17" font-weight="bold" fill="#6d28d9">12:01 윈도우</text>
 
-  <!-- 윈도우 영역 1 (12:00 윈도우) -->
-  <rect x="180" y="100" width="220" height="120" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-dasharray="5 4" stroke-width="1.5"/>
-  <text x="290" y="125" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">12:00 윈도우</text>
+  <!-- 경계선 -->
+  <text x="440" y="84" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">윈도우 경계</text>
+  <line x1="440" y1="92" x2="440" y2="290" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4"/>
 
-  <!-- 윈도우 영역 2 (12:01 윈도우) -->
-  <rect x="400" y="100" width="220" height="120" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-dasharray="5 4" stroke-width="1.5"/>
-  <text x="510" y="125" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">12:01 윈도우</text>
+  <!-- 막대: 12:00:59 100건 -->
+  <text x="290" y="160" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">100건 통과</text>
+  <rect x="262" y="172" width="56" height="118" fill="#3b82f6"/>
 
-  <!-- 시간축 선 -->
-  <line x1="80" y1="180" x2="720" y2="180" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 막대: 12:01:01 100건 -->
+  <text x="590" y="160" text-anchor="middle" font-size="17" font-weight="bold" fill="#6d28d9">100건 통과</text>
+  <rect x="562" y="172" width="56" height="118" fill="#8b5cf6"/>
 
-  <!-- 윈도우 경계선 (12:01:00) -->
-  <line x1="400" y1="90" x2="400" y2="230" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 4"/>
-  <text x="400" y="247" font-size="11.5" fill="#dc2626" text-anchor="middle" font-weight="bold">12:01:00 (경계)</text>
+  <!-- 시간축 -->
+  <line x1="40" y1="290" x2="846" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#axis)"/>
+  <line x1="290" y1="290" x2="290" y2="298" stroke="#374151" stroke-width="2"/>
+  <line x1="440" y1="290" x2="440" y2="298" stroke="#b91c1c" stroke-width="2"/>
+  <line x1="590" y1="290" x2="590" y2="298" stroke="#374151" stroke-width="2"/>
+  <text x="290" y="316" text-anchor="middle" font-size="15" fill="#1f2937">12:00:59</text>
+  <text x="440" y="316" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">12:01:00</text>
+  <text x="590" y="316" text-anchor="middle" font-size="15" fill="#1f2937">12:01:01</text>
 
-  <!-- 요청 1: 12:00:59 100건 통과 -->
-  <circle cx="370" cy="180" r="5" fill="#2563eb"/>
-  <rect x="255" y="142" width="110" height="24" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="310" y="158" font-size="13" fill="#1f2933" text-anchor="middle">12:00:59</text>
-  <text x="392" y="202" font-size="13" font-weight="bold" fill="#059669" text-anchor="end">100건 통과</text>
+  <!-- 2초 구간 -->
+  <path d="M290,328 V338 H590 V328" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <text x="440" y="362" text-anchor="middle" font-size="17" font-weight="bold" fill="#b91c1c">2초 사이에 200건</text>
 
-  <!-- 요청 2: 12:01:01 100건 통과 -->
-  <circle cx="430" cy="180" r="5" fill="#2563eb"/>
-  <rect x="435" y="142" width="110" height="24" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="490" y="158" font-size="13" fill="#1f2933" text-anchor="middle">12:01:01</text>
-  <text x="408" y="202" font-size="13" font-weight="bold" fill="#059669" text-anchor="start">100건 통과</text>
-
-  <!-- 경계 버스트 강조 구간 (2초 사이) -->
-  <rect x="350" y="108" width="100" height="18" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="3"/>
-  <text x="400" y="121" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">2초 사이</text>
-
-  <!-- 화살표 및 결과 메시지 (→ 2초 사이에 200건. 한도의 두 배가 통과한다) -->
-  <path d="M 60,270 L 100,270" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  <text x="110" y="275" font-size="14" font-weight="bold" fill="#dc2626">2초 사이에 200건. 한도의 두 배가 통과한다</text>
+  <!-- 결론 -->
+  <rect x="190" y="384" width="500" height="48" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="414" text-anchor="middle" font-size="18" font-weight="bold" fill="#b91c1c">한도의 두 배가 통과한다</text>
 </svg>

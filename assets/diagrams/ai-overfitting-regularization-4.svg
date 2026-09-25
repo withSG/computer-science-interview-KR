@@ -1,83 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">편향-분산 트레이드오프</title>
-  <desc id="d">모델 복잡도에 따른 편향, 분산, 그리고 총 오차의 변화를 나타낸 편향-분산 트레이드오프 그래프</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">모델 복잡도와 편향-분산 곡선</title>
+  <desc id="d">모델 복잡도가 커질수록 편향²은 줄고 분산은 늘며, 둘에 노이즈를 더한 총 오차는 U자를 그린다. 총 오차가 최소가 되는 지점의 왼쪽은 과소적합, 오른쪽은 과적합이다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="gr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Background guide areas for 과소적합 / 과적합 -->
-  <rect x="110" y="50" width="310" height="420" fill="#fffbeb" opacity="0.4"/>
-  <rect x="420" y="50" width="330" height="420" fill="#fef2f2" opacity="0.4"/>
+  <!-- 축 -->
+  <text x="110" y="46" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">오차</text>
+  <path d="M110,440 L110,58" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ax)"/>
+  <path d="M110,440 L630,440" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ax)"/>
+  <text x="640" y="450" font-size="16" font-weight="bold" fill="#374151">모델 복잡도</text>
 
-  <!-- Main Axes -->
-  <!-- Y axis (오차) -->
-  <path d="M110,470 L110,50" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <!-- X axis (모델 복잡도) -->
-  <path d="M110,470 L750,470" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 최소 지점 구분선 -->
+  <path d="M379.2,292.1 L379.2,478" stroke="#047857" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
 
-  <!-- Axis Labels -->
-  <text x="110" y="38" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">오차</text>
-  <text x="760" y="474" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="start">모델 복잡도</text>
+  <!-- 곡선 -->
+  <path d="M110.0,134.0 L115.0,142.3 L120.0,150.3 L125.0,158.2 L130.0,165.8 L135.0,173.2 L140.0,180.5 L145.0,187.5 L150.0,194.3 L155.0,201.0 L160.0,207.5 L165.0,213.8 L170.0,219.9 L175.0,225.8 L180.0,231.6 L185.0,237.3 L190.0,242.8 L195.0,248.1 L200.0,253.3 L205.0,258.4 L210.0,263.3 L215.0,268.1 L220.0,272.7 L225.0,277.3 L230.0,281.7 L235.0,285.9 L240.0,290.1 L245.0,294.2 L250.0,298.1 L255.0,302.0 L260.0,305.7 L265.0,309.3 L270.0,312.9 L275.0,316.3 L280.0,319.7 L285.0,322.9 L290.0,326.1 L295.0,329.2 L300.0,332.2 L305.0,335.1 L310.0,337.9 L315.0,340.7 L320.0,343.4 L325.0,346.0 L330.0,348.6 L335.0,351.0 L340.0,353.4 L345.0,355.8 L350.0,358.1 L355.0,360.3 L360.0,362.4 L365.0,364.5 L370.0,366.6 L375.0,368.6 L380.0,370.5 L385.0,372.4 L390.0,374.2 L395.0,376.0 L400.0,377.7 L405.0,379.4 L410.0,381.1 L415.0,382.7 L420.0,384.2 L425.0,385.7 L430.0,387.2 L435.0,388.6 L440.0,390.0 L445.0,391.4 L450.0,392.7 L455.0,394.0 L460.0,395.2 L465.0,396.4 L470.0,397.6 L475.0,398.7 L480.0,399.9 L485.0,401.0 L490.0,402.0 L495.0,403.0 L500.0,404.0 L505.0,405.0 L510.0,406.0 L515.0,406.9 L520.0,407.8 L525.0,408.7 L530.0,409.5 L535.0,410.3 L540.0,411.1 L545.0,411.9 L550.0,412.7 L555.0,413.4 L560.0,414.1 L565.0,414.8 L570.0,415.5 L575.0,416.2 L580.0,416.8 L585.0,417.4 L590.0,418.1 L595.0,418.7 L600.0,419.2 L605.0,419.8 L610.0,420.3 L615.0,420.9 L620.0,421.4" fill="none" stroke="#1d4ed8" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M110.0,432.8 L115.0,432.5 L120.0,432.3 L125.0,432.0 L130.0,431.7 L135.0,431.3 L140.0,431.0 L145.0,430.7 L150.0,430.3 L155.0,430.0 L160.0,429.6 L165.0,429.2 L170.0,428.8 L175.0,428.4 L180.0,428.0 L185.0,427.5 L190.0,427.0 L195.0,426.5 L200.0,426.0 L205.0,425.5 L210.0,425.0 L215.0,424.4 L220.0,423.8 L225.0,423.2 L230.0,422.6 L235.0,421.9 L240.0,421.3 L245.0,420.6 L250.0,419.8 L255.0,419.1 L260.0,418.3 L265.0,417.5 L270.0,416.7 L275.0,415.8 L280.0,414.9 L285.0,413.9 L290.0,413.0 L295.0,411.9 L300.0,410.9 L305.0,409.8 L310.0,408.7 L315.0,407.5 L320.0,406.3 L325.0,405.0 L330.0,403.7 L335.0,402.3 L340.0,400.9 L345.0,399.5 L350.0,398.0 L355.0,396.4 L360.0,394.7 L365.0,393.1 L370.0,391.3 L375.0,389.5 L380.0,387.6 L385.0,385.6 L390.0,383.6 L395.0,381.5 L400.0,379.3 L405.0,377.0 L410.0,374.6 L415.0,372.2 L420.0,369.6 L425.0,367.0 L430.0,364.3 L435.0,361.4 L440.0,358.5 L445.0,355.5 L450.0,352.3 L455.0,349.0 L460.0,345.6 L465.0,342.1 L470.0,338.4 L475.0,334.6 L480.0,330.6 L485.0,326.5 L490.0,322.3 L495.0,317.9 L500.0,313.3 L505.0,308.6 L510.0,303.6 L515.0,298.5 L520.0,293.2 L525.0,287.7 L530.0,282.0 L535.0,276.1 L540.0,270.0 L545.0,263.6 L550.0,257.0 L555.0,250.2 L560.0,243.1 L565.0,235.7 L570.0,228.0 L575.0,220.1 L580.0,211.9 L585.0,203.3 L590.0,194.5 L595.0,185.3 L600.0,175.7 L605.0,165.8 L610.0,155.6 L615.0,144.9 L620.0,133.8" fill="none" stroke="#b45309" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M110.0,90.8 L115.0,98.8 L120.0,106.6 L125.0,114.2 L130.0,121.5 L135.0,128.6 L140.0,135.5 L145.0,142.2 L150.0,148.7 L155.0,155.0 L160.0,161.1 L165.0,167.0 L170.0,172.7 L175.0,178.2 L180.0,183.6 L185.0,188.8 L190.0,193.8 L195.0,198.7 L200.0,203.4 L205.0,207.9 L210.0,212.3 L215.0,216.5 L220.0,220.6 L225.0,224.5 L230.0,228.3 L235.0,231.9 L240.0,235.4 L245.0,238.7 L250.0,242.0 L255.0,245.1 L260.0,248.0 L265.0,250.8 L270.0,253.5 L275.0,256.1 L280.0,258.5 L285.0,260.9 L290.0,263.0 L295.0,265.1 L300.0,267.1 L305.0,268.9 L310.0,270.6 L315.0,272.2 L320.0,273.7 L325.0,275.0 L330.0,276.3 L335.0,277.4 L340.0,278.4 L345.0,279.3 L350.0,280.0 L355.0,280.7 L360.0,281.2 L365.0,281.6 L370.0,281.9 L375.0,282.0 L380.0,282.1 L385.0,282.0 L390.0,281.8 L395.0,281.5 L400.0,281.0 L405.0,280.4 L410.0,279.7 L415.0,278.8 L420.0,277.9 L425.0,276.7 L430.0,275.5 L435.0,274.1 L440.0,272.5 L445.0,270.8 L450.0,269.0 L455.0,267.0 L460.0,264.8 L465.0,262.5 L470.0,260.0 L475.0,257.3 L480.0,254.5 L485.0,251.5 L490.0,248.3 L495.0,244.9 L500.0,241.4 L505.0,237.6 L510.0,233.6 L515.0,229.4 L520.0,225.0 L525.0,220.4 L530.0,215.5 L535.0,210.5 L540.0,205.1 L545.0,199.5 L550.0,193.7 L555.0,187.6 L560.0,181.2 L565.0,174.5 L570.0,167.5 L575.0,160.3 L580.0,152.7 L585.0,144.8 L590.0,136.5 L595.0,127.9 L600.0,118.9 L605.0,109.6 L610.0,99.9 L615.0,89.8 L620.0,79.2" fill="none" stroke="#6d28d9" stroke-width="4" stroke-linejoin="round"/>
 
-  <!-- Optimal Point Center Line (Dashed) -->
-  <path d="M420,70 L420,470" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+  <!-- 곡선 라벨 -->
+  <text x="640" y="85" font-size="17" font-weight="bold" fill="#6d28d9">총 오차</text>
+  <text x="640" y="107" font-size="15" fill="#6d28d9">= 편향² + 분산 + 노이즈</text>
+  <text x="640" y="144" font-size="17" font-weight="bold" fill="#b45309">분산</text>
+  <text x="640" y="417" font-size="17" font-weight="bold" fill="#1d4ed8">편향²</text>
 
-  <!-- Curves -->
-  <!-- 1. Total Error Curve (총 오차) - Red -->
-  <path d="M130,120 Q220,220 320,240 T420,245 Q520,240 620,180 T730,80" stroke="#dc2626" stroke-width="3" fill="none"/>
+  <!-- 최소 지점 -->
+  <text x="379.2" y="224" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">총 오차가 최소가 되는 지점</text>
+  <path d="M379.2,232.1 L379.2,272.1" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#gr)"/>
+  <circle cx="379.2" cy="282.1" r="6" fill="#047857"/>
 
-  <!-- 2. Bias Squared Curve (편향²) - Blue -->
-  <path d="M130,220 Q250,330 420,410 T730,445" stroke="#2563eb" stroke-width="2.5" fill="none"/>
+  <!-- 교차점 -->
+  <circle cx="401.9" cy="378.4" r="5" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <path d="M407.9,385.4 L415.9,408.4" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <text x="408" y="428" font-size="15" font-weight="bold" fill="#374151">교차점 ≠ 최적점</text>
 
-  <!-- 3. Variance Curve (분산) - Green -->
-  <path d="M130,445 Q350,440 420,410 T730,210" stroke="#059669" stroke-width="2.5" fill="none"/>
-
-  <!-- Curve Labels -->
-  <!-- Bias^2 Label -->
-  <rect x="255" y="300" width="56" height="24" fill="#ffffff" rx="4"/>
-  <text x="283" y="316" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">편향²</text>
-
-  <!-- Variance Label -->
-  <rect x="585" y="300" width="48" height="24" fill="#ffffff" rx="4"/>
-  <text x="609" y="316" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">분산</text>
-
-  <!-- Annotations & Notes from Original -->
-
-  <!-- Top Right Note: 총 오차 Formula -->
-  <rect x="525" y="60" width="220" height="28" fill="#ffffff" rx="4" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="635" y="78" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">총 오차 = 편향² + 분산 + 노이즈</text>
-
-  <!-- Point Indicator Line at Minimum Point (-┼-) -->
-  <path d="M405,245 L435,245" stroke="#1f2933" stroke-width="2"/>
-  <path d="M420,235 L420,255" stroke="#1f2933" stroke-width="2"/>
-
-  <!-- Downward Arrow pointing to Minimum Point (▼) -->
-  <path d="M420,170 L420,225" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Text: 총 오차가 최소가 되는 지점 -->
-  <rect x="445" y="185" width="180" height="24" fill="#ffffff" rx="4"/>
-  <text x="450" y="201" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="start">▼ 총 오차가 최소가 되는 지점</text>
-
-  <!-- Bottom Region Labels (과소적합 / 과적합) -->
-  <!-- Cross marker on X axis -->
-  <path d="M420,463 L420,477" stroke="#1f2933" stroke-width="2"/>
-
-  <!-- Underfitting (과소적합) -->
-  <rect x="235" y="482" width="76" height="26" fill="#fffbeb" rx="4" stroke="#d97706" stroke-width="1"/>
-  <text x="273" y="499" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">과소적합</text>
-
-  <!-- Vertical Divider Indicator at Bottom -->
-  <text x="420" y="499" font-size="14" fill="#52606d" text-anchor="middle">│</text>
-
-  <!-- Overfitting (과적합) -->
-  <rect x="525" y="482" width="64" height="26" fill="#fef2f2" rx="4" stroke="#dc2626" stroke-width="1"/>
-  <text x="557" y="499" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">과적합</text>
+  <!-- 구간 -->
+  <text x="245" y="470" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">← 과소적합</text>
+  <text x="500" y="470" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">과적합 →</text>
 </svg>

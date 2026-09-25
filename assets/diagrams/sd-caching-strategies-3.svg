@@ -1,47 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">안티패턴: 캐시를 갱신(update)한다</title>
-  <desc id="d">요청A와 요청B의 DB 및 캐시 쓰기 순서가 뒤집혀 DB는 200, 캐시는 100이 되는 안티패턴 시퀀스 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">캐시 갱신 경쟁 조건</title>
+  <desc id="d">요청A가 DB에 100을 쓰고, 요청B가 DB에 200과 캐시에 200을 쓴 뒤, 요청A가 캐시에 100을 쓴다. DB 쓰기 순서와 캐시 쓰기 순서가 뒤집혀 DB는 200, 캐시는 100으로 남는다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
-  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- 헤딩 / 제목 -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">안티패턴: 캐시를 갱신(update)한다</text>
+  <!-- 열 배경 -->
+  <rect x="100" y="58" width="250" height="268" rx="8" fill="#f3f4f6"/>
+  <rect x="574" y="58" width="250" height="268" rx="8" fill="#f3f4f6"/>
+  <text x="225" y="42" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">DB</text>
+  <text x="699" y="42" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">캐시</text>
+  <text x="52" y="42" font-size="15" fill="#4b5563" text-anchor="middle">순서</text>
 
-  <!-- 메인 박스 영역 -->
-  <rect x="30" y="60" width="820" height="235" rx="8" ry="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- 순서 번호 -->
+  <circle cx="52" cy="96" r="15" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="52" y="101" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">1</text>
+  <line x1="52" y1="111" x2="52" y2="142" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+  <circle cx="52" cy="160" r="15" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="52" y="165" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">2</text>
+  <line x1="52" y1="175" x2="52" y2="206" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+  <circle cx="52" cy="224" r="15" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="52" y="229" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">3</text>
+  <line x1="52" y1="239" x2="52" y2="270" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+  <circle cx="52" cy="288" r="15" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="52" y="293" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">4</text>
 
-  <!-- 요청 A 흐름 (파랑) -->
   <!-- 1. 요청A: DB에 100 쓰기 -->
-  <rect x="50" y="85" width="180" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="140" y="107.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청A: DB에 100 쓰기</text>
-
-  <path d="M 230 103 L 640 103 L 640 235 L 590 235" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 요청 B 흐름 (보라) -->
+  <rect x="112" y="74" width="226" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="225" y="102" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#1d4ed8">요청A:</tspan> DB에 100 쓰기</text>
   <!-- 2. 요청B: DB에 200 쓰기 -->
-  <rect x="50" y="135" width="180" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="140" y="157.6" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">요청B: DB에 200 쓰기</text>
-
-  <path d="M 230 153 L 420 153" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
+  <rect x="112" y="138" width="226" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="225" y="166" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#6d28d9">요청B:</tspan> DB에 200 쓰기</text>
   <!-- 3. 요청B: 캐시에 200 쓰기 -->
-  <rect x="410" y="185" width="180" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="500" y="207.6" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">요청B: 캐시에 200 쓰기</text>
-
-  <path d="M 230 153 L 340 153 L 340 203 L 410 203" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-
+  <rect x="586" y="202" width="226" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="699" y="230" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#6d28d9">요청B:</tspan> 캐시에 200 쓰기</text>
   <!-- 4. 요청A: 캐시에 100 쓰기 -->
-  <rect x="410" y="235" width="180" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="500" y="257.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">요청A: 캐시에 100 쓰기</text>
+  <rect x="586" y="266" width="226" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="699" y="294" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#1d4ed8">요청A:</tspan> 캐시에 100 쓰기</text>
 
-  <!-- 결과 강조 라벨 (빨강) -->
-  <rect x="620" y="235" width="200" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="630" y="257.6" font-size="13" font-weight="bold" fill="#dc2626">← DB는 200, 캐시는 100</text>
+  <!-- 같은 요청의 DB 쓰기 → 캐시 쓰기 (교차) -->
+  <line x1="338" y1="96" x2="583" y2="288" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <line x1="338" y1="160" x2="583" y2="224" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+
+  <!-- 최종 값 -->
+  <line x1="225" y1="182" x2="225" y2="346" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah-purple)"/>
+  <line x1="699" y1="310" x2="699" y2="346" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah-blue)"/>
+  <rect x="140" y="350" width="170" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="225" y="378" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">DB는 200</text>
+  <rect x="614" y="350" width="170" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="699" y="378" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">캐시는 100</text>
+  <text x="462" y="382" font-size="26" font-weight="bold" fill="#b91c1c" text-anchor="middle">≠</text>
+  <text x="462" y="428" font-size="15" fill="#1f2937" text-anchor="middle">DB 쓰기 순서(A→B)와 캐시 쓰기 순서(B→A)가 뒤집혀 불일치가 영구히 남는다</text>
 </svg>

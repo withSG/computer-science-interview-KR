@@ -262,7 +262,7 @@ Bi-encoder (검색용, 빠름)          Cross-encoder (재순위용, 정확)
 그래서 둘을 **직렬로** 씁니다. 빠른 검색으로 후보를 50개까지 좁히고, 그 50개만 cross-encoder로 다시 채점해 상위 5개를 남깁니다. 각자 잘하는 구간에서만 쓰는 구조입니다.
 
 <!-- diagram:ai-rag-pipeline-4 -->
-![리랭커: 순위가 어긋나는 문제](../../assets/diagrams/ai-rag-pipeline-4.svg)
+![100만 청크를 후보 50개, 최종 5개로 좁히는 흐름](../../assets/diagrams/ai-rag-pipeline-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

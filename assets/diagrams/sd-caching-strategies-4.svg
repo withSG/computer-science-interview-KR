@@ -1,42 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">조합</title>
-  <desc id="d">캐시 무효화 전략인 모든 키에 TTL, 중요한 키는 이벤트 기반, 연관 관계가 넓으면 태그의 세 가지 요소를 플러스 기호로 조합한 다이어그램</desc>
-  <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">캐시 무효화 조합</title>
+  <desc id="d">모든 키에 TTL을 안전망으로 깔고, 중요한 키는 이벤트 기반으로, 연관 관계가 넓으면 태그로 무효화하는 세 가지를 겹쳐 쓰는 다층 방어를 보여 준다.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="300" fill="#ffffff"/>
+  <text x="40" y="40" font-size="18" font-weight="bold" fill="#111827">세 가지를 겹쳐 쓰는 다층 방어</text>
 
-  <!-- Row 1: 모든 키에 TTL -->
-  <rect x="40" y="30" width="300" height="48" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="190" y="59" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">모든 키에 TTL</text>
-  <path d="M340,54 L420,54" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="435" y="58" fill="#52606d" font-size="13">← 무효화가 실패해도 결국 복구되는 안전망</text>
+  <!-- 1: TTL -->
+  <rect x="40" y="64" width="800" height="68" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <path d="M48,64 H380 V132 H48 Q40,132 40,124 V72 Q40,64 48,64 Z" fill="#dbeafe"/>
+  <line x1="380" y1="64" x2="380" y2="132" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="210" y="105" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle">모든 키에 TTL</text>
+  <text x="408" y="104" font-size="16" fill="#374151">무효화가 실패해도 결국 복구되는 안전망</text>
 
-  <!-- Plus 1 -->
-  <text x="190" y="103" fill="#9aa5b1" font-size="16" font-weight="bold" text-anchor="middle">+</text>
+  <text x="210" y="159" font-size="26" font-weight="bold" fill="#4b5563" text-anchor="middle">+</text>
 
-  <!-- Row 2: 중요한 키는 이벤트 기반 -->
-  <rect x="40" y="120" width="300" height="48" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="190" y="149" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">중요한 키는 이벤트 기반</text>
-  <path d="M340,144 L420,144" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="435" y="148" fill="#52606d" font-size="13">← 정확성이 필요한 곳만 골라서</text>
+  <!-- 2: 이벤트 기반 -->
+  <rect x="40" y="168" width="800" height="68" rx="8" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <path d="M48,168 H380 V236 H48 Q40,236 40,228 V176 Q40,168 48,168 Z" fill="#d1fae5"/>
+  <line x1="380" y1="168" x2="380" y2="236" stroke="#047857" stroke-width="1.5"/>
+  <text x="210" y="209" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">중요한 키는 이벤트 기반</text>
+  <text x="408" y="208" font-size="16" fill="#374151">정확성이 필요한 곳만 골라서</text>
 
-  <!-- Plus 2 -->
-  <text x="190" y="193" fill="#9aa5b1" font-size="16" font-weight="bold" text-anchor="middle">+</text>
+  <text x="210" y="263" font-size="26" font-weight="bold" fill="#4b5563" text-anchor="middle">+</text>
 
-  <!-- Row 3: 연관 관계가 넓으면 태그 -->
-  <rect x="40" y="210" width="300" height="48" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="190" y="239" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">연관 관계가 넓으면 태그</text>
-  <path d="M340,234 L420,234" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="435" y="238" fill="#52606d" font-size="13">← 한 변경이 여러 캐시를 낡게 만들 때만</text>
+  <!-- 3: 태그 -->
+  <rect x="40" y="272" width="800" height="68" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <path d="M48,272 H380 V340 H48 Q40,340 40,332 V280 Q40,272 48,272 Z" fill="#ede9fe"/>
+  <line x1="380" y1="272" x2="380" y2="340" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="210" y="313" font-size="20" font-weight="bold" fill="#5b21b6" text-anchor="middle">연관 관계가 넓으면 태그</text>
+  <text x="408" y="312" font-size="16" fill="#374151">한 변경이 여러 캐시를 낡게 만들 때만</text>
 </svg>

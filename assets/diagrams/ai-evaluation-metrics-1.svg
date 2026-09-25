@@ -1,49 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">혼동 행렬 — 모든 분류 지표의 출발점</title>
-  <desc id="d">예측과 실제 결과를 비교하는 2x2 혼동 행렬 다이어그램과 용어 설명</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 612" width="880" height="612" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">혼동 행렬 2×2와 이름 읽는 법</title>
+  <desc id="d">예측(열)과 실제(행)를 교차한 혼동 행렬의 네 칸 TP·FN·FP·TN과 각 칸의 뜻을 보여 주고, 앞글자는 예측이 맞았는지(T/F), 뒷글자는 무엇이라 예측했는지(P/N)를 뜻한다는 읽는 법을 FN 예시로 풀어 준다.</desc>
+  <rect width="880" height="612" fill="#ffffff"/>
 
-  <!-- Matrix Header Column Labels -->
-  <!-- Box 1 Header: 예측: Positive -->
-  <rect x="230" y="30" width="290" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="375" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">예측: Positive</text>
+  <!-- 범례 -->
+  <rect x="214" y="28" width="16" height="16" rx="3" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="238" y="41" font-size="15" fill="#111827">예측이 맞음 (T)</text>
+  <rect x="384" y="28" width="16" height="16" rx="3" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="408" y="41" font-size="15" fill="#111827">예측이 틀림 (F)</text>
 
-  <!-- Box 2 Header: 예측: Negative -->
-  <rect x="540" y="30" width="290" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="685" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">예측: Negative</text>
+  <!-- 열 머리: 예측 -->
+  <rect x="214" y="56" width="310" height="44" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="369" y="84" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">예측: Positive</text>
+  <rect x="534" y="56" width="310" height="44" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="689" y="84" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">예측: Negative</text>
 
-  <!-- Row Header 1: 실제: Positive -->
-  <text x="200" y="130" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">실제: Positive</text>
+  <!-- 행 머리: 실제 -->
+  <rect x="36" y="108" width="168" height="120" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="120" y="173" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">실제: Positive</text>
+  <rect x="36" y="236" width="168" height="120" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="120" y="301" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">실제: Negative</text>
 
-  <!-- Row Header 2: 실제: Negative -->
-  <text x="200" y="230" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="end">실제: Negative</text>
+  <!-- TP -->
+  <rect x="214" y="108" width="310" height="120" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="369" y="158" font-size="32" font-weight="bold" text-anchor="middle"><tspan fill="#047857">T</tspan><tspan fill="#111827">P</tspan></text>
+  <text x="369" y="182" font-size="15" fill="#4b5563" text-anchor="middle">(True Pos.)</text>
+  <text x="369" y="212" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">제대로 잡음</text>
 
-  <!-- Cell (1,1): TP (True Pos.) / 제대로 잡음 -->
-  <rect x="230" y="80" width="290" height="90" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="375" y="113" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">TP (True Pos.)</text>
-  <text x="375" y="143" font-size="13" fill="#1f2933" text-anchor="middle">제대로 잡음</text>
+  <!-- FN -->
+  <rect x="534" y="108" width="310" height="120" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="689" y="158" font-size="32" font-weight="bold" text-anchor="middle"><tspan fill="#b91c1c">F</tspan><tspan fill="#111827">N</tspan></text>
+  <text x="689" y="182" font-size="15" fill="#4b5563" text-anchor="middle">(False Neg.)</text>
+  <text x="689" y="212" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">놓침 (2종 오류)</text>
 
-  <!-- Cell (1,2): FN (False Neg.) / 놓침 (2종 오류) -->
-  <rect x="540" y="80" width="290" height="90" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="685" y="113" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">FN (False Neg.)</text>
-  <text x="685" y="143" font-size="13" fill="#1f2933" text-anchor="middle">놓침 (2종 오류)</text>
+  <!-- FP -->
+  <rect x="214" y="236" width="310" height="120" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="369" y="286" font-size="32" font-weight="bold" text-anchor="middle"><tspan fill="#b91c1c">F</tspan><tspan fill="#111827">P</tspan></text>
+  <text x="369" y="310" font-size="15" fill="#4b5563" text-anchor="middle">(False Pos.)</text>
+  <text x="369" y="340" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">헛다리 (1종 오류)</text>
 
-  <!-- Cell (2,1): FP (False Pos.) / 헛다리 (1종 오류) -->
-  <rect x="230" y="180" width="290" height="90" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="375" y="213" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">FP (False Pos.)</text>
-  <text x="375" y="243" font-size="13" fill="#1f2933" text-anchor="middle">헛다리 (1종 오류)</text>
+  <!-- TN -->
+  <rect x="534" y="236" width="310" height="120" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="689" y="286" font-size="32" font-weight="bold" text-anchor="middle"><tspan fill="#047857">T</tspan><tspan fill="#111827">N</tspan></text>
+  <text x="689" y="310" font-size="15" fill="#4b5563" text-anchor="middle">(True Neg.)</text>
+  <text x="689" y="340" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">제대로 통과</text>
 
-  <!-- Cell (2,2): TN (True Neg.) / 제대로 통과 -->
-  <rect x="540" y="180" width="290" height="90" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="685" y="213" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">TN (True Neg.)</text>
-  <text x="685" y="243" font-size="13" fill="#1f2933" text-anchor="middle">제대로 통과</text>
+  <!-- 이름 읽는 법 -->
+  <rect x="36" y="380" width="808" height="208" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="60" y="412" font-size="18" font-weight="bold" fill="#111827">이름 읽는 법</text>
+  <text x="500" y="412" font-size="18" font-weight="bold" fill="#111827">예: FN</text>
 
-  <!-- Bottom Explanations Container -->
-  <rect x="50" y="305" width="780" height="155" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="6"/>
+  <rect x="60" y="430" width="76" height="32" rx="6" fill="#e5e7eb"/>
+  <text x="98" y="451" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">앞글자</text>
+  <text x="148" y="451" font-size="16" fill="#111827">= 예측이 맞았나 (T/F)</text>
+  <text x="500" y="451" font-size="16" fill="#111827"><tspan font-weight="bold" fill="#b91c1c">F</tspan> → 예측이 틀림</text>
 
-  <text x="75" y="345" font-size="13" font-weight="bold" fill="#1f2933">이름 읽는 법: 앞글자 = 예측이 맞았나(T/F), 뒷글자 = 무엇이라 예측했나(P/N)</text>
-  
-  <text x="75" y="390" font-size="13" fill="#52606d">
-    <tspan fill="#1f2933" font-weight="bold">FN</tspan> = "Negative라고 예측했는데 틀림" = 실제로는 Positive인데 놓친 것
-  </text>
+  <rect x="60" y="474" width="76" height="32" rx="6" fill="#e5e7eb"/>
+  <text x="98" y="495" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">뒷글자</text>
+  <text x="148" y="495" font-size="16" fill="#111827">= 무엇이라 예측했나 (P/N)</text>
+  <text x="500" y="495" font-size="16" fill="#111827"><tspan font-weight="bold">N</tspan> → Negative라고 예측</text>
+
+  <line x1="476" y1="398" x2="476" y2="506" stroke="#d1d5db" stroke-width="1.5"/>
+  <line x1="60" y1="520" x2="820" y2="520" stroke="#d1d5db" stroke-width="1.5"/>
+
+  <rect x="60" y="533" width="64" height="38" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="92" y="559" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle">FN</text>
+  <text x="140" y="558" font-size="17" fill="#111827">= “Negative라고 예측했는데 틀림” = <tspan font-weight="bold" fill="#b91c1c">실제로는 Positive인데 놓친 것</tspan></text>
 </svg>

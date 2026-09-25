@@ -1,53 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Scale Out (수평 확장)</title>
-  <desc id="d">트래픽 증가 시 Auto Scaling Group을 통한 서버 인스턴스 자동 확장 과정 및 설정 예시 다이어그램</desc>
-  <rect width="880" height="370" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Scale Out 자동 확장</title>
+  <desc id="d">트래픽이 늘면 Auto Scaling Group이 서버 인스턴스 S 세 대에 인스턴스 두 대를 자동으로 추가한다. 설정 예시는 CPU 70% 이상, 요청 수 10,000/초 이상일 때 인스턴스 추가.</desc>
+  <rect width="880" height="300" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Title/Header Area -->
-  <text x="30" y="41" font-size="16" font-weight="bold" fill="#1f2933">Scale Out (수평 확장)</text>
-  <text x="30" y="70" font-size="13" fill="#52606d">트래픽 증가 시 서버 인스턴스 추가</text>
+  <text x="32" y="42" font-size="19" font-weight="bold" fill="#111827">트래픽 증가 시 서버 인스턴스 추가</text>
 
-  <!-- Main Auto Scaling Group Area -->
-  <rect x="30" y="90" width="820" height="150" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="50" y="121" font-size="14" font-weight="bold" fill="#1f2933">Auto Scaling Group</text>
+  <!-- Auto Scaling Group -->
+  <rect x="32" y="66" width="444" height="208" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="52" y="96" font-size="17" font-weight="bold" fill="#111827">Auto Scaling Group</text>
 
-  <!-- Server Instances -->
-  <!-- Existing Instances (S) -->
-  <g>
-    <rect x="50" y="140" width="60" height="70" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="80" y="179" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">S</text>
-  </g>
-  <g>
-    <rect x="125" y="140" width="60" height="70" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="155" y="179" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">S</text>
-  </g>
-  <g>
-    <rect x="200" y="140" width="60" height="70" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="230" y="179" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">S</text>
-  </g>
+  <rect x="66" y="114" width="64" height="80" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="98" y="162" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">S</text>
+  <rect x="144" y="114" width="64" height="80" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="176" y="162" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">S</text>
+  <rect x="222" y="114" width="64" height="80" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="254" y="162" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">S</text>
 
-  <!-- Added Instances (+) -->
-  <g>
-    <rect x="275" y="140" width="60" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="305" y="179" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">+</text>
-  </g>
-  <g>
-    <rect x="350" y="140" width="60" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="380" y="179" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">+</text>
-  </g>
+  <rect x="300" y="114" width="64" height="80" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="332" y="164" font-size="26" font-weight="bold" fill="#047857" text-anchor="middle">+</text>
+  <rect x="378" y="114" width="64" height="80" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="410" y="164" font-size="26" font-weight="bold" fill="#047857" text-anchor="middle">+</text>
 
-  <!-- Auto Scale Arrow & Text -->
-  <path d="M 520 175 L 430 175" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  <text x="530" y="179" font-size="13" font-weight="bold" fill="#1f2933">← 자동 확장</text>
+  <!-- 묶음 표시 -->
+  <path d="M66,208 V216 H286 V208" stroke="#64748b" stroke-width="1.5" fill="none"/>
+  <text x="176" y="244" font-size="15" fill="#374151" text-anchor="middle">서버 인스턴스 (S)</text>
+  <path d="M300,208 V216 H442 V208" stroke="#047857" stroke-width="1.5" fill="none"/>
+  <text x="371" y="244" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">자동 추가 (+)</text>
 
-  <!-- Settings / Rules Section -->
-  <rect x="30" y="260" width="820" height="80" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="50" y="286" font-size="13" font-weight="bold" fill="#1f2933">설정 예시:</text>
-  <text x="50" y="308" font-size="13" fill="#52606d">- CPU 70% 이상 → 인스턴스 추가</text>
-  <text x="50" y="328" font-size="13" fill="#52606d">- 요청 수 10,000/초 이상 → 인스턴스 추가</text>
+  <!-- 자동 확장 화살표 -->
+  <path d="M560,160 H484" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="521" y="146" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">자동 확장</text>
+
+  <!-- 설정 예시 -->
+  <rect x="566" y="66" width="282" height="208" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="586" y="96" font-size="17" font-weight="bold" fill="#111827">설정 예시</text>
+
+  <rect x="582" y="112" width="250" height="68" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="598" y="140" font-size="16" fill="#111827">CPU 70% 이상</text>
+  <text x="598" y="166" font-size="16" font-weight="bold" fill="#047857">→ 인스턴스 추가</text>
+
+  <rect x="582" y="192" width="250" height="68" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="598" y="220" font-size="16" fill="#111827">요청 수 10,000/초 이상</text>
+  <text x="598" y="246" font-size="16" font-weight="bold" fill="#047857">→ 인스턴스 추가</text>
 </svg>

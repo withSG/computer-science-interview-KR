@@ -44,7 +44,7 @@
 같은 데이터의 사본이 두 곳(DB와 캐시)에 생기는 순간, "둘이 다를 수 있다"는 문제가 따라붙습니다. 피할 방법은 없습니다.
 
 <!-- diagram:sd-caching-strategies-7 -->
-![캐시가 만드는 새 문제: 정합성](../../assets/diagrams/sd-caching-strategies-7.svg)
+![DB만 9000으로 바뀌고 캐시는 10000으로 남는 불일치 흐름](../../assets/diagrams/sd-caching-strategies-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

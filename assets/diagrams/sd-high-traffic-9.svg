@@ -1,70 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">대기열을 이용한 우아한 요청 거절</title>
-  <desc id="d">사용자 요청이 CDN의 정적 대기실, Redis 기반 입장 제어기를 거쳐 실제 서비스로 들어가는 흐름도</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">대기열로 입장을 제어하는 흐름</title>
+  <desc id="d">사용자는 CDN이 서빙하는 정적 대기실에서 순번을 보며 입장 제어기를 폴링하고, 제어기는 Redis에 순번을 두고 실제 처리 능력만큼 초당 N명에게 서명된 입장 토큰을 발급한다. 실제 서비스는 토큰 없는 요청을 거절하므로 항상 처리 가능한 만큼만 들어온다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ar-violet" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Flow Lines / Connections -->
-  <!-- User to Waiting Room -->
-  <path d="M 124 85 L 230 85" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 사용자 -->
+  <rect x="40" y="62" width="112" height="44" rx="22" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="96" y="89.5" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">사용자</text>
+  <path d="M153,84 H216" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ar-ink)"/>
 
-  <!-- Waiting Room to Admission Controller (with loop arrow for polling) -->
-  <path d="M 400 130 L 400 190" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 대기실 -->
+  <rect x="224" y="40" width="320" height="88" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="384" y="71" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">대기실 (정적 페이지)</text>
+  <rect x="300" y="84" width="168" height="32" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="384" y="105.5" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">"앞에 12,340명"</text>
+  <path d="M560,56 V112" stroke="#93c5fd" stroke-width="3" fill="none"/>
+  <text x="572" y="77" font-size="15" fill="#1f2937">CDN에서 서빙. <tspan font-weight="bold">원본 부하 0</tspan></text>
+  <text x="572" y="104" font-size="15" fill="#1f2937">순번·예상 시간 표시</text>
 
-  <!-- Admission Controller to Main Service -->
-  <path d="M 400 250 L 400 310" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 폴링 -->
+  <path d="M384,129 V179" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ar-blue)"/>
+  <text x="398" y="160" font-size="15" fill="#1d4ed8">폴링 (수 초 간격)</text>
 
-  <!-- Line Labels with Background Rectangles -->
-  <!-- Label 1: Polling -->
-  <rect x="331" y="150" width="138" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="400" y="164.2" font-size="11.5" fill="#2563eb" text-anchor="middle">폴링 (수 초 간격)</text>
+  <!-- 입장 제어기 -->
+  <rect x="224" y="188" width="320" height="80" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="384" y="220" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">입장 제어기</text>
+  <text x="384" y="249" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">초당 N명씩 입장</text>
+  <path d="M560,204 V256" stroke="#c4b5fd" stroke-width="3" fill="none"/>
+  <text x="572" y="222" font-size="15" fill="#1f2937">Redis에 대기 순번 저장</text>
+  <text x="572" y="250" font-size="15" font-weight="bold" fill="#1f2937">N = 실제 처리 능력</text>
 
-  <!-- Label 2: Token Issuance -->
-  <rect x="290" y="270" width="220" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="400" y="284.2" font-size="11.5" fill="#7c3aed" text-anchor="middle">서명된 입장 토큰 발급 (만료 있음)</text>
+  <!-- 토큰 발급 -->
+  <path d="M384,269 V319" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ar-violet)"/>
+  <text x="398" y="300" font-size="15" fill="#6d28d9">서명된 입장 토큰 발급 (만료 있음)</text>
 
-  <!-- Node 1: User -->
-  <rect x="40" y="60" width="84" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="82" y="89.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자</text>
+  <!-- 실제 서비스 -->
+  <rect x="224" y="328" width="320" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="384" y="366" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">실제 서비스 (예매·결제)</text>
+  <path d="M560,344 V376" stroke="#6ee7b7" stroke-width="3" fill="none"/>
+  <text x="572" y="366" font-size="16" font-weight="bold" fill="#047857">항상 처리 가능한 만큼만 들어온다</text>
 
-  <!-- Node 2: Waiting Room -->
-  <rect x="230" y="40" width="340" height="90" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="400" y="72.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">대기실 (정적 페이지)</text>
-  <text x="400" y="100.55" font-size="13" fill="#1f2933" text-anchor="middle">"앞에 12,340명"</text>
-
-  <!-- Node 2 Descriptions -->
-  <text x="590" y="73.5" font-size="11.5" fill="#52606d">CDN에서 서빙. 원본 부하 0</text>
-  <text x="590" y="101.5" font-size="11.5" fill="#52606d">순번·예상 시간 표시</text>
-
-  <!-- Node 3: Admission Controller -->
-  <rect x="230" y="190" width="340" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="400" y="214.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">입장 제어기</text>
-  <text x="400" y="234.55" font-size="13" fill="#1f2933" text-anchor="middle">초당 N명씩 입장</text>
-
-  <!-- Node 3 Descriptions -->
-  <text x="590" y="215.5" font-size="11.5" fill="#52606d">Redis에 대기 순번 저장</text>
-  <text x="590" y="235.5" font-size="11.5" fill="#52606d">N = 실제 처리 능력</text>
-
-  <!-- Node 4: Main Service -->
-  <rect x="230" y="310" width="340" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="400" y="339.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">실제 서비스 (예매·결제)</text>
-
-  <!-- Node 4 Descriptions -->
-  <text x="590" y="330.5" font-size="11.5" fill="#52606d">토큰 없는 요청은 여기서 거절</text>
-  <path d="M 590 342 L 602 342" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="608" y="346.5" font-size="11.5" fill="#059669" font-weight="bold">항상 처리 가능한 만큼만 들어온다</text>
+  <!-- 토큰 없는 요청은 거절 -->
+  <text x="40" y="350" font-size="15" font-weight="bold" fill="#b91c1c">토큰 없는 요청</text>
+  <path d="M40,364 H194" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ar-red)"/>
+  <rect x="202" y="344" width="6" height="40" rx="2" fill="#b91c1c"/>
+  <text x="196" y="390" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">여기서 거절</text>
 </svg>

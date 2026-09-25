@@ -1,40 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Master-Slave 복제 방식 다이어그램</title>
-  <desc id="d">Master 노드는 쓰기 전담 역할을 수행하고, 복제 라인을 거쳐 여러 Slave 노드로 데이터를 복사하여 읽기 요청을 분산하는 구조입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Master-Slave 복제</title>
+  <desc id="d">쓰기를 전담하는 Master 하나가 데이터를 Slave 세 대로 복제하고, 읽기는 Slave들에 분산됩니다.</desc>
+  <rect width="880" height="330" fill="#ffffff"/>
   <defs>
-    <marker id="a-sub" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="290" fill="#ffffff"/>
-  
-  <rect x="290" y="35" width="140" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="360" y="64.9" font-size="14" font-weight="bold" fill="#1e40af" text-anchor="middle">Master</text>
-  
-  <path d="M510,60 L440,60" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-sub)"/>
-  <text x="520" y="64.55" font-size="13" fill="#52606d" text-anchor="start">쓰기 전담</text>
 
-  <path d="M360,85 L360,160" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <rect x="340" y="109" width="40" height="22" fill="#ffffff"/>
-  <text x="360" y="124.2" font-size="12" fill="#52606d" text-anchor="middle">복제</text>
+  <!-- Master -->
+  <rect x="340" y="28" width="200" height="68" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="58" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e3a8a">Master</text>
+  <text x="440" y="84" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d4ed8">쓰기 전담</text>
 
-  <path d="M180,160 L540,160" stroke="#059669" stroke-width="1.5" fill="none"/>
-  <path d="M180,160 L180,192" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M360,160 L360,192" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M540,160 L540,192" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- 복제 -->
+  <line x1="440" y1="96" x2="440" y2="146" stroke="#374151" stroke-width="2"/>
+  <text x="454" y="128" font-size="16" font-weight="bold" fill="#374151">복제</text>
+  <line x1="200" y1="146" x2="680" y2="146" stroke="#374151" stroke-width="2"/>
+  <line x1="200" y1="146" x2="200" y2="184" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="440" y1="146" x2="440" y2="184" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="680" y1="146" x2="680" y2="184" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="120" y="200" width="120" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="180" y="229.9" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">Slave</text>
+  <!-- Slave -->
+  <rect x="110" y="188" width="180" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="200" y="222" text-anchor="middle" font-size="18" font-weight="bold" fill="#065f46">Slave</text>
+  <rect x="350" y="188" width="180" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="222" text-anchor="middle" font-size="18" font-weight="bold" fill="#065f46">Slave</text>
+  <rect x="590" y="188" width="180" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="680" y="222" text-anchor="middle" font-size="18" font-weight="bold" fill="#065f46">Slave</text>
 
-  <rect x="300" y="200" width="120" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="360" y="229.9" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">Slave</text>
-
-  <rect x="480" y="200" width="120" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="540" y="229.9" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">Slave</text>
-
-  <path d="M710,225 L610,225" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-sub)"/>
-  <text x="720" y="229.55" font-size="13" fill="#52606d" text-anchor="start">읽기 분산</text>
+  <!-- 읽기 분산 -->
+  <path d="M110,258 Q110,270 122,270 H428 Q440,270 440,282 Q440,270 452,270 H758 Q770,270 770,258" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="308" text-anchor="middle" font-size="18" font-weight="bold" fill="#047857">읽기 분산</text>
 </svg>

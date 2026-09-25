@@ -1,40 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Health Check</title>
-  <desc id="d">로드 밸런서의 서버 상태 주기적 확인 방식인 Passive와 Active 방식, 그리고 실패 시 트래픽 전송 중단 처리를 설명하는 다이어그램</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">로드 밸런서 Health Check</title>
+  <desc id="d">로드 밸런서는 Passive(실패 응답 감지)와 Active(ping, HTTP 주기적 요청) 방식으로 서버 상태를 주기적으로 확인하고, Health Check에 실패한 서버로는 트래픽 전송을 중단한다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
   </defs>
 
-  <!-- 상단 중앙 메인 메시지 박스 -->
-  <rect x="230" y="30" width="420" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">로드 밸런서가 서버 상태 주기적 확인</text>
+  <!-- 1. 주기적 확인 방식 -->
+  <circle cx="54" cy="42" r="14" fill="#1d4ed8"/>
+  <text x="54" y="47.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="78" y="48.5" font-size="18" font-weight="bold" fill="#1f2937">로드 밸런서가 서버 상태 주기적 확인</text>
 
-  <!-- 메인 박스에서 두 점검 방식으로 내려가는 화살표 -->
-  <path d="M330,70 L240,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M550,70 L640,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="40" y="72" width="390" height="64" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="62" y="110" font-size="18" font-weight="bold" fill="#1d4ed8">Passive</text>
+  <text x="162" y="110" font-size="16" fill="#1f2937">실패 응답 감지</text>
 
-  <!-- 좌측: Passive 영역 -->
-  <rect x="40" y="110" width="380" height="100" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="230" y="140" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Passive</text>
-  <text x="230" y="175" font-size="13" fill="#52606d" text-anchor="middle">- Passive: 실패 응답 감지</text>
+  <rect x="450" y="72" width="390" height="64" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="472" y="110" font-size="18" font-weight="bold" fill="#1d4ed8">Active</text>
+  <text x="572" y="110" font-size="16" fill="#1f2937">주기적 요청 (ping, HTTP)</text>
 
-  <!-- 우측: Active 영역 -->
-  <rect x="460" y="110" width="380" height="100" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="650" y="140" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Active</text>
-  <text x="650" y="175" font-size="13" fill="#52606d" text-anchor="middle">- Active: 주기적 요청 (ping, HTTP)</text>
+  <!-- 2. 실패 시 트래픽 중단 -->
+  <circle cx="54" cy="184" r="14" fill="#b91c1c"/>
+  <text x="54" y="189.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="78" y="190.5" font-size="18" font-weight="bold" fill="#1f2937">Health Check 실패 → 해당 서버로 트래픽 전송 중단</text>
 
-  <!-- 점검 방식에서 실패 처리로 모이는 화살표 -->
-  <path d="M230,210 L380,270" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <path d="M650,210 L500,270" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <!-- 로드 밸런서 -->
+  <rect x="40" y="287" width="180" height="70" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="130" y="328" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">로드 밸런서</text>
 
-  <!-- 하단 결과: Health Check 실패 처리 박스 -->
-  <rect x="180" y="270" width="520" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="315" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">Health Check 실패 → 해당 서버로 트래픽 전송 중단</text>
+  <!-- 트래픽 -->
+  <line x1="220" y1="322" x2="320" y2="322" stroke="#475569" stroke-width="2"/>
+  <text x="270" y="308" font-size="15" fill="#374151" text-anchor="middle">트래픽</text>
+  <line x1="320" y1="246" x2="320" y2="398" stroke="#475569" stroke-width="2"/>
+  <line x1="319" y1="246" x2="614" y2="246" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="320" y1="322" x2="614" y2="322" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 실패 서버로 가는 트래픽 차단 -->
+  <line x1="319" y1="398" x2="450" y2="398" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4"/>
+  <path d="M458,390 L474,406 M474,390 L458,406" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <text x="392" y="384" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">트래픽 전송 중단</text>
+
+  <!-- 서버 -->
+  <rect x="620" y="216" width="220" height="60" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="730" y="252" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">Server1</text>
+  <rect x="620" y="292" width="220" height="60" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="730" y="328" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">Server2</text>
+  <rect x="620" y="368" width="220" height="60" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="730" y="392" font-size="17" font-weight="bold" fill="#7f1d1d" text-anchor="middle">Server3</text>
+  <text x="730" y="416" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">Health Check 실패</text>
 </svg>

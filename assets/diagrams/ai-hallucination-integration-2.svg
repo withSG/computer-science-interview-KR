@@ -1,97 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Prompt Engineering vs RAG vs Fine-tuning 결정 순서</title>
-  <desc id="d">출력 문제 발생 시 원인에 따라 Prompt Engineering, RAG, Few-shot, Fine-tuning을 선택하는 의사결정 트리를 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="430" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Prompt Engineering·RAG·Fine-tuning 결정 순서</title>
+  <desc id="d">출력이 마음에 안 들 때 내용이 틀렸는지, 형식이나 톤이 문제인지로 먼저 나누고, 원인에 따라 RAG, Prompt Engineering, Few-shot, Fine-tuning(마지막 수단)을 고르는 결정 트리.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Level 1: Start Node -->
-  <rect x="350" y="20" width="180" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="44.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">출력이 마음에 안 든다</text>
+  <!-- 연결선 -->
+  <g fill="none" stroke="#4b5563" stroke-width="2">
+    <path d="M440,72 V96 H226 V117" marker-end="url(#arr)"/>
+    <path d="M440,72 V96 H664 V117" marker-end="url(#arr)"/>
+    <path d="M226,168 V192 H116 V213" marker-end="url(#arr)"/>
+    <path d="M226,168 V192 H336 V213" marker-end="url(#arr)"/>
+    <path d="M664,168 V192 H564 V213" marker-end="url(#arr)"/>
+    <path d="M664,168 V192 H764 V213" marker-end="url(#arr)"/>
+    <path d="M116,280 V317" marker-end="url(#arr)"/>
+    <path d="M336,280 V317" marker-end="url(#arr)"/>
+    <path d="M564,280 V317" marker-end="url(#arr)"/>
+    <path d="M764,280 V317" marker-end="url(#arr)"/>
+  </g>
 
-  <!-- Level 1 Connectors -->
-  <path d="M440,60 L440,80" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M220,80 L660,80" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M220,80 L220,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M660,80 L660,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 출발점 -->
+  <rect x="290" y="24" width="300" height="48" rx="24" fill="#1f2937"/>
+  <text x="440" y="54" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">출력이 마음에 안 든다</text>
 
-  <!-- Level 2: Decision Nodes -->
-  <!-- Left: 내용이 틀렸나? -->
-  <rect x="130" y="100" width="180" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="220" y="124.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">내용이 틀렸나?</text>
+  <!-- 첫 질문 -->
+  <rect x="96" y="120" width="260" height="48" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="226" y="150" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">내용이 틀렸나?</text>
+  <rect x="534" y="120" width="260" height="48" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="664" y="150" text-anchor="middle" font-size="17" font-weight="700" fill="#111827">형식/톤이 문제인가?</text>
 
-  <!-- Right: 형식/톤이 문제인가? -->
-  <rect x="570" y="100" width="180" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="660" y="124.55" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">형식/톤이 문제인가?</text>
+  <!-- 원인 -->
+  <rect x="24" y="216" width="184" height="64" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="116" y="243" text-anchor="middle" font-size="16" fill="#111827"><tspan x="116">모델이 알 리</tspan><tspan x="116" dy="22">없는 정보다</tspan></text>
+  <rect x="224" y="216" width="224" height="64" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="336" y="243" text-anchor="middle" font-size="16" fill="#111827"><tspan x="336">지시가 모호</tspan><tspan x="336" dy="22">했을 뿐이다</tspan></text>
+  <rect x="472" y="216" width="184" height="64" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="564" y="243" text-anchor="middle" font-size="16" fill="#111827"><tspan x="564">예시 몇 개로</tspan><tspan x="564" dy="22">고쳐지나?</tspan></text>
+  <rect x="672" y="216" width="184" height="64" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="764" y="243" text-anchor="middle" font-size="16" fill="#111827"><tspan x="764">예시로는 안 되고</tspan><tspan x="764" dy="22">일관성이 계속 필요</tspan></text>
 
-  <!-- Level 2 Connectors -->
-  <!-- Left sub-tree -->
-  <path d="M220,140 L220,160" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M110,160 L330,160" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M110,160 L110,180" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M330,160 L330,180" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Right sub-tree -->
-  <path d="M660,140 L660,160" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-  <path d="M550,160 L770,160" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-  <path d="M550,160 L550,180" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M770,160 L770,180" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Level 3: Cause Nodes -->
-  <!-- 1. 모델이 알 리 없는 정보다 -->
-  <rect x="25" y="180" width="170" height="50" rx="6" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="110" y="202.55" font-size="13" fill="#1f2933" text-anchor="middle">모델이 알 리</text>
-  <text x="110" y="218.55" font-size="13" fill="#1f2933" text-anchor="middle">없는 정보다</text>
-
-  <!-- 2. 지시가 모호했을 뿐이다 -->
-  <rect x="245" y="180" width="170" height="50" rx="6" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="330" y="202.55" font-size="13" fill="#1f2933" text-anchor="middle">지시가 모호</text>
-  <text x="330" y="218.55" font-size="13" fill="#1f2933" text-anchor="middle">했을 뿐이다</text>
-
-  <!-- 3. 예시 몇 개로 고쳐지나? -->
-  <rect x="465" y="180" width="170" height="50" rx="6" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="550" y="202.55" font-size="13" fill="#1f2933" text-anchor="middle">예시 몇 개로</text>
-  <text x="550" y="218.55" font-size="13" fill="#1f2933" text-anchor="middle">고쳐지나?</text>
-
-  <!-- 4. 예시로는 안 되고 일관성이 계속 필요 -->
-  <rect x="685" y="180" width="170" height="50" rx="6" fill="#fffbeb" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="770" y="202.55" font-size="13" fill="#1f2933" text-anchor="middle">예시로는 안 되고</text>
-  <text x="770" y="218.55" font-size="13" fill="#1f2933" text-anchor="middle">일관성이 계속 필요</text>
-
-  <!-- Level 3 to Level 4 Connectors -->
-  <path d="M110,230 L110,280" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M330,230 L330,280" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M550,230 L550,280" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M770,230 L770,280" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Level 4: Solution / Final Nodes -->
-  <!-- RAG -->
-  <rect x="25" y="280" width="170" height="55" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="110" y="312.55" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">RAG</text>
-
-  <!-- Prompt Engineering -->
-  <rect x="230" y="280" width="200" height="55" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="330" y="312.55" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">Prompt Engineering</text>
-
-  <!-- Few-shot -->
-  <rect x="465" y="280" width="170" height="55" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="550" y="312.55" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">Few-shot</text>
-
-  <!-- Fine-tuning (마지막 수단) -->
-  <rect x="670" y="280" width="200" height="65" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="770" y="307.55" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">Fine-tuning</text>
-  <text x="770" y="328.025" font-size="11.5" fill="#d97706" text-anchor="middle">(마지막 수단)</text>
+  <!-- 선택 -->
+  <rect x="24" y="320" width="184" height="64" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="116" y="358" text-anchor="middle" font-size="18" font-weight="700" fill="#1e3a8a">RAG</text>
+  <rect x="224" y="320" width="224" height="64" rx="8" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="336" y="358" text-anchor="middle" font-size="18" font-weight="700" fill="#064e3b">Prompt Engineering</text>
+  <rect x="472" y="320" width="184" height="64" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="564" y="358" text-anchor="middle" font-size="18" font-weight="700" fill="#4c1d95">Few-shot</text>
+  <rect x="672" y="320" width="184" height="64" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="764" y="347" text-anchor="middle" font-size="18" font-weight="700" fill="#78350f">Fine-tuning</text>
+  <text x="764" y="371" text-anchor="middle" font-size="15" fill="#78350f">(마지막 수단)</text>
 </svg>

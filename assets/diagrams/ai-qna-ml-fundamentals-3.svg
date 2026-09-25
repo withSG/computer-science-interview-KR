@@ -1,106 +1,118 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">교차 검증 (Cross Validation)</title>
-  <desc id="d">K-Fold (K=5) 교차 검증의 5가지 폴드 반복 구성 및 성능 평균화 과정 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">K-Fold 교차 검증 (K=5)</title>
+  <desc id="d">데이터를 5개 폴드로 나누고, 5번의 회차마다 검증 폴드를 하나씩 바꿔 나머지 4개 폴드로 학습한다. 5번의 성능을 평균해 일반화 성능을 추정한다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <text x="40" y="44" font-size="18" font-weight="bold" fill="#1f2937">K-Fold (K=5) 예시</text>
 
-  <!-- 메인 박스 Container -->
-  <rect x="24" y="24" width="832" height="292" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- 범례 -->
+  <rect x="300" y="29" width="20" height="20" rx="3" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="330" y="44" font-size="15" fill="#1f2937">검증 데이터 (Validation)</text>
+  <rect x="560" y="29" width="20" height="20" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="590" y="44" font-size="15" fill="#1f2937">학습 데이터 (Train)</text>
 
-  <!-- 섹션 제목 -->
-  <text x="50" y="60" fill="#1f2933" font-size="16" font-weight="bold">K-Fold (K=5) 예시:</text>
+  <!-- 폴드 머리글 -->
+  <text x="149" y="88" font-size="15" fill="#4b5563" text-anchor="middle">폴드 1</text>
+  <text x="233" y="88" font-size="15" fill="#4b5563" text-anchor="middle">폴드 2</text>
+  <text x="317" y="88" font-size="15" fill="#4b5563" text-anchor="middle">폴드 3</text>
+  <text x="401" y="88" font-size="15" fill="#4b5563" text-anchor="middle">폴드 4</text>
+  <text x="485" y="88" font-size="15" fill="#4b5563" text-anchor="middle">폴드 5</text>
 
-  <!-- Fold 1 -->
-  <g transform="translate(50, 80)">
-    <!-- 검증 -->
-    <rect x="0" y="0" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="45" y="22.2" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">검증</text>
+  <!-- 1회차 -->
+  <text x="40" y="125" font-size="15" font-weight="bold" fill="#374151">1회차</text>
+  <rect x="110" y="100" width="78" height="40" rx="4" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="149" y="125" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
+  <rect x="194" y="100" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="233" y="125" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="278" y="100" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="317" y="125" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="362" y="100" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="401" y="125" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="446" y="100" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="485" y="125" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <path d="M 532 120 L 554 120" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="560" y="104" width="70" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="595" y="125" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">성능 1</text>
+  <path d="M 630 120 L 654 120" stroke="#4b5563" stroke-width="1.5" fill="none"/>
 
-    <!-- 학습 1 -->
-    <rect x="98" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="143" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
+  <!-- 2회차 -->
+  <text x="40" y="177" font-size="15" font-weight="bold" fill="#374151">2회차</text>
+  <rect x="110" y="152" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="149" y="177" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="194" y="152" width="78" height="40" rx="4" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="233" y="177" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
+  <rect x="278" y="152" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="317" y="177" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="362" y="152" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="401" y="177" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="446" y="152" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="485" y="177" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <path d="M 532 172 L 554 172" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="560" y="156" width="70" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="595" y="177" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">성능 2</text>
+  <path d="M 630 172 L 654 172" stroke="#4b5563" stroke-width="1.5" fill="none"/>
 
-    <!-- 학습 2 -->
-    <rect x="196" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="241" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
+  <!-- 3회차 -->
+  <text x="40" y="229" font-size="15" font-weight="bold" fill="#374151">3회차</text>
+  <rect x="110" y="204" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="149" y="229" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="194" y="204" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="233" y="229" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="278" y="204" width="78" height="40" rx="4" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="317" y="229" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
+  <rect x="362" y="204" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="401" y="229" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="446" y="204" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="485" y="229" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <path d="M 532 224 L 554 224" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="560" y="208" width="70" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="595" y="229" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">성능 3</text>
+  <path d="M 630 224 L 654 224" stroke="#4b5563" stroke-width="1.5" fill="none"/>
 
-    <!-- 학습 3 -->
-    <rect x="294" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="339" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
+  <!-- 4회차 -->
+  <text x="40" y="281" font-size="15" font-weight="bold" fill="#374151">4회차</text>
+  <rect x="110" y="256" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="149" y="281" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="194" y="256" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="233" y="281" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="278" y="256" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="317" y="281" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="362" y="256" width="78" height="40" rx="4" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="401" y="281" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
+  <rect x="446" y="256" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="485" y="281" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <path d="M 532 276 L 554 276" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="560" y="260" width="70" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="595" y="281" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">성능 4</text>
+  <path d="M 630 276 L 654 276" stroke="#4b5563" stroke-width="1.5" fill="none"/>
 
-    <!-- 학습 4 -->
-    <rect x="392" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="437" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-  </g>
+  <!-- 5회차 -->
+  <text x="40" y="333" font-size="15" font-weight="bold" fill="#374151">5회차</text>
+  <rect x="110" y="308" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="149" y="333" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="194" y="308" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="233" y="333" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="278" y="308" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="317" y="333" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="362" y="308" width="78" height="40" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="401" y="333" font-size="15" fill="#374151" text-anchor="middle">학습</text>
+  <rect x="446" y="308" width="78" height="40" rx="4" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="485" y="333" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">검증</text>
+  <path d="M 532 328 L 554 328" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="560" y="312" width="70" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="595" y="333" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">성능 5</text>
+  <path d="M 630 328 L 654 328" stroke="#4b5563" stroke-width="1.5" fill="none"/>
 
-  <!-- Fold 2 -->
-  <g transform="translate(50, 126)">
-    <!-- 학습 1 -->
-    <rect x="0" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="45" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
+  <!-- 평균 -->
+  <path d="M 654 120 L 654 328" stroke="#4b5563" stroke-width="1.5" fill="none"/>
+  <path d="M 654 224 L 676 224" stroke="#4b5563" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+  <rect x="682" y="196" width="174" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="769" y="230" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">5번의 성능을 평균</text>
 
-    <!-- 검증 -->
-    <rect x="98" y="0" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="143" y="22.2" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">검증</text>
-
-    <!-- 학습 2 -->
-    <rect x="196" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="241" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-
-    <!-- 학습 3 -->
-    <rect x="294" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="339" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-
-    <!-- 학습 4 -->
-    <rect x="392" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="437" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-  </g>
-
-  <!-- Fold 3 -->
-  <g transform="translate(50, 172)">
-    <!-- 학습 1 -->
-    <rect x="0" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="45" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-
-    <!-- 학습 2 -->
-    <rect x="98" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="143" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-
-    <!-- 검증 -->
-    <rect x="196" y="0" width="90" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="241" y="22.2" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="middle">검증</text>
-
-    <!-- 학습 3 -->
-    <rect x="294" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="339" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-
-    <!-- 학습 4 -->
-    <rect x="392" y="0" width="90" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="437" y="22.2" fill="#1f2933" font-size="13" text-anchor="middle">학습</text>
-  </g>
-
-  <!-- 하단 생략 및 요약 수식 영역 -->
-  <text x="50" y="238" fill="#52606d" font-size="16" font-weight="bold">...</text>
-
-  <!-- 화살표 및 최종 요약 텍스트 -->
-  <path d="M100,232 L532,232" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  
-  <rect x="546" y="214" width="180" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="636" y="236.2" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">5번의 성능을 평균</text>
-
-  <!-- 범례 (Legend) -->
-  <g transform="translate(50, 272)">
-    <rect x="0" y="0" width="16" height="16" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="24" y="12.5" fill="#52606d" font-size="11.5">검증 데이터 (Validation)</text>
-
-    <rect x="180" y="0" width="16" height="16" rx="2" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="204" y="12.5" fill="#52606d" font-size="11.5">학습 데이터 (Train)</text>
-  </g>
+  <text x="40" y="386" font-size="15" fill="#4b5563">매 회차 다른 폴드 1개로 검증하고 나머지 4개 폴드로 학습</text>
 </svg>

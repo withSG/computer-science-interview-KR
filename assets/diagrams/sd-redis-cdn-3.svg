@@ -1,67 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">CDN은 어떻게 동작하는가</title>
-  <desc id="d">서울 사용자의 요청이 서울 엣지, 오리진 실드, 오리진 서버로 흐르는 CDN 동작 과정을 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CDN 요청 흐름</title>
+  <desc id="d">서울 사용자의 요청이 서울 엣지에서 히트하면 즉시 응답(RTT 약 5ms)하고, 미스하면 지역 엣지들이 공유하는 오리진 실드로, 거기서도 미스하면 버지니아의 오리진 서버(RTT 약 180ms)까지 간다.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="a-hit" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="a-miss" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="380" fill="#ffffff"/>
+  <!-- 1행: 사용자 → 엣지 → 히트 → 즉시 응답 -->
+  <rect x="40" y="40" width="160" height="56" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="120" y="74" text-anchor="middle" font-size="17" font-weight="bold" fill="#111827">서울 사용자</text>
 
-  <!-- 서울 사용자 -->
-  <text x="70" y="75" font-size="14" font-weight="bold" fill="#1f2933">서울 사용자</text>
+  <line x1="202" y1="68" x2="266" y2="68" stroke="#374151" stroke-width="2" marker-end="url(#a-ink)"/>
 
-  <!-- 화살표: 서울 사용자 -> [서울 엣지] -->
-  <path d="M150,70 L210,70" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="270" y="40" width="180" height="56" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+  <text x="360" y="74" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d4ed8">서울 엣지</text>
 
-  <!-- [서울 엣지] 박스 -->
-  <rect x="220" y="45" width="130" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="285" y="75" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">서울 엣지</text>
+  <text x="508" y="56" text-anchor="middle" font-size="16" font-weight="bold" fill="#047857">히트</text>
+  <line x1="452" y1="68" x2="566" y2="68" stroke="#047857" stroke-width="2" marker-end="url(#a-hit)"/>
 
-  <!-- 화살표: [서울 엣지] -> 히트 -> 즉시 응답 (RTT ~5ms) -->
-  <path d="M350,70 L480,70" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- 히트 라벨 (선 위 흰 배경) -->
-  <rect x="390" y="58" width="50" height="22" fill="#ffffff"/>
-  <text x="415" y="74" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">─히트─</text>
+  <rect x="570" y="40" width="270" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="705" y="74" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">즉시 응답 (RTT ~5ms)</text>
 
-  <!-- 즉시 응답 (RTT ~5ms) 텍스트 -->
-  <text x="495" y="75" font-size="14" font-weight="bold" fill="#2563eb">즉시 응답 (RTT ~5ms)</text>
+  <!-- 미스 1 -->
+  <line x1="360" y1="98" x2="360" y2="166" stroke="#b45309" stroke-width="2" marker-end="url(#a-miss)"/>
+  <text x="374" y="138" font-size="16" font-weight="bold" fill="#b45309">미스</text>
 
-  <!-- 화살표: [서울 엣지] -> 미스 -> [오리진 실드] -->
-  <path d="M285,95 L285,160" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-  
-  <!-- 미스 라벨 (선 위 흰 배경) -->
-  <rect x="268" y="115" width="34" height="20" fill="#ffffff"/>
-  <text x="285" y="130" font-size="13" fill="#d97706" text-anchor="middle">미스</text>
+  <!-- 오리진 실드 -->
+  <rect x="270" y="170" width="180" height="56" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="360" y="204" text-anchor="middle" font-size="18" font-weight="bold" fill="#92400e">오리진 실드</text>
+  <line x1="452" y1="198" x2="490" y2="198" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="500" y="204" font-size="16" fill="#1f2937">지역 엣지들이 공유하는 중간 캐시</text>
 
-  <!-- [오리진 실드] 박스 -->
-  <rect x="210" y="170" width="150" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="285" y="200" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">오리진 실드</text>
+  <!-- 미스 2 -->
+  <line x1="360" y1="228" x2="360" y2="296" stroke="#b45309" stroke-width="2" marker-end="url(#a-miss)"/>
+  <text x="374" y="268" font-size="16" font-weight="bold" fill="#b45309">미스</text>
 
-  <!-- 화살표: 오리진 실드 설명 텍스트 -->
-  <path d="M380,195 L410,195" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="420" y="200" font-size="13" fill="#52606d">지역 엣지들이 공유하는 중간 캐시</text>
-
-  <!-- 화살표: [오리진 실드] -> 미스 -> [오리진 서버] -->
-  <path d="M285,220 L285,285" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-
-  <!-- 미스 라벨 (선 위 흰 배경) -->
-  <rect x="268" y="240" width="34" height="20" fill="#ffffff"/>
-  <text x="285" y="255" font-size="13" fill="#d97706" text-anchor="middle">미스</text>
-
-  <!-- [오리진 서버] 박스 및 부가 정보 -->
-  <rect x="210" y="295" width="150" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="285" y="325" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">오리진 서버</text>
-
-  <!-- (버지니아. RTT ~180ms) 텍스트 -->
-  <text x="380" y="325" font-size="13" fill="#52606d">(버지니아. RTT ~180ms)</text>
+  <!-- 오리진 서버 -->
+  <rect x="270" y="300" width="180" height="56" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="360" y="334" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">오리진 서버</text>
+  <line x1="452" y1="328" x2="490" y2="328" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="500" y="334" font-size="16" fill="#1f2937">버지니아 · <tspan font-weight="bold" fill="#b91c1c">RTT ~180ms</tspan></text>
 </svg>

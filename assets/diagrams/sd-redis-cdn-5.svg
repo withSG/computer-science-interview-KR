@@ -1,56 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">그래서 무엇을 어떻게 설정하나</title>
-  <desc id="d">URL별 Cache-Control 설정 헤더와 그 설정 이유를 보여주는 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">경로별 Cache-Control 설정</title>
+  <desc id="d">해시가 붙은 정적 자산은 public, max-age=31536000, immutable로 영원히 캐시하고, 진입점 /index.html은 no-cache로 매번 재검증하며, 사용자별 응답 /api/me는 private, no-store로 저장을 막는 세 가지 설정과 그 이유.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
 
-  <!-- Background Cards -->
-  <!-- Item 1: Static Asset -->
-  <rect x="40" y="30" width="800" height="145" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <!-- Header box -->
-  <rect x="55" y="45" width="770" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <!-- Cache-Control box -->
-  <rect x="55" y="87" width="415" height="26" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <!-- 1. 정적 자산 -->
+  <rect x="24" y="24" width="832" height="164" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="48" y="62" font-size="18" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/assets/app.a3f9c1.js</text>
+  <text x="300" y="61" font-size="15" fill="#374151">파일명에 내용 해시가 들어간 정적 자산</text>
+  <rect x="708" y="42" width="128" height="30" rx="15" fill="#1d4ed8"/>
+  <text x="772" y="62" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">영원히 캐시</text>
+  <rect x="48" y="82" width="442" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="62" y="104" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Cache-Control: <tspan font-weight="bold" fill="#111827">public, max-age=31536000, immutable</tspan></text>
+  <text x="48" y="146" font-size="15" font-weight="bold" fill="#111827">이유</text>
+  <text x="96" y="146" font-size="15" fill="#1f2937">내용이 바뀌면 파일명이 바뀐다. 같은 URL의 내용은 절대 안 바뀌므로</text>
+  <text x="96" y="168" font-size="15" fill="#1f2937">1년이든 영원이든 캐시해도 안전하다. 재검증조차 필요 없다.</text>
 
-  <!-- Item 2: Entrypoint -->
-  <rect x="40" y="195" width="800" height="155" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <!-- Header box -->
-  <rect x="55" y="210" width="770" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <!-- Cache-Control box -->
-  <rect x="55" y="252" width="230" height="26" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
+  <!-- 2. 진입점 HTML -->
+  <rect x="24" y="208" width="832" height="164" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="48" y="246" font-size="18" font-weight="bold" fill="#b45309" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/index.html</text>
+  <text x="300" y="245" font-size="15" fill="#374151">어떤 자산을 불러올지 가리키는 진입점</text>
+  <rect x="708" y="226" width="128" height="30" rx="15" fill="#b45309"/>
+  <text x="772" y="246" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">매번 재검증</text>
+  <rect x="48" y="266" width="222" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="62" y="288" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Cache-Control: <tspan font-weight="bold" fill="#111827">no-cache</tspan></text>
+  <text x="48" y="330" font-size="15" font-weight="bold" fill="#111827">이유</text>
+  <text x="96" y="330" font-size="15" fill="#1f2937">배포하면 참조하는 자산 파일명이 바뀐다. 이걸 캐시하면 사용자가</text>
+  <text x="96" y="352" font-size="15" fill="#1f2937">옛날 자산을 계속 본다. 매번 재검증하되 안 바뀌었으면 304로 싸게 끝낸다.</text>
 
-  <!-- Item 3: User Response -->
-  <rect x="40" y="370" width="800" height="135" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <!-- Header box -->
-  <rect x="55" y="385" width="770" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <!-- Cache-Control box -->
-  <rect x="55" y="427" width="280" height="26" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-
-  <!-- Content: Item 1 -->
-  <text x="70" y="70" font-size="16" font-weight="bold" fill="#2563eb">/assets/app.a3f9c1.js</text>
-  <text x="320" y="69" font-size="13" fill="#52606d">← 파일명에 내용 해시가 들어간 정적 자산</text>
-  
-  <text x="65" y="104" font-size="13" font-weight="bold" fill="#1f2933">Cache-Control: public, max-age=31536000, immutable</text>
-  
-  <text x="55" y="134" font-size="13" font-weight="bold" fill="#1f2933">이유:</text>
-  <text x="95" y="134" font-size="13" fill="#1f2933">내용이 바뀌면 파일명이 바뀐다. 같은 URL의 내용은 절대 안 바뀌므로</text>
-  <text x="95" y="156" font-size="13" fill="#1f2933">1년이든 영원이든 캐시해도 안전하다. 재검증조차 필요 없다.</text>
-
-  <!-- Content: Item 2 -->
-  <text x="70" y="235" font-size="16" font-weight="bold" fill="#d97706">/index.html</text>
-  <text x="210" y="234" font-size="13" fill="#52606d">← 어떤 자산을 불러올지 가리키는 진입점</text>
-
-  <text x="65" y="269" font-size="13" font-weight="bold" fill="#1f2933">Cache-Control: no-cache</text>
-
-  <text x="55" y="299" font-size="13" font-weight="bold" fill="#1f2933">이유:</text>
-  <text x="95" y="299" font-size="13" fill="#1f2933">배포하면 참조하는 자산 파일명이 바뀐다. 이걸 캐시하면 사용자가</text>
-  <text x="95" y="321" font-size="13" fill="#1f2933">옛날 자산을 계속 본다. 매번 재검증하되 안 바뀌었으면 304로 싸게 끝낸다.</text>
-
-  <!-- Content: Item 3 -->
-  <text x="70" y="410" font-size="16" font-weight="bold" fill="#dc2626">/api/me</text>
-  <text x="180" y="409" font-size="13" fill="#52606d">← 사용자별 응답</text>
-
-  <text x="65" y="444" font-size="13" font-weight="bold" fill="#1f2933">Cache-Control: private, no-store</text>
-
-  <text x="55" y="474" font-size="13" font-weight="bold" fill="#1f2933">이유:</text>
-  <text x="95" y="474" font-size="13" fill="#1f2933">CDN에 저장되면 다른 사용자에게 내 정보가 나갈 수 있다.</text>
+  <!-- 3. 사용자별 응답 -->
+  <rect x="24" y="392" width="832" height="142" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="48" y="430" font-size="18" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/api/me</text>
+  <text x="300" y="429" font-size="15" fill="#374151">사용자별 응답</text>
+  <rect x="708" y="410" width="128" height="30" rx="15" fill="#b91c1c"/>
+  <text x="772" y="430" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">저장 금지</text>
+  <rect x="48" y="450" width="294" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="62" y="472" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Cache-Control: <tspan font-weight="bold" fill="#111827">private, no-store</tspan></text>
+  <text x="48" y="514" font-size="15" font-weight="bold" fill="#111827">이유</text>
+  <text x="96" y="514" font-size="15" fill="#1f2937">CDN에 저장되면 다른 사용자에게 내 정보가 나갈 수 있다.</text>
 </svg>

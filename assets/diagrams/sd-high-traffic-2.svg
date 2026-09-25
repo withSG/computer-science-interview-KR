@@ -1,71 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">병목은 사라지지 않고 아래로 내려간다</title>
-  <desc id="d">1단계 이미지 대역폭 부족에서 2단계 애플리케이션 CPU 100%, 3단계 DB 커넥션 고갈로 이어지는 병목 이동 과정</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 680" width="880" height="680" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">병목이 아래로 내려가는 과정</title>
+  <desc id="d">1단계 CDN 없이 서버 2대일 때는 이미지가 대역폭을 다 먹고, CDN을 도입한 2단계에서는 애플리케이션 CPU가 100%가 되며, 서버를 2대에서 20대로 늘린 3단계에서는 DB 커넥션이 고갈된다. 오른쪽 열에서 병목 위치가 단계마다 한 칸씩 아래로 내려간다.</desc>
+  <rect width="880" height="680" fill="#ffffff"/>
   <defs>
-    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 제목 헤딩 -->
-  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">3. 병목은 사라지지 않고 아래로 내려간다</text>
+  <text x="710" y="46" text-anchor="middle" font-size="15" font-weight="bold" fill="#374151">병목 위치</text>
 
-  <!-- [1단계] 영역 -->
-  <g>
-    <!-- 단계 박스 (파랑) -->
-    <rect x="40" y="70" width="800" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="56" y="86" width="70" height="26" rx="4" fill="#2563eb"/>
-    <text x="91" y="103" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[1단계]</text>
-    
-    <!-- 내용 텍스트 -->
-    <text x="138" y="103" font-size="13" font-weight="bold" fill="#1f2933">CDN 없음, 서버 2대 → 이미지가 대역폭을 다 먹어 API가 느리다</text>
-    
-    <!-- 조치 라벨 및 배경 -->
-    <rect x="56" y="126" width="768" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="70" y="145" font-size="13" font-weight="bold" fill="#2563eb">조치:</text>
-    <text x="110" y="145" font-size="13" fill="#1f2933">CDN 도입</text>
-  </g>
+  <!-- 1단계 -->
+  <rect x="24" y="60" width="832" height="120" rx="12" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="44" y="100" width="84" height="40" rx="20" fill="#1f2937"/>
+  <text x="86" y="126" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">1단계</text>
+  <text x="152" y="108" font-size="16" fill="#111827">CDN 없음, 서버 2대</text>
+  <text x="152" y="140" font-size="16"><tspan fill="#4b5563">→ </tspan><tspan font-weight="bold" fill="#b91c1c">이미지가 대역폭을 다 먹어 API가 느리다</tspan></text>
+  <rect x="620" y="75" width="180" height="26" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="710" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#b91c1c">대역폭</text>
+  <text x="810" y="93" font-size="14" font-weight="bold" fill="#b91c1c">병목</text>
+  <rect x="620" y="107" width="180" height="26" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="710" y="125" text-anchor="middle" font-size="14" fill="#4b5563">애플리케이션 CPU</text>
+  <rect x="620" y="139" width="180" height="26" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="710" y="157" text-anchor="middle" font-size="14" fill="#4b5563">DB 커넥션</text>
 
-  <!-- 1단계 → 2단계 화살표 -->
-  <path d="M440,170 L440,198" stroke="#52606d" stroke-width="2" fill="none" marker-end="url(#a-gray)"/>
+  <!-- 조치 1 -->
+  <line x1="86" y1="182" x2="86" y2="237" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="108" y="191" width="136" height="36" rx="18" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="124" y="215" font-size="15"><tspan font-weight="bold" fill="#047857">조치:</tspan><tspan fill="#111827"> CDN 도입</tspan></text>
 
-  <!-- [2단계] 영역 -->
-  <g>
-    <!-- 단계 박스 (주황) -->
-    <rect x="40" y="200" width="800" height="100" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <rect x="56" y="216" width="70" height="26" rx="4" fill="#d97706"/>
-    <text x="91" y="233" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[2단계]</text>
-    
-    <!-- 내용 텍스트 -->
-    <text x="138" y="233" font-size="13" font-weight="bold" fill="#1f2933">이미지는 CDN이 처리 → 이번엔 애플리케이션 CPU가 100%</text>
-    
-    <!-- 조치 라벨 및 배경 -->
-    <rect x="56" y="256" width="768" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="70" y="275" font-size="13" font-weight="bold" fill="#d97706">조치:</text>
-    <text x="110" y="275" font-size="13" fill="#1f2933">서버 2대 → 20대</text>
-  </g>
+  <!-- 2단계 -->
+  <rect x="24" y="240" width="832" height="120" rx="12" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="44" y="280" width="84" height="40" rx="20" fill="#1f2937"/>
+  <text x="86" y="306" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">2단계</text>
+  <text x="152" y="288" font-size="16" fill="#111827">이미지는 CDN이 처리</text>
+  <text x="152" y="320" font-size="16"><tspan fill="#4b5563">→ 이번엔 </tspan><tspan font-weight="bold" fill="#b91c1c">애플리케이션 CPU가 100%</tspan></text>
+  <rect x="620" y="255" width="180" height="26" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="710" y="273" text-anchor="middle" font-size="14" fill="#4b5563">대역폭</text>
+  <rect x="620" y="287" width="180" height="26" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="710" y="305" text-anchor="middle" font-size="14" font-weight="bold" fill="#b91c1c">애플리케이션 CPU</text>
+  <text x="810" y="305" font-size="14" font-weight="bold" fill="#b91c1c">병목</text>
+  <rect x="620" y="319" width="180" height="26" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="710" y="337" text-anchor="middle" font-size="14" fill="#4b5563">DB 커넥션</text>
 
-  <!-- 2단계 → 3단계 화살표 -->
-  <path d="M440,300 L440,328" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <!-- 조치 2 -->
+  <line x1="86" y1="362" x2="86" y2="417" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="108" y="371" width="186" height="36" rx="18" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="124" y="395" font-size="15"><tspan font-weight="bold" fill="#047857">조치:</tspan><tspan fill="#111827"> 서버 2대 → 20대</tspan></text>
 
-  <!-- [3단계] 영역 (핵심 - 빨강) -->
-  <g>
-    <!-- 단계 박스 (빨강) -->
-    <rect x="40" y="330" width="800" height="100" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <rect x="56" y="346" width="70" height="26" rx="4" fill="#dc2626"/>
-    <text x="91" y="363" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[3단계]</text>
-    
-    <!-- 내용 텍스트 -->
-    <text x="138" y="363" font-size="13" font-weight="bold" fill="#1f2933">애플리케이션은 여유 → DB 커넥션 고갈, "connection is not available"</text>
-    
-    <!-- 조치 라벨 및 배경 -->
-    <rect x="56" y="386" width="768" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="70" y="405" font-size="13" font-weight="bold" fill="#dc2626">조치:</text>
-    <text x="110" y="405" font-size="13" font-weight="bold" fill="#dc2626">???</text>
-  </g>
+  <!-- 3단계 -->
+  <rect x="24" y="420" width="832" height="120" rx="12" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="44" y="460" width="84" height="40" rx="20" fill="#1f2937"/>
+  <text x="86" y="486" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">3단계</text>
+  <text x="152" y="458" font-size="16" fill="#111827">애플리케이션은 여유</text>
+  <text x="152" y="488" font-size="16"><tspan fill="#4b5563">→ </tspan><tspan font-weight="bold" fill="#b91c1c">DB 커넥션 고갈</tspan></text>
+  <text x="152" y="518" font-size="15" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"connection is not available"</text>
+  <rect x="620" y="435" width="180" height="26" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="710" y="453" text-anchor="middle" font-size="14" fill="#4b5563">대역폭</text>
+  <rect x="620" y="467" width="180" height="26" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="710" y="485" text-anchor="middle" font-size="14" fill="#4b5563">애플리케이션 CPU</text>
+  <rect x="620" y="499" width="180" height="26" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="710" y="517" text-anchor="middle" font-size="14" font-weight="bold" fill="#b91c1c">DB 커넥션</text>
+  <text x="810" y="517" font-size="14" font-weight="bold" fill="#b91c1c">병목</text>
+
+  <!-- 조치 3 -->
+  <line x1="86" y1="542" x2="86" y2="597" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="44" y="600" width="140" height="44" rx="22" fill="#fffbeb" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="114" y="628" text-anchor="middle" font-size="16"><tspan font-weight="bold" fill="#b45309">조치:</tspan><tspan font-weight="bold" fill="#111827"> ???</tspan></text>
 </svg>

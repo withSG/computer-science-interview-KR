@@ -1,36 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">병목은 사라지지 않고 아래로 내려간다</title>
-  <desc id="d">애플리케이션 서버 증설로 인한 DB 커넥션 초과 문제 및 장애 연쇄 반응 흐름도</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">서버 증설이 DB 커넥션을 넘기는 곱셈</title>
+  <desc id="d">애플리케이션 20대 곱하기 커넥션 풀 50개로 1,000개 커넥션을 요청하지만 MySQL max_connections는 기본값 151인 경우가 많다. 한도를 넘은 대부분이 연결에 실패하고, 재시도가 이어지며, DB는 연결 수락만으로 CPU를 써서 정상 쿼리까지 느려진다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
 
-  <!-- Step 1: Application Connections -->
-  <rect x="40" y="30" width="800" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="60.75" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">애플리케이션 20대 × 커넥션 풀 50개 = 1,000개 커넥션 요청</text>
+  <!-- 곱셈 -->
+  <rect x="100" y="24" width="180" height="76" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="190" y="52" text-anchor="middle" font-size="15" fill="#374151">애플리케이션</text>
+  <text x="190" y="84" text-anchor="middle" font-size="24" font-weight="bold" fill="#111827">20대</text>
+  <text x="310" y="72" text-anchor="middle" font-size="26" font-weight="bold" fill="#374151">×</text>
+  <rect x="340" y="24" width="180" height="76" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="430" y="52" text-anchor="middle" font-size="15" fill="#374151">커넥션 풀</text>
+  <text x="430" y="84" text-anchor="middle" font-size="24" font-weight="bold" fill="#111827">50개</text>
+  <text x="550" y="72" text-anchor="middle" font-size="26" font-weight="bold" fill="#374151">=</text>
+  <rect x="580" y="24" width="200" height="76" rx="10" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="680" y="52" text-anchor="middle" font-size="15" fill="#374151">커넥션 요청</text>
+  <text x="680" y="84" text-anchor="middle" font-size="24" font-weight="bold" fill="#b91c1c">1,000개</text>
 
-  <!-- Step 2: MySQL Max Connections Limits -->
-  <rect x="40" y="105" width="800" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="135.75" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">MySQL max_connections = 151 (기본값인 경우가 많다)</text>
+  <!-- 한도 비교 -->
+  <line x1="321.5" y1="146" x2="321.5" y2="264" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="321.5" y="138" text-anchor="middle" font-size="14" font-weight="bold" fill="#b91c1c">DB 한계</text>
 
-  <!-- Connection Overflow Arrow -->
-  <path d="M440,155 L440,175" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <text x="226" y="175" text-anchor="end" font-size="15" fill="#111827">커넥션 요청</text>
+  <rect x="240" y="152" width="81.5" height="36" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="321.5" y="152" width="458.5" height="36" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="550.75" y="175" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">한도 초과분</text>
+  <text x="790" y="175" font-size="16" font-weight="bold" fill="#111827">1,000</text>
 
-  <!-- Step 3: Cascading Failures Container -->
-  <rect x="40" y="185" width="800" height="125" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="226" y="235" text-anchor="end" font-size="15" fill="#111827">MySQL <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">max_connections</tspan></text>
+  <rect x="240" y="212" width="81.5" height="36" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="334" y="235" font-size="16"><tspan font-weight="bold" fill="#111827">151</tspan><tspan dx="8" font-size="15" fill="#4b5563">(기본값인 경우가 많다)</tspan></text>
 
-  <!-- Failure Line 1 -->
-  <text x="440" y="218.55" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">→ 대부분이 연결에 실패 → 재시도 → DB는 연결 수락만으로 CPU를 쓴다</text>
-
-  <!-- Internal Cascade Arrow -->
-  <path d="M440,233 L440,250" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-amber)"/>
-
-  <!-- Failure Line 2 -->
-  <text x="440" y="278.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">→ 정상 쿼리까지 느려진다</text>
+  <!-- 연쇄 -->
+  <rect x="24" y="304" width="184" height="80" rx="10" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="116" y="338" text-anchor="middle" font-size="16" fill="#111827">대부분이</text>
+  <text x="116" y="362" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">연결에 실패</text>
+  <line x1="210" y1="344" x2="237" y2="344" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="240" y="304" width="184" height="80" rx="10" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="332" y="350" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">재시도</text>
+  <line x1="426" y1="344" x2="453" y2="344" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="456" y="304" width="184" height="80" rx="10" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="548" y="338" text-anchor="middle" font-size="16" fill="#111827">DB는 연결 수락만으로</text>
+  <text x="548" y="362" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">CPU를 쓴다</text>
+  <line x1="642" y1="344" x2="669" y2="344" stroke="#374151" stroke-width="2.5" marker-end="url(#ah)"/>
+  <rect x="672" y="304" width="184" height="80" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="764" y="338" text-anchor="middle" font-size="16" fill="#111827">정상 쿼리까지</text>
+  <text x="764" y="362" text-anchor="middle" font-size="16" font-weight="bold" fill="#b91c1c">느려진다</text>
 </svg>

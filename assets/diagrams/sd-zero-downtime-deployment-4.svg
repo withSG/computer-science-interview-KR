@@ -1,97 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Rolling — 조금씩 바꿔 끼운다</title>
-  <desc id="d">롤링 배포 전략에서 인스턴스 4대가 v1에서 v2로 순차적으로 교체되는 과정을 나타낸 5단계 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Rolling 배포 단계</title>
+  <desc id="d">인스턴스 네 대를 한 대씩 v1에서 v2로 교체한다. 한 대를 바꿀 때마다 준비 상태를 확인하고, 2~4단계 동안은 v1과 v2가 함께 떠 있다.</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Step Labels (Left) -->
-  <text x="60" y="58" font-size="13" font-weight="bold" fill="#52606d" text-anchor="end">1단계</text>
-  <text x="60" y="118" font-size="13" font-weight="bold" fill="#52606d" text-anchor="end">2단계</text>
-  <text x="60" y="178" font-size="13" font-weight="bold" fill="#52606d" text-anchor="end">3단계</text>
-  <text x="60" y="238" font-size="13" font-weight="bold" fill="#52606d" text-anchor="end">4단계</text>
-  <text x="60" y="298" font-size="13" font-weight="bold" fill="#52606d" text-anchor="end">5단계</text>
+  <!-- 단계 라벨 -->
+  <text x="190" y="59" text-anchor="end" font-size="15" font-weight="bold" fill="#4b5563">1단계</text>
+  <text x="190" y="139" text-anchor="end" font-size="15" font-weight="bold" fill="#4b5563">2단계</text>
+  <text x="190" y="219" text-anchor="end" font-size="15" font-weight="bold" fill="#4b5563">3단계</text>
+  <text x="190" y="299" text-anchor="end" font-size="15" font-weight="bold" fill="#4b5563">4단계</text>
+  <text x="190" y="379" text-anchor="end" font-size="15" font-weight="bold" fill="#4b5563">5단계</text>
 
-  <!-- Group 1: [v1][v1][v1][v1] -->
-  <g transform="translate(80, 36)">
-    <rect x="0" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="28" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-    
-    <rect x="66" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="94" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-    
-    <rect x="132" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="160" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-    
-    <rect x="198" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="226" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-  </g>
+  <!-- 1단계: v1 v1 v1 v1 -->
+  <rect x="214" y="30" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="258" y="59" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
+  <rect x="316" y="30" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="360" y="59" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
+  <rect x="418" y="30" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="462" y="59" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
+  <rect x="520" y="30" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="564" y="59" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
 
-  <!-- Group 2: [v2][v1][v1][v1]  ← 한 대 교체, 준비 상태 확인 -->
-  <g transform="translate(80, 96)">
-    <rect x="0" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <text x="28" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="66" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="94" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-    
-    <rect x="132" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="160" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-    
-    <rect x="198" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="226" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
+  <!-- 1 → 2: 첫 번째 교체 -->
+  <line x1="258" y1="80" x2="258" y2="106" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="272" y="99" font-size="15" fill="#374151">한 대 교체, 준비 상태 확인</text>
 
-    <!-- Arrow and Label -->
-    <path d="M280,18 L330,18" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="342" y="22" font-size="13" fill="#1f2933">한 대 교체, 준비 상태 확인</text>
-  </g>
+  <!-- 2단계: v2 v1 v1 v1 -->
+  <rect x="214" y="110" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="258" y="139" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="316" y="110" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="360" y="139" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
+  <rect x="418" y="110" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="462" y="139" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
+  <rect x="520" y="110" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="564" y="139" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
 
-  <!-- Group 3: [v2][v2][v1][v1] -->
-  <g transform="translate(80, 156)">
-    <rect x="0" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="28" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="66" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="94" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="132" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="160" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-    
-    <rect x="198" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="226" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-  </g>
+  <!-- 2 → 3 -->
+  <line x1="360" y1="160" x2="360" y2="186" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Group 4: [v2][v2][v2][v1] -->
-  <g transform="translate(80, 216)">
-    <rect x="0" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="28" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="66" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="94" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="132" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="160" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="198" y="0" width="56" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="226" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">v1</text>
-  </g>
+  <!-- 3단계: v2 v2 v1 v1 -->
+  <rect x="214" y="190" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="258" y="219" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="316" y="190" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="360" y="219" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="418" y="190" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="462" y="219" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
+  <rect x="520" y="190" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="564" y="219" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
 
-  <!-- Group 5: [v2][v2][v2][v2] -->
-  <g transform="translate(80, 276)">
-    <rect x="0" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="28" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="66" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="94" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="132" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="160" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-    
-    <rect x="198" y="0" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="226" y="22" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">v2</text>
-  </g>
+  <!-- 3 → 4 -->
+  <line x1="462" y1="240" x2="462" y2="266" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- 4단계: v2 v2 v2 v1 -->
+  <rect x="214" y="270" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="258" y="299" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="316" y="270" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="360" y="299" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="418" y="270" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="462" y="299" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="520" y="270" width="88" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="564" y="299" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">v1</text>
+
+  <!-- 4 → 5 -->
+  <line x1="564" y1="320" x2="564" y2="346" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- 5단계: v2 v2 v2 v2 -->
+  <rect x="214" y="350" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="258" y="379" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="316" y="350" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="360" y="379" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="418" y="350" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="462" y="379" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+  <rect x="520" y="350" width="88" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="564" y="379" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">v2</text>
+
+  <!-- 오른쪽: 상태 구분 -->
+  <text x="636" y="59" font-size="15" fill="#4b5563">전부 v1</text>
+  <path d="M628,110 H640 V316 H628" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="656" y="208" font-size="16" font-weight="bold" fill="#b45309">배포 중</text>
+  <text x="656" y="230" font-size="16" font-weight="bold" fill="#b45309">v1·v2 공존</text>
+  <text x="636" y="379" font-size="15" fill="#4b5563">전부 v2</text>
 </svg>

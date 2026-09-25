@@ -69,7 +69,7 @@
 ### 3단 구조
 
 <!-- diagram:iv-self-introduction-10 -->
-![3단 구조](../assets/diagrams/iv-self-introduction-10.svg)
+![현재 좌표·강점+근거·지원 연결의 3단 구조와 시간 배분(총 45~65초)](../assets/diagrams/iv-self-introduction-10.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

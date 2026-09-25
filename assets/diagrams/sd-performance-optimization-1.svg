@@ -1,72 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">왜 평균이 아니라 백분위인가</title>
-  <desc id="d">응답 시간 데이터 모음(100ms 4개, 5000ms 1개)을 바탕으로 평균값의 왜곡과 백분위 지표(p50, p99)의 차이를 설명하는 다이어그램입니다.</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">평균과 백분위 비교</title>
+  <desc id="d">응답 시간 100ms 4개와 5000ms 1개를 수직선 위에 찍으면 평균 1080ms는 요청이 하나도 없는 자리에 놓이고, p50은 100ms, p99는 약 5000ms로 실제 사용자가 겪는 시간을 가리킨다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Section Title from header -->
-  <text x="40" y="38" font-size="16" font-weight="bold" fill="#1f2933">왜 평균이 아니라 백분위인가</text>
+  <!-- 측정값 -->
+  <text x="40" y="48" font-size="17" fill="#111827"><tspan font-weight="bold">측정한 응답 시간 5개</tspan><tspan dx="12">100ms, 100ms, 100ms, 100ms, </tspan><tspan font-weight="bold" fill="#b91c1c">5000ms</tspan></text>
 
-  <!-- Raw Data Points Row -->
-  <g id="data-points">
-    <!-- Normal sample 1 -->
-    <rect x="40" y="60" width="120" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="100" y="84" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">100ms</text>
+  <!-- 지표 표시선 -->
+  <text x="113.6" y="100" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">p50</text>
+  <line x1="113.6" y1="110" x2="113.6" y2="260" stroke="#6d28d9" stroke-width="2"/>
 
-    <!-- Normal sample 2 -->
-    <rect x="175" y="60" width="120" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="235" y="84" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">100ms</text>
+  <text x="246.9" y="100" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">평균</text>
+  <line x1="246.9" y1="110" x2="246.9" y2="260" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="260" y="152" font-size="15" fill="#b45309"><tspan x="260">1080ms 근처에는</tspan><tspan x="260" dy="21">요청이 하나도 없음</tspan></text>
 
-    <!-- Normal sample 3 -->
-    <rect x="310" y="60" width="120" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="370" y="84" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">100ms</text>
+  <text x="780" y="100" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">p99</text>
+  <line x1="780" y1="110" x2="780" y2="260" stroke="#b91c1c" stroke-width="2"/>
 
-    <!-- Normal sample 4 -->
-    <rect x="445" y="60" width="120" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="505" y="84" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">100ms</text>
+  <!-- 점: 100ms × 4 -->
+  <circle cx="113.6" cy="247" r="9" fill="#374151"/>
+  <circle cx="113.6" cy="227" r="9" fill="#374151"/>
+  <circle cx="113.6" cy="207" r="9" fill="#374151"/>
+  <circle cx="113.6" cy="187" r="9" fill="#374151"/>
+  <text x="132" y="222" font-size="15" fill="#374151">100ms × 4</text>
 
-    <!-- Outlier sample -->
-    <rect x="580" y="60" width="120" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="640" y="84" font-size="13" font-weight="bold" text-anchor="middle" fill="#dc2626">5000ms</text>
+  <!-- 점: 5000ms × 1 -->
+  <circle cx="780" cy="247" r="9" fill="#b91c1c"/>
+  <text x="762" y="252" font-size="15" fill="#b91c1c" text-anchor="end">5000ms × 1</text>
+
+  <!-- 축 -->
+  <line x1="100" y1="260" x2="800" y2="260" stroke="#374151" stroke-width="1.5"/>
+  <g stroke="#374151" stroke-width="1.5">
+    <line x1="100" y1="260" x2="100" y2="267"/>
+    <line x1="236" y1="260" x2="236" y2="267"/>
+    <line x1="372" y1="260" x2="372" y2="267"/>
+    <line x1="508" y1="260" x2="508" y2="267"/>
+    <line x1="644" y1="260" x2="644" y2="267"/>
+    <line x1="780" y1="260" x2="780" y2="267"/>
+  </g>
+  <g font-size="14" fill="#4b5563" text-anchor="middle">
+    <text x="100" y="286">0ms</text>
+    <text x="236" y="286">1000ms</text>
+    <text x="372" y="286">2000ms</text>
+    <text x="508" y="286">3000ms</text>
+    <text x="644" y="286">4000ms</text>
+    <text x="780" y="286">5000ms</text>
   </g>
 
-  <!-- Metrics Breakdown Block -->
-  <g id="metrics-group">
-    <!-- Row 1: 평균 -->
-    <rect x="40" y="130" width="110" height="44" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="95" y="156" font-size="14" font-weight="bold" text-anchor="middle" fill="#d97706">평균</text>
-    <text x="175" y="156" font-size="14" font-weight="bold" fill="#1f2933">= 1080ms</text>
-    <path d="M260,152 L300,152" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="315" y="130" width="525" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="330" y="156" font-size="13" fill="#1f2933">"1초 정도 걸리는 API구나"</text>
+  <!-- 해석 -->
+  <rect x="40" y="320" width="200" height="44" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="140" y="348" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">평균 = 1080ms</text>
+  <line x1="252" y1="342" x2="282" y2="342" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="298" y="348" font-size="16" fill="#111827">"1초 정도 걸리는 API구나"</text>
 
-    <!-- Row 2: p50 -->
-    <rect x="40" y="190" width="110" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="95" y="216" font-size="14" font-weight="bold" text-anchor="middle" fill="#7c3aed">p50</text>
-    <text x="175" y="216" font-size="14" font-weight="bold" fill="#1f2933">= 100ms</text>
-    <path d="M260,212 L300,212" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="315" y="190" width="525" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="330" y="216" font-size="13" fill="#1f2933">절반의 사용자는 100ms 안에 응답받는다</text>
+  <rect x="40" y="376" width="200" height="44" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="140" y="404" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">p50 = 100ms</text>
+  <line x1="252" y1="398" x2="282" y2="398" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="298" y="404" font-size="16" fill="#111827">절반의 사용자는 100ms 안에 응답받는다</text>
 
-    <!-- Row 3: p99 -->
-    <rect x="40" y="250" width="110" height="44" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="95" y="276" font-size="14" font-weight="bold" text-anchor="middle" fill="#dc2626">p99</text>
-    <text x="175" y="276" font-size="14" font-weight="bold" fill="#1f2933">≈ 5000ms</text>
-    <path d="M260,272 L300,272" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="315" y="250" width="525" height="44" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="330" y="276" font-size="13" fill="#1f2933">최악의 사용자는 5초를 기다린다</text>
-  </g>
+  <rect x="40" y="432" width="200" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="140" y="460" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">p99 ≈ 5000ms</text>
+  <line x1="252" y1="454" x2="282" y2="454" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="298" y="460" font-size="16" fill="#111827">최악의 사용자는 5초를 기다린다</text>
 </svg>

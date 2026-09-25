@@ -1,39 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">메시지 큐 활용</title>
-  <desc id="d">Producer에서 Message Queue를 거쳐 Consumer로 이어지는 구조와 메시지 큐의 장점을 설명하는 다이어그램입니다.</desc>
+  <desc id="d">Producer가 Message Queue(RabbitMQ, Kafka, SQS)를 거쳐 Consumer로 메시지를 전달하는 구조와, 서비스 간 결합도 감소·부하 분산·재시도/실패 처리라는 장점.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="260" fill="#ffffff"/>
+  <rect width="880" height="310" fill="#ffffff"/>
 
-  <!-- Title Section -->
-  <text x="30" y="31.6" font-size="16" font-weight="bold" fill="#1f2933">메시지 큐 활용</text>
+  <!-- Producer -->
+  <rect x="24" y="44" width="160" height="76" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="104" y="88" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Producer</text>
+  <path d="M186,82 L240,82" stroke="#1d4ed8" stroke-width="2.2" fill="none" marker-end="url(#ab)"/>
 
-  <!-- Producer Box -->
-  <rect x="30" y="50" width="140" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="100" y="80.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Producer</text>
+  <!-- Message Queue -->
+  <rect x="248" y="24" width="384" height="116" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="54" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Message Queue</text>
+  <rect x="278" y="72" width="44" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <rect x="332" y="72" width="44" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <rect x="386" y="72" width="44" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <rect x="440" y="72" width="44" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <rect x="494" y="72" width="44" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <rect x="548" y="72" width="44" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="440" y="166" font-size="15" fill="#4b5563" text-anchor="middle">(RabbitMQ, Kafka, SQS)</text>
 
-  <!-- Arrow Producer -> MQ -->
-  <path d="M170,75 L220,75" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M634,82 L688,82" stroke="#1d4ed8" stroke-width="2.2" fill="none" marker-end="url(#ab)"/>
 
-  <!-- Message Queue Box -->
-  <rect x="220" y="50" width="220" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="72.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">[Message Queue]</text>
-  <text x="330" y="89.025" font-size="11.5" fill="#52606d" text-anchor="middle">(RabbitMQ, Kafka, SQS)</text>
+  <!-- Consumer -->
+  <rect x="696" y="44" width="160" height="76" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="776" y="88" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Consumer</text>
 
-  <!-- Arrow MQ -> Consumer -->
-  <path d="M440,75 L490,75" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Consumer Box -->
-  <rect x="490" y="50" width="140" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="560" y="80.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Consumer</text>
-
-  <!-- Advantages Section -->
-  <rect x="30" y="125" width="600" height="110" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="50" y="152.55" font-size="14" font-weight="bold" fill="#1f2933">장점:</text>
-  <text x="50" y="174.55" font-size="13" fill="#1f2933">- 서비스 간 결합도 감소</text>
-  <text x="50" y="195.55" font-size="13" fill="#1f2933">- 부하 분산</text>
-  <text x="50" y="216.55" font-size="13" fill="#1f2933">- 재시도/실패 처리</text>
+  <!-- 장점 -->
+  <text x="24" y="214" font-size="18" font-weight="bold" fill="#92400e">장점</text>
+  <rect x="24" y="228" width="264" height="58" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="156" y="263" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">서비스 간 결합도 감소</text>
+  <rect x="308" y="228" width="264" height="58" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="440" y="263" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">부하 분산</text>
+  <rect x="592" y="228" width="264" height="58" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="724" y="263" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">재시도/실패 처리</text>
 </svg>

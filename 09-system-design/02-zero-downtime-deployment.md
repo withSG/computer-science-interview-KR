@@ -157,7 +157,7 @@ server:
 ### Recreate — 전부 내리고 전부 올린다
 
 <!-- diagram:sd-zero-downtime-deployment-13 -->
-![Recreate — 전부 내리고 전부 올린다](../assets/diagrams/sd-zero-downtime-deployment-13.svg)
+![Recreate: v1 전부 내린 뒤 v2 전부 올림, 사이 다운타임](../assets/diagrams/sd-zero-downtime-deployment-13.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

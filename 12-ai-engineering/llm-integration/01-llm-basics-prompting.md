@@ -148,7 +148,7 @@ print(len(enc.encode("토큰화")))          # 한국어 — 보통 더 많다
 Temperature는 softmax를 적용하기 전 로짓을 T로 나눕니다. 수식으로는 `softmax(logit / T)`입니다. 원래 확률로 환산하면 각 확률을 `1/T` 제곱한 뒤 다시 정규화하는 것과 같아서, 아래 숫자는 직접 계산해 확인할 수 있습니다.
 
 <!-- diagram:ai-llm-basics-prompting-5 -->
-![Temperature: 분포의 뾰족함](../../assets/diagrams/ai-llm-basics-prompting-5.svg)
+![Temperature 0.2·1.0·1.5에 따른 다음 토큰 확률 분포 비교](../../assets/diagrams/ai-llm-basics-prompting-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

@@ -1,107 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">RAG 파이프라인</title>
-  <desc id="d">Indexing, Retrieval, Generation 3단계로 구성된 RAG 파이프라인 흐름도</desc>
+  <desc id="d">RAG는 세 단계로 이뤄진다. Indexing은 Documents를 Chunking·Embedding해 Vector DB에 저장하고, Retrieval은 Query를 Embedding해 Vector Search로 Top-K 문서를 찾으며, Generation은 Query와 검색된 컨텍스트를 LLM에 넣어 Answer를 만든다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 1. Indexing -->
+  <rect x="24" y="24" width="832" height="124" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="52" cy="50" r="14" fill="#1d4ed8"/>
+  <text x="52" y="55" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="76" y="56" font-size="18" font-weight="bold" fill="#1d4ed8">Indexing (색인)</text>
 
-  <!-- SECTION 1: Indexing (색인) -->
-  <g id="section-indexing">
-    <!-- Outer Group Container -->
-    <rect x="40" y="30" width="800" height="120" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="440" y="58" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">Indexing (색인)</text>
+  <rect x="40" y="76" width="132" height="52" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="106" y="107" font-size="15" fill="#1f2937" text-anchor="middle">Documents</text>
+  <line x1="175" y1="102" x2="204" y2="102" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="207" y="76" width="132" height="52" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="273" y="107" font-size="15" fill="#1f2937" text-anchor="middle">Chunking</text>
+  <line x1="342" y1="102" x2="371" y2="102" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="374" y="76" width="132" height="52" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="440" y="107" font-size="15" fill="#1f2937" text-anchor="middle">Embedding</text>
+  <line x1="509" y1="102" x2="538" y2="102" stroke="#2563eb" stroke-width="2" marker-end="url(#ab)"/>
+  <rect x="541" y="76" width="132" height="52" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="607" y="107" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Vector DB 저장</text>
 
-    <!-- Node 1: Documents -->
-    <rect x="65" y="80" width="115" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="122.5" y="108.1" font-size="13" fill="#1f2933" text-anchor="middle">Documents</text>
+  <!-- 2. Retrieval -->
+  <rect x="24" y="196" width="832" height="124" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <circle cx="52" cy="222" r="14" fill="#047857"/>
+  <text x="52" y="227" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="76" y="228" font-size="18" font-weight="bold" fill="#047857">Retrieval (검색)</text>
 
-    <!-- Arrow 1 -->
-    <path d="M180,103 L220,103" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="207" y="248" width="132" height="52" rx="6" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="273" y="279" font-size="15" fill="#1f2937" text-anchor="middle">Query</text>
+  <line x1="342" y1="274" x2="371" y2="274" stroke="#059669" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="374" y="248" width="132" height="52" rx="6" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="440" y="279" font-size="15" fill="#1f2937" text-anchor="middle">Embedding</text>
+  <line x1="509" y1="274" x2="538" y2="274" stroke="#059669" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="541" y="248" width="132" height="52" rx="6" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="607" y="279" font-size="15" fill="#1f2937" text-anchor="middle">Vector Search</text>
+  <line x1="676" y1="274" x2="705" y2="274" stroke="#059669" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="708" y="248" width="132" height="52" rx="6" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="774" y="279" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">Top-K 문서</text>
 
-    <!-- Node 2: Chunking -->
-    <rect x="220" y="80" width="105" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="272.5" y="108.1" font-size="13" fill="#1f2933" text-anchor="middle">Chunking</text>
+  <!-- 3. Generation -->
+  <rect x="24" y="368" width="832" height="124" rx="10" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <circle cx="52" cy="394" r="14" fill="#6d28d9"/>
+  <text x="52" y="399" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="76" y="400" font-size="18" font-weight="bold" fill="#6d28d9">Generation (생성)</text>
 
-    <!-- Arrow 2 -->
-    <path d="M325,103 L365,103" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="40" y="420" width="299" height="52" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="189.5" y="451" font-size="15" fill="#1f2937" text-anchor="middle">[Query + Retrieved Context]</text>
+  <line x1="342" y1="446" x2="371" y2="446" stroke="#7c3aed" stroke-width="2" marker-end="url(#ap)"/>
+  <rect x="374" y="420" width="132" height="52" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="440" y="451" font-size="15" fill="#1f2937" text-anchor="middle">LLM</text>
+  <line x1="509" y1="446" x2="538" y2="446" stroke="#7c3aed" stroke-width="2" marker-end="url(#ap)"/>
+  <rect x="541" y="420" width="132" height="52" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="607" y="451" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">Answer</text>
 
-    <!-- Node 3: Embedding -->
-    <rect x="365" y="80" width="115" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="422.5" y="108.1" font-size="13" fill="#1f2933" text-anchor="middle">Embedding</text>
-
-    <!-- Arrow 3 -->
-    <path d="M480,103 L520,103" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Node 4: Vector DB 저장 -->
-    <rect x="520" y="80" width="145" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="592.5" y="108.1" font-size="13" fill="#1f2933" text-anchor="middle">Vector DB 저장</text>
-  </g>
-
-  <!-- SECTION 2: Retrieval (검색) -->
-  <g id="section-retrieval">
-    <!-- Outer Group Container -->
-    <rect x="40" y="190" width="800" height="120" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="440" y="218" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">Retrieval (검색)</text>
-
-    <!-- Node 1: Query -->
-    <rect x="65" y="240" width="85" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="107.5" y="268.1" font-size="13" fill="#1f2933" text-anchor="middle">Query</text>
-
-    <!-- Arrow 1 -->
-    <path d="M150,263 L190,263" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- Node 2: Embedding -->
-    <rect x="190" y="240" width="115" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="247.5" y="268.1" font-size="13" fill="#1f2933" text-anchor="middle">Embedding</text>
-
-    <!-- Arrow 2 -->
-    <path d="M305,263 L345,263" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- Node 3: Vector Search -->
-    <rect x="345" y="240" width="140" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="415" y="268.1" font-size="13" fill="#1f2933" text-anchor="middle">Vector Search</text>
-
-    <!-- Arrow 3 -->
-    <path d="M485,263 L525,263" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- Node 4: Top-K 문서 -->
-    <rect x="525" y="240" width="125" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="587.5" y="268.1" font-size="13" fill="#1f2933" text-anchor="middle">Top-K 문서</text>
-  </g>
-
-  <!-- SECTION 3: Generation (생성) -->
-  <g id="section-generation">
-    <!-- Outer Group Container -->
-    <rect x="40" y="350" width="800" height="120" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="440" y="378" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">Generation (생성)</text>
-
-    <!-- Node 1: [Query + Retrieved Context] -->
-    <rect x="65" y="400" width="265" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="197.5" y="428.1" font-size="13" fill="#1f2933" text-anchor="middle">[Query + Retrieved Context]</text>
-
-    <!-- Arrow 1 -->
-    <path d="M330,423 L370,423" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-    <!-- Node 2: LLM -->
-    <rect x="370" y="400" width="75" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="407.5" y="428.1" font-size="13" fill="#1f2933" text-anchor="middle">LLM</text>
-
-    <!-- Arrow 2 -->
-    <path d="M445,423 L485,423" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-    <!-- Node 3: Answer -->
-    <rect x="485" y="400" width="90" height="46" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="530" y="428.1" font-size="13" fill="#1f2933" text-anchor="middle">Answer</text>
-  </g>
+  <!-- 단계 사이 연결 (점선) -->
+  <line x1="607" y1="131" x2="607" y2="244" stroke="#6b7280" stroke-width="1.75" stroke-dasharray="6 4" marker-end="url(#ax)"/>
+  <line x1="273" y1="303" x2="273" y2="416" stroke="#6b7280" stroke-width="1.75" stroke-dasharray="6 4" marker-end="url(#ax)"/>
+  <path d="M774,303 V344 H316 V416" fill="none" stroke="#6b7280" stroke-width="1.75" stroke-dasharray="6 4" marker-end="url(#ax)"/>
 </svg>

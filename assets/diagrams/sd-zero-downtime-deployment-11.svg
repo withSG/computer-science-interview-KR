@@ -1,44 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">개선: 확장-수축 패턴 (Expand and Contract)</title>
-  <desc id="d">Expand, Migrate, Contract 단계로 이루어진 무중단 배포의 확장-수축 패턴 흐름도</desc>
-  
-  <rect width="880" height="380" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 270" width="880" height="270" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">확장-수축 패턴의 세 단계</title>
+  <desc id="d">Expand에서 구·신 양쪽이 모두 동작하게 넓히고, Migrate에서 데이터를 옮겨 신버전이 새 구조만 쓰게 전환한 뒤, Contract에서 아무도 안 쓰는 것이 확인되면 낡은 것을 제거하는 순서를 왼쪽에서 오른쪽으로 보여준다.</desc>
+  <rect width="880" height="270" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Step 1: Expand -->
-  <g>
-    <rect x="80" y="40" width="130" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="145" y="70" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[Expand]</text>
-    <text x="235" y="70" font-size="14" fill="#1f2933">구·신 양쪽이 모두 동작하는 상태로 넓힌다</text>
-  </g>
+  <!-- 1. Expand -->
+  <rect x="36" y="28" width="240" height="176" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="72" cy="64" r="18" fill="#1d4ed8"/>
+  <text x="72" y="70" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="102" y="72" font-size="22" font-weight="bold" fill="#1d4ed8">Expand</text>
+  <line x1="56" y1="98" x2="256" y2="98" stroke="#93c5fd" stroke-width="1.5"/>
+  <text font-size="16" fill="#1f2937">
+    <tspan x="56" y="130">구·신 양쪽이 모두</tspan>
+    <tspan x="56" dy="24">동작하는 상태로 넓힌다</tspan>
+  </text>
 
-  <!-- Arrow 1 -->
-  <path d="M145,90 L145,150" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- arrow 1 -> 2 -->
+  <line x1="284" y1="116" x2="312" y2="116" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 2: Migrate -->
-  <g>
-    <rect x="80" y="150" width="130" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-    <text x="145" y="180" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">[Migrate]</text>
-    <text x="235" y="180" font-size="14" fill="#1f2933">데이터를 옮기고, 신버전이 새 구조만 쓰도록 전환한다</text>
-  </g>
+  <!-- 2. Migrate -->
+  <rect x="320" y="28" width="240" height="176" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <circle cx="356" cy="64" r="18" fill="#b45309"/>
+  <text x="356" y="70" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="386" y="72" font-size="22" font-weight="bold" fill="#b45309">Migrate</text>
+  <line x1="340" y1="98" x2="540" y2="98" stroke="#fcd34d" stroke-width="1.5"/>
+  <text font-size="16" fill="#1f2937">
+    <tspan x="340" y="130">데이터를 옮기고,</tspan>
+    <tspan x="340" dy="24">신버전이 새 구조만</tspan>
+    <tspan x="340" dy="24">쓰도록 전환한다</tspan>
+  </text>
 
-  <!-- Arrow 2 -->
-  <path d="M145,200 L145,260" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <!-- arrow 2 -> 3 -->
+  <line x1="568" y1="116" x2="596" y2="116" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 3: Contract -->
-  <g>
-    <rect x="80" y="260" width="130" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="145" y="290" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">[Contract]</text>
-    <text x="235" y="290" font-size="14" fill="#1f2933">아무도 안 쓰는 것이 확인된 뒤에 낡은 것을 제거한다</text>
-  </g>
+  <!-- 3. Contract -->
+  <rect x="604" y="28" width="240" height="176" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <circle cx="640" cy="64" r="18" fill="#6d28d9"/>
+  <text x="640" y="70" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="670" y="72" font-size="22" font-weight="bold" fill="#6d28d9">Contract</text>
+  <line x1="624" y1="98" x2="824" y2="98" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text font-size="16" fill="#1f2937">
+    <tspan x="624" y="130">아무도 안 쓰는 것이</tspan>
+    <tspan x="624" dy="24" font-weight="bold" fill="#6d28d9">확인된 뒤에</tspan>
+    <tspan x="624" dy="24">낡은 것을 제거한다</tspan>
+  </text>
+
+  <!-- caption -->
+  <text x="440" y="246" font-size="16" fill="#374151" text-anchor="middle">확장(Expand)과 수축(Contract)은 서로 다른 배포로 나눈다</text>
 </svg>

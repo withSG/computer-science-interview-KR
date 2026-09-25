@@ -1,153 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">L1과 L2 정규화의 제약 영역 및 손실 등고선 접점 비교</title>
-  <desc id="d">L1 마름모 제약 영역은 손실 등고선이 축 위의 뾰족한 꼭짓점에 접해 가중치가 0이 되고, L2 원형 제약 영역은 매끄러운 경계선에 접해 가중치가 0이 아닌 작은 값을 유지하는 원리를 보여줍니다.</desc>
-
-  <!-- 배경흰색 -->
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">L1 마름모와 L2 원 제약 영역에 손실 등고선이 처음 닿는 지점</title>
+  <desc id="d">같은 손실 등고선이 비제약 최적점 w*에서 바깥으로 넓어질 때, L1 마름모에는 축 위 꼭짓점에서 처음 닿아 그 축의 가중치(w₁)가 정확히 0이 되고, L2 원에는 매끄러운 경계의 축이 아닌 곳에서 닿아 모든 가중치가 작아지되 0은 아니다.</desc>
+  <rect width="880" height="610" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (인크, 파랑, 보라) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 전체 제목 -->
-  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">L1과 L2 정규화: 손실 등고선과 제약 영역의 접점 비교</text>
+  <line x1="440" y1="24" x2="440" y2="586" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- 좌우 구분선 (x = 440) -->
-  <line x1="440" y1="60" x2="440" y2="440" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <!-- ===== L1 패널 (원점 156,290) ===== -->
+  <text x="226" y="44" font-size="19" font-weight="bold" fill="#b45309" text-anchor="middle">L1 제약 (마름모) <tspan font-size="16" font-weight="normal" fill="#4b5563">Lasso</tspan></text>
 
-  <!-- ========================================== -->
-  <!-- 패널 1: L1 정규화 (Lasso) - 좌측 (중심 x: 220, cy: 230) -->
-  <!-- ========================================== -->
+  <polygon points="228,290 156,218 84,290 156,362" fill="#fef3c7" stroke="#b45309" stroke-width="2.5"/>
+  <line x1="46" y1="290" x2="398" y2="290" stroke="#374151" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="156" y1="384" x2="156" y2="84" stroke="#374151" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="406" y="296" font-size="17" font-weight="bold" fill="#111827">w₁</text>
+  <text x="146" y="98" font-size="17" font-weight="bold" fill="#111827" text-anchor="end">w₂</text>
+  <circle cx="228" cy="290" r="4" fill="#b45309"/>
+  <circle cx="84" cy="290" r="4" fill="#b45309"/>
+  <circle cx="156" cy="362" r="4" fill="#b45309"/>
 
-  <!-- 구역 제목 -->
-  <text x="220" y="75" font-size="14" font-weight="600" fill="#d97706" text-anchor="middle">L1 제약 영역 (마름모 / Lasso)</text>
+  <ellipse cx="266" cy="175" rx="39.5" ry="13.2" fill="none" stroke="#60a5fa" stroke-width="1.5" transform="rotate(-18 266 175)"/>
+  <ellipse cx="266" cy="175" rx="79" ry="26.3" fill="none" stroke="#3b82f6" stroke-width="1.5" transform="rotate(-18 266 175)"/>
+  <ellipse cx="266" cy="175" rx="119.7" ry="39.9" fill="none" stroke="#1d4ed8" stroke-width="2.5" transform="rotate(-18 266 175)"/>
+  <circle cx="266" cy="175" r="4.5" fill="#1d4ed8"/>
+  <line x1="264" y1="106" x2="266" y2="168" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="180" y="100" font-size="15" font-weight="bold" fill="#1d4ed8">비제약 최적점 w*</text>
+  <line x1="318" y1="255" x2="309" y2="206" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="300" y="272" font-size="15" fill="#1d4ed8">손실 등고선</text>
 
-  <!-- 좌표축 (Origin at x=220, y=230) -->
-  <!-- w1 축 -->
-  <line x1="60" y1="230" x2="380" y2="230" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <text x="375" y="222" font-size="11.5" font-weight="600" fill="#1f2933">w₁</text>
-  <!-- w2 축 -->
-  <line x1="220" y1="380" x2="220" y2="100" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <text x="228" y="108" font-size="11.5" font-weight="600" fill="#1f2933">w₂</text>
+  <circle cx="156" cy="218" r="6.5" fill="#b91c1c"/>
+  <line x1="138" y1="198" x2="151" y2="213" stroke="#b91c1c" stroke-width="1.2"/>
+  <text x="140" y="170" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">첫 접점 (최적 해)</text>
+  <text x="140" y="192" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">w₁ = 0</text>
 
-  <!-- L1 마름모 제약 영역 (반지름 70px) -->
-  <!-- 꼭짓점: (220, 160), (290, 230), (220, 300), (150, 230) -->
-  <polygon points="220,160 290,230 220,300 150,230" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="185" y="255" font-size="11.5" fill="#d97706" font-weight="600">L1 제약 영역</text>
+  <text x="48" y="420" font-size="16" fill="#1f2937">꼭짓점이 축 위에 뾰족하게 있다</text>
+  <text x="48" y="448" font-size="16" fill="#1f2937">손실 등고선이 확장되며 처음 닿는 곳이</text>
+  <text x="48" y="472" font-size="16" fill="#1f2937">꼭짓점일 확률이 높다</text>
+  <text x="48" y="502" font-size="17" font-weight="bold" fill="#b45309">→ 그 축의 가중치가 정확히 0</text>
+  <rect x="40" y="520" width="372" height="62" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="226" y="545" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">특성을 아예 버림</text>
+  <text x="226" y="569" font-size="15" fill="#1f2937" text-anchor="middle">희소 해(sparse solution) · 특성 선택 효과</text>
 
-  <!-- 비제약 최적점 (w*) at (330, 130) -->
-  <!-- 손실 등고선 (동심 타원들, 회전 약 -20 deg, 중심 330,130) -->
-  <!-- 등고선 3 (바깥쪽, 접하는 선) -->
-  <ellipse cx="330" cy="130" rx="125" ry="50" fill="none" stroke="#2563eb" stroke-width="1" stroke-dasharray="3 3" transform="rotate(-20 330 130)"/>
-  <!-- 등고선 2 -->
-  <ellipse cx="330" cy="130" rx="85" ry="34" fill="none" stroke="#2563eb" stroke-width="1.5" transform="rotate(-20 330 130)"/>
-  <!-- 등고선 1 (내부) -->
-  <ellipse cx="330" cy="130" rx="45" ry="18" fill="none" stroke="#2563eb" stroke-width="1.5" transform="rotate(-20 330 130)"/>
+  <!-- ===== L2 패널 (원점 584,290) ===== -->
+  <text x="654" y="44" font-size="19" font-weight="bold" fill="#6d28d9" text-anchor="middle">L2 제약 (원) <tspan font-size="16" font-weight="normal" fill="#4b5563">Ridge</tspan></text>
 
-  <!-- 비제약 최적점 표시 -->
-  <circle cx="330" cy="130" r="3.5" fill="#2563eb"/>
-  <text x="338" y="124" font-size="11" fill="#2563eb" font-weight="600">비제약 최적점 (w*)</text>
-  <text x="325" y="85" font-size="11" fill="#2563eb">손실 등고선</text>
+  <circle cx="584" cy="290" r="72" fill="#ede9fe" stroke="#6d28d9" stroke-width="2.5"/>
+  <line x1="474" y1="290" x2="826" y2="290" stroke="#374151" stroke-width="1.5" marker-end="url(#ax)"/>
+  <line x1="584" y1="384" x2="584" y2="84" stroke="#374151" stroke-width="1.5" marker-end="url(#ax)"/>
+  <text x="834" y="296" font-size="17" font-weight="bold" fill="#111827">w₁</text>
+  <text x="574" y="98" font-size="17" font-weight="bold" fill="#111827" text-anchor="end">w₂</text>
 
-  <!-- L1 접점 (220, 160) - 축 위 꼭짓점 -->
-  <circle cx="220" cy="160" r="5" fill="#dc2626"/>
-  
-  <!-- L1 접점 라벨 지시선 및 지시상자 -->
-  <line x1="220" y1="160" x2="130" y2="130" stroke="#dc2626" stroke-width="1" stroke-dasharray="2 2"/>
-  <rect x="50" y="110" width="130" height="34" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="115" y="124" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">첫 접점 (w₁ = 0)</text>
-  <text x="115" y="138" font-size="11" fill="#dc2626" text-anchor="middle">축 위 꼭짓점에서 접함</text>
+  <ellipse cx="694" cy="175" rx="39.5" ry="13.2" fill="none" stroke="#60a5fa" stroke-width="1.5" transform="rotate(-18 694 175)"/>
+  <ellipse cx="694" cy="175" rx="79" ry="26.3" fill="none" stroke="#3b82f6" stroke-width="1.5" transform="rotate(-18 694 175)"/>
+  <ellipse cx="694" cy="175" rx="110.4" ry="36.8" fill="none" stroke="#1d4ed8" stroke-width="2.5" transform="rotate(-18 694 175)"/>
+  <circle cx="694" cy="175" r="4.5" fill="#1d4ed8"/>
+  <line x1="692" y1="106" x2="694" y2="168" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="608" y="100" font-size="15" font-weight="bold" fill="#1d4ed8">비제약 최적점 w*</text>
+  <line x1="740" y1="255" x2="734" y2="203" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="722" y="272" font-size="15" fill="#1d4ed8">손실 등고선</text>
 
-  <!-- L1 특성 설명 박스 -->
-  <rect x="50" y="395" width="340" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="220" y="410" font-size="11.5" font-weight="500" fill="#1f2933" text-anchor="middle">특성을 아예 버림 (희소 해, Sparse Solution)</text>
-  <text x="220" y="424" font-size="11" fill="#52606d" text-anchor="middle">일부 가중치가 정확히 0이 되어 특성 선택 효과 발생</text>
+  <circle cx="604.5" cy="221" r="6.5" fill="#b91c1c"/>
+  <line x1="570" y1="198" x2="599" y2="217" stroke="#b91c1c" stroke-width="1.2"/>
+  <text x="568" y="170" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">첫 접점 (최적 해)</text>
+  <text x="568" y="192" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">w₁, w₂ ≠ 0</text>
 
-
-  <!-- ========================================== -->
-  <!-- 패널 2: L2 정규화 (Ridge) - 우측 (중심 x: 660, cy: 230) -->
-  <!-- ========================================== -->
-
-  <!-- 구역 제목 -->
-  <text x="660" y="75" font-size="14" font-weight="600" fill="#7c3aed" text-anchor="middle">L2 제약 영역 (원 / Ridge)</text>
-
-  <!-- 좌표축 (Origin at x=645, y=230) — 바깥 등고선이 x=880에서 잘리지 않도록 그래프 전체를 15px 왼쪽으로 이동 -->
-  <!-- w1 축 -->
-  <line x1="485" y1="230" x2="805" y2="230" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <text x="800" y="222" font-size="11.5" font-weight="600" fill="#1f2933">w₁</text>
-  <!-- w2 축 -->
-  <line x1="645" y1="380" x2="645" y2="100" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <text x="653" y="108" font-size="11.5" font-weight="600" fill="#1f2933">w₂</text>
-
-  <!-- L2 원형 제약 영역 (반지름 70px) -->
-  <circle cx="645" cy="230" r="70" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="610" y="275" font-size="11.5" fill="#7c3aed" font-weight="600">L2 제약 영역</text>
-
-  <!-- 비제약 최적점 (w*) at (755, 130) -->
-  <!-- 손실 등고선 (동심 타원들, 동일 축척 및 위치) -->
-  <!-- 등고선 3 (접하는 선) -->
-  <ellipse cx="755" cy="130" rx="125" ry="50" fill="none" stroke="#2563eb" stroke-width="1" stroke-dasharray="3 3" transform="rotate(-20 755 130)"/>
-  <!-- 등고선 2 -->
-  <ellipse cx="755" cy="130" rx="85" ry="34" fill="none" stroke="#2563eb" stroke-width="1.5" transform="rotate(-20 755 130)"/>
-  <!-- 등고선 1 (내부) -->
-  <ellipse cx="755" cy="130" rx="45" ry="18" fill="none" stroke="#2563eb" stroke-width="1.5" transform="rotate(-20 755 130)"/>
-
-  <!-- 비제약 최적점 표시 -->
-  <circle cx="755" cy="130" r="3.5" fill="#2563eb"/>
-  <text x="763" y="124" font-size="11" fill="#2563eb" font-weight="600">비제약 최적점 (w*)</text>
-  <text x="750" y="85" font-size="11" fill="#2563eb">손실 등고선</text>
-
-  <!-- L2 접점 (645+26, 230-65) ≈ (671, 165) - 원 둘레 임의 위치 -->
-  <circle cx="671" cy="165" r="5" fill="#dc2626"/>
-
-  <!-- L2 접점 라벨 지시선 및 지시상자 -->
-  <line x1="671" y1="165" x2="555" y2="130" stroke="#dc2626" stroke-width="1" stroke-dasharray="2 2"/>
-  <rect x="475" y="110" width="136" height="34" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="543" y="124" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">첫 접점 (w₁, w₂ ≠ 0)</text>
-  <text x="543" y="138" font-size="11" fill="#dc2626" text-anchor="middle">매끄러운 경계선에 접함</text>
-
-  <!-- L2 특성 설명 박스 -->
-  <rect x="490" y="395" width="340" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="660" y="410" font-size="11.5" font-weight="500" fill="#1f2933" text-anchor="middle">모든 특성을 조금씩 줄임</text>
-  <text x="660" y="424" font-size="11" fill="#52606d" text-anchor="middle">가중치가 0에 가까워지지만 정확히 0이 되지는 않음</text>
-
-
-  <!-- ========================================== -->
-  <!-- 범례 및 하단 캡션 -->
-  <!-- ========================================== -->
-
-  <!-- 범례 구분선 -->
-  <line x1="50" y1="446" x2="830" y2="446" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 범례 내용 -->
-  <g transform="translate(140, 456)">
-    <!-- 제약 영역 예시 -->
-    <rect x="0" y="0" width="14" height="14" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="20" y="11" font-size="11" fill="#52606d">제약 영역 (L1/L2)</text>
-
-    <!-- 손실 등고선 예시 -->
-    <line x1="140" y1="7" x2="165" y2="7" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="172" y="11" font-size="11" fill="#52606d">손실 등고선</text>
-
-    <!-- 접점 예시 -->
-    <circle cx="260" cy="7" r="4" fill="#dc2626"/>
-    <text x="270" y="11" font-size="11" fill="#52606d">최초 접점 (최적 해)</text>
-
-    <!-- 비제약 최적점 예시 -->
-    <circle cx="390" cy="7" r="3.5" fill="#2563eb"/>
-    <text x="400" y="11" font-size="11" fill="#52606d">비제약 최적점 (w*)</text>
-  </g>
-
-  <!-- 결론 한 줄 캡션 -->
-  <text x="440" y="498" font-size="11.5" fill="#52606d" text-anchor="middle" font-weight="500">결론: L1은 뾰족한 모서리(축 위)에서 등고선과 만나 가중치를 0으로 만들고, L2는 매끄러운 곡선에서 만나 모든 가중치를 조금씩 줄인다.</text>
-
+  <text x="476" y="420" font-size="16" fill="#1f2937">경계가 매끄러워 모서리가 없다</text>
+  <text x="476" y="448" font-size="16" fill="#1f2937">처음 닿는 곳이 하필 축 위일 확률은</text>
+  <text x="476" y="472" font-size="16" fill="#1f2937">사실상 0이다</text>
+  <text x="476" y="502" font-size="17" font-weight="bold" fill="#6d28d9">→ 모든 가중치가 작아지되 0은 아님</text>
+  <rect x="468" y="520" width="372" height="62" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="654" y="557" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">모든 특성을 조금씩 줄임</text>
 </svg>

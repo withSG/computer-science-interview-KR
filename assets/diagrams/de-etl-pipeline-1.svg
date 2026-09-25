@@ -1,81 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">ETL과 ELT — 왜 순서가 바뀌었나</title>
-  <desc id="d">ETL과 ELT 파이프라인 흐름 비교. ETL은 변환 서버를 거쳐 웨어하우스에 적재하고, ELT는 웨어하우스 내부에서 SQL로 변환합니다.</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ETL과 ELT의 변환 위치</title>
+  <desc id="d">ETL은 웨어하우스 바깥의 변환 서버에서 정제·조인·집계·마스킹을 끝내고 정제된 테이블만 적재한다. ELT는 원본을 웨어하우스(레이크)에 먼저 넣고 그 안에서 SQL로 원본을 정제·집계한다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- ==================== ETL Section ==================== -->
-  <rect x="30" y="30" width="820" height="200" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <text x="50" y="62" font-size="16" font-weight="bold" fill="#1f2933">[ETL]</text>
-  <text x="105" y="62" font-size="14" fill="#52606d">변환을 웨어하우스 바깥에서 끝내고, 정제본만 넣는다</text>
+  <!-- ETL -->
+  <rect x="24" y="24" width="64" height="32" rx="6" fill="#1f2937"/>
+  <text x="56" y="46" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">ETL</text>
+  <text x="104" y="46" font-size="16" fill="#1f2937">변환을 웨어하우스 <tspan font-weight="bold" fill="#b45309">바깥</tspan>에서 끝내고, 정제본만 넣는다</text>
 
-  <!-- Source (ETL) -->
-  <text x="75" y="145" font-size="14" font-weight="bold" fill="#1f2933">소스</text>
+  <rect x="24" y="96" width="96" height="68" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="72" y="136" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">소스</text>
 
-  <!-- Arrow: 소스 ──추출──> 변환 서버 -->
-  <path d="M100,140 L230,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="141" y="128" width="48" height="22" fill="#ffffff" rx="3"/>
-  <text x="165" y="143" font-size="13" fill="#52606d" text-anchor="middle">추출</text>
+  <line x1="122" y1="130" x2="214" y2="130" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="168" y="118" font-size="15" fill="#374151" text-anchor="middle">추출</text>
 
-  <!-- Node: 변환 서버 -->
-  <rect x="230" y="85" width="230" height="110" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="345" y="112" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">변환 서버</text>
-  <text x="345" y="137" font-size="13" fill="#52606d" text-anchor="middle">(정제/조인/</text>
-  <text x="345" y="157" font-size="13" fill="#52606d" text-anchor="middle">집계/마스킹)</text>
+  <rect x="220" y="84" width="240" height="92" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="340" y="120" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">변환 서버</text>
+  <text x="340" y="150" font-size="15" fill="#374151" text-anchor="middle">(정제/조인/집계/마스킹)</text>
 
-  <!-- Arrow: 변환 서버 ──적재──> 웨어하우스 -->
-  <path d="M460,140 L590,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="501" y="128" width="48" height="22" fill="#ffffff" rx="3"/>
-  <text x="525" y="143" font-size="13" fill="#52606d" text-anchor="middle">적재</text>
+  <line x1="462" y1="130" x2="554" y2="130" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="508" y="118" font-size="15" fill="#374151" text-anchor="middle">적재</text>
 
-  <!-- Node: 웨어하우스 (ETL) -->
-  <rect x="590" y="85" width="220" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="700" y="112" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">웨어하우스</text>
-  <text x="700" y="137" font-size="13" fill="#52606d" text-anchor="middle">정제된</text>
-  <text x="700" y="157" font-size="13" fill="#52606d" text-anchor="middle">테이블만</text>
+  <rect x="560" y="84" width="296" height="92" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="708" y="120" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">웨어하우스</text>
+  <text x="708" y="150" font-size="15" fill="#374151" text-anchor="middle">정제된 테이블만</text>
 
+  <line x1="24" y1="212" x2="856" y2="212" stroke="#d1d5db" stroke-width="1"/>
 
-  <!-- ==================== ELT Section ==================== -->
-  <rect x="30" y="260" width="820" height="210" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- ELT -->
+  <rect x="24" y="240" width="64" height="32" rx="6" fill="#1f2937"/>
+  <text x="56" y="262" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">ELT</text>
+  <text x="104" y="262" font-size="16" fill="#1f2937">원본을 일단 다 넣고, 웨어하우스 <tspan font-weight="bold" fill="#b45309">안</tspan>에서 SQL로 변환한다</text>
 
-  <text x="50" y="292" font-size="16" font-weight="bold" fill="#1f2933">[ELT]</text>
-  <text x="105" y="292" font-size="14" fill="#52606d">원본을 일단 다 넣고, 웨어하우스 안에서 SQL로 변환한다</text>
+  <rect x="24" y="336" width="96" height="68" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="72" y="376" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">소스</text>
 
-  <!-- Source (ELT) -->
-  <text x="75" y="380" font-size="14" font-weight="bold" fill="#1f2933">소스</text>
+  <line x1="122" y1="370" x2="214" y2="370" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="168" y="358" font-size="15" fill="#374151" text-anchor="middle">추출</text>
 
-  <!-- Arrow: 소스 ──추출──> 웨어하우스/레이크 -->
-  <path d="M100,375 L230,375" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="141" y="363" width="48" height="22" fill="#ffffff" rx="3"/>
-  <text x="165" y="378" font-size="13" fill="#52606d" text-anchor="middle">추출</text>
+  <rect x="220" y="300" width="636" height="136" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="244" y="328" font-size="17" font-weight="bold" fill="#1e3a8a">웨어하우스 / 레이크</text>
 
-  <!-- Big Node: 웨어하우스 / 레이크 -->
-  <rect x="230" y="315" width="580" height="120" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="520" y="342" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">웨어하우스 / 레이크</text>
+  <rect x="244" y="346" width="140" height="52" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="314" y="378" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">원본(raw)</text>
 
-  <!-- Internal Process: 원본(raw) ──SQL 변환──> 정제 ──> 집계 -->
-  <text x="310" y="395" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">원본(raw)</text>
+  <line x1="386" y1="372" x2="506" y2="372" stroke="#b45309" stroke-width="2.5" marker-end="url(#ah-t)"/>
+  <text x="446" y="360" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">SQL 변환</text>
 
-  <path d="M355,390 L465,390" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="371" y="378" width="78" height="22" fill="#ffffff" rx="3"/>
-  <text x="410" y="393" font-size="13" fill="#52606d" text-anchor="middle">SQL 변환</text>
+  <rect x="512" y="346" width="120" height="52" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="572" y="378" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">정제</text>
 
-  <text x="495" y="395" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">정제</text>
+  <line x1="634" y1="372" x2="698" y2="372" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <path d="M520,390 L580,390" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <text x="610" y="395" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">집계</text>
-
+  <rect x="704" y="346" width="128" height="52" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="768" y="378" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">집계</text>
 </svg>

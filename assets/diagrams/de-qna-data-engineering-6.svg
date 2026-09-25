@@ -1,60 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">람다 아키텍처 (Lambda)</title>
-  <desc id="d">소스 데이터가 배치 레이어와 스피드 레이어로 분기된 후 서빙 레이어를 거쳐 조회되는 람다 아키텍처 구조도 및 장단점 설명</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">람다 아키텍처 흐름</title>
+  <desc id="d">소스 데이터가 배치 레이어(정확, 느림)와 스피드 레이어(실시간) 두 경로로 갈라졌다가 서빙 레이어에서 합쳐져 조회된다. 장점은 정확성과 실시간을 모두 얻는 것, 단점은 배치/스트리밍 두 코드베이스를 유지해야 해 복잡하다는 것이다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
+  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- 연결선 및 화살표 -->
-  <!-- 소스 데이터 -> 배치 레이어 -->
-  <path d="M 145,100 L 180,100 L 180,50 L 210,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 소스 데이터 -> 스피드 레이어 -->
-  <path d="M 145,100 L 180,100 L 180,150 L 210,150" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- 배치 레이어 -> 서빙 레이어 -->
-  <path d="M 430,50 L 460,50 L 460,100 L 490,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 스피드 레이어 -> 서빙 레이어 -->
-  <path d="M 430,150 L 460,150 L 460,100 L 490,100" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- 서빙 레이어 -> 조회 -->
-  <path d="M 630,100 L 680,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 연결선 -->
+  <path d="M154,116 H190 V68 H222" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <path d="M154,116 H190 V164 H222" fill="none" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <path d="M476,68 H503 V116 H526" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <path d="M476,164 H503 V116 H526" fill="none" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <line x1="690" y1="116" x2="742" y2="116" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-  <!-- 노드: 소스 데이터 -->
-  <rect x="25" y="80" width="120" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="85" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">소스 데이터</text>
+  <!-- 소스 데이터 -->
+  <rect x="24" y="92" width="130" height="48" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="89" y="122" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">소스 데이터</text>
 
-  <!-- 노드: 배치 레이어 (정확, 느림) -->
-  <rect x="210" y="30" width="220" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="320" y="54.55" font-size="13" fill="#1f2933" text-anchor="middle">배치 레이어 (정확, 느림)</text>
+  <!-- 배치 레이어 -->
+  <rect x="226" y="36" width="250" height="64" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="351" y="63" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">배치 레이어</text>
+  <text x="351" y="86" font-size="15" fill="#1e40af" text-anchor="middle">(정확, 느림)</text>
 
-  <!-- 노드: 스피드 레이어 (실시간) -->
-  <rect x="210" y="130" width="220" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="320" y="154.55" font-size="13" fill="#1f2933" text-anchor="middle">스피드 레이어 (실시간)</text>
+  <!-- 스피드 레이어 -->
+  <rect x="226" y="132" width="250" height="64" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="351" y="159" font-size="16" font-weight="bold" fill="#4c1d95" text-anchor="middle">스피드 레이어</text>
+  <text x="351" y="182" font-size="15" fill="#5b21b6" text-anchor="middle">(실시간)</text>
 
-  <!-- 노드: 서빙 레이어 -->
-  <rect x="490" y="80" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="560" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">서빙 레이어</text>
+  <!-- 서빙 레이어 -->
+  <rect x="530" y="92" width="160" height="48" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="610" y="122" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">서빙 레이어</text>
 
-  <!-- 노드: 조회 -->
-  <rect x="680" y="80" width="80" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="720" y="104.55" font-size="13" fill="#1f2933" text-anchor="middle">조회</text>
+  <!-- 조회 -->
+  <rect x="746" y="92" width="110" height="48" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="801" y="122" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">조회</text>
 
-  <!-- 구분선 -->
-  <line x1="25" y1="210" x2="855" y2="210" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="5 4"/>
+  <!-- 장단점 -->
+  <rect x="24" y="232" width="408" height="60" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="44" y="268" font-size="16" font-weight="bold" fill="#047857">장점</text>
+  <text x="96" y="268" font-size="16" fill="#1f2937">정확성 + 실시간 모두</text>
 
-  <!-- 장점 & 단점 -->
-  <rect x="25" y="235" width="830" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="40" y="257.55" font-size="13" fill="#059669" font-weight="bold">장점:</text>
-  <text x="82" y="257.55" font-size="13" fill="#1f2933">정확성 + 실시간 모두</text>
-
-  <rect x="25" y="280" width="830" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="40" y="302.55" font-size="13" fill="#dc2626" font-weight="bold">단점:</text>
-  <text x="82" y="302.55" font-size="13" fill="#1f2933">배치/스트리밍 두 코드베이스 유지 (복잡)</text>
+  <rect x="448" y="232" width="408" height="60" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="468" y="268" font-size="16" font-weight="bold" fill="#b91c1c">단점</text>
+  <text x="520" y="268" font-size="16" fill="#1f2937">배치/스트리밍 두 코드베이스 유지 (복잡)</text>
 </svg>

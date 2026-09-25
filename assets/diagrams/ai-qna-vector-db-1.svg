@@ -1,137 +1,116 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">HNSW (Hierarchical Navigable Small World)</title>
-  <desc id="d">HNSW 계층적 그래프 구조와 검색 방식, 장단점을 나타낸 다이어그램</desc>
-  <rect width="880" height="580" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 530" width="880" height="530" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">HNSW 계층적 그래프 검색</title>
+  <desc id="d">HNSW는 위로 갈수록 노드가 희소하고 아래로 갈수록 밀집한 4개 레이어(Layer 3~0)의 그래프다. 검색은 상위 레이어에서 대략적 위치를 잡고 하위 레이어로 내려가며 정밀하게 찾는다. 장점은 빠른 검색(log n)과 높은 정확도, 단점은 많은 메모리 사용량이다.</desc>
+  <rect width="880" height="530" fill="#ffffff"/>
 
   <defs>
-    <!-- Arrowhead markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Section Title -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">계층적 그래프 구조로 검색</text>
+  <text x="24" y="40" font-size="18" font-weight="bold" fill="#111827">계층적 그래프 구조로 검색</text>
 
-  <!-- Main Container Background for Layers -->
-  <rect x="30" y="55" width="820" height="340" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
+  <!-- 레이어 띠 -->
+  <rect x="24" y="60" width="648" height="64" rx="8" fill="#f1f5f9"/>
+  <rect x="24" y="140" width="648" height="64" rx="8" fill="#f1f5f9"/>
+  <rect x="24" y="220" width="648" height="64" rx="8" fill="#f1f5f9"/>
+  <rect x="24" y="300" width="648" height="64" rx="8" fill="#f1f5f9"/>
 
-  <!-- Horizontal Connection Lines for Layers -->
-  <!-- Layer 3 -->
-  <path d="M 120 95 L 760 95" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <!-- Layer 2 -->
-  <path d="M 120 170 L 760 170" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <!-- Layer 1 -->
-  <path d="M 120 245 L 760 245" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <!-- Layer 0 -->
-  <path d="M 120 320 L 760 320" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <!-- 레이어 이름 -->
+  <text x="44" y="88" font-size="16" font-weight="bold" fill="#111827">Layer 3</text>
+  <text x="44" y="108" font-size="14" fill="#4b5563">(희소)</text>
+  <text x="44" y="178" font-size="16" font-weight="bold" fill="#111827">Layer 2</text>
+  <text x="44" y="258" font-size="16" font-weight="bold" fill="#111827">Layer 1</text>
+  <text x="44" y="328" font-size="16" font-weight="bold" fill="#111827">Layer 0</text>
+  <text x="44" y="348" font-size="14" fill="#4b5563">(밀집)</text>
 
-  <!-- Vertical Connection Lines between Layers -->
-  <!-- A: x = 120 -->
-  <path d="M 120 95 L 120 320" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <!-- B: x = 760 -->
-  <path d="M 760 95 L 760 320" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <!-- C: x = 440 -->
-  <path d="M 440 170 L 440 320" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <!-- D: x = 226 -->
-  <path d="M 226 245 L 226 320" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-  <!-- E: x = 654 -->
-  <path d="M 654 245 L 654 320" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- 같은 노드: 위·아래 레이어 연결 (점선) -->
+  <g stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" fill="none">
+    <path d="M190 112 V152 M190 192 V232 M190 272 V312"/>
+    <path d="M622 112 V152 M622 192 V232 M622 272 V312"/>
+    <path d="M406 192 V232 M406 272 V312"/>
+    <path d="M262 272 V312"/>
+    <path d="M478 272 V312"/>
+  </g>
 
-  <!-- Layer Labels & Notes -->
-  <!-- Layer 3 -->
-  <text x="50" y="99" font-size="14" font-weight="bold" fill="#1f2933">Layer 3:</text>
-  <text x="800" y="99" font-size="13" fill="#52606d" text-anchor="middle">(희소)</text>
+  <!-- 이웃 연결 (실선) -->
+  <g stroke="#334155" stroke-width="2" fill="none">
+    <path d="M210 92 H602"/>
+    <path d="M210 172 H386 M426 172 H602"/>
+    <path d="M210 252 H242 M282 252 H386 M426 252 H458 M498 252 H602"/>
+    <path d="M210 332 H242 M282 332 H314 M354 332 H386 M426 332 H458 M498 332 H530 M570 332 H602"/>
+  </g>
 
-  <!-- Layer 2 -->
-  <text x="50" y="174" font-size="14" font-weight="bold" fill="#1f2933">Layer 2:</text>
+  <!-- 노드 -->
+  <g fill="#eff6ff" stroke="#1d4ed8" stroke-width="2">
+    <circle cx="190" cy="92" r="20"/>
+    <circle cx="622" cy="92" r="20"/>
 
-  <!-- Layer 1 -->
-  <text x="50" y="249" font-size="14" font-weight="bold" fill="#1f2933">Layer 1:</text>
+    <circle cx="190" cy="172" r="20"/>
+    <circle cx="406" cy="172" r="20"/>
+    <circle cx="622" cy="172" r="20"/>
 
-  <!-- Layer 0 -->
-  <text x="50" y="324" font-size="14" font-weight="bold" fill="#1f2933">Layer 0:</text>
-  <text x="800" y="324" font-size="13" fill="#52606d" text-anchor="middle">(밀집)</text>
+    <circle cx="190" cy="252" r="20"/>
+    <circle cx="262" cy="252" r="20"/>
+    <circle cx="406" cy="252" r="20"/>
+    <circle cx="478" cy="252" r="20"/>
+    <circle cx="622" cy="252" r="20"/>
 
-  <!-- Nodes Overlay -->
+    <circle cx="190" cy="332" r="20"/>
+    <circle cx="262" cy="332" r="20"/>
+    <circle cx="334" cy="332" r="20"/>
+    <circle cx="406" cy="332" r="20"/>
+    <circle cx="478" cy="332" r="20"/>
+    <circle cx="550" cy="332" r="20"/>
+    <circle cx="622" cy="332" r="20"/>
+  </g>
+  <g font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">
+    <text x="190" y="98">A</text>
+    <text x="622" y="98">B</text>
 
-  <!-- Layer 3 Nodes -->
-  <!-- [A] -->
-  <rect x="102" y="77" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="120" y="100" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
-  <!-- [B] -->
-  <rect x="742" y="77" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="760" y="100" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">B</text>
+    <text x="190" y="178">A</text>
+    <text x="406" y="178">C</text>
+    <text x="622" y="178">B</text>
 
-  <!-- Layer 2 Nodes -->
-  <!-- [A] -->
-  <rect x="102" y="152" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="120" y="175" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
-  <!-- [C] -->
-  <rect x="422" y="152" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="440" y="175" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">C</text>
-  <!-- [B] -->
-  <rect x="742" y="152" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="760" y="175" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">B</text>
+    <text x="190" y="258">A</text>
+    <text x="262" y="258">D</text>
+    <text x="406" y="258">C</text>
+    <text x="478" y="258">E</text>
+    <text x="622" y="258">B</text>
 
-  <!-- Layer 1 Nodes -->
-  <!-- [A] -->
-  <rect x="102" y="227" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="120" y="250" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
-  <!-- [D] -->
-  <rect x="208" y="227" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="226" y="250" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">D</text>
-  <!-- [C] -->
-  <rect x="422" y="227" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="440" y="250" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">C</text>
-  <!-- [E] -->
-  <rect x="636" y="227" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="654" y="250" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-  <!-- [B] -->
-  <rect x="742" y="227" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="760" y="250" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">B</text>
+    <text x="190" y="338">A</text>
+    <text x="262" y="338">D</text>
+    <text x="334" y="338">F</text>
+    <text x="406" y="338">C</text>
+    <text x="478" y="338">E</text>
+    <text x="550" y="338">G</text>
+    <text x="622" y="338">B</text>
+  </g>
 
-  <!-- Layer 0 Nodes -->
-  <!-- [A] -->
-  <rect x="102" y="302" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="120" y="325" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
-  <!-- [D] -->
-  <rect x="208" y="302" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="226" y="325" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">D</text>
-  <!-- [F] -->
-  <rect x="315" y="302" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="333" y="325" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">F</text>
-  <!-- [C] -->
-  <rect x="422" y="302" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="440" y="325" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">C</text>
-  <!-- [E] -->
-  <rect x="636" y="302" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="654" y="325" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">E</text>
-  <!-- [G] -->
-  <rect x="689" y="302" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="707" y="325" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">G</text>
-  <!-- [B] -->
-  <rect x="742" y="302" width="36" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="760" y="325" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">B</text>
+  <!-- 검색 방향 패널 -->
+  <rect x="692" y="60" width="164" height="304" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="774" y="88" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">상위 레이어</text>
+  <text x="774" y="110" font-size="16" fill="#111827" text-anchor="middle">대략적 위치</text>
+  <path d="M774 126 V296" stroke="#1d4ed8" stroke-width="3" fill="none" marker-end="url(#arr)"/>
+  <rect x="746" y="199" width="56" height="26" fill="#eff6ff"/>
+  <text x="774" y="218" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">검색</text>
+  <text x="774" y="328" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">하위 레이어</text>
+  <text x="774" y="350" font-size="16" fill="#111827" text-anchor="middle">정밀 검색</text>
 
-  <!-- Lower Section: Search Description and Pros/Cons -->
-  <!-- Search flow / process -->
-  <rect x="30" y="415" width="820" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="6"/>
-  <path d="M 285 435 L 300 435" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="0" fill="none" marker-end="url(#a-blue)"/>
-  <text x="45" y="440" font-size="13" font-weight="bold" fill="#1f2933">검색:</text>
-  <text x="90" y="440" font-size="13" fill="#1f2933">상위 레이어에서 대략적 위치</text>
-  <text x="310" y="440" font-size="13" fill="#1f2933">하위로 정밀 검색</text>
+  <!-- 범례 -->
+  <path d="M28 388 H60" stroke="#334155" stroke-width="2" fill="none"/>
+  <text x="68" y="393" font-size="14" fill="#374151">이웃 연결</text>
+  <path d="M160 388 H192" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <text x="200" y="393" font-size="14" fill="#374151">같은 노드 (위·아래 레이어)</text>
 
-  <!-- Pros Box -->
-  <rect x="30" y="470" width="400" height="80" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="6"/>
-  <text x="48" y="498" font-size="13" font-weight="bold" fill="#059669">장점:</text>
-  <text x="92" y="498" font-size="13" fill="#1f2933">빠른 검색 (log n), 높은 정확도</text>
+  <!-- 장단점 -->
+  <rect x="24" y="414" width="408" height="92" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="44" y="442" font-size="17" font-weight="bold" fill="#047857">장점</text>
+  <text x="44" y="468" font-size="16" fill="#111827">· 빠른 검색 (log n)</text>
+  <text x="44" y="492" font-size="16" fill="#111827">· 높은 정확도</text>
 
-  <!-- Cons Box -->
-  <rect x="450" y="470" width="400" height="80" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="6"/>
-  <text x="468" y="498" font-size="13" font-weight="bold" fill="#dc2626">단점:</text>
-  <text x="512" y="498" font-size="13" fill="#1f2933">메모리 사용량 많음</text>
+  <rect x="448" y="414" width="408" height="92" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="468" y="442" font-size="17" font-weight="bold" fill="#b91c1c">단점</text>
+  <text x="468" y="468" font-size="16" fill="#111827">· 메모리 사용량 많음</text>
 </svg>
