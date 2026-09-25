@@ -45,7 +45,7 @@
     <text x="116" y="154" font-size="16" fill="#1f2937">새 컬럼을 추가만 한다 (nullable, 기본값 있음)</text>
     <rect x="116" y="170" width="720" height="38" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
     <text x="132" y="195" font-size="14" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">ALTER TABLE users ADD COLUMN full_name VARCHAR(255) NULL;</text>
-    <text x="116" y="238" font-size="15" fill="#374151"><tspan fill="#6b7280" font-weight="bold">→</tspan> 이 시점에 배포는 없다. v1은 새 컬럼의 존재를 모르지만 아무 영향 없다.</text>
+    <text x="116" y="238" font-size="15" fill="#374151"><tspan fill="#374151" font-weight="bold">→</tspan> 이 시점에 배포는 없다. v1은 새 컬럼의 존재를 모르지만 아무 영향 없다.</text>
   </g>
   <g>
     <rect x="96" y="280" width="760" height="198" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
@@ -60,7 +60,7 @@
     <text x="820" y="388" font-size="14" fill="#1d4ed8" text-anchor="end">← 이 단계에서 바뀜</text>
     <text x="132" y="414" font-size="15" font-weight="bold" fill="#374151">읽기</text>
     <text x="186" y="414" font-size="15" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT</tspan> 는 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">user_name</tspan> 사용</text>
-    <text x="116" y="458" font-size="15" fill="#374151"><tspan fill="#6b7280" font-weight="bold">→</tspan> 롤백해도 안전하다. v1이 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">user_name</tspan>만 써도 데이터가 온전하다.</text>
+    <text x="116" y="458" font-size="15" fill="#374151"><tspan fill="#374151" font-weight="bold">→</tspan> 롤백해도 안전하다. v1이 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">user_name</tspan>만 써도 데이터가 온전하다.</text>
   </g>
   <g>
     <rect x="96" y="500" width="760" height="268" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
@@ -74,7 +74,7 @@
     <text x="132" y="661" font-size="14" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#4b5563">-- PostgreSQL: UPDATE 는 LIMIT 을 받지 않는다. 키 집합을 서브쿼리로 끊는다</text>
     <text x="132" y="683" font-size="14" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">UPDATE users SET full_name = user_name</text>
     <text x="140" y="705" font-size="14" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">WHERE id IN (SELECT id FROM users WHERE full_name IS NULL LIMIT 1000);</text>
-    <text x="116" y="748" font-size="15" fill="#374151"><tspan fill="#6b7280" font-weight="bold">→</tspan> 배치로 나눠 돌린다. 한 번에 하면 대량 락과 긴 트랜잭션으로 서비스가 멈춘다.</text>
+    <text x="116" y="748" font-size="15" fill="#374151"><tspan fill="#374151" font-weight="bold">→</tspan> 배치로 나눠 돌린다. 한 번에 하면 대량 락과 긴 트랜잭션으로 서비스가 멈춘다.</text>
   </g>
   <g>
     <rect x="96" y="790" width="760" height="198" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
@@ -89,7 +89,7 @@
     <text x="132" y="924" font-size="15" font-weight="bold" fill="#1d4ed8">읽기</text>
     <text x="186" y="924" font-size="15" fill="#1d4ed8" font-weight="bold"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SELECT</tspan> 는 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">full_name</tspan> 사용</text>
     <text x="820" y="924" font-size="14" fill="#1d4ed8" text-anchor="end">← 이 단계에서 바뀜</text>
-    <text x="116" y="968" font-size="15" fill="#374151"><tspan fill="#6b7280" font-weight="bold">→</tspan> 여기서 문제가 생기면 이전 버전으로 롤백하면 된다. 데이터는 양쪽에 다 있다.</text>
+    <text x="116" y="968" font-size="15" fill="#374151"><tspan fill="#374151" font-weight="bold">→</tspan> 여기서 문제가 생기면 이전 버전으로 롤백하면 된다. 데이터는 양쪽에 다 있다.</text>
   </g>
   <g>
     <rect x="96" y="1010" width="760" height="120" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
@@ -97,7 +97,7 @@
     <rect x="754" y="1027" width="82" height="26" rx="13" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
     <text x="795" y="1045" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">앱 배포</text>
     <text x="116" y="1076" font-size="16" fill="#1f2937">앱을 배포한다. 옛 컬럼 쓰기를 제거한다.</text>
-    <text x="116" y="1110" font-size="15" fill="#374151"><tspan fill="#6b7280" font-weight="bold">→</tspan> 관찰 기간을 충분히 둔다. 며칠 단위가 보통이다.</text>
+    <text x="116" y="1110" font-size="15" fill="#374151"><tspan fill="#374151" font-weight="bold">→</tspan> 관찰 기간을 충분히 둔다. 며칠 단위가 보통이다.</text>
   </g>
   <g>
     <rect x="96" y="1152" width="760" height="170" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>

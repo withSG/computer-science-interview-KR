@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">이벤트 루프 한 사이클</title>
-  <desc id="d">한 사이클은 매크로태스크 1개 실행, 마이크로태스크 전부 소진, 렌더링 기회 순으로 진행된다. 렌더링 기회는 매 사이클마다 오지 않으며, 오면 requestAnimationFrame 콜백 실행, 스타일 계산, 레이아웃, 페인트·합성 순으로 처리된다.</desc>
+  <desc id="d">한 사이클은 매크로태스크 1개 실행, 마이크로태스크 전부 소진, 렌더링 기회 순으로 진행된다. 렌더링 기회는 매 사이클마다 오지 않아 없으면 바로 다음 사이클로 넘어가고, 오면 requestAnimationFrame 콜백 실행, 스타일 계산, 레이아웃, 페인트·합성 순으로 처리된다.</desc>
   <defs>
     <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
@@ -44,6 +44,10 @@
 
   <!-- 다음 사이클로 -->
   <path d="M654,358 V392 H134 V206" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-  <rect x="338" y="378" width="104" height="28" fill="#ffffff"/>
-  <text x="390" y="397" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">다음 사이클</text>
+  <rect x="186" y="378" width="104" height="28" fill="#ffffff"/>
+  <text x="238" y="397" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">다음 사이클</text>
+
+  <!-- 렌더링 기회가 없는 사이클: 마이크로태스크 소진 뒤 바로 다음 사이클로 합류 -->
+  <path d="M346,206 V389" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#ar)"/>
+  <text x="334" y="302" font-size="15" fill="#4b5563" text-anchor="end">렌더링 기회 없으면</text>
 </svg>

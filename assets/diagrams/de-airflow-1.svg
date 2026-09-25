@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 270" width="880" height="270" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Airflow DAG 예시: 순차 실행 후 병렬 적재</title>
-  <desc id="d">Sensor인 wait_source가 소스 파일을 기다린 뒤 extract, transform, validate가 차례로 실행되고, validate 다음에 서로 의존하지 않는 load_mart와 load_cache가 병렬로 실행된다. validate가 실패하면 아래 적재가 전부 멈춘다.</desc>
+  <desc id="d">Sensor인 wait_source가 소스 파일을 기다린 뒤 extract, transform, validate가 차례로 실행되고, validate 다음에 서로 의존하지 않는 load_mart와 load_cache가 병렬로 실행된다. validate가 실패하면 뒤따르는 적재(load_mart, load_cache)가 전부 멈춘다.</desc>
   <rect width="880" height="270" fill="#ffffff"/>
   <defs>
     <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -57,5 +57,6 @@
 
   <!-- 노드 아래 설명 -->
   <text x="24" y="206" font-size="15" fill="#4b5563">소스 파일 도착까지 대기</text>
-  <text x="569" y="206" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">실패하면 아래 적재가 전부 멈춤</text>
+  <text x="569" y="206" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">실패하면 뒤 적재가 전부 멈춤</text>
+  <text x="569" y="227" font-size="14" fill="#b91c1c" text-anchor="middle">(<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">load_mart</tspan> · <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">load_cache</tspan>)</text>
 </svg>
