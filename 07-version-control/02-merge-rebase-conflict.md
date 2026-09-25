@@ -366,10 +366,16 @@ git switch release/1.2
 git cherry-pick a3d0e54      # main의 핫픽스 커밋 하나만 가져온다
 ```
 
+<!-- diagram:git-merge-rebase-conflict-8 -->
+![Cherry-pick — 커밋 하나만 골라 오기](../assets/diagrams/git-merge-rebase-conflict-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    main     :  c1 ── c2 ── c3(핫픽스) ── c4
    release  :  c1 ── r1 ── r2 ── c3'   ← 같은 변경, 다른 해시
 ```
+-->
 
 주로 핫픽스를 전파하거나(운영에서 고친 것을 릴리스 브랜치에도) 잘못된 브랜치에 올린 커밋 하나를 옮길 때 씁니다. 주의할 점이 둘 있습니다. 첫째, **커밋이 복제됩니다.** 나중에 두 브랜치를 merge하면 같은 변경이 두 번 적용되려다 충돌이 날 수 있습니다. 둘째, **의존 관계가 끊깁니다.** `c3`가 `c2`에서 추가한 유틸 함수를 쓰는데 `c2`를 안 가져오면 빌드가 깨집니다. cherry-pick은 **자기 완결적인 작은 커밋**에만 쓰는 보조 수단입니다.
 
@@ -395,11 +401,17 @@ git cherry-pick a3d0e54      # main의 핫픽스 커밋 하나만 가져온다
 
 ### revert가 왜 안전한가
 
+<!-- diagram:git-merge-rebase-conflict-9 -->
+![revert가 왜 안전한가](../assets/diagrams/git-merge-rebase-conflict-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    reset 방식 :  c1 ── c2 ── c3        →   c1 ── c2      (c3가 히스토리에서 사라짐)
    revert 방식:  c1 ── c2 ── c3        →   c1 ── c2 ── c3 ── c4
                                                             c4 = c3를 상쇄하는 커밋
 ```
+-->
 
 revert는 **기존 히스토리를 건드리지 않고 앞으로 커밋을 하나 더 쌓습니다.** 남이 이미 받아 간 커밋의 해시가 그대로이므로 아무의 히스토리와도 어긋나지 않습니다. 그래서 이미 push된 커밋은 언제나 revert로 되돌립니다. 머지 커밋은 부모가 둘이라 어느 쪽을 남길지 지정해야 하는데, `git revert -m 1 <머지커밋>`이 첫 번째 부모(보통 main) 쪽 상태를 유지합니다.
 

@@ -88,11 +88,13 @@ https://example.com:443/products/1?q=a#top
 
 ## 3. SOP가 막는 것과 막지 않는 것
 
+여기가 CORS 이해의 분수령입니다. **SOP는 요청을 막지 않습니다. 응답을 읽는 것을 막습니다.**
+
 <!-- diagram:sec-sop-response-block -->
 ![SOP는 요청이 아니라 응답 읽기를 막는다](../assets/diagrams/sec-sop-response-block.svg)
 
-여기가 CORS 이해의 분수령입니다. **SOP는 요청을 막지 않습니다. 응답을 읽는 것을 막습니다.**
-
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [ evil.com의 JS가 bank.com/api/me 를 fetch 했을 때 ]
 
@@ -113,6 +115,7 @@ https://example.com:443/products/1?q=a#top
       │ ◄── TypeError ───────── │  없거나 불일치 → JS에 넘기지 않음
       │     (응답 내용은 못 봄)   │
 ```
+-->
 
 여기서 반드시 짚어야 할 것은 **요청이 서버에 도달했고 서버가 처리했다**는 사실입니다. 그것이 `POST /transfer`였다면 송금이 일어났습니다. CORS 에러는 "그 결과를 JS에게 안 보여주겠다"는 뜻일 뿐입니다. 그래서 CORS는 **사용자를 보호**하는 장치지 **서버를 보호**하는 장치가 아닙니다.
 

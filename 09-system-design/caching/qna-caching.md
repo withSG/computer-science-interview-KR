@@ -61,10 +61,16 @@
 
 ### Cache Hit vs Cache Miss
 
+<!-- diagram:sd-qna-caching-6 -->
+![Cache Hit vs Cache Miss](../../assets/diagrams/sd-qna-caching-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Cache Hit: 캐시에 데이터 있음 → 즉시 반환
 Cache Miss: 캐시에 없음 → DB 조회 → 캐시 저장 → 반환
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 캐싱의 적절한 사용 시나리오

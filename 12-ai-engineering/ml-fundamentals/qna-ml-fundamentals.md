@@ -172,11 +172,17 @@ model.fc = nn.Linear(model.fc.in_features, 10)
 
 ### 혼동 행렬
 
+<!-- diagram:ai-qna-ml-fundamentals-4 -->
+![혼동 행렬](../../assets/diagrams/ai-qna-ml-fundamentals-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                 예측 Positive   예측 Negative
 실제 Positive      TP              FN
 실제 Negative      FP              TN
 ```
+-->
 
 ### 주요 지표
 

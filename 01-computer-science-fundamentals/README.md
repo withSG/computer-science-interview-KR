@@ -12,6 +12,11 @@
 
 ## 하위 폴더 구조
 
+<!-- diagram:cs-README-1 -->
+![하위 폴더 구조](../assets/diagrams/cs-README-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 01-computer-science-fundamentals/
 ├── computer-architecture/ # 컴퓨터 구조
@@ -20,6 +25,7 @@
 ├── data-structure/        # 자료구조
 └── algorithm/             # 알고리즘
 ```
+-->
 
 ---
 

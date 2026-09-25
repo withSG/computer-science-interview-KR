@@ -134,6 +134,11 @@ L7 (Application Layer)
 
 ### 1. Rolling Deployment
 
+<!-- diagram:sd-qna-infrastructure-11 -->
+![1. Rolling Deployment](../assets/diagrams/sd-qna-infrastructure-11.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 순차적으로 서버를 교체
 
@@ -146,6 +151,7 @@ After:  [v2] [v2] [v2] [v2]
 장점: 추가 인프라 불필요
 단점: 배포 중 v1, v2 혼재, 롤백 느림
 ```
+-->
 
 ### 2. Blue/Green Deployment
 
@@ -240,7 +246,15 @@ spec:
 
 ### 꼬리 질문 대비
 - "DB 스키마 변경이 있을 때 무중단 배포는 어떻게 하나요?"
+<!-- diagram:sd-qna-infrastructure-12 -->
+![꼬리 질문 대비](../assets/diagrams/sd-qna-infrastructure-12.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
+```
   → Expand and Contract 패턴: 새 컬럼 추가 → 코드 배포 → 구 컬럼 제거
+```
+-->
 
 </details>
 

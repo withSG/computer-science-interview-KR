@@ -51,6 +51,11 @@
 
 JWT는 `.`으로 구분된 세 조각입니다. 아래는 jwt.io에서 오랫동안 예제로 쓰인 실제 토큰입니다.
 
+<!-- diagram:be-jwt-token-6 -->
+![2. 구조 — 실제 토큰을 뜯어보자](../../assets/diagrams/be-jwt-token-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Header    │ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
           │ .
@@ -58,6 +63,7 @@ Payload   │ eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2Mj
           │ .
 Signature │ SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
+-->
 
 앞 두 조각은 **Base64URL 인코딩**일 뿐이라 지금 바로 해독할 수 있습니다. 표준 Base64와 달리 `+`/`/` 대신 `-`/`_`를 쓰고 끝의 `=` 패딩을 떼는데, URL이나 헤더에 그대로 실려도 이스케이프가 필요 없게 만든 변형입니다. 그래서 `base64 -d`에 날것으로 넘기면 길이가 맞지 않아 실패합니다. 떼어 낸 만큼 채워 주면 됩니다.
 

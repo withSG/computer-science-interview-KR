@@ -154,18 +154,21 @@ Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-a1b2c3'; o
 
 ## 3. CSRF (Cross-Site Request Forgery)
 
-<!-- diagram:sec-web-vulnerabilities -->
-![CSRF 성립 조건 3개와 그것을 깨는 방어 3개](../assets/diagrams/sec-web-vulnerabilities.svg)
-
 ### 성립 조건 세 가지
 
 CSRF는 데이터를 훔치는 공격이 아닙니다. **피해자의 브라우저를 리모컨처럼 써서** 서버에 명령을 보냅니다. 아래 셋이 동시에 만족돼야 성립하므로, 하나만 깨도 공격은 실패합니다.
 
+<!-- diagram:sec-web-vulnerabilities -->
+![CSRF 성립 조건 3개와 그것을 깨는 방어 3개](../assets/diagrams/sec-web-vulnerabilities.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 조건 1. 자격 증명이 자동으로 붙는다      쿠키·HTTP Basic. 브라우저가 알아서 첨부한다
 조건 2. 서버가 요청의 출처를 검증하지 않는다  세션만 유효하면 어디서 왔든 처리한다
 조건 3. 공격자가 요청을 완전히 재현할 수 있다  공격자가 모를 값(토큰)이 하나도 없다
 ```
+-->
 
 <!-- diagram:sec-web-vulnerabilities-2 -->
 ![성립 조건 세 가지](../assets/diagrams/sec-web-vulnerabilities-2.svg)

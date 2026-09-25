@@ -53,11 +53,17 @@
 
 ### Recreate — 다 내리고 다 올린다
 
+<!-- diagram:cloud-deployment-strategies-11 -->
+![Recreate — 다 내리고 다 올린다](../../assets/diagrams/cloud-deployment-strategies-11.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 시각 t0   [v1] [v1] [v1]      정상 서비스
 시각 t1   [  ] [  ] [  ]      전부 종료 ← 이 구간이 다운타임
 시각 t2   [v2] [v2] [v2]      새 버전 기동 (기동 시간만큼 더 소요)
 ```
+-->
 
 가장 단순하고, 유일하게 다운타임이 있는 전략입니다. 그런데도 쓰는 이유가 있습니다.
 
@@ -260,6 +266,11 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 
 애플리케이션 인스턴스는 여러 개고 배포 중에 버전이 섞이지만, **DB는 하나입니다.** 애플리케이션은 롤백하면 되돌아가지만 데이터는 되돌아가지 않습니다. 이 비대칭 때문에 문제가 생깁니다.
 
+<!-- diagram:cloud-deployment-strategies-12 -->
+![문제의 구조](../../assets/diagrams/cloud-deployment-strategies-12.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
     [v1] [v1] [v2] [v2]      애플리케이션은 배포 중 섞인다
       └────┬────┬────┘
@@ -268,6 +279,7 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
       │      DB      │       그런데 DB는 한 벌이다
       └──────────────┘       스키마는 v1 기준일까 v2 기준일까?
 ```
+-->
 
 구체적으로 무슨 일이 나는지 보겠습니다. `user_name` 컬럼을 `full_name`으로 바꾸는 작업을 "그냥" 했다고 가정합니다.
 

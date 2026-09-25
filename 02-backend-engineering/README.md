@@ -13,6 +13,11 @@
 
 ## 하위 폴더 구조
 
+<!-- diagram:be-README-1 -->
+![하위 폴더 구조](../assets/diagrams/be-README-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 02-backend-engineering/
 ├── java-fundamentals/     # Java 기초 및 심화
@@ -20,6 +25,7 @@
 ├── database/              # JPA, 트랜잭션, 인덱싱
 └── authentication/        # Session, JWT, OAuth
 ```
+-->
 
 ---
 

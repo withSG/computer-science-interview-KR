@@ -19,11 +19,13 @@
 
 ## 1. 왜 필요한가
 
+알림 발송기에 로깅, 재시도, 암호화를 선택적으로 붙이고 싶다고 해 보겠습니다. 상속만 쓰면 이렇게 됩니다.
+
 <!-- diagram:dp-structural-patterns -->
 ![조합 폭발](../assets/diagrams/dp-structural-patterns.svg)
 
-알림 발송기에 로깅, 재시도, 암호화를 선택적으로 붙이고 싶다고 해 보겠습니다. 상속만 쓰면 이렇게 됩니다.
-
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
                    MessageSender
                          │
@@ -32,6 +34,7 @@
                                         │
                             LoggingRetryEncrypting ...
 ```
+-->
 
 옵션이 3개면 조합은 2³ = 8가지, 곧 클래스 7개가 필요합니다(원본 제외). 옵션이 하나 더 늘면 15개입니다. **옵션 n개에 클래스 2ⁿ-1개**, 이것이 조합 폭발입니다. 더 근본적인 문제는 조합이 컴파일 시점에 고정된다는 것입니다. "이 사용자에게만 암호화를 켜자" 같은 런타임 결정을 표현할 방법이 없습니다.
 
@@ -295,10 +298,16 @@ public class SecuredDocumentService implements DocumentService {
 
 `@Transactional`이 붙은 서비스를 주입받으면 컨테이너가 준 것은 원본이 아니라 프록시입니다.
 
+<!-- diagram:dp-structural-patterns-6 -->
+![Spring AOP와의 연결](../assets/diagrams/dp-structural-patterns-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 호출부 ──> [프록시] ──> 트랜잭션 시작 ──> [실제 서비스.메서드()] ──> 커밋/롤백
              ↑ 컨테이너가 만들어 대신 주입한 객체
 ```
+-->
 
 이 구조에서 **같은 클래스 안의 메서드를 `this`로 부르면 프록시를 거치지 않아 트랜잭션이 걸리지 않습니다.** 프록시 패턴의 성질에서 곧바로 따라 나오는 결론입니다. 실무에서 가장 자주 밟는 지뢰이기도 합니다. 자세한 내용은 [AOP와 프록시](../02-backend-engineering/spring-framework/02-aop-proxy.md)에서 다룹니다.
 

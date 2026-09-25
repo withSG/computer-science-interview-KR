@@ -154,6 +154,11 @@ dig -x 93.184.216.34               # 역방향 조회
 dig +trace example.com             # 루트부터 위임 경로 추적
 ```
 
+<!-- diagram:cloud-networking-commands-4 -->
+![6. DNS — dig와 getent의 결정적 차이](../../assets/diagrams/cloud-networking-commands-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 $ dig +noall +answer +comments example.com
 ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 12345
@@ -163,6 +168,7 @@ example.com.   300  IN  A  93.184.216.34
                 │                └── 실제 응답 IP
                 └── TTL(초). 캐시가 남아 있는 시간
 ```
+-->
 
 `status`를 먼저 봅니다.
 

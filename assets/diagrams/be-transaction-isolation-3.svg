@@ -1,40 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 210" width="880" height="210" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Phantom Read — 같은 조건으로 조회했는데 행 개수가 다르다</title>
-  <desc id="d">트랜잭션 A가 동일한 조건으로 두 번 조회하는 사이에 트랜잭션 B가 새 데이터를 삽입하고 커밋하여 두 번째 조회 결과의 행 개수가 달라지는 Phantom Read 현상을 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="210" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Phantom Read: 두 조회 사이의 INSERT로 행 수가 바뀜</title>
+  <desc id="d">트랜잭션 A가 WHERE age &gt; 20 조건으로 두 번 조회하는 사이 트랜잭션 B가 age=25 행을 INSERT하고 COMMIT해서, A의 두 번째 조회 결과가 3건에서 4건으로 늘어나는 Phantom Read를 시간 순서로 보여준다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
   <defs>
-    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="arrow-sub" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="arr-org" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Timeline Base Lines -->
-  <path d="M135,70 L830,70" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#arrow-ink)"/>
-  <path d="M135,150 L830,150" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#arrow-ink)"/>
+  <!-- 시간 축 표시 -->
+  <text x="856" y="30" font-size="14" fill="#4b5563" text-anchor="end">시간 →</text>
 
-  <!-- Vertical Connection (Transaction B impact on Transaction A timeline) -->
-  <path d="M490,130 L490,70" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- 레인 선 -->
+  <path d="M156,96 L852,96" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#arr-ink)"/>
+  <path d="M156,300 L852,300" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#arr-ink)"/>
 
-  <!-- Transaction A Label -->
-  <rect x="25" y="52" width="100" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="75" y="74.9" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">트랜잭션 A</text>
+  <!-- B의 커밋 시점이 A의 타임라인에 끼어듦 -->
+  <path d="M580,276 L580,101" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#arr-org)"/>
 
-  <!-- Query 1 Box (WHERE age > 20 → 3건) -->
-  <rect x="160" y="51" width="180" height="38" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="74.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">WHERE age &gt; 20 → 3건</text>
+  <!-- 레인 라벨 -->
+  <rect x="24" y="76" width="124" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="86" y="101.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">트랜잭션 A</text>
+  <rect x="24" y="280" width="124" height="40" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="86" y="305.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">트랜잭션 B</text>
 
-  <!-- Query 2 Box (WHERE age > 20 → 4건) -->
-  <rect x="640" y="51" width="180" height="38" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="730" y="74.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">WHERE age &gt; 20 → 4건</text>
+  <!-- ① 1차 조회 -->
+  <text x="172" y="56" font-size="15" font-weight="bold" fill="#1d4ed8">① 1차 조회</text>
+  <rect x="172" y="66" width="180" height="60" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="262" y="89" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">WHERE age &gt; 20</text>
+  <text x="262" y="115" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">→ 3건</text>
 
-  <!-- Transaction B Label -->
-  <rect x="25" y="132" width="100" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="75" y="154.9" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">트랜잭션 B</text>
+  <!-- 1차 조회 결과: 3행 -->
+  <rect x="172" y="138" width="180" height="26" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="262" y="156" font-size="14" fill="#4b5563" text-anchor="middle">행 1</text>
+  <rect x="172" y="168" width="180" height="26" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="262" y="186" font-size="14" fill="#4b5563" text-anchor="middle">행 2</text>
+  <rect x="172" y="198" width="180" height="26" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="262" y="216" font-size="14" fill="#4b5563" text-anchor="middle">행 3</text>
 
-  <!-- Insert Box (age=25 INSERT + COMMIT) -->
-  <rect x="385" y="131" width="210" height="38" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="490" y="154.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">age=25 INSERT + COMMIT</text>
+  <!-- ② B의 INSERT + COMMIT -->
+  <text x="380" y="266" font-size="15" font-weight="bold" fill="#b45309">② 새 행 추가</text>
+  <rect x="380" y="276" width="240" height="48" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="500" y="305.5" font-size="16" font-weight="bold" fill="#7c2d12" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">age=25 INSERT + COMMIT</text>
+
+  <!-- ③ 2차 조회 -->
+  <text x="640" y="56" font-size="15" font-weight="bold" fill="#b91c1c">③ 2차 조회 (같은 조건)</text>
+  <rect x="640" y="66" width="180" height="60" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="730" y="89" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">WHERE age &gt; 20</text>
+  <text x="730" y="115" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">→ 4건</text>
+
+  <!-- 2차 조회 결과: 4행 (마지막 행이 B가 넣은 행) -->
+  <rect x="640" y="138" width="180" height="26" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="730" y="156" font-size="14" fill="#4b5563" text-anchor="middle">행 1</text>
+  <rect x="640" y="168" width="180" height="26" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="730" y="186" font-size="14" fill="#4b5563" text-anchor="middle">행 2</text>
+  <rect x="640" y="198" width="180" height="26" rx="3" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="730" y="216" font-size="14" fill="#4b5563" text-anchor="middle">행 3</text>
+  <rect x="640" y="228" width="180" height="26" rx="3" fill="#fff7ed" stroke="#b45309" stroke-width="2"/>
+  <text x="730" y="246" font-size="14" font-weight="bold" fill="#9a3412" text-anchor="middle">age=25 · B가 넣은 행</text>
+
+  <!-- 요점 -->
+  <rect x="24" y="348" width="832" height="40" rx="8" fill="#f3f4f6"/>
+  <text x="440" y="373.5" font-size="16" fill="#111827" text-anchor="middle">같은 조건으로 조회했는데 <tspan font-weight="bold">행 수</tspan>가 3건 → 4건 · 원인은 두 조회 사이의 <tspan font-weight="bold">INSERT</tspan></text>
 </svg>

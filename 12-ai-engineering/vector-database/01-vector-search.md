@@ -180,13 +180,15 @@ ANN(Approximate Nearest Neighbor, 근사 최근접 이웃)의 아이디어는 �
 
 ## 5. HNSW: 그래프를 타고 이동한다
 
-<!-- diagram:vec-hnsw-layers -->
-![HNSW 계층 그래프와 상위에서 하위로 내려오는 탐색 경로](../../assets/diagrams/vec-hnsw-layers.svg)
-
 ### 동작 원리
 
 HNSW(Hierarchical Navigable Small World)는 벡터들을 **서로 연결한 그래프**를 만들고, 그 위를 걸어서 목적지에 접근합니다. 여기에 계층을 얹어 처음엔 성큼성큼, 나중엔 촘촘히 움직입니다.
 
+<!-- diagram:vec-hnsw-layers -->
+![HNSW 계층 그래프와 상위에서 하위로 내려오는 탐색 경로](../../assets/diagrams/vec-hnsw-layers.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Layer 2 (희소)   [A]───────────────────[H]        먼 거리 점프
                   │                     │
@@ -200,6 +202,7 @@ Layer 0 (전체)   [A][B][C][D][E][F][G][H]         이웃끼리만 연결
 2. 이웃 중 쿼리에 더 가까운 노드로 이동, 더 가까운 이웃이 없으면 아래 레이어로
 3. Layer 0에서 정밀 탐색 → Top-K 반환
 ```
+-->
 
 비유하자면 **고속도로 → 국도 → 골목길** 순으로 내려가는 것과 같습니다. 전국을 다 훑지 않고 고속도로로 대략 근처까지 간 다음 좁혀 들어갑니다.
 
@@ -230,13 +233,15 @@ Layer 0 (전체)   [A][B][C][D][E][F][G][H]         이웃끼리만 연결
 
 ## 6. IVF: 구역을 나눠 일부만 본다
 
-<!-- diagram:ai-vector-search -->
-![IVF 클러스터 분할과 경계 건너편 정답을 놓치는 문제](../../assets/diagrams/ai-vector-search.svg)
-
 ### 동작 원리
 
 IVF(Inverted File Index)는 벡터 공간을 **미리 구역으로 나눠두고, 쿼리가 속한 구역 몇 개만 검색**합니다.
 
+<!-- diagram:ai-vector-search -->
+![IVF 클러스터 분할과 경계 건너편 정답을 놓치는 문제](../../assets/diagrams/ai-vector-search.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 구축: k-means로 전체 벡터를 nlist개 클러스터로 나눈다
 
@@ -252,11 +257,17 @@ IVF(Inverted File Index)는 벡터 공간을 **미리 구역으로 나눠두고,
   2. C2와 C3에 속한 벡터들만 비교한다
   3. C1, C4는 아예 보지 않는다 → 여기가 절약되는 부분
 ```
+-->
 
 ### 클러스터 경계 문제
 
 IVF는 여기서 근본적으로 약합니다.
 
+<!-- diagram:ai-vector-search-4 -->
+![클러스터 경계 문제](../../assets/diagrams/ai-vector-search-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         C2 구역        │        C3 구역
                        │
@@ -268,6 +279,7 @@ IVF는 여기서 근본적으로 약합니다.
 그런데 진짜 정답은 경계 바로 건너편 C2에 있다.
 nprobe=1이면 C2를 아예 안 보므로 정답을 영원히 못 찾는다.
 ```
+-->
 
 이걸 완화하는 손잡이가 `nprobe`입니다. 여러 구역을 함께 보면 경계에 걸친 정답을 찾을 확률이 오릅니다. 물론 본 만큼 느려집니다.
 

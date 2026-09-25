@@ -82,11 +82,17 @@ nproc          # 코어 수. 이걸 모르면 위 숫자는 의미가 없다
 
 Load Average는 **실행 중이거나 실행을 기다리는 프로세스 수의 평균**입니다. 리눅스에서는 여기에 하나가 더 들어갑니다.
 
+<!-- diagram:cloud-troubleshooting-6x2 -->
+![3. Load Average — 첫 번째 신호](../../assets/diagrams/cloud-troubleshooting-6x2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Load Average = R 상태(실행 중 + 실행 대기)  +  D 상태(중단 불가 대기, 주로 디스크 I/O)
                         ↑                              ↑
                    CPU 경합                        I/O 경합
 ```
+-->
 
 **D 상태가 포함된다는 것이 리눅스 Load Average의 핵심**입니다. 그래서 Load가 높다고 CPU 병목이라고 단정할 수 없습니다. CPU는 놀고 있는데 디스크가 막혀서 Load만 치솟는 상황이 흔합니다.
 

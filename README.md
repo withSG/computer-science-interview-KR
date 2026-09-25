@@ -14,6 +14,11 @@
 
 각 주제 폴더는 **세 겹**으로 되어 있습니다. 처음 배우는 주제라면 위에서 아래 순서로 읽으세요.
 
+<!-- diagram:repo-README-1 -->
+![이 저장소를 읽는 법](assets/diagrams/repo-README-1.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 01-computer-science-fundamentals/operating-system/
 ├── README.md                ← ① 이 주제의 지도. 무엇을 어떤 순서로 볼지
@@ -22,6 +27,7 @@
 ├── ...
 └── qna-os.md                ← ③ 면접 질문 & 모범 답변
 ```
+-->
 
 | 파일 | 역할 | 이럴 때 본다 |
 |------|------|------------|

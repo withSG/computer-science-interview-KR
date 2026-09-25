@@ -390,6 +390,11 @@ sar -b 1 5   # I/O
 
 ### 주요 로그 파일 위치
 
+<!-- diagram:cloud-qna-linux-networking-2 -->
+![주요 로그 파일 위치](../../assets/diagrams/cloud-qna-linux-networking-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```bash
 /var/log/
 ├── messages      # 시스템 메시지 (CentOS)
@@ -403,6 +408,7 @@ sar -b 1 5   # I/O
 │   └── error.log
 └── journal/      # systemd 저널
 ```
+-->
 
 ### 로그 읽기 명령어
 
@@ -485,6 +491,11 @@ awk '$NF > 1.0' access.log
 
 ### SSH 키 생성
 
+<!-- diagram:cloud-qna-linux-networking-3 -->
+![SSH 키 생성](../../assets/diagrams/cloud-qna-linux-networking-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```bash
 # RSA 키 생성 (구형 시스템 호환용)
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
@@ -500,6 +511,7 @@ ssh-keygen -t ed25519 -C "your_email@example.com"
 ├── authorized_keys # 접속 허용된 공개키 (서버)
 └── config          # SSH 설정
 ```
+-->
 
 ### 공개키 서버 등록
 

@@ -248,6 +248,11 @@ L1과 DRAM 사이에는 두 자릿수 배율의 차이가 있습니다. 그래�
 
 ### 동작 원리
 
+<!-- diagram:cs-array-list-7 -->
+![동작 원리](../../assets/diagrams/cs-array-list-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 capacity=4, size=4 인 상태에서 add(50) 호출
 
@@ -261,6 +266,7 @@ capacity=4, size=4 인 상태에서 add(50) 호출
 3) 새 값 추가, 옛 배열은 GC 대상
    [10][20][30][40][50][  ][  ][  ]
 ```
+-->
 
 ### 왜 amortized O(1)인가
 

@@ -145,6 +145,8 @@ public String create(@RequestParam Long userId, @RequestParam int amount) {
 <!-- diagram:dp-architecture-patterns -->
 ![MVC · MVP · MVVM 데이터 흐름 3분할 비교](../assets/diagrams/dp-architecture-patterns.svg)
 
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [MVC]  Controller가 흐름을 지휘. View는 Model을 직접 볼 수 있다
 
@@ -176,6 +178,7 @@ public String create(@RequestParam Long userId, @RequestParam int amount) {
  └──────┘   (자동 동기화)   └───────────┘   결과   └─────────┘
    ViewModel은 "화면에 필요한 상태"를 노출할 뿐 누가 보는지 모른다
 ```
+-->
 
 ### 세 패턴의 차이
 

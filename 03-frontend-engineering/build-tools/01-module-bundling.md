@@ -336,6 +336,11 @@ const Label = lazy(() => import('./Label'));
 
 번들을 어떻게 나눌지는 결국 **캐시 적중률을 얼마나 높이느냐**의 문제입니다.
 
+<!-- diagram:fe-module-bundling-2 -->
+![5. 청크 전략](../../assets/diagrams/fe-module-bundling-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [전략 A: 전부 하나로]                [전략 B: 성격별로 분리]
 
@@ -348,6 +353,7 @@ const Label = lazy(() => import('./Label'));
                                       내 코드를 고치면 app.js만 바뀐다.
                                       vendor.js는 브라우저 캐시에서 그대로 재사용.
 ```
+-->
 
 전략 B에서 청크를 나누는 축은 보통 세 가지입니다.
 

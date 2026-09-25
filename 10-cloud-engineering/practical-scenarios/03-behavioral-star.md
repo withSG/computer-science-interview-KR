@@ -47,6 +47,11 @@
 
 ## 2. STAR의 네 요소
 
+<!-- diagram:cloud-behavioral-star-3 -->
+![STAR 요소별 답변 시간 배분, Action이 약 60%](../../assets/diagrams/cloud-behavioral-star-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 S  Situation   상황     ▓▓                          약 10%  (~15초)
 T  Task        과제     ▓▓                          약 10%  (~15초)
@@ -54,6 +59,7 @@ A  Action      행동     ▓▓▓▓▓▓▓▓▓▓▓▓               약
 R  Result      결과     ▓▓▓▓                        약 20%  (~25초)
                                        전체 목표 = 2분 내외
 ```
+-->
 
 | 요소 | 담아야 할 것 | 흔한 실패 |
 |------|-------------|----------|

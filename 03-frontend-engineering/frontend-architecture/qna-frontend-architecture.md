@@ -153,6 +153,11 @@ const category = searchParams.get('category') ?? 'all';
 
 ### 권장 폴더 구조
 
+<!-- diagram:fe-qna-frontend-architecture-3 -->
+![권장 폴더 구조](../../assets/diagrams/fe-qna-frontend-architecture-3.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 src/
 ├── features/                   # 도메인(기능)별 모듈
@@ -175,6 +180,7 @@ src/
 ├── app/                        # 라우팅, 프로바이더 설정
 └── styles/                     # 글로벌 스타일, 테마
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - feature 기반 구조의 이점과 단점을 설명할 수 있는지

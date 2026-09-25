@@ -67,9 +67,15 @@ AOP는 로깅, 트랜잭션, 보안 같은 횡단 관심사를 분리해 코드 
 Spring Boot 2.0+부터는 **CGLIB**를 기본으로 씁니다.
 
 ### 동작 흐름
+<!-- diagram:be-qna-spring-6 -->
+![동작 흐름](../../assets/diagrams/be-qna-spring-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client → Proxy → Advice 실행 → Target 메서드 호출 → Advice 실행 → Client
 ```
+-->
 
 ### 주요 용어
 - **Aspect**: 횡단 관심사 모듈 (@Aspect)
@@ -555,11 +561,17 @@ Controller1  Controller2  Controller3
 
 ### 실행 순서
 
+<!-- diagram:be-qna-spring-7 -->
+![실행 순서](../../assets/diagrams/be-qna-spring-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 요청 → Filter → DispatcherServlet → Interceptor → Controller
                                                ↓
 응답 ← Filter ← DispatcherServlet ← Interceptor ←
 ```
+-->
 
 ### 구현 예시
 
@@ -788,9 +800,15 @@ public class StartupListener {
 ```
 
 ### 실행 순서
+<!-- diagram:be-qna-spring-8 -->
+![실행 순서](../../assets/diagrams/be-qna-spring-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 @PostConstruct → CommandLineRunner/ApplicationRunner → ApplicationReadyEvent
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - 초기 데이터 로딩, 캐시 워밍 사례

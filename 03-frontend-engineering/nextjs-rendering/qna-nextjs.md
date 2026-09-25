@@ -23,9 +23,15 @@
 
 ### CSR (Client-Side Rendering)
 
+<!-- diagram:fe-qna-nextjs-4 -->
+![CSR: 요청→빈 HTML→JS 다운로드→클라이언트 렌더링](../../assets/diagrams/fe-qna-nextjs-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 브라우저 요청 → 빈 HTML → JS 다운로드 → 클라이언트에서 렌더링
 ```
+-->
 
 ```jsx
 // React SPA 기본 동작
@@ -45,9 +51,15 @@ function App() {
 
 ### SSR (Server-Side Rendering)
 
+<!-- diagram:fe-qna-nextjs-5 -->
+![SSR (Server-Side Rendering)](../../assets/diagrams/fe-qna-nextjs-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 브라우저 요청 → 서버에서 HTML 생성 → 완성된 HTML 전송 → 하이드레이션
 ```
+-->
 
 ```jsx
 // Next.js Pages Router
@@ -68,9 +80,15 @@ async function Page() {
 
 ### SSG (Static Site Generation)
 
+<!-- diagram:fe-qna-nextjs-6 -->
+![SSG (Static Site Generation)](../../assets/diagrams/fe-qna-nextjs-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 빌드 시 → 모든 페이지 HTML 미리 생성 → CDN 캐싱 → 즉시 응답
 ```
+-->
 
 ```jsx
 // Next.js Pages Router
@@ -91,9 +109,15 @@ async function Page() {
 
 ### ISR (Incremental Static Regeneration)
 
+<!-- diagram:fe-qna-nextjs-7 -->
+![ISR (Incremental Static Regeneration)](../../assets/diagrams/fe-qna-nextjs-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 만료 후 요청 → 캐시된(stale) HTML 응답 → 백그라운드에서 재생성 → 다음 요청에 새 HTML
 ```
+-->
 
 ```jsx
 // Next.js Pages Router
@@ -503,6 +527,11 @@ export default async function Page() {
 
 ### loading.tsx 활용
 
+<!-- diagram:fe-qna-nextjs-8 -->
+![loading.tsx 활용](../../assets/diagrams/fe-qna-nextjs-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 app/
 ├── page.tsx
@@ -511,6 +540,7 @@ app/
     ├── page.tsx
     └── loading.tsx
 ```
+-->
 
 ### 면접관이 주목하는 포인트
 - Streaming의 사용자 경험 이점

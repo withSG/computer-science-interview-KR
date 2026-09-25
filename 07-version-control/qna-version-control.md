@@ -17,10 +17,16 @@ Git은 **분산 버전 관리 시스템**으로, 코드 변경 이력을 추적�
 
 ### Git 영역
 
+<!-- diagram:git-qna-version-control-4 -->
+![Git 영역](../assets/diagrams/git-qna-version-control-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Working Directory → Staging Area → Local Repo → Remote Repo
                 git add       git commit      git push
 ```
+-->
 
 ### 주요 명령어
 
@@ -38,6 +44,11 @@ Working Directory → Staging Area → Local Repo → Remote Repo
 
 ### .git 폴더 구조
 
+<!-- diagram:git-qna-version-control-5 -->
+![.git 폴더 구조](../assets/diagrams/git-qna-version-control-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 .git/
 ├── HEAD          # 현재 브랜치
@@ -45,6 +56,7 @@ Working Directory → Staging Area → Local Repo → Remote Repo
 ├── refs/         # 브랜치, 태그 포인터
 └── config        # 설정
 ```
+-->
 
 </details>
 
@@ -65,6 +77,11 @@ Working Directory → Staging Area → Local Repo → Remote Repo
 
 ### Merge
 
+<!-- diagram:git-qna-version-control-6 -->
+![Merge](../assets/diagrams/git-qna-version-control-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
     A---B---C (feature)
    /         \
@@ -72,9 +89,15 @@ Working Directory → Staging Area → Local Repo → Remote Repo
 
 병합 커밋 G 생성
 ```
+-->
 
 ### Rebase
 
+<!-- diagram:git-qna-version-control-7 -->
+![Rebase](../assets/diagrams/git-qna-version-control-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
           A'--B'--C' (feature)
          /
@@ -82,6 +105,7 @@ Working Directory → Staging Area → Local Repo → Remote Repo
 
 커밋 재적용, 선형 히스토리
 ```
+-->
 
 ### 사용 가이드
 

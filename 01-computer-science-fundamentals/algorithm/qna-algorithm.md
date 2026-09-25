@@ -879,6 +879,11 @@ if visited == all_visited:
 
 ### 동작 원리 (LSD - Least Significant Digit)
 
+<!-- diagram:cs-qna-algorithm-4 -->
+![동작 원리 (LSD - Least Significant Digit)](../../assets/diagrams/cs-qna-algorithm-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 정렬 대상: [170, 45, 75, 90, 802, 24, 2, 66]
 
@@ -896,6 +901,7 @@ if visited == all_visited:
 
 결과: [2, 24, 45, 66, 75, 90, 170, 802]
 ```
+-->
 
 ### 구현 (Python)
 

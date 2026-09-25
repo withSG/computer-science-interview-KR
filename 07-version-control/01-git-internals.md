@@ -210,6 +210,11 @@ commit → tree → (tree | blob) 의 단방향 그래프입니다. 커밋끼리
 
 ## 4. .git 디렉터리
 
+<!-- diagram:git-git-internals-5 -->
+![4. .git 디렉터리](../assets/diagrams/git-git-internals-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 .git/
 ├── HEAD              현재 위치. 보통 "ref: refs/heads/main" 한 줄
@@ -226,6 +231,7 @@ commit → tree → (tree | blob) 의 단방향 그래프입니다. 커밋끼리
 ├── logs/             reflog. HEAD와 각 브랜치가 지나온 이력
 └── hooks/            pre-commit 등 훅 스크립트
 ```
+-->
 
 `.git`을 통째로 지우면 모든 이력이 사라지고, 반대로 `.git`만 있으면 작업 디렉터리 전체를 복원할 수 있습니다. `git clone`이 하는 일도 결국 **원격 저장소의 객체와 참조를 받아 `.git`을 만든 뒤 최신 스냅샷을 작업 디렉터리에 펼치는 것**입니다. 분산 버전 관리 시스템(DVCS)이라는 말은 이 상태를 가리킵니다. 필요한 데이터가 이미 로컬에 다 있으니, 네트워크 없이도 로그 조회, 브랜치 생성, 커밋, diff가 전부 됩니다.
 

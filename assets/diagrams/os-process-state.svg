@@ -1,82 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">프로세스 상태 전이 다이어그램</title>
-  <desc id="d">프로세스의 5가지 상태(New, Ready, Running, Waiting, Terminated)와 주요 상태 전이 과정을 보여주는 상태 머신 다이어그램입니다.</desc>
-  
-  <rect width="880" height="420" fill="#ffffff"/>
+  <desc id="d">New, Ready, Running, Waiting, Terminated 다섯 상태와 그 사이의 전이를 보여줍니다. Running은 timeout(선점)이면 Ready로, I/O 요청(블로킹)이면 Waiting으로 갈라집니다.</desc>
+  <rect width="880" height="640" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="m-ink" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="m-purple" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="m-amber" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="m-red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">프로세스 상태 전이 다이어그램</text>
+  <!-- 상태 박스 -->
+  <rect x="64" y="32" width="160" height="68" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="144" y="61" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">New</text>
+  <text x="144" y="84" font-size="15" fill="#374151" text-anchor="middle">생성</text>
 
-  <rect x="40" y="140" width="120" height="60" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="100" y="175" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">생성 (New)</text>
+  <rect x="464" y="32" width="160" height="68" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="544" y="61" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">Terminated</text>
+  <text x="544" y="84" font-size="15" fill="#374151" text-anchor="middle">종료</text>
 
-  <rect x="220" y="140" width="130" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="285" y="175" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">준비 (Ready)</text>
+  <rect x="64" y="192" width="160" height="68" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="144" y="221" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">Ready</text>
+  <text x="144" y="244" font-size="15" fill="#374151" text-anchor="middle">준비</text>
 
-  <rect x="430" y="140" width="130" height="60" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="495" y="175" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">실행 (Running)</text>
+  <rect x="464" y="192" width="160" height="68" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="3"/>
+  <text x="544" y="221" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">Running</text>
+  <text x="544" y="244" font-size="15" fill="#374151" text-anchor="middle">실행</text>
 
-  <rect x="325" y="270" width="130" height="60" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="390" y="305" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">대기 (Waiting)</text>
+  <rect x="464" y="392" width="160" height="68" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="544" y="421" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">Waiting</text>
+  <text x="544" y="444" font-size="15" fill="#374151" text-anchor="middle">대기</text>
 
-  <rect x="720" y="140" width="120" height="60" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="780" y="175" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">종료 (Terminated)</text>
+  <!-- New → Ready : admit -->
+  <path d="M144,100 L144,189" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
+  <text x="158" y="151" font-size="16" fill="#1f2937">admit<tspan font-size="15" fill="#4b5563"> (메모리 적재)</tspan></text>
 
-  <path d="M160,170 L220,170" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="162" y="152" width="56" height="15" fill="#ffffff"/>
-  <text x="190" y="163" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">admit</text>
+  <!-- Ready → Running : dispatch -->
+  <path d="M224,214 L461,214" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
+  <text x="344" y="203" font-size="16" fill="#1f2937" text-anchor="middle">dispatch</text>
 
-  <path d="M350,155 L430,155" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="360" y="137" width="60" height="15" fill="#ffffff"/>
-  <text x="390" y="148" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">dispatch</text>
+  <!-- Running → Ready : timeout (선점) -->
+  <path d="M464,240 L227,240" stroke="#6d28d9" stroke-width="2.5" fill="none" marker-end="url(#m-purple)"/>
+  <text x="344" y="267" font-size="16" font-weight="700" fill="#6d28d9" text-anchor="middle">timeout (선점)</text>
+  <text x="344" y="289" font-size="14" fill="#6d28d9" text-anchor="middle">타임 퀀텀 만료 → 다시 Ready</text>
 
-  <path d="M430,185 Q360,225 285,200" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="318" y="213" width="112" height="15" fill="#ffffff"/>
-  <text x="374" y="224" font-size="11.5" font-weight="500" fill="#7c3aed" text-anchor="middle">timeout (선점)</text>
+  <!-- Running → Terminated : exit -->
+  <path d="M544,192 L544,103" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
+  <text x="558" y="151" font-size="16" fill="#1f2937">exit</text>
 
-  <path d="M495,200 L435,270" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="470" y="232" width="128" height="15" fill="#ffffff"/>
-  <text x="534" y="243" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">I/O 요청 (블로킹)</text>
+  <!-- Running → Waiting : I/O 요청 / wait() (블로킹) -->
+  <path d="M544,260 L544,389" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#m-amber)"/>
+  <text x="558" y="319" font-size="16" font-weight="700" fill="#b45309">I/O 요청 / wait()</text>
+  <text x="558" y="341" font-size="15" fill="#b45309">(블로킹)</text>
 
-  <path d="M325,285 Q250,260 270,200" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="180" y="260" width="86" height="15" fill="#ffffff"/>
-  <text x="223" y="271" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">I/O 완료</text>
+  <!-- Waiting → Ready : I/O 완료 인터럽트 -->
+  <path d="M464,426 L144,426 L144,263" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#m-ink)"/>
+  <text x="304" y="414" font-size="16" fill="#1f2937" text-anchor="middle">I/O 완료 인터럽트</text>
 
-  <path d="M560,170 L720,170" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="620" y="152" width="40" height="15" fill="#ffffff"/>
-  <text x="640" y="163" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">exit</text>
+  <!-- Waiting → Terminated : 강제 종료된 경우 -->
+  <path d="M624,426 L808,426 L808,66 L627,66" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#m-red)"/>
+  <text x="716" y="414" font-size="15" fill="#b91c1c" text-anchor="middle">강제 종료된 경우</text>
 
-  <path d="M455,300 Q600,320 720,195" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="548" y="302" width="80" height="15" fill="#ffffff"/>
-  <text x="588" y="313" font-size="11.5" font-weight="400" fill="#dc2626" text-anchor="middle">강제 종료</text>
+  <!-- 범례 -->
+  <rect x="40" y="496" width="800" height="120" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
 
-  <rect x="180" y="350" width="520" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <line x1="200" y1="365" x2="220" y2="365" stroke="#7c3aed" stroke-width="2"/>
-  <text x="228" y="369" font-size="11" font-weight="400" fill="#1f2933">선점 (타임 퀀텀 만료)</text>
+  <line x1="64" y1="524" x2="104" y2="524" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="116" y="529" font-size="16" font-weight="700" fill="#6d28d9">선점 (타임 퀀텀 만료)</text>
+  <text x="360" y="529" font-size="15" fill="#374151">Running → Ready: 주어진 시간이 끝나 밀려남</text>
 
-  <line x1="360" y1="365" x2="380" y2="365" stroke="#d97706" stroke-width="2"/>
-  <text x="388" y="369" font-size="11" font-weight="400" fill="#1f2933">자발적 블로킹 (I/O wait)</text>
+  <line x1="64" y1="556" x2="104" y2="556" stroke="#b45309" stroke-width="2.5"/>
+  <text x="116" y="561" font-size="16" font-weight="700" fill="#b45309">자발적 블로킹 (I/O wait)</text>
+  <text x="360" y="561" font-size="15" fill="#374151">Running → Waiting: I/O가 끝날 때까지 스스로 양보</text>
 
-  <line x1="530" y1="365" x2="550" y2="365" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <text x="558" y="369" font-size="11" font-weight="400" fill="#1f2933">비정상 전이</text>
-
-  <text x="440" y="405" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: Running 상태는 타임 아웃(선점) 또는 I/O 요청(블로킹)에 의해 각각 Ready와 Waiting 상태로 분기됩니다.</text>
+  <line x1="64" y1="588" x2="104" y2="588" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="116" y="593" font-size="16" font-weight="700" fill="#b91c1c">비정상 전이</text>
+  <text x="360" y="593" font-size="15" fill="#374151">Waiting → Terminated: 강제 종료된 경우</text>
 </svg>

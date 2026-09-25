@@ -100,6 +100,11 @@ def add(a, b):
 
 ### 테스트 피라미드
 
+<!-- diagram:se-qna-software-engineering-8 -->
+![테스트 피라미드](../assets/diagrams/se-qna-software-engineering-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         /\
        /  \     E2E Test (적음)
@@ -109,6 +114,7 @@ def add(a, b):
    /          \  Unit Test (많음)
   --------------
 ```
+-->
 
 ### 테스트 종류
 

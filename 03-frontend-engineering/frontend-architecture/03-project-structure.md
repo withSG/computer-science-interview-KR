@@ -51,6 +51,11 @@
 
 ### 두 구조
 
+<!-- diagram:fe-project-structure-4 -->
+![로그인 파일이 흩어진 기술별 구조와 auth/에 모인 기능별 구조](../../assets/diagrams/fe-project-structure-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [기술별(layer-first)]                  [기능별(feature-first)]
 
@@ -74,6 +79,7 @@ src/                                   src/
 로그인 폼을 고치려면 4개 폴더를 오간다     로그인 폼을 고치려면 auth/ 하나만 연다
 auth 기능을 지우려면 4곳을 뒤진다          auth 기능을 지우려면 auth/를 지운다
 ```
+-->
 
 ### 왜 기술별 구조가 먼저 무너지나
 

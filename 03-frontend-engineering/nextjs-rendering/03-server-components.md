@@ -46,10 +46,16 @@ function Article({ raw, createdAt }) {
 
 CSR 시대에는 브라우저가 DB에 직접 접근할 수 없으니 반드시 사이에 API가 있어야 했습니다.
 
+<!-- diagram:fe-server-components-4 -->
+![문제 2 — 데이터를 가져오려고 만드는 계층](../../assets/diagrams/fe-server-components-4.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 컴포넌트 → fetch('/api/posts') → API 라우트 핸들러 → DB
            └─ 옮기기만 하는데도 타입 정의·에러 처리·스키마 검증이 각각 필요
 ```
+-->
 게다가 컴포넌트가 렌더된 다음에야 데이터를 요청하므로, 중첩된 컴포넌트가 각자 데이터를 가져오면 요청 폭포(waterfall)가 생깁니다. 부모가 로딩을 끝내야 자식이 요청을 시작하는 구조입니다.
 
 ### RSC의 답

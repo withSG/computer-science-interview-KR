@@ -90,7 +90,15 @@ HashMap은 키를 해시 함수에 넣어 나온 값으로 버킷(배열) 인덱
 2. **Open Addressing**: 다른 빈 버킷 탐색
 
 ### Java 8 이후 개선
+<!-- diagram:cs-qna-data-structure-5 -->
+![Java 8 이후 개선](../../assets/diagrams/cs-qna-data-structure-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
+```
 - 하나의 버킷에 8개 이상 → LinkedList → Red-Black Tree
+```
+-->
 - 최악의 경우 O(n) → O(log n)
 
 ### 면접관이 주목하는 포인트
@@ -124,6 +132,11 @@ HashMap은 키를 해시 함수에 넣어 나온 값으로 버킷(배열) 인덱
 | 삭제 | O(log n) | O(n) |
 
 ### BST 특징
+<!-- diagram:cs-qna-data-structure-6 -->
+![BST 특징](../../assets/diagrams/cs-qna-data-structure-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
        8
       / \
@@ -131,6 +144,7 @@ HashMap은 키를 해시 함수에 넣어 나온 값으로 버킷(배열) 인덱
     / \    \
    1   6    14
 ```
+-->
 - 중위 순회 시 정렬된 순서로 출력
 
 ### 면접관이 주목하는 포인트
@@ -303,11 +317,17 @@ HashTable은 **해시 함수**로 키를 변환한 뒤 그 값을 버킷(배열)
 ### 충돌 해결 방법
 
 **1. Separate Chaining (분리 연결법)**
+<!-- diagram:cs-qna-data-structure-7 -->
+![충돌 해결 방법](../../assets/diagrams/cs-qna-data-structure-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 버킷[0] → [K1:V1] → [K2:V2] → null
 버킷[1] → [K3:V3] → null
 버킷[2] → null
 ```
+-->
 - 같은 인덱스에 LinkedList로 연결
 - Java HashMap은 8개 초과 시 Red-Black Tree로 변환
 
@@ -370,6 +390,11 @@ AVL 트리는 **자가 균형 이진 탐색 트리**입니다. 모든 노드에�
 
 ### AVL 트리의 균형 유지
 
+<!-- diagram:cs-qna-data-structure-8 -->
+![AVL 트리의 균형 유지](../../assets/diagrams/cs-qna-data-structure-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Balance Factor (BF) = 왼쪽 높이 - 오른쪽 높이
 허용 범위: -1, 0, 1
@@ -380,6 +405,7 @@ Balance Factor (BF) = 왼쪽 높이 - 오른쪽 높이
    /     \
   1       5
 ```
+-->
 
 ### 회전 연산
 
@@ -517,6 +543,11 @@ Trie는 **문자열 검색에 특화된 트리 자료구조**입니다. 문자�
 
 ### 구조
 
+<!-- diagram:cs-qna-data-structure-9 -->
+![구조](../../assets/diagrams/cs-qna-data-structure-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 단어: "apple", "app", "apply", "bat" 저장 시
 
@@ -534,6 +565,7 @@ Trie는 **문자열 검색에 특화된 트리 자료구조**입니다. 문자�
 
 (*): 단어의 끝(end flag)
 ```
+-->
 
 ### 노드 구조
 
@@ -626,11 +658,17 @@ B-Tree는 **자가 균형을 유지하는 다원 탐색 트리**입니다. 노�
 
 ### 구조 예시 (차수 3, 즉 2-3 B-Tree)
 
+<!-- diagram:cs-qna-data-structure-10 -->
+![루트 [30|70]이 리프 세 개로 키 범위를 나눈 2-3 B-Tree](../../assets/diagrams/cs-qna-data-structure-10.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
               [30 | 70]
              /    |    \
       [10|20]  [40|60]  [80|90]
 ```
+-->
 
 ### BST vs B-Tree 비교
 

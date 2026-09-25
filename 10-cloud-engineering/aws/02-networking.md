@@ -248,11 +248,17 @@ AWS의 방화벽은 두 겹입니다. 이름이 비슷해 헷갈리지만 **동�
 
 Security Group은 소스로 **다른 Security Group을 지정할 수 있습니다.** 이게 진짜 강점입니다.
 
+<!-- diagram:cloud-networking-8 -->
+![Security Group 참조 패턴](../../assets/diagrams/cloud-networking-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 sg-alb   : 인바운드 443  ←  0.0.0.0/0
 sg-app   : 인바운드 8080 ←  sg-alb        (IP가 아니라 SG를 참조)
 sg-db    : 인바운드 3306 ←  sg-app
 ```
+-->
 
 IP 대역으로 쓰면 앱 서버가 오토스케일링으로 늘어날 때마다 규칙을 고쳐야 합니다. SG 참조로 쓰면 **새로 뜬 인스턴스가 `sg-app`을 달고 있기만 하면 자동으로 DB 접근 권한을 얻습니다.** 인스턴스가 가축처럼 교체되는 환경에서는 이렇게 써야 유지보수가 됩니다.
 
@@ -262,9 +268,15 @@ IP 대역으로 쓰면 앱 서버가 오토스케일링으로 늘어날 때마�
 
 Private 서브넷의 앱이 S3에 로그를 올린다고 해봅시다. S3는 VPC 밖의 서비스이므로 기본 경로는 이렇습니다.
 
+<!-- diagram:cloud-networking-9 -->
+![6. VPC Endpoint: 인터넷을 거치지 않고 AWS 서비스에 닿기](../../assets/diagrams/cloud-networking-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 App (Private) → NAT Gateway → IGW → 인터넷 → S3 엔드포인트
 ```
+-->
 
 문제가 두 가지입니다. 첫째, **NAT 데이터 처리 요금이 붙습니다.** 둘째, 트래픽이 논리적으로 인터넷을 경유하므로 "우리 데이터는 인터넷에 나가지 않는다"고 말할 수 없습니다.
 

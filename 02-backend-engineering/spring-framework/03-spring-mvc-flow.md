@@ -98,11 +98,13 @@ public class OrderListServlet extends HttpServlet {
 
 ## 2. 요청 하나가 지나는 전 경로
 
+### 전체 그림
+
 <!-- diagram:be-spring-mvc-flow -->
 ![HTTP 요청 한 건이 지나는 계층](../../assets/diagrams/be-spring-mvc-flow.svg)
 
-### 전체 그림
-
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
    HTTP 요청
       │
@@ -139,6 +141,7 @@ public class OrderListServlet extends HttpServlet {
       ▼
    HTTP 응답
 ```
+-->
 
 ### 단계별로 무슨 일이 일어나나
 
@@ -178,6 +181,11 @@ URL, HTTP 메서드, 헤더, 파라미터 조건을 종합해 요청을 처리�
 
 Spring MVC는 `@Controller` 메서드만 처리하지 않습니다. 정적 리소스를 내보내는 핸들러도 있고, 옛 방식인 `Controller` 인터페이스 구현체도 있습니다. 이들은 시그니처가 전혀 다릅니다.
 
+<!-- diagram:be-spring-mvc-flow-5 -->
+![HandlerMapping과 HandlerAdapter는 왜 둘인가](../../assets/diagrams/be-spring-mvc-flow-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
         HandlerMapping                    HandlerAdapter
     "누가 처리할지 찾는다"            "그 핸들러를 실행하는 법을 안다"
@@ -188,6 +196,7 @@ Spring MVC는 `@Controller` 메서드만 처리하지 않습니다. 정적 리�
   SimpleUrlHandlerMapping       ──>  HttpRequestHandlerAdapter
        정적 리소스 핸들러                스트림에 파일을 바로 쓴다
 ```
+-->
 
 DispatcherServlet은 두 인터페이스만 알면 되니, 새로운 형태의 핸들러가 추가돼도 DispatcherServlet 코드는 그대로입니다. 어댑터 패턴을 교과서 그대로 쓴 셈입니다.
 

@@ -171,11 +171,17 @@ graph.add_edge("tools", "model")  # 도구 실행 후 다시 모델로 (루프 �
 
 ### 동작 흐름
 
+<!-- diagram:ai-qna-ai-agent-5 -->
+![동작 흐름](../../assets/diagrams/ai-qna-ai-agent-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 model → (도구 필요?) → yes → tools → model → (도구 필요?) → no → END
                                   ↑__________________________|
                                        순환(cycle)
 ```
+-->
 
 이 "model ↔ tools" 순환이 ReAct 에이전트의 핵심 루프입니다.
 
@@ -473,11 +479,17 @@ BMAD(Breakthrough Method of Agile AI-Driven Development)는 **애자일 방법�
 
 ### 워크플로우
 
+<!-- diagram:ai-qna-ai-agent-6 -->
+![워크플로우](../../assets/diagrams/ai-qna-ai-agent-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 [계획 단계] 큰 컨텍스트에서 PRD·아키텍처 작성
        ↓
 [개발 단계] IDE에서 스토리 단위로 구현·검증 반복
 ```
+-->
 
 > 플로우 엔지니어링(Q6)을 SW 개발 프로세스 전반에 적용한 사례로 볼 수 있습니다. 소프트웨어 외 도메인에도 적용 가능합니다.
 

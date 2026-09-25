@@ -185,6 +185,11 @@ arrowFn();    // ReferenceError: Cannot access 'arrowFn' before initialization
 const arrowFn = () => console.log('ok');
 ```
 
+<!-- diagram:fe-hoisting-tdz-2 -->
+![5. 함수 선언문 vs 함수 표현식](../../assets/diagrams/fe-hoisting-tdz-2.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 함수 선언문        [등록 + 함수 객체 초기화] ──────────────► 언제든 호출 가능
                     생성 단계
@@ -195,6 +200,7 @@ const arrowFn = () => console.log('ok');
 함수 표현식(const) [등록만 / TDZ] ─────────── 할당 ──────► 할당 전 접근 = ReferenceError
                     생성 단계              실행 단계
 ```
+-->
 
 에러 메시지가 다른 이유를 정확히 말할 수 있어야 합니다.
 

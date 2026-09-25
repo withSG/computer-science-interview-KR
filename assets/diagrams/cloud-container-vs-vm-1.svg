@@ -1,135 +1,124 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">컨테이너 vs VM 비교</title>
-  <desc id="d">VM 방식과 컨테이너 방식의 구조적 차이점 및 커널 동작 방식 비교 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">VM과 컨테이너의 계층 비교</title>
+  <desc id="d">VM은 VM마다 Guest OS 커널을 부팅해 하이퍼바이저 위에서 돌고, 컨테이너는 App과 라이브러리만 가진 채 호스트 커널 하나를 공유한다. 그래서 syscall 경로도 VM은 Guest 커널을 거쳐 하이퍼바이저로, 컨테이너는 호스트 커널로 직행한다.</desc>
+  <rect width="880" height="600" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="610" fill="#ffffff"/>
+  <!-- 두 열 패널 -->
+  <rect x="24" y="24" width="404" height="552" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="452" y="24" width="404" height="552" rx="10" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
 
-  <!-- 영역 구분 배경 면 -->
-  <rect x="24" y="24" width="404" height="480" fill="#f8fafc" rx="8" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="452" y="24" width="404" height="480" fill="#f8fafc" rx="8" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 머리말 + 요점 -->
+  <text x="226" y="60" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">VM 방식</text>
+  <rect x="120" y="74" width="212" height="32" rx="16" fill="#fef3c7"/>
+  <text x="226" y="96" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">커널이 VM 개수만큼 존재</text>
 
-  <!-- 섹션 헤더 (제목) -->
-  <text x="226" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">VM 방식</text>
-  <text x="654" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">컨테이너 방식</text>
+  <text x="654" y="60" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">컨테이너 방식</text>
+  <rect x="582" y="74" width="144" height="32" rx="16" fill="#fef3c7"/>
+  <text x="654" y="96" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">커널은 딱 하나</text>
 
-  <!-- ==================== 왼쪽: VM 방식 ==================== -->
-  <!-- App A & B -->
-  <rect x="54" y="80" width="160" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="134" y="100.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">App A</text>
+  <!-- ===================== VM 방식 ===================== -->
+  <!-- VM A -->
+  <rect x="44" y="126" width="170" height="40" fill="#dbeafe"/>
+  <rect x="44" y="166" width="170" height="40" fill="#eff6ff"/>
+  <rect x="44" y="206" width="170" height="60" fill="#fef3c7"/>
+  <line x1="44" y1="166" x2="214" y2="166" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="44" y1="206" x2="214" y2="206" stroke="#93c5fd" stroke-width="1"/>
+  <rect x="44" y="126" width="170" height="140" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="129" y="152" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">App A</text>
+  <text x="129" y="191" font-size="15" fill="#1f2937" text-anchor="middle">라이브러리</text>
+  <text x="129" y="230" font-size="15" fill="#1f2937" text-anchor="middle">Guest OS</text>
+  <text x="129" y="252" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">커널 O</text>
 
-  <rect x="238" y="80" width="160" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="318" y="100.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">App B</text>
+  <!-- VM B -->
+  <rect x="238" y="126" width="170" height="40" fill="#dbeafe"/>
+  <rect x="238" y="166" width="170" height="40" fill="#eff6ff"/>
+  <rect x="238" y="206" width="170" height="60" fill="#fef3c7"/>
+  <line x1="238" y1="166" x2="408" y2="166" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="238" y1="206" x2="408" y2="206" stroke="#93c5fd" stroke-width="1"/>
+  <rect x="238" y="126" width="170" height="140" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="323" y="152" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">App B</text>
+  <text x="323" y="191" font-size="15" fill="#1f2937" text-anchor="middle">라이브러리</text>
+  <text x="323" y="230" font-size="15" fill="#1f2937" text-anchor="middle">Guest OS</text>
+  <text x="323" y="252" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">커널 O</text>
 
-  <!-- 라이브러리 -->
-  <rect x="54" y="112" width="160" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="134" y="132.5" font-size="13" fill="#1f2933" text-anchor="middle">라이브러리</text>
+  <!-- 가상 HW 연결 -->
+  <line x1="129" y1="266" x2="129" y2="316" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="323" y1="266" x2="323" y2="316" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="296" font-size="15" fill="#4b5563" text-anchor="middle">가상 HW</text>
 
-  <rect x="238" y="112" width="160" height="32" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="318" y="132.5" font-size="13" fill="#1f2933" text-anchor="middle">라이브러리</text>
+  <!-- Hypervisor / Host OS / Hardware -->
+  <rect x="44" y="316" width="364" height="44" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="344" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Hypervisor</text>
+  <line x1="226" y1="360" x2="226" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="44" y="376" width="364" height="44" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="404" font-size="16" fill="#111827" text-anchor="middle">Host OS</text>
+  <line x1="226" y1="420" x2="226" y2="436" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="44" y="436" width="364" height="44" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="464" font-size="16" fill="#111827" text-anchor="middle">Hardware</text>
 
-  <!-- Guest OS & 커널 O -->
-  <rect x="54" y="144" width="160" height="50" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="134" y="163.5" font-size="13" fill="#1f2933" text-anchor="middle">Guest OS</text>
-  <text x="134" y="181.5" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">커널 O</text>
+  <!-- ===================== 컨테이너 방식 ===================== -->
+  <!-- 컨테이너 A -->
+  <rect x="472" y="126" width="170" height="40" fill="#dbeafe"/>
+  <rect x="472" y="166" width="170" height="40" fill="#eff6ff"/>
+  <line x1="472" y1="166" x2="642" y2="166" stroke="#93c5fd" stroke-width="1"/>
+  <rect x="472" y="126" width="170" height="80" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="557" y="152" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">App A</text>
+  <text x="557" y="191" font-size="15" fill="#1f2937" text-anchor="middle">라이브러리</text>
 
-  <rect x="238" y="144" width="160" height="50" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="318" y="163.5" font-size="13" fill="#1f2933" text-anchor="middle">Guest OS</text>
-  <text x="318" y="181.5" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">커널 O</text>
+  <!-- 컨테이너 B -->
+  <rect x="666" y="126" width="170" height="40" fill="#dbeafe"/>
+  <rect x="666" y="166" width="170" height="40" fill="#eff6ff"/>
+  <line x1="666" y1="166" x2="836" y2="166" stroke="#93c5fd" stroke-width="1"/>
+  <rect x="666" y="126" width="170" height="80" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="751" y="152" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">App B</text>
+  <text x="751" y="191" font-size="15" fill="#1f2937" text-anchor="middle">라이브러리</text>
 
-  <!-- 연결선: Guest OS -> Hypervisor (가상 HW) -->
-  <path d="M134,194 L134,260 L226,260" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <path d="M318,194 L318,260 L226,260" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 가상 HW 라벨 배경 & 텍스트 -->
-  <rect x="94" y="217" width="80" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="134" y="231" font-size="11.5" fill="#52606d" text-anchor="middle">가상 HW</text>
-
-  <!-- Hypervisor -->
-  <rect x="84" y="260" width="284" height="44" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="226" y="286.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Hypervisor</text>
-
-  <!-- 연결선: Hypervisor -> Host OS -->
-  <path d="M226,304 L226,334" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Host OS (VM) -->
-  <rect x="84" y="334" width="284" height="44" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="226" y="360.5" font-size="14" fill="#1f2933" text-anchor="middle">Host OS</text>
-
-  <!-- 연결선: Host OS -> Hardware -->
-  <path d="M226,378 L226,408" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Hardware (VM) -->
-  <rect x="84" y="408" width="284" height="44" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="226" y="434.5" font-size="14" fill="#1f2933" text-anchor="middle">Hardware</text>
-
-
-  <!-- ==================== 오른쪽: 컨테이너 방식 ==================== -->
-  <!-- App A & B -->
-  <rect x="482" y="80" width="160" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="562" y="100.5" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">App A</text>
-
-  <rect x="666" y="80" width="160" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="746" y="100.5" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">App B</text>
-
-  <!-- 라이브러리 -->
-  <rect x="482" y="112" width="160" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="562" y="132.5" font-size="13" fill="#1f2933" text-anchor="middle">라이브러리</text>
-
-  <rect x="666" y="112" width="160" height="32" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="746" y="132.5" font-size="13" fill="#1f2933" text-anchor="middle">라이브러리</text>
-
-  <!-- 연결선: 컨테이너 -> 컨테이너 런타임 (syscall) -->
-  <path d="M562,144 L562,210 L654,210" stroke="#059669" stroke-width="1.5" fill="none"/>
-  <path d="M746,144 L746,210 L654,210" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- syscall 라벨 배경 & 텍스트 -->
-  <rect x="582" y="167" width="60" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="612" y="181" font-size="11.5" fill="#059669" text-anchor="middle">syscall</text>
-
-  <rect x="766" y="167" width="60" height="20" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="796" y="181" font-size="11.5" fill="#059669" text-anchor="middle">syscall</text>
+  <!-- syscall 연결 -->
+  <line x1="557" y1="206" x2="557" y2="256" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="751" y1="206" x2="751" y2="256" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="567" y="236" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">syscall</text>
+  <text x="761" y="236" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">syscall</text>
 
   <!-- 컨테이너 런타임 -->
-  <rect x="512" y="210" width="284" height="50" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="654" y="230.5" font-size="13" fill="#1f2933" text-anchor="middle">컨테이너 런타임</text>
-  <text x="654" y="248.5" font-size="11.5" fill="#52606d" text-anchor="middle">(containerd / runc)</text>
-
-  <!-- 연결선: 컨테이너 런타임 -> Host OS 커널 -->
-  <path d="M654,260 L654,286" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="472" y="256" width="364" height="60" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="654" y="281" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">컨테이너 런타임</text>
+  <text x="654" y="303" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(containerd / runc)</text>
+  <line x1="654" y1="316" x2="654" y2="332" stroke="#6b7280" stroke-width="1.5"/>
 
   <!-- Host OS 커널 (1개) -->
-  <rect x="512" y="286" width="284" height="60" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="654" y="307.5" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Host OS 커널 (1개)</text>
-  <text x="654" y="328.5" font-size="13" fill="#1f2933" text-anchor="middle">namespace + cgroup</text>
+  <rect x="472" y="332" width="364" height="88" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="654" y="366" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">Host OS 커널 (1개)</text>
+  <text x="654" y="394" font-size="15" fill="#1f2937" text-anchor="middle">namespace + cgroup</text>
+  <line x1="654" y1="420" x2="654" y2="436" stroke="#6b7280" stroke-width="1.5"/>
 
-  <!-- 연결선: Host OS 커널 -> Hardware -->
-  <path d="M654,346 L654,408" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Hardware -->
+  <rect x="472" y="436" width="364" height="44" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="654" y="464" font-size="16" fill="#111827" text-anchor="middle">Hardware</text>
 
-  <!-- Hardware (컨테이너) -->
-  <rect x="512" y="408" width="284" height="44" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="654" y="434.5" font-size="14" fill="#1f2933" text-anchor="middle">Hardware</text>
+  <!-- ===================== syscall 경로 ===================== -->
+  <line x1="44" y1="500" x2="408" y2="500" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="472" y1="500" x2="836" y2="500" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
 
+  <!-- VM: syscall → Guest 커널 → 하이퍼바이저 -->
+  <rect x="44" y="518" width="80" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="84" y="541" font-size="15" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">syscall</text>
+  <line x1="128" y1="536" x2="152" y2="536" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="156" y="518" width="104" height="36" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="208" y="541" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">Guest 커널</text>
+  <line x1="264" y1="536" x2="288" y2="536" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="292" y="518" width="116" height="36" rx="6" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="350" y="541" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">하이퍼바이저</text>
 
-  <!-- ==================== 하단 요약 설명 ==================== -->
-  <line x1="24" y1="520" x2="856" y2="520" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- VM 요약 -->
-  <text x="54" y="550" font-size="13" font-weight="bold" fill="#1f2933">커널이 VM 개수만큼 존재</text>
-  <text x="54" y="575" font-size="13" fill="#52606d">syscall → Guest 커널 → 하이퍼바이저</text>
-
-  <!-- 컨테이너 요약 -->
-  <text x="482" y="550" font-size="13" font-weight="bold" fill="#059669">커널은 딱 하나</text>
-  <text x="482" y="575" font-size="13" fill="#059669">syscall → 호스트 커널 (직행)</text>
+  <!-- 컨테이너: syscall → 호스트 커널 (직행) -->
+  <rect x="472" y="518" width="80" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="512" y="541" font-size="15" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">syscall</text>
+  <line x1="556" y1="536" x2="580" y2="536" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="584" y="518" width="104" height="36" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="636" y="541" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">호스트 커널</text>
+  <text x="700" y="541" font-size="15" font-weight="bold" fill="#047857">(직행)</text>
 </svg>

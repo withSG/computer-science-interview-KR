@@ -1,136 +1,132 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1100" width="880" height="1100" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">TLS 핸드셰이크와 인증서 검증 4단계</title>
-  <desc id="d">Client와 Server 간의 TLS 핸드셰이크 과정과 Server Certificate 수신 시 수행하는 4단계 인증서 검증 절차, 그리고 세션 키 합의 전 (SNI는 평문)과 암호화 구간의 분리를 보여주는 시퀀스 다이어그램입니다.</desc>
-  
-  <!-- 배경 흰색 rect -->
-  <rect width="880" height="720" fill="#ffffff"/>
+  <desc id="d">TCP 연결이 수립된 뒤 TLS 1.2 메시지 순서로 ClientHello, ServerHello와 인증서 체인, 클라이언트의 인증서 검증 네 가지, ECDHE 키 합의, Finished 교환을 거쳐 이후 HTTP 데이터를 대칭 세션 키로 암호화하는 과정과, 세션 키 합의 전 평문 구간과 이후 암호화 구간을 구분해 보여줍니다. 핸드셰이크가 끝나면 신원 증명, 대칭 세션 키, 무결성 확인 세 가지가 확보됩니다.</desc>
+  <rect width="880" height="1100" fill="#ffffff"/>
 
   <defs>
-    <!-- 화살표 마크 정의 -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="2" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="2" refY="5" markerUnits="userSpaceOnUse" markerWidth="14" markerHeight="14" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="ah-green-lg" viewBox="0 0 10 10" refX="2" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 메인 제목 (y=35) -->
-  <text x="440" y="35" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">TLS 핸드셰이크(TLS 1.2 메시지 순서)와 인증서 검증 4단계</text>
+  <!-- 구간 밴드: 평문(세션 키 합의 전) / 암호화(세션 키 합의 후) -->
+  <rect x="16" y="104" width="848" height="584" rx="8" fill="#fff7ed"/>
+  <rect x="16" y="688" width="848" height="208" rx="8" fill="#ecfdf5"/>
+  <text x="36" y="134" font-size="16" font-weight="700" fill="#9a3412">평문 구간</text>
+  <text x="36" y="156" font-size="14" fill="#9a3412">세션 키 합의 전</text>
+  <text x="36" y="718" font-size="16" font-weight="700" fill="#047857">암호화 구간</text>
+  <text x="36" y="740" font-size="14" fill="#047857">세션 키 합의 후</text>
 
-  <!-- 범례 및 섹션 배경 밴드 (세션 키 합의 전 (SNI는 평문) vs 암호화 구간) -->
-  <!-- 세션 키 합의 전 (SNI는 평문) 배경 (y: 110 ~ 320, h=210) -->
-  <rect x="30" y="110" width="510" height="210" fill="#fffbeb" stroke="#d97706" stroke-width="1" stroke-dasharray="4 4" rx="4"/>
-  <rect x="40" y="118" width="180" height="22" fill="#d97706" rx="3"/>
-  <text x="130" y="133" font-size="11.5" font-weight="600" fill="#ffffff" text-anchor="middle">세션 키 합의 전 (SNI는 평문)</text>
+  <!-- 참여자 -->
+  <rect x="120" y="24" width="140" height="44" rx="6" fill="#1f2937"/>
+  <text x="190" y="52" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">Client</text>
+  <rect x="620" y="24" width="140" height="44" rx="6" fill="#1f2937"/>
+  <text x="690" y="52" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">Server</text>
+  <text x="440" y="92" font-size="14" fill="#4b5563" text-anchor="middle">TCP 연결은 이미 수립된 상태 · TLS 1.2 메시지 순서</text>
 
-  <!-- 암호화 구간 배경 (y: 390 ~ 620, h=230) -->
-  <rect x="30" y="390" width="510" height="230" fill="#ecfdf5" stroke="#059669" stroke-width="1" stroke-dasharray="4 4" rx="4"/>
-  <rect x="40" y="398" width="90" height="22" fill="#059669" rx="3"/>
-  <text x="85" y="413" font-size="11.5" font-weight="600" fill="#ffffff" text-anchor="middle">암호화 구간</text>
+  <!-- 생명선 -->
+  <line x1="190" y1="68" x2="190" y2="896" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="690" y1="68" x2="690" y2="896" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- Lifeline Header Blocks -->
-  <!-- Client: x=130, width=120 -> 중심 x=190 -->
-  <rect x="130" y="60" width="120" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="190" y="82" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">Client</text>
+  <!-- 1. ClientHello -->
+  <circle cx="226" cy="136" r="12" fill="#1f2937"/>
+  <text x="226" y="141" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="248" y="142" font-size="17" font-weight="700" fill="#1f2937">ClientHello</text>
+  <line x1="190" y1="156" x2="680" y2="156" stroke="#1f2937" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text font-size="15" fill="#374151">
+    <tspan x="248" y="182">· 지원 TLS 버전 / Cipher Suite 목록</tspan>
+    <tspan x="248" y="206">· 클라이언트 랜덤</tspan>
+    <tspan x="248" y="230">· SNI (접속하려는 도메인) <tspan fill="#9a3412" font-weight="700">← 평문으로 나간다</tspan></tspan>
+  </text>
 
-  <!-- Server: x=370, width=120 -> 중심 x=430 -->
-  <rect x="370" y="60" width="120" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="430" y="82" font-size="14" font-weight="600" fill="#2563eb" text-anchor="middle">Server</text>
+  <!-- 2. ServerHello + Certificate -->
+  <circle cx="226" cy="270" r="12" fill="#1f2937"/>
+  <text x="226" y="275" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="248" y="276" font-size="17" font-weight="700" fill="#1f2937">ServerHello + Certificate</text>
+  <line x1="690" y1="290" x2="200" y2="290" stroke="#1f2937" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text font-size="15" fill="#374151">
+    <tspan x="248" y="316">· 선택한 버전과 Cipher Suite</tspan>
+    <tspan x="248" y="340">· 서버 랜덤</tspan>
+    <tspan x="248" y="364">· 인증서 체인 (도메인, 공개키, CA 서명)</tspan>
+  </text>
 
-  <!-- Lifeline vertical lines -->
-  <line x1="190" y1="96" x2="190" y2="650" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <line x1="430" y1="96" x2="430" y2="650" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- 3. 클라이언트의 인증서 검증 -->
+  <rect x="185" y="388" width="10" height="204" fill="#6b7280"/>
+  <line x1="196" y1="414" x2="214" y2="414" stroke="#4b5563" stroke-width="1.5"/>
+  <rect x="214" y="388" width="452" height="204" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="238" cy="414" r="12" fill="#1f2937"/>
+  <text x="238" y="419" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="258" y="420" font-size="17" font-weight="700" fill="#1f2937">클라이언트가 검증하는 네 가지</text>
+  <line x1="230" y1="434" x2="650" y2="434" stroke="#d1d5db" stroke-width="1"/>
+  <text font-size="15" fill="#1f2937">
+    <tspan x="258" y="462"><tspan fill="#1d4ed8" font-weight="700">①</tspan> CA 서명 체인이 신뢰 루트까지 이어지는가</tspan>
+    <tspan x="258" y="488"><tspan fill="#1d4ed8" font-weight="700">②</tspan> 유효기간 안인가</tspan>
+    <tspan x="258" y="514"><tspan fill="#1d4ed8" font-weight="700">③</tspan> 인증서의 도메인(SAN)이 접속 대상과 같은가</tspan>
+    <tspan x="258" y="540"><tspan fill="#1d4ed8" font-weight="700">④</tspan> 폐기되지 않았는가 (OCSP/CRL)</tspan>
+  </text>
+  <line x1="230" y1="556" x2="650" y2="556" stroke="#d1d5db" stroke-width="1"/>
+  <text x="258" y="580" font-size="15" font-weight="700" fill="#b91c1c">하나라도 실패 → 경고</text>
 
-  <!-- Pre-condition label -->
-  <text x="310" y="105" font-size="11" fill="#52606d" text-anchor="middle">(TCP 연결 수립 완료 상태)</text>
+  <!-- 4. 키 합의 -->
+  <circle cx="226" cy="628" r="12" fill="#6d28d9"/>
+  <text x="226" y="633" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="248" y="634" font-size="17" font-weight="700" fill="#6d28d9">키 합의 (ECDHE 공개값 교환)</text>
+  <line x1="201" y1="648" x2="679" y2="648" stroke="#6d28d9" stroke-width="2.5" marker-start="url(#ah-purple)" marker-end="url(#ah-purple)"/>
+  <text x="248" y="674" font-size="15" fill="#374151">· 양쪽이 각자 계산해 같은 세션 키에 도달</text>
 
-  <!-- 1. ClientHello (y=150) -->
-  <path d="M190,150 L430,150" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="235" y="133" width="150" height="16" fill="#ffffff"/>
-  <text x="310" y="145" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">1. ClientHello</text>
-  <text x="310" y="167" font-size="11.5" fill="#52606d" text-anchor="middle">TLS 버전, Cipher Suite 목록, 클라이언트 랜덤, SNI(평문)</text>
+  <!-- 5. Finished 교환 -->
+  <circle cx="226" cy="724" r="12" fill="#047857"/>
+  <text x="226" y="729" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="248" y="730" font-size="17" font-weight="700" fill="#047857">Finished 교환</text>
+  <line x1="201" y1="744" x2="679" y2="744" stroke="#047857" stroke-width="2.5" marker-start="url(#ah-green)" marker-end="url(#ah-green)"/>
+  <text font-size="15" fill="#374151">
+    <tspan x="248" y="770">· 지금까지 오간 메시지의 해시 검증</tspan>
+    <tspan x="248" y="794">· 중간에 누가 메시지를 바꿨다면 여기서 걸린다</tspan>
+  </text>
 
-  <!-- 2. ServerHello + Certificate (y=210) -->
-  <path d="M430,210 L190,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="210" y="193" width="200" height="16" fill="#ffffff"/>
-  <text x="310" y="205" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">2. ServerHello + Certificate</text>
-  <text x="310" y="227" font-size="11.5" fill="#52606d" text-anchor="middle">선택한 버전/Cipher Suite, 서버 랜덤, 인증서 체인</text>
+  <!-- 6. 이후 HTTP 데이터 -->
+  <circle cx="226" cy="832" r="12" fill="#047857"/>
+  <text x="226" y="837" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="248" y="838" font-size="17" font-weight="700" fill="#047857">이후 모든 HTTP 데이터</text>
+  <line x1="204" y1="854" x2="676" y2="854" stroke="#047857" stroke-width="5" marker-start="url(#ah-green-lg)" marker-end="url(#ah-green-lg)"/>
+  <text x="248" y="880" font-size="15" fill="#374151">· 대칭 세션 키로 암호화</text>
 
-  <!-- 점선 분기선: Certificate 수신 지점 (y=210) -> 검증 패널 (x=570) -->
-  <path d="M190,210 C150,210 150,248 196,248 L570,248" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 핸드셰이크가 끝나면 확보되는 세 가지 -->
+  <text x="24" y="934" font-size="17" font-weight="700" fill="#1f2937">핸드셰이크가 끝나면 확보되는 세 가지</text>
 
-  <!-- 오른쪽: 인증서 검증 4단계 패널 (x=570, y=140, w=280, h=210) -->
-  <rect x="570" y="140" width="280" height="210" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="6"/>
-  
-  <!-- 패널 제목 -->
-  <rect x="580" y="152" width="260" height="26" fill="#dc2626" rx="4"/>
-  <text x="710" y="169" font-size="13" font-weight="600" fill="#ffffff" text-anchor="middle">클라이언트가 검증하는 네 가지</text>
+  <rect x="24" y="950" width="264" height="120" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="42" y="978" font-size="16" font-weight="700" fill="#1f2937">(1) 신원 증명</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="42" y="1004">상대가 그 도메인의</tspan>
+    <tspan x="42" y="1026">주인이라는 증명</tspan>
+  </text>
+  <circle cx="54" cy="1048" r="11" fill="#1f2937"/>
+  <text x="54" y="1053" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="72" y="1053" font-size="14" fill="#4b5563">인증서 검증에서</text>
 
-  <!-- 4개 검증 항목 박스 -->
-  <!-- Step 1 -->
-  <rect x="585" y="188" width="250" height="30" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="595" y="207" font-size="11.5" font-weight="600" fill="#dc2626">① CA 서명 체인</text>
-  <text x="695" y="207" font-size="11.5" fill="#1f2933">신뢰 루트까지 이어지는가</text>
+  <rect x="308" y="950" width="264" height="120" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="326" y="978" font-size="16" font-weight="700" fill="#6d28d9">(2) 세션 키</text>
+  <text x="326" y="1004" font-size="15" fill="#374151">둘만 아는 대칭 세션 키</text>
+  <circle cx="338" cy="1048" r="11" fill="#6d28d9"/>
+  <text x="338" y="1053" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="356" y="1053" font-size="14" fill="#4b5563">키 합의에서</text>
 
-  <!-- Step 2 -->
-  <rect x="585" y="224" width="250" height="30" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="595" y="243" font-size="11.5" font-weight="600" fill="#dc2626">② 유효기간</text>
-  <text x="670" y="243" font-size="11.5" fill="#1f2933">현재 유효기간 안인가</text>
-
-  <!-- Step 3 -->
-  <rect x="585" y="260" width="250" height="30" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="595" y="279" font-size="11.5" font-weight="600" fill="#dc2626">③ 도메인(SAN)</text>
-  <text x="690" y="279" font-size="11.5" fill="#1f2933">접속 대상과 일치하는가</text>
-
-  <!-- Step 4 -->
-  <rect x="585" y="296" width="250" height="30" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="595" y="315" font-size="11.5" font-weight="600" fill="#dc2626">④ 폐기 여부</text>
-  <text x="670" y="315" font-size="11.5" fill="#1f2933">폐기되지 않았는가 (OCSP/CRL)</text>
-
-  <text x="710" y="341" font-size="11" font-weight="500" fill="#dc2626" text-anchor="middle">※ 하나라도 실패 시 사용자 경고 발생</text>
-
-  <!-- 3. 키 합의 (ECDHE) (y=360) - 평문/암호화 전이 구간 -->
-  <path d="M190,360 L430,360" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M430,360 L190,360" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="210" y="343" width="200" height="16" fill="#ffffff"/>
-  <text x="310" y="355" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">3. 키 합의 (ECDHE 공개값 교환)</text>
-  <text x="310" y="377" font-size="11.5" fill="#52606d" text-anchor="middle">양쪽이 각자 계산하여 동일한 대칭 세션 키 생성</text>
-
-  <!-- 4. Finished (y=440) -->
-  <path d="M190,440 L430,440" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M430,440 L190,440" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="220" y="423" width="180" height="16" fill="#ffffff"/>
-  <text x="310" y="435" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">4. Finished 메시지 교환</text>
-  <text x="310" y="457" font-size="11.5" fill="#52606d" text-anchor="middle">핸드셰이크 메시지 해시 검증 (위변조 탐지)</text>
-
-  <!-- 5. 애플리케이션 데이터 통신 (y=530 ~ 590) -->
-  <rect x="180" y="500" width="260" height="100" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="6"/>
-  <text x="310" y="522" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">암호화 데이터 통신 (HTTP)</text>
-  
-  <path d="M200,545 L420,545" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  <text x="310" y="540" font-size="11.5" fill="#059669" text-anchor="middle">HTTP Request (대칭 세션 키 암호화)</text>
-
-  <path d="M420,580 L200,580" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  <text x="310" y="575" font-size="11.5" fill="#059669" text-anchor="middle">HTTP Response (대칭 세션 키 암호화)</text>
-
-  <!-- 확보되는 3가지 자산 설명 박스 (오른쪽 하단: x=570, y=430, w=280, h=190) -->
-  <rect x="570" y="430" width="280" height="190" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="6"/>
-  <rect x="580" y="442" width="260" height="24" fill="#52606d" rx="3"/>
-  <text x="710" y="458" font-size="12" font-weight="600" fill="#ffffff" text-anchor="middle">핸드셰이크 완료 후 확보되는 3가지</text>
-
-  <text x="585" y="490" font-size="11.5" font-weight="600" fill="#1f2933">(1) 서버 신원 증명</text>
-  <text x="600" y="508" font-size="11" fill="#52606d">상대가 해당 도메인의 소유자임</text>
-
-  <text x="585" y="535" font-size="11.5" font-weight="600" fill="#1f2933">(2) 공유 대칭 세션 키</text>
-  <text x="600" y="553" font-size="11" fill="#52606d">양쪽만 알고 있는 비밀 키 확보</text>
-
-  <text x="585" y="580" font-size="11.5" font-weight="600" fill="#1f2933">(3) 무결성 확인</text>
-  <text x="600" y="598" font-size="11" fill="#52606d">이전 교환 메시지의 변조 없음 검증</text>
-
-  <!-- 결론 캡션 (y=690) -->
-  <text x="440" y="690" font-size="11.5" fill="#52606d" text-anchor="middle">결론: TLS 핸드셰이크는 인증서 검증을 통해 상대 신원을 확인하고, 안전하게 대칭 세션 키를 합의하여 암호화 통신을 개시한다.</text>
+  <rect x="592" y="950" width="264" height="120" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="610" y="978" font-size="16" font-weight="700" fill="#047857">(3) 무결성 확인</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="610" y="1004">지금까지의 대화가</tspan>
+    <tspan x="610" y="1026">변조되지 않았다는 확인</tspan>
+  </text>
+  <circle cx="622" cy="1048" r="11" fill="#047857"/>
+  <text x="622" y="1053" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="640" y="1053" font-size="14" fill="#4b5563">Finished 교환에서</text>
 </svg>

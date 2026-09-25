@@ -25,9 +25,15 @@
 | **변경 감지** | 엔티티 수정 시 자동으로 UPDATE 쿼리 생성 (Dirty Checking) |
 
 ### 엔티티 생명주기
+<!-- diagram:be-qna-database-7 -->
+![엔티티 생명주기](../../assets/diagrams/be-qna-database-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 비영속 (new) → 영속 (managed) → 준영속 (detached) 또는 삭제 (removed)
 ```
+-->
 
 ### 코드 예시
 ```java
@@ -846,6 +852,11 @@ SELECT * FROM a RIGHT JOIN b ON a.id = b.id;
 
 ### 문제 테이블 예시
 
+<!-- diagram:be-qna-database-8 -->
+![문제 테이블 예시](../../assets/diagrams/be-qna-database-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 학생_수강 테이블 (정규화 전)
 학생ID | 학생명 | 학과코드 | 학과명   | 과목코드 | 과목명
@@ -853,6 +864,7 @@ SELECT * FROM a RIGHT JOIN b ON a.id = b.id;
 1001   | 김철수 | CS       | 컴퓨터공학 | C002   | 알고리즘
 1002   | 이영희 | EE       | 전자공학   | E001   | 회로이론
 ```
+-->
 
 ### 삽입 이상 (Insertion Anomaly)
 

@@ -646,11 +646,17 @@ console.log(y);  // ReferenceError: y is not defined
 
 ### 호이스팅과 TDZ
 
+<!-- diagram:fe-qna-javascript-11 -->
+![호이스팅과 TDZ](../../assets/diagrams/fe-qna-javascript-11.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 var 선언 ─── 선언 + 초기화(undefined) 동시 진행
 let 선언 ─── 선언만 진행 → TDZ 구간 → 초기화(변수 선언문 도달 시)
 const 선언 ── 선언만 진행 → TDZ 구간 → 초기화 + 할당(변수 선언문 도달 시 동시 진행)
 ```
+-->
 
 ```js
 console.log(a);  // undefined (var는 선언과 동시에 초기화)
@@ -1159,6 +1165,11 @@ div.addEventListener('click', (e) => {
 
 ### 타임라인 비교
 
+<!-- diagram:fe-qna-javascript-12 -->
+![타임라인 비교](../../assets/diagrams/fe-qna-javascript-12.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 이벤트 발생: ●●●●●●───────●●●●●●
 
@@ -1168,6 +1179,7 @@ div.addEventListener('click', (e) => {
 스로틀:     ○────○────○──○────○────○
              (일정 간격으로 실행)
 ```
+-->
 
 ### 디바운스 구현
 

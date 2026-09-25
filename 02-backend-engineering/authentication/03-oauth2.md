@@ -66,6 +66,8 @@ Client는 사전에 Authorization Server에 **등록**돼 있어야 합니다. �
 <!-- diagram:auth-oauth2-code-grant -->
 ![Authorization Code Grant](../../assets/diagrams/auth-oauth2-code-grant.svg)
 
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
   사용자(브라우저)   Client(우리 서버)   Authorization Server    Resource Server
  (1) │ "구글로 로그인" ►│                       │                       │
@@ -83,6 +85,7 @@ Client는 사전에 Authorization Server에 **등록**돼 있어야 합니다. �
      │                ├─────────────────────────────────────────────►│
  (9) │◄ 로그인 완료    │◄─────────────────────────────────────────────┤
 ```
+-->
 
 (1)~(5)는 브라우저를 거치고 **(6)(7)은 서버 대 서버 통신**(Back-channel)입니다. 이 구분이 핵심입니다.
 
@@ -182,6 +185,11 @@ ROPC(Password Grant)는 **OAuth가 없애려던 문제 그 자체**입니다. �
 
 Public Client는 secret이 없으니 코드를 토큰으로 바꿀 때 "내가 진짜 그 앱이다"를 증명할 수단이 없습니다. 공격자가 리다이렉트 과정에서 코드를 가로채면 그대로 토큰을 받아갑니다. 특히 모바일에서는 커스텀 URL 스킴(`myapp://callback`)을 **악성 앱이 똑같이 등록**해 코드를 가로챌 수 있습니다. 해결 아이디어는 이렇습니다. secret을 미리 심어둘 수 없다면 **요청할 때마다 그 자리에서 만들면 됩니다.**
 
+<!-- diagram:be-oauth2-7 -->
+![5. PKCE — Public Client의 구멍 메우기](../../assets/diagrams/be-oauth2-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
  [1] 인가 요청 전   code_verifier  = 랜덤 문자열 (앱 메모리에만 보관)
                    code_challenge = BASE64URL(SHA256(code_verifier))
@@ -192,6 +200,7 @@ Public Client는 secret이 없으니 코드를 토큰으로 바꿀 때 "내가 �
 
  공격자가 [3]의 code를 훔쳐도 [1]의 verifier를 모르고, challenge는 해시라 역산이 불가능하다.
 ```
+-->
 
 `code_verifier`는 43~128자의 랜덤 문자열이고, `code_challenge`는 그 SHA-256 해시를 Base64URL로 인코딩한 값입니다. RFC 7636 문서의 예제로 직접 확인할 수 있습니다.
 

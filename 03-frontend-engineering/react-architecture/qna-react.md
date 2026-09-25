@@ -740,11 +740,17 @@ Facebook은 MVC의 양방향 데이터 흐름에서 발생하는 복잡성을 �
 
 ### FLUX 데이터 흐름
 
+<!-- diagram:fe-qna-react-6 -->
+![FLUX 데이터 흐름](../../assets/diagrams/fe-qna-react-6.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Action → Dispatcher → Store → View
                                ↓ (사용자 인터랙션)
                             Action (다시 시작)
 ```
+-->
 
 ### MVC vs FLUX 비교
 
@@ -775,9 +781,15 @@ Redux는 **단일 스토어, 읽기 전용 상태, 순수 함수 reducer**의 3�
 
 ### Redux 데이터 흐름
 
+<!-- diagram:fe-qna-react-7 -->
+![Redux 데이터 흐름](../../assets/diagrams/fe-qna-react-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 View → dispatch(Action) → Reducer(순수함수) → Store → View 업데이트
 ```
+-->
 
 ### 3대 원칙
 

@@ -90,11 +90,17 @@ AOP(Aspect-Oriented Programming, 관점 지향 프로그래밍)는 횡단 관심
 
 ### Weaving 시점 세 가지
 
+<!-- diagram:be-aop-proxy-5 -->
+![Weaving 시점 세 가지](../../assets/diagrams/be-aop-proxy-5.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 컴파일 타임 위빙   .java ──[AspectJ 컴파일러]──> .class (부가 기능이 이미 박힌 바이트코드)
 클래스 로드 위빙   .class ──[JVM 로드 시 에이전트가 변조]──> 메모리상의 클래스
 런타임 위빙        원본 Bean ──[Spring이 프록시 객체로 감쌈]──> 컨테이너에 프록시 등록   ← Spring AOP
 ```
+-->
 
 Spring AOP가 런타임 위빙을 택한 이유는 **별도 컴파일러나 JVM 에이전트 없이 순수 자바만으로 동작**하기 때문입니다. 대신 프록시를 거치는 호출에만 부가 기능이 걸린다는 제약이 붙습니다. 이 제약 때문에 이 문서 후반의 함정 대부분이 생깁니다.
 

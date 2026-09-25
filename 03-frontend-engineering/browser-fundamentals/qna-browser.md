@@ -32,16 +32,28 @@
 ### 상세 과정
 
 **1단계: DNS 조회**
+<!-- diagram:fe-qna-browser-7 -->
+![상세 과정](../../assets/diagrams/fe-qna-browser-7.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 브라우저 캐시 → OS 캐시 → 라우터 → ISP DNS → Root DNS
 ```
+-->
 
 **2단계: TCP 연결 (3-way handshake)**
+<!-- diagram:fe-qna-browser-8 -->
+![상세 과정](../../assets/diagrams/fe-qna-browser-8.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
 ```
 Client → SYN → Server
 Client ← SYN+ACK ← Server
 Client → ACK → Server
 ```
+-->
 
 **3단계: HTTPS의 경우 TLS 핸드셰이크 추가**
 
@@ -73,7 +85,15 @@ CSS 파싱 → CSSOM
 
 ### 꼬리 질문 대비
 - "DNS 캐싱은 어디서 일어나나요?"
+<!-- diagram:fe-qna-browser-9 -->
+![꼬리 질문 대비](../../assets/diagrams/fe-qna-browser-9.svg)
+
+<!-- 위 그림이 대체한 원본 ASCII.
+     내용을 고칠 때는 그림도 함께 갱신할 것.
+```
   → 브라우저 → OS → 라우터 → ISP 순서로 캐시 확인
+```
+-->
 - "HTTP/2와 HTTP/1.1의 차이는?"
   → 멀티플렉싱, 헤더 압축, 서버 푸시
 
