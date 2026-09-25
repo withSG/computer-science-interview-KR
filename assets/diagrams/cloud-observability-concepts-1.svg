@@ -1,61 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실제 장애에서 셋이 이어지는 방식</title>
-  <desc id="d">Metrics에서 시작해 Traces를 거쳐 Logs로 원인을 narrowing down하는 장애 조치 흐름도</desc>
+  <title id="t">장애 추적: 메트릭에서 로그까지</title>
+  <desc id="d">주문 API 5xx 알림(Metrics)에서 시작해 트레이스 조회로 느린 구간을, trace_id로 뽑은 로그로 커넥션 풀 고갈이라는 원인을 찾아가는 네 단계 흐름입니다.</desc>
   <rect width="880" height="610" fill="#ffffff"/>
-
   <defs>
-    <!-- 화살표 마커 (잉크색) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <!-- 화살표 마커 (빨강색) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 1단계: [알림] (Metrics) -->
-  <g>
-    <!-- 박스: 중심 (440, 50), 너비 440, 높이 50 -->
-    <rect x="220" y="25" width="440" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="440" y="54" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[알림]  주문 API 5xx 비율 0.2% → 4.1% (Metrics)</text>
-  </g>
+  <!-- ① 알림 (Metrics) -->
+  <path d="M32,24 H192 V96 H32 A8,8 0 0 1 24,88 V32 A8,8 0 0 1 32,24 Z" fill="#dbeafe"/>
+  <rect x="24" y="24" width="832" height="72" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="192" y1="24" x2="192" y2="96" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="44" y="54" font-size="17" font-weight="bold" fill="#1e3a8a">① 알림</text>
+  <text x="44" y="80" font-size="15" fill="#1d4ed8">Metrics · 무엇이</text>
+  <text x="216" y="67" font-size="19" font-weight="bold" fill="#111827">주문 API 5xx 비율  0.2% → <tspan fill="#b91c1c">4.1%</tspan></text>
 
-  <!-- 화살표 1 및 설명 -->
-  <path d="M440,75 L440,165" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="270" y="108" width="340" height="24" fill="#ffffff"/>
-  <text x="440" y="124" font-size="12" fill="#52606d" text-anchor="middle">"무엇이" 잘못됐는지는 알았다. 그런데 어디서?</text>
+  <!-- 1 → 2 -->
+  <line x1="108" y1="102" x2="108" y2="149" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="216" y="132" font-size="16" fill="#374151">“무엇이” 잘못됐는지는 알았다. 그런데 어디서?</text>
 
-  <!-- 2단계: [트레이스 조회] (Traces) -->
-  <g>
-    <!-- 박스: 중심 (440, 190), 너비 440, 높이 50 -->
-    <rect x="220" y="165" width="440" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="440" y="194" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[트레이스 조회]  status=500 인 trace 만 필터</text>
-  </g>
+  <!-- ② 트레이스 조회 (Traces) -->
+  <path d="M32,156 H192 V228 H32 A8,8 0 0 1 24,220 V164 A8,8 0 0 1 32,156 Z" fill="#d1fae5"/>
+  <rect x="24" y="156" width="832" height="72" rx="8" fill="none" stroke="#047857" stroke-width="1.5"/>
+  <line x1="192" y1="156" x2="192" y2="228" stroke="#047857" stroke-width="1.5"/>
+  <text x="44" y="186" font-size="17" font-weight="bold" fill="#064e3b">② 트레이스 조회</text>
+  <text x="44" y="212" font-size="15" fill="#047857">Traces · 어디서</text>
+  <text x="216" y="199" font-size="19" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">status=500</tspan> 인 trace 만 필터</text>
 
-  <!-- 화살표 2 및 설명 -->
-  <path d="M440,215 L440,325" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="200" y="248" width="480" height="44" fill="#ffffff"/>
-  <text x="440" y="264" font-size="12" fill="#52606d" text-anchor="middle">order-service → payment-service 구간에서만 3초 넘게 소진</text>
-  <text x="440" y="284" font-size="12" fill="#52606d" text-anchor="middle">나머지 구간은 평소와 동일</text>
+  <!-- 2 → 3 -->
+  <line x1="108" y1="234" x2="108" y2="309" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="216" y="264" font-size="16" fill="#374151">order-service → payment-service 구간에서만 <tspan font-weight="bold" fill="#b91c1c">3초 넘게 소진</tspan></text>
+  <text x="216" y="292" font-size="16" fill="#374151">나머지 구간은 평소와 동일</text>
 
-  <!-- 3단계: [로그 조회] (Logs) -->
-  <g>
-    <!-- 박스: 중심 (440, 350), 너비 480, 높이 50 -->
-    <rect x="200" y="325" width="480" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="440" y="354" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[로그 조회]  trace_id 로 payment-service 로그만 추출</text>
-  </g>
+  <!-- ③ 로그 조회 (Logs) -->
+  <path d="M32,316 H192 V388 H32 A8,8 0 0 1 24,380 V324 A8,8 0 0 1 32,316 Z" fill="#fef3c7"/>
+  <rect x="24" y="316" width="832" height="72" rx="8" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="192" y1="316" x2="192" y2="388" stroke="#b45309" stroke-width="1.5"/>
+  <text x="44" y="346" font-size="17" font-weight="bold" fill="#78350f">③ 로그 조회</text>
+  <text x="44" y="372" font-size="15" fill="#92400e">Logs · 왜</text>
+  <text x="216" y="359" font-size="19" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">trace_id</tspan> 로 payment-service 로그만 추출</text>
 
-  <!-- 화살표 3 및 설명 -->
-  <path d="M440,375 L440,485" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="190" y="408" width="500" height="44" fill="#ffffff"/>
-  <text x="440" y="424" font-size="11.5" fill="#52606d" text-anchor="middle">"HikariPool-1 - Connection is not available,</text>
-  <text x="440" y="444" font-size="11.5" fill="#52606d" text-anchor="middle">request timed out after 3000ms"</text>
+  <!-- 3 → 4 : 로그 한 줄 -->
+  <line x1="108" y1="394" x2="108" y2="493" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="216" y="404" width="456" height="80" rx="4" fill="#f3f4f6" stroke="#6b7280" stroke-width="1"/>
+  <text x="234" y="437" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"HikariPool-1 - Connection is not available,</text>
+  <text x="234" y="463" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"> request timed out after 3000ms"</text>
 
-  <!-- 4단계: [원인] (Root Cause) -->
-  <g>
-    <!-- 박스: 중심 (440, 515), 너비 620, 높이 50 -->
-    <rect x="130" y="490" width="620" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="440" y="519" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">[원인]  결제 트랜잭션 안에서 외부 PG 호출 → 커넥션 점유 시간 증가 → 풀 고갈</text>
-  </g>
+  <!-- ④ 원인 -->
+  <path d="M32,500 H192 V584 H32 A8,8 0 0 1 24,576 V508 A8,8 0 0 1 32,500 Z" fill="#fee2e2"/>
+  <rect x="24" y="500" width="832" height="84" rx="8" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <line x1="192" y1="500" x2="192" y2="584" stroke="#b91c1c" stroke-width="2"/>
+  <text x="44" y="548" font-size="17" font-weight="bold" fill="#7f1d1d">④ 원인</text>
+
+  <rect x="212" y="520" width="282" height="44" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="353" y="548" font-size="16" fill="#111827" text-anchor="middle">결제 트랜잭션 안에서 외부 PG 호출</text>
+  <line x1="498" y1="542" x2="524" y2="542" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="530" y="520" width="190" height="44" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="625" y="548" font-size="16" fill="#111827" text-anchor="middle">커넥션 점유 시간 증가</text>
+  <line x1="724" y1="542" x2="750" y2="542" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="756" y="520" width="84" height="44" rx="6" fill="#b91c1c"/>
+  <text x="798" y="548" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">풀 고갈</text>
 </svg>

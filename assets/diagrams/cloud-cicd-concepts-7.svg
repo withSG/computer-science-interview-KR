@@ -1,73 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">장애 시나리오 — main 빌드가 깨졌다</title>
-  <desc id="d">main 빌드 실패 장애 시나리오의 증상, 진단, 원인, 대응 과정을 정리한 구조도</desc>
-  
-  <!-- 배경 -->
-  <rect width="880" height="770" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 650" width="880" height="650" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">main 빌드 장애 대응</title>
+  <desc id="d">main 빌드가 깨진 장애를 증상, 진단, 원인, 대응 순서로 정리한다. 마지막으로 성공한 커밋을 찾아 다음 커밋과 대조하고 로컬에서 재현하며, 원인은 대개 셋 중 하나이고, 즉시 revert가 원칙이다.</desc>
+  <defs>
+    <marker id="dn" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect width="880" height="650" fill="#ffffff"/>
 
-  <!-- 제목 -->
-  <text x="30" y="45" font-size="16" font-weight="bold" fill="#1f2933">장애 시나리오 — main 빌드가 깨졌다</text>
+  <!-- 단계 사이 화살표 -->
+  <line x1="84" y1="108" x2="84" y2="130" stroke="#4b5563" stroke-width="2" marker-end="url(#dn)"/>
+  <line x1="84" y1="268" x2="84" y2="290" stroke="#4b5563" stroke-width="2" marker-end="url(#dn)"/>
+  <line x1="84" y1="452" x2="84" y2="474" stroke="#4b5563" stroke-width="2" marker-end="url(#dn)"/>
 
-  <!-- Section 1: 증상 -->
-  <g id="section-symptom">
-    <!-- 구역 헤더 -->
-    <rect x="30" y="70" width="820" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="45" y="92" font-size="14" font-weight="bold" fill="#dc2626">증상</text>
-    <text x="100" y="92" font-size="13" font-weight="bold" fill="#1f2933">:</text>
-    
-    <!-- 내용 박스 -->
-    <rect x="30" y="115" width="820" height="45" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="45" y="142" font-size="13" fill="#1f2933">main 브랜치 CI가 빨간불. 뒤이어 머지한 사람들의 PR도 전부 실패.</text>
-  </g>
+  <!-- 1. 증상 -->
+  <rect x="24" y="24" width="120" height="80" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="84" y="71" font-size="18" font-weight="bold" fill="#991b1b" text-anchor="middle">증상</text>
+  <rect x="160" y="24" width="696" height="80" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="180" y="56" font-size="16" font-weight="bold" fill="#111827">main 브랜치 CI가 빨간불.</text>
+  <text x="180" y="84" font-size="15" fill="#374151">뒤이어 머지한 사람들의 PR도 전부 실패.</text>
 
-  <!-- Section 2: 진단 -->
-  <g id="section-diagnosis">
-    <!-- 구역 헤더 -->
-    <rect x="30" y="180" width="820" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="45" y="202" font-size="14" font-weight="bold" fill="#2563eb">진단</text>
-    <text x="100" y="202" font-size="13" font-weight="bold" fill="#1f2933">:</text>
+  <!-- 2. 진단 -->
+  <rect x="24" y="136" width="120" height="128" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="84" y="206" font-size="18" font-weight="bold" fill="#1e40af" text-anchor="middle">진단</text>
+  <rect x="160" y="136" width="696" height="128" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="180" y="168" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#1d4ed8">1)</tspan> CI 실행 목록에서 "마지막으로 성공한 커밋"을 찾는다</text>
+  <text x="180" y="200" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#1d4ed8">2)</tspan> 그 다음 커밋의 변경 파일과 실패 로그를 대조한다</text>
+  <text x="180" y="239" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#1d4ed8">3)</tspan> 로컬에서 재현:</text>
+  <rect x="306" y="218" width="376" height="30" rx="5" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="318" y="238" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">git checkout &lt;실패 커밋&gt; &amp;&amp; &lt;빌드 명령&gt;</text>
 
-    <!-- 단계별 항목 -->
-    <rect x="30" y="225" width="820" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="45" y="250" font-size="13" fill="#1f2933">1) CI 실행 목록에서 "마지막으로 성공한 커밋"을 찾는다</text>
+  <!-- 3. 원인 -->
+  <rect x="24" y="296" width="120" height="152" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="84" y="378" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">원인</text>
+  <rect x="160" y="296" width="696" height="152" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="180" y="328" font-size="16" font-weight="bold" fill="#b45309">대개 셋 중 하나</text>
+  <text x="180" y="360" font-size="15" fill="#111827">• PR 브랜치가 최신 main 위에서 검증되지 않았다 (stale branch)</text>
+  <text x="180" y="390" font-size="15" fill="#111827">• 테스트가 실행 순서에 의존한다 (병렬화하니 깨짐)</text>
+  <text x="180" y="420" font-size="15" fill="#111827">• 잠금 파일 없이 의존성 범위 지정 → 새 마이너 버전이 들어옴</text>
 
-    <rect x="30" y="273" width="820" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="45" y="298" font-size="13" fill="#1f2933">2) 그 다음 커밋의 변경 파일과 실패 로그를 대조한다</text>
-
-    <rect x="30" y="321" width="820" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="45" y="346" font-size="13" fill="#1f2933">3) 로컬에서 재현: git checkout &lt;실패 커밋&gt; &amp;&amp; &lt;빌드 명령&gt;</text>
-  </g>
-
-  <!-- Section 3: 원인 -->
-  <g id="section-cause">
-    <!-- 구역 헤더 -->
-    <rect x="30" y="380" width="820" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="45" y="402" font-size="14" font-weight="bold" fill="#d97706">원인</text>
-    <text x="100" y="402" font-size="13" font-weight="bold" fill="#1f2933">: 대개 셋 중 하나</text>
-
-    <!-- 원인 항목들 -->
-    <rect x="30" y="425" width="820" height="110" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="45" y="452" font-size="13" fill="#1f2933">- PR 브랜치가 최신 main 위에서 검증되지 않았다 (stale branch)</text>
-    <text x="45" y="482" font-size="13" fill="#1f2933">- 테스트가 실행 순서에 의존한다 (병렬화하니 깨짐)</text>
-    <text x="45" y="512" font-size="13" fill="#1f2933">- 잠금 파일 없이 의존성 범위 지정 → 새 마이너 버전이 들어옴</text>
-  </g>
-
-  <!-- Section 4: 대응 -->
-  <g id="section-action">
-    <!-- 구역 헤더 -->
-    <rect x="30" y="555" width="820" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="45" y="577" font-size="14" font-weight="bold" fill="#059669">대응</text>
-    <text x="100" y="577" font-size="13" font-weight="bold" fill="#1f2933">:</text>
-
-    <!-- 대응 내용 -->
-    <rect x="30" y="600" width="820" height="130" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    
-    <!-- 원칙 및 경고 -->
-    <rect x="45" y="615" width="790" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="55" y="640" font-size="13" font-weight="bold" fill="#dc2626">즉시 revert가 원칙이다. "5분이면 고친다"는 말은 대개 30분이 된다.</text>
-
-    <!-- 재발 방지 -->
-    <rect x="45" y="668" width="790" height="48" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="55" y="697" font-size="13" fill="#1f2933">재발 방지 - PR 머지 전 최신 main과의 병합 결과로 검증하도록 설정한다.</text>
-  </g>
+  <!-- 4. 대응 -->
+  <rect x="24" y="480" width="120" height="146" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="84" y="559" font-size="18" font-weight="bold" fill="#065f46" text-anchor="middle">대응</text>
+  <rect x="160" y="480" width="696" height="146" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="176" y="494" width="664" height="66" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="194" y="522" font-size="18" font-weight="bold" fill="#b91c1c">즉시 revert가 원칙이다.</text>
+  <text x="194" y="548" font-size="15" fill="#374151">"5분이면 고친다"는 말은 대개 30분이 된다.</text>
+  <text x="180" y="600" font-size="15" fill="#111827"><tspan font-weight="bold" fill="#047857">재발 방지</tspan> - PR 머지 전 최신 main과의 병합 결과로 검증하도록 설정한다.</text>
 </svg>

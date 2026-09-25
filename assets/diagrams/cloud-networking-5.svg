@@ -1,53 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Stateless가 실제로 어떤 사고를 만드는가</title>
-  <desc id="d">Stateless NACL에서 응답 트래픽이 임시 포트 미허용으로 인해 차단되는 과정을 나타낸 시퀀스 다이어그램</desc>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">NACL 아웃바운드에서 막힌 응답</title>
+  <desc id="d">클라이언트(임시 포트 51234)가 서버의 443 포트로 SYN을 보내고, 서버의 SYN/ACK 응답(src:443, dst:51234)은 80·443만 허용한 NACL 아웃바운드 규칙 평가에서 목적지 포트 51234를 허용하는 규칙이 없어 DROP된다.</desc>
+  <rect width="880" height="400" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 머리: 클라이언트 / NACL / 서버 -->
+  <rect x="40" y="24" width="180" height="72" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="130" y="54" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">클라이언트</text>
+  <text x="130" y="80" font-size="15" fill="#1f2937" text-anchor="middle">임시 포트 51234</text>
 
-  <!-- 제목 헤딩 -->
-  <text x="24" y="37" font-size="16" font-weight="bold" fill="#1f2933">Stateless가 실제로 어떤 사고를 만드는가</text>
+  <rect x="290" y="24" width="220" height="72" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="400" y="54" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">NACL</text>
+  <text x="400" y="80" font-size="15" fill="#1f2937" text-anchor="middle">아웃바운드: 80, 443만 허용</text>
 
-  <!-- 수직 라이프라인 (점선) -->
-  <path d="M210,110 L210,290" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <path d="M670,110 L670,290" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <rect x="690" y="24" width="160" height="72" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="770" y="66" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">서버</text>
 
-  <!-- 노드: 클라이언트 -->
-  <rect x="50" y="60" width="320" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="210" y="90" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">클라이언트 (임시 포트 51234)</text>
+  <!-- 생명선과 NACL 벽 -->
+  <line x1="130" y1="96" x2="130" y2="264" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="770" y1="96" x2="770" y2="264" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="392" y="96" width="16" height="168" fill="#fde68a" stroke="#d97706" stroke-width="1.2"/>
 
-  <!-- 노드: 서버 -->
-  <rect x="610" y="60" width="120" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="670" y="90" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">서버</text>
+  <!-- 1. 요청 -->
+  <line x1="130" y1="146" x2="766" y2="146" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="261" y="134" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">① SYN, dst:443</text>
 
-  <!-- 요청 화살표 (상단) -->
-  <path d="M210,140 L661,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="360" y="128" width="160" height="24" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="440" y="144" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">SYN, dst:443</text>
+  <!-- 2. 응답: NACL에서 DROP -->
+  <line x1="770" y1="226" x2="420" y2="226" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="590" y="212" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">② SYN/ACK, src:443 → dst:51234</text>
+  <circle cx="400" cy="226" r="15" fill="#ffffff" stroke="#b91c1c" stroke-width="2.5"/>
+  <path d="M392,218 L408,234 M408,218 L392,234" stroke="#b91c1c" stroke-width="2.5" fill="none"/>
+  <text x="374" y="232" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="end">DROP</text>
 
-  <!-- 클라이언트 (dst 51234) 노드 (하단) -->
-  <rect x="50" y="180" width="320" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="210" y="210" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">클라이언트 (dst 51234)</text>
-
-  <!-- 응답 화살표 (하단, 차단됨) -->
-  <path d="M670,205 L219,205" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="345" y="193" width="190" height="24" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
-  <text x="440" y="209" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">SYN/ACK, src:443</text>
-
-  <!-- 차단 원인 지적 화살표 -->
-  <path d="M440,260 L440,222" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- 차단 설명 박스 -->
-  <rect x="180" y="260" width="520" height="54" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="282" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">NACL 아웃바운드 규칙 평가:</text>
-  <text x="440" y="302" font-size="12" fill="#1f2933" text-anchor="middle">"목적지 포트 51234로 나가는 트래픽" — 허용 규칙 없음 → DROP</text>
+  <!-- 설명 -->
+  <line x1="400" y1="290" x2="400" y2="246" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="150" y="290" width="580" height="84" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="320" font-size="17" font-weight="bold" fill="#991b1b" text-anchor="middle">NACL 아웃바운드 규칙 평가</text>
+  <text x="440" y="352" font-size="16" fill="#1f2937" text-anchor="middle">“목적지 포트 51234로 나가는 트래픽” — 허용 규칙 없음 → <tspan font-weight="bold" fill="#b91c1c">DROP</tspan></text>
 </svg>

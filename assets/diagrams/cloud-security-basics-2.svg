@@ -1,89 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">SSH 키 인증 동작 방식</title>
-  <desc id="d">클라이언트와 서버 간의 SSH 공개키/개인키 기반 챌린지 응답 인증 흐름을 나타낸 시퀀스 다이어그램</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 650" width="880" height="650" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">SSH 키 인증 흐름</title>
+  <desc id="d">클라이언트가 공개키로 인증을 요청하면 서버가 authorized_keys에서 공개키를 확인해 챌린지를 보내고, 클라이언트는 개인키로 서명만 만들어 보내며, 서버가 공개키로 서명을 검증해 세션을 시작하는 7단계 흐름. 개인키는 네트워크로 나가지 않는다.</desc>
+  <rect width="880" height="650" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Lifelines -->
-  <line x1="220" y1="120" x2="220" y2="670" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
-  <line x1="660" y1="120" x2="660" y2="670" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- 참여자 -->
+  <rect x="60" y="24" width="260" height="88" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="190" y="53" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">클라이언트</text>
+  <text x="190" y="77" font-size="16" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">~/.ssh/id_ed25519</text>
+  <text x="190" y="100" font-size="15" fill="#4b5563" text-anchor="middle">개인키 보관</text>
 
-  <!-- Client Header Box -->
-  <g>
-    <rect x="100" y="30" width="240" height="70" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="220" y="60.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">클라이언트</text>
-    <text x="220" y="81.0" font-size="13" fill="#52606d" text-anchor="middle">(~/.ssh/id_ed25519)</text>
-  </g>
+  <rect x="480" y="24" width="260" height="88" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="610" y="53" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">서버</text>
+  <text x="610" y="77" font-size="16" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">~/.ssh/authorized_keys</text>
+  <text x="610" y="100" font-size="15" fill="#4b5563" text-anchor="middle">공개키 등록</text>
 
-  <!-- Server Header Box -->
-  <g>
-    <rect x="540" y="30" width="240" height="70" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="660" y="60.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">서버</text>
-    <text x="660" y="81.0" font-size="13" fill="#52606d" text-anchor="middle">(~/.ssh/authorized_keys)</text>
-  </g>
+  <!-- 생명선 -->
+  <line x1="190" y1="112" x2="190" y2="560" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="610" y1="112" x2="610" y2="560" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
 
-  <!-- Step 1: Request -->
-  <g>
-    <rect x="250" y="145" width="300" height="26" rx="4" ry="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
-    <text x="400" y="162.6" font-size="13" fill="#1f2933" text-anchor="middle">1. 접속 요청 + "이 공개키로 인증할게요"</text>
-    <path d="M220,175 L660,175" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  </g>
+  <!-- 1 -->
+  <text x="400" y="148" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">1.</tspan> 접속 요청 + "이 공개키로 인증할게요"</text>
+  <line x1="190" y1="162" x2="610" y2="162" stroke="#1f2937" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 2: Key Verification (Server Internal) -->
-  <g>
-    <rect x="675" y="195" width="180" height="50" rx="4" ry="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="685" y="217.6" font-size="13" fill="#1f2933">2. authorized_keys에</text>
-    <text x="701" y="233.6" font-size="13" fill="#1f2933">그 공개키가 있는지 확인</text>
-  </g>
+  <!-- 2 -->
+  <rect x="626" y="178" width="230" height="60" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="640" y="202" font-size="15" fill="#111827"><tspan font-weight="bold">2.</tspan> authorized_keys에</text>
+  <text x="640" y="226" font-size="15" fill="#111827">그 공개키가 있는지 확인</text>
 
-  <!-- Step 3: Challenge -->
-  <g>
-    <rect x="310" y="260" width="260" height="26" rx="4" ry="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="440" y="277.6" font-size="13" fill="#1f2933" text-anchor="middle">3. 세션에 묶인 데이터(챌린지)</text>
-    <path d="M660,290 L220,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  </g>
+  <!-- 3 -->
+  <text x="400" y="272" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">3.</tspan> 세션에 묶인 데이터(챌린지)</text>
+  <line x1="610" y1="286" x2="190" y2="286" stroke="#1f2937" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 4: Local Signing & Note (Client Internal) -->
-  <g>
-    <rect x="25" y="320" width="180" height="66" rx="4" ry="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="35" y="340.6" font-size="13" font-weight="bold" fill="#1f2933">4. 개인키로 서명 생성</text>
-    <text x="35" y="358.0" font-size="11.5" fill="#d97706">(개인키는 절대 네트워크로</text>
-    <text x="35" y="373.0" font-size="11.5" fill="#d97706">나가지 않는다)</text>
-  </g>
+  <!-- 4 -->
+  <rect x="206" y="304" width="330" height="64" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="220" y="329" font-size="16" font-weight="bold" fill="#111827">4. 개인키로 서명 생성</text>
+  <text x="220" y="354" font-size="15" font-weight="bold" fill="#b91c1c">(개인키는 절대 네트워크로 나가지 않는다)</text>
 
-  <!-- Step 5: Send Signature -->
-  <g>
-    <rect x="380" y="410" width="120" height="26" rx="4" ry="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
-    <text x="440" y="427.6" font-size="13" fill="#1f2933" text-anchor="middle">5. 서명 전송</text>
-    <path d="M220,440 L660,440" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  </g>
+  <!-- 5 -->
+  <text x="400" y="402" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">5.</tspan> 서명 전송</text>
+  <line x1="190" y1="416" x2="610" y2="416" stroke="#1f2937" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 6: Verify Signature (Server Internal) -->
-  <g>
-    <rect x="675" y="460" width="180" height="50" rx="4" ry="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="685" y="482.6" font-size="13" fill="#1f2933">6. 공개키로 서명 검증</text>
-    <text x="701" y="498.6" font-size="13" fill="#059669" font-weight="bold">성공 → 세션 시작</text>
-  </g>
+  <!-- 6 -->
+  <rect x="626" y="432" width="230" height="60" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="640" y="456" font-size="15" fill="#111827"><tspan font-weight="bold">6.</tspan> 공개키로 서명 검증</text>
+  <text x="640" y="480" font-size="15" font-weight="bold" fill="#047857">성공 → 세션 시작</text>
 
-  <!-- Step 7: Auth Success -->
-  <g>
-    <rect x="380" y="525" width="120" height="26" rx="4" ry="4" fill="#ffffff" stroke="#059669" stroke-width="1"/>
-    <text x="440" y="542.6" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">7. 인증 성공</text>
-    <path d="M660,555 L220,555" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  </g>
+  <!-- 7 -->
+  <text x="400" y="526" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">7. 인증 성공</text>
+  <line x1="610" y1="540" x2="190" y2="540" stroke="#047857" stroke-width="2" marker-end="url(#ah-ok)"/>
 
-  <!-- Connection Established Indicator Box -->
-  <rect x="200" y="590" width="480" height="50" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="440" y="620.0" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">세션 시작 (인증 완료)</text>
+  <!-- 요점 -->
+  <rect x="140" y="582" width="600" height="44" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.2"/>
+  <text x="440" y="610" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#b91c1c">핵심:</tspan> 개인키는 한 번도 전송되지 않는다. 서버에 남는 것은 공개키뿐</text>
 </svg>

@@ -1,62 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">대략적 설계</title>
-  <desc id="d">Client, Load Balancer, API Server 2개, Cache, Database 간의 데이터 흐름을 나타낸 대략적 설계 다이어그램</desc>
-  <rect width="880" height="730" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 584" width="880" height="584" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">URL 단축 서비스 대략적 설계</title>
+  <desc id="d">Client 요청이 Load Balancer를 거쳐 URL 생성용 API Server와 리다이렉트용 API Server로 나뉘고, 두 서버 모두 Cache (Redis)를 거쳐 short_url → long_url 매핑을 담은 Database로 이어집니다.</desc>
+  <rect width="880" height="584" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
   <!-- Client -->
-  <rect x="140" y="40" width="600" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="70.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Client</text>
+  <rect x="110" y="24" width="660" height="52" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="440" y="56" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">Client</text>
+  <line x1="440" y1="76" x2="440" y2="114" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
   <!-- Load Balancer -->
-  <rect x="140" y="140" width="600" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="170.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Load Balancer</text>
+  <rect x="110" y="116" width="660" height="52" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="440" y="148" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">Load Balancer</text>
+
+  <!-- 분기 -->
+  <path d="M440,168 V196 H250 V222" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <path d="M440,196 H630 V222" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
   <!-- API Server (URL 생성) -->
-  <rect x="140" y="250" width="260" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="270" y="280.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">API Server</text>
-  <text x="270" y="304.03" text-anchor="middle" font-size="13" fill="#2563eb">(URL 생성)</text>
+  <rect x="110" y="224" width="280" height="80" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="250" y="257" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">API Server</text>
+  <text x="250" y="285" text-anchor="middle" font-size="16" font-weight="bold" fill="#1d4ed8">(URL 생성)</text>
 
   <!-- API Server (리다이렉트) -->
-  <rect x="480" y="250" width="260" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="610" y="280.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">API Server</text>
-  <text x="610" y="304.03" text-anchor="middle" font-size="13" fill="#059669">(리다이렉트)</text>
+  <rect x="490" y="224" width="280" height="80" rx="8" fill="#ecfdf5" stroke="#34d399" stroke-width="1.5"/>
+  <text x="630" y="257" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">API Server</text>
+  <text x="630" y="285" text-anchor="middle" font-size="16" font-weight="bold" fill="#047857">(리다이렉트)</text>
 
-  <!-- Cache (Redis) -->
-  <rect x="140" y="420" width="600" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="452.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Cache (Redis)</text>
-  <text x="440" y="478.03" text-anchor="middle" font-size="13" fill="#52606d">(핫 데이터 캐싱)</text>
+  <line x1="250" y1="304" x2="250" y2="362" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-b)"/>
+  <line x1="630" y1="304" x2="630" y2="362" stroke="#047857" stroke-width="2" marker-end="url(#ah-g)"/>
 
-  <!-- Database (NoSQL/RDB) -->
-  <rect x="140" y="550" width="600" height="80" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="582.55" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Database (NoSQL/RDB)</text>
-  <text x="440" y="608.03" text-anchor="middle" font-size="13" fill="#52606d">short_url → long_url 매핑</text>
+  <!-- Cache -->
+  <rect x="110" y="364" width="660" height="76" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="440" y="396" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">Cache (Redis)</text>
+  <text x="440" y="424" text-anchor="middle" font-size="16" fill="#92400e">(핫 데이터 캐싱)</text>
+  <line x1="440" y1="440" x2="440" y2="482" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Connections -->
-  <!-- Client -> Load Balancer -->
-  <path d="M 440 90 L 440 140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Load Balancer -> API Servers -->
-  <path d="M 440 190 L 440 215 L 270 215 L 270 250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M 440 215 L 610 215 L 610 250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- API Server (URL 생성) -> Cache (Redis) -->
-  <path d="M 270 320 L 270 420" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- API Server (리다이렉트) -> Cache (Redis) -->
-  <path d="M 610 320 L 610 370 L 440 370 L 440 420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- Cache (Redis) -> Database -->
-  <path d="M 440 500 L 440 550" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Database -->
+  <rect x="110" y="484" width="660" height="76" rx="8" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="440" y="516" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">Database (NoSQL/RDB)</text>
+  <text x="440" y="544" text-anchor="middle" font-size="16" fill="#5b21b6"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">short_url → long_url</tspan> 매핑</text>
 </svg>

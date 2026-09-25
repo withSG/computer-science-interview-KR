@@ -1,49 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">다층 방어 Security Model</title>
-  <desc id="d">인터넷에서 시작하여 클라우드 보안 그룹, OS 방화벽, fail2ban, sshd 설정, 사용자/sudo 권한, SELinux/AppArmor로 이어지는 6단계 다층 방어 체계 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">리눅스 서버 다층 방어</title>
+  <desc id="d">인터넷에서 들어오는 접근이 클라우드 보안 그룹, OS 방화벽, fail2ban, sshd 설정, 사용자/sudo 권한, SELinux/AppArmor·파일 권한의 여섯 겹을 바깥에서 안쪽 순으로 만나며, 각 겹이 무엇을 통제하는지 보여 준다.</desc>
+  <rect width="880" height="570" fill="#ffffff"/>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ah-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="540" fill="#ffffff"/>
 
-  <!-- Top Level: 인터넷 -->
-  <rect x="360" y="24" width="160" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="46.2" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">인터넷</text>
+  <!-- 인터넷 -->
+  <rect x="396" y="24" width="160" height="40" rx="20" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="476" y="50" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">인터넷</text>
+  <line x1="476" y1="64" x2="476" y2="92" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Downward Arrow -->
-  <path d="M440,60 L440,89" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#arrow)"/>
+  <!-- 바깥 → 안쪽 축 -->
+  <text x="52" y="116" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">바깥</text>
+  <line x1="52" y1="128" x2="52" y2="468" stroke="#6b7280" stroke-width="2" marker-end="url(#ah-axis)"/>
+  <text x="52" y="492" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">안쪽</text>
 
-  <!-- Layer 1: 클라우드 보안 그룹 / 네트워크 ACL -->
-  <rect x="40" y="90" width="490" height="60" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="56" y="125.55" font-size="13" fill="#1f2933" font-weight="bold">1. 클라우드 보안 그룹 / 네트워크 ACL</text>
-  <text x="560" y="125.55" font-size="13" fill="#52606d">어떤 IP가 어떤 포트에 닿는가</text>
+  <!-- 1 -->
+  <rect x="96" y="96" width="760" height="58" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="126" cy="125" r="15" fill="#1e3a8a"/>
+  <text x="126" y="130" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="156" y="131" font-size="17" fill="#111827"><tspan font-weight="bold">클라우드 보안 그룹 / 네트워크 ACL</tspan></text>
+  <line x1="562" y1="108" x2="562" y2="142" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="582" y="130" font-size="15" fill="#374151">어떤 IP가 어떤 포트에 닿는가</text>
 
-  <!-- Layer 2: OS 방화벽 -->
-  <rect x="40" y="160" width="490" height="60" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="56" y="195.55" font-size="13" fill="#1f2933" font-weight="bold">2. OS 방화벽 (iptables / firewalld / ufw)</text>
-  <text x="560" y="195.55" font-size="13" fill="#52606d">인스턴스 내부의 두 번째 관문</text>
+  <!-- 2 -->
+  <rect x="96" y="164" width="760" height="58" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="126" cy="193" r="15" fill="#1e3a8a"/>
+  <text x="126" y="198" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="156" y="199" font-size="17" fill="#111827"><tspan font-weight="bold">OS 방화벽</tspan><tspan fill="#374151"> (iptables / firewalld / ufw)</tspan></text>
+  <line x1="562" y1="176" x2="562" y2="210" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="582" y="198" font-size="15" fill="#374151">인스턴스 내부의 두 번째 관문</text>
 
-  <!-- Layer 3: fail2ban -->
-  <rect x="40" y="230" width="490" height="60" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="56" y="265.55" font-size="13" fill="#1f2933" font-weight="bold">3. fail2ban</text>
-  <text x="560" y="265.55" font-size="13" fill="#52606d">반복 실패한 IP를 자동 차단</text>
+  <!-- 3 -->
+  <rect x="96" y="232" width="760" height="58" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="126" cy="261" r="15" fill="#1e3a8a"/>
+  <text x="126" y="266" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="156" y="267" font-size="17" font-weight="bold" fill="#111827">fail2ban</text>
+  <line x1="562" y1="244" x2="562" y2="278" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="582" y="266" font-size="15" fill="#374151">반복 실패한 IP를 자동 차단</text>
 
-  <!-- Layer 4: sshd 설정 -->
-  <rect x="40" y="300" width="490" height="60" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="56" y="335.55" font-size="13" fill="#1f2933" font-weight="bold">4. sshd 설정 (키 인증, root 금지, 사용자 제한)</text>
-  <text x="560" y="335.55" font-size="13" fill="#52606d">누가 로그인할 수 있는가</text>
+  <!-- 4 -->
+  <rect x="96" y="300" width="760" height="58" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="126" cy="329" r="15" fill="#1e3a8a"/>
+  <text x="126" y="334" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="156" y="335" font-size="17" fill="#111827"><tspan font-weight="bold">sshd 설정</tspan><tspan fill="#374151"> (키 인증, root 금지, 사용자 제한)</tspan></text>
+  <line x1="562" y1="312" x2="562" y2="346" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="582" y="334" font-size="15" fill="#374151">누가 로그인할 수 있는가</text>
 
-  <!-- Layer 5: 사용자/sudo 권한 -->
-  <rect x="40" y="370" width="490" height="60" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="56" y="405.55" font-size="13" fill="#1f2933" font-weight="bold">5. 사용자/sudo 권한</text>
-  <text x="560" y="405.55" font-size="13" fill="#52606d">들어온 뒤 무엇을 할 수 있는가</text>
+  <!-- 5 -->
+  <rect x="96" y="368" width="760" height="58" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="126" cy="397" r="15" fill="#1e3a8a"/>
+  <text x="126" y="402" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="156" y="403" font-size="17" font-weight="bold" fill="#111827">사용자/sudo 권한</text>
+  <line x1="562" y1="380" x2="562" y2="414" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="582" y="402" font-size="15" fill="#374151">들어온 뒤 무엇을 할 수 있는가</text>
 
-  <!-- Layer 6: SELinux / AppArmor -->
-  <rect x="40" y="440" width="490" height="60" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="56" y="475.55" font-size="13" fill="#1f2933" font-weight="bold">6. SELinux / AppArmor, 파일 권한</text>
-  <text x="560" y="475.55" font-size="13" fill="#52606d">프로세스가 무엇에 접근할 수 있는가</text>
+  <!-- 6 -->
+  <rect x="96" y="436" width="760" height="58" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="126" cy="465" r="15" fill="#1e3a8a"/>
+  <text x="126" y="470" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="156" y="471" font-size="17" fill="#111827"><tspan font-weight="bold">SELinux / AppArmor</tspan><tspan fill="#374151">, 파일 권한</tspan></text>
+  <line x1="562" y1="448" x2="562" y2="482" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="582" y="470" font-size="15" fill="#374151">프로세스가 무엇에 접근할 수 있는가</text>
+
+  <!-- 요점 -->
+  <text x="476" y="534" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">한 겹이 뚫려도 다음 겹이 남아 있게 만든다</text>
 </svg>

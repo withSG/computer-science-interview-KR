@@ -1,92 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Multi-AZ 네트워크 설계</title>
-  <desc id="d">VPC 10.0.0.0/16 내 AZ-a와 AZ-c의 Multi-AZ 네트워크 구조를 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 700" width="880" height="700" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Multi-AZ 네트워크 설계: AZ별 서브넷과 NAT</title>
+  <desc id="d">VPC 10.0.0.0/16 안에 AZ-a와 AZ-c가 같은 구조로 놓인다. 각 AZ에 Public(ALB 노드, NAT GW), Private App(ASG 인스턴스), Private DB(RDS) 서브넷이 있고, 각 AZ의 Private App 라우팅 테이블은 0.0.0.0/0을 같은 AZ의 NAT로 보내며, DB 서브넷에는 기본 경로가 없다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
+  <rect width="880" height="700" fill="#ffffff"/>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="780" fill="#ffffff"/>
+  <!-- VPC -->
+  <rect x="24" y="24" width="832" height="652" rx="10" fill="#f9fafb" stroke="#4b5563" stroke-width="2"/>
+  <text x="44" y="58" font-size="18" font-weight="bold" fill="#1f2937">VPC 10.0.0.0/16</text>
 
-  <!-- Outer VPC Container -->
-  <rect x="30" y="30" width="820" height="720" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-  <text x="440" y="59.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">VPC 10.0.0.0/16</text>
+  <!-- IGW -->
+  <rect x="388" y="40" width="104" height="46" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="69" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">IGW</text>
+  <path d="M440,86 L440,108 M236,108 L644,108 M236,108 L236,168 M644,108 L644,168" stroke="#2563eb" stroke-width="2" fill="none"/>
 
-  <!-- Internet Gateway (IGW) -->
-  <rect x="370" y="80" width="140" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="104.6" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">IGW</text>
+  <!-- ================= AZ-a ================= -->
+  <rect x="44" y="124" width="384" height="532" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="62" y="152" font-size="17" font-weight="bold" fill="#374151">AZ-a</text>
 
-  <!-- Connection Line from IGW to AZ Public Subnets -->
-  <path d="M440,120 L440,140 M230,140 L650,140 M230,140 L230,160 M650,140 L650,160" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <!-- Public -->
+  <rect x="64" y="168" width="344" height="116" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+  <text x="80" y="194" font-size="16" font-weight="bold" fill="#1d4ed8">Public 10.0.0.0/24</text>
+  <rect x="80" y="210" width="140" height="52" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="150" y="242" font-size="16" fill="#1f2937" text-anchor="middle">ALB 노드</text>
+  <rect x="252" y="210" width="140" height="52" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="1.8"/>
+  <text x="322" y="242" font-size="16" font-weight="bold" fill="#9a3412" text-anchor="middle">NAT GW (a)</text>
 
-  <!-- AZ-a Container -->
-  <rect x="50" y="160" width="360" height="560" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="70" y="184.6" font-size="14" font-weight="bold" fill="#52606d">AZ-a</text>
+  <!-- RT: App -> NAT (a) -->
+  <line x1="322" y1="370" x2="322" y2="266" stroke="#c2410c" stroke-width="2.2" marker-end="url(#an)"/>
+  <text x="308" y="334" font-size="16" font-weight="bold" fill="#9a3412" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">RT: 0.0.0.0/0 <tspan font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif">→</tspan> nat-a</text>
 
-  <!-- AZ-a Public Subnet -->
-  <rect x="70" y="200" width="320" height="110" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="85" y="224.6" font-size="13" font-weight="bold" fill="#2563eb">Public 10.0.0.0/24</text>
-  <text x="85" y="254.6" font-size="13" fill="#1f2933">ALB 노드</text>
-  <text x="85" y="284.6" font-size="13" fill="#1f2933">NAT GW (a)</text>
+  <!-- Private App -->
+  <rect x="64" y="372" width="344" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+  <text x="80" y="398" font-size="16" font-weight="bold" fill="#6d28d9">Private App 10.0.10.0/24</text>
+  <rect x="80" y="412" width="160" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="160" y="440" font-size="16" fill="#1f2937" text-anchor="middle">ASG 인스턴스</text>
 
-  <!-- AZ-a Route Table Label -->
-  <rect x="135" y="325" width="190" height="24" fill="#ffffff"/>
-  <text x="230" y="341.6" font-size="11.5" fill="#52606d" text-anchor="middle">RT: 0.0.0.0/0 → nat-a</text>
+  <!-- App -> DB -->
+  <line x1="236" y1="474" x2="236" y2="520" stroke="#4b5563" stroke-width="2" marker-end="url(#ak)"/>
 
-  <!-- Arrow: Public to Private App (AZ-a) -->
-  <path d="M230,310 L230,360" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- Private DB -->
+  <rect x="64" y="524" width="344" height="112" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+  <text x="80" y="550" font-size="16" font-weight="bold" fill="#047857">Private DB 10.0.20.0/24</text>
+  <rect x="80" y="566" width="140" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="150" y="596" font-size="16" fill="#1f2937" text-anchor="middle">RDS Primary</text>
+  <text x="238" y="596" font-size="15" font-weight="bold" fill="#b91c1c">(기본 경로 없음)</text>
 
-  <!-- AZ-a Private App Subnet -->
-  <rect x="70" y="360" width="320" height="90" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="85" y="384.6" font-size="13" font-weight="bold" fill="#7c3aed">Private App 10.0.10.0/24</text>
-  <text x="85" y="414.6" font-size="13" fill="#1f2933">ASG 인스턴스</text>
+  <!-- ================= AZ-c ================= -->
+  <rect x="452" y="124" width="384" height="532" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="470" y="152" font-size="17" font-weight="bold" fill="#374151">AZ-c</text>
 
-  <!-- Arrow: Private App to Private DB (AZ-a) -->
-  <path d="M230,450 L230,500" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- Public -->
+  <rect x="472" y="168" width="344" height="116" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+  <text x="488" y="194" font-size="16" font-weight="bold" fill="#1d4ed8">Public 10.0.1.0/24</text>
+  <rect x="488" y="210" width="140" height="52" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="558" y="242" font-size="16" fill="#1f2937" text-anchor="middle">ALB 노드</text>
+  <rect x="660" y="210" width="140" height="52" rx="6" fill="#fff7ed" stroke="#c2410c" stroke-width="1.8"/>
+  <text x="730" y="242" font-size="16" font-weight="bold" fill="#9a3412" text-anchor="middle">NAT GW (c)</text>
 
-  <!-- AZ-a Private DB Subnet -->
-  <rect x="70" y="500" width="320" height="120" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="85" y="524.6" font-size="13" font-weight="bold" fill="#059669">Private DB 10.0.20.0/24</text>
-  <text x="85" y="554.6" font-size="13" fill="#1f2933">RDS Primary</text>
-  <text x="85" y="584.6" font-size="11.5" fill="#52606d">(기본 경로 없음)</text>
+  <!-- RT: App -> NAT (c) -->
+  <line x1="730" y1="370" x2="730" y2="266" stroke="#c2410c" stroke-width="2.2" marker-end="url(#an)"/>
+  <text x="716" y="334" font-size="16" font-weight="bold" fill="#9a3412" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">RT: 0.0.0.0/0 <tspan font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif">→</tspan> nat-c</text>
 
+  <!-- Private App -->
+  <rect x="472" y="372" width="344" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+  <text x="488" y="398" font-size="16" font-weight="bold" fill="#6d28d9">Private App 10.0.11.0/24</text>
+  <rect x="488" y="412" width="160" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="568" y="440" font-size="16" fill="#1f2937" text-anchor="middle">ASG 인스턴스</text>
 
-  <!-- AZ-c Container -->
-  <rect x="470" y="160" width="360" height="560" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="490" y="184.6" font-size="14" font-weight="bold" fill="#52606d">AZ-c</text>
+  <!-- App -> DB -->
+  <line x1="644" y1="474" x2="644" y2="520" stroke="#4b5563" stroke-width="2" marker-end="url(#ak)"/>
 
-  <!-- AZ-c Public Subnet -->
-  <rect x="490" y="200" width="320" height="110" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="505" y="224.6" font-size="13" font-weight="bold" fill="#2563eb">Public 10.0.1.0/24</text>
-  <text x="505" y="254.6" font-size="13" fill="#1f2933">ALB 노드</text>
-  <text x="505" y="284.6" font-size="13" fill="#1f2933">NAT GW (c)</text>
-
-  <!-- AZ-c Route Table Label -->
-  <rect x="555" y="325" width="190" height="24" fill="#ffffff"/>
-  <text x="650" y="341.6" font-size="11.5" fill="#52606d" text-anchor="middle">RT: 0.0.0.0/0 → nat-c</text>
-
-  <!-- Arrow: Public to Private App (AZ-c) -->
-  <path d="M650,310 L650,360" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- AZ-c Private App Subnet -->
-  <rect x="490" y="360" width="320" height="90" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="505" y="384.6" font-size="13" font-weight="bold" fill="#7c3aed">Private App 10.0.11.0/24</text>
-  <text x="505" y="414.6" font-size="13" fill="#1f2933">ASG 인스턴스</text>
-
-  <!-- Arrow: Private App to Private DB (AZ-c) -->
-  <path d="M650,450 L650,500" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- AZ-c Private DB Subnet -->
-  <rect x="490" y="500" width="320" height="120" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="505" y="524.6" font-size="13" font-weight="bold" fill="#059669">Private DB 10.0.21.0/24</text>
-  <text x="505" y="554.6" font-size="13" fill="#1f2933">RDS Standby</text>
-  <text x="505" y="584.6" font-size="11.5" fill="#52606d">(기본 경로 없음)</text>
+  <!-- Private DB -->
+  <rect x="472" y="524" width="344" height="112" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.8"/>
+  <text x="488" y="550" font-size="16" font-weight="bold" fill="#047857">Private DB 10.0.21.0/24</text>
+  <rect x="488" y="566" width="140" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="558" y="596" font-size="16" fill="#1f2937" text-anchor="middle">RDS Standby</text>
+  <text x="646" y="596" font-size="15" font-weight="bold" fill="#b91c1c">(기본 경로 없음)</text>
 </svg>

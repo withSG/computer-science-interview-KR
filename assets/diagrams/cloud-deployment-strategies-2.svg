@@ -1,91 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Rolling Update — 한 대씩 갈아탄다</title>
-  <desc id="d">Rolling update deployment process showing traffic flow and step-by-step instance replacement from v1 to v2.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Rolling Update 진행 단계</title>
+  <desc id="d">LB 뒤의 네 대를 한 대씩 v1에서 v2로 교체합니다. 한 대를 v2로 바꾸고 헬스체크를 통과하면 트래픽을 넣고, 다음 한 대로 넘어가 네 대가 모두 v2가 되면 완료입니다. 배포 중에는 v1과 v2가 동시에 트래픽을 받으며, 이것이 이 전략의 전제이자 위험입니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="390" fill="#ffffff"/>
+  <rect width="880" height="430" fill="#ffffff"/>
 
-  <!-- LB Box -->
-  <rect x="180" y="30" width="80" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="52.6" font-size="14" fill="#1f2933" text-anchor="middle" font-weight="bold">LB</text>
+  <!-- 범례 -->
+  <rect x="28" y="34" width="30" height="20" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+  <text x="68" y="49" font-size="14" fill="#4b5563">이번 단계에 교체된 한 대</text>
 
-  <!-- LB Lines -->
-  <path d="M220,66 L220,85" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M70,85 L370,85" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M70,85 L70,105" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M170,85 L170,105" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M270,85 L270,105" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M370,85 L370,105" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- LB -->
+  <rect x="294" y="24" width="80" height="44" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="334" y="52" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">LB</text>
+  <text x="392" y="52" font-size="15" fill="#4b5563">트래픽은 항상 흐른다</text>
 
-  <!-- LB Side Note -->
-  <text x="235" y="79" font-size="11.5" fill="#52606d">트래픽은 항상 흐른다</text>
+  <path d="M334,68 L334,88 M184,88 L484,88" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <path d="M184,88 L184,108" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ak)"/>
+  <path d="M284,88 L284,108" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ak)"/>
+  <path d="M384,88 L384,108" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ak)"/>
+  <path d="M484,88 L484,108" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ak)"/>
 
-  <!-- Step 1 -->
-  <rect x="40" y="105" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="70" y="127.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
+  <!-- 배포 중 괄호 (①~③) -->
+  <path d="M100,114 L92,114 L92,270 L100,270" stroke="#b45309" stroke-width="2" fill="none"/>
+  <text x="28" y="197" font-size="15" font-weight="bold" fill="#b45309">배포 중</text>
 
-  <rect x="140" y="105" width="60" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="170" y="127.6" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">[v1]</text>
+  <!-- ① -->
+  <text x="122" y="140" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">①</text>
+  <rect x="144" y="112" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+  <text x="184" y="140" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="244" y="112" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="284" y="140" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">v1</text>
+  <rect x="344" y="112" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="384" y="140" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">v1</text>
+  <rect x="444" y="112" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="484" y="140" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">v1</text>
+  <text x="556" y="130" font-size="15" fill="#1f2937">한 대를 v2로 교체,</text>
+  <text x="556" y="151" font-size="15" fill="#1f2937">헬스체크 통과 후 트래픽 투입</text>
 
-  <rect x="240" y="105" width="60" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="270" y="127.6" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">[v1]</text>
+  <!-- ② -->
+  <text x="122" y="198" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">②</text>
+  <rect x="144" y="170" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="184" y="198" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="244" y="170" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+  <text x="284" y="198" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="344" y="170" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="384" y="198" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">v1</text>
+  <rect x="444" y="170" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="484" y="198" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">v1</text>
+  <text x="556" y="198" font-size="15" fill="#1f2937">다음 한 대</text>
 
-  <rect x="340" y="105" width="60" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="370" y="127.6" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">[v1]</text>
+  <!-- ③ -->
+  <text x="122" y="256" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">③</text>
+  <rect x="144" y="228" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="184" y="256" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="244" y="228" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="284" y="256" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="344" y="228" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+  <text x="384" y="256" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="444" y="228" width="80" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="484" y="256" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">v1</text>
 
-  <text x="430" y="127.6" font-size="13" fill="#1f2933">① 한 대를 v2로 교체, 헬스체크 통과 후 트래픽 투입</text>
+  <!-- ④ -->
+  <text x="122" y="314" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">④</text>
+  <rect x="144" y="286" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="184" y="314" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="244" y="286" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="284" y="314" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="344" y="286" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="384" y="314" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <rect x="444" y="286" width="80" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+  <text x="484" y="314" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">v2</text>
+  <text x="556" y="314" font-size="16" font-weight="bold" fill="#047857">완료</text>
 
-  <!-- Step 2 -->
-  <rect x="40" y="155" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="70" y="177.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="140" y="155" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="170" y="177.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="240" y="155" width="60" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="270" y="177.6" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">[v1]</text>
-
-  <rect x="340" y="155" width="60" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="370" y="177.6" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">[v1]</text>
-
-  <text x="430" y="177.6" font-size="13" fill="#1f2933">② 다음 한 대</text>
-
-  <!-- Step 3 -->
-  <rect x="40" y="205" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="70" y="227.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="140" y="205" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="170" y="227.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="240" y="205" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="270" y="227.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="340" y="205" width="60" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="370" y="227.6" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">[v1]</text>
-
-  <text x="430" y="227.6" font-size="13" fill="#1f2933">③</text>
-
-  <!-- Step 4 -->
-  <rect x="40" y="255" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="70" y="277.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="140" y="255" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="170" y="277.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="240" y="255" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="270" y="277.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <rect x="340" y="255" width="60" height="36" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="370" y="277.6" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">[v2]</text>
-
-  <text x="430" y="277.6" font-size="13" fill="#1f2933">④ 완료</text>
-
-  <!-- Footer Banner -->
-  <rect x="40" y="325" width="800" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="50" y="349.6" font-size="13" fill="#d97706" font-weight="bold">배포 중 상태: v1과 v2가 동시에 트래픽을 받는다</text>
-  <path d="M415,345 L435,345" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="445" y="349.6" font-size="13" fill="#1f2933">이게 이 전략의 전제이자 위험</text>
+  <!-- 결론 -->
+  <rect x="28" y="356" width="824" height="50" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="48" y="387" font-size="17" font-weight="bold" fill="#1f2937">배포 중 상태: v1과 v2가 동시에 트래픽을 받는다</text>
+  <text x="452" y="387" font-size="16" font-weight="bold" fill="#b91c1c">← 이게 이 전략의 전제이자 위험</text>
 </svg>

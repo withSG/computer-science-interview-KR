@@ -1,51 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">중간 지대 — 컨테이너의 편의 + VM의 격리</title>
-  <desc id="d">격리 강도와 시작 속도 및 오버헤드를 축으로 한 전통 VM, Kata Containers, Firecracker, gVisor, 일반 컨테이너의 위치 관계 다이어그램</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">격리 강도와 시작 속도로 본 VM·중간 지대·컨테이너</title>
+  <desc id="d">세로축은 격리 강함, 가로축은 시작 속도 빠름과 오버헤드 적음이다. 전통 VM이 가장 위, 일반 컨테이너가 가장 오른쪽 아래에 있고, 그 사이 중간 지대에 Kata Containers, Firecracker, gVisor가 놓인다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
     </marker>
   </defs>
 
-  <!-- Y축 (격리 강함) -->
-  <path d="M 80,430 L 80,60" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="80" y="42" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">격리 강함</text>
+  <!-- 중간 지대 영역 -->
+  <rect x="222" y="150" width="618" height="270" rx="12" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="820" y="182" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="end">중간 지대</text>
+  <text x="820" y="206" font-size="15" fill="#374151" text-anchor="end">컨테이너의 편의 + VM의 격리</text>
 
-  <!-- X축 (시작 속도 빠름 / 오버헤드 적음) -->
-  <path d="M 80,430 L 610,430" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="622" y="434" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">시작 속도 빠름 / 오버헤드 적음</text>
+  <!-- 격리 수준 보조선 -->
+  <g stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="2 4" fill="none">
+    <line x1="72" y1="96" x2="110" y2="96"/>
+    <line x1="72" y1="220" x2="250" y2="220"/>
+    <line x1="72" y1="288" x2="250" y2="288"/>
+    <line x1="72" y1="366" x2="390" y2="366"/>
+    <line x1="72" y1="462" x2="530" y2="462"/>
+  </g>
 
-  <!-- 항목 1: 전통 VM -->
-  <!-- 위치: Y=100, X=130 -->
-  <circle cx="130" cy="100" r="5" fill="#dc2626"/>
-  <text x="142" y="104" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="start">전통 VM</text>
-  <line x1="195" y1="100" x2="225" y2="100" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="233" y="104" font-size="13" fill="#52606d" text-anchor="start">부팅 느림, 이미지 큼</text>
+  <!-- 축 -->
+  <path d="M 70,522 L 70,58" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#ax)"/>
+  <text x="70" y="40" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">격리 강함</text>
+  <path d="M 70,522 L 848,522" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#ax)"/>
+  <text x="848" y="554" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">시작 속도 빠름 / 오버헤드 적음</text>
 
-  <!-- 항목 2: Kata Containers & Firecracker -->
-  <!-- 위치: Y=180, X=240 -->
-  <circle cx="240" cy="170" r="5" fill="#7c3aed"/>
-  <text x="252" y="174" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="start">Kata Containers</text>
-  <line x1="365" y1="170" x2="395" y2="170" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="403" y="174" font-size="13" fill="#52606d" text-anchor="start">컨테이너마다 경량 VM. K8s에 런타임으로 끼워 쓴다</text>
+  <!-- 전통 VM -->
+  <circle cx="120" cy="96" r="7" fill="#b91c1c"/>
+  <text x="140" y="102" font-size="17" font-weight="bold" fill="#b91c1c">전통 VM</text>
+  <text x="140" y="128" font-size="15" fill="#374151">부팅 느림, 이미지 큼</text>
 
-  <circle cx="240" cy="210" r="5" fill="#7c3aed"/>
-  <text x="252" y="214" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="start">Firecracker</text>
-  <line x1="330" y1="210" x2="395" y2="210" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="403" y="214" font-size="13" fill="#52606d" text-anchor="start">microVM. 장치를 최소화해 시작이 매우 빠르다</text>
+  <!-- Kata Containers -->
+  <circle cx="260" cy="220" r="7" fill="#6d28d9"/>
+  <text x="280" y="226" font-size="17" font-weight="bold" fill="#6d28d9">Kata Containers</text>
+  <text x="280" y="252" font-size="15" fill="#374151">컨테이너마다 경량 VM. K8s에 런타임으로 끼워 쓴다</text>
 
-  <!-- 항목 3: gVisor -->
-  <!-- 위치: Y=280, X=350 -->
-  <circle cx="350" cy="280" r="5" fill="#d97706"/>
-  <text x="362" y="284" font-size="13" font-weight="bold" fill="#d97706" text-anchor="start">gVisor</text>
-  <line x1="410" y1="280" x2="440" y2="280" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="448" y="284" font-size="13" fill="#52606d" text-anchor="start">사용자 공간 커널이 syscall을 대신 처리</text>
+  <!-- Firecracker -->
+  <circle cx="260" cy="288" r="7" fill="#6d28d9"/>
+  <text x="280" y="294" font-size="17" font-weight="bold" fill="#6d28d9">Firecracker</text>
+  <text x="280" y="320" font-size="15" fill="#374151">microVM. 장치를 최소화해 시작이 매우 빠르다</text>
 
-  <!-- 항목 4: 일반 컨테이너 -->
-  <!-- 위치: Y=370, X=480 -->
-  <circle cx="480" cy="370" r="5" fill="#2563eb"/>
-  <text x="492" y="374" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="start">일반 컨테이너</text>
-  <line x1="580" y1="370" x2="610" y2="370" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="618" y="374" font-size="13" fill="#52606d" text-anchor="start">호스트 커널 직접 사용</text>
+  <!-- gVisor -->
+  <circle cx="400" cy="366" r="7" fill="#b45309"/>
+  <text x="420" y="372" font-size="17" font-weight="bold" fill="#b45309">gVisor</text>
+  <text x="420" y="398" font-size="15" fill="#374151">사용자 공간 커널이 syscall을 대신 처리</text>
+
+  <!-- 일반 컨테이너 -->
+  <circle cx="540" cy="462" r="7" fill="#1d4ed8"/>
+  <text x="560" y="468" font-size="17" font-weight="bold" fill="#1d4ed8">일반 컨테이너</text>
+  <text x="560" y="494" font-size="15" fill="#374151">호스트 커널 직접 사용</text>
 </svg>

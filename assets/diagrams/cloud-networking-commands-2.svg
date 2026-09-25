@@ -1,102 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">-w 로 시간 분해하기</title>
-  <desc id="d">curl의 -w 옵션을 통한 시간 분해 다이어그램 및 각 구간별 해석 가이드</desc>
-  <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-  </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
-
-  <!-- 상단 타임라인 섹션 배경 -->
-  <rect x="24" y="24" width="832" height="156" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 시작점 0 -->
-  <text x="44" y="62" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">0</text>
-
-  <!-- 타임라인 메인 화살표 (0 ────► ... ────► time_total) -->
-  <path d="M56,58 L104,58" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- 타임라인 포인트 1: time_namelookup -->
-  <rect x="108" y="42" width="136" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="176" y="62.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">time_namelookup</text>
-  <path d="M248,58 L284,58" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 타임라인 포인트 2: time_connect -->
-  <rect x="288" y="42" width="112" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="344" y="62.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">time_connect</text>
-  <path d="M404,58 L440,58" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 타임라인 포인트 3: time_appconnect -->
-  <rect x="444" y="42" width="132" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="510" y="62.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">time_appconnect</text>
-  <path d="M580,58 L616,58" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 타임라인 포인트 4: time_starttransfer -->
-  <rect x="620" y="42" width="138" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="689" y="62.6" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">time_starttransfer</text>
-  <path d="M762,58 L788,58" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 타임라인 포인트 5: time_total -->
-  <rect x="792" y="42" width="52" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="818" y="62.6" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">time_total</text>
-
-  <!-- 구간별 설명 연결선 및 라벨 -->
-  <!-- 구간 1: DNS 조회 -->
-  <path d="M100,80 L100,105 L176,105 L176,80" stroke="#9aa5b1" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
-  <text x="138" y="125" font-size="13" fill="#52606d" text-anchor="middle">DNS 조회</text>
-
-  <!-- 구간 2: TCP 핸드셰이크 -->
-  <path d="M252,80 L252,105 L344,105 L344,80" stroke="#9aa5b1" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
-  <text x="298" y="125" font-size="13" fill="#52606d" text-anchor="middle">TCP 핸드셰이크</text>
-
-  <!-- 구간 3: TLS 핸드셰이크 -->
-  <path d="M408,80 L408,105 L510,105 L510,80" stroke="#9aa5b1" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
-  <text x="459" y="125" font-size="13" fill="#52606d" text-anchor="middle">TLS 핸드셰이크</text>
-
-  <!-- 구간 4: 서버 처리(TTFB) - 강조 -->
-  <path d="M584,80 L584,105 L689,105 L689,80" stroke="#d97706" stroke-width="1.5" fill="none"/>
-  <rect x="586" y="110" width="102" height="22" rx="3" fill="#fffbeb"/>
-  <text x="637" y="125" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">서버 처리(TTFB)</text>
-
-  <!-- 구간 5: 본문 전송 -->
-  <path d="M762,80 L762,105 L818,105 L818,80" stroke="#9aa5b1" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
-  <text x="790" y="125" font-size="13" fill="#52606d" text-anchor="middle">본문 전송</text>
-
-  <!-- 하단 해석 섹션 카드 -->
-  <rect x="24" y="200" width="832" height="276" rx="8" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  
-  <text x="48" y="232" font-size="14" font-weight="bold" fill="#1f2933">해석:</text>
-
-  <!-- 해석 항목 1 -->
-  <text x="64" y="266.6" font-size="13" font-family="monospace" fill="#1f2933">time_namelookup 이 크다</text>
-  <path d="M370,262 L420,262" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="432" y="266.6" font-size="13" fill="#52606d">DNS 서버 지연, resolv.conf 설정</text>
-
-  <!-- 해석 항목 2 -->
-  <text x="64" y="308.6" font-size="13" font-family="monospace" fill="#1f2933">time_connect - time_namelookup 이 크다</text>
-  <path d="M370,304 L420,304" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="432" y="308.6" font-size="13" fill="#52606d">네트워크 지연, 거리, 혼잡</text>
-
-  <!-- 해석 항목 3 -->
-  <text x="64" y="350.6" font-size="13" font-family="monospace" fill="#1f2933">time_appconnect - time_connect 가 크다</text>
-  <path d="M370,346 L420,346" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="432" y="350.6" font-size="13" fill="#52606d">TLS 협상 비용, 인증서 체인</text>
-
-  <!-- 해석 항목 4 (주요 원인 강조) -->
-  <rect x="56" y="378" width="768" height="38" rx="4" fill="#fffbeb" stroke="#f59e0b" stroke-width="1"/>
-  <text x="64" y="402.6" font-size="13" font-weight="bold" font-family="monospace" fill="#b45309">time_starttransfer - time_appconnect 가 크다</text>
-  <path d="M370,398 L420,398" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="432" y="402.6" font-size="13" font-weight="bold" fill="#b45309">서버 애플리케이션이 느림</text>
-  <text x="600" y="402.6" font-size="13" font-weight="bold" fill="#dc2626">← 대부분 여기</text>
-
-  <!-- 해석 항목 5 -->
-  <text x="64" y="448.6" font-size="13" font-family="monospace" fill="#1f2933">time_total - time_starttransfer 가 크다</text>
-  <path d="M370,444 L420,444" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="432" y="448.6" font-size="13" fill="#52606d">응답 본문이 크거나 대역폭 부족</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 504" width="880" height="504" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">curl -w 시간 분해</title>
+  <desc id="d">curl -w 값은 요청 시작(0)부터의 누적 시각이다. time_namelookup, time_connect, time_appconnect, time_starttransfer, time_total 사이의 구간이 각각 DNS 조회, TCP 핸드셰이크, TLS 핸드셰이크, 서버 처리(TTFB), 본문 전송이며, 어느 구간이 크냐에 따라 원인이 갈리고 대부분은 서버 처리 구간이다.</desc>
+  <rect width="880" height="504" fill="#ffffff"/>
+  <text x="206" y="44" font-size="15" font-weight="bold" fill="#374151" text-anchor="end">누적 시각</text>
+  <text x="250" y="44" font-size="15" font-weight="bold" fill="#374151">구간 · 이 값이 크면</text>
+  <text x="618" y="44" font-size="15" font-weight="bold" fill="#374151">원인</text>
+  <line x1="24" y1="58" x2="856" y2="58" stroke="#9ca3af" stroke-width="1.2"/>
+  <rect x="240" y="317" width="616" height="74" fill="#fffbeb"/>
+  <line x1="240" y1="164" x2="856" y2="164" stroke="#e5e7eb" stroke-width="1.2"/>
+  <line x1="240" y1="240" x2="856" y2="240" stroke="#e5e7eb" stroke-width="1.2"/>
+  <line x1="240" y1="316" x2="856" y2="316" stroke="#e5e7eb" stroke-width="1.2"/>
+  <line x1="240" y1="392" x2="856" y2="392" stroke="#e5e7eb" stroke-width="1.2"/>
+  <line x1="226" y1="96" x2="226" y2="156" stroke="#6d28d9" stroke-width="8"/>
+  <line x1="226" y1="172" x2="226" y2="232" stroke="#1d4ed8" stroke-width="8"/>
+  <line x1="226" y1="248" x2="226" y2="308" stroke="#047857" stroke-width="8"/>
+  <line x1="226" y1="324" x2="226" y2="384" stroke="#b45309" stroke-width="8"/>
+  <line x1="226" y1="400" x2="226" y2="460" stroke="#4b5563" stroke-width="8"/>
+  <circle cx="226" cy="88" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+  <text x="206" y="93" font-size="15" fill="#111827" text-anchor="end"><tspan fill="#4b5563">요청 시작 </tspan><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">0</tspan></text>
+  <circle cx="226" cy="164" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+  <text x="206" y="169" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">time_namelookup</text>
+  <circle cx="226" cy="240" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+  <text x="206" y="245" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">time_connect</text>
+  <circle cx="226" cy="316" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+  <text x="206" y="321" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">time_appconnect</text>
+  <circle cx="226" cy="392" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+  <text x="206" y="397" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">time_starttransfer</text>
+  <circle cx="226" cy="468" r="6" fill="#ffffff" stroke="#111827" stroke-width="2"/>
+  <text x="206" y="473" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">time_total</text>
+  <text x="250" y="121" font-size="17" font-weight="bold" fill="#6d28d9">DNS 조회</text>
+  <text x="250" y="145" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#374151">time_namelookup</text>
+  <text x="594" y="132" font-size="18" font-weight="bold" fill="#4b5563">→</text>
+  <text x="618" y="121" font-size="16" fill="#111827">DNS 서버 지연,</text>
+  <text x="618" y="145" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">resolv.conf</tspan> 설정</text>
+  <text x="250" y="197" font-size="17" font-weight="bold" fill="#1d4ed8">TCP 핸드셰이크</text>
+  <text x="250" y="221" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#374151">time_connect - time_namelookup</text>
+  <text x="594" y="208" font-size="18" font-weight="bold" fill="#4b5563">→</text>
+  <text x="618" y="208" font-size="16" fill="#111827">네트워크 지연, 거리, 혼잡</text>
+  <text x="250" y="273" font-size="17" font-weight="bold" fill="#047857">TLS 핸드셰이크</text>
+  <text x="250" y="297" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#374151">time_appconnect - time_connect</text>
+  <text x="594" y="284" font-size="18" font-weight="bold" fill="#4b5563">→</text>
+  <text x="618" y="284" font-size="16" fill="#111827">TLS 협상 비용, 인증서 체인</text>
+  <text x="250" y="349" font-size="17" font-weight="bold" fill="#b45309">서버 처리(TTFB)</text>
+  <text x="250" y="373" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#374151">time_starttransfer - time_appconnect</text>
+  <text x="594" y="360" font-size="18" font-weight="bold" fill="#4b5563">→</text>
+  <text x="618" y="348" font-size="16" fill="#111827" font-weight="bold">서버 애플리케이션이 느림</text>
+  <rect x="618" y="358" width="112" height="24" rx="12" fill="#fde68a"/>
+  <text x="674" y="375" font-size="15" font-weight="bold" fill="#78350f" text-anchor="middle">대부분 여기</text>
+  <text x="250" y="425" font-size="17" font-weight="bold" fill="#4b5563">본문 전송</text>
+  <text x="250" y="449" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#374151">time_total - time_starttransfer</text>
+  <text x="594" y="436" font-size="18" font-weight="bold" fill="#4b5563">→</text>
+  <text x="618" y="436" font-size="16" fill="#111827">응답 본문이 크거나 대역폭 부족</text>
 </svg>

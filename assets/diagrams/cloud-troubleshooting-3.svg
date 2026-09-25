@@ -1,55 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Probe 세 종류와 오설정이 만드는 장애</title>
-  <desc id="d">Kubernetes의 startup probe, readiness probe, liveness probe 세 가지 역할과 특징을 정리한 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Probe 세 종류 비교</title>
+  <desc id="d">startup, readiness, liveness probe가 각각 묻는 것, 실패했을 때의 동작, 용도를 한 표로 비교합니다. readiness만 실패해도 컨테이너를 죽이지 않고 엔드포인트에서 제외됩니다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
 
-  <!-- 메인 외곽 박스 -->
-  <rect x="24" y="24" width="832" height="452" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 표 틀 -->
+  <rect x="24" y="24" width="832" height="40" fill="#f1f5f9"/>
+  <rect x="24" y="24" width="832" height="324" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="24" y1="64" x2="856" y2="64" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="24" y1="172" x2="856" y2="172" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="24" y1="260" x2="856" y2="260" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="254" y1="24" x2="254" y2="348" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="604" y1="24" x2="604" y2="348" stroke="#d1d5db" stroke-width="1"/>
 
-  <!-- 구역 1: startup probe (파랑 계열) -->
-  <g>
-    <rect x="36" y="36" width="808" height="132" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    
-    <!-- Header/Title -->
-    <text x="56" y="69" font-size="16" font-weight="bold" fill="#2563eb">startup probe</text>
-    <text x="180" y="69" font-size="14" font-weight="bold" fill="#1f2933">"아직 부팅 중인가?"</text>
-    
-    <!-- Content List -->
-    <text x="76" y="98" font-size="13" fill="#1f2933">성공할 때까지 liveness/readiness를 아예 시작하지 않는다</text>
-    <text x="76" y="122" font-size="13" fill="#1f2933">실패가 임계치를 넘으면 컨테이너를 죽인다</text>
-    <text x="76" y="146" font-size="13" font-weight="bold" fill="#2563eb">→ 기동이 오래 걸리는 앱을 위한 유예 장치</text>
-  </g>
+  <!-- 머리행 -->
+  <text x="40" y="50" font-size="15" font-weight="bold" fill="#374151">Probe · 묻는 것</text>
+  <text x="270" y="50" font-size="15" font-weight="bold" fill="#374151">동작</text>
+  <text x="620" y="50" font-size="15" font-weight="bold" fill="#374151">용도</text>
 
-  <!-- 구역 구분선 1 -->
-  <line x1="24" y1="180" x2="856" y2="180" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- startup -->
+  <text x="40" y="106" font-size="18" font-weight="bold" fill="#1d4ed8">startup probe</text>
+  <text x="40" y="134" font-size="15" fill="#374151">“아직 부팅 중인가?”</text>
+  <text x="270" y="98" font-size="15" fill="#111827">•</text>
+  <text x="286" y="98" font-size="15" fill="#111827">성공할 때까지 liveness/readiness를</text>
+  <text x="286" y="122" font-size="15" fill="#111827">아예 시작하지 않는다</text>
+  <text x="270" y="150" font-size="15" fill="#111827">•</text>
+  <text x="286" y="150" font-size="15" fill="#111827">실패가 임계치를 넘으면 컨테이너를 <tspan font-weight="bold" fill="#b91c1c">죽인다</tspan></text>
+  <text x="620" y="112" font-size="15" fill="#111827">기동이 오래 걸리는 앱을</text>
+  <text x="620" y="136" font-size="15" fill="#111827">위한 유예 장치</text>
 
-  <!-- 구역 2: readiness probe (초록 계열) -->
-  <g>
-    <rect x="36" y="192" width="808" height="132" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    
-    <!-- Header/Title -->
-    <text x="56" y="225" font-size="16" font-weight="bold" fill="#059669">readiness probe</text>
-    <text x="195" y="225" font-size="14" font-weight="bold" fill="#1f2933">"지금 트래픽을 받아도 되나?"</text>
-    
-    <!-- Content List -->
-    <text x="76" y="254" font-size="13" fill="#1f2933">실패해도 컨테이너를 죽이지 않는다</text>
-    <text x="76" y="278" font-size="13" fill="#1f2933">Service의 엔드포인트 목록에서 제외될 뿐</text>
-    <text x="76" y="302" font-size="13" font-weight="bold" fill="#059669">→ 일시적 과부하나 의존성 지연에 대응</text>
-  </g>
+  <!-- readiness -->
+  <text x="40" y="208" font-size="18" font-weight="bold" fill="#047857">readiness probe</text>
+  <text x="40" y="236" font-size="15" fill="#374151">“지금 트래픽을 받아도 되나?”</text>
+  <text x="270" y="209" font-size="15" fill="#111827">•</text>
+  <text x="286" y="209" font-size="15" fill="#111827">실패해도 컨테이너를 <tspan font-weight="bold" fill="#047857">죽이지 않는다</tspan></text>
+  <text x="270" y="235" font-size="15" fill="#111827">•</text>
+  <text x="286" y="235" font-size="15" fill="#111827">Service의 엔드포인트 목록에서 제외될 뿐</text>
+  <text x="620" y="209" font-size="15" fill="#111827">일시적 과부하나</text>
+  <text x="620" y="233" font-size="15" fill="#111827">의존성 지연에 대응</text>
 
-  <!-- 구역 구분선 2 -->
-  <line x1="24" y1="336" x2="856" y2="336" stroke="#cbd2d9" stroke-width="1.5"/>
-
-  <!-- 구역 3: liveness probe (주황/빨강 계열) -->
-  <g>
-    <rect x="36" y="348" width="808" height="116" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    
-    <!-- Header/Title -->
-    <text x="56" y="381" font-size="16" font-weight="bold" fill="#d97706">liveness probe</text>
-    <text x="180" y="381" font-size="14" font-weight="bold" fill="#1f2933">"이 컨테이너는 회생 불가인가?"</text>
-    
-    <!-- Content List -->
-    <text x="76" y="410" font-size="13" fill="#1f2933">실패가 임계치를 넘으면 컨테이너를 재시작한다</text>
-    <text x="76" y="434" font-size="13" font-weight="bold" fill="#d97706">→ 데드락처럼 프로세스는 살아 있으나 응답 불능일 때만</text>
-  </g>
+  <!-- liveness -->
+  <text x="40" y="296" font-size="18" font-weight="bold" fill="#b45309">liveness probe</text>
+  <text x="40" y="324" font-size="15" fill="#374151">“이 컨테이너는 회생 불가인가?”</text>
+  <text x="270" y="297" font-size="15" fill="#111827">•</text>
+  <text x="286" y="297" font-size="15" fill="#111827">실패가 임계치를 넘으면</text>
+  <text x="286" y="321" font-size="15" fill="#111827">컨테이너를 <tspan font-weight="bold" fill="#b91c1c">재시작한다</tspan></text>
+  <text x="620" y="297" font-size="15" fill="#111827">데드락처럼 프로세스는</text>
+  <text x="620" y="321" font-size="15" fill="#111827">살아 있으나 응답 불능일 때만</text>
 </svg>

@@ -23,7 +23,7 @@
 클라우드 이전의 서비스 출시는 이런 모습이었습니다.
 
 <!-- diagram:cloud-core-services-8 -->
-![1. 왜 필요한가](../../assets/diagrams/cloud-core-services-8.svg)
+![클라우드 이전 서비스 출시 9단계 흐름](../../assets/diagrams/cloud-core-services-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

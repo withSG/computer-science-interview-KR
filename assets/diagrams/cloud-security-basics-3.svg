@@ -1,75 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">자기 자신을 잠그지 않는 절차</title>
-  <desc id="d">SSH 설정을 안전하게 변경하기 위한 6단계 순서도 및 주의사항 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">sshd 안전 변경 절차</title>
+  <desc id="d">기존 SSH 세션을 생명줄로 열어 둔 채 설정 수정, sshd -t 문법 검사, sshd 재시작, 새 터미널 접속 테스트를 거치고, 성공을 확인한 뒤에야 처음 세션을 닫는 6단계 절차.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="40" y="41.6" font-size="16" font-weight="bold" fill="#1f2933">자기 자신을 잠그지 않는 절차</text>
+  <!-- 생명줄: 1번 세션이 1~6단계 내내 열려 있음 -->
+  <line x1="124" y1="50" x2="124" y2="440" stroke="#b91c1c" stroke-width="3"/>
+  <line x1="124" y1="50" x2="150" y2="50" stroke="#b91c1c" stroke-width="3"/>
+  <line x1="124" y1="440" x2="150" y2="440" stroke="#b91c1c" stroke-width="3"/>
+  <text x="66" y="226" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">생명줄</text>
+  <text x="66" y="250" font-size="15" fill="#374151" text-anchor="middle">1번 세션</text>
+  <text x="66" y="272" font-size="15" fill="#374151" text-anchor="middle">계속 열어 둠</text>
 
-  <!-- Flow Steps -->
+  <!-- 1 -->
+  <rect x="150" y="24" width="410" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <circle cx="178" cy="50" r="15" fill="#b91c1c"/>
+  <text x="178" y="55" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="204" y="56" font-size="16" font-weight="bold" fill="#111827">지금 열려 있는 SSH 세션을 절대 닫지 않는다</text>
+  <line x1="355" y1="78" x2="355" y2="100" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 1 (Critical Safety - Red Highlight) -->
-  <rect x="40" y="60" width="460" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="60" y="89.55" font-size="13" font-weight="bold" fill="#dc2626">1. 지금 열려 있는 SSH 세션을 절대 닫지 않는다</text>
-  
-  <path d="M 500 84 L 560 84" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="568" y="68" width="80" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="608" y="89.025" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">← 생명줄</text>
+  <!-- 2 -->
+  <rect x="150" y="102" width="410" height="52" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="178" cy="128" r="15" fill="#374151"/>
+  <text x="178" y="133" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="204" y="134" font-size="16" fill="#111827">설정 파일 수정</text>
+  <line x1="355" y1="156" x2="355" y2="178" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M 270 108 L 270 130" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 3 -->
+  <rect x="150" y="180" width="410" height="52" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="178" cy="206" r="15" fill="#b45309"/>
+  <text x="178" y="211" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="204" y="212" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sudo sshd -t</text>
+  <line x1="562" y1="206" x2="584" y2="206" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="594" y="199" font-size="15" font-weight="bold" fill="#b45309">문법 검사</text>
+  <text x="594" y="222" font-size="15" fill="#374151">에러 있으면 여기서 멈춘다</text>
+  <line x1="355" y1="234" x2="355" y2="256" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 2 -->
-  <rect x="40" y="130" width="460" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="159.55" font-size="13" fill="#1f2933">2. 설정 파일 수정</text>
+  <!-- 4 -->
+  <rect x="150" y="258" width="410" height="52" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="178" cy="284" r="15" fill="#374151"/>
+  <text x="178" y="289" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="204" y="290" font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sudo systemctl restart sshd</text>
+  <line x1="562" y1="284" x2="584" y2="284" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="594" y="289" font-size="15" fill="#374151">Debian 계열은 서비스명이 ssh</text>
+  <line x1="355" y1="312" x2="355" y2="334" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M 270 178 L 270 200" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 5 -->
+  <rect x="150" y="336" width="410" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="178" cy="362" r="15" fill="#1d4ed8"/>
+  <text x="178" y="367" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="204" y="368" font-size="16" font-weight="bold" fill="#111827">새 터미널을 열어 접속 테스트</text>
+  <line x1="562" y1="362" x2="584" y2="362" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="594" y="355" font-size="15" fill="#374151"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sshd -t</tspan>가 못 잡는 논리 오류</text>
+  <text x="594" y="378" font-size="15" fill="#374151">(예: AllowUsers 누락)를 잡는다</text>
+  <line x1="355" y1="390" x2="355" y2="412" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 3 (Validation) -->
-  <rect x="40" y="200" width="460" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="60" y="229.55" font-size="13" font-weight="bold" fill="#1f2933">3. sudo sshd -t</text>
-
-  <path d="M 500 224 L 530 224" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="538" y="208" width="302" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="689" y="229.025" font-size="11.5" fill="#d97706" text-anchor="middle">문법 검사. 에러 있으면 여기서 멈춘다</text>
-
-  <!-- Arrow 3 -> 4 -->
-  <path d="M 270 248 L 270 270" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 4 -->
-  <rect x="40" y="270" width="460" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="299.55" font-size="13" fill="#1f2933">4. sudo systemctl restart sshd</text>
-  <text x="270" y="299.55" font-size="11.5" fill="#52606d">(Debian 계열은 서비스명이 ssh)</text>
-
-  <!-- Arrow 4 -> 5 -->
-  <path d="M 270 318 L 270 340" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 5 (Test) -->
-  <rect x="40" y="340" width="460" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="369.55" font-size="13" font-weight="bold" fill="#2563eb">5. 새 터미널을 열어 접속 테스트</text>
-
-  <!-- Arrow 5 -> 6 -->
-  <path d="M 270 388 L 270 410" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 6 (Completion) -->
-  <rect x="40" y="410" width="460" height="48" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="60" y="439.55" font-size="13" font-weight="bold" fill="#059669">6. 성공을 확인한 뒤에야 1번 세션을 닫는다</text>
-
-  <!-- Connection line connecting Step 6 back to Step 1 rule visually -->
-  <path d="M 500 434 L 520 434 L 520 84 L 500 84" stroke="#2563eb" stroke-width="1.5" fill="none" stroke-dasharray="4 4" marker-end="url(#a-blue)"/>
-  <rect x="475" y="250" width="90" height="24" rx="3" fill="#ffffff" stroke="#cbd2d9"/>
-  <text x="520" y="266.025" font-size="11" fill="#2563eb" text-anchor="middle">1번 세션 보호</text>
-
+  <!-- 6 -->
+  <rect x="150" y="414" width="410" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <circle cx="178" cy="440" r="15" fill="#047857"/>
+  <text x="178" y="445" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="204" y="446" font-size="16" font-weight="bold" fill="#111827">성공을 확인한 뒤에야 1번 세션을 닫는다</text>
 </svg>

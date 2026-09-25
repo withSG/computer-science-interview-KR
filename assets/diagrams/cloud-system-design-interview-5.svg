@@ -1,53 +1,84 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">뉴스피드 Fan-out 방식 비교 및 하이브리드 전략</title>
-  <desc id="d">Fan-out on Write와 Fan-out on Read 방식의 특징과 문제점을 비교하고, 실무 표준인 하이브리드 방식을 설명하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">뉴스피드 Fan-out 비교</title>
+  <desc id="d">Fan-out on Write(Push)와 Fan-out on Read(Pull)를 피드 생성 시점, 읽기, 쓰기, 문제로 나란히 비교하고, 실무 표준인 하이브리드(일반 사용자는 Push, 팔로워가 임계치를 넘는 계정은 Pull, 조회 시점에 미리 쌓인 피드와 셀러브리티 최신 글을 병합)를 아래에 정리했다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
   <defs>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="av" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="500" fill="#ffffff"/>
 
-  <!-- Left Card: Fan-out on Write (Push) -->
-  <rect x="24" y="24" width="404" height="290" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="226" y="58" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">Fan-out on Write (Push)</text>
-  
-  <text x="44" y="88" font-size="13" fill="#1f2933">글 작성 시 팔로워 전원의</text>
-  <text x="44" y="108" font-size="13" fill="#1f2933">피드 캐시에 미리 삽입</text>
+  <!-- 비교 표: 면 -->
+  <rect x="136" y="24" width="360" height="56" fill="#dbeafe"/>
+  <rect x="496" y="24" width="360" height="56" fill="#fef3c7"/>
+  <rect x="24" y="80" width="112" height="236" fill="#f3f4f6"/>
+  <!-- 비교 표: 격자 -->
+  <g stroke="#9ca3af" stroke-width="1.2">
+    <line x1="24" y1="80" x2="856" y2="80"/>
+    <line x1="24" y1="150" x2="856" y2="150"/>
+    <line x1="24" y1="198" x2="856" y2="198"/>
+    <line x1="24" y1="246" x2="856" y2="246"/>
+    <line x1="136" y1="24" x2="136" y2="316"/>
+    <line x1="496" y1="24" x2="496" y2="316"/>
+  </g>
+  <rect x="24" y="24" width="832" height="292" fill="none" stroke="#6b7280" stroke-width="1.5"/>
 
-  <line x1="44" y1="126" x2="408" y2="126" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 머리행 -->
+  <text x="316" y="58" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Fan-out on Write (Push)</text>
+  <text x="676" y="58" font-size="19" font-weight="bold" fill="#92400e" text-anchor="middle">Fan-out on Read (Pull)</text>
 
-  <text x="44" y="152" font-size="13" fill="#1f2933"><tspan font-weight="bold">읽기:</tspan> 매우 빠름 (내 피드만 읽음)</text>
-  <text x="44" y="176" font-size="13" fill="#1f2933"><tspan font-weight="bold">쓰기:</tspan> 팔로워 수만큼 증폭</text>
-  
-  <rect x="40" y="196" width="372" height="102" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="54" y="222" font-size="13" font-weight="bold" fill="#dc2626">문제:</text>
-  <text x="96" y="222" font-size="13" fill="#dc2626">팔로워 1,000만 명 = 쓰기</text>
-  <text x="96" y="244" font-size="13" fill="#dc2626">한 번이 1,000만 번의 쓰기</text>
+  <!-- 행 이름 -->
+  <g font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">
+    <text x="80" y="121">피드 생성</text>
+    <text x="80" y="180">읽기</text>
+    <text x="80" y="228">쓰기</text>
+    <text x="80" y="287">문제</text>
+  </g>
 
-  <!-- Right Card: Fan-out on Read (Pull) -->
-  <rect x="452" y="24" width="404" height="290" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="654" y="58" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">Fan-out on Read (Pull)</text>
-  
-  <text x="472" y="88" font-size="13" fill="#1f2933">조회 시 팔로우한 사람들의</text>
-  <text x="472" y="108" font-size="13" fill="#1f2933">최근 글을 그때 모아서 정렬</text>
+  <!-- Push 열 -->
+  <g font-size="16" fill="#111827">
+    <text x="156" y="109"><tspan font-weight="bold" fill="#1d4ed8">글 작성 시</tspan> 팔로워 전원의</text>
+    <text x="156" y="133">피드 캐시에 미리 삽입</text>
+    <text x="156" y="180"><tspan font-weight="bold" fill="#047857">매우 빠름</tspan> (내 피드만 읽음)</text>
+    <text x="156" y="228"><tspan font-weight="bold" fill="#b91c1c">팔로워 수만큼 증폭</tspan></text>
+    <text x="156" y="275">팔로워 1,000만 명 = 쓰기 한 번이</text>
+    <text x="156" y="299"><tspan font-weight="bold" fill="#b91c1c">1,000만 번의 쓰기</tspan></text>
+  </g>
 
-  <line x1="472" y1="126" x2="836" y2="126" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- Pull 열 -->
+  <g font-size="16" fill="#111827">
+    <text x="516" y="109"><tspan font-weight="bold" fill="#92400e">조회 시</tspan> 팔로우한 사람들의</text>
+    <text x="516" y="133">최근 글을 그때 모아서 정렬</text>
+    <text x="516" y="180"><tspan font-weight="bold" fill="#b91c1c">느림</tspan> (N명 조회 + 병합)</text>
+    <text x="516" y="228"><tspan font-weight="bold" fill="#047857">가벼움</tspan></text>
+    <text x="516" y="287">팔로잉 많은 사용자의 <tspan font-weight="bold" fill="#b91c1c">조회 지연</tspan></text>
+  </g>
 
-  <text x="472" y="152" font-size="13" fill="#1f2933"><tspan font-weight="bold">읽기:</tspan> 느림 (N명 조회 + 병합)</text>
-  <text x="472" y="176" font-size="13" fill="#1f2933"><tspan font-weight="bold">쓰기:</tspan> 가벼움</text>
-  
-  <rect x="468" y="196" width="372" height="102" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="482" y="222" font-size="13" font-weight="bold" fill="#dc2626">문제:</text>
-  <text x="524" y="222" font-size="13" fill="#dc2626">팔로잉 많은 사용자의 조회 지연</text>
+  <!-- 하이브리드로 -->
+  <line x1="316" y1="322" x2="316" y2="366" stroke="#6d28d9" stroke-width="2" marker-end="url(#av)"/>
+  <line x1="676" y1="322" x2="676" y2="366" stroke="#6d28d9" stroke-width="2" marker-end="url(#av)"/>
+  <text x="496" y="350" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">실무 표준은 하이브리드</text>
 
-  <!-- Arrow & Label -->
-  <path d="M440,314 L440,366" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="350" y="328" width="180" height="24" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="440" y="344" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">↓ 실무 표준은 하이브리드</text>
+  <!-- 하이브리드 표 -->
+  <rect x="24" y="370" width="112" height="140" fill="#ede9fe"/>
+  <g stroke="#a78bfa" stroke-width="1.2">
+    <line x1="24" y1="430" x2="856" y2="430"/>
+    <line x1="136" y1="370" x2="136" y2="510"/>
+    <line x1="496" y1="370" x2="496" y2="430"/>
+  </g>
+  <rect x="24" y="370" width="832" height="140" fill="none" stroke="#6d28d9" stroke-width="1.5"/>
 
-  <!-- Bottom Card: Hybrid Approach -->
-  <rect x="24" y="376" width="832" height="100" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="44" y="412" font-size="14" font-weight="bold" fill="#1f2933">일반 사용자는 Push, 팔로워가 임계치를 넘는 계정은 Pull.</text>
-  <text x="44" y="444" font-size="14" font-weight="bold" fill="#1f2933">조회 시점에 "미리 쌓인 피드 + 셀러브리티 최신 글"을 병합한다.</text>
+  <g font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle">
+    <text x="80" y="406">계정별</text>
+    <text x="80" y="465">조회 시점에</text>
+    <text x="80" y="487">병합</text>
+  </g>
+  <text x="316" y="406" font-size="16" fill="#111827" text-anchor="middle">일반 사용자는 <tspan font-weight="bold" fill="#1d4ed8">Push</tspan></text>
+  <text x="676" y="406" font-size="16" fill="#111827" text-anchor="middle">팔로워가 임계치를 넘는 계정은 <tspan font-weight="bold" fill="#92400e">Pull</tspan></text>
+
+  <rect x="216" y="448" width="200" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="316" y="476" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">미리 쌓인 피드</text>
+  <text x="496" y="479" font-size="26" font-weight="bold" fill="#6d28d9" text-anchor="middle">+</text>
+  <rect x="566" y="448" width="220" height="44" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="676" y="476" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">셀러브리티 최신 글</text>
 </svg>

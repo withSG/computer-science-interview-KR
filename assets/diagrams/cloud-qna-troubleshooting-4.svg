@@ -1,37 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">흔한 원인</title>
-  <desc id="d">메모리 누수의 흔한 원인 4가지와 각각의 문제점 및 해결 방법을 보여주는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">메모리 누수 흔한 원인</title>
+  <desc id="d">메모리 누수의 흔한 원인 4가지(캐시 무한 증가, 이벤트 리스너 미해제, 스레드 로컬 미정리, 커넥션 미반환)를 카드로 나누고 각 원인의 증상과 해결 방법을 함께 보여준다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
 
-  <!-- 1. 캐시 무한 증가 -->
-  <g>
-    <text x="30" y="44" font-size="16" font-weight="bold" fill="#1f2933">1. 캐시 무한 증가</text>
-    <rect x="30" y="56" width="820" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="50" y="89.55" font-size="13" fill="#1f2933">HashMap에 데이터 추가만, 삭제 없음</text>
-    <text x="50" y="117.55" font-size="13" font-weight="bold" fill="#d97706">해결: LRU 캐시, TTL 설정</text>
-  </g>
+  <!-- 1. 캐시 무한 증가 (x=24, y=24) -->
+  <rect x="24" y="24" width="404" height="144" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M32,25 H420 A7,7 0 0 1 427,32 V68 H25 V32 A7,7 0 0 1 32,25 Z" fill="#f5f3ff"/>
+  <line x1="25" y1="68" x2="427" y2="68" stroke="#ddd6fe" stroke-width="1.5"/>
+  <circle cx="54" cy="46" r="14" fill="#6d28d9"/>
+  <text x="54" y="51.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="78" y="52.5" font-size="18" font-weight="bold" fill="#111827">캐시 무한 증가</text>
+  <text x="44" y="102" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">HashMap</tspan>에 데이터 추가만, 삭제 없음</text>
+  <rect x="44" y="120" width="50" height="28" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1"/>
+  <text x="69" y="139" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">해결</text>
+  <text x="106" y="139.5" font-size="16" fill="#111827">LRU 캐시, TTL 설정</text>
 
-  <!-- 2. 이벤트 리스너 미해제 -->
-  <g>
-    <text x="30" y="164" font-size="16" font-weight="bold" fill="#1f2933">2. 이벤트 리스너 미해제</text>
-    <rect x="30" y="176" width="820" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="50" y="209.55" font-size="13" fill="#1f2933">등록 후 해제 안함</text>
-    <text x="50" y="237.55" font-size="13" font-weight="bold" fill="#7c3aed">해결: removeListener, WeakReference</text>
-  </g>
+  <!-- 2. 이벤트 리스너 미해제 (x=452, y=24) -->
+  <rect x="452" y="24" width="404" height="144" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M460,25 H848 A7,7 0 0 1 855,32 V68 H453 V32 A7,7 0 0 1 460,25 Z" fill="#f5f3ff"/>
+  <line x1="453" y1="68" x2="855" y2="68" stroke="#ddd6fe" stroke-width="1.5"/>
+  <circle cx="482" cy="46" r="14" fill="#6d28d9"/>
+  <text x="482" y="51.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="506" y="52.5" font-size="18" font-weight="bold" fill="#111827">이벤트 리스너 미해제</text>
+  <text x="472" y="102" font-size="16" fill="#111827">등록 후 해제 안함</text>
+  <rect x="472" y="120" width="50" height="28" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1"/>
+  <text x="497" y="139" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">해결</text>
+  <text x="534" y="139.5" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">removeListener, WeakReference</text>
 
-  <!-- 3. 스레드 로컬 미정리 -->
-  <g>
-    <text x="30" y="284" font-size="16" font-weight="bold" fill="#1f2933">3. 스레드 로컬 미정리</text>
-    <rect x="30" y="296" width="820" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="50" y="329.55" font-size="13" fill="#1f2933">ThreadLocal 사용 후 remove() 안함</text>
-    <text x="50" y="357.55" font-size="13" font-weight="bold" fill="#dc2626">해결: finally 블록에서 remove()</text>
-  </g>
+  <!-- 3. 스레드 로컬 미정리 (x=24, y=192) -->
+  <rect x="24" y="192" width="404" height="144" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M32,193 H420 A7,7 0 0 1 427,200 V236 H25 V200 A7,7 0 0 1 32,193 Z" fill="#f5f3ff"/>
+  <line x1="25" y1="236" x2="427" y2="236" stroke="#ddd6fe" stroke-width="1.5"/>
+  <circle cx="54" cy="214" r="14" fill="#6d28d9"/>
+  <text x="54" y="219.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="78" y="220.5" font-size="18" font-weight="bold" fill="#111827">스레드 로컬 미정리</text>
+  <text x="44" y="270" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ThreadLocal</tspan> 사용 후 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">remove()</tspan> 안함</text>
+  <rect x="44" y="288" width="50" height="28" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1"/>
+  <text x="69" y="307" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">해결</text>
+  <text x="106" y="307.5" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">finally</tspan> 블록에서 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">remove()</tspan></text>
 
-  <!-- 4. 커넥션 미반환 -->
-  <g>
-    <text x="30" y="404" font-size="16" font-weight="bold" fill="#1f2933">4. 커넥션 미반환</text>
-    <rect x="30" y="416" width="820" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="50" y="449.55" font-size="13" fill="#1f2933">DB/HTTP 커넥션 close() 누락</text>
-    <text x="50" y="477.55" font-size="13" font-weight="bold" fill="#2563eb">해결: try-with-resources 사용</text>
-  </g>
+  <!-- 4. 커넥션 미반환 (x=452, y=192) -->
+  <rect x="452" y="192" width="404" height="144" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M460,193 H848 A7,7 0 0 1 855,200 V236 H453 V200 A7,7 0 0 1 460,193 Z" fill="#f5f3ff"/>
+  <line x1="453" y1="236" x2="855" y2="236" stroke="#ddd6fe" stroke-width="1.5"/>
+  <circle cx="482" cy="214" r="14" fill="#6d28d9"/>
+  <text x="482" y="219.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="506" y="220.5" font-size="18" font-weight="bold" fill="#111827">커넥션 미반환</text>
+  <text x="472" y="270" font-size="16" fill="#111827">DB/HTTP 커넥션 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">close()</tspan> 누락</text>
+  <rect x="472" y="288" width="50" height="28" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1"/>
+  <text x="497" y="307" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">해결</text>
+  <text x="534" y="307.5" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">try-with-resources</tspan> 사용</text>
 </svg>

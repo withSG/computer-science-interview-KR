@@ -1,29 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">cron이 사람을 배신하는 지점</title>
-  <desc id="d">내 터미널과 cron 환경의 차이점을 비교하는 다이어그램</desc>
-  <rect width="880" height="320" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">내 터미널과 cron의 실행 환경 차이</title>
+  <desc id="d">내 터미널은 ~/.bashrc를 실행해 PATH가 풍부하고 환경 변수가 전부 있으며 현재 디렉터리에서 돌고 출력이 화면에 보인다. cron은 프로파일을 읽지 않아 PATH가 매우 짧고 환경 변수가 거의 없으며 홈 디렉터리에서 시작하고 출력이 사라지거나 메일로 간다. 번호 1~4는 본문의 네 가지 원인과 대응한다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
 
-  <!-- 내 터미널 그룹 -->
-  <rect x="80" y="40" width="340" height="240" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="250" y="75" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">내 터미널</text>
+  <!-- 칸 배경 -->
+  <rect x="212" y="24" width="318" height="52" fill="#dbeafe"/>
+  <rect x="530" y="24" width="318" height="52" fill="#fee2e2"/>
+  <rect x="530" y="76" width="318" height="260" fill="#fef2f2"/>
 
-  <!-- 내 터미널 박스 -->
-  <rect x="100" y="95" width="300" height="165" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="120" y="125" font-size="13" fill="#1f2933">~/.bashrc 실행</text>
-  <text x="120" y="153" font-size="13" fill="#1f2933">PATH 풍부</text>
-  <text x="120" y="181" font-size="13" fill="#1f2933">환경 변수 전부</text>
-  <text x="120" y="209" font-size="13" fill="#1f2933">현재 디렉토리 있음</text>
-  <text x="120" y="237" font-size="13" fill="#1f2933">출력이 화면에 보임</text>
+  <!-- 격자 -->
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="32" y1="128" x2="848" y2="128"/>
+    <line x1="32" y1="180" x2="848" y2="180"/>
+    <line x1="32" y1="232" x2="848" y2="232"/>
+    <line x1="32" y1="284" x2="848" y2="284"/>
+  </g>
+  <line x1="32" y1="76" x2="848" y2="76" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="212" y1="24" x2="212" y2="336" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="530" y1="24" x2="530" y2="336" stroke="#9ca3af" stroke-width="1"/>
+  <rect x="32" y="24" width="816" height="312" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- cron 그룹 -->
-  <rect x="460" y="40" width="340" height="240" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="630" y="75" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">cron</text>
+  <!-- 머리행 -->
+  <text x="371" y="57" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">내 터미널</text>
+  <text x="689" y="57" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">cron</text>
 
-  <!-- cron 박스 -->
-  <rect x="480" y="95" width="300" height="165" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="500" y="125" font-size="13" fill="#1f2933">프로파일 안 읽음</text>
-  <text x="500" y="153" font-size="13" fill="#1f2933">PATH 매우 짧음</text>
-  <text x="500" y="181" font-size="13" fill="#1f2933">거의 없음</text>
-  <text x="500" y="209" font-size="13" fill="#1f2933">홈 디렉토리에서 시작</text>
-  <text x="500" y="237" font-size="13" fill="#1f2933">출력이 사라지거나 메일</text>
+  <!-- 행 이름 (번호 = 본문의 원인 1~4) -->
+  <g font-size="16" font-weight="bold" fill="#374151">
+    <text x="76" y="108">프로파일</text>
+    <text x="76" y="160">PATH</text>
+    <text x="76" y="212">환경 변수</text>
+    <text x="76" y="264">작업 디렉터리</text>
+    <text x="76" y="316">출력</text>
+  </g>
+  <g fill="#374151">
+    <circle cx="56" cy="154" r="13"/>
+    <circle cx="56" cy="206" r="13"/>
+    <circle cx="56" cy="258" r="13"/>
+    <circle cx="56" cy="310" r="13"/>
+  </g>
+  <g font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <text x="56" y="159">1</text>
+    <text x="56" y="211">2</text>
+    <text x="56" y="263">3</text>
+    <text x="56" y="315">4</text>
+  </g>
+
+  <!-- 내 터미널 -->
+  <g font-size="16" fill="#111827">
+    <text x="232" y="108">~/.bashrc 실행</text>
+    <text x="232" y="160">PATH 풍부</text>
+    <text x="232" y="212">환경 변수 전부</text>
+    <text x="232" y="264">현재 디렉터리 있음</text>
+    <text x="232" y="316">출력이 화면에 보임</text>
+  </g>
+
+  <text x="848" y="362" font-size="15" fill="#4b5563" text-anchor="end">번호 1~4는 아래 본문의 네 가지 원인과 대응</text>
+
+  <!-- cron -->
+  <g font-size="16" fill="#111827">
+    <text x="550" y="108">프로파일 안 읽음</text>
+    <text x="550" y="160">PATH 매우 짧음</text>
+    <text x="550" y="212">거의 없음</text>
+    <text x="550" y="264">홈 디렉터리에서 시작</text>
+    <text x="550" y="316">출력이 사라지거나 메일</text>
+  </g>
 </svg>

@@ -1,55 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">중단은 이렇게 통보된다</title>
-  <desc id="d">AWS가 Spot 인스턴스 용량 회수를 결정하면 인스턴스 메타데이터와 EventBridge를 통해 예고하고 약 2분 뒤 인스턴스를 중지 또는 종료하는 과정을 나타낸 트리 다이어그램</desc>
-  <rect width="880" height="440" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Spot 중단 통보 경로</title>
+  <desc id="d">AWS가 용량 회수를 결정하면 인스턴스 메타데이터(/latest/meta-data/spot/instance-action)에 중단 예고가 노출되고 EventBridge 이벤트(Spot Instance Interruption Warning)가 발행되며, 약 2분 뒤 인스턴스가 중지 또는 종료된다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (잉크색) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <!-- 화살표 마커 (주황색 - 경고/예고) -->
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <!-- 화살표 마커 (빨강색 - 중지/종료) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 문서 헤딩 / 제목 영역 -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">중단은 이렇게 통보된다</text>
+  <!-- 시작점 -->
+  <rect x="24" y="24" width="300" height="52" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="174" y="56" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">AWS가 용량 회수를 결정</text>
 
-  <!-- Root 노드: AWS가 용량 회수를 결정 -->
-  <rect x="40" y="80" width="230" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="155" y="109.75" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">AWS가 용량 회수를 결정</text>
+  <!-- 줄기와 가지 -->
+  <line x1="64" y1="76" x2="64" y2="398" stroke="#374151" stroke-width="2"/>
+  <line x1="64" y1="126" x2="110" y2="126" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="64" y1="296" x2="110" y2="296" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="64" y1="398" x2="110" y2="398" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
 
-  <!-- Branch 1: 인스턴스 메타데이터에 중단 예고 노출 -->
-  <rect x="340" y="80" width="500" height="100" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="360" y="112.75" font-size="13" font-weight="bold" fill="#1f2933">인스턴스 메타데이터에 중단 예고 노출</text>
-  <text x="380" y="137.25" font-size="11.5" font-family="Consolas, monospace" fill="#52606d">/latest/meta-data/spot/instance-action</text>
-  <text x="380" y="161.25" font-size="11.5" fill="#52606d">(평소 404, 회수 예정이면 action과 시각이 담긴 JSON)</text>
+  <!-- 1. 인스턴스 메타데이터 -->
+  <rect x="112" y="100" width="744" height="146" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="136" y="132" font-size="17" font-weight="bold" fill="#111827">인스턴스 메타데이터에 중단 예고 노출</text>
+  <rect x="728" y="112" width="112" height="26" rx="13" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="784" y="130" font-size="14" fill="#92400e" text-anchor="middle">폴링으로 확인</text>
+  <rect x="136" y="148" width="348" height="30" rx="4" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="148" y="168" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">/latest/meta-data/spot/instance-action</text>
+  <text x="136" y="206" font-size="15" fill="#4b5563">평소</text>
+  <text x="256" y="206" font-size="15" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">404</text>
+  <text x="136" y="230" font-size="15" fill="#4b5563">회수 예정이면</text>
+  <text x="256" y="230" font-size="15" fill="#111827">action과 시각이 담긴 JSON</text>
 
-  <!-- Branch 2: EventBridge 이벤트 발행 -->
-  <rect x="340" y="210" width="500" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="360" y="235.75" font-size="13" font-weight="bold" fill="#1f2933">EventBridge 이벤트 발행</text>
-  <text x="380" y="256.25" font-size="11.5" fill="#52606d">(Spot Instance Interruption Warning)</text>
+  <!-- 2. EventBridge -->
+  <rect x="112" y="270" width="744" height="76" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="136" y="302" font-size="17" font-weight="bold" fill="#111827">EventBridge 이벤트 발행</text>
+  <rect x="728" y="282" width="112" height="26" rx="13" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="784" y="300" font-size="14" fill="#92400e" text-anchor="middle">이벤트로 수신</text>
+  <text x="136" y="328" font-size="15" fill="#374151">(Spot Instance Interruption Warning)</text>
 
-  <!-- Branch 3: 약 2분 뒤 인스턴스 중지/종료 -->
-  <rect x="340" y="300" width="500" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="360" y="329.75" font-size="13" font-weight="bold" fill="#dc2626">약 2분 뒤 인스턴스 중지/종료</text>
-
-  <!-- 트리 연결선 및 화살표 -->
-  <!-- Root 오른쪽 분기선 메인 줄 -->
-  <path d="M 270,105 L 300,105 L 300,325" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-
-  <!-- Branch 1 화살표 (top) -->
-  <path d="M 300,105 L 340,105" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-
-  <!-- Branch 2 화살표 (middle) -->
-  <path d="M 300,240 L 340,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Branch 3 화살표 (bottom) -->
-  <path d="M 300,325 L 340,325" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- 3. 중지/종료 -->
+  <rect x="112" y="370" width="744" height="56" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="136" y="404" font-size="17" font-weight="bold" fill="#b91c1c">약 2분 뒤 인스턴스 중지/종료</text>
 </svg>

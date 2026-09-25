@@ -1,113 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">7. 오토스케일링과 스케줄링으로 줄이기</title>
-  <desc id="d">고정 용량 방식과 오토스케일링 방식의 용량 대비 수요 비교 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">고정 용량과 오토스케일링</title>
+  <desc id="d">고정 용량은 피크에 맞춘 용량을 상시 유지해 수요가 낮은 시간의 차이가 낭비가 되고, 오토스케일링은 수요를 따라 용량이 움직입니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
+  <rect width="880" height="420" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="390" fill="#ffffff"/>
+  <!-- 패널 구분선 -->
+  <line x1="450" y1="24" x2="450" y2="360" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- 제목 헤딩 -->
-  <text x="24" y="36" font-size="16" font-weight="bold" fill="#1f2933">7. 오토스케일링과 스케줄링으로 줄이기</text>
+  <!-- ===== 왼쪽: 고정 용량 ===== -->
+  <text x="224" y="42" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">고정 용량</text>
 
-  <!-- ==================== 왼쪽: [ 고정 용량 ] ==================== -->
-  <g id="fixed-capacity">
-    <!-- 패널 제목 -->
-    <text x="220" y="75" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[ 고정 용량 ]</text>
+  <!-- 낭비 영역: 고정 용량선과 실제 수요 사이 -->
+  <path d="M64,110 L384,110 L384,262 C340,262 318,258 292,222 C262,170 250,124 224,124 C200,124 190,170 160,220 C130,258 110,262 64,262 Z" fill="#fee2e2"/>
+  <text x="112" y="196" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle">낭비</text>
 
-    <!-- 용량 축 라벨 -->
-    <text x="60" y="102" font-size="13" fill="#1f2933" text-anchor="middle">용량</text>
+  <!-- 실제 수요 -->
+  <path d="M64,262 C110,262 130,258 160,220 C190,170 200,124 224,124 C250,124 262,170 292,222 C318,258 340,262 384,262" fill="none" stroke="#374151" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="224" y="224" font-size="16" fill="#374151" text-anchor="middle">실제 수요</text>
 
-    <!-- 배경 낭비 구역 (고정 용량 - 실제 수요 사잇 영역) -->
-    <!-- 고정 상단: y=120, 수요 곡선: y=250에서 시작 -> peak y=170 -> y=250 -->
-    <path d="M 70,120 L 370,120 L 370,250 C 350,250 310,250 290,210 C 270,170 230,170 210,170 C 190,170 150,210 130,250 C 100,250 80,250 70,250 Z" fill="#fef2f2" stroke="none"/>
+  <!-- 고정 용량 -->
+  <path d="M64,110 H384" fill="none" stroke="#1d4ed8" stroke-width="3"/>
 
-    <!-- 낭비 영역 채우기 해치/패턴 표상 (████████████████████  ← 낭비) -->
-    <text x="230" y="145" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">████████████████████</text>
-    
-    <!-- "← 낭비" 라벨 -->
-    <path d="M 360,141 L 315,141" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <rect x="320" y="130" width="55" height="20" fill="#ffffff" opacity="0.8"/>
-    <text x="345" y="145" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">← 낭비</text>
+  <!-- 축 -->
+  <path d="M64,300 V86" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
+  <path d="M64,300 H388" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
+  <text x="64" y="74" font-size="15" fill="#374151" text-anchor="middle">용량</text>
+  <text x="398" y="305" font-size="15" fill="#374151">시간</text>
 
-    <!-- 실제 수요 영역 (░░░░/▔▔ \░░░░) -->
-    <path d="M 70,250 C 80,250 100,250 130,250 C 150,210 190,170 210,170 C 230,170 270,170 290,210 C 310,250 350,250 370,250 L 70,250 Z" fill="#f8fafc" stroke="none"/>
+  <text x="224" y="346" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">피크에 맞춰 상시 유지</text>
 
-    <!-- 실제 수요 곡선 (선) -->
-    <path d="M 70,250 C 90,250 110,250 135,240 C 160,220 185,170 210,170 C 235,170 260,170 285,220 C 310,250 340,250 370,250" stroke="#52606d" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+  <!-- ===== 오른쪽: 오토스케일링 ===== -->
+  <text x="654" y="42" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">오토스케일링</text>
 
-    <!-- 고정 용량 상단선 (▲ ─────────────────────) -->
-    <line x1="70" y1="120" x2="370" y2="120" stroke="#dc2626" stroke-width="2.5"/>
+  <!-- 실제 수요 -->
+  <path d="M494,262 C540,262 560,258 590,220 C620,170 630,124 654,124 C680,124 692,170 722,222 C748,258 770,262 814,262" fill="none" stroke="#374151" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="654" y="224" font-size="16" fill="#374151" text-anchor="middle">실제 수요</text>
 
-    <!-- Y축 (▲) -->
-    <path d="M 70,280 L 70,108" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 수요를 따라 움직이는 용량 -->
+  <path d="M494,248 C540,248 558,244 586,206 C614,158 628,110 654,110 C680,110 694,158 726,208 C752,244 770,248 814,248" fill="none" stroke="#1d4ed8" stroke-width="3"/>
 
-    <!-- X축 (└──────────────────▶ 시간) -->
-    <path d="M 70,280 L 380,280" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="395" y="284" font-size="13" fill="#1f2933">시간</text>
+  <!-- 축 -->
+  <path d="M494,300 V86" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
+  <path d="M494,300 H818" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#ah-ink)"/>
+  <text x="494" y="74" font-size="15" fill="#374151" text-anchor="middle">용량</text>
+  <text x="826" y="305" font-size="15" fill="#374151">시간</text>
 
-    <!-- 하단 설명 라벨 -->
-    <text x="220" y="325" font-size="13" fill="#52606d" text-anchor="middle">피크에 맞춰 상시 유지</text>
-  </g>
+  <text x="654" y="346" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">수요를 따라 용량이 움직임</text>
 
-  <!-- 구분선 -->
-  <line x1="440" y1="70" x2="440" y2="340" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- ==================== 오른쪽: [ 오토스케일링 ] ==================== -->
-  <g id="auto-scaling">
-    <!-- 패널 제목 -->
-    <text x="650" y="75" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[ 오토스케일링 ]</text>
-
-    <!-- 용량 축 라벨 -->
-    <text x="490" y="102" font-size="13" fill="#1f2933" text-anchor="middle">용량</text>
-
-    <!-- 수요 추종 용량 영역 배경 (수요를 따라 용량이 움직임) -->
-    <path d="M 500,260 L 520,260 L 545,230 L 575,170 L 625,140 L 675,140 L 725,180 L 755,230 L 780,260 L 800,260 L 800,280 L 500,280 Z" fill="#ecfdf5" stroke="none"/>
-
-    <!-- 실제 수요 영역 (오토스케일링 하단) -->
-    <path d="M 500,265 C 520,265 540,265 565,245 C 590,215 615,155 650,155 C 685,155 710,215 735,245 C 760,265 780,265 800,265 L 500,265 Z" fill="#eff6ff" opacity="0.6" stroke="none"/>
-
-    <!-- 실제 수요 라벨/곡선 (╭──╯ 실제 수요 ╰──╮) -->
-    <path d="M 500,265 C 520,265 540,265 565,245 C 590,215 615,155 650,155 C 685,155 710,215 735,245 C 760,265 780,265 800,265" stroke="#2563eb" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
-
-    <!-- 오토스케일링 용량 곡선 (╭──╮ / ╭──╯ ╰──╮) -->
-    <path d="M 500,250 L 530,250 L 555,210 L 585,130 L 620,120 L 680,120 L 715,160 L 745,210 L 770,250 L 800,250" stroke="#059669" stroke-width="2.5" fill="none"/>
-
-    <!-- "실제 수요" 텍스트 릴리프 배경 및 텍스트 -->
-    <rect x="605" y="180" width="90" height="22" fill="#ffffff" rx="4" stroke="#9aa5b1" stroke-width="0.5"/>
-    <text x="650" y="195" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">실제 수요</text>
-
-    <!-- Y축 (▲) -->
-    <path d="M 500,280 L 500,108" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <!-- X축 (└──────────────────▶ 시간) -->
-    <path d="M 500,280 L 810,280" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="825" y="284" font-size="13" fill="#1f2933">시간</text>
-
-    <!-- 하단 설명 라벨 -->
-    <text x="650" y="325" font-size="13" fill="#059669" text-anchor="middle">수요를 따라 용량이 움직임</text>
-  </g>
-
-  <!-- ==================== 범례 (Legend) ==================== -->
-  <g id="legend">
-    <rect x="180" y="355" width="520" height="25" fill="#f8fafc" rx="4" stroke="#cbd2d9"/>
-    
-    <line x1="200" y1="367" x2="225" y2="367" stroke="#dc2626" stroke-width="2.5"/>
-    <text x="233" y="371" font-size="11.5" fill="#1f2933">고정 용량 (낭비)</text>
-
-    <line x1="350" y1="367" x2="375" y2="367" stroke="#059669" stroke-width="2.5"/>
-    <text x="383" y="371" font-size="11.5" fill="#1f2933">오토스케일링 용량</text>
-
-    <line x1="530" y1="367" x2="555" y2="367" stroke="#2563eb" stroke-width="2" stroke-dasharray="4 3"/>
-    <text x="563" y="371" font-size="11.5" fill="#1f2933">실제 수요</text>
-  </g>
+  <!-- 범례 -->
+  <path d="M282,392 H318" fill="none" stroke="#1d4ed8" stroke-width="3"/>
+  <text x="326" y="397" font-size="15" fill="#111827">용량</text>
+  <path d="M392,392 H428" fill="none" stroke="#374151" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <text x="436" y="397" font-size="15" fill="#111827">실제 수요</text>
+  <rect x="536" y="383" width="24" height="18" fill="#fee2e2" stroke="#f87171" stroke-width="1"/>
+  <text x="568" y="397" font-size="15" fill="#111827">낭비</text>
 </svg>

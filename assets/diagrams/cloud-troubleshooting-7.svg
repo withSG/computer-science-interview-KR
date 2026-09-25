@@ -1,75 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 670" width="880" height="670" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">시나리오 3 — 특정 노드에서만 Pod가 사라진다</title>
-  <desc id="d">특정 노드에서 Pod가 Evicted되는 증상, 진단 단계, 원인 및 즉시/근본 대응 방안을 설명하는 트러블슈팅 다이어그램</desc>
+  <desc id="d">증상(node-3의 Pod들이 주기적으로 Evicted), 세 단계 진단(DiskPressure True, ephemeral-storage 부족 메시지, 노드 디스크 사용량 확인), 원인(컨테이너 안 파일 로그 무한 누적으로 노드 디스크가 차서 kubelet이 Pod를 축출), 즉시·근본 대응을 위에서 아래로 보여 준다.</desc>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="rail" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="step" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="cause" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
+  <rect width="880" height="670" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 왼쪽 단계 레일 -->
+  <path d="M62,74 V98" stroke="#9ca3af" stroke-width="2" fill="none" marker-end="url(#rail)"/>
+  <path d="M62,144 V342" stroke="#9ca3af" stroke-width="2" fill="none" marker-end="url(#rail)"/>
+  <path d="M62,388 V486" stroke="#9ca3af" stroke-width="2" fill="none" marker-end="url(#rail)"/>
 
-  <!-- 제목 -->
-  <text x="24" y="32" font-size="16" font-weight="bold" fill="#1f2933">시나리오 3 — 특정 노드에서만 Pod가 사라진다</text>
+  <rect x="24" y="34" width="76" height="36" rx="6" fill="#b91c1c"/>
+  <text x="62" y="58" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">증상</text>
+  <rect x="24" y="104" width="76" height="36" rx="6" fill="#1d4ed8"/>
+  <text x="62" y="128" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">진단</text>
+  <rect x="24" y="348" width="76" height="36" rx="6" fill="#b45309"/>
+  <text x="62" y="372" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">원인</text>
+  <rect x="24" y="492" width="76" height="36" rx="6" fill="#047857"/>
+  <text x="62" y="516" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">대응</text>
 
-  <!-- 1. 증상 Section (Red) -->
-  <rect x="24" y="50" width="100" height="54" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="74" y="82" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">증상</text>
+  <!-- 증상 -->
+  <rect x="120" y="24" width="736" height="56" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="140" y="58" font-size="16" fill="#1f2937"><tspan font-weight="bold">node-3</tspan>에 배치된 Pod들이 주기적으로 <tspan font-weight="bold" fill="#b91c1c">Evicted</tspan></text>
 
-  <rect x="144" y="50" width="712" height="54" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="164" y="82" font-size="13" fill="#1f2933">node-3에 배치된 Pod들이 주기적으로 Evicted</text>
+  <!-- 진단: 세 단계 -->
+  <rect x="120" y="104" width="736" height="220" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#1f2937">
+    <text x="170" y="145">kubectl describe node node-3 | grep -A 10 Conditions</text>
+    <text x="170" y="223">kubectl describe pod &lt;evicted-pod&gt; | grep -i message</text>
+  </g>
+  <text x="170" y="301" font-size="15" fill="#1f2937">노드에서 디스크 사용량 확인</text>
+  <g fill="#1d4ed8">
+    <circle cx="146" cy="140" r="12"/>
+    <circle cx="146" cy="218" r="12"/>
+    <circle cx="146" cy="296" r="12"/>
+  </g>
+  <g font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <text x="146" y="145">1</text>
+    <text x="146" y="223">2</text>
+    <text x="146" y="301">3</text>
+  </g>
+  <g stroke="#6b7280" stroke-width="1.5" fill="none">
+    <path d="M146,154 V173 H162" marker-end="url(#step)"/>
+    <path d="M146,232 V251 H162" marker-end="url(#step)"/>
+  </g>
+  <rect x="168" y="158" width="170" height="30" rx="4" fill="#f3f4f6"/>
+  <text x="182" y="178" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#b91c1c">DiskPressure True</text>
+  <rect x="168" y="236" width="440" height="30" rx="4" fill="#f3f4f6"/>
+  <text x="182" y="256" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1f2937">"The node was low on resource: <tspan font-weight="bold" fill="#b91c1c">ephemeral-storage</tspan>"</text>
 
-  <!-- Connection Line 1 -->
-  <path d="M74,104 L74,124" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- 원인: 인과 사슬 -->
+  <rect x="120" y="348" width="736" height="120" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="136" y="364" width="230" height="88" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="251" y="390" font-size="15" fill="#1f2937" text-anchor="middle">한 애플리케이션이<tspan x="251" dy="22">컨테이너 안에 파일 로그를</tspan><tspan x="251" dy="22" font-weight="bold">무한 누적</tspan></text>
+  <rect x="402" y="364" width="160" height="88" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
+  <text x="482" y="402" font-size="15" fill="#1f2937" text-anchor="middle"><tspan font-weight="bold">노드 디스크가 참</tspan><tspan x="482" dy="22" fill="#4b5563">(DiskPressure)</tspan></text>
+  <rect x="598" y="364" width="242" height="88" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="719" y="390" font-size="15" fill="#1f2937" text-anchor="middle">kubelet이 requests 대비<tspan x="719" dy="22">디스크 사용량이 큰 Pod부터</tspan><tspan x="719" dy="22" font-weight="bold" fill="#b91c1c">축출</tspan></text>
+  <g stroke="#b45309" stroke-width="2" fill="none">
+    <path d="M370,408 H398" marker-end="url(#cause)"/>
+    <path d="M566,408 H594" marker-end="url(#cause)"/>
+  </g>
 
-  <!-- 2. 진단 Section (Blue) -->
-  <rect x="24" y="124" width="100" height="136" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="74" y="197" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">진단</text>
-
-  <rect x="144" y="124" width="712" height="136" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <text x="164" y="149" font-size="13" font-weight="bold" fill="#1f2933">① kubectl describe node node-3 | grep -A 10 Conditions</text>
-  <text x="184" y="171" font-size="13" fill="#2563eb">→ DiskPressure True</text>
-
-  <text x="164" y="196" font-size="13" font-weight="bold" fill="#1f2933">② kubectl describe pod &lt;evicted-pod&gt; | grep -i message</text>
-  <text x="184" y="218" font-size="13" fill="#2563eb">→ "The node was low on resource: ephemeral-storage"</text>
-
-  <text x="164" y="243" font-size="13" font-weight="bold" fill="#1f2933">③ 노드에서 디스크 사용량 확인</text>
-
-  <!-- Connection Line 2 -->
-  <path d="M74,260 L74,280" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 3. 원인 Section (Amber) -->
-  <rect x="24" y="280" width="100" height="64" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="74" y="317" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">원인</text>
-
-  <rect x="144" y="280" width="712" height="64" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="164" y="306" font-size="13" fill="#1f2933">한 애플리케이션이 컨테이너 안에 파일 로그를 무한 누적.</text>
-  <text x="164" y="328" font-size="13" fill="#1f2933">노드 디스크가 차자 kubelet이 requests 대비 디스크 사용량이 큰 Pod부터 축출.</text>
-
-  <!-- Connection Line 3 -->
-  <path d="M74,344 L74,364" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-
-  <!-- 4. 대응 Section (Green) -->
-  <rect x="24" y="364" width="100" height="110" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="74" y="424" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">대응</text>
-
-  <rect x="144" y="364" width="712" height="110" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <text x="164" y="389" font-size="13" font-weight="bold" fill="#059669">즉시:</text>
-  <text x="204" y="389" font-size="13" fill="#1f2933">문제 Pod 정리, 오래된 이미지·로그 회수로 공간 확보</text>
-
-  <text x="164" y="420" font-size="13" font-weight="bold" fill="#059669">근본:</text>
-  <text x="204" y="420" font-size="13" fill="#1f2933">로그를 표준 출력으로 전환해 수집기가 가져가도록 변경,</text>
-  <text x="204" y="442" font-size="13" fill="#1f2933">emptyDir에 sizeLimit 지정, 노드 디스크 사용률 알림 추가</text>
+  <!-- 대응 -->
+  <rect x="120" y="492" width="736" height="150" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="136" y="508" width="56" height="28" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1"/>
+  <text x="164" y="527" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">즉시</text>
+  <text x="208" y="527" font-size="15" fill="#1f2937">문제 Pod 정리, 오래된 이미지·로그 회수로 공간 확보</text>
+  <rect x="136" y="550" width="56" height="28" rx="14" fill="#ecfdf5" stroke="#047857" stroke-width="1"/>
+  <text x="164" y="569" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">근본</text>
+  <g font-size="15" fill="#1f2937">
+    <text x="208" y="569">•</text>
+    <text x="222" y="569">로그를 표준 출력으로 전환해 수집기가 가져가도록 변경</text>
+    <text x="208" y="595">•</text>
+    <text x="222" y="595"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">emptyDir</tspan>에 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sizeLimit</tspan> 지정</text>
+    <text x="208" y="621">•</text>
+    <text x="222" y="621">노드 디스크 사용률 알림 추가</text>
+  </g>
 </svg>

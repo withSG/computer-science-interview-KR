@@ -331,7 +331,7 @@ aws sts get-caller-identity
 최소 권한 원칙은 모두가 동의하지만 아무도 지키지 못하는 말이 되기 쉽습니다. 처음부터 정확한 권한 집합을 아는 사람이 없기 때문입니다. 그래서 한 번에 맞추려 하지 말고 좁혀 나가는 절차로 만듭니다.
 
 <!-- diagram:cloud-iam-security-5 -->
-![7. 최소 권한을 실제로 실천하는 방법](../../assets/diagrams/cloud-iam-security-5.svg)
+![최소 권한을 좁혀 나가는 6단계 절차](../../assets/diagrams/cloud-iam-security-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

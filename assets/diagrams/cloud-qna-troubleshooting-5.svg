@@ -1,57 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">면접 답변 예시</title>
-  <desc id="d">배포 후 3일 뒤 서비스 지연 현상에 대한 진단, 원인, 해결 및 결과 과정을 나타낸 기술 문제 해결 다이어그램</desc>
-  <rect width="880" height="730" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 660" width="880" height="660" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">메모리 누수 면접 답변 흐름</title>
+  <desc id="d">배포 3일 뒤 느려지는 현상을 진단(OOMKilled, 계단식 메모리 증가, heap dump) → 원인(Redis 예외 시 로컬 HashMap 백업에 삭제 로직 없음) → 해결(Caffeine Cache, 재시도, 80% 알림) → 결과(OOMKilled 재발 없음) 순서로 정리한 답변 예시.</desc>
+  <rect width="880" height="660" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 제목 -->
-  <text x="440" y="45.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">면접 답변 예시</text>
+  <!-- 도입: 현상 -->
+  <rect x="24" y="24" width="832" height="60" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="44" y="60" font-size="17" font-weight="bold" fill="#111827">서비스가 배포 후 3일이 지나면 느려지는 현상이 있었습니다.</text>
 
-  <!-- 상단 요약 설명 -->
-  <rect x="40" y="70" width="800" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="94.6" font-size="13" fill="#1f2933" text-anchor="middle">"서비스가 배포 후 3일이 지나면 느려지는 현상이 있었습니다.</text>
+  <path d="M80,87 L80,113" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- Section 1: 진단 (Blue) -->
-  <rect x="40" y="130" width="800" height="125" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="159.9" font-size="14" font-weight="bold" fill="#2563eb">진단:</text>
-  <text x="60" y="184.6" font-size="13" fill="#1f2933">1. Kubernetes에서 Pod가 OOMKilled로 재시작되는 것 확인</text>
-  <text x="60" y="208.6" font-size="13" fill="#1f2933">2. 메모리 그래프가 계단식 증가 패턴</text>
-  <text x="60" y="232.6" font-size="13" fill="#1f2933">3. heap dump 분석 → 사용자 세션 객체가 수백만 개</text>
+  <!-- 진단 -->
+  <rect x="24" y="116" width="112" height="124" rx="8" fill="#1d4ed8"/>
+  <text x="80" y="184" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">진단</text>
+  <rect x="148" y="116" width="708" height="124" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="168" y="151" font-size="16" fill="#111827">1. Kubernetes에서 Pod가 OOMKilled로 재시작되는 것 확인</text>
+  <text x="168" y="183" font-size="16" fill="#111827">2. 메모리 그래프가 계단식 증가 패턴</text>
+  <text x="168" y="215" font-size="16" fill="#111827">3. heap dump 분석 → <tspan font-weight="bold" fill="#1d4ed8">사용자 세션 객체가 수백만 개</tspan></text>
 
-  <!-- 연결 화살표 1 -->
-  <path d="M440,255 L440,285" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <path d="M80,243 L80,269" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- Section 2: 원인 (Red) -->
-  <rect x="40" y="285" width="800" height="105" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="60" y="314.9" font-size="14" font-weight="bold" fill="#dc2626">원인:</text>
-  <text x="60" y="339.6" font-size="13" fill="#1f2933">Redis 세션 저장 로직에서 예외 발생 시</text>
-  <text x="60" y="363.6" font-size="13" fill="#1f2933">로컬 HashMap에 백업 저장하는데, 삭제 로직이 없었음</text>
+  <!-- 원인 -->
+  <rect x="24" y="272" width="112" height="112" rx="8" fill="#b91c1c"/>
+  <text x="80" y="334" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">원인</text>
+  <rect x="148" y="272" width="708" height="112" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <rect x="168" y="296" width="212" height="64" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="274" y="334" font-size="16" fill="#111827" text-anchor="middle">Redis 세션 저장 로직</text>
+  <path d="M384,328 L482,328" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="432" y="318" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">예외 발생 시</text>
+  <rect x="488" y="296" width="260" height="64" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="618" y="322" font-size="16" fill="#111827" text-anchor="middle">로컬 HashMap에 백업 저장</text>
+  <text x="618" y="347" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">삭제 로직이 없었음</text>
 
-  <!-- 연결 화살표 2 -->
-  <path d="M440,390 L440,420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M80,387 L80,413" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- Section 3: 해결 (Green) -->
-  <rect x="40" y="420" width="800" height="125" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="60" y="449.9" font-size="14" font-weight="bold" fill="#059669">해결:</text>
-  <text x="60" y="474.6" font-size="13" fill="#1f2933">1. HashMap 대신 Caffeine Cache (maxSize, TTL 설정)</text>
-  <text x="60" y="498.6" font-size="13" fill="#1f2933">2. Redis 연결 실패 시 재시도 로직 추가</text>
-  <text x="60" y="522.6" font-size="13" fill="#1f2933">3. 메모리 사용량 80% 알림 설정</text>
+  <!-- 해결 -->
+  <rect x="24" y="416" width="112" height="124" rx="8" fill="#047857"/>
+  <text x="80" y="484" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">해결</text>
+  <rect x="148" y="416" width="708" height="124" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="168" y="451" font-size="16" fill="#111827">1. HashMap 대신 <tspan font-weight="bold" fill="#047857">Caffeine Cache</tspan> (maxSize, TTL 설정)</text>
+  <text x="168" y="483" font-size="16" fill="#111827">2. Redis 연결 실패 시 재시도 로직 추가</text>
+  <text x="168" y="515" font-size="16" fill="#111827">3. 메모리 사용량 80% 알림 설정</text>
 
-  <!-- 연결 화살표 3 -->
-  <path d="M440,545 L440,575" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M80,543 L80,569" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- Section 4: 결과 (Purple) -->
-  <rect x="40" y="575" width="800" height="80" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="60" y="604.9" font-size="14" font-weight="bold" fill="#7c3aed">결과:</text>
-  <text x="60" y="629.6" font-size="13" fill="#1f2933">메모리 안정적 유지, OOMKilled 재발 없음"</text>
+  <!-- 결과 -->
+  <rect x="24" y="572" width="112" height="64" rx="8" fill="#6d28d9"/>
+  <text x="80" y="610" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">결과</text>
+  <rect x="148" y="572" width="708" height="64" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="168" y="610" font-size="17" font-weight="bold" fill="#111827">메모리 안정적 유지, OOMKilled 재발 없음</text>
 </svg>

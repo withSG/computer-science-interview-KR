@@ -1,59 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">VPC 및 서브넷 구조</title>
-  <desc id="d">VPC 10.0.0.0/16 내 AZ-a와 AZ-c에 각각 Public 및 Private 서브넷이 포함된 트리를 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">VPC와 AZ별 서브넷 구성</title>
+  <desc id="d">VPC 10.0.0.0/16(65,536개 주소)을 AZ-a와 AZ-c로 나누고, AZ마다 Public 서브넷 1개와 Private 서브넷 2개를 /24로 둔 구조입니다. AZ-a의 Public 서브넷에는 ALB와 NAT Gateway, 첫 Private 서브넷에는 애플리케이션 서버, 둘째 Private 서브넷에는 RDS와 ElastiCache가 놓입니다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- VPC 루트 영역 -->
-  <rect x="30" y="24" width="820" height="472" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="50" y="58" font-size="16" font-weight="bold" fill="#1f2933">VPC 10.0.0.0/16  (65,536개 주소)</text>
+  <!-- VPC -->
+  <rect x="24" y="24" width="832" height="372" rx="10" fill="#f9fafb" stroke="#4b5563" stroke-width="2"/>
+  <text x="44" y="60" font-size="20" font-weight="bold" fill="#111827">VPC<tspan dx="10" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.0/16</tspan><tspan dx="12" font-size="16" font-weight="normal" fill="#4b5563">(65,536개 주소)</tspan></text>
 
-  <!-- 트리 연결선 (메인 줄기 및 AZ 연결선) -->
-  <path d="M 50 70 L 50 300 M 50 180 L 90 180 M 50 420 L 90 420" stroke="#cbd2d9" stroke-width="2" fill="none"/>
+  <!-- AZ-a -->
+  <rect x="44" y="80" width="386" height="296" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="62" y="110" font-size="18" font-weight="bold" fill="#111827">AZ-a</text>
 
-  <!-- AZ-a 그룹 -->
-  <g transform="translate(90, 80)">
-    <rect x="0" y="0" width="730" height="200" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="20" y="32" font-size="14" font-weight="bold" fill="#2563eb">AZ-a</text>
-    
-    <!-- AZ-a 트리 가지 -->
-    <path d="M 20 42 L 20 160 M 20 70 L 50 70 M 20 115 L 50 115 M 20 160 L 50 160" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <rect x="62" y="126" width="350" height="68" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="78" y="154" font-size="16" font-weight="bold" fill="#1d4ed8">Public Subnet</text>
+  <text x="396" y="154" font-size="16" text-anchor="end" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.0/24</text>
+  <circle cx="82" cy="175" r="3" fill="#374151"/>
+  <text x="92" y="180" font-size="15" fill="#374151">ALB, NAT Gateway</text>
 
-    <!-- AZ-a Subnets -->
-    <!-- Public Subnet -->
-    <rect x="50" y="52" width="310" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
-    <text x="62" y="74" font-size="13" font-weight="600" fill="#1f2933">Public  Subnet  10.0.0.0/24</text>
-    <text x="380" y="74" font-size="13" font-weight="bold" fill="#059669">← ALB, NAT Gateway</text>
+  <rect x="62" y="206" width="350" height="68" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="78" y="234" font-size="16" font-weight="bold" fill="#6d28d9">Private Subnet</text>
+  <text x="396" y="234" font-size="16" text-anchor="end" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.10.0/24</text>
+  <circle cx="82" cy="255" r="3" fill="#374151"/>
+  <text x="92" y="260" font-size="15" fill="#374151">애플리케이션 서버</text>
 
-    <!-- Private Subnet 1 -->
-    <rect x="50" y="97" width="310" height="34" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
-    <text x="62" y="119" font-size="13" font-weight="600" fill="#1f2933">Private Subnet  10.0.10.0/24</text>
-    <text x="380" y="119" font-size="13" font-weight="bold" fill="#7c3aed">← 애플리케이션 서버</text>
+  <rect x="62" y="286" width="350" height="68" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="78" y="314" font-size="16" font-weight="bold" fill="#6d28d9">Private Subnet</text>
+  <text x="396" y="314" font-size="16" text-anchor="end" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.20.0/24</text>
+  <circle cx="82" cy="335" r="3" fill="#374151"/>
+  <text x="92" y="340" font-size="15" fill="#374151">RDS, ElastiCache</text>
 
-    <!-- Private Subnet 2 -->
-    <rect x="50" y="142" width="310" height="34" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
-    <text x="62" y="164" font-size="13" font-weight="600" fill="#1f2933">Private Subnet  10.0.20.0/24</text>
-    <text x="380" y="164" font-size="13" font-weight="bold" fill="#d97706">← RDS, ElastiCache</text>
-  </g>
+  <!-- AZ-c -->
+  <rect x="450" y="80" width="386" height="296" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="468" y="110" font-size="18" font-weight="bold" fill="#111827">AZ-c</text>
 
-  <!-- AZ-c 그룹 -->
-  <g transform="translate(90, 310)">
-    <rect x="0" y="0" width="730" height="160" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="20" y="32" font-size="14" font-weight="bold" fill="#2563eb">AZ-c</text>
-    
-    <!-- AZ-c 트리 가지 -->
-    <path d="M 20 42 L 20 135 M 20 70 L 50 70 M 20 102 L 50 102 M 20 135 L 50 135" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <rect x="468" y="126" width="350" height="68" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="484" y="165" font-size="16" font-weight="bold" fill="#1d4ed8">Public Subnet</text>
+  <text x="802" y="165" font-size="16" text-anchor="end" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.1.0/24</text>
 
-    <!-- AZ-c Subnets -->
-    <!-- Public Subnet -->
-    <rect x="50" y="54" width="310" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
-    <text x="62" y="75" font-size="13" font-weight="600" fill="#1f2933">Public  Subnet  10.0.1.0/24</text>
+  <rect x="468" y="206" width="350" height="68" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="484" y="245" font-size="16" font-weight="bold" fill="#6d28d9">Private Subnet</text>
+  <text x="802" y="245" font-size="16" text-anchor="end" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.11.0/24</text>
 
-    <!-- Private Subnet 1 -->
-    <rect x="50" y="86" width="310" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
-    <text x="62" y="107" font-size="13" font-weight="600" fill="#1f2933">Private Subnet  10.0.11.0/24</text>
+  <rect x="468" y="286" width="350" height="68" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="484" y="325" font-size="16" font-weight="bold" fill="#6d28d9">Private Subnet</text>
+  <text x="802" y="325" font-size="16" text-anchor="end" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.21.0/24</text>
 
-    <!-- Private Subnet 2 -->
-    <rect x="50" y="118" width="310" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
-    <text x="62" y="139" font-size="13" font-weight="600" fill="#1f2933">Private Subnet  10.0.21.0/24</text>
-  </g>
+  <!-- 캡션 -->
+  <text x="440" y="428" font-size="15" text-anchor="middle" fill="#374151">서브넷 하나는 정확히 하나의 AZ에 속한다 · AZ를 가로지를 수 없다</text>
 </svg>

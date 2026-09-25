@@ -39,7 +39,7 @@
 리눅스는 모든 것을 하나의 트리로 표현합니다. 윈도우처럼 `C:`, `D:` 같은 드라이브 문자가 없고, 디스크를 추가하면 트리의 어느 지점(`/data` 같은)에 **마운트(mount)** 해서 붙입니다. 이 트리의 어느 디렉터리에 무엇을 두는지를 정한 규약이 FHS입니다.
 
 <!-- diagram:cloud-linux-essentials-5 -->
-![정의](../../assets/diagrams/cloud-linux-essentials-5.svg)
+![루트(/) 아래 주요 디렉터리와 용도를 보인 FHS 트리](../../assets/diagrams/cloud-linux-essentials-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -101,7 +101,7 @@ ls /proc/<PID>/fd | wc -l                # 열려 있는 파일 디스크립터 
 리눅스는 태생이 다중 사용자 시스템입니다. 한 대의 서버에 여러 사람이 붙어 쓰는 상황에서 "내 파일을 남이 못 보게" 하려면 파일마다 주인과 규칙이 필요했습니다. 그래서 모든 파일은 **소유자(user) / 그룹(group) / 나머지(others)** 세 부류에 대해 각각 읽기·쓰기·실행 권한을 갖습니다.
 
 <!-- diagram:cloud-linux-essentials-6 -->
-![왜 이렇게 생겼나](../../assets/diagrams/cloud-linux-essentials-6.svg)
+![ls -l 출력의 파일 종류·권한·소유자·그룹 필드 해설](../../assets/diagrams/cloud-linux-essentials-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

@@ -1,56 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">CI/CD 파이프라인 흐름</title>
-  <desc id="d">Code Commit, Build, Test, Deploy Staging, Monitor로 이어지는 연속적인 CI/CD 파이프라인 흐름과 Deploy Staging에서 Production으로 이어지는 배포 과정 다이어그램</desc>
-  
+  <desc id="d">Code Commit, Build, Test(CI 구간)를 거쳐 Deploy Staging, Monitor로 이어지고, Deploy Staging에서 Production으로 배포됩니다. 프로덕션 배포는 Continuous Delivery면 수동 승인, Continuous Deployment면 자동입니다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <rect width="880" height="320" fill="#ffffff"/>
+  <!-- CI 구간 표시 -->
+  <text x="272" y="44" font-size="17" font-weight="700" fill="#1d4ed8" text-anchor="middle">CI · 지속적 통합</text>
+  <text x="272" y="66" font-size="15" fill="#374151" text-anchor="middle">모든 커밋에 자동 빌드/테스트</text>
+  <path d="M40,88 V80 H504 V88" fill="none" stroke="#1d4ed8" stroke-width="2"/>
 
-  <!-- Code Commit (100x60, center x=80, y=80) -->
-  <rect x="30" y="50" width="100" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="80" y="74.05" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Code</text>
-  <text x="80" y="94.05" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Commit</text>
+  <!-- CD 구간 표시 -->
+  <text x="608" y="44" font-size="17" font-weight="700" fill="#6d28d9" text-anchor="middle">CD · 지속적 제공/배포</text>
+  <text x="608" y="66" font-size="15" fill="#374151" text-anchor="middle">배포 자동화</text>
+  <path d="M544,88 V80 H672 V88" fill="none" stroke="#6d28d9" stroke-width="2"/>
 
-  <!-- Arrow 1: Code Commit -> Build -->
-  <path d="M 130 80 L 180 80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 1. Code Commit -->
+  <rect x="40" y="100" width="128" height="70" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="104" y="130" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Code<tspan x="104" dy="22">Commit</tspan></text>
 
-  <!-- Build (100x60, center x=230, y=80) -->
-  <rect x="180" y="50" width="100" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="230" y="84.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Build</text>
+  <!-- 2. Build -->
+  <rect x="208" y="100" width="128" height="70" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="272" y="141" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Build</text>
 
-  <!-- Arrow 2: Build -> Test -->
-  <path d="M 280 80 L 330 80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 3. Test -->
+  <rect x="376" y="100" width="128" height="70" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="141" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Test</text>
 
-  <!-- Test (100x60, center x=380, y=80) -->
-  <rect x="330" y="50" width="100" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="380" y="84.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Test</text>
+  <!-- 4. Deploy Staging -->
+  <rect x="544" y="100" width="128" height="70" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="608" y="130" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Deploy<tspan x="608" dy="22">Staging</tspan></text>
 
-  <!-- Arrow 3: Test -> Deploy Staging -->
-  <path d="M 430 80 L 480 80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 5. Monitor -->
+  <rect x="712" y="100" width="128" height="70" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="776" y="141" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Monitor</text>
 
-  <!-- Deploy Staging (120x60, center x=540, y=80) -->
-  <rect x="480" y="50" width="120" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="540" y="74.05" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Deploy</text>
-  <text x="540" y="94.05" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Staging</text>
+  <!-- 가로 흐름 화살표 -->
+  <path d="M170,135 H204" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <path d="M338,135 H372" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <path d="M506,135 H540" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <path d="M674,135 H708" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Arrow 4: Deploy Staging -> Monitor -->
-  <path d="M 600 80 L 650 80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- Staging → Production -->
+  <path d="M608,172 V262" fill="none" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#arp)"/>
+  <text x="626" y="208" font-size="15" fill="#374151">제공(Delivery): <tspan font-weight="700" fill="#b45309">수동 승인</tspan></text>
+  <text x="626" y="232" font-size="15" fill="#374151">배포(Deployment): <tspan font-weight="700" fill="#047857">자동</tspan></text>
 
-  <!-- Monitor (100x60, center x=700, y=80) -->
-  <rect x="650" y="50" width="100" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="700" y="84.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Monitor</text>
-
-  <!-- Arrow 5: Deploy Staging -> Production -->
-  <path d="M 540 110 L 540 180" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Production (120x60, center x=540, y=210) -->
-  <rect x="480" y="180" width="120" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="540" y="214.55" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">Production</text>
+  <!-- Production -->
+  <rect x="536" y="266" width="144" height="60" rx="8" fill="#6d28d9" stroke="#6d28d9" stroke-width="2"/>
+  <text x="608" y="302" font-size="17" font-weight="700" fill="#ffffff" text-anchor="middle">Production</text>
 </svg>

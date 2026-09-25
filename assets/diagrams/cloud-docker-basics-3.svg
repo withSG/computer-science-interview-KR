@@ -1,85 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 530" width="880" height="530" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">유니온 파일시스템이 하는 일</title>
-  <desc id="d">Upper 레이어와 Lower 레이어들이 유니온 파일시스템을 통해 merged 뷰로 합성되는 구조를 나타낸 다이어그램</desc>
-
+  <desc id="d">읽기 전용 이미지 레이어 lowerdir1~3과 컨테이너 전용 쓰기 레이어 upperdir를 겹쳐, 컨테이너가 실제로 보는 merged 디렉터리 하나로 보여 준다. 같은 경로면 위층이 이겨 /etc/nginx/nginx.conf는 upper 것, /usr/sbin/nginx는 lower 것이 보인다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
+  <rect width="880" height="530" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- merged: 컨테이너가 실제로 보는 / -->
+  <rect x="77" y="28" width="540" height="156" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="97" y="60" font-size="18" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">merged</text>
+  <text x="171" y="60" font-size="16" fill="#1f2937">컨테이너가 실제로 보는 /</text>
 
-  <!-- 상단 박스: merged (컨테이너가 실제로 보는 /) -->
-  <g id="merged-section">
-    <!-- 외각 merged 박스 라벨 -->
-    <text x="60" y="48" font-size="14" font-weight="bold" fill="#1f2933">merged (컨테이너가 실제로 보는 /)</text>
-    
-    <!-- merged 박스 테두리 및 배경 -->
-    <rect x="60" y="60" width="760" height="110" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <rect x="97" y="76" width="500" height="44" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="113" y="104" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/etc/nginx/nginx.conf</text>
+  <rect x="457" y="84" width="124" height="28" rx="14" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="519" y="103" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">← upper 것</text>
 
-    <!-- 첫 번째 항목: /etc/nginx/nginx.conf  ← upper 것 -->
-    <rect x="80" y="78" width="220" height="32" rx="3" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="90" y="98" font-size="13" fill="#1f2933" font-family="monospace">/etc/nginx/nginx.conf</text>
-    
-    <path d="M 310 94 L 340 94" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <text x="350" y="98" font-size="13" font-weight="bold" fill="#7c3aed">← upper 것</text>
+  <rect x="97" y="128" width="500" height="44" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="113" y="156" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/usr/sbin/nginx</text>
+  <rect x="457" y="136" width="124" height="28" rx="14" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="519" y="155" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">← lower 것</text>
 
-    <!-- 두 번째 항목: /usr/sbin/nginx        ← lower 것 -->
-    <rect x="80" y="122" width="220" height="32" rx="3" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="90" y="142" font-size="13" fill="#1f2933" font-family="monospace">/usr/sbin/nginx</text>
-    
-    <path d="M 310 138 L 340 138" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="350" y="142" font-size="13" font-weight="bold" fill="#52606d">← lower 것</text>
-  </g>
+  <!-- 겹쳐 보이기 -->
+  <line x1="347" y1="256" x2="347" y2="191" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+  <text x="365" y="216" font-size="16" font-weight="bold" fill="#1d4ed8">겹쳐 보이기</text>
+  <text x="365" y="238" font-size="14" fill="#4b5563">같은 경로면 위층이 이김</text>
 
-  <!-- 연결 화살표 및 라벨: ▲ 겹쳐 보이기 -->
-  <g id="connector">
-    <path d="M 440 250 L 440 172" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#a-blue)"/>
-    
-    <rect x="380" y="200" width="120" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="12"/>
-    <text x="440" y="216" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">▲ 겹쳐 보이기</text>
-  </g>
+  <!-- 레이어 스택 -->
+  <rect x="77" y="256" width="540" height="248" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- 하단 큰 박스: 레이어 모음 -->
-  <g id="layers-section">
-    <!-- 하단 박스 외곽 -->
-    <rect x="60" y="250" width="760" height="220" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <rect x="93" y="272" width="508" height="46" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="1.5"/>
+  <text x="109" y="301" font-size="16" font-weight="bold" fill="#b45309" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">upperdir</text>
+  <text x="221" y="301" font-size="16" fill="#1f2937">컨테이너 쓰기 레이어</text>
 
-    <!-- upperdir 레이어 -->
-    <rect x="80" y="270" width="720" height="40" rx="3" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="95" y="294" font-size="13" font-weight="bold" fill="#7c3aed" font-family="monospace">upperdir</text>
-    <text x="180" y="294" font-size="13" fill="#1f2933">쓰기 가능, 컨테이너 전용</text>
+  <rect x="93" y="334" width="508" height="46" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="109" y="363" font-size="16" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">lowerdir3</text>
+  <text x="221" y="363" font-size="16" fill="#1f2937">이미지 레이어 L3</text>
 
-    <!-- lowerdir3 레이어 -->
-    <rect x="80" y="318" width="720" height="40" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="95" y="342" font-size="13" font-weight="bold" fill="#52606d" font-family="monospace">lowerdir3</text>
-    <text x="180" y="342" font-size="13" fill="#1f2933">이미지 레이어 L3</text>
+  <rect x="93" y="388" width="508" height="46" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="109" y="417" font-size="16" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">lowerdir2</text>
+  <text x="221" y="417" font-size="16" fill="#1f2937">이미지 레이어 L2</text>
 
-    <!-- lowerdir2 레이어 -->
-    <rect x="80" y="366" width="720" height="40" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="95" y="390" font-size="13" font-weight="bold" fill="#52606d" font-family="monospace">lowerdir2</text>
-    <text x="180" y="390" font-size="13" fill="#1f2933">이미지 레이어 L2</text>
-    <path d="M 330 386 L 360 386" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <text x="370" y="390" font-size="13" font-weight="bold" fill="#059669">← 읽기 전용, 여러 컨테이너가 공유</text>
+  <rect x="93" y="442" width="508" height="46" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="109" y="471" font-size="16" font-weight="bold" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">lowerdir1</text>
+  <text x="221" y="471" font-size="16" fill="#1f2937">이미지 레이어 L1</text>
 
-    <!-- lowerdir1 레이어 -->
-    <rect x="80" y="414" width="720" height="40" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="95" y="438" font-size="13" font-weight="bold" fill="#52606d" font-family="monospace">lowerdir1</text>
-    <text x="180" y="438" font-size="13" fill="#1f2933">이미지 레이어 L1</text>
-  </g>
+  <!-- 오른쪽 속성 주석 -->
+  <path d="M629,274 H639 V316 H629" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="655" y="291" font-size="16" font-weight="bold" fill="#b45309">쓰기 가능</text>
+  <text x="655" y="311" font-size="15" fill="#1f2937">컨테이너 전용</text>
 
-  <!-- 추가 마커 정의 (초록색, 잉크색) -->
-  <defs>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
-    </marker>
-  </defs>
+  <path d="M629,336 H639 V486 H629 M639,411 H647" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="657" y="404" font-size="16" font-weight="bold" fill="#374151">읽기 전용</text>
+  <text x="657" y="426" font-size="15" fill="#1f2937">여러 컨테이너가 공유</text>
 </svg>

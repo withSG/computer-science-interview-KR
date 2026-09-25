@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">최소 권한을 좁혀 나가는 6단계</title>
+  <desc id="d">역할 단위로 시작해 관리형 정책으로 굴리고, CloudTrail과 Access Advisor로 실제 호출을 관측하고, IAM Access Analyzer로 사용 이력 기반 정책을 만들어 좁히고, 스테이징과 simulate-principal-policy로 검증하고, SCP/권한 경계로 명시적 Deny 가드레일을 두고, 미사용 자격 증명과 권한을 주기적으로 회수하는 절차.</desc>
+  <rect width="880" height="600" fill="#ffffff"/>
+
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+
+  <text x="24" y="46" font-size="17" font-weight="bold" fill="#111827">한 번에 맞추지 않고, 좁혀 나가는 절차</text>
+
+  <!-- 단계 열 -->
+  <g font-size="17" font-weight="bold" fill="#1e3a8a">
+    <rect x="24" y="68" width="164" height="64" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <rect x="24" y="156" width="164" height="64" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <rect x="24" y="244" width="164" height="64" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <rect x="24" y="332" width="164" height="64" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <rect x="24" y="420" width="164" height="64" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <rect x="24" y="508" width="164" height="64" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+
+    <circle cx="56" cy="100" r="16" fill="#1d4ed8"/>
+    <circle cx="56" cy="188" r="16" fill="#1d4ed8"/>
+    <circle cx="56" cy="276" r="16" fill="#1d4ed8"/>
+    <circle cx="56" cy="364" r="16" fill="#1d4ed8"/>
+    <circle cx="56" cy="452" r="16" fill="#1d4ed8"/>
+    <circle cx="56" cy="540" r="16" fill="#1d4ed8"/>
+    <text x="56" y="106" fill="#ffffff" text-anchor="middle">1</text>
+    <text x="56" y="194" fill="#ffffff" text-anchor="middle">2</text>
+    <text x="56" y="282" fill="#ffffff" text-anchor="middle">3</text>
+    <text x="56" y="370" fill="#ffffff" text-anchor="middle">4</text>
+    <text x="56" y="458" fill="#ffffff" text-anchor="middle">5</text>
+    <text x="56" y="546" fill="#ffffff" text-anchor="middle">6</text>
+
+    <text x="84" y="106">시작</text>
+    <text x="84" y="194">관측</text>
+    <text x="84" y="282">좁히기</text>
+    <text x="84" y="370">검증</text>
+    <text x="84" y="458">가드레일</text>
+    <text x="84" y="546">주기 점검</text>
+  </g>
+
+  <!-- 단계 사이 화살표 -->
+  <g stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)">
+    <line x1="106" y1="132" x2="106" y2="152"/>
+    <line x1="106" y1="220" x2="106" y2="240"/>
+    <line x1="106" y1="308" x2="106" y2="328"/>
+    <line x1="106" y1="396" x2="106" y2="416"/>
+    <line x1="106" y1="484" x2="106" y2="504"/>
+  </g>
+
+  <!-- 설명 열 -->
+  <g fill="#ffffff" stroke="#9ca3af" stroke-width="1.2">
+    <rect x="204" y="68" width="652" height="64" rx="10"/>
+    <rect x="204" y="156" width="652" height="64" rx="10"/>
+    <rect x="204" y="244" width="652" height="64" rx="10"/>
+    <rect x="204" y="332" width="652" height="64" rx="10"/>
+    <rect x="204" y="420" width="652" height="64" rx="10"/>
+    <rect x="204" y="508" width="652" height="64" rx="10"/>
+  </g>
+
+  <g font-size="16" fill="#111827">
+    <!-- 1 시작 -->
+    <text x="224" y="95"><tspan font-weight="bold">역할 단위로 만든다</tspan> (사람마다가 아니라 "배포 역할", "읽기 전용 역할")</text>
+    <text x="224" y="120" font-size="15" fill="#374151">AWS 관리형 정책으로 일단 굴러가게 한다</text>
+
+    <!-- 2 관측 -->
+    <text x="224" y="183"><tspan font-weight="bold">며칠~몇 주 실제로 쓴다</tspan></text>
+    <text x="224" y="208" font-size="15" fill="#374151"><tspan font-weight="bold" fill="#1d4ed8">CloudTrail</tspan>과 <tspan font-weight="bold" fill="#1d4ed8">Access Advisor</tspan>로 "실제로 호출된 액션"을 수집한다</text>
+
+    <!-- 3 좁히기 -->
+    <text x="224" y="271"><tspan font-weight="bold" fill="#1d4ed8">IAM Access Analyzer</tspan>의 정책 생성 기능으로</text>
+    <text x="224" y="296" font-size="15" fill="#374151"><tspan font-weight="bold" fill="#111827">실제 사용 이력 기반 정책 초안</tspan>을 만든다</text>
+
+    <!-- 4 검증 -->
+    <text x="224" y="359"><tspan font-weight="bold">스테이징에서 적용해 깨지는 곳을 찾는다</tspan></text>
+    <text x="224" y="384" font-size="15" fill="#374151"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#1d4ed8">aws iam simulate-principal-policy</tspan> 로 사전 검증</text>
+
+    <!-- 5 가드레일 -->
+    <text x="224" y="447"><tspan font-weight="bold">치명적 동작</tspan>(운영 리소스 삭제, IAM 변경, 로그 비활성화)에는</text>
+    <text x="224" y="472" font-size="15" fill="#374151"><tspan font-weight="bold" fill="#1d4ed8">SCP/권한 경계</tspan>로 <tspan font-weight="bold" fill="#b91c1c">명시적 Deny</tspan>를 박는다</text>
+
+    <!-- 6 주기 점검 -->
+    <text x="224" y="546"><tspan font-weight="bold">미사용 자격 증명·미사용 권한</tspan>을 정기적으로 회수한다</text>
+  </g>
+</svg>

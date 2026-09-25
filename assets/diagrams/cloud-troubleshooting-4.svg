@@ -1,95 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">오설정이 만드는 두 가지 대표 장애 - 장애 A</title>
-  <desc id="d">앱 부팅에 60초가 필요한 환경에서 liveness probe 오설정으로 인해 컨테이너가 무한 재시작되는 과정을 나타낸 타임라인 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">liveness 오설정 무한 재시작</title>
+  <desc id="d">부팅에 60초가 필요한 앱에 liveness probe만 걸면 t=10s부터 5초마다 실패해 t=20s에 임계치에 도달하고 컨테이너가 재시작되며, t=30s에 다시 부팅을 시작해 무한 반복하는 과정을 시간축에 그렸습니다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="500" fill="#ffffff"/>
 
-  <!-- 메인 테두리 카드 -->
-  <rect x="24" y="24" width="832" height="452" rx="8" ry="8" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- 설정 -->
+  <rect x="24" y="24" width="832" height="48" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="40" y="54" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-weight="bold">liveness:</tspan> initialDelaySeconds 10, periodSeconds 5, failureThreshold 3</text>
 
-  <!-- 헤더 영역 -->
-  <rect x="24" y="24" width="832" height="50" rx="8" ry="8" fill="#f8fafc"/>
-  <rect x="24" y="66" width="832" height="8" fill="#f8fafc"/>
-  <line x1="24" y1="74" x2="856" y2="74" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="50" y="55" fill="#1f2933" font-size="16" font-weight="bold">오설정이 만드는 두 가지 대표 장애</text>
+  <!-- liveness probe 레인 -->
+  <text x="24" y="124" font-size="15" font-weight="bold" fill="#374151">liveness</text>
+  <text x="24" y="144" font-size="15" font-weight="bold" fill="#374151">probe</text>
+  <rect x="150" y="112" width="706" height="40" fill="#f3f4f6"/>
+  <text x="265" y="104" font-size="15" fill="#111827" text-anchor="middle">probe 시작</text>
+  <rect x="241" y="118" width="48" height="28" rx="5" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="265" y="137" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">실패</text>
+  <rect x="298.5" y="118" width="48" height="28" rx="5" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="322.5" y="137" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">실패</text>
+  <rect x="356" y="118" width="48" height="28" rx="5" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="380" y="137" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">실패</text>
+  <text x="416" y="137" font-size="15" font-weight="bold" fill="#b91c1c">→ 임계치 도달</text>
 
-  <!-- 설정 및 앱 상태 정보 패널 -->
-  <rect x="50" y="94" width="780" height="80" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="74" y="126" fill="#1f2933" font-size="14" font-weight="bold">앱 부팅에 60초 필요</text>
-  <text x="74" y="152" fill="#52606d" font-size="13">liveness: initialDelaySeconds 10, periodSeconds 5, failureThreshold 3</text>
+  <!-- 시각 안내선 -->
+  <line x1="265" y1="152" x2="265" y2="194" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2 4"/>
+  <line x1="322.5" y1="152" x2="322.5" y2="194" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2 4"/>
 
-  <!-- 프로세스/타임라인 배경 구역 -->
-  <rect x="50" y="194" width="780" height="258" rx="6" ry="6" fill="#f8fafc" stroke="#e4e7eb" stroke-width="1"/>
+  <!-- 재시작 -->
+  <line x1="380" y1="150" x2="380" y2="190" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="392" y="176" font-size="15" font-weight="bold" fill="#b91c1c">컨테이너 재시작</text>
 
-  <!-- t=10s -->
-  <g>
-    <rect x="74" y="214" width="70" height="28" rx="4" ry="4" fill="#cbd2d9"/>
-    <text x="109" y="232" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">t=10s</text>
-    
-    <!-- probe 시작 -> 앱 아직 부팅 중 -> 실패 -->
-    <text x="164" y="232" fill="#1f2933" font-size="13">probe 시작</text>
-    
-    <path d="M245,228 L275,228" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    
-    <text x="295" y="232" fill="#52606d" font-size="13">앱 아직 부팅 중</text>
-    
-    <path d="M405,228 L435,228" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    
-    <rect x="455" y="212" width="50" height="28" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="480" y="230" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">실패</text>
-  </g>
+  <!-- 앱 레인 -->
+  <text x="24" y="219" font-size="15" font-weight="bold" fill="#374151">앱</text>
+  <rect x="150" y="194" width="706" height="40" fill="#f3f4f6"/>
+  <rect x="150" y="198" width="230" height="32" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="265" y="219" font-size="15" fill="#1e3a8a" text-anchor="middle">앱 아직 부팅 중</text>
+  <rect x="495" y="198" width="205" height="32" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="507" y="219" font-size="15" fill="#1e3a8a">다시 부팅 시작...</text>
+  <line x1="704" y1="214" x2="726" y2="214" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="732" y="200" width="104" height="28" rx="14" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="784" y="219" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">무한 반복</text>
 
-  <!-- 연결선 t=10s -> t=15s -->
-  <line x1="109" y1="242" x2="109" y2="268" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <!-- 시간축 -->
+  <line x1="150" y1="256" x2="852" y2="256" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="150" y1="250" x2="150" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="265" y1="250" x2="265" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="322.5" y1="250" x2="322.5" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="380" y1="250" x2="380" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="495" y1="250" x2="495" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="840" y1="250" x2="840" y2="262" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="150" y="282" font-size="14" fill="#374151" text-anchor="middle">t=0s</text>
+  <text x="265" y="282" font-size="14" fill="#374151" text-anchor="middle">t=10s</text>
+  <text x="322.5" y="282" font-size="14" fill="#374151" text-anchor="middle">t=15s</text>
+  <text x="380" y="282" font-size="14" fill="#374151" text-anchor="middle">t=20s</text>
+  <text x="495" y="282" font-size="14" fill="#374151" text-anchor="middle">t=30s</text>
+  <text x="840" y="282" font-size="14" fill="#374151" text-anchor="middle">t=60s</text>
 
-  <!-- t=15s -->
-  <g>
-    <rect x="74" y="268" width="70" height="28" rx="4" ry="4" fill="#cbd2d9"/>
-    <text x="109" y="286" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">t=15s</text>
-    
-    <rect x="164" y="266" width="50" height="28" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="189" y="284" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">실패</text>
-  </g>
-
-  <!-- 연결선 t=15s -> t=20s -->
-  <line x1="109" y1="296" x2="109" y2="322" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="3 3"/>
-
-  <!-- t=20s -->
-  <g>
-    <rect x="74" y="322" width="70" height="28" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="109" y="340" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">t=20s</text>
-    
-    <rect x="164" y="320" width="50" height="28" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="189" y="338" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">실패</text>
-    
-    <path d="M224,336 L254,336" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    
-    <text x="274" y="340" fill="#dc2626" font-size="13" font-weight="bold">임계치 도달</text>
-    
-    <path d="M354,336 L384,336" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    
-    <rect x="404" y="320" width="130" height="28" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="469" y="338" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">컨테이너 재시작</text>
-  </g>
-
-  <!-- 연결선 t=20s -> t=30s -->
-  <line x1="109" y1="350" x2="109" y2="376" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="3 3"/>
-
-  <!-- t=30s -->
-  <g>
-    <rect x="74" y="376" width="70" height="28" rx="4" ry="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="109" y="394" fill="#d97706" font-size="13" font-weight="bold" text-anchor="middle">t=30s</text>
-    
-    <text x="164" y="394" fill="#d97706" font-size="13" font-weight="bold">다시 부팅 시작...</text>
-    
-    <rect x="290" y="376" width="80" height="28" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="330" y="394" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="middle">무한 반복</text>
-  </g>
+  <!-- 부팅 필요 구간 -->
+  <line x1="150" y1="302" x2="840" y2="302" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="150" y1="295" x2="150" y2="309" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="840" y1="295" x2="840" y2="309" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="495" y="330" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">앱 부팅에 60초 필요</text>
 </svg>

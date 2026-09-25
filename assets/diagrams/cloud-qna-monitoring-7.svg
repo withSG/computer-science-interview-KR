@@ -1,73 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Trace 시각화 예시</title>
-  <desc id="d">마이크로서비스 간 Trace 및 Span의 실행 시간과 병목 구간을 보여주는 타임라인 시각화 다이어그램</desc>
-  <rect width="880" height="430" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Trace 타임라인과 병목</title>
+  <desc id="d">0ms부터 130ms까지의 가로 시간축 위에 API Gateway 130ms, User Service 40ms, DB Query 15ms, Order Service 80ms, Payment API 50ms 구간을 막대로 그렸다. 총 소요시간은 130ms, 병목 구간은 Payment API(50ms).</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
 
-  <!-- Main Container -->
-  <rect x="24" y="24" width="832" height="382" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- bottleneck row band -->
+  <rect x="28" y="250" width="824" height="44" rx="6" fill="#fef2f2"/>
 
-  <!-- Title Section -->
-  <text x="48" y="58" font-size="16" font-weight="bold" fill="#1f2933">Trace 시각화 예시</text>
+  <!-- time axis: 0ms at x=220, 130ms at x=740 (4px per ms) -->
+  <text x="220" y="44" font-size="15" fill="#4b5563" text-anchor="middle">0ms</text>
+  <text x="420" y="44" font-size="15" fill="#4b5563" text-anchor="middle">50ms</text>
+  <text x="620" y="44" font-size="15" fill="#4b5563" text-anchor="middle">100ms</text>
+  <text x="740" y="44" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">130ms</text>
+  <line x1="220" y1="58" x2="740" y2="58" stroke="#6b7280" stroke-width="1.5"/>
+  <g stroke="#6b7280" stroke-width="1.5">
+    <line x1="220" y1="52" x2="220" y2="64"/>
+    <line x1="420" y1="52" x2="420" y2="64"/>
+    <line x1="620" y1="52" x2="620" y2="64"/>
+    <line x1="740" y1="52" x2="740" y2="64"/>
+  </g>
+  <g stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 4">
+    <line x1="220" y1="66" x2="220" y2="294"/>
+    <line x1="420" y1="66" x2="420" y2="294"/>
+    <line x1="620" y1="66" x2="620" y2="294"/>
+    <line x1="740" y1="66" x2="740" y2="294"/>
+  </g>
 
-  <!-- Timeline Grid Lines & Labels (0ms at x=230, 130ms at x=710) -->
-  <text x="230" y="76" font-size="11" fill="#52606d" text-anchor="middle">0ms</text>
-  <text x="710" y="76" font-size="11" fill="#52606d" text-anchor="middle">130ms</text>
-  <path d="M 230 80 L 230 310" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M 350 80 L 350 310" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M 470 80 L 470 310" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M 590 80 L 590 310" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M 710 80 L 710 310" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- Row 1: API Gateway 0-130ms -->
+  <text x="40" y="102" font-size="16" font-weight="bold" fill="#1f2937">API Gateway</text>
+  <rect x="220" y="84" width="520" height="24" rx="4" fill="#475569"/>
+  <text x="840" y="102" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">130ms</text>
 
-  <!-- Hierarchy Tree Lines (│ ├── └──) -->
-  <path d="M 140 115 L 140 255" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <path d="M 140 155 L 155 155" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <path d="M 175 155 L 175 195" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <path d="M 175 195 L 190 195" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <path d="M 140 255 L 155 255" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <path d="M 180 255 L 180 295" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-  <path d="M 180 295 L 195 295" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <!-- Row 2: User Service 5-45ms -->
+  <text x="40" y="146" font-size="16" fill="#1f2937">User Service</text>
+  <rect x="240" y="128" width="160" height="24" rx="4" fill="#64748b"/>
+  <text x="840" y="146" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">40ms</text>
 
-  <!-- Row 1: [API Gateway] -->
-  <rect x="40" y="100" width="95" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="87.5" y="119" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[API Gateway]</text>
-  
-  <rect x="230" y="106" width="480" height="18" rx="3" fill="#2563eb"/>
-  <text x="730" y="120" font-size="13" font-weight="bold" fill="#1f2933">130ms</text>
+  <!-- Row 3: DB Query 15-30ms -->
+  <text x="40" y="190" font-size="16" fill="#1f2937">DB Query</text>
+  <rect x="280" y="172" width="60" height="24" rx="4" fill="#64748b"/>
+  <text x="840" y="190" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">15ms</text>
 
-  <!-- Row 2: [User Service] -->
-  <rect x="40" y="140" width="105" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="92.5" y="159" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[User Service]</text>
-  
-  <rect x="248.5" y="146" width="147.7" height="18" rx="3" fill="#52606d"/>
-  <text x="730" y="160" font-size="13" font-weight="bold" fill="#1f2933">40ms</text>
+  <!-- Row 4: Order Service 45-125ms -->
+  <text x="40" y="234" font-size="16" fill="#1f2937">Order Service</text>
+  <rect x="400" y="216" width="320" height="24" rx="4" fill="#64748b"/>
+  <text x="840" y="234" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">80ms</text>
 
-  <!-- Row 3: [DB Query] -->
-  <rect x="40" y="180" width="90" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="85" y="199" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[DB Query]</text>
-  
-  <rect x="285.4" y="186" width="55.4" height="18" rx="3" fill="#52606d"/>
-  <text x="730" y="200" font-size="13" font-weight="bold" fill="#1f2933">15ms</text>
+  <!-- Row 5: Payment API 60-110ms (bottleneck) -->
+  <text x="40" y="278" font-size="16" font-weight="bold" fill="#b91c1c">Payment API</text>
+  <rect x="460" y="260" width="200" height="24" rx="4" fill="#dc2626"/>
+  <rect x="670" y="260" width="56" height="24" rx="12" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="698" y="277" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">병목</text>
+  <text x="840" y="278" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end">50ms</text>
 
-  <!-- Row 4: [Order Service] -->
-  <rect x="40" y="240" width="110" height="30" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="95" y="259" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[Order Service]</text>
-  
-  <rect x="396.2" y="246" width="295.4" height="18" rx="3" fill="#52606d"/>
-  <text x="730" y="260" font-size="13" font-weight="bold" fill="#1f2933">80ms</text>
-
-  <!-- Row 5: [Payment API] (Bottleneck / Highlight) -->
-  <rect x="40" y="280" width="105" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="92.5" y="299" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">[Payment API]</text>
-  
-  <rect x="451.5" y="286" width="184.6" height="18" rx="3" fill="#dc2626"/>
-  <text x="730" y="300" font-size="13" font-weight="bold" fill="#dc2626">50ms</text>
-
-  <!-- Separator Line -->
-  <path d="M 40 335 L 840 335" stroke="#cbd2d9" stroke-width="1.5"/>
-
-  <!-- Footer Information -->
-  <text x="48" y="365" font-size="14" font-weight="bold" fill="#1f2933">총 소요시간: 130ms</text>
-  
-  <rect x="48" y="377" width="230" height="24" rx="4" fill="#fef2f2"/>
-  <text x="54" y="393" font-size="14" font-weight="bold" fill="#dc2626">병목 구간: Payment API (50ms)</text>
+  <!-- summary -->
+  <line x1="40" y1="314" x2="840" y2="314" stroke="#e5e7eb" stroke-width="1.5"/>
+  <rect x="40" y="330" width="220" height="40" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="150" y="356" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">총 소요시간: 130ms</text>
+  <rect x="280" y="330" width="300" height="40" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="430" y="356" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">병목 구간: Payment API (50ms)</text>
 </svg>

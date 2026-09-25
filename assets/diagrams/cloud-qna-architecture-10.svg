@@ -1,55 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">대략적 설계</title>
-  <desc id="d">Client, API Gateway, Search Service, Autocomplete Service, Elasticsearch, Redis 간의 검색 시스템 대략적 설계 구조도</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">검색 시스템 대략적 설계</title>
+  <desc id="d">Client 요청이 API Gateway(Rate Limiting, 캐싱)를 거쳐 Search Service와 Autocomplete Service로 나뉘고, Search Service는 Elasticsearch를, Autocomplete Service는 Elasticsearch와 Redis를 사용하는 구조를 보여준다.</desc>
+  <rect width="880" height="490" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="640" fill="#ffffff"/>
 
   <!-- Client -->
-  <rect x="240" y="30" width="400" height="50" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="60.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Client</text>
+  <rect x="260" y="24" width="360" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="440" y="56" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
 
-  <!-- Flow Arrow: Client -> API Gateway -->
-  <path d="M440,80 L440,120" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="78" x2="440" y2="110" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
   <!-- API Gateway -->
-  <rect x="240" y="120" width="400" height="70" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="148.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">API Gateway</text>
-  <text x="440" y="171.5" fill="#52606d" font-size="12" text-anchor="middle">(Rate Limiting, 캐싱)</text>
+  <rect x="260" y="114" width="360" height="72" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="143" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">API Gateway</text>
+  <text x="440" y="169" font-size="16" fill="#374151" text-anchor="middle">Rate Limiting, 캐싱</text>
 
-  <!-- Flow Branch: API Gateway -> Services -->
-  <path d="M440,190 L440,225 M230,225 L650,225 M230,225 L230,250 M650,225 L650,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Arrow heads down to Services -->
-  <path d="M230,240 L230,250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M650,240 L650,250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 분기 -->
+  <path d="M440,188 L440,212 M220,212 L660,212" stroke="#374151" stroke-width="2" fill="none"/>
+  <line x1="220" y1="211" x2="220" y2="236" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="660" y1="211" x2="660" y2="236" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
   <!-- Search Service -->
-  <rect x="110" y="250" width="240" height="70" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="230" y="278.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Search Service</text>
-  <text x="230" y="301.5" fill="#52606d" font-size="12" text-anchor="middle">(검색 처리)</text>
+  <rect x="70" y="240" width="300" height="72" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="220" y="269" font-size="18" font-weight="bold" fill="#065f46" text-anchor="middle">Search Service</text>
+  <text x="220" y="295" font-size="16" fill="#374151" text-anchor="middle">검색 처리</text>
 
   <!-- Autocomplete Service -->
-  <rect x="530" y="250" width="240" height="70" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="650" y="278.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Autocomplete Service</text>
-  <text x="650" y="301.5" fill="#52606d" font-size="12" text-anchor="middle">(자동완성)</text>
+  <rect x="500" y="240" width="320" height="72" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="660" y="269" font-size="18" font-weight="bold" fill="#5b21b6" text-anchor="middle">Autocomplete Service</text>
+  <text x="660" y="295" font-size="16" fill="#374151" text-anchor="middle">자동완성</text>
 
-  <!-- Flow: Search Service -> Elasticsearch -->
-  <path d="M230,320 L230,470" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Search → Elasticsearch -->
+  <line x1="220" y1="314" x2="220" y2="386" stroke="#047857" stroke-width="2" marker-end="url(#ahg)"/>
 
-  <!-- Flow: Autocomplete Service -> Elasticsearch & Redis -->
-  <path d="M650,320 L650,395 L400,395 L400,470" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M650,395 L720,395 L720,470" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Autocomplete → Elasticsearch / Redis -->
+  <path d="M590,314 L590,350 L450,350 L450,386" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ahp)"/>
+  <line x1="730" y1="314" x2="730" y2="386" stroke="#6d28d9" stroke-width="2" marker-end="url(#ahp)"/>
 
   <!-- Elasticsearch -->
-  <rect x="120" y="470" width="360" height="70" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="300" y="498.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Elasticsearch</text>
-  <text x="300" y="521.5" fill="#52606d" font-size="12" text-anchor="middle">(역인덱스, 검색)</text>
+  <rect x="70" y="390" width="460" height="76" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="300" y="421" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">Elasticsearch</text>
+  <text x="300" y="447" font-size="16" fill="#374151" text-anchor="middle">역인덱스, 검색</text>
 
   <!-- Redis -->
-  <rect x="620" y="470" width="200" height="70" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="720" y="498.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Redis</text>
-  <text x="720" y="521.5" fill="#52606d" font-size="12" text-anchor="middle">(자동완성)</text>
+  <rect x="630" y="390" width="200" height="76" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="730" y="421" font-size="18" font-weight="bold" fill="#991b1b" text-anchor="middle">Redis</text>
+  <text x="730" y="447" font-size="16" fill="#374151" text-anchor="middle">자동완성</text>
 </svg>

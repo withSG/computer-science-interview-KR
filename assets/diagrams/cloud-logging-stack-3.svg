@@ -1,84 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">7. 상관관계 ID — 흩어진 로그를 하나로 묶기</title>
-  <desc id="d">분산 시스템에서 Gateway, order-service, payment-service, notify-worker를 거치며 동일한 trace_id로 로그를 묶어 추적하는 과정을 나타낸 다이어그램</desc>
-  <rect width="880" height="570" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 530" width="880" height="530" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">상관관계 ID로 로그 묶기</title>
+  <desc id="d">Gateway가 trace_id를 만들어 traceparent 헤더로 전달하고, order-service, payment-service, notify-worker가 같은 헤더를 이어 받아 모든 로그에 같은 trace_id를 남긴다. 그 ID로 한 번 검색하면 4개 서비스의 로그가 시간순으로 한 화면에 모인다.</desc>
+  <rect width="880" height="530" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">7. 상관관계 ID — 흩어진 로그를 하나로 묶기</text>
+  <!-- Gateway -->
+  <rect x="24" y="24" width="200" height="44" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="124" y="51" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Gateway</text>
+  <text x="248" y="52" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#1d4ed8">trace_id</tspan> 생성 후 헤더로 전달</text>
 
-  <!-- Flow Steps -->
-  <!-- Step 1: Gateway -->
-  <g transform="translate(30, 60)">
-    <rect x="0" y="0" width="180" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="90" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[Gateway]</text>
-    
-    <text x="200" y="25" font-size="13" fill="#1f2933">trace_id 생성 후 헤더로 전달</text>
-  </g>
+  <line x1="124" y1="70" x2="124" y2="124" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="144" y="81" width="588" height="32" rx="6" fill="#f3f4f6"/>
+  <text x="158" y="102" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">traceparent: 00-<tspan font-weight="bold" fill="#1d4ed8">4bf92f3577b34da6a3ce929d0e0e4736</tspan>-00f067aa0ba902b7-01</text>
 
-  <!-- Arrow 1 -> 2 & Header Info -->
-  <path d="M120,100 L120,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  
-  <rect x="135" y="108" width="580" height="24" rx="3" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="145" y="124" font-size="11.5" fill="#52606d">traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01</text>
+  <!-- order-service -->
+  <rect x="24" y="128" width="200" height="44" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="124" y="155" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">order-service</text>
+  <rect x="248" y="131" width="420" height="38" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="264" y="156" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">log{<tspan font-weight="bold" fill="#1d4ed8">trace_id=4bf92f...</tspan>, msg="주문 생성"}</text>
 
-  <!-- Step 2: order-service -->
-  <g transform="translate(30, 140)">
-    <rect x="0" y="0" width="180" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="90" y="25" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[order-service]</text>
-    
-    <rect x="200" y="8" width="370" height="24" rx="3" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="210" y="24" font-size="11.5" fill="#1f2933">log{trace_id=4bf92f..., msg="주문 생성"}</text>
-  </g>
+  <line x1="124" y1="174" x2="124" y2="224" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="144" y="205" font-size="15" fill="#4b5563">같은 헤더를 그대로 다음 호출에 전달</text>
 
-  <!-- Arrow 2 -> 3 & Header Info -->
-  <path d="M120,180 L120,220" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="145" y="204" font-size="11.5" fill="#52606d">같은 헤더를 그대로 다음 호출에 전달</text>
+  <!-- payment-service -->
+  <rect x="24" y="228" width="200" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="124" y="255" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">payment-service</text>
+  <rect x="248" y="231" width="420" height="38" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="264" y="256" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">log{<tspan font-weight="bold" fill="#1d4ed8">trace_id=4bf92f...</tspan>, msg="결제 타임아웃"}</text>
+  <text x="684" y="256" font-size="17" font-weight="bold" fill="#b91c1c">← 여기!</text>
 
-  <!-- Step 3: payment-service (Highlighted / Timeout) -->
-  <g transform="translate(30, 220)">
-    <rect x="0" y="0" width="180" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="90" y="25" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">[payment-service]</text>
-    
-    <rect x="200" y="8" width="410" height="24" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="210" y="24" font-size="11.5" fill="#d97706">log{trace_id=4bf92f..., msg="결제 타임아웃"}</text>
-    
-    <text x="625" y="25" font-size="13" font-weight="bold" fill="#d97706">← 여기!</text>
-  </g>
+  <line x1="124" y1="274" x2="124" y2="324" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="144" y="305" font-size="15" fill="#4b5563">(Kafka 메시지 헤더에 실어 전달)</text>
 
-  <!-- Arrow 3 -> 4 & Kafka Info -->
-  <path d="M120,260 L120,300" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="145" y="284" font-size="11.5" fill="#52606d">(Kafka 메시지 헤더에 실어 전달)</text>
+  <!-- notify-worker -->
+  <rect x="24" y="328" width="200" height="44" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="124" y="355" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">notify-worker</text>
+  <rect x="248" y="331" width="420" height="38" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="264" y="356" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">log{<tspan font-weight="bold" fill="#1d4ed8">trace_id=4bf92f...</tspan>, msg="알림 발송 실패"}</text>
 
-  <!-- Step 4: notify-worker -->
-  <g transform="translate(30, 300)">
-    <rect x="0" y="0" width="180" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="90" y="25" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">[notify-worker]</text>
-    
-    <rect x="200" y="8" width="420" height="24" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="210" y="24" font-size="11.5" fill="#dc2626">log{trace_id=4bf92f..., msg="알림 발송 실패"}</text>
-  </g>
-
-  <!-- Divider line -->
-  <line x1="30" y1="375" x2="850" y2="375" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- Search Section -->
-  <g transform="translate(30, 400)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#1f2933">검색:</text>
-    
-    <rect x="55" y="5" width="360" height="30" rx="4" fill="#f8fafc" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="70" y="25" font-size="13" font-weight="bold" fill="#2563eb">{namespace="prod"} |= "4bf92f3577b34da6"</text>
-
-    <!-- Arrow to Results -->
-    <path d="M75,50 L105,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <text x="115" y="54" font-size="13" fill="#2563eb">4개 서비스의 로그가 시간순으로 한 화면에</text>
-  </g>
+  <!-- 검색 -->
+  <rect x="24" y="400" width="832" height="106" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="44" y="437" font-size="17" font-weight="bold" fill="#1d4ed8">검색</text>
+  <rect x="96" y="414" width="392" height="36" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="112" y="438" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{namespace="prod"} |= "<tspan font-weight="bold" fill="#1d4ed8">4bf92f3577b34da6</tspan>"</text>
+  <line x1="100" y1="479" x2="136" y2="479" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="146" y="485" font-size="16" font-weight="bold" fill="#111827">4개 서비스의 로그가 시간순으로 한 화면에</text>
 </svg>

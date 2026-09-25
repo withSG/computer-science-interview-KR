@@ -23,7 +23,7 @@
 ### 책임 분담 시각화
 
 <!-- diagram:cloud-qna-cloud-fundamentals-4 -->
-![책임 분담 시각화](../../assets/diagrams/cloud-qna-cloud-fundamentals-4.svg)
+![On-Prem·IaaS·PaaS·SaaS 계층별 You/Vendor 관리 표](../../assets/diagrams/cloud-qna-cloud-fundamentals-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -198,7 +198,7 @@ Container 사용:
 
 **전가상화:**
 <!-- diagram:cloud-qna-cloud-fundamentals-5 -->
-![동작 방식](../../assets/diagrams/cloud-qna-cloud-fundamentals-5.svg)
+![전가상화: 특권 명령을 Hypervisor가 에뮬레이션](../../assets/diagrams/cloud-qna-cloud-fundamentals-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -210,7 +210,7 @@ Guest OS → 특권 명령 → Hypervisor가 에뮬레이션
 
 **반가상화:**
 <!-- diagram:cloud-qna-cloud-fundamentals-6 -->
-![동작 방식](../../assets/diagrams/cloud-qna-cloud-fundamentals-6.svg)
+![반가상화: Hypercall로 Hypervisor 직접 호출](../../assets/diagrams/cloud-qna-cloud-fundamentals-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

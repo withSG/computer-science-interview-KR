@@ -1,78 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">시그널 — 프로세스에 보내는 알림</title>
-  <desc id="d">운영자, 커널, 프로세스 간의 kill -TERM과 kill -KILL 시그널 전달 및 처리 과정을 나타낸 시퀀스 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">SIGTERM과 SIGKILL의 전달 차이</title>
+  <desc id="d">운영자가 kill -TERM을 보내면 커널이 프로세스에 SIGTERM을 전달하고, 프로세스는 핸들러에서 정리 작업을 마친 뒤 exit(0)으로 종료한다. kill -KILL은 프로세스에 전달되지 않고 커널이 즉시 회수하므로 정리 작업이 없다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="m-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="m-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
+  <rect width="880" height="600" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="570" fill="#ffffff"/>
+  <!-- 두 경우를 나누는 배경 -->
+  <rect x="24" y="84" width="832" height="330" rx="8" fill="#f5f8ff"/>
+  <rect x="24" y="428" width="832" height="148" rx="8" fill="#fff5f5"/>
 
-  <!-- 헤더 박스 (참조자/객체) -->
-  <!-- 운영자 -->
-  <rect x="80" y="30" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="150" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">운영자</text>
+  <!-- 생명선 -->
+  <line x1="200" y1="68" x2="200" y2="576" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="450" y1="68" x2="450" y2="576" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="700" y1="68" x2="700" y2="382" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="700" y1="428" x2="700" y2="514" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- 커널 -->
-  <rect x="370" y="30" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">커널</text>
+  <!-- 참여자 -->
+  <rect x="140" y="24" width="120" height="44" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="200" y="52" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">운영자</text>
+  <rect x="390" y="24" width="120" height="44" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="450" y="52" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">커널</text>
+  <rect x="640" y="24" width="120" height="44" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="700" y="52" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">프로세스</text>
 
-  <!-- 프로세스 -->
-  <rect x="660" y="30" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="730" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">프로세스</text>
+  <!-- ===== ① SIGTERM ===== -->
+  <text x="40" y="114" font-size="17" font-weight="bold" fill="#1d4ed8">① SIGTERM</text>
+  <text x="40" y="138" font-size="15" fill="#374151">정상 종료 요청</text>
 
-  <!-- 생명선 (Lifelines) -->
-  <line x1="150" y1="70" x2="150" y2="530" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="440" y1="70" x2="440" y2="530" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="730" y1="70" x2="730" y2="530" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="200" y1="132" x2="447" y2="132" stroke="#1d4ed8" stroke-width="2" marker-end="url(#m-blue)"/>
+  <text x="325" y="120" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kill -TERM 1234</text>
 
-  <!-- ===== 1. SIGTERM 흐름 ===== -->
+  <line x1="450" y1="180" x2="697" y2="180" stroke="#1d4ed8" stroke-width="2" marker-end="url(#m-blue)"/>
+  <text x="575" y="168" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">SIGTERM 전달</text>
 
-  <!-- kill -TERM 1234 -->
-  <path d="M 150 120 L 440 120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="235" y="102" width="120" height="22" fill="#ffffff"/>
-  <text x="295" y="117" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">kill -TERM 1234</text>
+  <rect x="580" y="200" width="240" height="138" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="598" y="226" font-size="16" font-weight="bold" fill="#111827">핸들러 실행</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="598" y="252">• 새 요청 수신 중단</tspan>
+    <tspan x="598" y="276">• 처리 중 요청 마무리</tspan>
+    <tspan x="598" y="300">• DB 커넥션 반납</tspan>
+    <tspan x="598" y="324">• 파일 flush 후 close</tspan>
+  </text>
 
-  <!-- SIGTERM 전달 -->
-  <path d="M 440 160 L 730 160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="525" y="142" width="120" height="22" fill="#ffffff"/>
-  <text x="585" y="157" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">SIGTERM 전달</text>
+  <line x1="700" y1="370" x2="453" y2="370" stroke="#047857" stroke-width="2" stroke-dasharray="7 4" marker-end="url(#m-green)"/>
+  <text x="575" y="359" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">exit(0)</text>
 
-  <!-- 핸들러 실행 영역 -->
-  <text x="745" y="195" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">핸들러 실행:</text>
-  <text x="745" y="218" font-size="12" fill="#52606d" text-anchor="start">- 새 요청 수신 중단</text>
-  <text x="745" y="238" font-size="12" fill="#52606d" text-anchor="start">- 처리 중 요청 마무리</text>
-  <text x="745" y="258" font-size="12" fill="#52606d" text-anchor="start">- DB 커넥션 반납</text>
-  <text x="745" y="278" font-size="12" fill="#52606d" text-anchor="start">- 파일 flush 후 close</text>
+  <path d="M692,384 L708,400 M708,384 L692,400" stroke="#374151" stroke-width="3" fill="none"/>
+  <text x="718" y="397" font-size="15" fill="#374151">정리 후 종료</text>
 
-  <!-- exit(0) -->
-  <path d="M 730 310 L 440 310" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="540" y="292" width="90" height="22" fill="#ffffff"/>
-  <text x="585" y="307" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">exit(0)</text>
+  <!-- ===== ② SIGKILL ===== -->
+  <text x="40" y="458" font-size="17" font-weight="bold" fill="#b91c1c">② SIGKILL</text>
+  <text x="40" y="482" font-size="15" fill="#374151">강제 종료</text>
 
-  <!-- 프로세스 종료 표식 (정상) -->
-  <text x="730" y="335" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">✗</text>
+  <line x1="200" y1="474" x2="447" y2="474" stroke="#b91c1c" stroke-width="2" marker-end="url(#m-red)"/>
+  <text x="325" y="462" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kill -KILL 1234</text>
 
-  <!-- ===== 2. SIGKILL 흐름 ===== -->
+  <rect x="350" y="494" width="200" height="62" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text font-size="15" fill="#111827" text-anchor="middle">
+    <tspan x="450" y="520">프로세스에 전달하지 않고</tspan>
+    <tspan x="450" y="544">커널이 즉시 회수</tspan>
+  </text>
 
-  <!-- kill -KILL 1234 -->
-  <path d="M 150 400 L 440 400" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="235" y="382" width="120" height="22" fill="#ffffff"/>
-  <text x="295" y="397" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">kill -KILL 1234</text>
-
-  <!-- 커널 설명 -->
-  <text x="455" y="435" font-size="12" fill="#52606d" text-anchor="start">프로세스에 전달하지 않고</text>
-  <text x="455" y="455" font-size="12" fill="#52606d" text-anchor="start">커널이 즉시 회수</text>
-
-  <!-- 프로세스 종료 표식 (강제) -->
-  <text x="730" y="480" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">✗</text>
-  <text x="745" y="480" font-size="12" fill="#dc2626" text-anchor="start">(정리 작업 없음)</text>
+  <path d="M692,517 L708,533 M708,517 L692,533" stroke="#b91c1c" stroke-width="3" fill="none"/>
+  <text x="718" y="530" font-size="15" font-weight="bold" fill="#b91c1c">(정리 작업 없음)</text>
 </svg>

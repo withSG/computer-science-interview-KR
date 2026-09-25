@@ -249,7 +249,7 @@ AWS의 방화벽은 두 겹입니다. 이름이 비슷해 헷갈리지만 **동�
 Security Group은 소스로 **다른 Security Group을 지정할 수 있습니다.** 이게 진짜 강점입니다.
 
 <!-- diagram:cloud-networking-8 -->
-![Security Group 참조 패턴](../../assets/diagrams/cloud-networking-8.svg)
+![sg-alb→sg-app→sg-db로 이어지는 SG 참조 사슬](../../assets/diagrams/cloud-networking-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -269,7 +269,7 @@ IP 대역으로 쓰면 앱 서버가 오토스케일링으로 늘어날 때마�
 Private 서브넷의 앱이 S3에 로그를 올린다고 해봅시다. S3는 VPC 밖의 서비스이므로 기본 경로는 이렇습니다.
 
 <!-- diagram:cloud-networking-9 -->
-![6. VPC Endpoint: 인터넷을 거치지 않고 AWS 서비스에 닿기](../../assets/diagrams/cloud-networking-9.svg)
+![Private 앱이 NAT·IGW·인터넷을 거쳐 S3에 닿는 기본 경로](../../assets/diagrams/cloud-networking-9.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

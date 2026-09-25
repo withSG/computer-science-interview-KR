@@ -1,57 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">스토리지: S3와 EBS 비교</title>
-  <desc id="d">EBS(블록 스토리지)와 S3(객체 스토리지)의 구조, 연결 방식 및 특징을 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">EBS와 S3 비교</title>
+  <desc id="d">EBS는 EC2 인스턴스에 /dev/xvdf로 마운트된 디스크로 블록 단위 읽기/쓰기를 하며, 특정 AZ에 묶이고 한 인스턴스에 부착되며 파일시스템이 필요하다. S3는 앱, 브라우저, CLI 등 어디서든 HTTPS GET/PUT 요청으로 버킷에 접근하고, 버킷은 img/a/1.jpg, log/2026/x.gz 같은 키가 놓인 평평한 키 공간이다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="390" fill="#ffffff"/>
+  <rect width="880" height="440" fill="#ffffff"/>
 
-  <!-- 영역 구분 배경 (EBS / S3) -->
-  <rect x="30" y="20" width="390" height="350" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <rect x="460" y="20" width="390" height="350" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 열 구분선 -->
+  <line x1="440" y1="24" x2="440" y2="416" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <!-- 메인 헤더 / 카테고리 타이틀 -->
-  <text x="50" y="48" font-size="16" font-weight="bold" fill="#1f2933">EBS (블록 스토리지)</text>
-  <text x="480" y="48" font-size="16" font-weight="bold" fill="#1f2933">S3 (객체 스토리지)</text>
+  <!-- ===== EBS ===== -->
+  <rect x="24" y="24" width="404" height="42" rx="8" fill="#1d4ed8"/>
+  <text x="226" y="51" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">EBS (블록 스토리지)</text>
 
-  <!-- EBS 상단 박스 -->
-  <rect x="60" y="70" width="330" height="90" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="225" y="99" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">EC2 인스턴스</text>
-  <text x="225" y="121" font-size="13" text-anchor="middle" fill="#1f2933">/dev/xvdf 로</text>
-  <text x="225" y="143" font-size="13" text-anchor="middle" fill="#1f2933">마운트된 디스크</text>
+  <rect x="66" y="86" width="320" height="82" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="226" y="118" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">EC2 인스턴스</text>
+  <text x="226" y="148" font-size="15" fill="#1f2937" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">/dev/xvdf</tspan> 로 마운트된 디스크</text>
 
-  <!-- EBS 화살표 및 라벨 -->
-  <path d="M225,160 L225,230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="150" y="183" width="150" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="225" y="199" font-size="11.5" text-anchor="middle" fill="#52606d">블록 단위 읽기/쓰기</text>
+  <line x1="226" y1="172" x2="226" y2="244" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="242" y="214" font-size="15" font-weight="bold" fill="#1d4ed8">블록 단위 읽기/쓰기</text>
 
-  <!-- EBS 하단 박스 -->
-  <rect x="60" y="230" width="330" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="225" y="265" font-size="13" text-anchor="middle" fill="#1f2933">특정 AZ에 묶임</text>
-  <text x="225" y="289" font-size="13" text-anchor="middle" fill="#1f2933">한 인스턴스에 부착</text>
-  <text x="225" y="313" font-size="13" text-anchor="middle" fill="#1f2933">파일시스템 필요</text>
+  <rect x="66" y="250" width="320" height="166" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="90" y="280" font-size="17" font-weight="bold" fill="#1d4ed8">EBS 볼륨</text>
+  <text font-size="16" fill="#111827">
+    <tspan x="90" y="318">• 특정 AZ에 묶임</tspan>
+    <tspan x="90" y="350">• 한 인스턴스에 부착</tspan>
+    <tspan x="90" y="382">• 파일시스템 필요</tspan>
+  </text>
 
-  <!-- S3 상단 박스 -->
-  <rect x="490" y="70" width="330" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="655" y="101" font-size="13" font-weight="bold" text-anchor="middle" fill="#1f2933">어디서든 HTTPS 요청</text>
-  <text x="655" y="123" font-size="13" text-anchor="middle" fill="#1f2933">(앱, 브라우저, CLI)</text>
+  <!-- ===== S3 ===== -->
+  <rect x="452" y="24" width="404" height="42" rx="8" fill="#047857"/>
+  <text x="654" y="51" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">S3 (객체 스토리지)</text>
 
-  <!-- S3 화살표 및 라벨 -->
-  <path d="M655,140 L655,200" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="615" y="158" width="80" height="22" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="655" y="173" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#059669">GET/PUT</text>
+  <rect x="494" y="86" width="320" height="82" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="654" y="118" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">어디서든 HTTPS 요청</text>
+  <text x="654" y="148" font-size="15" fill="#1f2937" text-anchor="middle">(앱, 브라우저, CLI)</text>
 
-  <!-- S3 하단 박스 -->
-  <rect x="490" y="200" width="330" height="140" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="515" y="230" font-size="13" font-weight="bold" fill="#1f2933">버킷(bucket)</text>
-  <text x="530" y="257" font-size="13" fill="#1f2933">└ 키: img/a/1.jpg</text>
-  <text x="530" y="281" font-size="13" fill="#1f2933">└ 키: log/2026/x.gz</text>
-  <text x="515" y="311" font-size="13" fill="#1f2933">(평평한 키 공간)</text>
+  <line x1="654" y1="172" x2="654" y2="244" stroke="#047857" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="670" y="214" font-size="15" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">GET/PUT</text>
+
+  <rect x="494" y="250" width="320" height="166" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="518" y="280" font-size="17" font-weight="bold" fill="#047857">버킷(bucket)</text>
+
+  <text x="518" y="318" font-size="15" fill="#1f2937">키:</text>
+  <rect x="556" y="298" width="210" height="30" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+  <text x="570" y="318" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">img/a/1.jpg</text>
+
+  <text x="518" y="356" font-size="15" fill="#1f2937">키:</text>
+  <rect x="556" y="336" width="210" height="30" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+  <text x="570" y="356" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">log/2026/x.gz</text>
+
+  <text x="518" y="396" font-size="15" fill="#374151">(평평한 키 공간)</text>
 </svg>

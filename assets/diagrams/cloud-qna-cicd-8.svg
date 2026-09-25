@@ -1,57 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">테스트 최적화 전략</title>
-  <desc id="d">캐싱, 병렬 실행, 선택적 실행, 빠른 실패 등 4가지 테스트 최적화 전략을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="320" fill="#ffffff"/>
+  <desc id="d">캐싱, 병렬 실행, 선택적 실행, 빠른 실패의 네 가지 테스트 최적화 전략과 각각의 세부 방법을 정리한 그림입니다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
 
-  <!-- Main Container -->
-  <rect x="24" y="24" width="832" height="272" rx="12" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 1. 캐싱 -->
+  <rect x="24" y="24" width="404" height="176" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="56" cy="56" r="15" fill="#1d4ed8"/>
+  <text x="56" y="62" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="82" y="63" font-size="19" font-weight="bold" fill="#1d4ed8">캐싱</text>
+  <line x1="44" y1="84" x2="408" y2="84" stroke="#93c5fd" stroke-width="1.5"/>
+  <circle cx="56" cy="109" r="3.5" fill="#1d4ed8"/>
+  <text x="70" y="115" font-size="16" fill="#111827">node_modules 캐시</text>
+  <circle cx="56" cy="141" r="3.5" fill="#1d4ed8"/>
+  <text x="70" y="147" font-size="16" fill="#111827">Docker 레이어 캐시</text>
+  <circle cx="56" cy="173" r="3.5" fill="#1d4ed8"/>
+  <text x="70" y="179" font-size="16" fill="#111827">테스트 결과 캐시</text>
 
-  <!-- 1. 캐싱 (Blue Theme) -->
-  <g>
-    <rect x="44" y="44" width="186" height="232" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <!-- Title Header -->
-    <rect x="44" y="44" width="186" height="40" rx="8" fill="#2563eb"/>
-    <rect x="44" y="72" width="186" height="12" fill="#2563eb"/>
-    <text x="137" y="69" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">1. 캐싱</text>
-    <!-- List Items -->
-    <text x="60" y="112" fill="#1f2933" font-size="13">- node_modules 캐시</text>
-    <text x="60" y="142" fill="#1f2933" font-size="13">- Docker 레이어 캐시</text>
-    <text x="60" y="172" fill="#1f2933" font-size="13">- 테스트 결과 캐시</text>
-  </g>
+  <!-- 2. 병렬 실행 -->
+  <rect x="452" y="24" width="404" height="176" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <circle cx="484" cy="56" r="15" fill="#047857"/>
+  <text x="484" y="62" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="510" y="63" font-size="19" font-weight="bold" fill="#047857">병렬 실행</text>
+  <line x1="472" y1="84" x2="836" y2="84" stroke="#6ee7b7" stroke-width="1.5"/>
+  <circle cx="484" cy="109" r="3.5" fill="#047857"/>
+  <text x="498" y="115" font-size="16" fill="#111827">매트릭스 빌드</text>
+  <circle cx="484" cy="141" r="3.5" fill="#047857"/>
+  <text x="498" y="147" font-size="16" fill="#111827">테스트 샤딩</text>
 
-  <!-- 2. 병렬 실행 (Green Theme) -->
-  <g>
-    <rect x="246" y="44" width="186" height="232" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <!-- Title Header -->
-    <rect x="246" y="44" width="186" height="40" rx="8" fill="#059669"/>
-    <rect x="246" y="72" width="186" height="12" fill="#059669"/>
-    <text x="339" y="69" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">2. 병렬 실행</text>
-    <!-- List Items -->
-    <text x="262" y="112" fill="#1f2933" font-size="13">- 매트릭스 빌드</text>
-    <text x="262" y="142" fill="#1f2933" font-size="13">- 테스트 샤딩</text>
-  </g>
+  <!-- 3. 선택적 실행 -->
+  <rect x="24" y="220" width="404" height="176" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <circle cx="56" cy="252" r="15" fill="#6d28d9"/>
+  <text x="56" y="258" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="82" y="259" font-size="19" font-weight="bold" fill="#6d28d9">선택적 실행</text>
+  <line x1="44" y1="280" x2="408" y2="280" stroke="#c4b5fd" stroke-width="1.5"/>
+  <circle cx="56" cy="305" r="3.5" fill="#6d28d9"/>
+  <text x="70" y="311" font-size="16" fill="#111827">변경된 파일 기반</text>
+  <circle cx="56" cy="337" r="3.5" fill="#6d28d9"/>
+  <text x="70" y="343" font-size="16" fill="#111827">라벨/태그 기반</text>
 
-  <!-- 3. 선택적 실행 (Purple Theme) -->
-  <g>
-    <rect x="448" y="44" width="186" height="232" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <!-- Title Header -->
-    <rect x="448" y="44" width="186" height="40" rx="8" fill="#7c3aed"/>
-    <rect x="448" y="72" width="186" height="12" fill="#7c3aed"/>
-    <text x="541" y="69" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">3. 선택적 실행</text>
-    <!-- List Items -->
-    <text x="464" y="112" fill="#1f2933" font-size="13">- 변경된 파일 기반</text>
-    <text x="464" y="142" fill="#1f2933" font-size="13">- 라벨/태그 기반</text>
-  </g>
+  <!-- 4. 빠른 실패 -->
+  <rect x="452" y="220" width="404" height="176" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <circle cx="484" cy="252" r="15" fill="#b45309"/>
+  <text x="484" y="258" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="510" y="259" font-size="19" font-weight="bold" fill="#b45309">빠른 실패</text>
+  <line x1="472" y1="280" x2="836" y2="280" stroke="#fcd34d" stroke-width="1.5"/>
 
-  <!-- 4. 빠른 실패 (Amber/Orange Theme) -->
-  <g>
-    <rect x="650" y="44" width="186" height="232" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <!-- Title Header -->
-    <rect x="650" y="44" width="186" height="40" rx="8" fill="#d97706"/>
-    <rect x="650" y="72" width="186" height="12" fill="#d97706"/>
-    <text x="743" y="69" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">4. 빠른 실패</text>
-    <!-- List Items -->
-    <text x="666" y="112" fill="#1f2933" font-size="13">- 린트 → 유닛 → 통합 순서</text>
-    <text x="666" y="142" fill="#1f2933" font-size="13">- 실패 시 즉시 중단</text>
-  </g>
+  <circle cx="484" cy="310" r="3.5" fill="#b45309"/>
+  <rect x="498" y="295" width="60" height="30" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="528" y="316" font-size="16" fill="#111827" text-anchor="middle">린트</text>
+  <line x1="562" y1="310" x2="586" y2="310" stroke="#b45309" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="590" y="295" width="60" height="30" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="620" y="316" font-size="16" fill="#111827" text-anchor="middle">유닛</text>
+  <line x1="654" y1="310" x2="678" y2="310" stroke="#b45309" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="682" y="295" width="60" height="30" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="712" y="316" font-size="16" fill="#111827" text-anchor="middle">통합</text>
+  <text x="754" y="316" font-size="16" fill="#111827">순서</text>
+
+  <circle cx="484" cy="349" r="3.5" fill="#b45309"/>
+  <text x="498" y="355" font-size="16" fill="#111827">실패 시 즉시 중단</text>
 </svg>

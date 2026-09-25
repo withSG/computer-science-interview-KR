@@ -1,86 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">재시도 전략</title>
-  <desc id="d">실패 시 재시도 단계 및 재시도 대상 조건을 나타낸 구조도</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">알림 발송 재시도 전략</title>
+  <desc id="d">실패 시 1차 즉시, 2차 1분 후, 3차 5분 후, 4차 30분 후에 재시도하고 최종 실패하면 DLQ로 옮긴다. 네트워크 오류는 재시도, 유효하지 않은 토큰은 토큰을 삭제하고 재시도하지 않으며, Rate limit은 백오프 후 재시도한다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">재시도 전략</text>
+  <!-- 1. 실패 시 재시도 -->
+  <text x="24" y="44" font-size="18" font-weight="bold" fill="#111827">실패 시 재시도</text>
 
-  <!-- Left Card: 실패 시 재시도 -->
-  <rect x="30" y="60" width="395" height="430" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="50" y="93" font-size="14" font-weight="bold" fill="#1f2933">실패 시 재시도:</text>
+  <rect x="24" y="64" width="136" height="84" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="92" y="98" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">1차</text>
+  <text x="92" y="126" font-size="16" fill="#111827" text-anchor="middle">즉시</text>
+  <line x1="162" y1="106" x2="194" y2="106" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 1 -->
-  <rect x="50" y="115" width="355" height="48" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="70" y="144" font-size="13" font-weight="bold" fill="#2563eb">- 1차:</text>
-  <text x="125" y="144" font-size="13" fill="#1f2933">즉시</text>
+  <rect x="198" y="64" width="136" height="84" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="266" y="98" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">2차</text>
+  <text x="266" y="126" font-size="16" fill="#111827" text-anchor="middle">1분 후</text>
+  <line x1="336" y1="106" x2="368" y2="106" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Arrow 1 to 2 -->
-  <path d="M227.5,163 L227.5,183" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="372" y="64" width="136" height="84" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="98" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">3차</text>
+  <text x="440" y="126" font-size="16" fill="#111827" text-anchor="middle">5분 후</text>
+  <line x1="510" y1="106" x2="542" y2="106" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 2 -->
-  <rect x="50" y="185" width="355" height="48" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="70" y="214" font-size="13" font-weight="bold" fill="#2563eb">- 2차:</text>
-  <text x="125" y="214" font-size="13" fill="#1f2933">1분 후</text>
+  <rect x="546" y="64" width="136" height="84" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="614" y="98" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">4차</text>
+  <text x="614" y="126" font-size="16" fill="#111827" text-anchor="middle">30분 후</text>
+  <line x1="684" y1="106" x2="716" y2="106" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Arrow 2 to 3 -->
-  <path d="M227.5,233 L227.5,253" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="720" y="64" width="136" height="84" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="788" y="98" font-size="18" font-weight="bold" fill="#991b1b" text-anchor="middle">최종 실패</text>
+  <text x="788" y="126" font-size="16" fill="#111827" text-anchor="middle">DLQ 이동</text>
 
-  <!-- Step 3 -->
-  <rect x="50" y="255" width="355" height="48" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="70" y="284" font-size="13" font-weight="bold" fill="#2563eb">- 3차:</text>
-  <text x="125" y="284" font-size="13" fill="#1f2933">5분 후</text>
+  <line x1="24" y1="180" x2="856" y2="180" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <!-- Arrow 3 to 4 -->
-  <path d="M227.5,303 L227.5,323" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 2. 재시도 대상 -->
+  <text x="24" y="216" font-size="18" font-weight="bold" fill="#111827">재시도 대상</text>
 
-  <!-- Step 4 -->
-  <rect x="50" y="325" width="355" height="48" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="70" y="354" font-size="13" font-weight="bold" fill="#2563eb">- 4차:</text>
-  <text x="125" y="354" font-size="13" fill="#1f2933">30분 후</text>
+  <rect x="24" y="236" width="280" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="164" y="270" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">네트워크 오류</text>
+  <line x1="306" y1="264" x2="374" y2="264" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="378" y="236" width="478" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="617" y="270" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">재시도</text>
 
-  <!-- Arrow 4 to Final -->
-  <path d="M227.5,373 L227.5,393" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="24" y="308" width="280" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="164" y="342" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">유효하지 않은 토큰</text>
+  <line x1="306" y1="336" x2="374" y2="336" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="378" y="308" width="478" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="617" y="342" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">토큰 삭제, 재시도 안함</text>
 
-  <!-- Final Failure Step -->
-  <rect x="50" y="395" width="355" height="75" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="70" y="426" font-size="13" font-weight="bold" fill="#dc2626">- 최종 실패:</text>
-  <text x="155" y="426" font-size="13" fill="#1f2933">DLQ 이동</text>
-
-  <!-- Right Card: 재시도 대상 -->
-  <rect x="455" y="60" width="395" height="430" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="475" y="93" font-size="14" font-weight="bold" fill="#1f2933">재시도 대상:</text>
-
-  <!-- Rule 1: 네트워크 오류 -->
-  <rect x="475" y="115" width="355" height="100" rx="4" ry="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="495" y="152" font-size="13" fill="#1f2933">- 네트워크 오류</text>
-  <path d="M625,148 L655,148" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="665" y="152" font-size="13" font-weight="bold" fill="#059669">재시도</text>
-
-  <!-- Rule 2: 유효하지 않은 토큰 -->
-  <rect x="475" y="230" width="355" height="100" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="495" y="267" font-size="13" fill="#1f2933">- 유효하지 않은 토큰</text>
-  <path d="M650,263 L680,263" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="690" y="267" font-size="13" font-weight="bold" fill="#dc2626">토큰 삭제, 재시도 안함</text>
-
-  <!-- Rule 3: Rate limit -->
-  <rect x="475" y="345" width="355" height="100" rx="4" ry="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="495" y="382" font-size="13" fill="#1f2933">- Rate limit</text>
-  <path d="M580,378 L610,378" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="620" y="382" font-size="13" font-weight="bold" fill="#d97706">백오프 후 재시도</text>
+  <rect x="24" y="380" width="280" height="56" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="164" y="414" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Rate limit</text>
+  <line x1="306" y1="408" x2="374" y2="408" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="378" y="380" width="478" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="617" y="414" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">백오프 후 재시도</text>
 </svg>

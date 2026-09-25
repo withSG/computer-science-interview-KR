@@ -1,66 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">CI 동작 원리 시퀀스 다이어그램</title>
-  <desc id="d">개발자가 코드를 푸시하면 원격 저장소를 거쳐 CI 러너에서 자동 빌드 및 테스트가 실행되고 성공 또는 실패 결과를 보고받는 전체 동작 과정 다이어그램입니다.</desc>
-  <rect width="880" height="570" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 590" width="880" height="590" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CI 동작 원리</title>
+  <desc id="d">개발자가 작은 변경을 git push 하면 원격 저장소가 push/PR 이벤트를 CI 러너에 보내고, 러너는 깨끗한 환경 준비, 소스 체크아웃, 의존성 설치, 빌드, 테스트를 차례로 실행한 뒤 성공/실패 상태를 보고한다. 실패 알림은 5분 안에 개발자에게 돌아오며, 운영에 나가기 전인 이 시점에 고쳐야 싸다.</desc>
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
+  <rect width="880" height="590" fill="#ffffff"/>
 
-  <!-- Lifelines -->
-  <line x1="150" y1="70" x2="150" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="440" y1="70" x2="440" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="730" y1="70" x2="730" y2="470" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <!-- 생명선 -->
+  <line x1="130" y1="68" x2="130" y2="446" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="440" y1="68" x2="440" y2="486" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="740" y1="68" x2="740" y2="486" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- Actor / Entity Headers -->
-  <rect x="70" y="30" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="150" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">개발자</text>
+  <!-- 참여자 -->
+  <rect x="45" y="24" width="170" height="44" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="130" y="52" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">개발자</text>
+  <rect x="355" y="24" width="170" height="44" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="52" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">원격 저장소</text>
+  <rect x="655" y="24" width="170" height="44" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="740" y="52" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">CI 러너</text>
 
-  <rect x="360" y="30" width="160" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">원격 저장소</text>
+  <!-- 1. git push -->
+  <line x1="130" y1="116" x2="438" y2="116" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="285" y="104" font-size="16" fill="#1d4ed8" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">git push</tspan> (작은 변경)</text>
 
-  <rect x="650" y="30" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="730" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">CI 러너</text>
+  <!-- 2. push/PR 이벤트 -->
+  <line x1="440" y1="166" x2="738" y2="166" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="590" y="154" font-size="16" fill="#111827" text-anchor="middle">push/PR 이벤트 발생</text>
 
-  <!-- Message 1: git push (작은 변경) -->
-  <path d="M150,110 L440,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="233" y="96" width="124" height="20" fill="#ffffff"/>
-  <text x="295" y="110" text-anchor="middle" font-size="13" fill="#2563eb">git push (작은 변경)</text>
+  <!-- 러너 실행 단계 -->
+  <rect x="640" y="188" width="200" height="182" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="660" y="222" font-size="16" font-weight="bold" fill="#6d28d9">① 깨끗한 환경 준비</text>
+  <text x="660" y="254" font-size="16" fill="#111827">② 소스 체크아웃</text>
+  <text x="660" y="286" font-size="16" fill="#111827">③ 의존성 설치</text>
+  <text x="660" y="318" font-size="16" fill="#111827">④ 빌드</text>
+  <text x="660" y="350" font-size="16" fill="#111827">⑤ 테스트</text>
 
-  <!-- Message 2: push/PR 이벤트 발생 -->
-  <path d="M440,150 L730,150" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="525" y="136" width="120" height="20" fill="#ffffff"/>
-  <text x="585" y="150" text-anchor="middle" font-size="13" fill="#1f2933">push/PR 이벤트 발생</text>
+  <!-- 3. 상태 보고 -->
+  <line x1="740" y1="406" x2="442" y2="406" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="590" y="394" font-size="16" fill="#111827" text-anchor="middle">성공/실패 상태 보고</text>
 
-  <!-- CI Execution Box (Internal Steps ①~⑤) -->
-  <rect x="650" y="180" width="160" height="150" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="665" y="202" font-size="13" fill="#1f2933">① 깨끗한 환경 준비</text>
-  <text x="665" y="230" font-size="13" fill="#1f2933">② 소스 체크아웃</text>
-  <text x="665" y="258" font-size="13" fill="#1f2933">③ 의존성 설치</text>
-  <text x="665" y="286" font-size="13" fill="#1f2933">④ 빌드</text>
-  <text x="665" y="314" font-size="13" fill="#1f2933">⑤ 테스트</text>
+  <!-- 4. 실패 알림 -->
+  <line x1="440" y1="452" x2="138" y2="452" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <text x="285" y="440" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">실패 알림 (5분 내)</text>
+  <circle cx="130" cy="452" r="7" fill="#b91c1c"/>
 
-  <!-- Message 3: 성공/실패 상태 보고 -->
-  <path d="M730,360 L440,360" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="526" y="346" width="118" height="20" fill="#ffffff"/>
-  <text x="585" y="360" text-anchor="middle" font-size="13" fill="#1f2933">성공/실패 상태 보고</text>
-
-  <!-- Message 4: 실패 알림 (5분 내) -->
-  <path d="M440,400 L150,400" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="238" y="386" width="114" height="20" fill="#ffffff"/>
-  <text x="295" y="400" text-anchor="middle" font-size="13" fill="#dc2626">실패 알림 (5분 내)</text>
-
-  <!-- Comment / Footnote Box -->
-  <rect x="150" y="450" width="680" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <path d="M150,470 L135,470" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="165" y="474" font-size="12" fill="#1f2933">← 여기서 고쳐야 싸다. 운영에 나간 뒤 고치면 원인 조사·복구·재배포가 전부 붙는다.</text>
+  <!-- 여기서 고쳐야 싸다 -->
+  <line x1="130" y1="460" x2="130" y2="494" stroke="#b45309" stroke-width="2"/>
+  <rect x="40" y="494" width="600" height="72" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="60" y="522" font-size="17" font-weight="bold" fill="#b45309">여기서 고쳐야 싸다</text>
+  <text x="60" y="550" font-size="15" fill="#374151">운영에 나간 뒤 고치면 원인 조사·복구·재배포가 전부 붙는다.</text>
 </svg>

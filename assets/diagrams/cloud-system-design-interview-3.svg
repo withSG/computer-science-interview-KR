@@ -1,110 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실제 계산: URL 단축기 및 안티패턴 비교</title>
-  <desc id="d">시스템 디자인 인터뷰에서의 URL 단축기 계산 예시와 추정 계산 안티패턴을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="780" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">추정 안티패턴과 개선</title>
+  <desc id="d">추정을 소수점까지 계산하는 안티패턴과 그 이유, 86,400을 10만으로 반올림해 자릿수 단위로 계산하는 개선안을 나란히 비교하고, URL 단축기 예에서 그 숫자로 내린 판단(쓰기는 단일 RDB, 읽기는 캐시, 11TB는 보관 정책·파티셔닝, 주제는 읽기 확장)을 보여준다.</desc>
+  <rect width="880" height="640" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Section 1: Anti-pattern vs Improvement -->
-  <rect x="24" y="24" width="832" height="236" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-  <text x="44" y="52" font-size="16" font-weight="bold" fill="#dc2626">안티패턴: 추정을 소수점까지 계산한다</text>
-  
-  <rect x="44" y="68" width="792" height="36" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="4"/>
-  <text x="56" y="91" font-size="13" fill="#dc2626">"86,400으로 나누면 115.74 QPS이고, 피크 계수를 3.2로 잡으면..."</text>
+  <!-- 안티패턴 -->
+  <rect x="32" y="24" width="388" height="284" rx="8" fill="#fff5f5" stroke="#b91c1c" stroke-width="1.5"/>
+  <rect x="48" y="40" width="84" height="28" rx="14" fill="#b91c1c"/>
+  <text x="90" y="59" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">안티패턴</text>
+  <text x="144" y="60" font-size="16" font-weight="bold" fill="#111827">추정을 소수점까지 계산한다</text>
 
-  <text x="44" y="128" font-size="14" font-weight="bold" fill="#1f2933">왜 문제인가:</text>
-  <text x="60" y="149" font-size="13" fill="#52606d">• 면접관은 계산 능력을 보는 게 아니다. 자릿수가 맞는지만 본다.</text>
-  <text x="60" y="169" font-size="13" fill="#52606d">• 정밀하게 계산하려다 5분이 10분이 되고, 정작 설계 시간이 사라진다.</text>
+  <rect x="48" y="84" width="356" height="68" rx="6" fill="#ffffff" stroke="#f87171" stroke-width="1"/>
+  <g font-size="15" fill="#111827">
+    <text x="62" y="112">"86,400으로 나누면 <tspan font-weight="bold" fill="#b91c1c">115.74 QPS</tspan>이고,</text>
+    <text x="62" y="136">피크 계수를 <tspan font-weight="bold" fill="#b91c1c">3.2</tspan>로 잡으면..."</text>
+  </g>
 
-  <rect x="44" y="185" width="792" height="63" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
-  <text x="56" y="206" font-size="14" font-weight="bold" fill="#059669">개선:</text>
-  <text x="100" y="206" font-size="13" fill="#1f2933">86,400 → 10만으로 반올림하고 계산은 전부 자릿수 단위로.</text>
-  <text x="56" y="224" font-size="13" fill="#1f2933">"대략 100 QPS, 피크 잡아서 수백 QPS 수준"이면 충분하다.</text>
-  <text x="56" y="240" font-size="13" fill="#1f2933">대신 그 숫자로 무엇을 판단했는지를 반드시 말한다.</text>
+  <text x="48" y="184" font-size="15" font-weight="bold" fill="#b91c1c">왜 문제인가</text>
+  <g font-size="15" fill="#1f2937">
+    <text x="52" y="212">•</text>
+    <text x="68" y="212">면접관은 계산 능력을 보는 게 아니다.</text>
+    <text x="68" y="234">자릿수가 맞는지만 본다.</text>
+    <text x="52" y="264">•</text>
+    <text x="68" y="264">정밀하게 계산하려다 5분이 10분이 되고,</text>
+    <text x="68" y="286">정작 설계 시간이 사라진다.</text>
+  </g>
 
-  <!-- Section 2: Main Scenario Title & Premise -->
-  <rect x="24" y="280" width="832" height="476" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-  <text x="44" y="310" font-size="16" font-weight="bold" fill="#1f2933">실제 계산: URL 단축기</text>
-  
-  <rect x="44" y="324" width="792" height="34" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="56" y="346" font-size="13" font-weight="bold" fill="#2563eb">전제:</text>
-  <text x="100" y="346" font-size="13" fill="#1f2933">하루 신규 URL 1,000만 개, 읽기:쓰기 = 100:1, 데이터 5년 보관</text>
+  <!-- 안티패턴 → 개선 -->
+  <line x1="424" y1="118" x2="454" y2="118" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Left Side: Calculation Boxes -->
-  <!-- [쓰기 QPS] -->
-  <rect x="44" y="372" width="380" height="76" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="56" y="393" font-size="14" font-weight="bold" fill="#1f2933">[쓰기 QPS]</text>
-  <text x="70" y="413" font-size="13" fill="#1f2933">1,000만 / 10만 초 = 100 QPS</text>
-  <text x="70" y="433" font-size="13" fill="#52606d">피크는 평균의 2~5배로 잡는다 → 200~500 QPS</text>
+  <!-- 개선 -->
+  <rect x="460" y="24" width="388" height="284" rx="8" fill="#f0fdf6" stroke="#047857" stroke-width="1.5"/>
+  <rect x="476" y="40" width="58" height="28" rx="14" fill="#047857"/>
+  <text x="505" y="59" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">개선</text>
 
-  <!-- [읽기 QPS] -->
-  <rect x="44" y="458" width="380" height="56" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="56" y="479" font-size="14" font-weight="bold" fill="#1f2933">[읽기 QPS]</text>
-  <text x="70" y="499" font-size="13" fill="#1f2933">100 × 100 = 10,000 QPS (피크 2만~5만)</text>
+  <rect x="476" y="84" width="356" height="68" rx="6" fill="#ffffff" stroke="#34d399" stroke-width="1"/>
+  <g font-size="15" fill="#111827">
+    <text x="490" y="112"><tspan font-weight="bold" fill="#047857">86,400 → 10만</tspan>으로 반올림하고</text>
+    <text x="490" y="136">계산은 전부 자릿수 단위로.</text>
+  </g>
 
-  <!-- [저장량] -->
-  <rect x="44" y="524" width="380" height="118" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="56" y="545" font-size="14" font-weight="bold" fill="#1f2933">[저장량]</text>
-  <text x="70" y="565" font-size="11.5" fill="#52606d">레코드 하나 ≈ short_code(8B) + long_url(~500B) + 메타(~100B) ≈ 600B</text>
-  <text x="70" y="585" font-size="13" fill="#1f2933">하루   1,000만 × 600B  = 6GB</text>
-  <text x="70" y="605" font-size="13" fill="#1f2933">1년    6GB × 365      ≈ 2.2TB</text>
-  <text x="70" y="625" font-size="13" fill="#1f2933">5년                   ≈ 11TB</text>
+  <g font-size="15" fill="#1f2937">
+    <text x="476" y="184">"<tspan font-weight="bold" fill="#047857">대략 100 QPS</tspan>, 피크 잡아서</text>
+    <text x="476" y="206"><tspan font-weight="bold" fill="#047857">수백 QPS 수준</tspan>"이면 충분하다.</text>
+  </g>
 
-  <!-- [대역폭] -->
-  <rect x="44" y="652" width="380" height="84" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="56" y="673" font-size="14" font-weight="bold" fill="#1f2933">[대역폭]</text>
-  <text x="70" y="693" font-size="13" fill="#1f2933">읽기 10,000 QPS × 600B ≈ 6MB/s</text>
-  <text x="70" y="713" font-size="11.5" fill="#52606d">(리다이렉트라 응답 자체는 더 작다)</text>
+  <rect x="476" y="226" width="356" height="66" rx="6" fill="#d1fae5"/>
+  <g font-size="15" font-weight="bold" fill="#065f46">
+    <text x="490" y="253">대신 그 숫자로 무엇을 판단했는지를</text>
+    <text x="490" y="277">반드시 말한다.</text>
+  </g>
 
-  <!-- Connecting Lines / Arrows -->
-  <path d="M424,410 L456,410" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M424,486 L456,486" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M424,583 L456,583" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <!-- 개선 → 판단 예 -->
+  <line x1="654" y1="310" x2="654" y2="337" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-  </defs>
+  <!-- 판단 예 -->
+  <rect x="32" y="340" width="816" height="276" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1"/>
+  <text x="48" y="370" font-size="16" font-weight="bold" fill="#111827">예: URL 단축기에서 그 숫자로 내린 판단</text>
 
-  <!-- Right Side: Judgments / Deductions -->
-  <rect x="456" y="372" width="380" height="364" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="472" y="396" font-size="14" font-weight="bold" fill="#1f2933">이 숫자에서 곧바로 나오는 판단들</text>
+  <rect x="48" y="388" width="240" height="42" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="48" y="440" width="240" height="42" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="48" y="492" width="240" height="42" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <g font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="168" y="414">피크 수백 QPS의 쓰기</text>
+    <text x="168" y="466">피크 수만 QPS의 읽기</text>
+    <text x="168" y="518">5년 11TB</text>
+  </g>
 
-  <!-- Judgment 1 -->
-  <rect x="472" y="412" width="348" height="64" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
-  <text x="484" y="433" font-size="13" fill="#1f2933">• 피크 수백 QPS의 쓰기는 <tspan font-weight="bold" fill="#059669">단일 RDB로 충분하다.</tspan></text>
-  <text x="496" y="453" font-size="13" fill="#52606d">여기서 샤딩을 꺼내면 과잉 설계다</text>
+  <g stroke="#374151" stroke-width="1.5">
+    <line x1="296" y1="409" x2="330" y2="409" marker-end="url(#arr)"/>
+    <line x1="296" y1="461" x2="330" y2="461" marker-end="url(#arr)"/>
+    <line x1="296" y1="513" x2="330" y2="513" marker-end="url(#arr)"/>
+  </g>
 
-  <!-- Judgment 2 -->
-  <rect x="472" y="488" width="348" height="64" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="484" y="509" font-size="13" fill="#1f2933">• 피크 수만 QPS의 읽기는 <tspan font-weight="bold" fill="#2563eb">DB 단독으로는 부담이다.</tspan></text>
-  <text x="496" y="529" font-size="13" fill="#52606d">캐시가 이 설계의 중심이 된다</text>
+  <g font-size="15" fill="#1f2937">
+    <text x="344" y="414"><tspan font-weight="bold" fill="#111827">단일 RDB로 충분하다.</tspan> 여기서 샤딩을 꺼내면 과잉 설계다</text>
+    <text x="344" y="466"><tspan font-weight="bold" fill="#111827">DB 단독으로는 부담이다.</tspan> 캐시가 이 설계의 중심이 된다</text>
+    <text x="344" y="518">단일 인스턴스에 부담이므로 <tspan font-weight="bold" fill="#111827">보관 정책이나 파티셔닝</tspan>을 논의해야 한다</text>
+  </g>
 
-  <!-- Judgment 3 -->
-  <rect x="472" y="564" width="348" height="64" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
-  <text x="484" y="585" font-size="13" fill="#1f2933">• 5년 11TB는 단일 인스턴스에 부담이므로</text>
-  <text x="496" y="605" font-size="13" font-weight="bold" fill="#d97706">보관 정책이나 파티셔닝<tspan font-weight="normal" fill="#52606d">을 논의해야 한다</tspan></text>
-
-  <!-- Conclusion -->
-  <rect x="472" y="640" width="348" height="80" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1" rx="4"/>
-  <text x="484" y="663" font-size="13" fill="#1f2933">• 즉 이 문제의 진짜 주제는</text>
-  <text x="496" y="683" font-size="13" fill="#52606d">"짧은 코드 생성 방식"이 아니라</text>
-  <text x="496" y="703" font-size="14" font-weight="bold" fill="#7c3aed">읽기 확장<tspan font-weight="normal" fill="#1f2933">이다</tspan></text>
+  <rect x="48" y="552" width="784" height="48" rx="6" fill="#ffffff" stroke="#111827" stroke-width="1.5"/>
+  <text x="440" y="582" font-size="16" fill="#111827" text-anchor="middle">즉 이 문제의 진짜 주제는 "짧은 코드 생성 방식"이 아니라 <tspan font-weight="bold" fill="#1d4ed8">읽기 확장</tspan>이다</text>
 </svg>

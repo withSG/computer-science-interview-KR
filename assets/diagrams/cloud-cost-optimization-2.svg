@@ -1,49 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">비교</title>
-  <desc id="d">사용량과 시간 축에 따라 기저 부하(Savings Plans / RI), 변동 구간(Spot), 피크(On-Demand 또는 Spot) 구성을 나타내는 차트</desc>
-  
-  <!-- 배경 -->
+  <title id="t">사용량 층별 과금 모델 조합</title>
+  <desc id="d">시간에 따른 사용량을 세 층으로 나눈 그래프. 맨 아래 기저 부하(baseline)는 Savings Plans / RI로 약정하고, 그 위 변동 구간은 Spot(중단 가능한 작업)을 배치하며, 맨 위 피크는 On-Demand 또는 Spot으로 흡수한다.</desc>
   <rect width="880" height="380" fill="#ffffff"/>
-
   <defs>
-    <!-- 축 화살표 마커 -->
-    <marker id="a-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <!-- 지시선 화살표 마커 -->
-    <marker id="a-sub" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
   </defs>
 
-  <!-- 그래프 레이어 (면) -->
-  <!-- 기저 부하 (Baseline) : 파랑 계열 -->
-  <rect x="100" y="210" width="360" height="90" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  
-  <!-- 변동 구간 (Variable) : 초록 계열 -->
-  <rect x="220" y="130" width="200" height="80" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  
-  <!-- 피크 (Peak) : 주황 계열 -->
-  <rect x="280" y="70" width="120" height="60" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <!-- 층: 기저 부하 / 변동 구간 / 피크 -->
+  <rect x="90" y="240" width="400" height="90" fill="#3b82f6"/>
+  <polygon points="90,240 115,240 115,225 140,225 140,180 165,180 165,150 265,150 265,170 290,170 290,220 315,220 315,240 340,240 340,210 365,210 365,160 390,160 390,150 465,150 465,205 490,205 490,240" fill="#34d399"/>
+  <polygon points="165,150 165,135 190,135 190,95 215,95 215,80 240,80 240,120 265,120 265,150" fill="#fbbf24"/>
+  <polygon points="390,150 390,115 415,115 415,90 440,90 440,140 465,140 465,150" fill="#fbbf24"/>
+  <path d="M90,240 H115 V225 H140 V180 H165 V135 H190 V95 H215 V80 H240 V120 H265 V170 H290 V220 H315 V240 H340 V210 H365 V160 H390 V115 H415 V90 H440 V140 H465 V205 H490" fill="none" stroke="#1f2937" stroke-width="1.5"/>
 
-  <!-- 축 (Y축: 사용량, X축: 시간) -->
-  <path d="M100,50 L100,300 L520,300" stroke="#1f2933" stroke-width="2" fill="none" marker-start="url(#a-axis)" marker-end="url(#a-axis)"/>
+  <!-- 층 경계 안내선 -->
+  <line x1="240" y1="80" x2="552" y2="80" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="80" y1="150" x2="552" y2="150" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="80" y1="240" x2="552" y2="240" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
 
-  <!-- 축 라벨 -->
-  <text x="100" y="32" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">사용량</text>
-  <text x="535" y="304" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="start">시간</text>
+  <!-- 축 -->
+  <line x1="80" y1="330" x2="80" y2="40" stroke="#1f2937" stroke-width="2" marker-end="url(#ax)"/>
+  <line x1="80" y1="330" x2="512" y2="330" stroke="#1f2937" stroke-width="2" marker-end="url(#ax)"/>
+  <text x="94" y="50" font-size="16" font-weight="bold" fill="#1f2937">사용량</text>
+  <text x="512" y="358" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">시간</text>
 
-  <!-- 지시선 및 범례 / 설명 라벨 (화살표 & 텍스트) -->
-  <!-- 피크 라벨 -->
-  <path d="M400,100 L450,100" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-start="url(#a-sub)"/>
-  <text x="460" y="104" font-size="13" fill="#1f2933">← 피크: On-Demand 또는 Spot으로 흡수</text>
+  <!-- 피크 -->
+  <path d="M558,82 H566 V148 H558" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <rect x="582" y="98" width="14" height="14" fill="#fbbf24" stroke="#92400e" stroke-width="1"/>
+  <text x="604" y="111" font-size="17" font-weight="bold" fill="#111827">피크</text>
+  <text x="604" y="135" font-size="15" fill="#374151">On-Demand 또는 Spot으로 흡수</text>
 
-  <!-- 변동 구간 라벨 -->
-  <path d="M420,170 L450,170" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-start="url(#a-sub)"/>
-  <text x="460" y="174" font-size="13" fill="#1f2933">← 변동 구간: Spot(중단 가능한 작업) 배치</text>
+  <!-- 변동 구간 -->
+  <path d="M558,152 H566 V238 H558" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <rect x="582" y="178" width="14" height="14" fill="#34d399" stroke="#065f46" stroke-width="1"/>
+  <text x="604" y="191" font-size="17" font-weight="bold" fill="#111827">변동 구간</text>
+  <text x="604" y="215" font-size="15" fill="#374151">Spot(중단 가능한 작업) 배치</text>
 
-  <!-- 기저 부하 라벨 -->
-  <path d="M460,255 L480,255" stroke="#52606d" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-start="url(#a-sub)"/>
-  <text x="490" y="259" font-size="13" fill="#1f2933">← 기저 부하(baseline): Savings Plans / RI로 약정</text>
-
+  <!-- 기저 부하 -->
+  <path d="M558,242 H566 V328 H558" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <rect x="582" y="268" width="14" height="14" fill="#3b82f6" stroke="#1e40af" stroke-width="1"/>
+  <text x="604" y="281" font-size="17" font-weight="bold" fill="#111827">기저 부하(baseline)</text>
+  <text x="604" y="305" font-size="15" fill="#374151">Savings Plans / RI로 약정</text>
 </svg>

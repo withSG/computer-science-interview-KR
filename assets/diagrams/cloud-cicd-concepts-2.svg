@@ -1,121 +1,88 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">CD의 두 얼굴 — Delivery와 Deployment</title>
-  <desc id="d">CI, Continuous Delivery, Continuous Deployment의 단계별 과정과 사람의 승인 여부 차이를 나타낸 다이어그램</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+  <title id="t">CI와 두 가지 CD 비교</title>
+  <desc id="d">CI는 커밋, 빌드, 테스트까지이며 산출물은 이 커밋이 안전하다는 신호다. Continuous Delivery는 아티팩트와 스테이징 배포 뒤 사람 승인을 거쳐 운영에 나가며 릴리스 시점만 사람이 정한다. Continuous Deployment는 승인 없이 운영까지 가고, 사람 대신 자동 검증과 자동 롤백이 지킨다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
+  <rect width="880" height="520" fill="#ffffff"/>
 
-  <!-- Section 1: CI -->
-  <rect x="20" y="20" width="840" height="135" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="40" y="48" font-size="16" font-weight="bold" fill="#1f2933">CI (Continuous Integration)</text>
+  <!-- ── CI ── -->
+  <rect x="24" y="20" width="832" height="112" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="44" y="50" font-size="17" font-weight="bold" fill="#1d4ed8">CI (Continuous Integration)</text>
 
-  <!-- CI Steps -->
-  <rect x="40" y="65" width="70" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="75" y="86" font-size="13" text-anchor="middle" fill="#1f2933">커밋</text>
+  <rect x="41" y="66" width="64" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="73" y="94" font-size="16" fill="#111827" text-anchor="middle">커밋</text>
+  <line x1="105" y1="88" x2="135" y2="88" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="136" y="66" width="64" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="168" y="94" font-size="16" fill="#111827" text-anchor="middle">빌드</text>
+  <line x1="200" y1="88" x2="230" y2="88" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="231" y="66" width="78" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="270" y="94" font-size="16" fill="#111827" text-anchor="middle">테스트</text>
 
-  <path d="M110,82 L135,82" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- CI 끝 -->
+  <line x1="326" y1="60" x2="326" y2="116" stroke="#1d4ed8" stroke-width="3"/>
+  <text x="344" y="83" font-size="16" font-weight="bold" fill="#1d4ed8">여기까지가 CI</text>
+  <text x="344" y="107" font-size="15" fill="#374151">산출물은 "이 커밋은 안전하다"는 신호</text>
 
-  <rect x="135" y="65" width="70" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="170" y="86" font-size="13" text-anchor="middle" fill="#1f2933">빌드</text>
+  <!-- ── Continuous Delivery ── -->
+  <rect x="24" y="150" width="832" height="164" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="44" y="180" font-size="17" font-weight="bold" fill="#047857">Continuous Delivery (지속적 전달)</text>
 
-  <path d="M205,82 L230,82" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="41" y="196" width="64" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="73" y="224" font-size="16" fill="#111827" text-anchor="middle">커밋</text>
+  <line x1="105" y1="218" x2="135" y2="218" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="136" y="196" width="64" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="168" y="224" font-size="16" fill="#111827" text-anchor="middle">빌드</text>
+  <line x1="200" y1="218" x2="230" y2="218" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="231" y="196" width="78" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="270" y="224" font-size="16" fill="#111827" text-anchor="middle">테스트</text>
+  <line x1="309" y1="218" x2="339" y2="218" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="340" y="196" width="94" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="387" y="224" font-size="16" fill="#111827" text-anchor="middle">아티팩트</text>
+  <line x1="434" y1="218" x2="464" y2="218" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="465" y="196" width="128" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="529" y="224" font-size="16" fill="#111827" text-anchor="middle">스테이징 배포</text>
+  <line x1="593" y1="218" x2="623" y2="218" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="624" y="196" width="104" height="44" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2.2"/>
+  <text x="676" y="224" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">사람 승인</text>
+  <line x1="728" y1="218" x2="758" y2="218" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="759" y="196" width="80" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="799" y="224" font-size="16" fill="#111827" text-anchor="middle">운영</text>
 
-  <rect x="230" y="65" width="80" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="270" y="86" font-size="13" text-anchor="middle" fill="#1f2933">테스트</text>
+  <line x1="676" y1="272" x2="676" y2="244" stroke="#b45309" stroke-width="1.8" marker-end="url(#ah-amber)"/>
+  <text x="676" y="294" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">릴리스 시점만 사람이 정한다</text>
 
-  <!-- CI Arrow & Note -->
-  <path d="M270,122 L270,99" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="280" y="132" font-size="11.5" fill="#52606d">여기까지가 CI. 산출물은 "이 커밋은 안전하다"는 신호</text>
+  <!-- ── Continuous Deployment ── -->
+  <rect x="24" y="332" width="832" height="164" rx="10" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="44" y="362" font-size="17" font-weight="bold" fill="#6d28d9">Continuous Deployment (지속적 배포)</text>
 
-  <!-- Section 2: Continuous Delivery -->
-  <rect x="20" y="175" width="840" height="150" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="40" y="203" font-size="16" font-weight="bold" fill="#1f2933">Continuous Delivery (지속적 전달)</text>
+  <rect x="41" y="378" width="64" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="73" y="406" font-size="16" fill="#111827" text-anchor="middle">커밋</text>
+  <line x1="105" y1="400" x2="135" y2="400" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="136" y="378" width="64" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="168" y="406" font-size="16" fill="#111827" text-anchor="middle">빌드</text>
+  <line x1="200" y1="400" x2="230" y2="400" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="231" y="378" width="78" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="270" y="406" font-size="16" fill="#111827" text-anchor="middle">테스트</text>
+  <line x1="309" y1="400" x2="339" y2="400" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="340" y="378" width="94" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="387" y="406" font-size="16" fill="#111827" text-anchor="middle">아티팩트</text>
+  <line x1="434" y1="400" x2="464" y2="400" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <rect x="465" y="378" width="128" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="529" y="406" font-size="16" fill="#111827" text-anchor="middle">스테이징</text>
+  <line x1="593" y1="400" x2="758" y2="400" stroke="#4b5563" stroke-width="1.8" marker-end="url(#ah)"/>
+  <text x="676" y="388" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">승인 없음</text>
+  <rect x="759" y="378" width="80" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="799" y="406" font-size="16" fill="#111827" text-anchor="middle">운영</text>
 
-  <!-- CD Delivery Steps -->
-  <rect x="40" y="220" width="65" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="72.5" y="241" font-size="13" text-anchor="middle" fill="#1f2933">커밋</text>
-
-  <path d="M105,237 L125,237" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <rect x="125" y="220" width="65" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="157.5" y="241" font-size="13" text-anchor="middle" fill="#1f2933">빌드</text>
-
-  <path d="M190,237 L210,237" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <rect x="210" y="220" width="75" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="247.5" y="241" font-size="13" text-anchor="middle" fill="#1f2933">테스트</text>
-
-  <path d="M285,237 L305,237" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <rect x="305" y="220" width="85" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="347.5" y="241" font-size="13" text-anchor="middle" fill="#1f2933">아티팩트</text>
-
-  <path d="M390,237 L410,237" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <rect x="410" y="220" width="105" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="462.5" y="241" font-size="13" text-anchor="middle" fill="#1f2933">스테이징 배포</text>
-
-  <path d="M515,237 L535,237" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <rect x="535" y="220" width="100" height="34" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="585" y="241" font-size="13" text-anchor="middle" font-weight="bold" fill="#d97706">[사람 승인]</text>
-
-  <path d="M635,237 L655,237" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <rect x="655" y="220" width="65" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="687.5" y="241" font-size="13" text-anchor="middle" fill="#1f2933">운영</text>
-
-  <!-- CD Delivery Arrow & Note -->
-  <path d="M585,297 L585,254" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <text x="585" y="307" font-size="11.5" text-anchor="middle" fill="#52606d">릴리스 시점만 사람이 정한다</text>
-
-  <!-- Section 3: Continuous Deployment -->
-  <rect x="20" y="345" width="840" height="150" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="40" y="373" font-size="16" font-weight="bold" fill="#1f2933">Continuous Deployment (지속적 배포)</text>
-
-  <!-- CD Deployment Steps -->
-  <rect x="40" y="390" width="65" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="72.5" y="411" font-size="13" text-anchor="middle" fill="#1f2933">커밋</text>
-
-  <path d="M105,407 L130,407" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="130" y="390" width="65" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="162.5" y="411" font-size="13" text-anchor="middle" fill="#1f2933">빌드</text>
-
-  <path d="M195,407 L220,407" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="220" y="390" width="75" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="257.5" y="411" font-size="13" text-anchor="middle" fill="#1f2933">테스트</text>
-
-  <path d="M295,407 L320,407" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="320" y="390" width="85" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="362.5" y="411" font-size="13" text-anchor="middle" fill="#1f2933">아티팩트</text>
-
-  <path d="M405,407 L430,407" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="430" y="390" width="80" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="470" y="411" font-size="13" text-anchor="middle" fill="#1f2933">스테이징</text>
-
-  <path d="M510,407 L535,407" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="535" y="390" width="150" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="610" y="411" font-size="13" text-anchor="middle" fill="#1f2933">운영 (승인 없음)</text>
-
-  <!-- CD Deployment Arrow & Note -->
-  <path d="M610,467 L610,424" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="610" y="477" font-size="11.5" text-anchor="middle" fill="#52606d">사람 대신 자동 검증과 자동 롤백이 지킨다</text>
+  <line x1="676" y1="454" x2="676" y2="408" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#ah-purple)"/>
+  <text x="676" y="476" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">사람 대신 자동 검증과 자동 롤백이 지킨다</text>
 </svg>

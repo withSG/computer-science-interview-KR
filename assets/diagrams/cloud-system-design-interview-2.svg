@@ -1,50 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실제 계산: URL 단축기</title>
-  <desc id="d">하루 신규 URL 1,000만 개, 읽기:쓰기 비율 100:1, 5년 데이터 보관 전제하의 쓰기 QPS, 읽기 QPS, 저장량, 대역폭 계산 다이어그램</desc>
-  <rect width="880" height="580" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">URL 단축기 규모 추정</title>
+  <desc id="d">하루 신규 URL 1,000만 개, 읽기:쓰기 100:1, 5년 보관을 전제로 쓰기 QPS 100(피크 200~500), 읽기 QPS 10,000(피크 2만~5만), 레코드 600B 기준 저장량 하루 6GB·1년 2.2TB·5년 11TB, 대역폭 약 6MB/s를 계산한 표.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
 
-  <!-- Top Banner: Premises -->
-  <rect x="30" y="30" width="820" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="61" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">전제: 하루 신규 URL 1,000만 개, 읽기:쓰기 = 100:1, 데이터 5년 보관</text>
+  <!-- 전제 -->
+  <rect x="32" y="24" width="816" height="56" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="48" y="58" font-size="16" font-weight="bold" fill="#111827">전제</text>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1">
+    <rect x="100" y="34" width="222" height="36" rx="18"/>
+    <rect x="338" y="34" width="164" height="36" rx="18"/>
+    <rect x="518" y="34" width="140" height="36" rx="18"/>
+  </g>
+  <g font-size="15" fill="#111827" text-anchor="middle">
+    <text x="211" y="57">하루 신규 URL 1,000만 개</text>
+    <text x="420" y="57">읽기:쓰기 = 100:1</text>
+    <text x="588" y="57">데이터 5년 보관</text>
+  </g>
 
-  <!-- Box 1: Write QPS (Orange) -->
-  <rect x="30" y="100" width="400" height="110" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <rect x="40" y="110" width="100" height="26" rx="4" fill="#d97706"/>
-  <text x="90" y="127" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[쓰기 QPS]</text>
-  <text x="50" y="158" font-size="13" fill="#1f2933">1,000만 / 10만 초 = 100 QPS</text>
-  <text x="50" y="188" font-size="13" fill="#d97706" font-weight="bold">피크는 평균의 2~5배로 잡는다 → 200~500 QPS</text>
+  <!-- 표 틀 -->
+  <rect x="32" y="100" width="816" height="36" fill="#f3f4f6"/>
+  <rect x="32" y="136" width="110" height="88" fill="#fef3c7"/>
+  <rect x="32" y="224" width="110" height="66" fill="#dbeafe"/>
+  <rect x="32" y="290" width="110" height="176" fill="#ede9fe"/>
+  <rect x="32" y="466" width="110" height="66" fill="#d1fae5"/>
 
-  <!-- Box 2: Read QPS (Blue) -->
-  <rect x="450" y="100" width="400" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="460" y="110" width="100" height="26" rx="4" fill="#2563eb"/>
-  <text x="510" y="127" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[읽기 QPS]</text>
-  <text x="470" y="163" font-size="13" fill="#1f2933">100 × 100 = 10,000 QPS <tspan fill="#2563eb" font-weight="bold">(피크 2만~5만)</tspan></text>
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="142" y1="180" x2="848" y2="180"/>
+    <line x1="142" y1="334" x2="848" y2="334"/>
+    <line x1="142" y1="378" x2="848" y2="378"/>
+    <line x1="142" y1="422" x2="848" y2="422"/>
+  </g>
+  <g stroke="#9ca3af" stroke-width="1">
+    <line x1="32" y1="136" x2="848" y2="136"/>
+    <line x1="32" y1="224" x2="848" y2="224"/>
+    <line x1="32" y1="290" x2="848" y2="290"/>
+    <line x1="32" y1="466" x2="848" y2="466"/>
+    <line x1="142" y1="100" x2="142" y2="532"/>
+    <line x1="680" y1="100" x2="680" y2="532"/>
+  </g>
+  <rect x="32" y="100" width="816" height="432" fill="none" stroke="#6b7280" stroke-width="1.5"/>
 
-  <!-- Box 3: Storage (Purple) -->
-  <rect x="30" y="230" width="820" height="200" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <rect x="40" y="240" width="90" height="26" rx="4" fill="#7c3aed"/>
-  <text x="85" y="257" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[저장량]</text>
-  
-  <text x="50" y="293" font-size="13" fill="#1f2933">레코드 하나 ≈ short_code(8B) + long_url(~500B) + 메타(~100B) ≈ 600B</text>
-  
-  <!-- Storage details table-like alignment -->
-  <text x="50" y="328" font-size="13" fill="#52606d">하루</text>
-  <text x="100" y="328" font-size="13" fill="#1f2933">1,000만 × 600B</text>
-  <text x="250" y="328" font-size="13" fill="#1f2933">=</text>
-  <text x="270" y="328" font-size="13" font-weight="bold" fill="#1f2933">6GB</text>
+  <!-- 머리행 -->
+  <g font-size="15" font-weight="bold" fill="#374151">
+    <text x="87" y="124" text-anchor="middle">항목</text>
+    <text x="158" y="124">계산</text>
+    <text x="696" y="124">결과</text>
+  </g>
 
-  <text x="50" y="358" font-size="13" fill="#52606d">1년</text>
-  <text x="100" y="358" font-size="13" fill="#1f2933">6GB × 365</text>
-  <text x="250" y="358" font-size="13" fill="#1f2933">≈</text>
-  <text x="270" y="358" font-size="13" font-weight="bold" fill="#1f2933">2.2TB</text>
+  <!-- 항목 -->
+  <g font-size="16" font-weight="bold" text-anchor="middle">
+    <text x="87" y="185" fill="#b45309">쓰기 QPS</text>
+    <text x="87" y="262" fill="#1d4ed8">읽기 QPS</text>
+    <text x="87" y="383" fill="#6d28d9">저장량</text>
+    <text x="87" y="504" fill="#047857">대역폭</text>
+  </g>
 
-  <text x="50" y="388" font-size="13" fill="#52606d">5년</text>
-  <text x="250" y="388" font-size="13" fill="#7c3aed">≈</text>
-  <text x="270" y="388" font-size="15" font-weight="bold" fill="#7c3aed">11TB</text>
+  <!-- 계산 -->
+  <g font-size="15" fill="#1f2937">
+    <text x="158" y="163">1,000만 / 10만 초</text>
+    <text x="158" y="207">피크는 평균의 2~5배로 잡는다</text>
+    <text x="158" y="257">100 × 100</text>
+    <text x="252" y="317"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">short_code</tspan>(8B) + <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">long_url</tspan>(~500B) + 메타(~100B)</text>
+    <text x="252" y="361">1,000만 × 600B</text>
+    <text x="252" y="405">6GB × 365</text>
+    <text x="158" y="492">읽기 10,000 QPS × 600B</text>
+  </g>
+  <g font-size="15" fill="#4b5563">
+    <text x="158" y="317">레코드 하나</text>
+    <text x="158" y="361">하루</text>
+    <text x="158" y="405">1년</text>
+    <text x="158" y="449">5년</text>
+  </g>
+  <text x="158" y="516" font-size="14" fill="#4b5563">(리다이렉트라 응답 자체는 더 작다)</text>
 
-  <!-- Box 4: Bandwidth (Green) -->
-  <rect x="30" y="450" width="820" height="100" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <rect x="40" y="460" width="90" height="26" rx="4" fill="#059669"/>
-  <text x="85" y="477" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">[대역폭]</text>
-  <text x="50" y="513" font-size="13" fill="#1f2933">읽기 10,000 QPS × 600B ≈ 6MB/s  <tspan fill="#059669">(리다이렉트라 응답 자체는 더 작다)</tspan></text>
+  <!-- 결과 -->
+  <g font-size="16" font-weight="bold">
+    <text x="696" y="163" fill="#b45309">= 100 QPS</text>
+    <text x="696" y="207" fill="#b45309">→ 200~500 QPS</text>
+    <text x="696" y="257" fill="#1d4ed8">= 10,000 QPS</text>
+    <text x="696" y="317" fill="#6d28d9">≈ 600B</text>
+    <text x="696" y="361" fill="#6d28d9">= 6GB</text>
+    <text x="696" y="405" fill="#6d28d9">≈ 2.2TB</text>
+    <text x="696" y="449" fill="#6d28d9">≈ 11TB</text>
+    <text x="696" y="492" fill="#047857">≈ 6MB/s</text>
+  </g>
+  <text x="696" y="279" font-size="15" fill="#1d4ed8">(피크 2만~5만)</text>
 </svg>

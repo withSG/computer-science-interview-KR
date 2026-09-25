@@ -1,64 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Blue-Green 배포</title>
-  <desc id="d">Blue-Green 배포의 2가지 단계를 보여주는 다이어그램. 단계 1에서는 100퍼센트 트래픽이 Blue(Active)로 향하고, 단계 2에서는 100퍼센트 트래픽이 Green(Active)으로 전환됩니다.</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
-
+  <desc id="d">단계 1에서는 Load Balancer가 트래픽 100%를 Blue(v1.0, Active)로 보내고 Green(v2.0)은 Standby입니다. 단계 2에서는 트래픽 100%를 Green(v2.0)으로 전환해 Green이 Active, Blue가 Standby가 됩니다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- 단계 1 -->
-  <g id="stage-1">
-    <rect x="30" y="30" width="820" height="210" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
-    <text x="50" y="60" font-size="14" font-weight="bold" fill="#1f2933">단계 1: Blue(현재)에 100% 트래픽</text>
+  <!-- ===== 단계 1 ===== -->
+  <rect x="24" y="24" width="388" height="310" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="56" font-size="17" font-weight="700" fill="#111827">단계 1: Blue(현재)에 100% 트래픽</text>
 
-    <!-- Load Balancer -->
-    <rect x="290" y="75" width="300" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="440" y="99" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Load Balancer</text>
+  <rect x="44" y="76" width="348" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="218" y="104" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Load Balancer</text>
 
-    <!-- Arrow to Blue -->
-    <path d="M 440 115 L 440 152 L 280 152 L 280 162" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="345" y="142" width="50" height="20" fill="#ffffff"/>
-    <text x="370" y="156" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">100%</text>
+  <path d="M124,122 V200" fill="none" stroke="#1d4ed8" stroke-width="3" marker-end="url(#ab)"/>
+  <text x="138" y="168" font-size="18" font-weight="700" fill="#1d4ed8">100%</text>
 
-    <!-- Blue (Active) -->
-    <rect x="190" y="165" width="180" height="60" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="280" y="182" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">Blue</text>
-    <text x="280" y="198" font-size="11.5" fill="#2563eb" text-anchor="middle">v1.0</text>
-    <text x="280" y="214" font-size="11.5" fill="#2563eb" text-anchor="middle">(Active)</text>
+  <rect x="44" y="204" width="160" height="100" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="124" y="238" font-size="19" font-weight="700" fill="#1d4ed8" text-anchor="middle">Blue</text>
+  <text x="124" y="264" font-size="16" fill="#111827" text-anchor="middle">v1.0</text>
+  <text x="124" y="289" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">(Active)</text>
 
-    <!-- Green (Standby) -->
-    <rect x="510" y="165" width="180" height="60" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 3" rx="4"/>
-    <text x="600" y="182" font-size="13" fill="#52606d" text-anchor="middle">Green</text>
-    <text x="600" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">v2.0</text>
-    <text x="600" y="214" font-size="11.5" fill="#52606d" text-anchor="middle">(Standby)</text>
-  </g>
+  <rect x="232" y="204" width="160" height="100" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="312" y="238" font-size="19" font-weight="700" fill="#047857" text-anchor="middle">Green</text>
+  <text x="312" y="264" font-size="16" fill="#111827" text-anchor="middle">v2.0</text>
+  <text x="312" y="289" font-size="15" fill="#4b5563" text-anchor="middle">(Standby)</text>
 
-  <!-- 단계 2 -->
-  <g id="stage-2">
-    <rect x="30" y="270" width="820" height="220" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
-    <text x="50" y="300" font-size="14" font-weight="bold" fill="#1f2933">단계 2: 트래픽을 Green으로 전환</text>
+  <!-- 단계 사이 -->
+  <path d="M422,254 H458" fill="none" stroke="#6b7280" stroke-width="3" marker-end="url(#an)"/>
 
-    <!-- Arrow to Green -->
-    <path d="M 440 310 L 440 407 L 600 407 L 600 417" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <rect x="485" y="397" width="50" height="20" fill="#ffffff"/>
-    <text x="510" y="411" font-size="11.5" font-weight="bold" fill="#059669" text-anchor="middle">100%</text>
+  <!-- ===== 단계 2 ===== -->
+  <rect x="468" y="24" width="388" height="310" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="488" y="56" font-size="17" font-weight="700" fill="#111827">단계 2: 트래픽을 Green으로 전환</text>
 
-    <!-- Blue (Standby) -->
-    <rect x="190" y="420" width="180" height="60" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 3" rx="4"/>
-    <text x="280" y="437" font-size="13" fill="#52606d" text-anchor="middle">Blue</text>
-    <text x="280" y="453" font-size="11.5" fill="#52606d" text-anchor="middle">v1.0</text>
-    <text x="280" y="469" font-size="11.5" fill="#52606d" text-anchor="middle">(Standby)</text>
+  <rect x="488" y="76" width="348" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="662" y="104" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Load Balancer</text>
 
-    <!-- Green (Active) -->
-    <rect x="510" y="420" width="180" height="60" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="600" y="437" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Green</text>
-    <text x="600" y="453" font-size="11.5" fill="#059669" text-anchor="middle">v2.0</text>
-    <text x="600" y="469" font-size="11.5" fill="#059669" text-anchor="middle">(Active)</text>
-  </g>
+  <path d="M756,122 V200" fill="none" stroke="#047857" stroke-width="3" marker-end="url(#ag)"/>
+  <text x="742" y="168" font-size="18" font-weight="700" fill="#047857" text-anchor="end">100%</text>
+
+  <rect x="488" y="204" width="160" height="100" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="568" y="238" font-size="19" font-weight="700" fill="#1d4ed8" text-anchor="middle">Blue</text>
+  <text x="568" y="264" font-size="16" fill="#111827" text-anchor="middle">v1.0</text>
+  <text x="568" y="289" font-size="15" fill="#4b5563" text-anchor="middle">(Standby)</text>
+
+  <rect x="676" y="204" width="160" height="100" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <text x="756" y="238" font-size="19" font-weight="700" fill="#047857" text-anchor="middle">Green</text>
+  <text x="756" y="264" font-size="16" fill="#111827" text-anchor="middle">v2.0</text>
+  <text x="756" y="289" font-size="15" font-weight="700" fill="#047857" text-anchor="middle">(Active)</text>
 </svg>

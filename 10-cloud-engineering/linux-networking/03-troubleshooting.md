@@ -83,7 +83,7 @@ nproc          # 코어 수. 이걸 모르면 위 숫자는 의미가 없다
 Load Average는 **실행 중이거나 실행을 기다리는 프로세스 수의 평균**입니다. 리눅스에서는 여기에 하나가 더 들어갑니다.
 
 <!-- diagram:cloud-troubleshooting-6x2 -->
-![3. Load Average — 첫 번째 신호](../../assets/diagrams/cloud-troubleshooting-6x2.svg)
+![Load Average는 R 상태와 D 상태 프로세스의 합](../../assets/diagrams/cloud-troubleshooting-6x2.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

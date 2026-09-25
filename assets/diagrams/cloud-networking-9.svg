@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 250" width="880" height="250" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">VPC Endpoint 없이 Private 앱이 S3에 닿는 기본 경로</title>
+  <desc id="d">Private 서브넷의 App에서 NAT Gateway, IGW, 인터넷을 차례로 거쳐 VPC 밖의 S3 엔드포인트에 닿는다. NAT에서 데이터 처리 요금이 붙고, 트래픽이 논리적으로 인터넷을 경유한다.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect width="880" height="250" fill="#ffffff"/>
+
+  <!-- VPC 경계 -->
+  <rect x="24" y="36" width="500" height="186" rx="10" fill="#f8fafc" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="44" y="64" font-size="16" font-weight="bold" fill="#374151">VPC</text>
+  <text x="704" y="64" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">VPC 밖</text>
+
+  <!-- 노드 -->
+  <rect x="44" y="88" width="136" height="68" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.8"/>
+  <text x="112" y="116" font-size="17" font-weight="bold" fill="#5b21b6" text-anchor="middle">App</text>
+  <text x="112" y="140" font-size="15" fill="#5b21b6" text-anchor="middle">(Private)</text>
+
+  <rect x="228" y="88" width="144" height="68" rx="8" fill="#fff7ed" stroke="#c2410c" stroke-width="1.8"/>
+  <text x="300" y="128" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">NAT Gateway</text>
+
+  <rect x="416" y="88" width="88" height="68" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.8"/>
+  <text x="460" y="128" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">IGW</text>
+
+  <rect x="564" y="88" width="100" height="68" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.8"/>
+  <text x="614" y="128" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">인터넷</text>
+
+  <rect x="708" y="88" width="144" height="68" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.8"/>
+  <text x="780" y="128" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">S3 엔드포인트</text>
+
+  <!-- 화살표 -->
+  <line x1="182" y1="122" x2="224" y2="122" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="374" y1="122" x2="412" y2="122" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="506" y1="122" x2="560" y2="122" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="666" y1="122" x2="704" y2="122" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- 문제 두 가지 -->
+  <text x="300" y="190" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">① NAT 데이터 처리 요금</text>
+  <text x="614" y="190" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle"><tspan x="614" y="190">② 논리적으로</tspan><tspan x="614" dy="21">인터넷 경유</tspan></text>
+</svg>

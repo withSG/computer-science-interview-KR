@@ -1,56 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실행 격리 모델 — 초심자가 가장 많이 넘어지는 지점</title>
-  <desc id="d">GitHub Actions의 워크플로 실행 시 job 간 실행 격리 모델과 아티팩트/캐시를 통한 데이터 전달 방식을 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">잡 사이의 실행 격리</title>
+  <desc id="d">한 워크플로 실행 안에서 job build와 job test는 각각 새 VM에서 돈다. 같은 잡의 step 1과 step 2는 디스크를 공유하지만, build의 파일은 test에서 보이지 않고 upload-artifact 또는 cache로만 넘길 수 있다.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 워크플로 실행 -->
+  <rect x="24" y="24" width="832" height="342" rx="10" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="54" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">워크플로 실행 (Run)</text>
 
-  <!-- Outer Boundary: Workflow Run -->
-  <rect x="24" y="24" width="832" height="292" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="50" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">워크플로 실행 (Run)</text>
+  <!-- job: build -->
+  <rect x="48" y="72" width="300" height="180" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="198" y="100" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">job: build</text>
+  <text x="198" y="124" font-size="15" fill="#374151" text-anchor="middle">새 VM (빈 상태)</text>
+  <rect x="72" y="142" width="100" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="122" y="165" font-size="15" fill="#111827" text-anchor="middle">step 1</text>
+  <line x1="176" y1="160" x2="220" y2="160" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <rect x="224" y="142" width="100" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="274" y="165" font-size="15" fill="#111827" text-anchor="middle">step 2</text>
+  <line x1="122" y1="178" x2="122" y2="196" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="274" y1="178" x2="274" y2="196" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="72" y="196" width="252" height="36" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="198" y="219" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">같은 디스크 공유</text>
 
-  <!-- Left Box: job: build -->
-  <rect x="54" y="70" width="350" height="150" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="229" y="97" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">job: build</text>
-  <text x="229" y="125" font-size="13" fill="#1f2933" text-anchor="middle">새 VM (빈 상태)</text>
-  
-  <!-- Step Arrow inside job: build -->
-  <text x="145" y="157" font-size="13" fill="#1f2933" text-anchor="end">step 1</text>
-  <path d="M153,153 L185,153" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="none" marker-end="url(#a-blue)"/>
-  <text x="193" y="157" font-size="13" fill="#1f2933" text-anchor="start">step 2</text>
-  
-  <text x="229" y="195" font-size="13" fill="#52606d" text-anchor="middle">같은 디스크 공유</text>
+  <!-- job: test -->
+  <rect x="532" y="72" width="300" height="180" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="682" y="100" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">job: test</text>
+  <text x="682" y="124" font-size="15" fill="#374151" text-anchor="middle">또 다른 새 VM</text>
+  <rect x="556" y="142" width="100" height="36" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+  <text x="606" y="165" font-size="15" fill="#111827" text-anchor="middle">step 1</text>
+  <line x1="660" y1="160" x2="704" y2="160" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#ah-purple)"/>
+  <rect x="708" y="142" width="100" height="36" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.2"/>
+  <text x="758" y="165" font-size="15" fill="#111827" text-anchor="middle">step 2</text>
+  <line x1="606" y1="178" x2="606" y2="196" stroke="#6d28d9" stroke-width="1.5"/>
+  <line x1="758" y1="178" x2="758" y2="196" stroke="#6d28d9" stroke-width="1.5"/>
+  <rect x="556" y="196" width="252" height="36" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.2"/>
+  <text x="682" y="219" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">같은 디스크 공유</text>
 
-  <!-- Right Box: job: test -->
-  <rect x="476" y="70" width="350" height="150" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="651" y="97" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">job: test</text>
-  <text x="651" y="125" font-size="13" fill="#1f2933" text-anchor="middle">또 다른 새 VM</text>
+  <!-- 직접 전달 불가 -->
+  <line x1="356" y1="160" x2="422" y2="160" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="458" y1="160" x2="522" y2="160" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-red)"/>
+  <circle cx="440" cy="160" r="16" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <path d="M432,152 L448,168 M448,152 L432,168" stroke="#b91c1c" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="440" y="204" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">build의 파일은</text>
+  <text x="440" y="226" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">test에서 안 보인다</text>
 
-  <!-- Step Arrow inside job: test -->
-  <text x="567" y="157" font-size="13" fill="#1f2933" text-anchor="end">step 1</text>
-  <path d="M575,153 L607,153" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="none" marker-end="url(#a-purple)"/>
-  <text x="615" y="157" font-size="13" fill="#1f2933" text-anchor="start">step 2</text>
-
-  <text x="651" y="195" font-size="13" fill="#52606d" text-anchor="middle">같은 디스크 공유</text>
-
-  <!-- Inter-Job Connection Line -->
-  <path d="M229,220 L229,280 L651,280 L651,220" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Connection Line Labels -->
-  <rect x="250" y="238" width="280" height="22" fill="#ffffff" rx="3"/>
-  <text x="254" y="253" font-size="11.5" fill="#dc2626">build의 파일은 test에서 안 보인다</text>
-
-  <rect x="250" y="269" width="380" height="22" fill="#ffffff" rx="3"/>
-  <text x="254" y="284" font-size="11.5" fill="#1f2933">upload-artifact / cache 로만 전달 가능</text>
+  <!-- 허용된 경로 -->
+  <path d="M198,252 V312 H316" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <path d="M560,312 H682 V256" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <rect x="320" y="280" width="240" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="440" y="306" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">upload-artifact / cache</text>
+  <text x="440" y="331" font-size="15" fill="#047857" text-anchor="middle">로만 전달 가능</text>
 </svg>

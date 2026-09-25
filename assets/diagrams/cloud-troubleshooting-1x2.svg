@@ -1,78 +1,123 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">표준 절차</title>
-  <desc id="d">장애 대응 표준 절차 0단계부터 6단계까지의 흐름 및 세부 활동 다이어그램</desc>
-  <rect width="880" height="770" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 920" width="880" height="920" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">장애 대응 표준 절차</title>
+  <desc id="d">0단계 상황 파악부터 6단계 근본 원인과 재발 방지까지, 단계마다 할 일과 시간 예산을 위에서 아래 순서로 보여준다. 3단계 서버 직접 확인은 uptime, top, free -h, df -h, vmstat 1, iostat -x 1 순서로 명령을 친다.</desc>
+  <rect width="880" height="920" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="down" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 전체 외곽 영역 (원본의 대형 박스) -->
-  <rect x="24" y="24" width="832" height="722" fill="#ffffff" stroke="#9aa5b1" stroke-width="2" rx="6"/>
+  <!-- 단계 사이 흐름 화살표 -->
+  <g stroke="#6b7280" stroke-width="2" fill="none">
+    <line x1="74" y1="131" x2="74" y2="149" marker-end="url(#down)"/>
+    <line x1="74" y1="259" x2="74" y2="277" marker-end="url(#down)"/>
+    <line x1="74" y1="387" x2="74" y2="405" marker-end="url(#down)"/>
+    <line x1="74" y1="547" x2="74" y2="565" marker-end="url(#down)"/>
+    <line x1="74" y1="671" x2="74" y2="689" marker-end="url(#down)"/>
+    <line x1="74" y1="795" x2="74" y2="813" marker-end="url(#down)"/>
+  </g>
 
-  <!-- 0단계: 상황 파악 (1분) -->
-  <rect x="36" y="36" width="808" height="90" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="52" y="61" fill="#d97706" font-size="14" font-weight="bold">0단계  상황 파악 (1분)</text>
-  <text x="68" y="86" fill="#1f2933" font-size="13">· 언제부터? 전체인가 일부인가? 특정 기능만인가?</text>
-  <text x="68" y="108" fill="#1f2933" font-size="13">· 최근 배포/설정 변경이 있었나?</text>
-  <!-- 지시선 및 주석 (← 있었다면 1순위 용의자) -->
-  <path d="M 320,104 L 285,104" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="328" y="108" fill="#dc2626" font-size="13" font-weight="bold">있었다면 1순위 용의자</text>
+  <!-- 0단계 상황 파악 -->
+  <rect x="24" y="24" width="832" height="104" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M32,24 H124 V128 H32 A8,8 0 0 1 24,120 V32 A8,8 0 0 1 32,24 Z" fill="#b45309"/>
+  <text x="74" y="72" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">0단계</text>
+  <text x="74" y="96" font-size="15" fill="#ffffff" text-anchor="middle">1분</text>
+  <text x="144" y="56" font-size="18" font-weight="bold" fill="#111827">상황 파악</text>
+  <text x="144" y="86" font-size="16" fill="#1f2937">· 언제부터? 전체인가 일부인가? 특정 기능만인가?</text>
+  <text x="144" y="112" font-size="16" fill="#1f2937">· 최근 배포/설정 변경이 있었나?</text>
+  <line x1="410" y1="106" x2="386" y2="106" stroke="#b45309" stroke-width="2" marker-end="url(#amber)"/>
+  <rect x="416" y="93" width="182" height="26" rx="13" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="507" y="111" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">있었다면 1순위 용의자</text>
 
-  <!-- 구분선 1 -->
-  <line x1="24" y1="138" x2="856" y2="138" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 1단계 영향 축소 -->
+  <rect x="24" y="152" width="832" height="104" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <path d="M32,152 H124 V256 H32 A8,8 0 0 1 24,248 V160 A8,8 0 0 1 32,152 Z" fill="#b91c1c"/>
+  <text x="74" y="200" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">1단계</text>
+  <text x="74" y="224" font-size="15" fill="#ffffff" text-anchor="middle">즉시</text>
+  <text x="144" y="184" font-size="18" font-weight="bold" fill="#111827">영향 축소</text>
+  <text x="144" y="214" font-size="16" fill="#1f2937">· 배포 직후면 원인 분석 전에 롤백</text>
+  <text x="144" y="240" font-size="16" fill="#1f2937">· 트래픽 급증이면 스케일 아웃 / 레이트 리밋</text>
 
-  <!-- 1단계: 영향 축소 (즉시) -->
-  <rect x="36" y="150" width="808" height="76" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="52" y="175" fill="#dc2626" font-size="14" font-weight="bold">1단계  영향 축소 (즉시)</text>
-  <text x="68" y="200" fill="#1f2933" font-size="13">· 배포 직후면 원인 분석 전에 롤백</text>
-  <text x="68" y="222" fill="#1f2933" font-size="13">· 트래픽 급증이면 스케일 아웃 / 레이트 리밋</text>
+  <!-- 2단계 대시보드 -->
+  <rect x="24" y="280" width="832" height="104" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M32,280 H124 V384 H32 A8,8 0 0 1 24,376 V288 A8,8 0 0 1 32,280 Z" fill="#4b5563"/>
+  <text x="74" y="328" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">2단계</text>
+  <text x="74" y="352" font-size="15" fill="#ffffff" text-anchor="middle">3분</text>
+  <text x="144" y="312" font-size="18" font-weight="bold" fill="#111827">대시보드</text>
+  <text x="144" y="342" font-size="16" fill="#1f2937">· p95 지연, 에러율, RPS, 자원 사용률의 "꺾인 시각"을 찾는다</text>
+  <text x="144" y="368" font-size="16" fill="#1f2937">· 이 시각과 배포/배치 스케줄을 대조</text>
 
-  <!-- 구분선 2 -->
-  <line x1="24" y1="238" x2="856" y2="238" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 3단계 서버 직접 확인 (본론) -->
+  <rect x="24" y="408" width="832" height="136" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <path d="M32,408 H124 V544 H32 A8,8 0 0 1 24,536 V416 A8,8 0 0 1 32,408 Z" fill="#1d4ed8"/>
+  <text x="74" y="472" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">3단계</text>
+  <text x="74" y="496" font-size="15" fill="#ffffff" text-anchor="middle">5분</text>
+  <text x="144" y="440" font-size="18" font-weight="bold" fill="#111827">서버 직접 확인</text>
+  <rect x="284" y="421" width="124" height="26" rx="13" fill="#1d4ed8"/>
+  <text x="346" y="439" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">이 문서의 본론</text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">
+    <rect x="144" y="458" width="78" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="183" y="481">uptime</text>
+    <rect x="256" y="458" width="52" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="282" y="481">top</text>
+    <rect x="342" y="458" width="86" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="385" y="481">free -h</text>
+    <rect x="462" y="458" width="68" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="496" y="481">df -h</text>
+    <rect x="564" y="458" width="96" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="612" y="481">vmstat 1</text>
+    <rect x="694" y="458" width="124" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="756" y="481">iostat -x 1</text>
+  </g>
+  <g stroke="#1d4ed8" stroke-width="2" fill="none">
+    <line x1="226" y1="476" x2="252" y2="476" marker-end="url(#blue)"/>
+    <line x1="312" y1="476" x2="338" y2="476" marker-end="url(#blue)"/>
+    <line x1="432" y1="476" x2="458" y2="476" marker-end="url(#blue)"/>
+    <line x1="534" y1="476" x2="560" y2="476" marker-end="url(#blue)"/>
+    <line x1="664" y1="476" x2="690" y2="476" marker-end="url(#blue)"/>
+  </g>
+  <text x="144" y="526" font-size="16" font-weight="bold" fill="#1d4ed8">→ 어느 자원이 포화됐는지 하나로 특정한다</text>
 
-  <!-- 2단계: 대시보드 (3분) -->
-  <rect x="36" y="250" width="808" height="76" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="52" y="275" fill="#1f2933" font-size="14" font-weight="bold">2단계  대시보드 (3분)</text>
-  <text x="68" y="300" fill="#1f2933" font-size="13">· p95 지연, 에러율, RPS, 자원 사용률의 "꺾인 시각"을 찾는다</text>
-  <text x="68" y="322" fill="#1f2933" font-size="13">· 이 시각과 배포/배치 스케줄을 대조</text>
+  <!-- 4단계 프로세스 특정 -->
+  <rect x="24" y="568" width="832" height="100" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M32,568 H124 V668 H32 A8,8 0 0 1 24,660 V576 A8,8 0 0 1 32,568 Z" fill="#4b5563"/>
+  <text x="74" y="624" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">4단계</text>
+  <text x="144" y="600" font-size="18" font-weight="bold" fill="#111827">프로세스 특정</text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="16" fill="#111827" text-anchor="middle">
+    <rect x="144" y="616" width="264" height="36" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="276" y="639">ps aux --sort=-%cpu / -%mem</text>
+    <rect x="422" y="616" width="86" height="36" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="465" y="639">pidstat</text>
+    <rect x="522" y="616" width="68" height="36" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="556" y="639">iotop</text>
+  </g>
 
-  <!-- 구분선 3 -->
-  <line x1="24" y1="338" x2="856" y2="338" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 5단계 로그 -->
+  <rect x="24" y="692" width="832" height="100" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M32,692 H124 V792 H32 A8,8 0 0 1 24,784 V700 A8,8 0 0 1 32,692 Z" fill="#4b5563"/>
+  <text x="74" y="738" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">5단계</text>
+  <text x="74" y="762" font-size="15" fill="#ffffff" text-anchor="middle">5분</text>
+  <text x="144" y="724" font-size="18" font-weight="bold" fill="#111827">로그</text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="16" fill="#111827" text-anchor="middle">
+    <rect x="144" y="740" width="194" height="36" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="241" y="763">journalctl -u &lt;svc&gt;</text>
+    <rect x="352" y="740" width="96" height="36" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="400" y="763">dmesg -T</text>
+  </g>
+  <rect x="462" y="740" width="160" height="36" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="542" y="763" font-size="16" fill="#111827" text-anchor="middle">애플리케이션 로그</text>
 
-  <!-- 3단계: 서버 직접 확인 (5분) - 핵심 강조 구간 -->
-  <rect x="36" y="350" width="808" height="100" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="4"/>
-  <text x="52" y="375" fill="#2563eb" font-size="14" font-weight="bold">3단계  서버 직접 확인 (5분)</text>
-  <!-- 이 문서의 본론 (← 주석) -->
-  <path d="M 285,371 L 250,371" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="293" y="375" fill="#2563eb" font-size="13" font-weight="bold">이 문서의 본론</text>
-  
-  <rect x="68" y="388" width="530" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-  <text x="80" y="405" fill="#1f2933" font-size="13" font-family="monospace" font-weight="bold">uptime → top → free -h → df -h → vmstat 1 → iostat -x 1</text>
-  <text x="68" y="437" fill="#1f2933" font-size="13">어느 자원이 포화됐는지 하나로 특정한다</text>
-
-  <!-- 구분선 4 -->
-  <line x1="24" y1="462" x2="856" y2="462" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 4단계: 프로세스 특정 -->
-  <rect x="36" y="474" width="808" height="68" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="52" y="499" fill="#1f2933" font-size="14" font-weight="bold">4단계  프로세스 특정</text>
-  <text x="68" y="524" fill="#1f2933" font-size="13" font-family="monospace">ps aux --sort=-%cpu / -%mem, pidstat, iotop</text>
-
-  <!-- 구분선 5 -->
-  <line x1="24" y1="554" x2="856" y2="554" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 5단계: 로그 (5분) -->
-  <rect x="36" y="566" width="808" height="68" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="52" y="591" fill="#1f2933" font-size="14" font-weight="bold">5단계  로그 (5분)</text>
-  <text x="68" y="616" fill="#1f2933" font-size="13">journalctl -u &lt;svc&gt;, dmesg -T, 애플리케이션 로그</text>
-
-  <!-- 구분선 6 -->
-  <line x1="24" y1="646" x2="856" y2="646" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 6단계: 근본 원인 + 재발 방지 -->
-  <rect x="36" y="658" width="808" height="68" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="52" y="683" fill="#059669" font-size="14" font-weight="bold">6단계  근본 원인 + 재발 방지</text>
-  <text x="68" y="708" fill="#1f2933" font-size="13">알람 추가, 임계치 조정, 코드 수정, 런북 갱신</text>
+  <!-- 6단계 근본 원인 + 재발 방지 -->
+  <rect x="24" y="816" width="832" height="80" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <path d="M32,816 H124 V896 H32 A8,8 0 0 1 24,888 V824 A8,8 0 0 1 32,816 Z" fill="#047857"/>
+  <text x="74" y="862" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">6단계</text>
+  <text x="144" y="848" font-size="18" font-weight="bold" fill="#111827">근본 원인 + 재발 방지</text>
+  <text x="144" y="878" font-size="16" fill="#1f2937">알람 추가, 임계치 조정, 코드 수정, 런북 갱신</text>
 </svg>

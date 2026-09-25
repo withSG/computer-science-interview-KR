@@ -1,56 +1,65 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">장애 시나리오 — apply가 잠금에서 멈춘다</title>
-  <desc id="d">Terraform apply 실행 중 상태 잠금 에러 발생 시 증상, 진단, 원인, 대응 절차를 정리한 트러블슈팅 가이드 다이어그램</desc>
+  <title id="t">apply 잠금 장애 대응</title>
+  <desc id="d">terraform apply가 "Error acquiring the state lock"으로 멈출 때의 증상, 진단 세 단계, 가능한 원인 세 가지, 대응 절차를 위에서 아래로 정리했다. 실행 중인 작업이 없다는 것을 확인한 뒤에만 terraform force-unlock으로 강제 해제한다.</desc>
   <rect width="880" height="720" fill="#ffffff"/>
 
-  <!-- Background Section Containers -->
-  <!-- 증상 Section -->
-  <rect x="24" y="24" width="832" height="64" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  
-  <!-- 진단 Section -->
-  <rect x="24" y="104" width="832" height="152" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  
-  <!-- 원인 Section -->
-  <rect x="24" y="272" width="832" height="184" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  
-  <!-- 대응 Section -->
-  <rect x="24" y="472" width="832" height="224" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <!-- 증상 -->
+  <rect x="24" y="24" width="832" height="64" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <rect x="40" y="40" width="72" height="32" rx="16" fill="#b91c1c"/>
+  <text x="76" y="62" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">증상</text>
+  <text x="132" y="62" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">terraform apply</tspan> 실행 시 <tspan font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"Error acquiring the state lock"</tspan> 으로 멈춘다.</text>
 
-  <!-- Section Titles / Headers -->
-  <rect x="40" y="40" width="64" height="32" rx="4" fill="#dc2626"/>
-  <text x="72" y="61" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">증상</text>
+  <!-- 진단 -->
+  <rect x="24" y="104" width="832" height="128" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <rect x="40" y="120" width="72" height="32" rx="16" fill="#1d4ed8"/>
+  <text x="76" y="142" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">진단</text>
+  <circle cx="144" cy="136" r="11" fill="#1d4ed8"/>
+  <text x="144" y="141" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="166" y="142" font-size="16" fill="#111827">에러 메시지에 나온 Lock ID, 잠근 사람, 잠근 시각을 읽는다</text>
+  <circle cx="144" cy="170" r="11" fill="#1d4ed8"/>
+  <text x="144" y="175" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="166" y="176" font-size="16" fill="#111827">그 시각에 CI 파이프라인이 돌고 있었는지 확인한다</text>
+  <circle cx="144" cy="204" r="11" fill="#1d4ed8"/>
+  <text x="144" y="209" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="166" y="210" font-size="16" fill="#111827">팀 채널에 "지금 apply 중인 분 계신가요"를 먼저 묻는다</text>
 
-  <rect x="40" y="120" width="64" height="32" rx="4" fill="#2563eb"/>
-  <text x="72" y="141" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">진단</text>
+  <!-- 원인 -->
+  <rect x="24" y="248" width="832" height="168" rx="10" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+  <rect x="40" y="264" width="72" height="32" rx="16" fill="#b45309"/>
+  <text x="76" y="286" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">원인</text>
+  <text x="132" y="286" font-size="16" font-weight="bold" fill="#111827">세 가지 중 하나다.</text>
 
-  <rect x="40" y="288" width="64" height="32" rx="4" fill="#d97706"/>
-  <text x="72" y="309" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">원인</text>
+  <rect x="132" y="306" width="224" height="94" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="146" y="334" font-size="15" fill="#111827">다른 사람 또는 파이프라인이</text>
+  <text x="146" y="358" font-size="15" fill="#111827">실제로 apply 중이다</text>
+  <text x="146" y="384" font-size="15" font-weight="bold" fill="#b45309">→ 기다린다</text>
 
-  <rect x="40" y="488" width="64" height="32" rx="4" fill="#059669"/>
-  <text x="72" y="509" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">대응</text>
+  <rect x="374" y="306" width="224" height="94" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="388" y="334" font-size="15" fill="#111827">앞선 apply가 중간에</text>
+  <text x="388" y="358" font-size="15" fill="#111827">강제 종료되어 잠금이 남았다</text>
 
-  <!-- 증상 Content -->
-  <text x="120" y="61" fill="#1f2933" font-size="13">: terraform apply 실행 시 "Error acquiring the state lock" 으로 멈춘다.</text>
+  <rect x="616" y="306" width="224" height="94" rx="8" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="630" y="334" font-size="15" fill="#111827">네트워크 단절로 잠금 해제</text>
+  <text x="630" y="358" font-size="15" fill="#111827">요청이 실패했다</text>
 
-  <!-- 진단 Content -->
-  <text x="120" y="141" fill="#1f2933" font-size="13">: 1) 에러 메시지에 나온 Lock ID, 잠근 사람, 잠근 시각을 읽는다</text>
-  <text x="120" y="177" fill="#1f2933" font-size="13">  2) 그 시각에 CI 파이프라인이 돌고 있었는지 확인한다</text>
-  <text x="120" y="213" fill="#1f2933" font-size="13">  3) 팀 채널에 "지금 apply 중인 분 계신가요"를 먼저 묻는다</text>
+  <!-- 대응 -->
+  <rect x="24" y="432" width="832" height="260" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <rect x="40" y="448" width="72" height="32" rx="16" fill="#047857"/>
+  <text x="76" y="470" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">대응</text>
+  <text x="132" y="470" font-size="16" fill="#111827">실행 중인 작업이 없다는 것을 <tspan font-weight="bold" fill="#047857">확인한 뒤에만</tspan> 강제 해제한다.</text>
 
-  <!-- 원인 Content -->
-  <text x="120" y="309" fill="#1f2933" font-size="13">: 세 가지 중 하나다.</text>
-  <text x="120" y="345" fill="#1f2933" font-size="13">  - 다른 사람 또는 파이프라인이 실제로 apply 중이다 → 기다린다</text>
-  <text x="120" y="381" fill="#1f2933" font-size="13">  - 앞선 apply가 중간에 강제 종료되어 잠금이 남았다</text>
-  <text x="120" y="417" fill="#1f2933" font-size="13">  - 네트워크 단절로 잠금 해제 요청이 실패했다</text>
+  <rect x="132" y="488" width="320" height="40" rx="6" fill="#111827"/>
+  <text x="148" y="514" font-size="16" font-weight="bold" fill="#f9fafb" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">terraform force-unlock &lt;LOCK_ID&gt;</text>
 
-  <!-- 대응 Content -->
-  <text x="120" y="509" fill="#1f2933" font-size="13">: 실행 중인 작업이 없다는 것을 확인한 뒤에만 강제 해제한다.</text>
-  
-  <!-- Command Box -->
-  <rect x="168" y="528" width="310" height="36" rx="4" fill="#1f2933"/>
-  <text x="323" y="551" fill="#ecfdf5" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">terraform force-unlock &lt;LOCK_ID&gt;</text>
-  
-  <text x="120" y="597" fill="#dc2626" font-size="13">  진행 중인 apply가 있는데 강제 해제하면 state가 깨져 복구가 훨씬 어려워진다.</text>
-  <text x="120" y="633" fill="#1f2933" font-size="13">  근본 - apply는 사람 로컬이 아니라 파이프라인 한 곳에서만 실행하도록 통제한다.</text>
-  <text x="120" y="669" fill="#1f2933" font-size="13">         환경별로 state를 분리해 잠금 경합 자체를 줄인다.</text>
+  <rect x="132" y="544" width="708" height="40" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.2"/>
+  <text x="148" y="570" font-size="16" font-weight="bold" fill="#991b1b">진행 중인 apply가 있는데 강제 해제하면 state가 깨져 복구가 훨씬 어려워진다.</text>
+
+  <line x1="132" y1="604" x2="840" y2="604" stroke="#6ee7b7" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <rect x="132" y="620" width="56" height="28" rx="14" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="160" y="639" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">근본</text>
+  <circle cx="208" cy="634" r="3" fill="#047857"/>
+  <text x="220" y="640" font-size="16" fill="#111827">apply는 사람 로컬이 아니라 파이프라인 한 곳에서만 실행하도록 통제한다.</text>
+  <circle cx="208" cy="664" r="3" fill="#047857"/>
+  <text x="220" y="670" font-size="16" fill="#111827">환경별로 state를 분리해 잠금 경합 자체를 줄인다.</text>
 </svg>

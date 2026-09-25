@@ -1,61 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">장애 시나리오 — 롤백했는데 더 나빠졌다</title>
-  <desc id="d">v2 배포 후 에러율 급증 시 롤백 실패 원인과 진단, 즉시/근본 대응 절차를 나타낸 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 670" width="880" height="670" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">롤백했더니 더 나빠진 장애</title>
+  <desc id="d">v2 배포 후 롤백했는데 에러율이 더 오른 장애를 증상, 진단 세 단계, 원인, 즉시·근본 대응 순서로 정리했다. 원인은 앱만 롤백되고 파괴적 스키마 변경은 남은 것이다.</desc>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect width="880" height="670" fill="#ffffff"/>
 
-  <!-- 배경 카드 및 레이아웃 -->
-  <rect x="24" y="24" width="832" height="492" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 단계 사이 화살표 -->
+  <line x1="78" y1="103" x2="78" y2="120" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="78" y1="339" x2="78" y2="356" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="78" y1="451" x2="78" y2="468" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 제목 헤더 영역 -->
-  <rect x="24" y="24" width="832" height="50" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <!-- rx 완화를 위한 덮개 -->
-  <rect x="24" y="66" width="832" height="8" fill="#fef2f2"/>
-  <line x1="24" y1="74" x2="856" y2="74" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="44" y="55" font-size="16" font-weight="bold" fill="#dc2626">장애 시나리오 — 롤백했는데 더 나빠졌다</text>
+  <!-- 증상 -->
+  <rect x="24" y="24" width="108" height="76" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="78" y="68" font-size="19" font-weight="bold" fill="#b91c1c" text-anchor="middle">증상</text>
+  <rect x="148" y="24" width="708" height="76" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="168" y="44" width="204" height="36" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="270" y="68" font-size="16" fill="#111827" text-anchor="middle">v2 배포 후 에러율 급증</text>
+  <line x1="378" y1="62" x2="408" y2="62" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="414" y="44" width="72" height="36" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="450" y="68" font-size="16" fill="#111827" text-anchor="middle">롤백</text>
+  <line x1="492" y1="62" x2="522" y2="62" stroke="#6b7280" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="528" y="44" width="240" height="36" rx="6" fill="#b91c1c" stroke="#b91c1c" stroke-width="1"/>
+  <text x="648" y="68" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">그런데 에러율이 더 올라감</text>
 
-  <!-- 증상 섹션 -->
-  <rect x="44" y="94" width="80" height="28" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="84" y="112" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">증상</text>
-  <text x="134" y="112" font-size="13" fill="#1f2933">:</text>
-  <text x="146" y="112" font-size="13" fill="#1f2933" font-weight="bold">v2 배포 후 에러율 급증 → 롤백 → 그런데 에러율이 더 올라감</text>
+  <!-- 진단 -->
+  <rect x="24" y="124" width="108" height="212" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="78" y="237" font-size="19" font-weight="bold" fill="#1d4ed8" text-anchor="middle">진단</text>
+  <rect x="148" y="124" width="708" height="212" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <circle cx="180" cy="152" r="12" fill="#1d4ed8"/>
+  <text x="180" y="157" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="204" y="158" font-size="16" fill="#111827">배포 파이프라인에서 마이그레이션 단계가 있었는지 확인</text>
+  <circle cx="180" cy="188" r="12" fill="#1d4ed8"/>
+  <text x="180" y="193" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="204" y="194" font-size="16" fill="#111827">DB에서 실제 스키마 확인</text>
+  <rect x="204" y="208" width="420" height="66" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+  <text x="222" y="235" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">SHOW CREATE TABLE users;</text>
+  <text x="476" y="235" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#4b5563">-- MySQL</text>
+  <text x="222" y="261" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">\d+ users</text>
+  <text x="476" y="261" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#4b5563">-- PostgreSQL</text>
+  <circle cx="180" cy="303" r="12" fill="#1d4ed8"/>
+  <text x="180" y="308" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="204" y="309" font-size="16" fill="#111827">v1 애플리케이션 로그의 에러가 "<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#b91c1c">Unknown column</tspan>" 계열인지 본다</text>
 
-  <!-- 진단 섹션 -->
-  <rect x="44" y="140" width="80" height="28" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="84" y="158" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">진단</text>
-  <text x="134" y="158" font-size="13" fill="#1f2933">:</text>
+  <!-- 원인 -->
+  <rect x="24" y="360" width="108" height="88" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="78" y="411" font-size="19" font-weight="bold" fill="#92400e" text-anchor="middle">원인</text>
+  <rect x="148" y="360" width="708" height="88" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="170" y="394" font-size="16" font-weight="bold" fill="#111827">파괴적 스키마 변경이 배포와 함께 나갔다.</text>
+  <text x="170" y="424" font-size="16" fill="#111827">앱은 롤백됐지만 <tspan font-weight="bold" fill="#b91c1c">스키마는 롤백되지 않아</tspan> 옛 버전이 없는 컬럼을 찾고 있다.</text>
 
-  <text x="146" y="158" font-size="13" fill="#1f2933">1) 배포 파이프라인에서 마이그레이션 단계가 있었는지 확인</text>
+  <!-- 대응 -->
+  <rect x="24" y="472" width="108" height="172" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="78" y="565" font-size="19" font-weight="bold" fill="#047857" text-anchor="middle">대응</text>
 
-  <text x="146" y="188" font-size="13" fill="#1f2933">2) DB에서 실제 스키마 확인</text>
-  
-  <!-- 코드 블록 영역 -->
-  <rect x="166" y="200" width="686" height="64" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="186" y="224" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">SHOW CREATE TABLE users;</text>
-  <text x="490" y="224" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#52606d">-- MySQL</text>
-  
-  <text x="186" y="248" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">\d+ users</text>
-  <text x="490" y="248" font-size="12.5" font-family="'Consolas', 'Courier New', monospace" fill="#52606d">-- PostgreSQL</text>
+  <rect x="148" y="472" width="346" height="172" rx="10" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="168" y="503" font-size="17" font-weight="bold" fill="#047857">즉시</text>
+  <text x="168" y="533" font-size="16" fill="#111827">앱을 롤백하지 말고 <tspan font-weight="bold">롤포워드</tspan></text>
+  <text x="168" y="558" font-size="16" fill="#111827">(v2를 고쳐서 다시 배포)를 검토한다.</text>
+  <line x1="168" y1="576" x2="474" y2="576" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="168" y="601" font-size="15" fill="#92400e">스키마를 되돌리는 건 3단계 백필 이후라면</text>
+  <text x="168" y="624" font-size="15" fill="#92400e">데이터 손실 위험이 있다.</text>
 
-  <text x="146" y="286" font-size="13" fill="#1f2933">3) v1 애플리케이션 로그의 에러가 "Unknown column" 계열인지 본다</text>
-
-  <!-- 원인 섹션 -->
-  <rect x="44" y="312" width="80" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="84" y="330" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">원인</text>
-  <text x="134" y="330" font-size="13" fill="#1f2933">:</text>
-  
-  <text x="146" y="330" font-size="13" fill="#1f2933">파괴적 스키마 변경이 배포와 함께 나갔다. 앱은 롤백됐지만</text>
-  <text x="146" y="352" font-size="13" fill="#1f2933">스키마는 롤백되지 않아 옛 버전이 없는 컬럼을 찾고 있다.</text>
-
-  <!-- 대응 섹션 -->
-  <rect x="44" y="380" width="80" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="84" y="398" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">대응</text>
-  <text x="134" y="398" font-size="13" fill="#1f2933">:</text>
-
-  <text x="146" y="398" font-size="13" font-weight="bold" fill="#059669">즉시</text>
-  <text x="176" y="398" font-size="13" fill="#1f2933">- 앱을 롤백하지 말고 롤포워드(v2를 고쳐서 다시 배포)를 검토한다.</text>
-  <text x="176" y="420" font-size="13" fill="#52606d">스키마를 되돌리는 건 3단계 백필 이후라면 데이터 손실 위험이 있다.</text>
-
-  <text x="146" y="450" font-size="13" font-weight="bold" fill="#2563eb">근본</text>
-  <text x="176" y="450" font-size="13" fill="#1f2933">- 스키마 변경을 앱 배포와 같은 릴리스에 묶지 않는다.</text>
-  <text x="191" y="472" font-size="13" fill="#1f2933">확장-수축 패턴으로 단계를 분리한다.</text>
+  <rect x="510" y="472" width="346" height="172" rx="10" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="530" y="503" font-size="17" font-weight="bold" fill="#047857">근본</text>
+  <text x="530" y="533" font-size="16" fill="#111827">스키마 변경을 앱 배포와</text>
+  <text x="530" y="558" font-size="16" fill="#111827">같은 릴리스에 묶지 않는다.</text>
+  <text x="530" y="590" font-size="16" fill="#111827"><tspan font-weight="bold">확장-수축 패턴</tspan>으로 단계를 분리한다.</text>
 </svg>

@@ -1,39 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">관계</title>
-  <desc id="d">Docker 이미지와 컨테이너 1, 2, 3의 Writable Layer 관계를 나타낸 트리 구조 다이어그램</desc>
-  <rect width="880" height="440" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이미지와 컨테이너의 관계</title>
+  <desc id="d">읽기 전용 Image 하나 위에서 Container 1(실행 중), Container 2(실행 중), Container 3(정지됨)이 만들어지고, 각 컨테이너는 자기만의 Writable Layer를 하나씩 가진다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
 
-  <!-- 연결선 (Image -> Container 1, 2, 3) -->
-  <path d="M 230,80 L 230,300 M 230,80 L 300,80 M 230,190 L 300,190 M 230,300 L 300,300" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-
-  <!-- 연결선 (Container -> Writable Layer) -->
-  <path d="M 520,80 L 520,130 L 550,130 M 520,190 L 520,240 L 550,240 M 520,300 L 520,350 L 550,350" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-
-  <!-- Image (읽기 전용) -->
-  <rect x="30" y="50" width="160" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="110" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">Image (읽기 전용)</text>
+  <!-- 컨테이너 → 이미지 연결 -->
+  <g stroke="#1d4ed8" stroke-width="2.5">
+    <line x1="160" y1="208" x2="160" y2="244"/>
+    <line x1="440" y1="208" x2="440" y2="244"/>
+    <line x1="720" y1="208" x2="720" y2="244"/>
+  </g>
 
   <!-- Container 1 (실행 중) -->
-  <rect x="300" y="50" width="190" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="395" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">Container 1 (실행 중)</text>
-
-  <!-- Container 1's Writable Layer -->
-  <rect x="550" y="105" width="170" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="635" y="135" text-anchor="middle" font-size="13" fill="#1f2933">Writable Layer</text>
+  <rect x="32" y="32" width="256" height="176" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="160" y="66" text-anchor="middle" font-size="19" font-weight="bold" fill="#111827">Container 1</text>
+  <rect x="116" y="80" width="88" height="28" rx="14" fill="#047857"/>
+  <text x="160" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">실행 중</text>
+  <rect x="52" y="128" width="216" height="56" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="160" y="162" text-anchor="middle" font-size="16" font-weight="bold" fill="#78350f">Writable Layer</text>
 
   <!-- Container 2 (실행 중) -->
-  <rect x="300" y="160" width="190" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="395" y="195" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">Container 2 (실행 중)</text>
-
-  <!-- Container 2's Writable Layer -->
-  <rect x="550" y="215" width="170" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="635" y="245" text-anchor="middle" font-size="13" fill="#1f2933">Writable Layer</text>
+  <rect x="312" y="32" width="256" height="176" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="66" text-anchor="middle" font-size="19" font-weight="bold" fill="#111827">Container 2</text>
+  <rect x="396" y="80" width="88" height="28" rx="14" fill="#047857"/>
+  <text x="440" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">실행 중</text>
+  <rect x="332" y="128" width="216" height="56" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="440" y="162" text-anchor="middle" font-size="16" font-weight="bold" fill="#78350f">Writable Layer</text>
 
   <!-- Container 3 (정지됨) -->
-  <rect x="300" y="270" width="190" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="395" y="305" text-anchor="middle" font-size="14" font-weight="bold" fill="#d97706">Container 3 (정지됨)</text>
+  <rect x="592" y="32" width="256" height="176" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="720" y="66" text-anchor="middle" font-size="19" font-weight="bold" fill="#111827">Container 3</text>
+  <rect x="676" y="80" width="88" height="28" rx="14" fill="#4b5563"/>
+  <text x="720" y="100" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">정지됨</text>
+  <rect x="612" y="128" width="216" height="56" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="720" y="162" text-anchor="middle" font-size="16" font-weight="bold" fill="#78350f">Writable Layer</text>
 
-  <!-- Container 3's Writable Layer -->
-  <rect x="550" y="325" width="170" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="635" y="355" text-anchor="middle" font-size="13" fill="#1f2933">Writable Layer</text>
+  <!-- Image (읽기 전용) -->
+  <rect x="32" y="244" width="816" height="84" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="280" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e3a8a">Image (읽기 전용)</text>
+  <text x="440" y="308" text-anchor="middle" font-size="15" fill="#1e3a8a">Container 1 · 2 · 3이 같은 이미지를 함께 사용</text>
 </svg>

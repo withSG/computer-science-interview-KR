@@ -1,50 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Security Group과 NACL</title>
-  <desc id="d">인터넷에서 Subnet 경계를 지나 NACL, Security Group을 거쳐 EC2 인스턴스로 연결되는 구조도</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">NACL과 Security Group 두 겹 방화벽</title>
+  <desc id="d">인터넷 트래픽이 Subnet 경계 안에서 1차로 NACL(Stateless, 서브넷 단위, 인바운드·아웃바운드 규칙을 각각 따로 평가)을, 2차로 Security Group(Stateful, ENI, 허용된 요청의 응답은 자동 통과)을 거쳐 EC2 인스턴스에 닿는 구조.</desc>
+  <rect width="880" height="600" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
 
-  <!-- 인터넷 (최상단) -->
-  <rect x="370" y="24" width="140" height="40" rx="20" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="49" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">인터넷</text>
+  <!-- 인터넷 -->
+  <rect x="370" y="24" width="140" height="44" rx="22" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="440" y="52" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">인터넷</text>
 
-  <!-- 인터넷 -> Subnet 경계 화살표 -->
-  <path d="M440,64 L440,92" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Subnet 경계 -->
+  <rect x="64" y="96" width="752" height="480" rx="10" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="88" y="126" font-size="16" font-weight="bold" fill="#374151">Subnet 경계</text>
+  <line x1="440" y1="68" x2="440" y2="146" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Subnet 경계 (큰 영역) -->
-  <rect x="190" y="94" width="500" height="376" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="210" y="122" font-size="14" fill="#52606d" font-weight="bold">Subnet 경계</text>
+  <!-- 1. NACL -->
+  <rect x="120" y="150" width="640" height="150" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="156" cy="178" r="14" fill="#b45309"/>
+  <text x="156" y="184" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="182" y="185" font-size="20" font-weight="bold" fill="#92400e">NACL</text>
+  <rect x="520" y="164" width="100" height="28" rx="14" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+  <text x="570" y="183" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">Stateless</text>
+  <rect x="632" y="164" width="104" height="28" rx="14" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+  <text x="684" y="183" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">서브넷 단위</text>
+  <rect x="160" y="206" width="260" height="46" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+  <text x="290" y="235" font-size="16" fill="#1f2937" text-anchor="middle">인바운드 규칙</text>
+  <rect x="460" y="206" width="260" height="46" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+  <text x="590" y="235" font-size="16" fill="#1f2937" text-anchor="middle">아웃바운드 규칙</text>
+  <text x="440" y="283" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">각각 따로 평가</text>
 
-  <!-- NACL 영역 -->
-  <rect x="230" y="140" width="420" height="96" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="166" font-size="14" fill="#059669" font-weight="bold" text-anchor="middle">NACL (Stateless, 서브넷 단위)</text>
-  <text x="440" y="190" font-size="13" fill="#1f2933" text-anchor="middle">인바운드 규칙 / 아웃바운드 규칙</text>
-  <text x="440" y="214" font-size="13" fill="#1f2933" text-anchor="middle">각각 따로 평가</text>
+  <line x1="440" y1="300" x2="440" y2="336" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- NACL -> Security Group 화살표 -->
-  <path d="M440,236 L440,262" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 2. Security Group -->
+  <rect x="120" y="340" width="640" height="124" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <circle cx="156" cy="368" r="14" fill="#1d4ed8"/>
+  <text x="156" y="374" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="182" y="375" font-size="20" font-weight="bold" fill="#1e3a8a">Security Group</text>
+  <rect x="520" y="354" width="100" height="28" rx="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="570" y="373" font-size="15" font-weight="bold" fill="#1e40af" text-anchor="middle">Stateful</text>
+  <rect x="632" y="354" width="104" height="28" rx="14" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="684" y="373" font-size="15" font-weight="bold" fill="#1e40af" text-anchor="middle">ENI</text>
+  <rect x="160" y="398" width="560" height="46" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.2"/>
+  <text x="440" y="427" font-size="16" fill="#1f2937" text-anchor="middle">허용된 요청의 응답은 자동 통과</text>
 
-  <!-- Security Group 영역 -->
-  <rect x="230" y="264" width="420" height="76" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="290" font-size="14" fill="#2563eb" font-weight="bold" text-anchor="middle">Security Group (Stateful, ENI)</text>
-  <text x="440" y="316" font-size="13" fill="#1f2933" text-anchor="middle">허용된 요청의 응답은 자동 통과</text>
+  <line x1="440" y1="464" x2="440" y2="500" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Security Group -> EC2 인스턴스 화살표 -->
-  <path d="M440,340 L440,366" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- EC2 인스턴스 -->
-  <rect x="330" y="368" width="220" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="396" font-size="14" fill="#7c3aed" font-weight="bold" text-anchor="middle">[ EC2 인스턴스 ]</text>
+  <!-- EC2 -->
+  <rect x="330" y="504" width="220" height="48" rx="8" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="440" y="534" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">EC2 인스턴스</text>
 </svg>

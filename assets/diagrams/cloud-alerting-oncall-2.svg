@@ -1,43 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">증상 기반 알림 vs 원인 기반 알림</title>
-  <desc id="d">원인 기반 알림과 증상 기반 알림의 지표 차이 및 각각 대시보드와 알림으로 연결되는 비교 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">원인 기반 vs 증상 기반 알림</title>
+  <desc id="d">원인 기반 알림(CPU·메모리, 디스크 IOPS, GC pause)은 원인이 무한히 많아 실패 모드마다 규칙을 추가해야 하므로 대시보드로 보내고, 증상 기반 알림(5xx 비율, p99, 주문 성공률)은 몇 개뿐이고 새 실패 모드도 잡으므로 알림으로 쓴다.</desc>
   <defs>
-    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    <marker id="ah-brown" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
+  <rect width="880" height="400" fill="#ffffff"/>
 
-  <!-- Left Column: Cause-based (Orange/Gray Theme) -->
-  <text x="230" y="38.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">원인 기반 알림</text>
-  <rect x="70" y="50" width="320" height="110" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="90" y="80.55" font-size="13" fill="#1f2933">CPU 90% / 메모리 85%</text>
-  <text x="90" y="105.55" font-size="13" fill="#1f2933">디스크 IOPS 포화</text>
-  <text x="90" y="130.55" font-size="13" fill="#1f2933">GC pause 증가</text>
+  <!-- 왼쪽: 원인 기반 알림 -->
+  <rect x="24" y="24" width="396" height="256" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+  <path d="M24,34 a10,10 0 0 1 10,-10 h376 a10,10 0 0 1 10,10 v38 h-396 z" fill="#b45309"/>
+  <text x="222" y="55" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">원인 기반 알림</text>
 
-  <text x="230" y="189.55" font-size="13" fill="#52606d" text-anchor="middle">원인은 무한히 많다</text>
-  <text x="230" y="214.55" font-size="13" fill="#52606d" text-anchor="middle">새 실패 모드마다 규칙 추가</text>
+  <rect x="48" y="96" width="8" height="8" fill="#b45309"/>
+  <text x="68" y="106" font-size="16" fill="#1f2937">CPU 90% / 메모리 85%</text>
+  <rect x="48" y="128" width="8" height="8" fill="#b45309"/>
+  <text x="68" y="138" font-size="16" fill="#1f2937">디스크 IOPS 포화</text>
+  <rect x="48" y="160" width="8" height="8" fill="#b45309"/>
+  <text x="68" y="170" font-size="16" fill="#1f2937">GC pause 증가</text>
 
-  <path d="M230,228 L230,268" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-gray)"/>
-  
-  <rect x="220" y="278" width="130" height="24" rx="2" fill="#ffffff"/>
-  <text x="285" y="294.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">이건 대시보드로</text>
+  <path d="M25,194 h394 v76 a9,9 0 0 1 -9,9 h-376 a9,9 0 0 1 -9,-9 z" fill="#fffbeb"/>
+  <line x1="25" y1="194" x2="419" y2="194" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="48" y="226" font-size="16" font-weight="bold" fill="#b45309">원인은 무한히 많다</text>
+  <text x="48" y="256" font-size="15" fill="#374151">새 실패 모드마다 규칙 추가</text>
 
-  <!-- Right Column: Symptom-based (Blue Theme) -->
-  <text x="650" y="38.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">증상 기반 알림</text>
-  <rect x="490" y="50" width="320" height="110" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="510" y="80.55" font-size="13" fill="#1f2933">5xx 비율 &gt; 1%</text>
-  <text x="510" y="105.55" font-size="13" fill="#1f2933">p99 &gt; 1s</text>
-  <text x="510" y="130.55" font-size="13" fill="#1f2933">주문 성공률 급감</text>
+  <line x1="222" y1="282" x2="222" y2="318" stroke="#b45309" stroke-width="2" marker-end="url(#ah-brown)"/>
+  <rect x="122" y="324" width="200" height="48" rx="24" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="222" y="354" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">이건 대시보드로</text>
 
-  <text x="650" y="189.55" font-size="13" fill="#2563eb" text-anchor="middle">증상은 몇 개뿐이다</text>
-  <text x="650" y="214.55" font-size="13" fill="#2563eb" text-anchor="middle">새 실패 모드도 자동으로 잡힌다</text>
+  <!-- 가운데 -->
+  <text x="440" y="146" font-size="16" font-weight="bold" fill="#4b5563" text-anchor="middle">vs</text>
 
-  <path d="M650,228 L650,268" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <rect x="640" y="278" width="105" height="24" rx="2" fill="#ffffff"/>
-  <text x="692.5" y="294.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">이건 알림으로</text>
+  <!-- 오른쪽: 증상 기반 알림 -->
+  <rect x="460" y="24" width="396" height="256" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <path d="M460,34 a10,10 0 0 1 10,-10 h376 a10,10 0 0 1 10,10 v38 h-396 z" fill="#1d4ed8"/>
+  <text x="658" y="55" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">증상 기반 알림</text>
+
+  <rect x="484" y="96" width="8" height="8" fill="#1d4ed8"/>
+  <text x="504" y="106" font-size="16" fill="#1f2937">5xx 비율 &gt; 1%</text>
+  <rect x="484" y="128" width="8" height="8" fill="#1d4ed8"/>
+  <text x="504" y="138" font-size="16" fill="#1f2937">p99 &gt; 1s</text>
+  <rect x="484" y="160" width="8" height="8" fill="#1d4ed8"/>
+  <text x="504" y="170" font-size="16" fill="#1f2937">주문 성공률 급감</text>
+
+  <path d="M461,194 h394 v76 a9,9 0 0 1 -9,9 h-376 a9,9 0 0 1 -9,-9 z" fill="#eff6ff"/>
+  <line x1="461" y1="194" x2="855" y2="194" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="484" y="226" font-size="16" font-weight="bold" fill="#1d4ed8">증상은 몇 개뿐이다</text>
+  <text x="484" y="256" font-size="15" fill="#374151">새 실패 모드도 자동으로 잡힌다</text>
+
+  <line x1="658" y1="282" x2="658" y2="318" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <rect x="558" y="324" width="200" height="48" rx="24" fill="#1d4ed8"/>
+  <text x="658" y="354" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">이건 알림으로</text>
 </svg>

@@ -1,96 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">한 번 빌드, 여러 번 배포 (Build Once, Deploy Many)</title>
-  <desc id="d">잘못된 방식과 올바른 방식의 빌드 및 배포 파이프라인 비교 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">한 번 빌드, 여러 번 배포</title>
+  <desc id="d">잘못된 방식은 커밋에서 곧바로 갈라져 환경마다 다시 빌드하므로 두 번째 빌드가 첫 번째와 같다는 보장이 없다. 올바른 방식은 커밋을 한 번만 빌드해 아티팩트(app:a1b2c3d)를 만들고, 완전히 동일한 바이트를 스테이징과 운영 두 환경에 올린다.</desc>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="540" fill="#ffffff"/>
+  <rect width="880" height="510" fill="#ffffff"/>
 
-  <!-- 메인 제목 -->
-  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">한 번 빌드, 여러 번 배포 (Build Once, Deploy Many)</text>
+  <!-- ── 잘못된 방식 ── -->
+  <rect x="24" y="20" width="832" height="206" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="44" y="54" font-size="16" fill="#374151"><tspan font-size="18" font-weight="bold" fill="#b91c1c">잘못된 방식</tspan> (환경마다 다시 빌드)</text>
 
-  <!-- Section 1: 잘못된 방식 -->
-  <rect x="24" y="55" width="832" height="200" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="44" y="85" font-size="14" font-weight="bold" fill="#dc2626">잘못된 방식 (환경마다 다시 빌드)</text>
+  <rect x="48" y="118" width="80" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="88" y="146" font-size="16" fill="#111827" text-anchor="middle">커밋</text>
 
-  <!-- Flow 1: Nodes -->
-  <!-- 커밋 -->
-  <rect x="54" y="105" width="90" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="99" y="129" font-size="13" text-anchor="middle" fill="#1f2933">커밋</text>
+  <path d="M128,140 H150 V100 H174" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <path d="M128,140 H150 V180 H174" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
 
-  <!-- Top 빌드 -->
-  <rect x="204" y="105" width="90" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="249" y="129" font-size="13" text-anchor="middle" fill="#1f2933">빌드</text>
+  <rect x="176" y="78" width="88" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="220" y="106" font-size="16" fill="#111827" text-anchor="middle">빌드</text>
+  <rect x="176" y="158" width="88" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="220" y="186" font-size="16" fill="#111827" text-anchor="middle">빌드</text>
 
-  <!-- Bottom 빌드 -->
-  <rect x="204" y="185" width="90" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="249" y="209" font-size="13" text-anchor="middle" fill="#1f2933">빌드</text>
+  <line x1="264" y1="100" x2="638" y2="100" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <line x1="264" y1="180" x2="638" y2="180" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
 
-  <!-- 스테이징 배포 -->
-  <rect x="354" y="105" width="130" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="419" y="129" font-size="13" text-anchor="middle" fill="#1f2933">스테이징 배포</text>
+  <text x="452" y="137" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">두 번째 빌드는 첫 번째와</text>
+  <text x="452" y="159" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">같다는 보장이 없다</text>
 
-  <!-- 운영 배포 -->
-  <rect x="354" y="185" width="130" height="40" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="419" y="209" font-size="13" text-anchor="middle" fill="#1f2933">운영 배포</text>
+  <rect x="640" y="78" width="160" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="720" y="106" font-size="16" fill="#111827" text-anchor="middle">스테이징 배포</text>
+  <rect x="640" y="158" width="160" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="720" y="186" font-size="16" fill="#111827" text-anchor="middle">운영 배포</text>
 
-  <!-- Flow 1: Arrows -->
-  <!-- 커밋 -> Top 빌드 -->
-  <path d="M144,125 L204,125" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <!-- Top 빌드 -> 스테이징 배포 -->
-  <path d="M294,125 L354,125" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <!-- 커밋 -> Bottom 빌드 -->
-  <path d="M144,125 L174,125 L174,205 L204,205" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <!-- Bottom 빌드 -> 운영 배포 -->
-  <path d="M294,205 L354,205" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- ── 올바른 방식 ── -->
+  <rect x="24" y="246" width="832" height="240" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="44" y="280" font-size="16" fill="#374151"><tspan font-size="18" font-weight="bold" fill="#047857">올바른 방식</tspan> (한 번만 빌드)</text>
 
-  <!-- 주석 1 -->
-  <text x="504" y="209" font-size="11.5" fill="#dc2626">← 두 번째 빌드는 첫 번째와 같다는 보장이 없다</text>
+  <rect x="48" y="348" width="80" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="88" y="376" font-size="16" fill="#111827" text-anchor="middle">커밋</text>
+  <line x1="128" y1="370" x2="174" y2="370" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <rect x="176" y="348" width="88" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="220" y="376" font-size="16" fill="#111827" text-anchor="middle">빌드</text>
+  <line x1="264" y1="370" x2="328" y2="370" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
 
+  <rect x="330" y="338" width="200" height="64" rx="8" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="430" y="364" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">아티팩트</text>
+  <text x="430" y="388" font-size="15" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">app:a1b2c3d</text>
 
-  <!-- Section 2: 올바른 방식 -->
-  <rect x="24" y="275" width="832" height="240" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="44" y="305" font-size="14" font-weight="bold" fill="#059669">올바른 방식 (한 번만 빌드)</text>
+  <path d="M530,370 H585 V330 H638" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <path d="M530,370 H585 V410 H638" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
 
-  <!-- Flow 2: Nodes -->
-  <!-- 커밋 -->
-  <rect x="54" y="325" width="90" height="40" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="99" y="349" font-size="13" text-anchor="middle" fill="#1f2933">커밋</text>
+  <rect x="640" y="300" width="160" height="60" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="720" y="325" font-size="16" fill="#111827" text-anchor="middle">스테이징 배포</text>
+  <text x="720" y="348" font-size="14" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">app:a1b2c3d</text>
+  <rect x="640" y="380" width="160" height="60" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="720" y="405" font-size="16" fill="#111827" text-anchor="middle">운영 배포</text>
+  <text x="720" y="428" font-size="14" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">app:a1b2c3d</text>
 
-  <!-- 빌드 -->
-  <rect x="204" y="325" width="90" height="40" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="249" y="349" font-size="13" text-anchor="middle" fill="#1f2933">빌드</text>
-
-  <!-- 아티팩트(app:a1b2c3d) -->
-  <rect x="354" y="325" width="200" height="40" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="454" y="349" font-size="13" text-anchor="middle" fill="#1f2933">아티팩트(app:a1b2c3d)</text>
-
-  <!-- 스테이징 배포 -->
-  <rect x="614" y="325" width="130" height="40" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="679" y="349" font-size="13" text-anchor="middle" fill="#1f2933">스테이징 배포</text>
-
-  <!-- 운영 배포 -->
-  <rect x="614" y="405" width="130" height="40" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="679" y="429" font-size="13" text-anchor="middle" fill="#1f2933">운영 배포</text>
-
-  <!-- Flow 2: Arrows -->
-  <!-- 커밋 -> 빌드 -->
-  <path d="M144,345 L204,345" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- 빌드 -> 아티팩트 -->
-  <path d="M294,345 L354,345" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- 아티팩트 -> 스테이징 배포 -->
-  <path d="M554,345 L614,345" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <!-- 아티팩트 -> 운영 배포 -->
-  <path d="M554,345 L584,345 L584,425 L614,425" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- 주석 2 (위쪽 화살표 및 텍스트) -->
-  <path d="M249,465 L249,380" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="264" y="469" font-size="11.5" fill="#059669">완전히 동일한 바이트를 두 환경에 올린다</text>
+  <line x1="430" y1="446" x2="430" y2="406" stroke="#047857" stroke-width="1.8" marker-end="url(#ah-green)"/>
+  <text x="430" y="468" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">완전히 동일한 바이트를 두 환경에 올린다</text>
 </svg>

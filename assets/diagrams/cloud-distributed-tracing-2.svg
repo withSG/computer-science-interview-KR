@@ -1,106 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">워터폴로 읽기</title>
-  <desc id="d">분산 트레이싱의 스팬 워터폴 다이어그램. 각 서비스 호출의 계층 구조와 소요 시간을 시각화한다.</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">워터폴로 읽는 스팬 트리</title>
+  <desc id="d">0ms부터 2800ms까지의 시간축 위에 Gateway 2800ms, order-service 2760ms, inventory 15ms, pricing 28ms, payment 2680ms, db:SELECT 8ms, HTTP POST /pg 2650ms 스팬을 트리 들여쓰기로 놓았다. HTTP POST /pg 구간이 2.65초를 차지한다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
 
-  <defs>
-    <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M5,10 L0,0 L10,0 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+  <!-- 시간 축 -->
+  <text x="260" y="36" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">0ms</text>
+  <text x="442.1" y="36" font-size="15" fill="#374151" text-anchor="middle">1000ms</text>
+  <text x="624.3" y="36" font-size="15" fill="#374151" text-anchor="middle">2000ms</text>
+  <text x="770" y="36" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">2800ms</text>
+  <line x1="260" y1="48" x2="770" y2="48" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="260" y1="44" x2="260" y2="386" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="442.1" y1="44" x2="442.1" y2="386" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="624.3" y1="44" x2="624.3" y2="386" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="770" y1="44" x2="770" y2="386" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="442.1" y1="44" x2="442.1" y2="52" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="624.3" y1="44" x2="624.3" y2="52" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="770" y1="44" x2="770" y2="52" stroke="#6b7280" stroke-width="1.5"/>
 
-  <!-- Timeline Grid Lines -->
-  <!-- 0ms -> x=310, 1000ms -> x=460, 2000ms -> x=610, 2800ms -> x=730 -->
-  <g stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4">
-    <line x1="310" y1="50" x2="310" y2="320"/>
-    <line x1="460" y1="50" x2="460" y2="320"/>
-    <line x1="610" y1="50" x2="610" y2="320"/>
-    <line x1="730" y1="50" x2="730" y2="320"/>
-  </g>
+  <!-- 트리 연결선 -->
+  <path d="M32,98 V133 H44" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M58,146 V271 H70 M58,179 H70 M58,225 H70" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M84,284 V363 H96 M84,317 H96" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- Timeline Labels -->
-  <g font-size="12" fill="#52606d" font-weight="bold">
-    <text x="310" y="40" text-anchor="middle">0ms</text>
-    <text x="460" y="40" text-anchor="middle">1000ms</text>
-    <text x="610" y="40" text-anchor="middle">2000ms</text>
-    <text x="730" y="40" text-anchor="middle">2800ms</text>
-  </g>
+  <!-- Gateway 0–2800 -->
+  <text x="24" y="92.5" font-size="16" font-weight="bold" fill="#111827">Gateway</text>
+  <rect x="260" y="75" width="510" height="24" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="856" y="92.5" font-size="16" fill="#111827" text-anchor="end">2800ms</text>
 
-  <!-- Tree Guide Lines -->
-  <g stroke="#9aa5b1" stroke-width="1.5" fill="none">
-    <!-- Root line at left of Gateway -->
-    <path d="M 24,78 L 24,312"/>
-    <path d="M 24,78 L 38,78"/>
-    
-    <!-- order-service branch -->
-    <path d="M 24,114 L 62,114 L 62,238"/>
-    
-    <!-- order-service children branches -->
-    <path d="M 62,150 L 80,150"/>
-    <path d="M 62,186 L 80,186"/>
-    <path d="M 62,222 L 80,222"/>
+  <!-- order-service 20–2780 -->
+  <text x="50" y="138.5" font-size="16" font-weight="bold" fill="#111827">order-service</text>
+  <rect x="263.6" y="121" width="502.7" height="24" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="856" y="138.5" font-size="16" fill="#111827" text-anchor="end">2760ms</text>
 
-    <!-- payment children branches -->
-    <path d="M 82,222 L 100,222 L 100,294"/>
-    <path d="M 100,258 L 118,258"/>
-    <path d="M 100,294 L 118,294"/>
-  </g>
+  <!-- inventory 20–35 -->
+  <text x="76" y="184.5" font-size="16" fill="#111827">inventory</text>
+  <rect x="263.6" y="167" width="2.8" height="24" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="856" y="184.5" font-size="16" fill="#111827" text-anchor="end">15ms</text>
 
-  <!-- Span Rows -->
+  <!-- pricing 35–63 -->
+  <text x="76" y="230.5" font-size="16" fill="#111827">pricing</text>
+  <rect x="266.4" y="213" width="5.1" height="24" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="856" y="230.5" font-size="16" fill="#111827" text-anchor="end">28ms</text>
 
-  <!-- Row 1: Gateway -->
-  <g>
-    <text x="42" y="82.55" font-size="13" fill="#1f2933" font-weight="bold">Gateway</text>
-    <rect x="310" y="68" width="420" height="20" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="742" y="82.55" font-size="13" fill="#1f2933" font-weight="bold">2800ms</text>
-  </g>
+  <!-- payment 100–2780 -->
+  <text x="76" y="276.5" font-size="16" font-weight="bold" fill="#111827">payment</text>
+  <rect x="278.2" y="259" width="488.1" height="24" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="856" y="276.5" font-size="16" fill="#111827" text-anchor="end">2680ms</text>
 
-  <!-- Row 2: order-service -->
-  <g>
-    <text x="66" y="118.55" font-size="13" fill="#1f2933" font-weight="bold">order-service</text>
-    <rect x="312" y="104" width="414" height="20" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="742" y="118.55" font-size="13" fill="#1f2933" font-weight="bold">2760ms</text>
-  </g>
+  <!-- db:SELECT 105–113 -->
+  <text x="102" y="322.5" font-size="16" fill="#111827">db:SELECT</text>
+  <rect x="279.1" y="305" width="3" height="24" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="856" y="322.5" font-size="16" fill="#111827" text-anchor="end">8ms</text>
 
-  <!-- Row 3: inventory -->
-  <g>
-    <text x="84" y="154.55" font-size="13" fill="#1f2933">inventory</text>
-    <rect x="313" y="140" width="8" height="20" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="742" y="154.55" font-size="13" fill="#52606d">15ms</text>
-  </g>
+  <!-- HTTP POST /pg 125–2775 -->
+  <text x="102" y="368.5" font-size="16" font-weight="bold" fill="#b91c1c">HTTP POST /pg</text>
+  <rect x="282.8" y="351" width="482.7" height="24" rx="3" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="856" y="368.5" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end">2650ms</text>
 
-  <!-- Row 4: pricing -->
-  <g>
-    <text x="84" y="190.55" font-size="13" fill="#1f2933">pricing</text>
-    <rect x="316" y="176" width="12" height="20" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="742" y="190.55" font-size="13" fill="#52606d">28ms</text>
-  </g>
-
-  <!-- Row 5: payment -->
-  <g>
-    <text x="84" y="226.55" font-size="13" fill="#1f2933" font-weight="bold">payment</text>
-    <rect x="320" y="212" width="402" height="20" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="742" y="226.55" font-size="13" fill="#1f2933" font-weight="bold">2680ms</text>
-  </g>
-
-  <!-- Row 6: db:SELECT -->
-  <g>
-    <text x="122" y="262.55" font-size="13" fill="#1f2933">db:SELECT</text>
-    <rect x="321" y="248" width="6" height="20" rx="2" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="742" y="262.55" font-size="13" fill="#52606d">8ms</text>
-  </g>
-
-  <!-- Row 7: HTTP POST /pg -->
-  <g>
-    <text x="122" y="298.55" font-size="13" fill="#dc2626" font-weight="bold">HTTP POST /pg</text>
-    <rect x="323" y="284" width="397" height="20" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="742" y="298.55" font-size="13" fill="#dc2626" font-weight="bold">2650ms</text>
-  </g>
-
-  <!-- Highlight Arrow & Annotation -->
-  <g>
-    <!-- Arrow pointing up to the HTTP POST /pg bar/duration area -->
-    <line x1="700" y1="340" x2="700" y2="310" stroke="#dc2626" stroke-width="2" marker-end="url(#arrow-red)"/>
-    <text x="700" y="360.025" font-size="11.5" fill="#dc2626" font-weight="bold" text-anchor="middle">여기서 2.65초</text>
-  </g>
+  <!-- 여기서 2.65초 -->
+  <path d="M282.8,382 V394 H765.5 V382" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <line x1="524" y1="394" x2="524" y2="402" stroke="#b91c1c" stroke-width="2"/>
+  <text x="524" y="426" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">여기서 2.65초</text>
 </svg>

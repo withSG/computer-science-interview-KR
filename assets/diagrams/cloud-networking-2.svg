@@ -1,59 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3. 핵심 중의 핵심: Public/Private은 라우팅 테이블이 결정한다</title>
-  <desc id="d">Public Subnet과 Private Subnet의 라우팅 테이블 비교 다이어그램. 0.0.0.0/0 경로의 Target 차이(igw vs nat)를 강조하여 표시합니다.</desc>
-  <rect width="880" height="280" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Public과 Private 라우팅 테이블 비교</title>
+  <desc id="d">Public 서브넷과 Private 서브넷의 라우팅 테이블을 나란히 놓았습니다. 10.0.0.0/16 → local 줄은 같고, 0.0.0.0/0 줄의 Target이 igw-0a1b2c3d(Internet Gateway)냐 nat-0f9e8d7c(NAT Gateway)냐 한 줄만 다릅니다.</desc>
+  <rect width="880" height="300" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Left Table Block: Public Subnet -->
-  <text x="210" y="34" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[ Public Subnet 의 라우팅 테이블 ]</text>
-  
-  <rect x="50" y="50" width="320" height="150" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <!-- Table Header -->
-  <path d="M50,85 L370,85" stroke="#9aa5b1" stroke-width="1.5"/>
-  <path d="M210,50 L210,200" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="130" y="72" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Destination</text>
-  <text x="290" y="72" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Target</text>
-  
-  <!-- Row 1 -->
-  <path d="M50,120 L370,120" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="130" y="107" font-size="13" fill="#1f2933" text-anchor="middle">10.0.0.0/16</text>
-  <text x="290" y="107" font-size="13" fill="#1f2933" text-anchor="middle">local</text>
-  
-  <!-- Row 2 (Highlighted target) -->
-  <rect x="211" y="121" width="158" height="78" fill="#eff6ff"/>
-  <text x="130" y="160" font-size="13" fill="#1f2933" text-anchor="middle">0.0.0.0/0</text>
-  <text x="290" y="160" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">igw-0a1b2c3d</text>
+  <!-- 왼쪽: Public -->
+  <text x="213" y="42" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">Public Subnet의 라우팅 테이블</text>
+  <rect x="28" y="60" width="370" height="44" fill="#f3f4f6"/>
+  <rect x="28" y="152" width="370" height="64" fill="#dbeafe"/>
+  <rect x="28" y="60" width="370" height="156" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="28" y1="104" x2="398" y2="104" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="28" y1="152" x2="398" y2="152" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="198" y1="60" x2="198" y2="216" stroke="#d1d5db" stroke-width="1"/>
+  <text x="44" y="88" font-size="16" font-weight="bold" fill="#111827">Destination</text>
+  <text x="214" y="88" font-size="16" font-weight="bold" fill="#111827">Target</text>
+  <text x="44" y="134" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.0/16</text>
+  <text x="214" y="134" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">local</text>
+  <text x="44" y="189" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0.0.0.0/0</text>
+  <text x="214" y="180" font-size="16" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">igw-0a1b2c3d</text>
+  <text x="214" y="202" font-size="14" fill="#1e3a8a">(Internet Gateway)</text>
 
+  <!-- 오른쪽: Private -->
+  <text x="667" y="42" font-size="17" font-weight="bold" text-anchor="middle" fill="#6d28d9">Private Subnet의 라우팅 테이블</text>
+  <rect x="482" y="60" width="370" height="44" fill="#f3f4f6"/>
+  <rect x="482" y="152" width="370" height="64" fill="#fef3c7"/>
+  <rect x="482" y="60" width="370" height="156" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="482" y1="104" x2="852" y2="104" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="482" y1="152" x2="852" y2="152" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="652" y1="60" x2="652" y2="216" stroke="#d1d5db" stroke-width="1"/>
+  <text x="498" y="88" font-size="16" font-weight="bold" fill="#111827">Destination</text>
+  <text x="668" y="88" font-size="16" font-weight="bold" fill="#111827">Target</text>
+  <text x="498" y="134" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.0/16</text>
+  <text x="668" y="134" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">local</text>
+  <text x="498" y="189" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0.0.0.0/0</text>
+  <text x="668" y="180" font-size="16" font-weight="bold" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">nat-0f9e8d7c</text>
+  <text x="668" y="202" font-size="14" fill="#78350f">(NAT Gateway)</text>
 
-  <!-- Right Table Block: Private Subnet -->
-  <text x="670" y="34" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[ Private Subnet 의 라우팅 테이블 ]</text>
-  
-  <rect x="510" y="50" width="320" height="150" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <!-- Table Header -->
-  <path d="M510,85 L830,85" stroke="#9aa5b1" stroke-width="1.5"/>
-  <path d="M670,50 L670,200" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="590" y="72" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Destination</text>
-  <text x="750" y="72" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Target</text>
-  
-  <!-- Row 1 -->
-  <path d="M510,120 L830,120" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="590" y="107" font-size="13" fill="#1f2933" text-anchor="middle">10.0.0.0/16</text>
-  <text x="750" y="107" font-size="13" fill="#1f2933" text-anchor="middle">local</text>
-  
-  <!-- Row 2 (Highlighted target) -->
-  <rect x="671" y="121" width="158" height="78" fill="#ecfdf5"/>
-  <text x="590" y="160" font-size="13" fill="#1f2933" text-anchor="middle">0.0.0.0/0</text>
-  <text x="750" y="160" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">nat-0f9e8d7c</text>
-
-
-  <!-- Middle Annotation & Arrow -->
-  <path d="M510,160 L380,160" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <text x="440" y="190" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">이</text>
-  <text x="440" y="220" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">한 줄 차이가 전부다</text>
+  <!-- 차이 강조 -->
+  <line x1="406" y1="184" x2="474" y2="184" stroke="#b91c1c" stroke-width="2" marker-start="url(#ah)" marker-end="url(#ah)"/>
+  <line x1="440" y1="190" x2="440" y2="238" stroke="#b91c1c" stroke-width="2"/>
+  <rect x="330" y="238" width="220" height="40" rx="20" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="264" font-size="18" font-weight="bold" text-anchor="middle" fill="#b91c1c">이 한 줄 차이가 전부다</text>
 </svg>

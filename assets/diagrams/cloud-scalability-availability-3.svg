@@ -1,90 +1,118 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">SPOF 찾기</title>
-  <desc id="d">요청 경로 상의 주요 구성 요소들과 잠재적 단일 장애점(SPOF)을 점검하기 위한 질문 리스트 다이어그램</desc>
-  <rect width="880" height="730" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 790" width="880" height="790" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">요청 경로를 따라 SPOF 찾기</title>
+  <desc id="d">사용자 요청이 DNS, CDN/WAF, 로드 밸런서, 애플리케이션, 캐시, 데이터베이스, 파일/객체 저장소를 차례로 지날 때 각 홉에서 물어볼 질문과, 경로 밖에 숨어 있어 죽으면 복구 작업 자체를 못 하게 만드는 배포 파이프라인·시크릿 저장소·내부 인증 서버·NAT 게이트웨이를 보여준다.</desc>
+  <rect width="880" height="790" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- 1. 사용자 -->
-  <rect x="30" y="30" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="140" y="55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자</text>
+  <!-- 열 머리 -->
+  <text x="160" y="44" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">요청 경로</text>
+  <text x="312" y="44" font-size="15" font-weight="bold" fill="#4b5563">각 홉에 물어볼 것 — "이게 죽으면?"</text>
 
-  <!-- Vertical Main Flow Arrows -->
-  <path d="M140,70 L140,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M140,140 L140,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M140,210 L140,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M140,280 L140,310" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M140,350 L140,380" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M140,420 L140,450" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M140,490 L140,520" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 사용자 -->
+  <rect x="100" y="60" width="120" height="40" rx="20" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="160" y="86" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">사용자</text>
 
-  <!-- Horizontal Dash Connectors -->
-  <line x1="250" y1="120" x2="280" y2="120" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="250" y1="190" x2="280" y2="190" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="250" y1="260" x2="280" y2="260" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="250" y1="330" x2="280" y2="330" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="250" y1="400" x2="280" y2="400" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="250" y1="470" x2="280" y2="470" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <line x1="250" y1="540" x2="280" y2="540" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- 경로 화살표 -->
+  <g stroke="#1d4ed8" stroke-width="2" fill="none">
+    <path d="M160,101 L160,126" marker-end="url(#arr)"/>
+    <path d="M160,173 L160,194" marker-end="url(#arr)"/>
+    <path d="M160,241 L160,262" marker-end="url(#arr)"/>
+    <path d="M160,309 L160,330" marker-end="url(#arr)"/>
+    <path d="M160,377 L160,398" marker-end="url(#arr)"/>
+    <path d="M160,445 L160,466" marker-end="url(#arr)"/>
+    <path d="M160,513 L160,534" marker-end="url(#arr)"/>
+  </g>
 
-  <!-- Main Flow Nodes (1) to (7) -->
+  <!-- 홉과 질문 연결선 -->
+  <g stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3">
+    <line x1="282" y1="150" x2="310" y2="150"/>
+    <line x1="282" y1="218" x2="310" y2="218"/>
+    <line x1="282" y1="286" x2="310" y2="286"/>
+    <line x1="282" y1="354" x2="310" y2="354"/>
+    <line x1="282" y1="422" x2="310" y2="422"/>
+    <line x1="282" y1="490" x2="310" y2="490"/>
+    <line x1="282" y1="558" x2="310" y2="558"/>
+  </g>
+
   <!-- (1) DNS -->
-  <rect x="30" y="100" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="125" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">(1) DNS</text>
-  <rect x="280" y="100" width="570" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="124.6" font-size="13" fill="#1f2933">네임서버가 한 곳? 존 파일 실수 시 되돌릴 수 있나?</text>
+  <rect x="40" y="128" width="240" height="44" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="64" cy="150" r="13" fill="#1d4ed8"/>
+  <text x="64" y="155.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="88" y="156" font-size="17" font-weight="bold" fill="#1f2933">DNS</text>
+  <rect x="312" y="128" width="528" height="44" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="332" y="155.5" font-size="16" fill="#1f2933">네임서버가 한 곳? 존 파일 실수 시 되돌릴 수 있나?</text>
 
   <!-- (2) CDN / WAF -->
-  <rect x="30" y="170" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="195" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">(2) CDN / WAF</text>
-  <rect x="280" y="170" width="570" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="194.6" font-size="13" fill="#1f2933">우회 경로가 있나? 인증서 만료일은 감시 중인가?</text>
+  <rect x="40" y="196" width="240" height="44" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="64" cy="218" r="13" fill="#1d4ed8"/>
+  <text x="64" y="223.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="88" y="224" font-size="17" font-weight="bold" fill="#1f2933">CDN / WAF</text>
+  <rect x="312" y="196" width="528" height="44" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="332" y="223.5" font-size="16" fill="#1f2933">우회 경로가 있나? 인증서 만료일은 감시 중인가?</text>
 
   <!-- (3) 로드 밸런서 -->
-  <rect x="30" y="240" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="265" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">(3) 로드 밸런서</text>
-  <rect x="280" y="240" width="570" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="264.6" font-size="13" fill="#1f2933">여러 AZ에 노드가 배치돼 있나?</text>
+  <rect x="40" y="264" width="240" height="44" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="64" cy="286" r="13" fill="#1d4ed8"/>
+  <text x="64" y="291.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="88" y="292" font-size="17" font-weight="bold" fill="#1f2933">로드 밸런서</text>
+  <rect x="312" y="264" width="528" height="44" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="332" y="291.5" font-size="16" fill="#1f2933">여러 AZ에 노드가 배치돼 있나?</text>
 
   <!-- (4) 애플리케이션 -->
-  <rect x="30" y="310" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="335" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">(4) 애플리케이션</text>
-  <rect x="280" y="310" width="570" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="334.6" font-size="13" fill="#1f2933">2대 이상인가? 서로 다른 AZ인가? 같은 이미지인가?</text>
+  <rect x="40" y="332" width="240" height="44" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="64" cy="354" r="13" fill="#1d4ed8"/>
+  <text x="64" y="359.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="88" y="360" font-size="17" font-weight="bold" fill="#1f2933">애플리케이션</text>
+  <rect x="312" y="332" width="528" height="44" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="332" y="359.5" font-size="16" fill="#1f2933">2대 이상인가? 서로 다른 AZ인가? 같은 이미지인가?</text>
 
   <!-- (5) 캐시 -->
-  <rect x="30" y="380" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="405" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">(5) 캐시</text>
-  <rect x="280" y="380" width="570" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="404.6" font-size="13" fill="#1f2933">캐시가 죽으면 트래픽이 전부 DB로 몰리지 않나?</text>
+  <rect x="40" y="400" width="240" height="44" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="64" cy="422" r="13" fill="#1d4ed8"/>
+  <text x="64" y="427.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="88" y="428" font-size="17" font-weight="bold" fill="#1f2933">캐시</text>
+  <rect x="312" y="400" width="528" height="44" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="332" y="427.5" font-size="16" fill="#1f2933">캐시가 죽으면 트래픽이 전부 DB로 몰리지 않나?</text>
 
   <!-- (6) 데이터베이스 -->
-  <rect x="30" y="450" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="475" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">(6) 데이터베이스</text>
-  <rect x="280" y="450" width="570" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="474.6" font-size="13" fill="#1f2933">단일 인스턴스인가? 자동 승격되나? 승격 시간은?</text>
+  <rect x="40" y="468" width="240" height="44" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="64" cy="490" r="13" fill="#1d4ed8"/>
+  <text x="64" y="495.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="88" y="496" font-size="17" font-weight="bold" fill="#1f2933">데이터베이스</text>
+  <rect x="312" y="468" width="528" height="44" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="332" y="495.5" font-size="16" fill="#1f2933">단일 인스턴스인가? 자동 승격되나? 승격 시간은?</text>
 
   <!-- (7) 파일/객체 저장소 -->
-  <rect x="30" y="520" width="220" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="545" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">(7) 파일/객체 저장소</text>
-  <rect x="280" y="520" width="570" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="295" y="544.6" font-size="13" fill="#1f2933">한 AZ에만 있나?</text>
+  <rect x="40" y="536" width="240" height="44" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="64" cy="558" r="13" fill="#1d4ed8"/>
+  <text x="64" y="563.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="88" y="564" font-size="17" font-weight="bold" fill="#1f2933">파일/객체 저장소</text>
+  <rect x="312" y="536" width="528" height="44" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <text x="332" y="563.5" font-size="16" fill="#1f2933">한 AZ에만 있나?</text>
 
-  <!-- Line connecting main flow to (8) -->
-  <path d="M140,560 L140,630 L200,630" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <!-- 경로 밖으로 빠지는 가지 -->
+  <path d="M160,582 L160,688 L198,688" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
 
   <!-- (8) 경로 밖에 숨은 것들 -->
-  <rect x="200" y="585" width="650" height="115" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="220" y="613" font-size="14" font-weight="bold" fill="#dc2626">(8) 경로 밖에 숨은 것들</text>
-  <text x="240" y="640" font-size="13" font-weight="bold" fill="#1f2933">배포 파이프라인 / 시크릿 저장소 / 내부 인증 서버 / NAT 게이트웨이</text>
-  
-  <path d="M240,665 L255,665" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="265" y="669" font-size="12.5" fill="#52606d">평소엔 안 보이지만 죽으면 복구 작업 자체를 못 한다</text>
+  <rect x="200" y="612" width="640" height="152" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <circle cx="226" cy="640" r="13" fill="#b91c1c"/>
+  <text x="226" y="645.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">8</text>
+  <text x="250" y="646" font-size="18" font-weight="bold" fill="#b91c1c">경로 밖에 숨은 것들</text>
+  <rect x="640" y="626" width="176" height="28" rx="14" fill="#ffffff" stroke="#b91c1c" stroke-width="1"/>
+  <text x="728" y="645.5" font-size="15" fill="#b91c1c" text-anchor="middle">가장 자주 놓치는 항목</text>
+
+  <rect x="224" y="670" width="146" height="36" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="297" y="693.5" font-size="16" fill="#1f2933" text-anchor="middle">배포 파이프라인</text>
+  <rect x="382" y="670" width="130" height="36" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="447" y="693.5" font-size="16" fill="#1f2933" text-anchor="middle">시크릿 저장소</text>
+  <rect x="524" y="670" width="134" height="36" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="591" y="693.5" font-size="16" fill="#1f2933" text-anchor="middle">내부 인증 서버</text>
+  <rect x="670" y="670" width="142" height="36" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="741" y="693.5" font-size="16" fill="#1f2933" text-anchor="middle">NAT 게이트웨이</text>
+
+  <text x="224" y="742" font-size="16" font-weight="bold" fill="#b91c1c">→ 평소엔 안 보이지만 죽으면 복구 작업 자체를 못 한다</text>
 </svg>

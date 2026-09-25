@@ -1,59 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">동작 원리: 읽기 전용 레이어 + 쓰기 가능 레이어</title>
-  <desc id="d">Docker 이미지의 읽기 전용 레이어와 각 컨테이너의 쓰기 가능 레이어 간의 구성을 보여주는 다이어그램</desc>
-  
-  <!-- 배경 -->
-  <rect width="880" height="400" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">읽기 전용 이미지 레이어와 컨테이너별 쓰기 레이어</title>
+  <desc id="d">컨테이너 web1, web2, web3는 각자 자기 쓰기 레이어를 가지며, 모두 읽기 전용으로 공유되는 이미지 nginx:1.27-alpine의 레이어 L3, L2, L1 한 벌을 함께 본다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 이미지 상단 제목 라벨 -->
-  <text x="440" y="45.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">이미지 nginx:1.27-alpine (읽기 전용, 공유됨)</text>
+  <!-- 컨테이너 web1 -->
+  <rect x="40" y="24" width="176" height="96" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="128" y="50" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">컨테이너 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">web1</tspan></text>
+  <rect x="52" y="62" width="152" height="44" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="128" y="90" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">쓰기 레이어</text>
 
-  <!-- 이미지 전체 테두리 및 영역 -->
-  <rect x="150" y="60" width="580" height="150" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="6"/>
+  <!-- 컨테이너 web2 -->
+  <rect x="252" y="24" width="176" height="96" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="50" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">컨테이너 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">web2</tspan></text>
+  <rect x="264" y="62" width="152" height="44" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="340" y="90" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">쓰기 레이어</text>
 
-  <!-- 레이어 L3 -->
-  <rect x="160" y="70" width="560" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="180" y="94.55" font-size="13" font-weight="bold" fill="#2563eb">L3</text>
-  <text x="210" y="94.55" font-size="13" fill="#1f2933">nginx 설정 파일 복사</text>
+  <!-- 컨테이너 web3 -->
+  <rect x="464" y="24" width="176" height="96" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="552" y="50" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">컨테이너 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">web3</tspan></text>
+  <rect x="476" y="62" width="152" height="44" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="552" y="90" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">쓰기 레이어</text>
 
-  <!-- 레이어 L2 -->
-  <rect x="160" y="115" width="560" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="180" y="139.55" font-size="13" font-weight="bold" fill="#2563eb">L2</text>
-  <text x="210" y="139.55" font-size="13" fill="#1f2933">nginx 패키지 설치</text>
+  <!-- 컨테이너 → 이미지 -->
+  <line x1="128" y1="122" x2="128" y2="156" stroke="#374151" stroke-width="2" marker-end="url(#a-ink)"/>
+  <line x1="340" y1="122" x2="340" y2="156" stroke="#374151" stroke-width="2" marker-end="url(#a-ink)"/>
+  <line x1="552" y1="122" x2="552" y2="156" stroke="#374151" stroke-width="2" marker-end="url(#a-ink)"/>
 
-  <!-- 레이어 L1 -->
-  <rect x="160" y="160" width="560" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="180" y="184.55" font-size="13" font-weight="bold" fill="#2563eb">L1</text>
-  <text x="210" y="184.55" font-size="13" fill="#1f2933">alpine 베이스 루트 파일시스템</text>
+  <!-- 이미지 (읽기 전용, 공유) -->
+  <rect x="40" y="160" width="600" height="208" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="56" y="190" font-size="18" font-weight="bold" fill="#1e3a8a">이미지 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">nginx:1.27-alpine</tspan><tspan font-size="15" font-weight="normal"> (읽기 전용, 공유됨)</tspan></text>
 
-  <!-- 연결 화살표 (위쪽을 향함) -->
-  <path d="M 240,280 L 240,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M 440,280 L 440,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M 640,280 L 640,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="56" y="204" width="568" height="44" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="72" y="232" font-size="16" font-weight="bold" fill="#1d4ed8">L3</text>
+  <text x="112" y="232" font-size="16" fill="#111827">nginx 설정 파일 복사</text>
 
-  <!-- 컨테이너 1: web1 -->
-  <rect x="170" y="280" width="140" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
-  <text x="240" y="309.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">web1</text>
-  <text x="240" y="334.55" font-size="13" fill="#d97706" text-anchor="middle">쓰기레이어</text>
+  <rect x="56" y="256" width="568" height="44" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="72" y="284" font-size="16" font-weight="bold" fill="#1d4ed8">L2</text>
+  <text x="112" y="284" font-size="16" fill="#111827">nginx 패키지 설치</text>
 
-  <!-- 컨테이너 2: web2 -->
-  <rect x="370" y="280" width="140" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
-  <text x="440" y="309.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">web2</text>
-  <text x="440" y="334.55" font-size="13" fill="#d97706" text-anchor="middle">쓰기레이어</text>
+  <rect x="56" y="308" width="568" height="44" rx="4" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="72" y="336" font-size="16" font-weight="bold" fill="#1d4ed8">L1</text>
+  <text x="112" y="336" font-size="16" fill="#111827">alpine 베이스 루트 파일시스템</text>
 
-  <!-- 컨테이너 3: web3 -->
-  <rect x="570" y="280" width="140" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
-  <text x="640" y="309.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">web3</text>
-  <text x="640" y="334.55" font-size="13" fill="#d97706" text-anchor="middle">쓰기레이어</text>
+  <!-- 오른쪽 주석 -->
+  <text x="660" y="66" font-size="16" font-weight="bold" fill="#92400e">← 컨테이너마다
+    <tspan x="682" dy="24">자기 것</tspan></text>
+  <text x="660" y="256" font-size="16" font-weight="bold" fill="#1e3a8a">← 디스크에는 한 벌뿐
+    <tspan x="682" dy="24">컨테이너 3개가</tspan>
+    <tspan x="682" dy="24">같이 봄</tspan></text>
 
-  <!-- 우측 설명 주석 -->
-  <text x="730" y="32" font-size="13" fill="#52606d">
-    <tspan x="730" y="319.55">← 컨테이너마다 자기 것</tspan>
-  </text>
+  <!-- 하단 메모 -->
+  <text x="40" y="404" font-size="15" fill="#374151">파일을 고치면 그 파일만 쓰기 레이어로 복사한 뒤 수정 <tspan font-weight="bold">(Copy-on-Write)</tspan></text>
 </svg>

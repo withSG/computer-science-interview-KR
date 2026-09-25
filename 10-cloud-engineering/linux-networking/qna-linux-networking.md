@@ -391,7 +391,7 @@ sar -b 1 5   # I/O
 ### 주요 로그 파일 위치
 
 <!-- diagram:cloud-qna-linux-networking-2 -->
-![주요 로그 파일 위치](../../assets/diagrams/cloud-qna-linux-networking-2.svg)
+![/var/log/ 아래 주요 로그 파일과 용도를 보여주는 트리](../../assets/diagrams/cloud-qna-linux-networking-2.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -492,7 +492,7 @@ awk '$NF > 1.0' access.log
 ### SSH 키 생성
 
 <!-- diagram:cloud-qna-linux-networking-3 -->
-![SSH 키 생성](../../assets/diagrams/cloud-qna-linux-networking-3.svg)
+![RSA·Ed25519 키 생성 명령과 ~/.ssh/ 파일 구성](../../assets/diagrams/cloud-qna-linux-networking-3.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

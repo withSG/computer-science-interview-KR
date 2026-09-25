@@ -1,105 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Pull 방식의 그림</title>
-  <desc id="d">GitOps의 Pull 방식 구조를 나타낸 ASCII 다이어그램 전사 SVG</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 810" width="880" height="810" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">GitOps Pull 방식 구조</title>
+  <desc id="d">앱 코드 저장소 push, CI 파이프라인의 빌드·테스트·이미지 push, 매니페스트 저장소에 이미지 태그 갱신 커밋까지는 클러스터 밖에서 일어난다. 운영 클러스터 안의 GitOps 에이전트(ArgoCD)가 매니페스트 저장소를 pull해 비교하고 다르면 apply하며, 드리프트가 생기면 원하는 상태로 되돌린다. 화살표가 클러스터 안에서 밖으로만 나가므로 밖에서 들어오는 권한이 필요 없다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
+  <rect width="880" height="810" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="770" fill="#ffffff"/>
+  <!-- 핵심 -->
+  <rect x="24" y="24" width="832" height="48" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="440" y="54" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle"><tspan fill="#b45309">핵심:</tspan> 화살표가 클러스터 안에서 밖으로 나간다. 밖에서 안으로 들어오는 권한이 필요 없다.</text>
 
-  <!-- 범례 (Legend) -->
-  <rect x="30" y="20" width="820" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <circle cx="50" cy="40" r="6" fill="#2563eb"/>
-  <text x="64" y="44.5" font-size="12" fill="#1f2933">CI/빌드 흐름</text>
-  <circle cx="170" cy="40" r="6" fill="#7c3aed"/>
-  <text x="184" y="44.5" font-size="12" fill="#1f2933">GitOps 동기화 (Pull)</text>
-  <circle cx="340" cy="40" r="6" fill="#d97706"/>
-  <text x="354" y="44.5" font-size="12" fill="#1f2933">복구 / 되돌림</text>
-  <circle cx="470" cy="40" r="6" fill="#059669"/>
-  <text x="484" y="44.5" font-size="12" fill="#1f2933">운영 클러스터 내부</text>
+  <!-- 클러스터 밖 -->
+  <text x="24" y="106" font-size="15" font-weight="bold" fill="#4b5563">클러스터 밖</text>
 
-  <!-- 왼쪽 외부 컴포넌트들 -->
+  <rect x="24" y="118" width="160" height="100" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="2"/>
+  <text x="104" y="174" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">앱 코드 저장소</text>
 
-  <!-- 1. 앱 코드 저장소 -->
-  <rect x="40" y="80" width="230" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="155" y="109.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">앱 코드 저장소</text>
+  <line x1="186" y1="168" x2="240" y2="168" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="214" y="158" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">push</text>
 
-  <!-- 화살표: 앱 코드 저장소 -> CI 파이프라인 (push) -->
-  <path d="M155,130 L155,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="135" y="142" width="40" height="18" fill="#ffffff" rx="3"/>
-  <text x="155" y="155.025" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">push</text>
+  <rect x="244" y="118" width="210" height="100" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="349" y="150" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">CI 파이프라인</text>
+  <text x="349" y="178" font-size="15" fill="#374151" text-anchor="middle">빌드 → 테스트</text>
+  <text x="349" y="202" font-size="15" fill="#374151" text-anchor="middle">이미지 push</text>
 
-  <!-- 2. CI 파이프라인 -->
-  <rect x="40" y="170" width="230" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="155" y="194.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">CI 파이프라인</text>
-  <text x="155" y="222.025" font-size="11.5" fill="#52606d" text-anchor="middle">빌드 → 테스트</text>
-  <text x="155" y="247.025" font-size="11.5" fill="#52606d" text-anchor="middle">이미지 push</text>
+  <line x1="456" y1="168" x2="636" y2="168" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="547" y="158" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">이미지 태그 갱신 커밋</text>
 
-  <!-- 화살표: CI 파이프라인 -> 매니페스트 저장소 (이미지 태그 갱신 커밋) -->
-  <path d="M155,270 L155,340" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="80" y="296" width="150" height="18" fill="#ffffff" rx="3"/>
-  <text x="155" y="309.025" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">이미지 태그 갱신 커밋</text>
+  <rect x="640" y="118" width="216" height="100" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="748" y="162" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">매니페스트 저장소</text>
+  <text x="748" y="188" font-size="15" fill="#6d28d9" text-anchor="middle">(원하는 상태)</text>
 
-  <!-- 3. 매니페스트 저장소 -->
-  <rect x="40" y="340" width="230" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="155" y="372.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">매니페스트 저장소</text>
-  <text x="155" y="397.025" font-size="11.5" fill="#52606d" text-anchor="middle">(원하는 상태)</text>
+  <!-- 운영 클러스터 -->
+  <rect x="24" y="300" width="832" height="220" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="44" y="332" font-size="18" font-weight="bold" fill="#065f46">운영 클러스터</text>
 
-  <!-- 오른쪽: 운영 클러스터 영역 -->
-  <rect x="330" y="80" width="520" height="420" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <text x="590" y="105.6" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">운영 클러스터</text>
+  <rect x="572" y="346" width="264" height="150" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="704" y="376" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">GitOps 에이전트</text>
+  <text x="704" y="400" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">(ArgoCD)</text>
+  <line x1="588" y1="416" x2="820" y2="416" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="590" y="444" font-size="15" fill="#111827">① Git을 폴링/웹훅으로 감지</text>
+  <text x="590" y="472" font-size="15" fill="#111827">② 원하는 상태와 실제 상태 비교</text>
 
-  <!-- 클러스터 내부: GitOps 에이전트 -->
-  <rect x="360" y="125" width="240" height="120" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="480" y="149.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">GitOps</text>
-  <text x="480" y="171.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">에이전트</text>
-  <text x="480" y="193.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">(ArgoCD)</text>
+  <rect x="44" y="392" width="300" height="66" rx="8" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="194" y="431" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Deployment / Service / ...</text>
 
-  <text x="375" y="214.025" font-size="11.5" fill="#52606d">① Git을 폴링/웹훅으로 감지</text>
-  <text x="375" y="231.025" font-size="11.5" fill="#52606d">② 원하는 상태와 실제 상태 비교</text>
+  <line x1="570" y1="425" x2="348" y2="425" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
+  <text x="458" y="413" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">③ 다르면 apply</text>
 
-  <!-- 화살표: GitOps 에이전트 -> Deployment / Service / ... (③ 다르면 apply) -->
-  <path d="M480,245 L480,330" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="420" y="278" width="120" height="18" fill="#ffffff" rx="3"/>
-  <text x="480" y="291.025" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">③ 다르면 apply</text>
+  <!-- pull: 에이전트 → 매니페스트 저장소 (안 → 밖) -->
+  <line x1="800" y1="344" x2="800" y2="222" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ap)"/>
+  <text x="812" y="268" font-size="16" font-weight="bold" fill="#6d28d9">pull</text>
 
-  <!-- 클러스터 내부: Deployment / Service / ... -->
-  <rect x="360" y="330" width="460" height="60" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="590" y="364.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Deployment / Service / ...</text>
+  <!-- 드리프트 발생 시 되돌림 (안 → 밖) -->
+  <path d="M260,390 L260,262 L690,262 L690,222" fill="none" stroke="#b45309" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#ao)"/>
+  <text x="475" y="252" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">드리프트 발생 시 되돌림 (원하는 상태 쪽으로)</text>
 
-  <!-- 화살표: Deployment / Service / ... -> 매니페스트 저장소 (pull) -->
-  <path d="M360,380 L270,380" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="290" y="371" width="50" height="18" fill="#ffffff" rx="3"/>
-  <text x="315" y="384.025" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">pull</text>
+  <!-- 이 구조로 얻는 것 -->
+  <text x="24" y="562" font-size="17" font-weight="bold" fill="#111827">이 구조로 얻는 것</text>
 
-  <!-- 화살표: Deployment / Service / ... -> 매니페스트 저장소 (드리프트 발생 시 되돌림) -->
-  <path d="M590,390 L590,460 L155,460 L155,420" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-  <rect x="300" y="451" width="180" height="18" fill="#ffffff" rx="3"/>
-  <text x="390" y="464.025" font-size="11.5" font-weight="bold" fill="#d97706" text-anchor="middle">드리프트 발생 시 되돌림</text>
+  <rect x="24" y="578" width="408" height="98" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="40" y="606" font-size="16" font-weight="bold" fill="#1d4ed8">자격증명</text>
+  <text x="40" y="632" font-size="15" fill="#374151">CI에는 클러스터 권한이 필요 없음</text>
+  <text x="40" y="656" font-size="15" fill="#374151">이미지 레지스트리 push·매니페스트 커밋 권한만</text>
 
-  <!-- 하단 강조 박스 (핵심 메시지) -->
-  <rect x="40" y="520" width="800" height="50" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="549.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">핵심: 화살표가 클러스터 안에서 밖으로 나간다. 밖에서 안으로 들어오는 권한이 필요 없다.</text>
+  <rect x="448" y="578" width="408" height="98" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="464" y="606" font-size="16" font-weight="bold" fill="#b45309">드리프트</text>
+  <text x="464" y="632" font-size="15" fill="#374151">에이전트가 계속 비교해 차이가 즉시 드러남</text>
+  <text x="464" y="656" font-size="15" fill="#374151">자가 치유를 켜두면 자동으로 되돌아감</text>
 
-  <!-- 하단 세부 설명 텍스트 (문맥상 전달되는 내용 지원) -->
-  <line x1="40" y1="595" x2="840" y2="595" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <text x="40" y="625.6" font-size="14" font-weight="bold" fill="#1f2933">GitOps 주요 특징 요약</text>
+  <rect x="24" y="692" width="408" height="98" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="40" y="720" font-size="16" font-weight="bold" fill="#6d28d9">감사 추적 · 롤백</text>
+  <text x="40" y="746" font-size="15" fill="#374151">누가 언제 무엇을 왜 바꿨나 → Git 커밋과 PR</text>
+  <text x="40" y="770" font-size="15" fill="#374151">git revert 후 에이전트가 조정하면 이전 상태로</text>
 
-  <text x="40" y="652.025" font-size="11.5" fill="#52606d">• <tspan font-weight="bold" fill="#1f2933">자격증명 보호:</tspan> CI는 클러스터 직접 접근 권한이 없으며, 이미지 push 및 매니페스트 커밋 권한만 소유합니다.</text>
-  <text x="40" y="677.025" font-size="11.5" fill="#52606d">• <tspan font-weight="bold" fill="#1f2933">자동 드리프트 감지:</tspan> 에이전트가 상태 변경을 감시하여 원복(자가 치유)을 자동 수행합니다.</text>
-  <text x="40" y="702.025" font-size="11.5" fill="#52606d">• <tspan font-weight="bold" fill="#1f2933">감사 추적 및 롤백:</tspan> 변경 내역이 Git 커밋으로 추적되며 git revert로 즉각 롤백이 가능합니다.</text>
-  <text x="40" y="727.025" font-size="11.5" fill="#52606d">• <tspan font-weight="bold" fill="#1f2933">저장소 분리:</tspan> 앱 코드와 매니페스트 저장소를 분리하여 불필요한 빌드 및 권한 오용을 방지합니다.</text>
+  <rect x="448" y="692" width="408" height="98" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="464" y="720" font-size="16" font-weight="bold" fill="#047857">저장소 분리</text>
+  <text x="464" y="746" font-size="15" fill="#374151">앱 코드 저장소와 매니페스트 저장소를 따로 둠</text>
+  <text x="464" y="770" font-size="15" fill="#374151">앱 CI 낭비 방지 · 권한 분리 · 커밋 이력 = 배포 이력</text>
 </svg>

@@ -1,92 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">헬스체크가 감지 시간을 결정한다</title>
-  <desc id="d">장애 발생 시 헬스체크 실패에 따른 unhealthy 판정, 감지 시간, 로드 밸런서 제외 및 실제 복구 시간을 나타내는 타임라인 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">헬스체크 실패부터 실제 복구까지의 타임라인</title>
+  <desc id="d">t=10s에 장애가 나면 5초 간격 헬스체크가 3번 실패한 t=25s에 unhealthy로 판정된다. 감지 시간은 interval × threshold + timeout 정도이고, 실제 복구 시간은 감지, 전환, 전파(TTL, 커넥션 재수립)를 더한 값이다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="570" fill="#ffffff"/>
+  <rect width="880" height="610" fill="#ffffff"/>
 
-  <!-- 메인 타임라인 수직선 -->
-  <path d="M 120,40 L 120,490" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+  <!-- 단계 구간 (감지 / 전환 / 전파) -->
+  <rect x="24" y="74" width="832" height="226" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="24" y="318" width="832" height="94" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <rect x="24" y="430" width="832" height="48" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
 
-  <!-- t=0 정상 응답 중 -->
-  <rect x="30" y="40" width="60" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="60" y="57" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">t=0</text>
-  <circle cx="120" cy="53" r="5" fill="#059669"/>
-  <text x="145" y="57.5" font-size="13" font-weight="bold" fill="#059669">정상 응답 중</text>
+  <text x="836" y="194" font-size="20" font-weight="bold" fill="#92400e" text-anchor="end">감지</text>
+  <text x="836" y="372" font-size="20" font-weight="bold" fill="#1d4ed8" text-anchor="end">전환</text>
+  <text x="836" y="461" font-size="20" font-weight="bold" fill="#374151" text-anchor="end">전파</text>
 
-  <!-- t=10s 장애 발생 -->
-  <rect x="30" y="85" width="60" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="60" y="102" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">t=10s</text>
-  <circle cx="120" cy="98" r="5" fill="#dc2626"/>
-  <text x="145" y="102.5" font-size="13" font-weight="bold" fill="#dc2626">장애 발생 (프로세스가 응답을 멈춤)</text>
+  <!-- 시간축 -->
+  <path d="M120,48 L120,412" stroke="#374151" stroke-width="2.5" fill="none"/>
+  <path d="M120,412 L120,474" stroke="#374151" stroke-width="2.5" stroke-dasharray="5 4" fill="none" marker-end="url(#ax)"/>
 
-  <!-- 감지 시간 영역 (t=10s ~ t=25s) 배경 박스 -->
-  <rect x="180" y="130" width="660" height="150" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6 4"/>
-  
-  <!-- 헬스체크 트리가지 연결선 -->
-  <path d="M 120,150 L 210,150" stroke="#d97706" stroke-width="1.5" fill="none"/>
-  <path d="M 210,150 L 210,230" stroke="#d97706" stroke-width="1.5" fill="none"/>
-  <path d="M 210,150 L 230,150" stroke="#d97706" stroke-width="1.5" fill="none"/>
-  <path d="M 210,190 L 230,190" stroke="#d97706" stroke-width="1.5" fill="none"/>
-  <path d="M 210,230 L 230,230" stroke="#d97706" stroke-width="1.5" fill="none"/>
+  <!-- 시각 라벨 -->
+  <g font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">
+    <text x="96" y="54">t=0</text>
+    <text x="96" y="104">t=10s</text>
+    <text x="96" y="148">t=15s</text>
+    <text x="96" y="192">t=20s</text>
+    <text x="96" y="236">t=25s</text>
+    <text x="96" y="348">t=25s</text>
+    <text x="96" y="392">t=25s~</text>
+    <text x="96" y="460">t=?</text>
+  </g>
 
-  <!-- t=15s 헬스체크 1차 실패 -->
-  <rect x="30" y="137" width="60" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="60" y="154" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">t=15s</text>
-  <text x="238" y="154.5" font-size="13" font-weight="bold" fill="#1f2933">├── 헬스체크 1차 실패</text>
-  <text x="415" y="154.5" font-size="13" fill="#52606d">(interval 5s, timeout 2s)</text>
+  <!-- 축 위 표식 -->
+  <circle cx="120" cy="48" r="6" fill="#047857"/>
+  <circle cx="120" cy="98" r="9" fill="#ffffff"/>
+  <path d="M114,92 L126,104 M126,92 L114,104" stroke="#b91c1c" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <circle cx="120" cy="142" r="7" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+  <path d="M117,139 L123,145 M123,139 L117,145" stroke="#b45309" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <circle cx="120" cy="186" r="7" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+  <path d="M117,183 L123,189 M123,183 L117,189" stroke="#b45309" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+  <circle cx="120" cy="230" r="8" fill="#b45309"/>
+  <path d="M116.5,226.5 L123.5,233.5 M123.5,226.5 L116.5,233.5" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <circle cx="120" cy="342" r="6" fill="#1d4ed8"/>
+  <circle cx="120" cy="386" r="6" fill="#1d4ed8"/>
+  <circle cx="120" cy="454" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
 
-  <!-- t=20s 2차 실패 -->
-  <rect x="30" y="177" width="60" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="60" y="194" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">t=20s</text>
-  <text x="238" y="194.5" font-size="13" font-weight="bold" fill="#1f2933">├── 2차 실패</text>
+  <!-- 사건 -->
+  <text x="144" y="54" font-size="16" font-weight="bold" fill="#047857">정상 응답 중</text>
+  <text x="144" y="104" font-size="16" fill="#1f2937"><tspan font-weight="bold" fill="#b91c1c">장애 발생</tspan> (프로세스가 응답을 멈춤)</text>
+  <text x="144" y="148" font-size="16" fill="#1f2937"><tspan font-weight="bold">헬스체크 1차 실패</tspan><tspan dx="14" font-size="15" fill="#4b5563">(interval 5s, timeout 2s)</tspan></text>
+  <text x="144" y="192" font-size="16" font-weight="bold" fill="#1f2937">2차 실패</text>
+  <text x="144" y="236" font-size="16" fill="#1f2937"><tspan font-weight="bold">3차 실패 → </tspan><tspan font-weight="bold" fill="#b91c1c">unhealthy 판정</tspan><tspan dx="14" font-size="15" fill="#4b5563">(unhealthy threshold = 3)</tspan></text>
 
-  <!-- t=25s 3차 실패 -->
-  <rect x="30" y="217" width="60" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="60" y="234" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">t=25s</text>
-  <text x="238" y="234.5" font-size="13" font-weight="bold" fill="#dc2626">└── 3차 실패 → unhealthy 판정</text>
-  <text x="495" y="234.5" font-size="13" fill="#52606d">(unhealthy threshold = 3)</text>
+  <rect x="136" y="256" width="496" height="34" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+  <text x="152" y="279" font-size="16" font-weight="bold" fill="#92400e">↑ 여기까지가 "감지 시간" ≒ interval × threshold + timeout</text>
 
-  <!-- "감지 시간" 주석 화살표 및 라벨 -->
-  <path d="M 260,265 L 200,265" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="270" y="269.5" font-size="13" font-weight="bold" fill="#d97706">여기까지가 "감지 시간" ≒ interval × threshold + timeout</text>
+  <text x="144" y="348" font-size="16" fill="#1f2937">로드 밸런서가 해당 타깃을 제외 → 트래픽이 정상 타깃으로</text>
+  <text x="144" y="392" font-size="16" fill="#1f2937"><tspan fill="#4b5563">(DB라면)</tspan> Standby 승격 + 엔드포인트 전환</text>
 
-  <!-- 타임라인 중앙 하향 화살표 -->
-  <path d="M 120,285 L 120,310" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <text x="144" y="460" font-size="16" fill="#1f2937">클라이언트/리졸버의 DNS 캐시가 만료될 때까지 옛 주소로 갈 수 있음 (TTL)</text>
 
-  <!-- t=25s 로드 밸런서 타깃 제외 -->
-  <rect x="30" y="312" width="60" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="60" y="329" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">t=25s</text>
-  <circle cx="120" cy="325" r="5" fill="#2563eb"/>
-  <text x="145" y="329.5" font-size="13" fill="#1f2933">로드 밸런서가 해당 타깃을 제외 → 트래픽이 정상 타깃으로</text>
-
-  <!-- t=25s~ Standby 승격 -->
-  <rect x="30" y="352" width="60" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="60" y="369" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">t=25s~</text>
-  <circle cx="120" cy="365" r="5" fill="#2563eb"/>
-  <text x="145" y="369.5" font-size="13" fill="#1f2933">(DB라면) Standby 승격 + 엔드포인트 전환</text>
-
-  <!-- t=? DNS 캐시 만료 -->
-  <rect x="30" y="392" width="60" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="60" y="409" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">t=?</text>
-  <circle cx="120" cy="405" r="5" fill="#52606d"/>
-  <text x="145" y="409.5" font-size="13" fill="#1f2933">클라이언트/리졸버의 DNS 캐시가 만료될 때까지 옛 주소로 갈 수 있음 (TTL)</text>
-
-  <!-- 구획 구분선 -->
-  <path d="M 30,445 L 850,445" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="5 4" fill="none"/>
-
-  <!-- 하단 요약 박스 -->
-  <rect x="30" y="470" width="820" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="505" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">실제 복구 시간 = 감지 + 전환 + 전파(TTL, 커넥션 재수립)</text>
+  <!-- 실제 복구 시간 공식 -->
+  <rect x="24" y="500" width="832" height="86" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <rect x="125" y="521" width="140" height="44" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="195" y="549" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">실제 복구 시간</text>
+  <text x="283" y="550" font-size="20" font-weight="bold" fill="#1f2937" text-anchor="middle">=</text>
+  <rect x="301" y="521" width="76" height="44" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="339" y="549" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">감지</text>
+  <text x="395" y="550" font-size="20" font-weight="bold" fill="#1f2937" text-anchor="middle">+</text>
+  <rect x="413" y="521" width="76" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="451" y="549" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">전환</text>
+  <text x="507" y="550" font-size="20" font-weight="bold" fill="#1f2937" text-anchor="middle">+</text>
+  <rect x="525" y="521" width="230" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="640" y="549" font-size="17" font-weight="bold" fill="#374151" text-anchor="middle">전파(TTL, 커넥션 재수립)</text>
 </svg>

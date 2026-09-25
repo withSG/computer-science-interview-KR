@@ -1,52 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">LoadBalancer externalTrafficPolicy 비교</title>
-  <desc id="d">Cluster 기본 모드와 Local 모드의 차이점 비교 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">externalTrafficPolicy 비교</title>
+  <desc id="d">Cluster(기본)는 어느 노드로 들어와도 클러스터 전체 Pod에 분산해 부하는 고르지만 노드 간 홉이 한 번 더 생기고 클라이언트 원본 IP가 가려진다. Local은 들어온 노드에 있는 Pod로만 전달해 원본 IP가 보존되고 홉이 없지만 노드별 Pod 개수가 다르면 부하가 치우친다.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Cluster Section -->
-  <g transform="translate(30, 30)">
-    <!-- Header Badge -->
-    <rect x="0" y="0" width="130" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="65" y="21.2" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Cluster (기본)</text>
+  <text x="24" y="42" font-size="17" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">externalTrafficPolicy</tspan> 값에 따른 차이</text>
 
-    <!-- Colon -->
-    <text x="140" y="21.2" font-size="14" font-weight="bold" fill="#1f2933">:</text>
+  <!-- ══ Cluster (기본) -->
+  <rect x="24" y="60" width="408" height="476" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="44" y="94" font-size="20" font-weight="bold" fill="#1d4ed8">Cluster (기본)</text>
+  <text x="44" y="124" font-size="16" fill="#111827">어느 노드로 들어와도 클러스터 전체 Pod에 분산</text>
 
-    <!-- First Line -->
-    <text x="155" y="21.2" font-size="13" fill="#1f2933">어느 노드로 들어와도 클러스터 전체 Pod에 분산</text>
+  <rect x="57" y="146" width="104" height="34" rx="17" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="109" y="168" font-size="15" fill="#111827" text-anchor="middle">클라이언트</text>
 
-    <!-- Arrow & Bullet Points -->
-    <path d="M155,52 L170,52" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    
-    <text x="180" y="56.55" font-size="13" fill="#52606d">부하는 고르지만 노드 간 홉이 한 번 더 생기고</text>
-    <text x="180" y="81.55" font-size="13" fill="#52606d">클라이언트 원본 IP가 가려진다</text>
-  </g>
+  <rect x="44" y="206" width="130" height="110" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+  <rect x="254" y="206" width="158" height="110" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="109" y1="182" x2="109" y2="263" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <circle cx="109" cy="234" r="4" fill="#b45309"/>
+  <path d="M113,234 H366 V263" fill="none" stroke="#b45309" stroke-width="2" marker-end="url(#aha)"/>
+  <line x1="300" y1="234" x2="300" y2="263" stroke="#b45309" stroke-width="2" marker-end="url(#aha)"/>
+  <text x="214" y="225" font-size="14" font-weight="bold" fill="#b45309" text-anchor="middle">추가 홉</text>
 
-  <!-- Divider Line -->
-  <line x1="30" y1="160" x2="850" y2="160" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="79" y="266" width="60" height="32" rx="5" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+  <text x="109" y="288" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Pod</text>
+  <rect x="270" y="266" width="60" height="32" rx="5" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+  <text x="300" y="288" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Pod</text>
+  <rect x="336" y="266" width="60" height="32" rx="5" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+  <text x="366" y="288" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Pod</text>
+  <text x="109" y="340" font-size="15" fill="#111827" text-anchor="middle">노드 A (들어온 노드)</text>
+  <text x="333" y="340" font-size="15" fill="#111827" text-anchor="middle">노드 B</text>
 
-  <!-- Local Section -->
-  <g transform="translate(30, 190)">
-    <!-- Header Badge -->
-    <rect x="0" y="0" width="130" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="65" y="21.2" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Local</text>
+  <line x1="40" y1="360" x2="416" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="40" y="374" width="376" height="44" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="52" y="383" width="48" height="26" rx="4" fill="#d1fae5"/>
+  <text x="76" y="401" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">장점</text>
+  <text x="112" y="402" font-size="15" fill="#111827">부하가 고르다</text>
 
-    <!-- Colon -->
-    <text x="140" y="21.2" font-size="14" font-weight="bold" fill="#1f2933">:</text>
+  <rect x="40" y="428" width="376" height="44" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="52" y="437" width="48" height="26" rx="4" fill="#fee2e2"/>
+  <text x="76" y="455" font-size="14" font-weight="bold" fill="#991b1b" text-anchor="middle">단점</text>
+  <text x="112" y="456" font-size="15" fill="#111827">노드 간 홉이 한 번 더 생긴다</text>
 
-    <!-- First Line -->
-    <text x="155" y="21.2" font-size="13" fill="#1f2933">들어온 노드에 있는 Pod로만 전달</text>
+  <rect x="40" y="482" width="376" height="44" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="52" y="491" width="48" height="26" rx="4" fill="#fee2e2"/>
+  <text x="76" y="509" font-size="14" font-weight="bold" fill="#991b1b" text-anchor="middle">단점</text>
+  <text x="112" y="510" font-size="15" fill="#111827">클라이언트 원본 IP가 가려진다</text>
 
-    <!-- Arrow & Bullet Points -->
-    <path d="M155,52 L170,52" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    
-    <text x="180" y="56.55" font-size="13" fill="#52606d">원본 IP가 보존되고 홉이 없지만,</text>
-    <text x="180" y="81.55" font-size="13" fill="#52606d">노드별 Pod 개수가 다르면 부하가 치우친다</text>
-  </g>
+  <!-- ══ Local -->
+  <rect x="448" y="60" width="408" height="476" rx="10" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="468" y="94" font-size="20" font-weight="bold" fill="#047857">Local</text>
+  <text x="468" y="124" font-size="16" fill="#111827">들어온 노드에 있는 Pod로만 전달</text>
+
+  <rect x="481" y="146" width="104" height="34" rx="17" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="533" y="168" font-size="15" fill="#111827" text-anchor="middle">클라이언트</text>
+
+  <rect x="468" y="206" width="130" height="110" rx="8" fill="#ecfdf5" stroke="#34d399" stroke-width="1.5"/>
+  <rect x="678" y="206" width="158" height="110" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="533" y1="182" x2="533" y2="263" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+
+  <rect x="503" y="266" width="60" height="32" rx="5" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+  <text x="533" y="288" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Pod</text>
+  <rect x="694" y="266" width="60" height="32" rx="5" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+  <text x="724" y="288" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Pod</text>
+  <rect x="760" y="266" width="60" height="32" rx="5" fill="#ffffff" stroke="#374151" stroke-width="1.2"/>
+  <text x="790" y="288" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">Pod</text>
+  <text x="533" y="340" font-size="15" fill="#111827" text-anchor="middle">노드 A (들어온 노드)</text>
+  <text x="757" y="340" font-size="15" fill="#111827" text-anchor="middle">노드 B</text>
+
+  <line x1="464" y1="360" x2="840" y2="360" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="464" y="374" width="376" height="44" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="476" y="383" width="48" height="26" rx="4" fill="#fee2e2"/>
+  <text x="500" y="401" font-size="14" font-weight="bold" fill="#991b1b" text-anchor="middle">단점</text>
+  <text x="536" y="402" font-size="15" fill="#111827">노드별 Pod 개수가 다르면 부하가 치우친다</text>
+
+  <rect x="464" y="428" width="376" height="44" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="476" y="437" width="48" height="26" rx="4" fill="#d1fae5"/>
+  <text x="500" y="455" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">장점</text>
+  <text x="536" y="456" font-size="15" fill="#111827">홉이 없다</text>
+
+  <rect x="464" y="482" width="376" height="44" rx="6" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="476" y="491" width="48" height="26" rx="4" fill="#d1fae5"/>
+  <text x="500" y="509" font-size="14" font-weight="bold" fill="#065f46" text-anchor="middle">장점</text>
+  <text x="536" y="510" font-size="15" fill="#111827">원본 IP가 보존된다</text>
 </svg>

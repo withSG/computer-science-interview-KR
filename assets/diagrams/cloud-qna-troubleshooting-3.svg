@@ -1,36 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">면접 답변 예시</title>
-  <desc id="d">결제 API 타임아웃 장애의 진단, 원인, 해결 및 결과를 나타낸 구조화된 다이어그램</desc>
-  <rect width="880" height="630" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">커넥션 고갈 답변 예시</title>
+  <desc id="d">결제 API 간헐적 타임아웃 사례를 진단, 원인, 해결, 결과 순서로 정리한 면접 답변 흐름으로, 인덱스 추가로 조회가 20초에서 0.1초로 줄고 조회 성능이 200배 개선된 결과를 강조한다.</desc>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect width="880" height="600" fill="#ffffff"/>
 
-  <!-- 메인 제목 -->
-  <text x="40" y="44.6" font-size="16" font-weight="bold" fill="#1f2933">면접 답변 예시</text>
+  <!-- 도입 문장 -->
+  <rect x="24" y="24" width="832" height="56" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="44" y="58" font-size="17" font-weight="bold" fill="#111827">"결제 API에서 간헐적으로 타임아웃이 발생했습니다.</text>
 
-  <!-- 메인 발언 상자 (큰따옴표 포함 문구) -->
-  <rect x="40" y="60" width="800" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="96.55" font-size="13" fill="#1f2933">"결제 API에서 간헐적으로 타임아웃이 발생했습니다.</text>
+  <line x1="80" y1="84" x2="80" y2="106" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Section 1: 진단 (주황/경고 계열) -->
-  <rect x="40" y="140" width="800" height="120" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="60" y="169.9" font-size="14" font-weight="bold" fill="#d97706">진단:</text>
-  <text x="60" y="194.55" font-size="13" fill="#1f2933">1. 에러 로그에서 'Connection pool exhausted' 확인</text>
-  <text x="60" y="219.55" font-size="13" fill="#1f2933">2. DB processlist 확인 → 대부분 Query 상태로 장시간 실행 중</text>
-  <text x="60" y="244.55" font-size="13" fill="#1f2933">3. 슬로우 쿼리 로그 → 특정 조회 쿼리 20초 소요</text>
+  <!-- 진단 (Y=112, H=120) -->
+  <rect x="24" y="112" width="112" height="120" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="80" y="178.5" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">진단</text>
+  <rect x="152" y="112" width="704" height="120" rx="8" fill="#ffffff" stroke="#b45309" stroke-width="1.2"/>
+  <text x="176" y="146" font-size="16" fill="#111827">1. 에러 로그에서 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'Connection pool exhausted'</tspan> 확인</text>
+  <text x="176" y="176" font-size="16" fill="#111827">2. DB processlist 확인 → 대부분 Query 상태로 장시간 실행 중</text>
+  <text x="176" y="206" font-size="16" fill="#111827">3. 슬로우 쿼리 로그 → 특정 조회 쿼리 20초 소요</text>
 
-  <!-- Section 2: 원인 (빨강/문제 계열) -->
-  <rect x="40" y="280" width="800" height="70" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="60" y="309.9" font-size="14" font-weight="bold" fill="#dc2626">원인:</text>
-  <text x="60" y="334.55" font-size="13" fill="#1f2933">결제 내역 조회 시 1년치 데이터를 풀스캔하고 있었음</text>
+  <line x1="80" y1="236" x2="80" y2="258" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Section 3: 해결 (파랑/조치 계열) -->
-  <rect x="40" y="370" width="800" height="120" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="399.9" font-size="14" font-weight="bold" fill="#2563eb">해결:</text>
-  <text x="60" y="424.55" font-size="13" fill="#1f2933">1. 날짜 컬럼에 인덱스 추가 (20초 → 0.1초)</text>
-  <text x="60" y="449.55" font-size="13" fill="#1f2933">2. HikariCP leak detection 활성화</text>
-  <text x="60" y="474.55" font-size="13" fill="#1f2933">3. 커넥션 풀 모니터링 대시보드 추가</text>
+  <!-- 원인 (Y=264, H=60) -->
+  <rect x="24" y="264" width="112" height="60" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="80" y="300.5" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">원인</text>
+  <rect x="152" y="264" width="704" height="60" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+  <text x="176" y="300" font-size="16" fill="#111827">결제 내역 조회 시 1년치 데이터를 풀스캔하고 있었음</text>
 
-  <!-- Section 4: 결과 (초록/성공 계열) -->
-  <rect x="40" y="510" width="800" height="90" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="60" y="539.9" font-size="14" font-weight="bold" fill="#059669">결과:</text>
-  <text x="60" y="564.55" font-size="13" fill="#1f2933">커넥션 고갈 재발 없음, 조회 성능 200배 개선"</text>
+  <line x1="80" y1="328" x2="80" y2="350" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 해결 (Y=356, H=120) -->
+  <rect x="24" y="356" width="112" height="120" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="80" y="422.5" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">해결</text>
+  <rect x="152" y="356" width="704" height="120" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="176" y="390" font-size="16" fill="#111827">1. 날짜 컬럼에 인덱스 추가 <tspan font-weight="bold" fill="#1d4ed8">(20초 → 0.1초)</tspan></text>
+  <text x="176" y="420" font-size="16" fill="#111827">2. HikariCP leak detection 활성화</text>
+  <text x="176" y="450" font-size="16" fill="#111827">3. 커넥션 풀 모니터링 대시보드 추가</text>
+
+  <line x1="80" y1="480" x2="80" y2="502" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- 결과 (Y=508, H=60) -->
+  <rect x="24" y="508" width="112" height="60" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="80" y="544.5" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">결과</text>
+  <rect x="152" y="508" width="704" height="60" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+  <text x="176" y="544" font-size="16" fill="#111827">커넥션 고갈 재발 없음, 조회 성능 <tspan font-weight="bold" fill="#047857">200배 개선</tspan>"</text>
 </svg>

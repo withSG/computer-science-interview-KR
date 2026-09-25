@@ -1,75 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">메시지 전송 흐름</title>
-  <desc id="d">1:1 채팅 메시지 전송 흐름과 그룹 채팅 처리 방식을 설명하는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 452" width="880" height="452" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">채팅 메시지 전송 흐름</title>
+  <desc id="d">1:1 채팅은 User A → Gateway Server 1 → Kafka → Gateway Server 2 → User B 순서로 전달되고, 두 Gateway 서버가 Cassandra에 저장합니다. 그룹 채팅은 멤버 목록 조회, 각 멤버의 Gateway 서버 확인, 병렬 전달 세 단계입니다.</desc>
+  <rect width="880" height="452" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 1:1 채팅 Section Label -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">1:1 채팅:</text>
+  <!-- 1:1 채팅 -->
+  <text x="24" y="44" font-size="18" font-weight="bold" fill="#111827">1:1 채팅</text>
 
-  <!-- Flow Line Background Path for Gateway to Cassandra -->
-  <path d="M250,110 L250,160 L440,160 L440,195" stroke="#059669" stroke-width="1.5" fill="none"/>
-  <path d="M630,110 L630,160 L440,160" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="24" y="64" width="112" height="64" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="80" y="102" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">User A</text>
 
-  <!-- Arrows between Main Sequence -->
-  <path d="M120,80 L188,80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M310,80 L378,80" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M500,80 L568,80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M690,80 L758,80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="180" y="64" width="150" height="64" rx="8" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="255" y="91" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">Gateway</text>
+  <text x="255" y="113" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">Server 1</text>
 
-  <!-- User A Box -->
-  <rect x="30" y="50" width="90" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="75" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">User A</text>
+  <rect x="374" y="64" width="132" height="64" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="440" y="102" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">Kafka</text>
 
-  <!-- Gateway Server 1 Box -->
-  <rect x="190" y="50" width="120" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="250" y="74.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Gateway</text>
-  <text x="250" y="94.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Server 1</text>
+  <rect x="550" y="64" width="150" height="64" rx="8" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="625" y="91" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">Gateway</text>
+  <text x="625" y="113" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">Server 2</text>
 
-  <!-- Kafka Box -->
-  <rect x="380" y="50" width="120" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Kafka</text>
+  <rect x="744" y="64" width="112" height="64" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="800" y="102" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">User B</text>
 
-  <!-- Gateway Server 2 Box -->
-  <rect x="570" y="50" width="120" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="630" y="74.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Gateway</text>
-  <text x="630" y="94.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Server 2</text>
+  <line x1="136" y1="96" x2="178" y2="96" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="330" y1="96" x2="372" y2="96" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="506" y1="96" x2="548" y2="96" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="700" y1="96" x2="742" y2="96" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- User B Box -->
-  <rect x="760" y="50" width="90" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="805" y="84.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">User B</text>
+  <!-- Gateway → Cassandra -->
+  <path d="M255,128 V172 H400 V206" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-g)"/>
+  <path d="M625,128 V172 H480 V206" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-g)"/>
 
-  <!-- Cassandra Box -->
-  <rect x="370" y="200" width="140" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="228.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Cassandra</text>
-  <text x="440" y="252.55" font-size="13" fill="#52606d" text-anchor="middle">(저장)</text>
+  <rect x="360" y="208" width="160" height="64" rx="8" fill="#ecfdf5" stroke="#34d399" stroke-width="1.5"/>
+  <text x="440" y="235" text-anchor="middle" font-size="16" font-weight="bold" fill="#111827">Cassandra</text>
+  <text x="440" y="259" text-anchor="middle" font-size="16" fill="#047857">(저장)</text>
 
-  <line x1="30" y1="310" x2="850" y2="310" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="24" y1="304" x2="856" y2="304" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="6 6"/>
 
-  <!-- 그룹 채팅 Section Label -->
-  <text x="30" y="350" font-size="16" font-weight="bold" fill="#1f2933">그룹 채팅:</text>
+  <!-- 그룹 채팅 -->
+  <text x="24" y="344" font-size="18" font-weight="bold" fill="#111827">그룹 채팅</text>
 
-  <!-- List Items -->
-  <circle cx="40" cy="380" r="3" fill="#52606d"/>
-  <text x="52" y="384.55" font-size="13" fill="#1f2933">- 그룹 멤버 목록 조회</text>
+  <rect x="24" y="364" width="230" height="64" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="54" cy="396" r="14" fill="#1d4ed8"/>
+  <text x="54" y="401" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">1</text>
+  <text x="78" y="402" font-size="16" fill="#1f2937">그룹 멤버 목록 조회</text>
 
-  <circle cx="40" cy="410" r="3" fill="#52606d"/>
-  <text x="52" y="414.55" font-size="13" fill="#1f2933">- 각 멤버의 Gateway 서버 확인</text>
+  <rect x="298" y="364" width="290" height="64" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="328" cy="396" r="14" fill="#1d4ed8"/>
+  <text x="328" y="401" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">2</text>
+  <text x="352" y="402" font-size="16" fill="#1f2937">각 멤버의 Gateway 서버 확인</text>
 
-  <circle cx="40" cy="440" r="3" fill="#52606d"/>
-  <text x="52" y="444.55" font-size="13" fill="#1f2933">- 병렬로 메시지 전달</text>
+  <rect x="632" y="364" width="224" height="64" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="662" cy="396" r="14" fill="#1d4ed8"/>
+  <text x="662" y="401" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">3</text>
+  <text x="686" y="402" font-size="16" fill="#1f2937">병렬로 메시지 전달</text>
+
+  <line x1="254" y1="396" x2="296" y2="396" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="588" y1="396" x2="630" y2="396" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 </svg>

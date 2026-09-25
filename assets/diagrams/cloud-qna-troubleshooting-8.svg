@@ -1,47 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">트래픽 급증 대응 전략</title>
-  <desc id="d">Scale Out, 캐싱, 큐잉, 서킷 브레이커, Rate Limiting으로 구성된 트래픽 급증 대응 전략 트리 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+  <desc id="d">Scale Out(Auto Scaling, HPA), 캐싱(CDN, Redis, 애플리케이션 캐시), 큐잉(Kafka, SQS, 요청 버퍼링), 서킷 브레이커(장애 전파 차단), Rate Limiting(API 호출 제한) 다섯 가지 전략과 각각의 수단.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- 메인 프레임 (외곽 박스) -->
-  <rect x="40" y="30" width="800" height="440" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <text x="24" y="46" font-size="19" font-weight="bold" fill="#111827">트래픽 급증 대응 전략</text>
 
-  <!-- 헤더 영역 -->
-  <path d="M 40 86 L 840 86" stroke="#9aa5b1" stroke-width="2"/>
-  <text x="440" y="63" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">트래픽 급증 대응 전략</text>
+  <!-- 1. Scale Out -->
+  <rect x="24" y="72" width="306" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="56" cy="102" r="16" fill="#1d4ed8"/>
+  <text x="56" y="108" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="84" y="108" font-size="18" font-weight="bold" fill="#111827">Scale Out (수평 확장)</text>
+  <path d="M330,102 L366,102" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <rect x="366" y="84" width="130" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="431" y="108" font-size="16" fill="#1f2937" text-anchor="middle">Auto Scaling</text>
+  <rect x="508" y="84" width="64" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="540" y="108" font-size="16" fill="#1f2937" text-anchor="middle">HPA</text>
 
-  <!-- 항목 1: Scale Out -->
-  <rect x="70" y="110" width="740" height="56" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="90" y="132" font-size="13" font-weight="bold" fill="#2563eb">1. Scale Out (수평 확장)</text>
-  <!-- 트리 라인 -->
-  <path d="M 110 142 L 110 152 L 130 152" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <text x="138" y="156" font-size="11.5" fill="#52606d">Auto Scaling, HPA</text>
+  <!-- 2. 캐싱 -->
+  <rect x="24" y="146" width="306" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="56" cy="176" r="16" fill="#1d4ed8"/>
+  <text x="56" y="182" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="84" y="182" font-size="18" font-weight="bold" fill="#111827">캐싱</text>
+  <path d="M330,176 L366,176" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <rect x="366" y="158" width="66" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="399" y="182" font-size="16" fill="#1f2937" text-anchor="middle">CDN</text>
+  <rect x="444" y="158" width="74" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="481" y="182" font-size="16" fill="#1f2937" text-anchor="middle">Redis</text>
+  <rect x="530" y="158" width="164" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="612" y="182" font-size="16" fill="#1f2937" text-anchor="middle">애플리케이션 캐시</text>
 
-  <!-- 항목 2: 캐싱 -->
-  <rect x="70" y="180" width="740" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="90" y="202" font-size="13" font-weight="bold" fill="#059669">2. 캐싱</text>
-  <!-- 트리 라인 -->
-  <path d="M 110 212 L 110 222 L 130 222" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <text x="138" y="226" font-size="11.5" fill="#52606d">CDN, Redis, 애플리케이션 캐시</text>
+  <!-- 3. 큐잉 -->
+  <rect x="24" y="220" width="306" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="56" cy="250" r="16" fill="#1d4ed8"/>
+  <text x="56" y="256" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="84" y="256" font-size="18" font-weight="bold" fill="#111827">큐잉 (비동기 처리)</text>
+  <path d="M330,250 L366,250" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <rect x="366" y="232" width="76" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="404" y="256" font-size="16" fill="#1f2937" text-anchor="middle">Kafka</text>
+  <rect x="454" y="232" width="64" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="486" y="256" font-size="16" fill="#1f2937" text-anchor="middle">SQS</text>
+  <rect x="530" y="232" width="118" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="589" y="256" font-size="16" fill="#1f2937" text-anchor="middle">요청 버퍼링</text>
 
-  <!-- 항목 3: 큐잉 -->
-  <rect x="70" y="250" width="740" height="56" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="90" y="272" font-size="13" font-weight="bold" fill="#d97706">3. 큐잉 (비동기 처리)</text>
-  <!-- 트리 라인 -->
-  <path d="M 110 282 L 110 292 L 130 292" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <text x="138" y="296" font-size="11.5" fill="#52606d">Kafka, SQS, 요청 버퍼링</text>
+  <!-- 4. 서킷 브레이커 -->
+  <rect x="24" y="294" width="306" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="56" cy="324" r="16" fill="#1d4ed8"/>
+  <text x="56" y="330" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="84" y="330" font-size="18" font-weight="bold" fill="#111827">서킷 브레이커</text>
+  <path d="M330,324 L366,324" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <rect x="366" y="306" width="138" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="435" y="330" font-size="16" fill="#1f2937" text-anchor="middle">장애 전파 차단</text>
 
-  <!-- 항목 4: 서킷 브레이커 -->
-  <rect x="70" y="320" width="740" height="56" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="90" y="342" font-size="13" font-weight="bold" fill="#dc2626">4. 서킷 브레이커</text>
-  <!-- 트리 라인 -->
-  <path d="M 110 352 L 110 362 L 130 362" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <text x="138" y="366" font-size="11.5" fill="#52606d">장애 전파 차단</text>
-
-  <!-- 항목 5: Rate Limiting -->
-  <rect x="70" y="390" width="740" height="56" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="90" y="412" font-size="13" font-weight="bold" fill="#7c3aed">5. Rate Limiting</text>
-  <!-- 트리 라인 -->
-  <path d="M 110 422 L 110 432 L 130 432" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <text x="138" y="436" font-size="11.5" fill="#52606d">API 호출 제한</text>
+  <!-- 5. Rate Limiting -->
+  <rect x="24" y="368" width="306" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="56" cy="398" r="16" fill="#1d4ed8"/>
+  <text x="56" y="404" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="84" y="404" font-size="18" font-weight="bold" fill="#111827">Rate Limiting</text>
+  <path d="M330,398 L366,398" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <rect x="366" y="380" width="136" height="36" rx="18" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="434" y="404" font-size="16" fill="#1f2937" text-anchor="middle">API 호출 제한</text>
 </svg>

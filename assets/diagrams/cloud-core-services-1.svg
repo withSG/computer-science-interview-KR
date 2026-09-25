@@ -1,73 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">AWS 글로벌 인프라 동작 원리</title>
-  <desc id="d">Region ap-northeast-2 서울 내 3개의 AZ 간 저지연 전용선 연결, us-east-1 리전과의 독립성 및 Edge Location과의 관계를 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">AWS 글로벌 인프라 구조</title>
+  <desc id="d">서울 리전(ap-northeast-2) 안에 독립 전원과 독립 네트워크를 가진 AZ-a, AZ-b, AZ-c가 저지연 전용선으로 연결되어 있고, us-east-1 리전과는 완전히 독립이라 복제를 명시적으로 설정해야 하며, 전 세계의 Edge Location(CloudFront 캐시, Route 53)은 동적 요청만 리전으로 보낸다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
+  <rect width="880" height="510" fill="#ffffff"/>
 
-  <rect width="880" height="520" fill="#ffffff"/>
-
-  <!-- 상단 메인 리전 영역 (Region: ap-northeast-2 (서울)) -->
-  <rect x="30" y="30" width="820" height="300" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="58" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">Region: ap-northeast-2 (서울)</text>
+  <!-- 서울 리전 -->
+  <rect x="24" y="24" width="832" height="268" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="48" y="56" font-size="18" font-weight="bold" fill="#1d4ed8">Region: ap-northeast-2 (서울)</text>
 
   <!-- AZ-a -->
-  <rect x="60" y="80" width="220" height="170" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="170" y="109" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">AZ-a</text>
-  <text x="170" y="139" font-size="13" fill="#52606d" text-anchor="middle">(DC 묶음)</text>
-  <text x="170" y="169" font-size="13" fill="#1f2933" text-anchor="middle">독립 전원</text>
-  <text x="170" y="199" font-size="13" fill="#1f2933" text-anchor="middle">독립 네트워크</text>
+  <rect x="48" y="76" width="200" height="150" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="148" y="106" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">AZ-a</text>
+  <text x="148" y="130" font-size="15" fill="#4b5563" text-anchor="middle">(DC 묶음)</text>
+  <line x1="68" y1="146" x2="228" y2="146" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="148" y="174" font-size="15" fill="#111827" text-anchor="middle">독립 전원</text>
+  <text x="148" y="200" font-size="15" fill="#111827" text-anchor="middle">독립 네트워크</text>
 
   <!-- AZ-b -->
-  <rect x="330" y="80" width="220" height="170" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="109" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">AZ-b</text>
-  <text x="440" y="139" font-size="13" fill="#52606d" text-anchor="middle">(DC 묶음)</text>
-  <text x="440" y="169" font-size="13" fill="#1f2933" text-anchor="middle">독립 전원</text>
-  <text x="440" y="199" font-size="13" fill="#1f2933" text-anchor="middle">독립 네트워크</text>
+  <rect x="340" y="76" width="200" height="150" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="440" y="106" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">AZ-b</text>
+  <text x="440" y="130" font-size="15" fill="#4b5563" text-anchor="middle">(DC 묶음)</text>
+  <line x1="360" y1="146" x2="520" y2="146" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="440" y="174" font-size="15" fill="#111827" text-anchor="middle">독립 전원</text>
+  <text x="440" y="200" font-size="15" fill="#111827" text-anchor="middle">독립 네트워크</text>
 
   <!-- AZ-c -->
-  <rect x="600" y="80" width="220" height="170" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="710" y="109" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">AZ-c</text>
-  <text x="710" y="139" font-size="13" fill="#52606d" text-anchor="middle">(DC 묶음)</text>
-  <text x="710" y="169" font-size="13" fill="#1f2933" text-anchor="middle">독립 전원</text>
-  <text x="710" y="199" font-size="13" fill="#1f2933" text-anchor="middle">독립 네트워크</text>
+  <rect x="632" y="76" width="200" height="150" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="732" y="106" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">AZ-c</text>
+  <text x="732" y="130" font-size="15" fill="#4b5563" text-anchor="middle">(DC 묶음)</text>
+  <line x1="652" y1="146" x2="812" y2="146" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="732" y="174" font-size="15" fill="#111827" text-anchor="middle">독립 전원</text>
+  <text x="732" y="200" font-size="15" fill="#111827" text-anchor="middle">독립 네트워크</text>
 
-  <!-- AZ 간 연결 화살표 및 라벨 (a <-> b) -->
-  <path d="M280,165 L330,165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
-  <rect x="281" y="145" width="48" height="18" fill="#eff6ff"/>
-  <text x="305" y="158" font-size="11.5" fill="#2563eb" text-anchor="middle">저지연</text>
-  <rect x="281" y="167" width="48" height="18" fill="#eff6ff"/>
-  <text x="305" y="180" font-size="11.5" fill="#2563eb" text-anchor="middle">전용선</text>
+  <!-- AZ 간 저지연 전용선 -->
+  <line x1="254" y1="156" x2="334" y2="156" stroke="#1d4ed8" stroke-width="2" marker-start="url(#ab)" marker-end="url(#ab)"/>
+  <text x="294" y="144" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">저지연</text>
+  <text x="294" y="180" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">전용선</text>
 
-  <!-- AZ 간 연결 화살표 및 라벨 (b <-> c) -->
-  <path d="M550,165 L600,165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
-  <rect x="551" y="145" width="48" height="18" fill="#eff6ff"/>
-  <text x="575" y="158" font-size="11.5" fill="#2563eb" text-anchor="middle">저지연</text>
-  <rect x="551" y="167" width="48" height="18" fill="#eff6ff"/>
-  <text x="575" y="180" font-size="11.5" fill="#2563eb" text-anchor="middle">전용선</text>
+  <line x1="546" y1="156" x2="626" y2="156" stroke="#1d4ed8" stroke-width="2" marker-start="url(#ab)" marker-end="url(#ab)"/>
+  <text x="586" y="144" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">저지연</text>
+  <text x="586" y="180" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">전용선</text>
 
-  <!-- 하단 AZ 설명 텍스트 -->
-  <text x="440" y="293" font-size="13" fill="#52606d" text-anchor="middle">AZ 간 거리: 수 km ~ 수십 km(같은 리전 내) / 지연: 한 자릿수 ms</text>
+  <!-- AZ 간 거리·지연 -->
+  <text x="440" y="264" font-size="15" fill="#1f2937" text-anchor="middle"><tspan font-weight="bold">AZ 간 거리:</tspan> 수 km ~ 수십 km(같은 리전 내)<tspan dx="14" fill="#4b5563">/</tspan><tspan dx="14" font-weight="bold">지연:</tspan> 한 자릿수 ms</text>
 
-  <!-- 좌하단 Region: us-east-1 -->
-  <rect x="30" y="420" width="280" height="70" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="170" y="460" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Region: us-east-1</text>
+  <!-- 리전 간: 완전 독립 -->
+  <line x1="184" y1="298" x2="184" y2="394" stroke="#374151" stroke-width="2" stroke-dasharray="6 5" marker-start="url(#ak)" marker-end="url(#ak)"/>
+  <text x="202" y="338" font-size="16" font-weight="bold" fill="#111827">리전 간은 완전 독립</text>
+  <text x="202" y="362" font-size="15" fill="#4b5563">(복제는 명시적으로 설정해야 함)</text>
 
-  <!-- 우하단 Edge Location -->
-  <rect x="490" y="420" width="360" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="670" y="449" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Edge Location (전 세계 다수)</text>
-  <text x="670" y="474" font-size="13" fill="#52606d" text-anchor="middle">CloudFront 캐시 / Route 53</text>
+  <!-- 엣지 → 리전 -->
+  <line x1="676" y1="398" x2="676" y2="298" stroke="#6d28d9" stroke-width="2" marker-end="url(#ap)"/>
+  <text x="692" y="352" font-size="15" font-weight="bold" fill="#6d28d9">동적 요청만 리전까지</text>
 
-  <!-- 연결 화살표: 서울 리전 <-> us-east-1 리전 -->
-  <path d="M170,330 L170,420" stroke="#1f2933" stroke-width="1.5" fill="none" marker-start="url(#a-ink)" marker-end="url(#a-ink)"/>
-  <rect x="175" y="365" width="290" height="20" fill="#ffffff"/>
-  <text x="180" y="379" font-size="11.5" fill="#52606d" text-anchor="start">리전 간은 완전 독립 (복제는 명시적으로 설정해야 함)</text>
+  <!-- us-east-1 -->
+  <rect x="24" y="400" width="320" height="80" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="184" y="434" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Region: us-east-1</text>
+  <text x="184" y="460" font-size="15" fill="#4b5563" text-anchor="middle">(버지니아 북부)</text>
 
-  <!-- 연결 화살표: Edge Location -> 서울 리전 -->
-  <path d="M670,420 L670,330" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Edge Location -->
+  <rect x="496" y="400" width="360" height="80" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="676" y="434" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">Edge Location (전 세계 다수)</text>
+  <text x="676" y="460" font-size="15" fill="#374151" text-anchor="middle">CloudFront 캐시 / Route 53</text>
 </svg>

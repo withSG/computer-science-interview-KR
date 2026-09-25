@@ -1,137 +1,158 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1160" width="880" height="1160" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 970" width="880" height="970" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">비난 없는 포스트모템 예시</title>
-  <desc id="d">장애 요약, 타임라인, 원인 분석, 기여 요인, 잘 된 점 및 액션 아이템 표를 포함한 포스트모템 보고서 다이어그램</desc>
-  <rect width="880" height="1160" fill="#ffffff"/>
+  <desc id="d">2026-03-14 주문 서비스 장애를 예로 든 포스트모템 문서. 요약, 사실만 적은 타임라인(MTTA 14분 표시), 무엇이 일어났나, 여러 층의 기여 요인 4가지, 잘 된 점, 담당·기한·유형(예방/탐지/대응)이 붙은 액션 아이템 표로 구성된다.</desc>
+  <rect width="880" height="970" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+  <!-- 문서 틀 -->
+  <path d="M34,24 H846 A10,10 0 0 1 856,34 V68 H24 V34 A10,10 0 0 1 34,24 Z" fill="#f3f4f6"/>
+  <line x1="24" y1="68" x2="856" y2="68" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="24" y="24" width="832" height="922" rx="10" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="44" y="52" font-size="16" font-weight="bold" fill="#1f2937">포스트모템 문서 예시</text>
+
+  <!-- 섹션 구분선 -->
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="44" y1="202" x2="836" y2="202"/>
+    <line x1="44" y1="446" x2="836" y2="446"/>
+    <line x1="44" y1="524" x2="836" y2="524"/>
+    <line x1="44" y1="674" x2="836" y2="674"/>
+    <line x1="44" y1="726" x2="836" y2="726"/>
+  </g>
+
+  <!-- 섹션 제목 (왼쪽 열) -->
+  <g font-size="18" font-weight="bold" fill="#111827">
+    <text x="44" y="102">요약</text>
+    <text x="44" y="234">타임라인</text>
+    <text x="44" y="478">무엇이 일어났나</text>
+    <text x="44" y="556">기여 요인</text>
+    <text x="44" y="706">잘 된 점</text>
+    <text x="44" y="760">액션 아이템</text>
+  </g>
+  <g font-size="14" fill="#4b5563">
+    <text x="44" y="258">사실만, 해석 없이</text>
+    <text x="44" y="580">하나의 근본 원인이 아니라</text>
+    <text x="44" y="600">여러 층</text>
+  </g>
 
   <!-- 1. 요약 -->
-  <g transform="translate(30, 20)">
-    <rect x="0" y="0" width="820" height="88" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="16" y="27" font-size="16" font-weight="bold" fill="#dc2626">## 요약</text>
-    <text x="16" y="52" font-size="13" fill="#1f2933">- 언제: 2026-03-14 14:30 ~ 15:45 (75분) / 심각도: SEV-2</text>
-    <text x="16" y="73" font-size="13" fill="#1f2933">- 영향: 전체 주문의 32% 실패 (결제 이전 단계라 이중 결제 없음) / 월간 에러 버짓 절반 이상 소진</text>
+  <g font-size="15" font-weight="bold" fill="#4b5563">
+    <text x="236" y="102">언제</text>
+    <text x="236" y="130">심각도</text>
+    <text x="236" y="158">영향</text>
+  </g>
+  <g font-size="15" fill="#111827">
+    <text x="304" y="102">2026-03-14 14:30 ~ 15:45 (75분)</text>
+    <text x="304" y="130" font-weight="bold" fill="#b91c1c">SEV-2</text>
+    <text x="304" y="158">전체 주문의 32% 실패 (결제 이전 단계라 이중 결제 없음)</text>
+    <text x="304" y="182">월간 에러 버짓 절반 이상 소진</text>
   </g>
 
   <!-- 2. 타임라인 -->
-  <g transform="translate(30, 128)">
-    <rect x="0" y="0" width="820" height="230" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="16" y="27" font-size="16" font-weight="bold" fill="#1f2933">## 타임라인 (사실만, 해석 없이)</text>
-    
-    <!-- 타임라인 수직선 -->
-    <line x1="30" y1="42" x2="30" y2="210" stroke="#cbd2d9" stroke-width="2"/>
-
-    <!-- 타임라인 항목들 -->
-    <circle cx="30" cy="55" r="4" fill="#2563eb"/>
-    <text x="45" y="59.5" font-size="13" font-weight="bold" fill="#1f2933">14:30</text>
-    <text x="95" y="59.5" font-size="13" fill="#1f2933">주문 서비스 배포 완료 (v2.14.0)</text>
-
-    <circle cx="30" cy="88" r="4" fill="#d97706"/>
-    <text x="45" y="92.5" font-size="13" font-weight="bold" fill="#1f2933">14:33</text>
-    <text x="95" y="92.5" font-size="13" fill="#1f2933">5xx 비율 0.1% → 4.2% 상승 시작 / 14:38 알림 발화</text>
-
-    <circle cx="30" cy="121" r="4" fill="#dc2626"/>
-    <text x="45" y="125.5" font-size="13" font-weight="bold" fill="#1f2933">14:52</text>
-    <text x="95" y="125.5" font-size="13" fill="#1f2933">On-call 1차 무응답, 2차로 에스컬레이션</text>
-    <path d="M 430 121 L 490 121" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-    <rect x="500" y="108" width="110" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="555" y="125" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">← MTTA 14분</text>
-
-    <circle cx="30" cy="154" r="4" fill="#d97706"/>
-    <text x="45" y="158.5" font-size="13" font-weight="bold" fill="#1f2933">15:04</text>
-    <text x="95" y="158.5" font-size="13" fill="#1f2933">DB 커넥션 풀 고갈 확인</text>
-
-    <circle cx="30" cy="187" r="4" fill="#059669"/>
-    <text x="45" y="191.5" font-size="13" font-weight="bold" fill="#1f2933">15:20</text>
-    <text x="95" y="191.5" font-size="13" fill="#1f2933">v2.13.0으로 롤백 시작 / 15:45 지표 정상 복귀 확인</text>
+  <line x1="300" y1="229" x2="300" y2="421" stroke="#9ca3af" stroke-width="2"/>
+  <g fill="#374151">
+    <circle cx="300" cy="229" r="5"/>
+    <circle cx="300" cy="261" r="5"/>
+    <circle cx="300" cy="293" r="5"/>
+    <circle cx="300" cy="325" r="5"/>
+    <circle cx="300" cy="357" r="5"/>
+    <circle cx="300" cy="389" r="5"/>
+    <circle cx="300" cy="421" r="5"/>
   </g>
+  <g font-size="15" font-weight="bold" fill="#111827">
+    <text x="236" y="234">14:30</text>
+    <text x="236" y="266">14:33</text>
+    <text x="236" y="298">14:38</text>
+    <text x="236" y="330">14:52</text>
+    <text x="236" y="362">15:04</text>
+    <text x="236" y="394">15:20</text>
+    <text x="236" y="426">15:45</text>
+  </g>
+  <g font-size="15" fill="#111827">
+    <text x="318" y="234">주문 서비스 배포 완료 (v2.14.0)</text>
+    <text x="318" y="266">5xx 비율 0.1% → 4.2% 상승 시작</text>
+    <text x="318" y="298">알림 발화</text>
+    <text x="318" y="330">On-call 1차 무응답, 2차로 에스컬레이션</text>
+    <text x="318" y="362">DB 커넥션 풀 고갈 확인</text>
+    <text x="318" y="394">v2.13.0으로 롤백 시작</text>
+    <text x="318" y="426">지표 정상 복귀 확인</text>
+  </g>
+  <path d="M668,293 H682 V325 H668" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="694" y="314" font-size="15" font-weight="bold" fill="#b45309">MTTA 14분</text>
 
   <!-- 3. 무엇이 일어났나 -->
-  <g transform="translate(30, 378)">
-    <rect x="0" y="0" width="820" height="85" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="16" y="27" font-size="16" font-weight="bold" fill="#d97706">## 무엇이 일어났나</text>
-    <text x="16" y="52" font-size="13" fill="#1f2933">v2.14.0에서 추가된 재고 확인 로직이 트랜잭션 안에서 외부 API를 호출했고, 그 API 응답이</text>
-    <text x="16" y="71" font-size="13" fill="#1f2933">평소 800ms여서 커넥션 점유 시간이 늘어 풀이 고갈됐다.</text>
+  <g font-size="15" fill="#111827">
+    <text x="236" y="478">v2.14.0에서 추가된 재고 확인 로직이 <tspan font-weight="bold">트랜잭션 안에서 외부 API를 호출</tspan>했고,</text>
+    <text x="236" y="504">그 API 응답이 평소 <tspan font-weight="bold">800ms</tspan>여서 커넥션 점유 시간이 늘어 <tspan font-weight="bold">풀이 고갈</tspan>됐다.</text>
   </g>
 
   <!-- 4. 기여 요인 -->
-  <g transform="translate(30, 483)">
-    <rect x="0" y="0" width="820" height="140" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="16" y="27" font-size="16" font-weight="bold" fill="#1f2933">## 기여 요인 (하나의 근본 원인이 아니라 여러 층)</text>
-    <text x="16" y="52" font-size="13" fill="#1f2933">1. 트랜잭션 안 외부 호출을 막는 정적 검사나 리뷰 체크리스트가 없었다</text>
-    <text x="16" y="73" font-size="13" fill="#1f2933">2. 스테이징의 외부 API는 목(mock)이라 응답이 5ms였다 — 재현 불가능했다</text>
-    <text x="16" y="94" font-size="13" fill="#1f2933">3. 커넥션 풀 포화도(대기 스레드 수) 지표가 대시보드에 없었다</text>
-    <text x="16" y="115" font-size="13" fill="#1f2933">4. 1차 On-call 알림이 무음 모드에 걸려 14분간 전달되지 않았다</text>
+  <g fill="#374151">
+    <circle cx="247" cy="551" r="11"/>
+    <circle cx="247" cy="583" r="11"/>
+    <circle cx="247" cy="615" r="11"/>
+    <circle cx="247" cy="647" r="11"/>
+  </g>
+  <g font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <text x="247" y="556">1</text>
+    <text x="247" y="588">2</text>
+    <text x="247" y="620">3</text>
+    <text x="247" y="652">4</text>
+  </g>
+  <g font-size="15" fill="#111827">
+    <text x="268" y="556">트랜잭션 안 외부 호출을 막는 정적 검사나 리뷰 체크리스트가 없었다</text>
+    <text x="268" y="588">스테이징의 외부 API는 목(mock)이라 응답이 5ms였다 — 재현 불가능했다</text>
+    <text x="268" y="620">커넥션 풀 포화도(대기 스레드 수) 지표가 대시보드에 없었다</text>
+    <text x="268" y="652">1차 On-call 알림이 무음 모드에 걸려 14분간 전달되지 않았다</text>
   </g>
 
   <!-- 5. 잘 된 점 -->
-  <g transform="translate(30, 643)">
-    <rect x="0" y="0" width="820" height="65" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="16" y="27" font-size="16" font-weight="bold" fill="#059669">## 잘 된 점</text>
-    <text x="16" y="50" font-size="13" fill="#1f2933">- 알림이 증상 발생 5분 만에 발화했고 롤백 절차가 문서화되어 있었다</text>
+  <circle cx="243" cy="701" r="4" fill="#047857"/>
+  <text x="256" y="706" font-size="15" fill="#111827">알림이 증상 발생 5분 만에 발화했고 롤백 절차가 문서화되어 있었다</text>
+
+  <!-- 6. 액션 아이템 표 -->
+  <rect x="236" y="738" width="600" height="36" fill="#f3f4f6"/>
+  <rect x="236" y="812" width="600" height="38" fill="#f9fafb"/>
+  <rect x="236" y="888" width="600" height="38" fill="#f9fafb"/>
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="236" y1="812" x2="836" y2="812"/>
+    <line x1="236" y1="850" x2="836" y2="850"/>
+    <line x1="236" y1="888" x2="836" y2="888"/>
+  </g>
+  <g stroke="#d1d5db" stroke-width="1">
+    <line x1="576" y1="738" x2="576" y2="926"/>
+    <line x1="664" y1="738" x2="664" y2="926"/>
+    <line x1="752" y1="738" x2="752" y2="926"/>
+  </g>
+  <line x1="236" y1="774" x2="836" y2="774" stroke="#9ca3af" stroke-width="1"/>
+  <rect x="236" y="738" width="600" height="188" fill="none" stroke="#9ca3af" stroke-width="1"/>
+
+  <g font-size="15" font-weight="bold" fill="#111827">
+    <text x="250" y="761">항목</text>
+    <text x="620" y="761" text-anchor="middle">담당</text>
+    <text x="708" y="761" text-anchor="middle">기한</text>
+    <text x="794" y="761" text-anchor="middle">유형</text>
+  </g>
+  <g font-size="15" fill="#111827">
+    <text x="250" y="798">트랜잭션 내 외부 호출 정적 검사 규칙 추가</text>
+    <text x="620" y="798" text-anchor="middle">김OO</text>
+    <text x="708" y="798" text-anchor="middle">3/28</text>
+    <text x="250" y="836">스테이징 외부 API에 지연 주입</text>
+    <text x="620" y="836" text-anchor="middle">이OO</text>
+    <text x="708" y="836" text-anchor="middle">4/04</text>
+    <text x="250" y="874">커넥션 풀 포화도 대시보드/알림 추가</text>
+    <text x="620" y="874" text-anchor="middle">박OO</text>
+    <text x="708" y="874" text-anchor="middle">3/21</text>
+    <text x="250" y="912">On-call 알림 전달 테스트를 교대 시 필수화</text>
+    <text x="620" y="912" text-anchor="middle">최OO</text>
+    <text x="708" y="912" text-anchor="middle">3/21</text>
   </g>
 
-  <!-- 6. 액션 아이템 -->
-  <g transform="translate(30, 728)">
-    <text x="0" y="20" font-size="16" font-weight="bold" fill="#1f2933">## 액션 아이템</text>
-    
-    <!-- Table Header -->
-    <rect x="0" y="32" width="820" height="38" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-    <line x1="420" y1="32" x2="420" y2="70" stroke="#9aa5b1" stroke-width="1"/>
-    <line x1="550" y1="32" x2="550" y2="70" stroke="#9aa5b1" stroke-width="1"/>
-    <line x1="680" y1="32" x2="680" y2="70" stroke="#9aa5b1" stroke-width="1"/>
-    
-    <text x="210" y="55.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">항목</text>
-    <text x="485" y="55.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">담당</text>
-    <text x="615" y="55.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">기한</text>
-    <text x="750" y="55.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">유형</text>
-
-    <!-- Row 1 -->
-    <rect x="0" y="70" width="820" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="420" y1="70" x2="420" y2="110" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="550" y1="70" x2="550" y2="110" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="680" y1="70" x2="680" y2="110" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="16" y="94.5" font-size="13" fill="#1f2933">트랜잭션 내 외부 호출 정적 검사 규칙 추가</text>
-    <text x="485" y="94.5" font-size="13" fill="#1f2933" text-anchor="middle">김OO</text>
-    <text x="615" y="94.5" font-size="13" fill="#1f2933" text-anchor="middle">3/28</text>
-    <rect x="720" y="78" width="60" height="24" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="750" y="94.5" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">예방</text>
-
-    <!-- Row 2 -->
-    <rect x="0" y="110" width="820" height="40" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="420" y1="110" x2="420" y2="150" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="550" y1="110" x2="550" y2="150" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="680" y1="110" x2="680" y2="150" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="16" y="134.5" font-size="13" fill="#1f2933">스테이징 외부 API에 지연 주입</text>
-    <text x="485" y="134.5" font-size="13" fill="#1f2933" text-anchor="middle">이OO</text>
-    <text x="615" y="134.5" font-size="13" fill="#1f2933" text-anchor="middle">4/04</text>
-    <rect x="720" y="118" width="60" height="24" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="750" y="134.5" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">예방</text>
-
-    <!-- Row 3 -->
-    <rect x="0" y="150" width="820" height="40" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="420" y1="150" x2="420" y2="190" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="550" y1="150" x2="550" y2="190" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="680" y1="150" x2="680" y2="190" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="16" y="174.5" font-size="13" fill="#1f2933">커넥션 풀 포화도 대시보드/알림 추가</text>
-    <text x="485" y="174.5" font-size="13" fill="#1f2933" text-anchor="middle">박OO</text>
-    <text x="615" y="174.5" font-size="13" fill="#1f2933" text-anchor="middle">3/21</text>
-    <rect x="720" y="158" width="60" height="24" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="750" y="174.5" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">탐지</text>
-
-    <!-- Row 4 -->
-    <rect x="0" y="190" width="820" height="40" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="420" y1="190" x2="420" y2="230" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="550" y1="190" x2="550" y2="230" stroke="#cbd2d9" stroke-width="1"/>
-    <line x1="680" y1="190" x2="680" y2="230" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="16" y="214.5" font-size="13" fill="#1f2933">On-call 알림 전달 테스트를 교대 시 필수화</text>
-    <text x="485" y="214.5" font-size="13" fill="#1f2933" text-anchor="middle">최OO</text>
-    <text x="615" y="214.5" font-size="13" fill="#1f2933" text-anchor="middle">3/21</text>
-    <rect x="720" y="198" width="60" height="24" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="750" y="214.5" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">대응</text>
-  </g>
+  <!-- 유형 태그 -->
+  <rect x="766" y="782" width="56" height="23" rx="11.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="794" y="798" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">예방</text>
+  <rect x="766" y="820" width="56" height="23" rx="11.5" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="794" y="836" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">예방</text>
+  <rect x="766" y="858" width="56" height="23" rx="11.5" fill="#fef3c7" stroke="#b45309" stroke-width="1"/>
+  <text x="794" y="874" font-size="14" font-weight="bold" fill="#92400e" text-anchor="middle">탐지</text>
+  <rect x="766" y="896" width="56" height="23" rx="11.5" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <text x="794" y="912" font-size="14" font-weight="bold" fill="#6d28d9" text-anchor="middle">대응</text>
 </svg>

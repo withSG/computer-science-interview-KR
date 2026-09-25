@@ -1,66 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Histogram — 분포를 버킷으로</title>
-  <desc id="d">프로메테우스 히스토그램 메트릭 표현 방식과 버킷별 분포 및 p99 생성 원인을 보여주는 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Histogram 누적 버킷과 구간별 분포</title>
+  <desc id="d">왼쪽은 Histogram이 노출하는 누적 버킷 값(le 0.1 1200, 0.3 1850, 1.0 1980, +Inf 2000)과 _sum 412.7, _count 2000이고, 오른쪽은 앞 버킷과의 차로 얻은 구간별 건수(1200, 650, 130, 20)다. 1.0초 초과 20건이 p99를 만든다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0,10 L5,0 L10,10 z" fill="#dc2626"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Left Side: Metric Names & Values -->
-  <!-- Line 1 -->
-  <text x="30" y="44" font-size="13" fill="#1f2933">..._bucket{le="0.1"}</text>
-  <text x="210" y="44" font-size="13" fill="#1f2933" font-weight="bold">1200</text>
-  <text x="260" y="44" font-size="13" fill="#52606d">← 0.1초 이하 1200건</text>
+  <!-- 1.0초 초과 행 강조 띠 -->
+  <rect x="24" y="206" width="832" height="34" fill="#fef2f2"/>
 
-  <!-- Line 2 -->
-  <text x="30" y="84" font-size="13" fill="#1f2933">..._bucket{le="0.3"}</text>
-  <text x="210" y="84" font-size="13" fill="#1f2933" font-weight="bold">1850</text>
-  <text x="260" y="84" font-size="13" fill="#52606d">← 0.3초 이하 (누적)</text>
+  <!-- 좌우 구분선 -->
+  <line x1="464" y1="24" x2="464" y2="336" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- Line 3 -->
-  <text x="30" y="124" font-size="13" fill="#1f2933">..._bucket{le="1.0"}</text>
-  <text x="210" y="124" font-size="13" fill="#1f2933" font-weight="bold">1980</text>
+  <!-- 왼쪽 머리 -->
+  <text x="32" y="44" font-size="16" font-weight="bold" fill="#111827">노출되는 시계열<tspan font-size="15" fill="#b45309"> — 버킷 값은 누적</tspan></text>
+  <line x1="24" y1="58" x2="452" y2="58" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- Line 4 -->
-  <text x="30" y="164" font-size="13" fill="#1f2933">..._bucket{le="+Inf"}</text>
-  <text x="210" y="164" font-size="13" fill="#1f2933" font-weight="bold">2000</text>
-  <text x="260" y="164" font-size="13" fill="#52606d">← 전체</text>
+  <!-- 오른쪽 머리 -->
+  <text x="484" y="44" font-size="16" font-weight="bold" fill="#111827">구간별 건수<tspan font-size="15" font-weight="normal" fill="#4b5563"> (앞 버킷과의 차)</tspan></text>
+  <line x1="476" y1="58" x2="856" y2="58" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- Line 5 -->
-  <text x="30" y="214" font-size="13" fill="#1f2933">..._sum</text>
-  <text x="210" y="214" font-size="13" fill="#1f2933" font-weight="bold">412.7</text>
-  <text x="260" y="214" font-size="13" fill="#52606d">← 관측치 합</text>
+  <!-- 왼쪽: 누적 버킷 -->
+  <g font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">
+    <text x="32" y="96">..._bucket{le="0.1"}</text>
+    <text x="32" y="140">..._bucket{le="0.3"}</text>
+    <text x="32" y="184">..._bucket{le="1.0"}</text>
+    <text x="32" y="228">..._bucket{le="+Inf"}</text>
+    <text x="32" y="286">..._sum</text>
+    <text x="32" y="324">..._count</text>
+  </g>
+  <g font-size="15" font-weight="bold" fill="#111827" text-anchor="end">
+    <text x="296" y="96">1200</text>
+    <text x="296" y="140">1850</text>
+    <text x="296" y="184">1980</text>
+    <text x="296" y="228">2000</text>
+    <text x="296" y="286">412.7</text>
+    <text x="296" y="324">2000</text>
+  </g>
+  <g font-size="15" fill="#4b5563">
+    <text x="314" y="96">0.1초 이하 1200건</text>
+    <text x="314" y="140">0.3초 이하 (누적)</text>
+    <text x="314" y="184">1.0초 이하 (누적)</text>
+    <text x="314" y="228">전체</text>
+    <text x="314" y="286">관측치 합</text>
+    <text x="314" y="324">관측치 개수</text>
+  </g>
+  <line x1="24" y1="254" x2="452" y2="254" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-  <!-- Line 6 -->
-  <text x="30" y="254" font-size="13" fill="#1f2933">..._count</text>
-  <text x="210" y="254" font-size="13" fill="#1f2933" font-weight="bold">2000</text>
-  <text x="260" y="254" font-size="13" fill="#52606d">← 관측치 개수</text>
+  <!-- 오른쪽: 구간별 막대 -->
+  <g font-size="15" fill="#111827" text-anchor="end">
+    <text x="584" y="96">0 ~ 0.1초</text>
+    <text x="584" y="140">0.1 ~ 0.3초</text>
+    <text x="584" y="184">0.3 ~ 1.0초</text>
+    <text x="584" y="228" font-weight="bold" fill="#b91c1c">1.0초 초과</text>
+  </g>
+  <rect x="596" y="81" width="150" height="20" rx="2" fill="#2563eb"/>
+  <rect x="596" y="125" width="81" height="20" rx="2" fill="#2563eb"/>
+  <rect x="596" y="169" width="16" height="20" rx="2" fill="#2563eb"/>
+  <rect x="596" y="213" width="4" height="20" rx="1" fill="#b91c1c"/>
+  <g font-size="15" font-weight="bold" fill="#111827">
+    <text x="754" y="96">1200</text>
+    <text x="685" y="140">650</text>
+    <text x="620" y="184">130</text>
+    <text x="608" y="228" fill="#b91c1c">20</text>
+  </g>
+  <g font-size="14" fill="#4b5563">
+    <text x="720" y="140">(1850 − 1200)</text>
+    <text x="656" y="184">(1980 − 1850)</text>
+    <text x="638" y="228">(2000 − 1980)</text>
+  </g>
 
-  <!-- Right Side: Histogram Visualizations & Annotations -->
-  <!-- Bar 1 -->
-  <text x="470" y="44" font-size="13" fill="#1f2933">0 ─ 0.1초</text>
-  <rect x="560" y="30" width="240" height="18" fill="#2563eb" rx="2"/>
-  <text x="810" y="44" font-size="13" fill="#1f2933" font-weight="bold">1200</text>
-
-  <!-- Bar 2 -->
-  <text x="470" y="84" font-size="13" fill="#1f2933">0.1 ─ 0.3초</text>
-  <rect x="560" y="70" width="130" height="18" fill="#2563eb" rx="2"/>
-  <text x="700" y="84" font-size="13" fill="#1f2933" font-weight="bold">650</text>
-
-  <!-- Bar 3 -->
-  <text x="470" y="124" font-size="13" fill="#1f2933">0.3 ─ 1.0초</text>
-  <rect x="560" y="110" width="26" height="18" fill="#2563eb" rx="2"/>
-  <text x="596" y="124" font-size="13" fill="#1f2933" font-weight="bold">130</text>
-
-  <!-- Bar 4 (Highlighted) -->
-  <text x="470" y="164" font-size="13" fill="#1f2933">1.0초 초과</text>
-  <rect x="560" y="150" width="8" height="18" fill="#dc2626" rx="2"/>
-  <text x="578" y="164" font-size="13" fill="#dc2626" font-weight="bold">20</text>
-
-  <!-- Pointer and Annotation for Highlighted Bar -->
-  <path d="M564,212 L564,178" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  <text x="564" y="235" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">이 20건이 p99를 만든다</text>
+  <!-- p99 주석 -->
+  <line x1="598" y1="276" x2="598" y2="240" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <text x="584" y="300" font-size="16" font-weight="bold" fill="#b91c1c">이 20건이 p99를 만든다</text>
 </svg>

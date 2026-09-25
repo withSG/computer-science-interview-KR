@@ -1,79 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Scale-up vs Scale-out 비교</title>
-  <desc id="d">Scale-up 수직 확장과 Scale-out 수평 확장의 구조, 장단점 및 특징을 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 530" width="880" height="530" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Scale-up과 Scale-out</title>
+  <desc id="d">Scale-up은 2 vCPU·8 GB 서버를 16 vCPU·64 GB로 교체해 키우므로 교체 중 다운타임이 생기고 1대가 죽으면 서비스 전체가 멈춘다. Scale-out은 같은 2 vCPU·8 GB 서버를 LB 뒤에 여러 대 두어 무중단으로 증설하고, 1대가 죽어도 나머지가 요청을 받는다.</desc>
+  <rect width="880" height="530" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="520" fill="#ffffff"/>
 
-  <!-- 좌측 영역: Scale-up -->
-  <rect x="24" y="24" width="396" height="472" rx="12" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 6"/>
-  <text x="222" y="62" font-size="16" font-weight="bold" fill="#d97706" text-anchor="middle">[ Scale-up (수직 확장) ]</text>
+  <!-- ===== 왼쪽: Scale-up ===== -->
+  <rect x="24" y="24" width="404" height="482" rx="12" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="226" y="62" font-size="20" font-weight="bold" fill="#92400e" text-anchor="middle">Scale-up (수직 확장)</text>
+  <text x="226" y="88" font-size="16" fill="#374151" text-anchor="middle">같은 서버를 더 크게</text>
 
-  <!-- Scale-up 상단 큰 서버 (16 vCPU / 64 GB) -->
-  <rect x="132" y="90" width="180" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="222" y="137" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">16 vCPU</text>
-  <text x="222" y="162" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">64 GB</text>
+  <!-- 교체 후: 큰 서버 -->
+  <rect x="116" y="112" width="220" height="128" rx="8" fill="#ffffff" stroke="#92400e" stroke-width="2"/>
+  <text x="226" y="170" font-size="22" font-weight="bold" fill="#1f2933" text-anchor="middle">16 vCPU</text>
+  <text x="226" y="200" font-size="22" font-weight="bold" fill="#1f2933" text-anchor="middle">64 GB</text>
 
-  <!-- Scale-up 하단 작은 서버 (2 vCPU / 8 GB) -->
-  <rect x="152" y="310" width="140" height="80" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="222" y="347" font-size="13" fill="#1f2933" text-anchor="middle">2 vCPU</text>
-  <text x="222" y="369" font-size="13" fill="#1f2933" text-anchor="middle">8 GB</text>
+  <!-- 교체 화살표 -->
+  <path d="M226,318 L226,246" stroke="#b91c1c" stroke-width="2.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="242" y="274" font-size="15" font-weight="bold" fill="#b91c1c">인스턴스 교체</text>
+  <text x="242" y="295" font-size="15" font-weight="bold" fill="#b91c1c">= 다운타임</text>
 
-  <!-- 수직 확장 화살표 & 설명 라벨 -->
-  <path d="M222,310 L222,200" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  <rect x="110" y="243" width="224" height="24" rx="4" fill="#ffffff" stroke="#fca5a5" stroke-width="1"/>
-  <text x="222" y="259.5" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">인스턴스 교체 = 다운타임</text>
+  <!-- 교체 전: 작은 서버 -->
+  <rect x="172" y="320" width="108" height="70" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="350" font-size="16" fill="#1f2933" text-anchor="middle">2 vCPU</text>
+  <text x="226" y="374" font-size="16" fill="#1f2933" text-anchor="middle">8 GB</text>
 
-  <!-- 오른쪽 옆 설명: 같은 서버를 더 크게 -->
-  <text x="330" y="138" font-size="13" fill="#52606d" text-anchor="start">같은 서버를</text>
-  <text x="330" y="158" font-size="13" fill="#52606d" text-anchor="start">더 크게</text>
+  <!-- 결과 -->
+  <rect x="48" y="414" width="356" height="64" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="226" y="452" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">1대가 죽으면 서비스 전체 정지</text>
 
-  <!-- 하단 위험 설명: 1대가 죽으면 서비스 전체 정지 -->
-  <rect x="62" y="420" width="320" height="32" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-  <text x="222" y="440.5" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">1대가 죽으면 서비스 전체 정지</text>
+  <!-- ===== 오른쪽: Scale-out ===== -->
+  <rect x="452" y="24" width="404" height="482" rx="12" fill="#f0fdf4" stroke="#059669" stroke-width="1.5"/>
+  <text x="654" y="62" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">Scale-out (수평 확장)</text>
+  <text x="654" y="88" font-size="16" fill="#374151" text-anchor="middle">같은 서버를 더 많이</text>
 
+  <!-- LB -->
+  <rect x="594" y="128" width="120" height="48" rx="8" fill="#ffffff" stroke="#065f46" stroke-width="2"/>
+  <text x="654" y="158" font-size="18" font-weight="bold" fill="#065f46" text-anchor="middle">LB</text>
 
-  <!-- 우측 영역: Scale-out -->
-  <rect x="460" y="24" width="396" height="472" rx="12" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6 6"/>
-  <text x="658" y="62" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[ Scale-out (수평 확장) ]</text>
+  <!-- 분배선 -->
+  <path d="M654,176 L654,262" stroke="#047857" stroke-width="2" fill="none"/>
+  <path d="M524,262 L784,262" stroke="#047857" stroke-width="2" fill="none"/>
+  <path d="M524,262 L524,317" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M654,262 L654,317" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M784,262 L784,317" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
 
-  <!-- Load Balancer (LB) -->
-  <rect x="608" y="90" width="100" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="658" y="117.5" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">LB</text>
+  <!-- 같은 서버 3대 -->
+  <rect x="470" y="320" width="108" height="70" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="524" y="350" font-size="16" fill="#1f2933" text-anchor="middle">2 vCPU</text>
+  <text x="524" y="374" font-size="16" fill="#1f2933" text-anchor="middle">8 GB</text>
 
-  <!-- LB 연결선 -->
-  <path d="M658,136 L658,160 M518,160 L798,160 M518,160 L518,190 M658,160 L658,190 M798,160 L798,190" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="600" y="320" width="108" height="70" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="654" y="350" font-size="16" fill="#1f2933" text-anchor="middle">2 vCPU</text>
+  <text x="654" y="374" font-size="16" fill="#1f2933" text-anchor="middle">8 GB</text>
 
-  <!-- 수평 확장 노드 3개 -->
-  <!-- 노드 1 -->
-  <rect x="478" y="190" width="80" height="70" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="518" y="222" font-size="12" fill="#1f2933" text-anchor="middle">2vCPU</text>
-  <text x="518" y="242" font-size="12" fill="#1f2933" text-anchor="middle">8GB</text>
+  <rect x="730" y="320" width="108" height="70" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="784" y="350" font-size="16" fill="#1f2933" text-anchor="middle">2 vCPU</text>
+  <text x="784" y="374" font-size="16" fill="#1f2933" text-anchor="middle">8 GB</text>
 
-  <!-- 노드 2 -->
-  <rect x="618" y="190" width="80" height="70" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="658" y="222" font-size="12" fill="#1f2933" text-anchor="middle">2vCPU</text>
-  <text x="658" y="242" font-size="12" fill="#1f2933" text-anchor="middle">8GB</text>
-
-  <!-- 노드 3 -->
-  <rect x="758" y="190" width="80" height="70" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="798" y="222" font-size="12" fill="#1f2933" text-anchor="middle">2vCPU</text>
-  <text x="798" y="242" font-size="12" fill="#1f2933" text-anchor="middle">8GB</text>
-
-  <!-- 노드 우측 설명: 같은 서버를 더 많이 -->
-  <text x="856" y="220" font-size="12" fill="#52606d" text-anchor="end">같은 서버를</text>
-  <text x="844" y="238" font-size="12" fill="#52606d" text-anchor="start">더 많이</text>
-
-  <!-- Scale-out 장점 설명 -->
-  <rect x="498" y="300" width="320" height="72" rx="6" fill="#ffffff" stroke="#a7f3d0" stroke-width="1"/>
-  <text x="658" y="328" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">무중단 증설 가능</text>
-  <text x="658" y="352" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">1대 죽어도 나머지가 받는다</text>
+  <!-- 결과 -->
+  <rect x="476" y="414" width="356" height="64" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="654" y="440" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">무중단 증설 가능</text>
+  <text x="654" y="464" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">1대 죽어도 나머지가 받는다</text>
 </svg>

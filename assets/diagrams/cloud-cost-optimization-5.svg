@@ -1,99 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">데이터 전송 비용 다이어그램</title>
-  <desc id="d">Region, AZ 간 트래픽, NAT Gateway, S3, 다른 Region 및 인터넷 outbound 데이터 전송 비용 구조를 보여주는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 750" width="880" height="750" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">AWS 데이터 전송 경로별 과금</title>
+  <desc id="d">같은 AZ 안의 사설 IP 통신과 VPC Endpoint를 거친 같은 리전 S3 전송은 무료이고, AZ 간 전송, NAT Gateway 처리량, 리전 간 전송, 인터넷으로 나가는 outbound는 과금됩니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
   </defs>
+  <rect width="880" height="750" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="770" fill="#ffffff"/>
+  <!-- Region -->
+  <rect x="32" y="24" width="816" height="436" rx="10" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+  <text x="52" y="54" font-size="18" font-weight="bold" fill="#111827">Region</text>
 
-  <!-- Outer Box: Region -->
-  <rect x="40" y="40" width="800" height="460" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="60" y="28" width="80" height="24" fill="#f8fafc"/>
-  <text x="100" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Region</text>
+  <!-- AZ-a -->
+  <rect x="56" y="72" width="368" height="168" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="76" y="98" font-size="16" font-weight="bold" fill="#374151">AZ-a</text>
+  <path d="M188,140 H292" fill="none" stroke="#059669" stroke-width="2.5"/>
+  <rect x="96" y="118" width="92" height="44" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="142" y="146" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">EC2</text>
+  <rect x="292" y="118" width="92" height="44" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="338" y="146" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">EC2</text>
+  <text x="136" y="203" font-size="15" fill="#374151">같은 AZ · 사설 IP</text>
+  <rect x="264" y="184" width="54" height="28" rx="14" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="291" y="203" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">무료</text>
 
-  <!-- AZ-a Box -->
-  <rect x="70" y="80" width="340" height="180" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <rect x="90" y="68" width="80" height="24" fill="#ffffff"/>
-  <text x="130" y="85" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">AZ-a</text>
+  <!-- AZ-c -->
+  <rect x="456" y="72" width="368" height="168" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="476" y="98" font-size="16" font-weight="bold" fill="#374151">AZ-c</text>
+  <rect x="594" y="118" width="92" height="44" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="640" y="146" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">EC2</text>
 
-  <!-- AZ-a Internal Elements -->
-  <!-- EC2 ──── EC2 -->
-  <rect x="95" y="110" width="80" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="135" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2</text>
+  <!-- AZ 간 전송 (AZ-a의 EC2 ↔ AZ-c의 EC2) -->
+  <path d="M338,162 V276 H640 V162" fill="none" stroke="#dc2626" stroke-width="2"/>
 
-  <path d="M175,128 L275,128" stroke="#059669" stroke-width="1.5"/>
+  <!-- AZ 간 전송 라벨 (선을 가리는 면 위) -->
+  <rect x="410" y="262" width="160" height="28" fill="#f8fafc"/>
+  <text x="420" y="281" font-size="15" font-weight="bold" fill="#111827">AZ 간 전송</text>
+  <rect x="506" y="262" width="54" height="28" rx="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="533" y="281" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">과금</text>
 
-  <rect x="275" y="110" width="80" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="315" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2</text>
+  <!-- EC2 → NAT Gateway -->
+  <rect x="64" y="308" width="92" height="44" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="110" y="336" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">EC2</text>
+  <path d="M160,330 H438" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ah-red)"/>
+  <rect x="444" y="308" width="160" height="44" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="524" y="336" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">NAT Gateway</text>
+  <rect x="624" y="316" width="136" height="28" rx="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="692" y="335" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">처리량만큼 과금</text>
 
-  <!-- AZ-a Labels -->
-  <text x="95" y="175" font-size="13" fill="#1f2933">같은 AZ·사설IP</text>
-  <text x="95" y="205" font-size="13" font-weight="bold" fill="#059669">: 무료</text>
+  <!-- EC2 → S3 (같은 리전, VPC Endpoint 경유) -->
+  <rect x="64" y="388" width="92" height="44" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="110" y="416" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">EC2</text>
+  <text x="299" y="398" font-size="15" fill="#374151" text-anchor="middle">같은 리전, VPC Endpoint 경유</text>
+  <path d="M160,410 H438" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#ah-green)"/>
+  <rect x="444" y="388" width="160" height="44" rx="6" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <text x="524" y="416" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">S3</text>
+  <rect x="624" y="396" width="54" height="28" rx="14" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="651" y="415" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">무료</text>
 
-  <!-- AZ-c Box -->
-  <rect x="470" y="80" width="340" height="180" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <rect x="490" y="68" width="80" height="24" fill="#ffffff"/>
-  <text x="530" y="85" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">AZ-c</text>
+  <!-- Region → 다른 Region -->
+  <path d="M440,460 V534" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ah-red)"/>
+  <text x="458" y="503" font-size="15" font-weight="bold" fill="#111827">리전 간 전송</text>
+  <rect x="554" y="484" width="54" height="28" rx="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="581" y="503" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">과금</text>
 
-  <!-- AZ-c Internal Element -->
-  <rect x="600" y="110" width="80" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="640" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2</text>
+  <rect x="350" y="540" width="180" height="52" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+  <text x="440" y="572" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">다른 Region</text>
 
-  <!-- Connector: AZ 간 전송 -->
-  <path d="M240,260 L240,290 L640,290 L640,260" fill="none" stroke="#d97706" stroke-width="1.5"/>
-  <rect x="360" y="278" width="160" height="24" fill="#ffffff"/>
-  <text x="440" y="295" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">AZ 간 전송: 과금</text>
+  <!-- 다른 Region → 사용자 (인터넷 outbound) -->
+  <path d="M440,592 V666" fill="none" stroke="#dc2626" stroke-width="2" marker-end="url(#ah-red)"/>
+  <text x="458" y="635" font-size="15" font-weight="bold" fill="#111827">인터넷으로 나가는 outbound</text>
+  <rect x="670" y="616" width="54" height="28" rx="14" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="697" y="635" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">과금</text>
 
-  <!-- EC2 ──▶ NAT Gateway -->
-  <rect x="70" y="340" width="70" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="105" y="362" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2</text>
-
-  <path d="M140,358 L200,358" fill="none" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-orange)"/>
-
-  <rect x="200" y="340" width="135" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="267.5" y="362" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">NAT Gateway</text>
-
-  <text x="345" y="362" font-size="13" font-weight="bold" fill="#d97706">: 처리량만큼 과금</text>
-
-  <!-- EC2 ──▶ S3 -->
-  <rect x="70" y="410" width="70" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="105" y="432" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">EC2</text>
-
-  <path d="M140,428 L200,428" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
-
-  <rect x="200" y="410" width="55" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="227.5" y="432" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">S3</text>
-
-  <text x="265" y="432" font-size="13" fill="#1f2933">(같은 리전, VPC Endpoint 경유) <tspan font-weight="bold" fill="#059669">: 무료</tspan></text>
-
-  <!-- Connector: Region -> 다른 Region -->
-  <path d="M440,500 L440,560" fill="none" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-orange)"/>
-  <rect x="360" y="518" width="160" height="24" fill="#ffffff"/>
-  <text x="440" y="535" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">리전 간 전송: 과금</text>
-
-  <!-- 다른 Region Box -->
-  <rect x="350" y="560" width="180" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="588" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">다른 Region</text>
-
-  <!-- Connector: 다른 Region -> 사용자 -->
-  <path d="M440,606 L440,680" fill="none" stroke="#dc2626" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <rect x="310" y="631" width="260" height="24" fill="#ffffff"/>
-  <text x="440" y="648" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">인터넷으로 나가는 outbound: 과금</text>
-
-  <!-- 사용자 Box -->
-  <rect x="360" y="680" width="160" height="46" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="708" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">사용자</text>
+  <rect x="370" y="672" width="140" height="52" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="440" y="704" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">사용자</text>
 </svg>

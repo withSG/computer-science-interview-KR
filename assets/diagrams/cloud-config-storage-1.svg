@@ -1,31 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">1. 왜 필요한가: 설정을 이미지에 넣으면 벌어지는 일</title>
-  <desc id="d">이미지와 ConfigMap/Secret이 결합되어 Pod 실행 시점에 kubelet이 주입되는 과정을 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">환경 중립 이미지와 환경별 설정의 주입</title>
+  <desc id="d">코드와 런타임만 담은 환경 중립 이미지와, 환경별 값을 담은 ConfigMap/Secret을 따로 두었다가 Pod 실행 시점에 kubelet이 합쳐 주입하는 구조입니다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
   </defs>
-  <rect width="880" height="280" fill="#ffffff"/>
+  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- 상단 좌측 박스: 이미지: 코드와 런타임만 (환경 중립) -->
-  <!-- Text width: 283.75px -> Box width: 320px -->
-  <rect x="70" y="40" width="320" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="230" y="70.55" font-size="13" fill="#1f2933" text-anchor="middle">이미지: 코드와 런타임만 (환경 중립)</text>
+  <!-- 이미지 -->
+  <rect x="40" y="32" width="330" height="104" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="205" y="74" font-size="20" font-weight="bold" fill="#1d4ed8" text-anchor="middle">이미지</text>
+  <text x="205" y="108" font-size="16" fill="#1f2937" text-anchor="middle">코드와 런타임만 (환경 중립)</text>
 
-  <!-- + 기호 -->
-  <text x="440" y="70.55" font-size="16" font-weight="bold" fill="#52606d" text-anchor="middle">+</text>
+  <!-- + -->
+  <circle cx="205" cy="160" r="15" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="205" y="167" font-size="22" font-weight="bold" fill="#1f2937" text-anchor="middle">+</text>
 
-  <!-- 상단 우측 박스: ConfigMap / Secret: 환경별 값 -->
-  <!-- Text width: 260px -> Box width: 300px -->
-  <rect x="490" y="40" width="300" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="640" y="70.55" font-size="13" fill="#1f2933" text-anchor="middle">ConfigMap / Secret: 환경별 값</text>
+  <!-- ConfigMap / Secret -->
+  <rect x="40" y="184" width="330" height="104" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="205" y="220" font-size="20" font-weight="bold" fill="#6d28d9" text-anchor="middle">ConfigMap / Secret</text>
+  <text x="205" y="248" font-size="16" fill="#1f2937" text-anchor="middle">환경별 값</text>
+  <text x="205" y="274" font-size="15" fill="#4b5563" text-anchor="middle">예: DB 주소, 로그 레벨, 비밀번호</text>
 
-  <!-- 화살표 (위 박스 결합 지점에서 하단 박스로) -->
-  <path d="M440,90 L440,180" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 합류선 -->
+  <path d="M370,84 H430 V236 H370" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <path d="M430,160 H514" fill="none" stroke="#1f2937" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- 하단 박스: Pod 실행 시점에 kubelet이 주입 -->
-  <!-- Text width: 251.2px -> Box width: 300px -->
-  <rect x="290" y="180" width="300" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="210.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Pod 실행 시점에 kubelet이 주입</text>
+  <!-- Pod 실행 시점 주입 -->
+  <rect x="520" y="100" width="320" height="120" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="680" y="150" font-size="20" font-weight="bold" fill="#047857" text-anchor="middle">Pod 실행 시점에</text>
+  <text x="680" y="182" font-size="20" font-weight="bold" fill="#047857" text-anchor="middle">kubelet이 주입</text>
 </svg>

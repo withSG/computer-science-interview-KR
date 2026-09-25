@@ -1,77 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">핵심 개념</title>
-  <desc id="d">Trace와 Span의 계층 구조 및 소요 시간을 나타내는 분산 추적 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Trace와 Span 계층</title>
+  <desc id="d">하나의 요청인 Trace 아래 Span A(API Gateway, 130ms)가 있고, 그 아래 Span B(User Service, 40ms)와 Span D(Order Service, 80ms), 다시 그 아래 Span C(DB Query, 15ms)와 Span E(Payment API, 50ms)가 이어지는 계층. Total은 130ms.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
 
-  <rect width="880" height="500" fill="#ffffff"/>
-
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-  </defs>
-
-  <!-- Title / Root Box: Trace -->
-  <g>
-    <rect x="40" y="30" width="370" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="50" y="55" font-size="14" font-weight="bold" fill="#1f2933">Trace: 전체 요청의 여정 (하나의 요청)</text>
+  <!-- tree connectors -->
+  <g stroke="#94a3b8" stroke-width="2" fill="none">
+    <path d="M60,76 L60,412"/>
+    <path d="M60,126 L80,126"/>
+    <path d="M104,148 L104,306"/>
+    <path d="M104,186 L130,186"/>
+    <path d="M104,306 L130,306"/>
+    <path d="M154,208 L154,246 L180,246"/>
+    <path d="M154,328 L154,366 L180,366"/>
   </g>
 
-  <!-- Hierarchy Lines -->
-  <!-- Root to Span A -->
-  <line x1="60" y1="70" x2="60" y2="105" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="60" y1="105" x2="80" y2="105" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- Trace root -->
+  <rect x="40" y="28" width="440" height="48" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="58" y="58" font-size="18" fill="#1e3a8a"><tspan font-weight="bold">Trace</tspan><tspan font-size="16">: 전체 요청의 여정 (하나의 요청)</tspan></text>
 
-  <!-- Span A Level Container -->
   <!-- Span A -->
-  <g>
-    <rect x="80" y="85" width="280" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="95" y="110" font-size="13" font-weight="bold" fill="#1f2933">Span A: API Gateway (130ms)</text>
-  </g>
-
-  <!-- Lines under Span A -->
-  <line x1="100" y1="125" x2="100" y2="285" stroke="#9aa5b1" stroke-width="1.5"/>
-  <!-- Branch to Span B -->
-  <line x1="100" y1="175" x2="120" y2="175" stroke="#9aa5b1" stroke-width="1.5"/>
-  <!-- Branch to Span D -->
-  <line x1="100" y1="285" x2="120" y2="285" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="80" y="104" width="640" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="98" y="132" font-size="16" font-weight="bold" fill="#1d4ed8">Span A</text>
+  <text x="180" y="132" font-size="16" fill="#1f2937">API Gateway</text>
+  <text x="700" y="132" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">130ms</text>
 
   <!-- Span B -->
-  <g>
-    <rect x="120" y="155" x2="390" width="270" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="135" y="180" font-size="13" font-weight="bold" fill="#1f2933">Span B: User Service (40ms)</text>
-  </g>
-
-  <!-- Lines under Span B -->
-  <line x1="140" y1="195" x2="140" y2="230" stroke="#9aa5b1" stroke-width="1.5"/>
-  <!-- Branch to Span C -->
-  <line x1="140" y1="230" x2="160" y2="230" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="130" y="164" width="590" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="148" y="192" font-size="16" font-weight="bold" fill="#1d4ed8">Span B</text>
+  <text x="230" y="192" font-size="16" fill="#1f2937">User Service</text>
+  <text x="700" y="192" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">40ms</text>
 
   <!-- Span C -->
-  <g>
-    <rect x="160" y="210" width="250" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="175" y="235" font-size="13" font-weight="bold" fill="#1f2933">Span C: DB Query (15ms)</text>
-  </g>
+  <rect x="180" y="224" width="540" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="198" y="252" font-size="16" font-weight="bold" fill="#1d4ed8">Span C</text>
+  <text x="280" y="252" font-size="16" fill="#1f2937">DB Query</text>
+  <text x="700" y="252" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">15ms</text>
 
   <!-- Span D -->
-  <g>
-    <rect x="120" y="265" width="280" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="135" y="290" font-size="13" font-weight="bold" fill="#1f2933">Span D: Order Service (80ms)</text>
-  </g>
-
-  <!-- Lines under Span D -->
-  <line x1="140" y1="305" x2="140" y2="340" stroke="#9aa5b1" stroke-width="1.5"/>
-  <!-- Branch to Span E -->
-  <line x1="140" y1="340" x2="160" y2="340" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="130" y="284" width="590" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="148" y="312" font-size="16" font-weight="bold" fill="#1d4ed8">Span D</text>
+  <text x="230" y="312" font-size="16" fill="#1f2937">Order Service</text>
+  <text x="700" y="312" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">80ms</text>
 
   <!-- Span E -->
-  <g>
-    <rect x="160" y="320" width="260" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="175" y="345" font-size="13" font-weight="bold" fill="#1f2933">Span E: Payment API (50ms)</text>
-  </g>
+  <rect x="180" y="344" width="540" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="198" y="372" font-size="16" font-weight="bold" fill="#1d4ed8">Span E</text>
+  <text x="280" y="372" font-size="16" fill="#1f2937">Payment API</text>
+  <text x="700" y="372" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="end">50ms</text>
 
-  <!-- Footer / Total Box -->
-  <g>
-    <rect x="40" y="410" width="140" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="110" y="433" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Total: 130ms</text>
-  </g>
+  <!-- Total -->
+  <rect x="40" y="412" width="190" height="42" rx="21" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="135" y="439" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">Total: 130ms</text>
 </svg>

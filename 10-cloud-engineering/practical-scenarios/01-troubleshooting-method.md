@@ -277,7 +277,7 @@
 메모리 증가는 그 자체로 장애가 아니라 **증가 곡선의 모양**이 진단입니다.
 
 <!-- diagram:cloud-troubleshooting-method-7 -->
-![메모리 사용량이 계속 증가](../../assets/diagrams/cloud-troubleshooting-method-7.svg)
+![메모리 증가 곡선: 톱니형·계단형·급등 후 OOM](../../assets/diagrams/cloud-troubleshooting-method-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

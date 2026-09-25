@@ -1,56 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">직렬 및 병렬 구성의 가용성 비교</title>
-  <desc id="d">직렬 구성에서는 가용성이 곱해져 전체 가용성이 떨어지고, 병렬 구성에서는 이중화를 통해 가용성이 높아짐을 설명하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">직렬과 병렬의 가용성</title>
+  <desc id="d">99.9%인 웹, API, DB를 직렬로 붙이면 0.999 × 0.999 × 0.999 = 0.997로 전체 가용성이 99.7%(연간 다운타임 약 26시간)로 떨어진다. 99%인 같은 역할 서버 2대를 병렬로 두면 둘 다 죽을 확률이 0.01 × 0.01 = 0.0001이라 가용성이 99.99%가 된다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="390" fill="#ffffff"/>
 
-  <!-- [ 직렬 ] 섹션 -->
-  <rect x="24" y="20" width="832" height="165" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-  <rect x="40" y="32" width="68" height="26" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="4"/>
-  <text x="74" y="49.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[ 직렬 ]</text>
+  <!-- ===== 직렬 ===== -->
+  <rect x="24" y="24" width="832" height="216" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="62" font-size="20" font-weight="bold" fill="#1f2933">직렬</text>
+  <text x="102" y="62" font-size="16" fill="#4b5563">구성 요소가 모두 살아 있어야 서비스가 된다</text>
 
-  <!-- 직렬 박스 3개 -->
-  <!-- 웹 99.9% -->
-  <rect x="130" y="30" width="130" height="40" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="195" y="54.55" font-size="13" fill="#1f2933" text-anchor="middle">웹 99.9%</text>
+  <!-- 체인 -->
+  <rect x="48" y="84" width="130" height="60" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="113" y="108" font-size="16" fill="#1f2933" text-anchor="middle">웹</text>
+  <text x="113" y="132" font-size="18" font-weight="bold" fill="#1f2933" text-anchor="middle">99.9%</text>
 
-  <!-- 화살표 1 -->
-  <path d="M260,50 L340,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M180,114 L218,114" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- API 99.9% -->
-  <rect x="340" y="30" width="130" height="40" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="405" y="54.55" font-size="13" fill="#1f2933" text-anchor="middle">API 99.9%</text>
+  <rect x="222" y="84" width="130" height="60" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="287" y="108" font-size="16" fill="#1f2933" text-anchor="middle">API</text>
+  <text x="287" y="132" font-size="18" font-weight="bold" fill="#1f2933" text-anchor="middle">99.9%</text>
 
-  <!-- 화살표 2 -->
-  <path d="M470,50 L550,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M354,114 L392,114" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- DB 99.9% -->
-  <rect x="550" y="30" width="130" height="40" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="615" y="54.55" font-size="13" fill="#1f2933" text-anchor="middle">DB 99.9%</text>
+  <rect x="396" y="84" width="130" height="60" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="461" y="108" font-size="16" fill="#1f2933" text-anchor="middle">DB</text>
+  <text x="461" y="132" font-size="18" font-weight="bold" fill="#1f2933" text-anchor="middle">99.9%</text>
 
-  <!-- 직렬 계산식 & 수식 -->
-  <text x="130" y="104.55" font-size="13" font-weight="bold" fill="#dc2626">0.999 × 0.999 × 0.999 = 0.997</text>
-  <path d="M375,100 L415,100" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-gray)"/>
-  <text x="430" y="104.55" font-size="13" font-weight="bold" fill="#dc2626">99.7%</text>
+  <!-- 계산 -->
+  <text x="48" y="182" font-size="17" fill="#1f2933">0.999 × 0.999 × 0.999 = 0.997  →  <tspan font-weight="bold" fill="#b91c1c">99.7%</tspan></text>
+  <text x="48" y="214" font-size="15" fill="#4b5563">각 요소는 "3 나인"인데 전체는 아니다.</text>
 
-  <!-- 직렬 설명 글 -->
-  <text x="130" y="144.55" font-size="13" fill="#52606d">연간 다운타임 약 26시간. 각 요소는 "3 나인"인데 전체는 아니다.</text>
+  <!-- 결과 카드 -->
+  <rect x="592" y="84" width="240" height="132" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="712" y="112" font-size="15" fill="#374151" text-anchor="middle">전체 가용성</text>
+  <text x="712" y="156" font-size="34" font-weight="bold" fill="#b91c1c" text-anchor="middle">99.7%</text>
+  <text x="712" y="194" font-size="15" fill="#374151" text-anchor="middle">연간 다운타임 약 26시간</text>
 
+  <!-- ===== 병렬 ===== -->
+  <rect x="24" y="260" width="832" height="216" rx="12" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="298" font-size="20" font-weight="bold" fill="#1f2933">병렬</text>
+  <text x="102" y="298" font-size="16" fill="#4b5563">같은 역할 서버 2대, 각각 99%</text>
 
-  <!-- [ 병렬 ] 섹션 -->
-  <rect x="24" y="205" width="832" height="165" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-  <rect x="40" y="217" width="68" height="26" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
-  <text x="74" y="234.2" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[ 병렬 ]</text>
+  <!-- 병렬 블록: 갈라졌다 다시 합쳐짐 -->
+  <circle cx="54" cy="386" r="5" fill="#4b5563"/>
+  <path d="M59,386 L78,386 M78,352 L78,420 M78,352 L100,352 M78,420 L100,420" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <rect x="102" y="326" width="150" height="52" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="177" y="358" font-size="16" fill="#1f2933" text-anchor="middle">서버 1 · <tspan font-weight="bold">99%</tspan></text>
+  <rect x="102" y="394" width="150" height="52" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="177" y="426" font-size="16" fill="#1f2933" text-anchor="middle">서버 2 · <tspan font-weight="bold">99%</tspan></text>
+  <path d="M254,352 L276,352 M254,420 L276,420 M276,352 L276,420 M276,386 L295,386" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <circle cx="300" cy="386" r="5" fill="#4b5563"/>
 
-  <!-- 병렬 설명 텍스트들 -->
-  <text x="130" y="234.55" font-size="13" fill="#1f2933">같은 역할 서버 2대, 각각 99%</text>
-  <text x="130" y="274.55" font-size="13" fill="#1f2933">둘 다 죽어야 장애 = 0.01 × 0.01 = 0.0001</text>
-  <text x="130" y="314.55" font-size="13" font-weight="bold" fill="#059669">가용성 = 1 - 0.0001 = 99.99%</text>
+  <!-- 계산 -->
+  <text x="330" y="350" font-size="16" font-weight="bold" fill="#1f2933">둘 다 죽어야 장애</text>
+  <text x="330" y="382" font-size="17" fill="#1f2933">= 0.01 × 0.01 = 0.0001</text>
+  <text x="330" y="422" font-size="17" fill="#1f2933">가용성 = 1 - 0.0001 = <tspan font-weight="bold" fill="#047857">99.99%</tspan></text>
+
+  <!-- 결과 카드 -->
+  <rect x="592" y="320" width="240" height="132" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="712" y="348" font-size="15" fill="#374151" text-anchor="middle">전체 가용성</text>
+  <text x="712" y="392" font-size="34" font-weight="bold" fill="#047857" text-anchor="middle">99.99%</text>
+  <text x="712" y="430" font-size="15" fill="#374151" text-anchor="middle">각 서버는 99%</text>
 </svg>

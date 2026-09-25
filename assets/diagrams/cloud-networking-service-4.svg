@@ -1,63 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">kube-proxy iptables와 IPVS 패킷 흐름</title>
-  <desc id="d">Pod A에서 ClusterIP로 요청을 보내면 노드 커널의 kube-proxy 규칙을 통해 DNAT 처리되어 최종 Pod로 전송되는 과정을 보여주는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 860" width="880" height="860" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">kube-proxy 규칙에 따른 ClusterIP 패킷의 DNAT</title>
+  <desc id="d">Pod A가 user-service로 요청하면 CoreDNS가 ClusterIP 10.96.0.42를 돌려주고, 노드 커널의 kube-proxy 규칙이 1/3 확률, 아니면 1/2 확률, 아니면 나머지 순서로 Pod 하나를 골라 목적지 주소를 그 Pod IP로 바꿔(DNAT) Pod 2(10.244.2.3)에 전달한다.</desc>
+  <rect width="880" height="860" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="720" fill="#ffffff"/>
+  <!-- 1. Pod A -->
+  <rect x="280" y="24" width="320" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="58" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Pod A 안의 애플리케이션</text>
 
-  <!-- 1. Pod A 안의 애플리케이션 -->
-  <rect x="250" y="30" width="380" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="61" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Pod A 안의 애플리케이션</text>
+  <line x1="440" y1="80" x2="440" y2="136" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="456" y="114" font-size="15" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"http://user-service"</tspan> 로 요청</text>
 
-  <!-- 화살표 1 및 라벨 -->
-  <path d="M440,80 L440,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="335" y="98" width="210" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="114" font-size="11.5" fill="#1f2933" text-anchor="middle">"http://user-service" 로 요청</text>
+  <!-- 2. CoreDNS -->
+  <rect x="240" y="140" width="400" height="56" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="174" font-size="16" fill="#111827" text-anchor="middle">CoreDNS 조회 → <tspan font-weight="bold">10.96.0.42 (ClusterIP)</tspan></text>
 
-  <!-- 2. CoreDNS 조회 -->
-  <rect x="230" y="140" width="420" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="171" font-size="14" fill="#1f2933" text-anchor="middle">CoreDNS 조회 → 10.96.0.42 (ClusterIP)</text>
+  <!-- 3. 노드 커널 (컨테이너를 먼저 그리고, 들어오는 화살표는 그 위에 그린다) -->
+  <rect x="40" y="256" width="800" height="474" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="64" y="290" font-size="18" font-weight="bold" fill="#5b21b6">노드 커널</text>
+  <text x="168" y="290" font-size="15" fill="#374151">kube-proxy가 심어 둔 규칙</text>
 
-  <!-- 화살표 2 및 라벨 -->
-  <path d="M440,190 L440,260" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="315" y="213" width="250" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="229" font-size="11.5" fill="#1f2933" text-anchor="middle">패킷 전송 (목적지 10.96.0.42:80)</text>
+  <!-- CoreDNS → 규칙: 패킷 전송 -->
+  <line x1="440" y1="196" x2="440" y2="310" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="456" y="232" font-size="15" fill="#111827">패킷 전송 (목적지 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">10.96.0.42:80</tspan>)</text>
 
-  <!-- 3. 노드 커널 영역 -->
-  <rect x="80" y="260" width="720" height="320" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="none"/>
-  <text x="100" y="291" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="start">노드 커널</text>
+  <!-- 조건 -->
+  <rect x="280" y="314" width="320" height="48" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="440" y="344" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">목적지 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.96.0.42:80</tspan> 이면</text>
 
-  <!-- kube-proxy 심어 둔 규칙 내부 박스 -->
-  <rect x="100" y="310" width="680" height="250" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  
-  <text x="120" y="339" font-size="13" font-weight="bold" fill="#1f2933">kube-proxy가 심어 둔 규칙</text>
-  <text x="120" y="374" font-size="13" fill="#1f2933">목적지 10.96.0.42:80 이면</text>
+  <!-- 조건 → 첫 규칙 -->
+  <path d="M440,362 V388 H180 V410" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
 
-  <!-- 분기 규칙 목록 -->
-  <text x="150" y="409" font-size="13" fill="#52606d">├─ 1/3 확률 → 10.244.1.7:8080  (Pod 1)</text>
-  <text x="150" y="439" font-size="13" font-weight="bold" fill="#7c3aed">├─ 1/2 확률 → 10.244.2.3:8080  (Pod 2)</text>
-  <text x="150" y="469" font-size="13" fill="#52606d">└─ 나머지   → 10.244.3.9:8080  (Pod 3)</text>
+  <!-- 규칙 사슬: 앞 규칙에 안 걸리면 다음 규칙으로 -->
+  <rect x="90" y="414" width="180" height="44" rx="22" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="180" y="442" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">1/3 확률</text>
 
-  <text x="120" y="524" font-size="13" fill="#1f2933">선택된 Pod IP로 목적지 주소를 바꿔서 전달(DNAT)</text>
+  <line x1="270" y1="436" x2="346" y2="436" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="308" y="426" font-size="14" fill="#374151" text-anchor="middle">아니면</text>
 
-  <!-- 화살표 3 (노드 커널 -> Pod 2) -->
-  <path d="M440,580 L440,630" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
+  <rect x="350" y="414" width="180" height="44" rx="22" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="442" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">1/2 확률</text>
 
-  <!-- 4. Pod 2 -->
-  <rect x="290" y="630" width="300" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="440" y="661" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">Pod 2 (10.244.2.3)</text>
+  <line x1="530" y1="436" x2="606" y2="436" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="568" y="426" font-size="14" fill="#374151" text-anchor="middle">아니면</text>
+
+  <rect x="610" y="414" width="180" height="44" rx="22" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="700" y="442" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">나머지</text>
+
+  <!-- 규칙 → Pod -->
+  <line x1="180" y1="458" x2="180" y2="494" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="440" y1="458" x2="440" y2="494" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <line x1="700" y1="458" x2="700" y2="494" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- 후보 Pod -->
+  <rect x="60" y="498" width="240" height="70" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="180" y="526" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">Pod 1</text>
+  <text x="180" y="552" font-size="16" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.244.1.7:8080</text>
+
+  <rect x="320" y="498" width="240" height="70" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <text x="440" y="526" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">Pod 2</text>
+  <text x="440" y="552" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.244.2.3:8080</text>
+  <rect x="496" y="508" width="52" height="24" rx="12" fill="#047857"/>
+  <text x="522" y="525" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">선택</text>
+
+  <rect x="580" y="498" width="240" height="70" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="700" y="526" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">Pod 3</text>
+  <text x="700" y="552" font-size="16" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.244.3.9:8080</text>
+
+  <line x1="440" y1="568" x2="440" y2="602" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+
+  <!-- DNAT -->
+  <rect x="170" y="606" width="540" height="100" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="440" y="640" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">선택된 Pod IP로 목적지 주소를 바꿔서 전달(DNAT)</text>
+  <text x="440" y="678" font-size="16" fill="#111827" text-anchor="middle">목적지 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#4b5563">10.96.0.42:80</tspan>  →  <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#047857">10.244.2.3:8080</tspan></text>
+
+  <line x1="440" y1="706" x2="440" y2="772" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+
+  <!-- 4. 도착 -->
+  <rect x="290" y="776" width="300" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="810" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">Pod 2 (10.244.2.3)</text>
 </svg>

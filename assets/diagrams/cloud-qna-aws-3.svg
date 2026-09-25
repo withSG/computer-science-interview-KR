@@ -1,32 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Stateful vs Stateless</title>
-  <desc id="d">Security Group (Stateful)과 NACL (Stateless)의 동작 방식 비교 다이어그램</desc>
+  <desc id="d">Security Group(Stateful)은 요청이 허용되면 응답이 자동 허용되고, NACL(Stateless)은 요청과 응답에 인바운드·아웃바운드 규칙이 각각 필요하다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="380" fill="#ffffff"/>
-  
-  <!-- Security Group (Stateful) Section -->
-  <rect x="40" y="30" width="800" height="140" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="65" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="start">Security Group (Stateful):</text>
-  
-  <rect x="140" y="90" width="180" height="50" rx="6" ry="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="230" y="120" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">요청 허용</text>
-  
-  <path d="M320,115 L530,115" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  
-  <rect x="540" y="90" width="180" height="50" rx="6" ry="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="630" y="120" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">응답 자동 허용</text>
+  <rect width="880" height="470" fill="#ffffff"/>
 
-  <!-- NACL (Stateless) Section -->
-  <rect x="40" y="200" width="800" height="150" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="60" y="235" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="start">NACL (Stateless):</text>
-  
-  <rect x="230" y="260" width="420" height="60" rx="6" ry="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="295" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">인바운드, 아웃바운드 규칙 각각 필요</text>
+  <!-- Security Group (Stateful) -->
+  <rect x="24" y="24" width="832" height="200" rx="12" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="48" y="56" font-size="18" font-weight="bold" fill="#1d4ed8">Security Group (Stateful)</text>
+
+  <rect x="48" y="74" width="100" height="100" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="98" y="130" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">외부</text>
+  <rect x="732" y="74" width="100" height="100" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="782" y="130" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">인스턴스</text>
+
+  <path d="M154,102 H724" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M726,146 H156" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <text x="166" y="92" font-size="15" font-weight="bold" fill="#111827">요청</text>
+  <text x="714" y="136" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">응답</text>
+
+  <rect x="355" y="86" width="170" height="32" rx="16" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="107" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">인바운드 규칙</text>
+  <rect x="355" y="130" width="170" height="32" rx="16" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="440" y="151" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">자동 허용</text>
+
+  <text x="440" y="205" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">요청 허용 → 응답 자동 허용</text>
+
+  <!-- NACL (Stateless) -->
+  <rect x="24" y="244" width="832" height="200" rx="12" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="48" y="276" font-size="18" font-weight="bold" fill="#6d28d9">NACL (Stateless)</text>
+
+  <rect x="48" y="294" width="100" height="100" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="98" y="350" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">외부</text>
+  <rect x="732" y="294" width="100" height="100" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="782" y="350" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">서브넷</text>
+
+  <path d="M154,322 H724" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <path d="M726,366 H156" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah)"/>
+  <text x="166" y="312" font-size="15" font-weight="bold" fill="#111827">요청</text>
+  <text x="714" y="356" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">응답</text>
+
+  <rect x="355" y="306" width="170" height="32" rx="16" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="440" y="327" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">인바운드 규칙</text>
+  <rect x="355" y="350" width="170" height="32" rx="16" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="440" y="371" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">아웃바운드 규칙</text>
+
+  <text x="440" y="425" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">인바운드, 아웃바운드 규칙 각각 필요</text>
 </svg>

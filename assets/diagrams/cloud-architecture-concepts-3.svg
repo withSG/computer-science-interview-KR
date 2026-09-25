@@ -1,68 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">kube-scheduler — 자리만 정한다</title>
-  <desc id="d">kube-scheduler가 전체 노드에서 필터링과 스코어링 단계를 거쳐 최종 노드를 선택하는 과정을 나타낸 다이어그램</desc>
-  
-  <rect width="880" height="520" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 650" width="880" height="650" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">kube-scheduler의 노드 선택 과정</title>
+  <desc id="d">kube-scheduler가 전체 노드 5개에서 ① 필터링으로 불가능한 노드를 제외해 후보 노드 2개를 남기고, ② 스코어링으로 남은 후보에 점수를 매겨 node-3을 선택한 뒤 spec.nodeName = node-3으로 기록하는 과정.</desc>
+  <rect width="880" height="650" fill="#ffffff"/>
   <defs>
-    <marker id="arrow-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Node Status Box 1: [전체 노드 5개] -->
-  <rect x="340" y="24" width="200" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="48.7" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[전체 노드 5개]</text>
+  <!-- 단계 0: 전체 노드 5개 -->
+  <rect x="40" y="24" width="230" height="80" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="155" y="54" text-anchor="middle" font-size="18" font-weight="bold" fill="#1f2937">전체 노드 5개</text>
+  <rect x="70" y="70" width="26" height="22" rx="4" fill="#9ca3af"/>
+  <rect x="106" y="70" width="26" height="22" rx="4" fill="#9ca3af"/>
+  <rect x="142" y="70" width="26" height="22" rx="4" fill="#9ca3af"/>
+  <rect x="178" y="70" width="26" height="22" rx="4" fill="#9ca3af"/>
+  <rect x="214" y="70" width="26" height="22" rx="4" fill="#9ca3af"/>
 
-  <!-- Flow Arrow 1 -->
-  <path d="M440,64 L440,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#arrow-ink)"/>
+  <!-- ① 필터링 -->
+  <line x1="155" y1="104" x2="155" y2="181" stroke="#374151" stroke-width="2"/>
+  <circle cx="155" cy="198" r="17" fill="#b91c1c"/>
+  <text x="155" y="204" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">1</text>
+  <line x1="155" y1="215" x2="155" y2="288" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <line x1="172" y1="198" x2="300" y2="198" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-  <!-- Step 1 Group Container: Filtering -->
-  <rect x="180" y="80" width="520" height="114" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1" stroke-dasharray="4 4"/>
-  
-  <!-- Step 1 Label Header -->
-  <rect x="220" y="70" width="440" height="22" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="3"/>
-  <text x="440" y="85.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">① 필터링(Filtering) — 불가능한 노드를 제외</text>
+  <rect x="300" y="120" width="556" height="156" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="322" y="152" font-size="18" font-weight="bold" fill="#b91c1c">① 필터링(Filtering) — 불가능한 노드를 제외</text>
+  <text x="330" y="184" font-size="16" fill="#1f2937">· CPU/메모리 여유가 requests보다 적은 노드</text>
+  <text x="330" y="210" font-size="16" fill="#1f2937">· nodeSelector / affinity 조건 불일치</text>
+  <text x="330" y="236" font-size="16" fill="#1f2937">· taint를 toleration 없이 감당 못 하는 노드</text>
+  <text x="330" y="262" font-size="16" fill="#1f2937">· hostPort 충돌, 볼륨 토폴로지 불일치</text>
 
-  <!-- Step 1 Details -->
-  <text x="210" y="113.0" font-size="11.5" fill="#52606d">· CPU/메모리 여유가 requests보다 적은 노드</text>
-  <text x="210" y="133.0" font-size="11.5" fill="#52606d">· nodeSelector / affinity 조건 불일치</text>
-  <text x="210" y="153.0" font-size="11.5" fill="#52606d">· taint를 toleration 없이 감당 못 하는 노드</text>
-  <text x="210" y="173.0" font-size="11.5" fill="#52606d">· hostPort 충돌, 볼륨 토폴로지 불일치</text>
+  <!-- 단계 1: 후보 노드 2개 -->
+  <rect x="40" y="292" width="230" height="80" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="155" y="322" text-anchor="middle" font-size="18" font-weight="bold" fill="#b45309">후보 노드 2개</text>
+  <rect x="124" y="338" width="26" height="22" rx="4" fill="#f59e0b"/>
+  <rect x="160" y="338" width="26" height="22" rx="4" fill="#f59e0b"/>
 
+  <!-- ② 스코어링 -->
+  <line x1="155" y1="372" x2="155" y2="438" stroke="#374151" stroke-width="2"/>
+  <circle cx="155" cy="455" r="17" fill="#1d4ed8"/>
+  <text x="155" y="461" text-anchor="middle" font-size="17" font-weight="bold" fill="#ffffff">2</text>
+  <line x1="155" y1="472" x2="155" y2="534" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <line x1="172" y1="455" x2="300" y2="455" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-  <!-- Node Status Box 2: [후보 노드 2개] -->
-  <rect x="340" y="210" width="200" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="234.7" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">[후보 노드 2개]</text>
+  <rect x="300" y="388" width="556" height="134" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="322" y="420" font-size="18" font-weight="bold" fill="#1d4ed8">② 스코어링(Scoring) — 남은 후보에 점수</text>
+  <text x="330" y="452" font-size="16" fill="#1f2937">· 자원이 고르게 분산되는 쪽 선호</text>
+  <text x="330" y="478" font-size="16" fill="#1f2937">· 이미지를 이미 받아 둔 노드 선호</text>
+  <text x="330" y="504" font-size="16" fill="#1f2937">· Pod 간 affinity/anti-affinity 반영</text>
 
-  <!-- Flow Arrow 2 -->
-  <path d="M440,250 L440,370" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#arrow-ink)"/>
+  <!-- 단계 2: node-3 선택 → 기록 -->
+  <rect x="40" y="538" width="230" height="80" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="155" y="568" text-anchor="middle" font-size="18" font-weight="bold" fill="#047857">node-3 선택</text>
+  <rect x="142" y="584" width="26" height="22" rx="4" fill="#10b981"/>
 
-  <!-- Step 2 Group Container: Scoring -->
-  <rect x="200" y="266" width="480" height="88" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- Step 2 Label Header -->
-  <rect x="250" y="256" width="380" height="22" fill="#ffffff" stroke="#059669" stroke-width="1" rx="3"/>
-  <text x="440" y="271.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">② 스코어링(Scoring) — 남은 후보에 점수</text>
-
-  <!-- Step 2 Details -->
-  <text x="230" y="299.0" font-size="11.5" fill="#52606d">· 자원이 고르게 분산되는 쪽 선호</text>
-  <text x="230" y="319.0" font-size="11.5" fill="#52606d">· 이미지를 이미 받아 둔 노드 선호</text>
-  <text x="230" y="339.0" font-size="11.5" fill="#52606d">· Pod 간 affinity/anti-affinity 반영</text>
-
-
-  <!-- Node Status Box 3: [node-3 선택] -->
-  <rect x="180" y="370" width="200" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="280" y="394.7" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[node-3 선택]</text>
-
-  <!-- Horizontal Selection Arrow -->
-  <path d="M380,390 L430,390" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
-
-  <!-- Binding Result Box -->
-  <rect x="430" y="370" width="270" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="565" y="394.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">spec.nodeName = node-3</text>
-
+  <line x1="270" y1="578" x2="416" y2="578" stroke="#374151" stroke-width="2" marker-end="url(#ink)"/>
+  <text x="343" y="566" text-anchor="middle" font-size="15" fill="#374151">기록(binding)</text>
+  <rect x="420" y="550" width="280" height="56" rx="8" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="560" y="584" text-anchor="middle" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">spec.nodeName = node-3</text>
 </svg>

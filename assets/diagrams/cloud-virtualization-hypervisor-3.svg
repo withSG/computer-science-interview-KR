@@ -1,39 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Type 1: Bare-metal Hypervisor</title>
-  <desc id="d">VM 1, VM 2, VM 3이 하위의 Type 1 Hypervisor(ESXi, Hyper-V, KVM, Xen) 연결되고, 그것이 최하위의 Hardware 연결되는 구조를 나타낸 아키텍처 다이어그램</desc>
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-  </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 350" width="880" height="350" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Type 1 하이퍼바이저 구조</title>
+  <desc id="d">VM 1, VM 2, VM 3이 Type 1 Hypervisor(ESXi, Hyper-V, KVM, Xen) 위에서 돌고, 하이퍼바이저는 호스트 OS 없이 Hardware 위에 직접 설치된다.</desc>
+  <rect width="880" height="350" fill="#ffffff"/>
 
-  <!-- VM 1 -->
-  <rect x="80" y="30" width="180" height="50" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="170" y="60.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">VM 1</text>
+  <!-- VM -->
+  <rect x="40" y="24" width="240" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="160" y="60" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">VM 1</text>
+  <rect x="320" y="24" width="240" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="60" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">VM 2</text>
+  <rect x="600" y="24" width="240" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="720" y="60" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">VM 3</text>
 
-  <!-- VM 2 -->
-  <rect x="350" y="30" width="180" height="50" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="60.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">VM 2</text>
-
-  <!-- VM 3 -->
-  <rect x="620" y="30" width="180" height="50" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="710" y="60.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">VM 3</text>
-
-  <!-- Connectors from VMs to Hypervisor -->
-  <path d="M170,80 L170,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M440,80 L440,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M710,80 L710,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- VM → 하이퍼바이저 연결 -->
+  <path d="M160,84 L160,124 M440,84 L440,124 M720,84 L720,124" stroke="#6b7280" stroke-width="2" fill="none"/>
 
   <!-- Type 1 Hypervisor -->
-  <rect x="80" y="140" width="720" height="80" rx="4" ry="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="173.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Type 1 Hypervisor</text>
-  <text x="440" y="198.025" font-size="11.5" fill="#52606d" text-anchor="middle">(ESXi, Hyper-V, KVM, Xen)</text>
+  <rect x="40" y="124" width="800" height="92" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="440" y="162" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">Type 1 Hypervisor</text>
+  <text x="440" y="194" font-size="16" fill="#1f2937" text-anchor="middle">(ESXi, Hyper-V, KVM, Xen)</text>
 
-  <!-- Connector from Hypervisor to Hardware -->
-  <path d="M440,220 L440,260" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 하이퍼바이저 → 하드웨어 (사이에 호스트 OS 없음) -->
+  <path d="M440,216 L440,268" stroke="#6b7280" stroke-width="2" fill="none"/>
+  <text x="456" y="248" font-size="15" fill="#065f46">하드웨어 위에 직접 설치 · 호스트 OS 불필요</text>
 
   <!-- Hardware -->
-  <rect x="80" y="260" width="720" height="50" rx="4" ry="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="290.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Hardware</text>
+  <rect x="40" y="268" width="800" height="56" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="302" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">Hardware</text>
 </svg>

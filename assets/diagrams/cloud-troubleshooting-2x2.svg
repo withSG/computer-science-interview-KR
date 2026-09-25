@@ -1,145 +1,112 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 820" width="880" height="820" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 790" width="880" height="790" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">병목 자원 판별 흐름</title>
-  <desc id="d">Load Average 높음 여부와 시스템 지표(top, iostat, vmstat)를 기반으로 I/O, CPU, 메모리 및 외부 의존성 병목 원인을 판별하는 흐름도</desc>
-  
-  <rect width="880" height="820" fill="#ffffff"/>
-
+  <desc id="d">Load Average가 높으면 top의 %wa와 %us·%sy로 I/O 계열과 CPU 계열을 가르고, iostat·vmstat 또는 %us·%sy 우세로 원인을 좁힌다. Load는 낮은데 응답만 느리면 외부 의존성 지연이나 락 대기·커넥션 풀 고갈이라 시스템 지표에 잡히지 않는다.</desc>
+  <rect width="880" height="790" fill="#ffffff"/>
   <defs>
-    <!-- Markers for arrows -->
-    <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="m-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="m-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="m-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0f766e"/>
     </marker>
   </defs>
 
-  <!-- Title / Section Header -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">5. 병목 자원 판별 흐름</text>
+  <!-- 루트 -->
+  <rect x="330" y="24" width="220" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="440" y="52" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">Load Average 높음</text>
 
-  <!-- ==================== MAIN BRANCH 1: LOAD AVERAGE HIGH ==================== -->
-  
-  <!-- Root Node: Load Average 높음 -->
-  <rect x="30" y="60" width="180" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="120" y="84" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">Load Average 높음</text>
+  <!-- 루트에서 두 갈래 -->
+  <path d="M440,68 V88 M226,88 H654" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <line x1="226" y1="88" x2="226" y2="114" stroke="#b45309" stroke-width="2" marker-end="url(#amber)"/>
+  <line x1="654" y1="88" x2="654" y2="114" stroke="#6d28d9" stroke-width="2" marker-end="url(#purple)"/>
 
-  <!-- Trunk line from Root -->
-  <path d="M120,100 L120,440" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <!-- ===== I/O 계열 ===== -->
+  <rect x="24" y="116" width="404" height="64" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="226" y="142" font-size="16" fill="#1f2937" text-anchor="middle">top의 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">%wa</tspan> 가 높다</text>
+  <text x="226" y="168" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">→ I/O 계열</text>
 
-  <!-- ==================== SUB-BRANCH 1: top %wa 높음 (I/O 계열) ==================== -->
-  
-  <!-- Branch Line 1 -->
-  <path d="M120,140 L160,140" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  
-  <!-- Node: top의 %wa 가 높다 -->
-  <rect x="160" y="120" width="190" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="255" y="144" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">top의 %wa 가 높다</text>
+  <path d="M48,180 V402" stroke="#b45309" stroke-width="2" fill="none"/>
+  <line x1="48" y1="222" x2="70" y2="222" stroke="#b45309" stroke-width="2" marker-end="url(#amber)"/>
+  <line x1="48" y1="402" x2="70" y2="402" stroke="#b45309" stroke-width="2" marker-end="url(#amber)"/>
 
-  <!-- Arrow to Category: I/O 계열 -->
-  <path d="M350,140 L433,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#m-blue)"/>
-  
-  <!-- Target Tag: I/O 계열 -->
-  <rect x="440" y="122" width="100" height="36" rx="18" fill="#2563eb"/>
-  <text x="490" y="144" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">I/O 계열</text>
+  <!-- 디스크 I/O 병목 -->
+  <rect x="72" y="204" width="356" height="160" rx="8" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M80,205 H420 A7,7 0 0 1 427,212 V240 H73 V212 A7,7 0 0 1 80,205 Z" fill="#fef3c7"/>
+  <text x="88" y="228" font-size="15" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">iostat</tspan> 의 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">await·%util</tspan> 도 높다</text>
+  <text x="88" y="268" font-size="17" font-weight="bold" fill="#b45309">→ 디스크 I/O 병목</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="104" y="296">· 슬로우 쿼리</tspan>
+    <tspan x="104" y="320">· 로그 과다 쓰기</tspan>
+    <tspan x="104" y="344">· 볼륨 IOPS·처리량 상한 도달</tspan>
+  </text>
 
-  <!-- Vertical tree under top %wa -->
-  <path d="M220,160 L220,280" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <!-- 메모리 부족이 만든 I/O 폭증 -->
+  <rect x="72" y="384" width="356" height="160" rx="8" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M80,385 H420 A7,7 0 0 1 427,392 V420 H73 V392 A7,7 0 0 1 80,385 Z" fill="#fef3c7"/>
+  <text x="88" y="408" font-size="15" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">vmstat</tspan> 의 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">si·so</tspan> 가 계속 0이 아니다</text>
+  <text x="88" y="448" font-size="17" font-weight="bold" fill="#b45309">→ 메모리 부족이 만든 I/O 폭증</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="104" y="476">· 누수</tspan>
+    <tspan x="104" y="500">· 힙 과다 설정</tspan>
+    <tspan x="104" y="524">· 캐시 부족</tspan>
+  </text>
 
-  <!-- Leaf 1.1: iostat await %util -->
-  <path d="M220,200 L250,200" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-  <rect x="250" y="182" width="240" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="262" y="204" font-size="13" fill="#1f2933">iostat 의 await·%util 도 높다</text>
-  
-  <!-- Arrow to conclusion -->
-  <path d="M490,200 L523,200" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#m-orange)"/>
-  <text x="535" y="204" font-size="13" font-weight="bold" fill="#d97706">디스크 I/O 병목</text>
+  <!-- ===== CPU 계열 ===== -->
+  <rect x="452" y="116" width="404" height="64" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="654" y="142" font-size="16" fill="#1f2937" text-anchor="middle">top의 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">%us·%sy</tspan> 가 높다</text>
+  <text x="654" y="168" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">→ CPU 계열</text>
 
-  <!-- Details 1.1 -->
-  <rect x="270" y="224" width="560" height="32" rx="4" fill="#fffbeb" stroke="#fef3c7" stroke-width="1"/>
-  <text x="282" y="244" font-size="11.5" fill="#52606d">· 슬로우 쿼리 / 로그 과다 쓰기 / 볼륨 IOPS·처리량 상한 도달</text>
+  <path d="M476,180 V402" stroke="#6d28d9" stroke-width="2" fill="none"/>
+  <line x1="476" y1="222" x2="498" y2="222" stroke="#6d28d9" stroke-width="2" marker-end="url(#purple)"/>
+  <line x1="476" y1="402" x2="498" y2="402" stroke="#6d28d9" stroke-width="2" marker-end="url(#purple)"/>
 
-  <!-- Leaf 1.2: vmstat si so -->
-  <path d="M220,280 L250,280" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-  <rect x="250" y="262" width="280" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="262" y="284" font-size="13" fill="#1f2933">vmstat 의 si·so 가 계속 0이 아니다</text>
-  
-  <!-- Arrow to conclusion -->
-  <path d="M530,280 L563,280" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#m-orange)"/>
-  <text x="575" y="284" font-size="13" font-weight="bold" fill="#d97706">메모리 부족이 만든 I/O 폭증</text>
+  <!-- 애플리케이션 코드 -->
+  <rect x="500" y="204" width="356" height="160" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M508,205 H848 A7,7 0 0 1 855,212 V240 H501 V212 A7,7 0 0 1 508,205 Z" fill="#ede9fe"/>
+  <text x="516" y="228" font-size="15" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">%us</tspan> 우세</text>
+  <text x="516" y="268" font-size="17" font-weight="bold" fill="#6d28d9">→ 애플리케이션 코드</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="532" y="296">· GC 폭주</tspan>
+    <tspan x="532" y="320">· 무한 루프</tspan>
+    <tspan x="532" y="344">· 비효율 알고리즘</tspan>
+  </text>
 
-  <!-- Details 1.2 -->
-  <rect x="270" y="304" width="560" height="32" rx="4" fill="#fffbeb" stroke="#fef3c7" stroke-width="1"/>
-  <text x="282" y="324" font-size="11.5" fill="#52606d">· 누수 / 힙 과다 설정 / 캐시 부족</text>
+  <!-- 커널 경로 -->
+  <rect x="500" y="384" width="356" height="160" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M508,385 H848 A7,7 0 0 1 855,392 V420 H501 V392 A7,7 0 0 1 508,385 Z" fill="#ede9fe"/>
+  <text x="516" y="408" font-size="15" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">%sy</tspan> 우세</text>
+  <text x="516" y="448" font-size="17" font-weight="bold" fill="#6d28d9">→ 커널 경로</text>
+  <text font-size="15" fill="#374151">
+    <tspan x="532" y="476">· 컨텍스트 스위칭 폭주</tspan>
+    <tspan x="532" y="500">· 인터럽트 폭주</tspan>
+    <tspan x="532" y="524">· 시스템 콜 과다</tspan>
+  </text>
 
+  <!-- 구분선 -->
+  <line x1="24" y1="574" x2="856" y2="574" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- ==================== SUB-BRANCH 2: top %us %sy 높음 (CPU 계열) ==================== -->
-  
-  <!-- Branch Line 2 -->
-  <path d="M120,440 L160,440" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-  
-  <!-- Node: top의 %us·%sy 가 높다 -->
-  <rect x="160" y="420" width="210" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="265" y="444" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">top의 %us·%sy 가 높다</text>
+  <!-- ===== Load 낮은데 느린 경우 ===== -->
+  <rect x="24" y="594" width="150" height="28" rx="14" fill="#0f766e"/>
+  <text x="99" y="613" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">놓치기 쉬운 갈래</text>
 
-  <!-- Arrow to Category: CPU 계열 -->
-  <path d="M370,440 L433,440" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#m-purple)"/>
-  
-  <!-- Target Tag: CPU 계열 -->
-  <rect x="440" y="422" width="100" height="36" rx="18" fill="#7c3aed"/>
-  <text x="490" y="444" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">CPU 계열</text>
+  <rect x="24" y="672" width="280" height="46" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="164" y="701" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Load 는 낮은데 응답만 느리다</text>
 
-  <!-- Vertical tree under top %us %sy -->
-  <path d="M220,460 L220,580" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
+  <line x1="308" y1="695" x2="332" y2="695" stroke="#0f766e" stroke-width="2" marker-end="url(#teal)"/>
 
-  <!-- Leaf 2.1: %us 우세 -->
-  <path d="M220,500 L250,500" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-  <rect x="250" y="482" width="110" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="305" y="504" font-size="13" fill="#1f2933" text-anchor="middle">%us 우세</text>
-  
-  <!-- Arrow to conclusion -->
-  <path d="M360,500 L393,500" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#m-purple)"/>
-  <text x="405" y="504" font-size="13" font-weight="bold" fill="#7c3aed">애플리케이션 코드</text>
-
-  <!-- Details 2.1 -->
-  <rect x="270" y="524" width="560" height="32" rx="4" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
-  <text x="282" y="544" font-size="11.5" fill="#52606d">· GC 폭주 / 무한 루프 / 비효율 알고리즘</text>
-
-  <!-- Leaf 2.2: %sy 우세 -->
-  <path d="M220,580 L250,580" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-  <rect x="250" y="562" width="110" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="305" y="584" font-size="13" fill="#1f2933" text-anchor="middle">%sy 우세</text>
-  
-  <!-- Arrow to conclusion -->
-  <path d="M360,580 L393,580" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#m-purple)"/>
-  <text x="405" y="584" font-size="13" font-weight="bold" fill="#7c3aed">커널 경로</text>
-
-  <!-- Details 2.2 -->
-  <rect x="270" y="604" width="560" height="32" rx="4" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
-  <text x="282" y="624" font-size="11.5" fill="#52606d">· 컨텍스트 스위칭 폭주 / 인터럽트 폭주 / 시스템 콜 과다</text>
-
-
-  <!-- Separator Line -->
-  <line x1="30" y1="660" x2="850" y2="660" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-
-  <!-- ==================== MAIN BRANCH 2: LOAD LOW BUT SLOW ==================== -->
-  
-  <!-- Root Node: Load 는 낮은데 응답만 느리다 -->
-  <rect x="30" y="685" width="250" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="155" y="709" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Load 는 낮은데 응답만 느리다</text>
-
-  <!-- Vertical tree branch -->
-  <path d="M120,725 L120,745 L150,745" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-
-  <!-- Content Box for Latency / Lock waiting -->
-  <rect x="150" y="735" width="680" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="165" y="756" font-size="12.5" font-weight="bold" fill="#059669">외부 의존성 지연(DB·외부 API·DNS) 또는 락 대기·커넥션 풀 고갈</text>
-  <text x="165" y="778" font-size="11.5" fill="#52606d">스레드가 대기만 하므로 CPU도 I/O도 쓰지 않아 어떤 시스템 지표에도 안 잡힌다</text>
-
+  <rect x="336" y="634" width="520" height="124" rx="8" fill="#f0fdfa" stroke="#0f766e" stroke-width="2"/>
+  <text font-size="17" font-weight="bold" fill="#0f766e">
+    <tspan x="356" y="664">외부 의존성 지연(DB·외부 API·DNS)</tspan>
+    <tspan x="356" y="690">또는 락 대기·커넥션 풀 고갈</tspan>
+  </text>
+  <text font-size="15" fill="#1f2937">
+    <tspan x="356" y="720">스레드가 대기만 하므로 CPU도 I/O도 쓰지 않아</tspan>
+    <tspan x="356" y="742">어떤 시스템 지표에도 안 잡힌다</tspan>
+  </text>
 </svg>

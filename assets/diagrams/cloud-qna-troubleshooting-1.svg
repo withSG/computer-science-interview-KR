@@ -1,48 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">진단 순서</title>
-  <desc id="d">서버 응답이 느려졌을 때 진단하는 4단계 순서를 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 710" width="880" height="710" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">응답 지연 진단 순서</title>
+  <desc id="d">서버 응답이 느려졌을 때 현상 파악, 시스템 리소스 확인, 애플리케이션 레벨, 외부 의존성 순으로 4단계에 걸쳐 확인할 항목을 위에서 아래로 보여준다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="770" fill="#ffffff"/>
+  <rect width="880" height="710" fill="#ffffff"/>
 
-  <!-- Step 1 -->
-  <rect x="40" y="30" width="800" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="65" font-size="16" font-weight="bold" fill="#1f2933">1. 현상 파악</text>
-  <text x="80" y="95" font-size="13" fill="#52606d">- 어떤 요청이 느린지? (전체? 특정 API?)</text>
-  <text x="80" y="120" font-size="13" fill="#52606d">- 언제부터? 갑자기? 점진적?</text>
-  <text x="80" y="145" font-size="13" fill="#52606d">- 영향 범위는?</text>
+  <!-- 1. 현상 파악 (y=24, h=124) -->
+  <rect x="40" y="24" width="800" height="124" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M48,25 H300 V147 H48 A7,7 0 0 1 41,140 V32 A7,7 0 0 1 48,25 Z" fill="#eff6ff"/>
+  <line x1="300" y1="25" x2="300" y2="147" stroke="#bfdbfe" stroke-width="1.5"/>
+  <circle cx="80" cy="86" r="20" fill="#1d4ed8"/>
+  <text x="80" y="92.5" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="114" y="92.5" font-size="18" font-weight="bold" fill="#111827">현상 파악</text>
+  <circle cx="324" cy="55.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="61" font-size="16" fill="#1f2937">어떤 요청이 느린지? (전체? 특정 API?)</text>
+  <circle cx="324" cy="85.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="91" font-size="16" fill="#1f2937">언제부터? 갑자기? 점진적?</text>
+  <circle cx="324" cy="115.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="121" font-size="16" fill="#1f2937">영향 범위는?</text>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M440,160 L440,205" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="80" y1="152" x2="80" y2="186" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 2 -->
-  <rect x="40" y="210" width="800" height="155" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="245" font-size="16" font-weight="bold" fill="#1f2933">2. 시스템 리소스 확인</text>
-  <text x="80" y="275" font-size="13" fill="#52606d">- CPU: top, htop</text>
-  <text x="80" y="300" font-size="13" fill="#52606d">- Memory: free -h</text>
-  <text x="80" y="325" font-size="13" fill="#52606d">- Disk: df -h, iostat</text>
-  <text x="80" y="350" font-size="13" fill="#52606d">- Network: netstat, ss</text>
+  <!-- 2. 시스템 리소스 확인 (y=192, h=154) -->
+  <rect x="40" y="192" width="800" height="154" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M48,193 H300 V345 H48 A7,7 0 0 1 41,338 V200 A7,7 0 0 1 48,193 Z" fill="#eff6ff"/>
+  <line x1="300" y1="193" x2="300" y2="345" stroke="#bfdbfe" stroke-width="1.5"/>
+  <circle cx="80" cy="269" r="20" fill="#1d4ed8"/>
+  <text x="80" y="275.5" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="114" y="275.5" font-size="18" font-weight="bold" fill="#111827">시스템 리소스 확인</text>
+  <text x="324" y="229" font-size="16" font-weight="bold" fill="#111827">CPU</text>
+  <text x="436" y="229" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">top, htop</text>
+  <text x="324" y="259" font-size="16" font-weight="bold" fill="#111827">Memory</text>
+  <text x="436" y="259" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">free -h</text>
+  <text x="324" y="289" font-size="16" font-weight="bold" fill="#111827">Disk</text>
+  <text x="436" y="289" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">df -h, iostat</text>
+  <text x="324" y="319" font-size="16" font-weight="bold" fill="#111827">Network</text>
+  <text x="436" y="319" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">netstat, ss</text>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M440,365 L440,410" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="80" y1="350" x2="80" y2="384" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 3 -->
-  <rect x="40" y="415" width="800" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="450" font-size="16" font-weight="bold" fill="#1f2933">3. 애플리케이션 레벨</text>
-  <text x="80" y="480" font-size="13" fill="#52606d">- 로그 확인 (에러, 슬로우 로그)</text>
-  <text x="80" y="505" font-size="13" fill="#52606d">- 연결 풀 상태 (DB, Redis)</text>
-  <text x="80" y="530" font-size="13" fill="#52606d">- 스레드/프로세스 수</text>
+  <!-- 3. 애플리케이션 레벨 (y=390, h=124) -->
+  <rect x="40" y="390" width="800" height="124" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M48,391 H300 V513 H48 A7,7 0 0 1 41,506 V398 A7,7 0 0 1 48,391 Z" fill="#eff6ff"/>
+  <line x1="300" y1="391" x2="300" y2="513" stroke="#bfdbfe" stroke-width="1.5"/>
+  <circle cx="80" cy="452" r="20" fill="#1d4ed8"/>
+  <text x="80" y="458.5" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="114" y="458.5" font-size="18" font-weight="bold" fill="#111827">애플리케이션 레벨</text>
+  <circle cx="324" cy="421.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="427" font-size="16" fill="#1f2937">로그 확인 (에러, 슬로우 로그)</text>
+  <circle cx="324" cy="451.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="457" font-size="16" fill="#1f2937">연결 풀 상태 (DB, Redis)</text>
+  <circle cx="324" cy="481.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="487" font-size="16" fill="#1f2937">스레드/프로세스 수</text>
 
-  <!-- Arrow 3 -> 4 -->
-  <path d="M440,545 L440,590" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="80" y1="518" x2="80" y2="552" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 4 -->
-  <rect x="40" y="595" width="800" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="630" font-size="16" font-weight="bold" fill="#1f2933">4. 외부 의존성</text>
-  <text x="80" y="660" font-size="13" fill="#52606d">- DB 쿼리 성능</text>
-  <text x="80" y="685" font-size="13" fill="#52606d">- 외부 API 응답 시간</text>
-  <text x="80" y="710" font-size="13" fill="#52606d">- 캐시 히트율</text>
+  <!-- 4. 외부 의존성 (y=558, h=124) -->
+  <rect x="40" y="558" width="800" height="124" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M48,559 H300 V681 H48 A7,7 0 0 1 41,674 V566 A7,7 0 0 1 48,559 Z" fill="#eff6ff"/>
+  <line x1="300" y1="559" x2="300" y2="681" stroke="#bfdbfe" stroke-width="1.5"/>
+  <circle cx="80" cy="620" r="20" fill="#1d4ed8"/>
+  <text x="80" y="626.5" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="114" y="626.5" font-size="18" font-weight="bold" fill="#111827">외부 의존성</text>
+  <circle cx="324" cy="589.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="595" font-size="16" fill="#1f2937">DB 쿼리 성능</text>
+  <circle cx="324" cy="619.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="625" font-size="16" fill="#1f2937">외부 API 응답 시간</text>
+  <circle cx="324" cy="649.5" r="3" fill="#1d4ed8"/>
+  <text x="336" y="655" font-size="16" fill="#1f2937">캐시 히트율</text>
 </svg>

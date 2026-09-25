@@ -1,101 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">거의 모든 문제에 재사용되는 뼈대</title>
-  <desc id="d">시스템 설계 면접에서 사용되는 재사용 가능한 상위 설계 뼈대 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 700" width="880" height="700" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">시스템 설계 공통 뼈대</title>
+  <desc id="d">Client에서 CDN, API Gateway/LB를 거쳐 Write API와 Read API로 갈라지고, 쓰기는 Database Primary로, 읽기는 Cache를 거쳐 Replica로 가며, Database 뒤의 Message Queue가 Worker(통계 집계, 알림, 인덱싱)로 후속 작업을 넘기는 뼈대. 각 컴포넌트의 역할을 오른쪽에 적었다.</desc>
+  <rect width="880" height="700" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="av" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="770" fill="#ffffff"/>
+  <!-- 공통 경로: Client → CDN → API Gateway / LB -->
+  <rect x="160" y="24" width="140" height="48" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="230" y="54" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <line x1="230" y1="72" x2="230" y2="102" stroke="#374151" stroke-width="2" marker-end="url(#ag)"/>
 
-  <!-- Client -->
-  <rect x="230" y="30" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="300" y="54" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Client</text>
+  <rect x="160" y="104" width="140" height="48" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="230" y="134" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">CDN</text>
+  <line x1="230" y1="152" x2="230" y2="180" stroke="#374151" stroke-width="2" marker-end="url(#ag)"/>
 
-  <!-- Line: Client -> CDN -->
-  <path d="M300,70 L300,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="125" y="182" width="210" height="48" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="230" y="212" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">API Gateway / LB</text>
 
-  <!-- CDN -->
-  <rect x="230" y="100" width="140" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="300" y="124" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">CDN</text>
-  
-  <!-- CDN 주석 -->
-  <text x="400" y="124" fill="#52606d" font-size="13">정적 자원·이미지는 여기서 끝난다</text>
+  <!-- 쓰기·읽기 분기 -->
+  <line x1="230" y1="230" x2="230" y2="254" stroke="#374151" stroke-width="2"/>
+  <path d="M230,254 H120 V280" fill="none" stroke="#b45309" stroke-width="2" marker-end="url(#aw)"/>
+  <path d="M230,254 H340 V280" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Line: CDN -> API Gateway / LB -->
-  <path d="M300,140 L300,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- API 서버 묶음 -->
+  <rect x="38" y="270" width="384" height="72" rx="8" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <rect x="50" y="282" width="140" height="48" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="120" y="312" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Write API</text>
+  <rect x="270" y="282" width="140" height="48" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="340" y="312" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Read API</text>
 
-  <!-- API Gateway / LB -->
-  <rect x="210" y="170" width="180" height="54" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="300" y="193" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">API Gateway</text>
-  <text x="300" y="211" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">/ LB</text>
+  <!-- 읽기 경로: Read API → Cache -->
+  <line x1="340" y1="330" x2="340" y2="358" stroke="#047857" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="270" y="360" width="140" height="48" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="340" y="390" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Cache</text>
 
-  <!-- API Gateway 주석 -->
-  <text x="410" y="201" fill="#52606d" font-size="13">인증, 레이트 리밋, 라우팅</text>
+  <!-- Database: 쓰기 Primary / 읽기 Replica -->
+  <rect x="30" y="438" width="400" height="100" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <line x1="120" y1="330" x2="120" y2="474" stroke="#b45309" stroke-width="2" marker-end="url(#aw)"/>
+  <line x1="340" y1="408" x2="340" y2="474" stroke="#047857" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="230" y="465" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Database</text>
+  <rect x="45" y="476" width="150" height="46" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="120" y="505" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold">Primary</tspan> (쓰기)</text>
+  <rect x="265" y="476" width="150" height="46" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="340" y="505" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold">Replica</tspan> (읽기)</text>
 
-  <!-- Lines: API Gateway -> Write API / Read API -->
-  <path d="M300,224 L300,250 M170,250 L430,250 M170,250 L170,270 M430,250 L430,270" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M170,260 L170,270" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M430,260 L430,270" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 후속 작업: Message Queue → Worker -->
+  <line x1="120" y1="538" x2="120" y2="566" stroke="#374151" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="35" y="568" width="170" height="48" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="120" y="598" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">Message Queue</text>
+  <line x1="205" y1="592" x2="253" y2="592" stroke="#6d28d9" stroke-width="2" marker-end="url(#av)"/>
+  <rect x="255" y="560" width="200" height="64" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="355" y="585" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Worker</text>
+  <text x="355" y="609" font-size="15" fill="#374151" text-anchor="middle">통계 집계, 알림, 인덱싱</text>
 
-  <!-- Write API -->
-  <rect x="110" y="270" width="120" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="170" y="294" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Write API</text>
+  <!-- 오른쪽 설명 열 -->
+  <g stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="2 4">
+    <line x1="308" y1="128" x2="486" y2="128"/>
+    <line x1="343" y1="206" x2="486" y2="206"/>
+    <line x1="430" y1="306" x2="486" y2="306"/>
+    <line x1="418" y1="384" x2="486" y2="384"/>
+    <line x1="463" y1="592" x2="486" y2="592"/>
+  </g>
+  <g font-size="16" fill="#374151">
+    <text x="498" y="134">정적 자원·이미지는 여기서 끝난다</text>
+    <text x="498" y="212">인증, 레이트 리밋, 라우팅</text>
+    <text x="498" y="312">상태를 갖지 않아야 수평 확장이 된다</text>
+    <text x="498" y="390">읽기 경로의 대부분을 여기서 끊는다</text>
+    <text x="498" y="598">즉시 응답할 필요 없는 후속 작업</text>
+  </g>
 
-  <!-- Read API -->
-  <rect x="370" y="270" width="120" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="430" y="294" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Read API</text>
-
-  <!-- Read API 오른쪽 주석 -->
-  <text x="510" y="294" fill="#52606d" font-size="13">상태를 갖지 않아야 수평 확장이 된다</text>
-
-  <!-- Line: Read API -> Cache -->
-  <path d="M430,310 L430,350" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- Cache -->
-  <rect x="370" y="350" width="120" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="430" y="374" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Cache</text>
-
-  <!-- Cache 주석 -->
-  <text x="510" y="374" fill="#52606d" font-size="13">읽기 경로의 대부분을 여기서 끊는다</text>
-
-  <!-- Lines -> Database -->
-  <!-- Line: Write API -> Database -->
-  <path d="M170,310 L170,430" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <!-- Line: Cache -> Database -->
-  <path d="M430,390 L430,430" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Database -->
-  <rect x="110" y="430" width="380" height="44" rx="4" fill="#f8fafc" stroke="#1f2933" stroke-width="1.5"/>
-  <text x="300" y="456" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">Database</text>
-
-  <!-- Database 주석 -->
-  <text x="505" y="456" fill="#52606d" font-size="13">← 쓰기 Primary / 읽기 Replica</text>
-
-  <!-- Line: Database -> Message Queue -->
-  <path d="M300,474 L300,520" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Message Queue -->
-  <rect x="220" y="520" width="160" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="300" y="544" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Message Queue</text>
-
-  <!-- Line: Message Queue -> Worker -->
-  <path d="M380,540 L425,540" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Worker -->
-  <text x="435" y="544" fill="#1f2933" font-size="13" font-weight="bold">Worker <tspan fill="#52606d" font-weight="normal">(통계 집계, 알림, 인덱싱)</tspan></text>
-
-  <!-- Message Queue / Worker 주석 -->
-  <text x="435" y="515" fill="#52606d" font-size="13">즉시 응답할 필요 없는 후속 작업</text>
+  <!-- 범례 -->
+  <line x1="40" y1="664" x2="84" y2="664" stroke="#b45309" stroke-width="2" marker-end="url(#aw)"/>
+  <text x="94" y="670" font-size="15" fill="#374151">쓰기 경로</text>
+  <line x1="190" y1="664" x2="234" y2="664" stroke="#047857" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="244" y="670" font-size="15" fill="#374151">읽기 경로</text>
+  <line x1="340" y1="664" x2="384" y2="664" stroke="#374151" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="394" y="670" font-size="15" fill="#374151">공통 경로</text>
 </svg>

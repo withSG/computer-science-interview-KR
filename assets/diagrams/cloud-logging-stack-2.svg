@@ -1,83 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">수집 파이프라인</title>
-  <desc id="d">애플리케이션 컨테이너부터 노드 에이전트, 완충 계층, 가공 계층, 저장소 및 시각화 도구로 이어지는 로그 수집 파이프라인 다이어그램입니다.</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 760" width="880" height="760" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">로그 수집 파이프라인</title>
+  <desc id="d">애플리케이션 컨테이너가 stdout으로 낸 로그를 노드 에이전트(DaemonSet)가 읽어 선택적 완충 계층(Kafka/Redis)과 가공 계층을 거쳐 저장소(Elasticsearch/Loki/S3)에 넣고 Kibana/Grafana로 본다. 수집은 가볍게 많이, 가공은 무겁게 적게 둔다.</desc>
+  <rect width="880" height="760" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Box 1: 애플리케이션 컨테이너 -->
-  <g>
-    <rect x="40" y="30" width="800" height="85" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="60" y="60" fill="#1f2933" font-size="14" font-weight="bold">애플리케이션 컨테이너</text>
-    <text x="80" y="87" fill="#52606d" font-size="13">구조화 JSON 로그를 stdout 으로만 출력</text>
-  </g>
+  <!-- 1. 애플리케이션 컨테이너 -->
+  <rect x="24" y="24" width="832" height="84" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="52" cy="54" r="14" fill="#1d4ed8"/>
+  <text x="52" y="59" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="78" y="61" font-size="18" font-weight="bold" fill="#111827">애플리케이션 컨테이너</text>
+  <text x="78" y="93" font-size="16" fill="#374151">구조화 JSON 로그를 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#1d4ed8">stdout</tspan> 으로만 출력</text>
 
-  <!-- Arrow 1 -> 2 (with text label background) -->
-  <path d="M440,115 L440,165" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="300" y="128" width="280" height="24" fill="#ffffff" rx="3"/>
-  <text x="440" y="144" fill="#1f2933" font-size="11.5" text-anchor="middle">컨테이너 런타임이 노드 디스크에 기록</text>
+  <line x1="52" y1="110" x2="52" y2="160" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="72" y="141" font-size="15" fill="#4b5563">컨테이너 런타임이 노드 디스크에 기록</text>
 
-  <!-- Box 2: 노드 에이전트 -->
-  <g>
-    <rect x="40" y="165" width="800" height="85" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="60" y="195" fill="#1f2933" font-size="14" font-weight="bold">노드 에이전트 (DaemonSet)  <tspan fill="#52606d" font-weight="normal">Fluent Bit / Filebeat / Alloy</tspan></text>
-    <text x="80" y="222" fill="#52606d" font-size="13">파일 tail · 멀티라인 병합 · 메타데이터 부착 · 로컬 버퍼링</text>
-  </g>
+  <!-- 2. 노드 에이전트 -->
+  <rect x="24" y="164" width="832" height="108" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="52" cy="194" r="14" fill="#6d28d9"/>
+  <text x="52" y="199" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="78" y="201" font-size="18" fill="#111827"><tspan font-weight="bold">노드 에이전트 (DaemonSet)</tspan><tspan dx="16" font-size="16" fill="#4b5563">Fluent Bit / Filebeat / Alloy</tspan></text>
+  <rect x="682" y="181" width="154" height="28" rx="14" fill="#6d28d9"/>
+  <text x="759" y="200" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">수집: 가볍게 많이</text>
+  <rect x="78" y="222" width="96" height="32" rx="16" fill="#ede9fe"/>
+  <text x="126" y="243" font-size="15" fill="#5b21b6" text-anchor="middle">파일 tail</text>
+  <rect x="184" y="222" width="120" height="32" rx="16" fill="#ede9fe"/>
+  <text x="244" y="243" font-size="15" fill="#5b21b6" text-anchor="middle">멀티라인 병합</text>
+  <rect x="314" y="222" width="136" height="32" rx="16" fill="#ede9fe"/>
+  <text x="382" y="243" font-size="15" fill="#5b21b6" text-anchor="middle">메타데이터 부착</text>
+  <rect x="460" y="222" width="106" height="32" rx="16" fill="#ede9fe"/>
+  <text x="513" y="243" font-size="15" fill="#5b21b6" text-anchor="middle">로컬 버퍼링</text>
 
-  <!-- Arrow 2 -> 3 (with optional buffer label) -->
-  <path d="M440,250 L440,300" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="380" y="263" width="120" height="24" fill="#ffffff" rx="3"/>
-  <text x="440" y="279" fill="#1f2933" font-size="11.5" text-anchor="middle">(선택) 완충 계층</text>
+  <line x1="52" y1="274" x2="52" y2="324" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Box 3: 완충 계층 -->
-  <g>
-    <rect x="40" y="300" width="800" height="75" rx="6" stroke-dasharray="5 4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="60" y="344" fill="#1f2933" font-size="13">Kafka / Redis — 저장소가 느려져도 로그를 흘리지 않기 위한 버퍼</text>
-  </g>
+  <!-- 3. 완충 계층 (선택) -->
+  <rect x="24" y="328" width="832" height="84" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <circle cx="52" cy="358" r="14" fill="#b45309"/>
+  <text x="52" y="363" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="78" y="365" font-size="18" fill="#111827"><tspan font-weight="bold">완충 계층</tspan><tspan dx="6" font-size="16" font-weight="bold" fill="#b45309">(선택)</tspan><tspan dx="16" font-size="16" fill="#4b5563">Kafka / Redis</tspan></text>
+  <text x="78" y="397" font-size="16" fill="#374151">저장소가 느려져도 로그를 흘리지 않기 위한 버퍼</text>
 
-  <!-- Arrow 3 -> 4 -->
-  <path d="M440,375 L440,425" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <line x1="52" y1="414" x2="52" y2="464" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Box 4: 가공 계층 -->
-  <g>
-    <rect x="40" y="425" width="800" height="85" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="60" y="455" fill="#1f2933" font-size="14" font-weight="bold">가공 계층  <tspan fill="#52606d" font-weight="normal">Logstash / Fluentd / OTel Collector</tspan></text>
-    <text x="80" y="482" fill="#52606d" font-size="13">파싱 · 필드 정규화 · 민감정보 마스킹 · 라우팅 · 샘플링</text>
-  </g>
+  <!-- 4. 가공 계층 -->
+  <rect x="24" y="468" width="832" height="108" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="52" cy="498" r="14" fill="#047857"/>
+  <text x="52" y="503" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="78" y="505" font-size="18" fill="#111827"><tspan font-weight="bold">가공 계층</tspan><tspan dx="16" font-size="16" fill="#4b5563">Logstash / Fluentd / OTel Collector</tspan></text>
+  <rect x="682" y="485" width="154" height="28" rx="14" fill="#047857"/>
+  <text x="759" y="504" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">가공: 무겁게 적게</text>
+  <rect x="78" y="526" width="62" height="32" rx="16" fill="#d1fae5"/>
+  <text x="109" y="547" font-size="15" fill="#065f46" text-anchor="middle">파싱</text>
+  <rect x="150" y="526" width="106" height="32" rx="16" fill="#d1fae5"/>
+  <text x="203" y="547" font-size="15" fill="#065f46" text-anchor="middle">필드 정규화</text>
+  <rect x="266" y="526" width="136" height="32" rx="16" fill="#d1fae5"/>
+  <text x="334" y="547" font-size="15" fill="#065f46" text-anchor="middle">민감정보 마스킹</text>
+  <rect x="412" y="526" width="76" height="32" rx="16" fill="#d1fae5"/>
+  <text x="450" y="547" font-size="15" fill="#065f46" text-anchor="middle">라우팅</text>
+  <rect x="498" y="526" width="76" height="32" rx="16" fill="#d1fae5"/>
+  <text x="536" y="547" font-size="15" fill="#065f46" text-anchor="middle">샘플링</text>
 
-  <!-- Arrow 4 -> 5 -->
-  <path d="M440,510 L440,560" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <line x1="52" y1="578" x2="52" y2="628" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Bottom Row: 저장소 & 시각화 -->
-  <!-- Box 5: 저장소 -->
-  <g>
-    <rect x="40" y="560" width="460" height="75" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="270" y="604" fill="#1f2933" font-size="13" text-anchor="middle">저장소 Elasticsearch / Loki / S3(장기)</text>
-  </g>
+  <!-- 5. 저장소 -->
+  <rect x="24" y="632" width="520" height="96" rx="10" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="52" cy="662" r="14" fill="#374151"/>
+  <text x="52" y="667" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="78" y="669" font-size="18" font-weight="bold" fill="#111827">저장소</text>
+  <rect x="78" y="686" width="124" height="30" rx="15" fill="#ffffff"/>
+  <text x="140" y="706" font-size="15" fill="#111827" text-anchor="middle">Elasticsearch</text>
+  <rect x="212" y="686" width="64" height="30" rx="15" fill="#ffffff"/>
+  <text x="244" y="706" font-size="15" fill="#111827" text-anchor="middle">Loki</text>
+  <rect x="286" y="686" width="92" height="30" rx="15" fill="#ffffff"/>
+  <text x="332" y="706" font-size="15" fill="#111827" text-anchor="middle">S3(장기)</text>
 
-  <!-- Arrow 5 -> 6 -->
-  <path d="M500,597 L580,597" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="546" y1="680" x2="598" y2="680" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Box 6: Kibana / Grafana -->
-  <g>
-    <rect x="580" y="560" width="260" height="75" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="710" y="604" fill="#1f2933" font-size="13" font-weight="bold" text-anchor="middle">Kibana / Grafana</text>
-  </g>
-
+  <!-- 6. Kibana / Grafana -->
+  <rect x="602" y="632" width="254" height="96" rx="10" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="630" cy="680" r="14" fill="#374151"/>
+  <text x="630" y="685" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="656" y="686" font-size="18" font-weight="bold" fill="#111827">Kibana / Grafana</text>
 </svg>

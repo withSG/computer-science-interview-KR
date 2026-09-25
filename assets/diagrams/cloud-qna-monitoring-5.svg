@@ -1,43 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Loki + Grafana (경량 대안)</title>
-  <desc id="d">Grafana, Loki, 그리고 Promtail 간의 데이터 흐름 및 수집 구조를 나타낸 시스템 아키텍처 다이어그램입니다.</desc>
-  <rect width="880" height="520" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Loki + Grafana 로그 구조</title>
+  <desc id="d">Grafana가 LogQL로 Loki를 조회하고, Loki는 라벨만 인덱싱하고 로그는 압축해 저장하며, 아래에 Alloy 세 대가 연결된 경량 로그 구조.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/>
     </marker>
   </defs>
 
-  <!-- Grafana (UI Layer) -->
-  <rect x="200" y="40" width="480" height="90" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="78.2" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Grafana</text>
-  <text x="440" y="104.0" font-size="13" fill="#52606d" text-anchor="middle">(로그 검색/시각화)</text>
+  <!-- Grafana -->
+  <rect x="220" y="28" width="440" height="80" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="440" y="62" font-size="20" font-weight="bold" fill="#1f2937" text-anchor="middle">Grafana</text>
+  <text x="440" y="90" font-size="16" fill="#374151" text-anchor="middle">로그 검색/시각화</text>
 
-  <!-- Grafana -> Loki Connection (LogQL) -->
-  <path d="M440,130 L440,210" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="408" y="159" width="64" height="22" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="174.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">LogQL</text>
+  <!-- LogQL query arrow -->
+  <line x1="440" y1="110" x2="440" y2="182" stroke="#c2410c" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="456" y="152" font-size="16" font-weight="bold" fill="#c2410c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LogQL</text>
 
-  <!-- Loki (Core Engine) -->
-  <rect x="200" y="210" width="480" height="90" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="440" y="248.2" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Loki</text>
-  <text x="440" y="274.0" font-size="13" fill="#52606d" text-anchor="middle">(인덱스: 라벨만, 저장: 압축)</text>
+  <!-- Loki -->
+  <rect x="160" y="186" width="560" height="124" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="440" y="222" font-size="20" font-weight="bold" fill="#1f2937" text-anchor="middle">Loki</text>
+  <rect x="220" y="240" width="200" height="46" rx="8" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="320" y="269" font-size="16" fill="#5b21b6" text-anchor="middle"><tspan font-weight="bold">인덱스:</tspan> 라벨만</text>
+  <rect x="460" y="240" width="200" height="46" rx="8" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="560" y="269" font-size="16" fill="#5b21b6" text-anchor="middle"><tspan font-weight="bold">저장:</tspan> 압축</text>
 
-  <!-- Loki -> Promtail Collectors Distribution Line -->
-  <path d="M440,300 L440,350 M220,350 L660,350 M220,350 L220,410 M440,350 L440,410 M660,350 L660,410" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <!-- Loki to Alloy connectors -->
+  <path d="M440,310 L440,350 M180,350 L700,350 M180,350 L180,388 M440,350 L440,388 M700,350 L700,388" stroke="#6b7280" stroke-width="2" fill="none"/>
 
-  <!-- Promtail 1 -->
-  <rect x="140" y="410" width="160" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="220" y="444.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Alloy</text>
-
-  <!-- Promtail 2 -->
-  <rect x="360" y="410" width="160" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="444.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Alloy</text>
-
-  <!-- Promtail 3 -->
-  <rect x="580" y="410" width="160" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="660" y="444.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Alloy</text>
+  <!-- Alloy x3 -->
+  <rect x="80" y="388" width="200" height="60" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="180" y="424" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">Alloy</text>
+  <rect x="340" y="388" width="200" height="60" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="424" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">Alloy</text>
+  <rect x="600" y="388" width="200" height="60" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="700" y="424" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">Alloy</text>
 </svg>

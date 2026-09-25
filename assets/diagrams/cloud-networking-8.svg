@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 220" width="880" height="220" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Security Group 참조 사슬</title>
+  <desc id="d">sg-alb는 0.0.0.0/0에서 443 인바운드를, sg-app은 sg-alb에서 8080 인바운드를, sg-db는 sg-app에서 3306 인바운드를 허용한다. sg-app과 sg-db의 소스는 IP가 아니라 다른 Security Group이다.</desc>
+  <rect width="880" height="220" fill="#ffffff"/>
+  <defs>
+    <marker id="arr-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+
+  <!-- 소스: 0.0.0.0/0 -->
+  <rect x="24" y="40" width="150" height="84" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="99" y="88" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0.0.0.0/0</text>
+
+  <line x1="174" y1="82" x2="247" y2="82" stroke="#4b5563" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- sg-alb -->
+  <rect x="251" y="40" width="150" height="84" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="326" y="74" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sg-alb</text>
+  <text x="326" y="103" font-size="15" fill="#1f2937" text-anchor="middle">인바운드 443</text>
+
+  <line x1="401" y1="82" x2="474" y2="82" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- sg-app -->
+  <rect x="478" y="40" width="150" height="84" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="553" y="74" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sg-app</text>
+  <text x="553" y="103" font-size="15" fill="#1f2937" text-anchor="middle">인바운드 8080</text>
+
+  <line x1="628" y1="82" x2="702" y2="82" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- sg-db -->
+  <rect x="706" y="40" width="150" height="84" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="781" y="74" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sg-db</text>
+  <text x="781" y="103" font-size="15" fill="#1f2937" text-anchor="middle">인바운드 3306</text>
+
+  <!-- SG 참조 표시 -->
+  <path d="M439.5,87 L439.5,140 L667,140 L667,87" stroke="#1d4ed8" stroke-width="1.5" fill="none"/>
+  <line x1="553" y1="140" x2="553" y2="156" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="443" y="156" width="220" height="40" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="553" y="182" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">IP가 아니라 SG를 참조</text>
+</svg>

@@ -1,67 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">OpenTelemetry가 해결한 문제</title>
-  <desc id="d">애플리케이션에서 OpenTelemetry Collector를 거쳐 다양한 백엔드로 데이터를 내보내는 아키텍처 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">OpenTelemetry Collector 구조</title>
+  <desc id="d">애플리케이션은 OTel API/SDK로 계측한 데이터를 OTLP(gRPC/HTTP)로만 내보내고, OpenTelemetry Collector가 receivers, processors, exporters를 거쳐 Jaeger, Grafana Tempo, SaaS APM 같은 백엔드로 보낸다. 백엔드 교체는 Collector 설정 변경으로 끝난다.</desc>
+  <rect width="880" height="600" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- 애플리케이션 -->
+  <rect x="24" y="24" width="832" height="76" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="2"/>
+  <text x="48" y="68" font-size="18" font-weight="bold" fill="#1f2937">애플리케이션</text>
+  <rect x="200" y="38" width="632" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="224" y="68" font-size="16" fill="#1f2937"><tspan font-weight="bold" fill="#1d4ed8">OTel API/SDK</tspan>  (자동 계측 또는 수동 계측)</text>
 
-  <!-- Section Title -->
-  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">OpenTelemetry가 해결한 문제</text>
+  <!-- OTLP -->
+  <path d="M440,100 V160" fill="none" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+  <text x="458" y="128" font-size="16" font-weight="bold" fill="#1d4ed8">OTLP (gRPC / HTTP)</text>
+  <text x="458" y="150" font-size="14" fill="#4b5563">애플리케이션은 OTLP로만 내보냄</text>
 
-  <!-- Top Box: Application -->
-  <rect x="40" y="65" width="800" height="70" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="108" font-size="14" font-weight="bold" fill="#1f2933">애플리케이션</text>
-  <text x="175" y="108" font-size="14" fill="#2563eb" font-weight="bold">OTel API/SDK (자동 계측 또는 수동 계측)</text>
+  <!-- Collector -->
+  <rect x="24" y="168" width="832" height="224" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="2"/>
+  <text x="48" y="200" font-size="18" font-weight="bold" fill="#1f2937">OpenTelemetry Collector</text>
 
-  <!-- Arrow 1: OTLP (gRPC / HTTP) -->
-  <path d="M440,135 L440,205" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="365" y="157" width="150" height="26" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4" ry="4"/>
-  <text x="440" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">OTLP (gRPC / HTTP)</text>
+  <rect x="48" y="216" width="230" height="156" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="68" y="245" font-size="17" font-weight="bold" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">receivers</text>
+  <path d="M60,258 H266" stroke="#d1d5db" stroke-width="1"/>
+  <text font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan x="68" y="284">OTLP</tspan><tspan x="68" dy="24">Jaeger</tspan><tspan x="68" dy="24">Zipkin</tspan></text>
 
-  <!-- Middle Outer Box: OpenTelemetry Collector -->
-  <rect x="40" y="205" width="800" height="210" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="238" font-size="14" font-weight="bold" fill="#1f2933">OpenTelemetry Collector</text>
+  <path d="M278,294 H317" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Inner Pipeline Components -->
-  <!-- Receivers -->
-  <rect x="60" y="260" width="220" height="130" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="75" y="288" font-size="13" font-weight="bold" fill="#1f2933">receivers</text>
-  <text x="75" y="315" font-size="12" fill="#52606d">(OTLP,</text>
-  <text x="75" y="338" font-size="12" fill="#52606d"> Jaeger,</text>
-  <text x="75" y="361" font-size="12" fill="#52606d"> Zipkin)</text>
+  <rect x="325" y="216" width="230" height="156" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="345" y="245" font-size="17" font-weight="bold" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">processors</text>
+  <path d="M337,258 H543" stroke="#d1d5db" stroke-width="1"/>
+  <text font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan x="345" y="284">batch</tspan><tspan x="345" dy="24">tail_sampling</tspan><tspan x="345" dy="24">attributes</tspan></text>
 
-  <!-- Arrow: receivers -> processors -->
-  <path d="M280,325 L320,325" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M555,294 H594" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Processors -->
-  <rect x="320" y="260" width="240" height="130" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="335" y="288" font-size="13" font-weight="bold" fill="#1f2933">processors</text>
-  <text x="335" y="315" font-size="12" fill="#52606d">(batch,</text>
-  <text x="335" y="338" font-size="12" fill="#52606d"> tail_sampling,</text>
-  <text x="335" y="361" font-size="12" fill="#52606d"> attributes)</text>
+  <rect x="602" y="216" width="230" height="156" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="622" y="245" font-size="17" font-weight="bold" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">exporters</text>
+  <path d="M614,258 H820" stroke="#d1d5db" stroke-width="1"/>
+  <text font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan x="622" y="284">Jaeger</tspan><tspan x="622" dy="24">Tempo</tspan><tspan x="622" dy="24">Datadog</tspan><tspan x="622" dy="24">S3 …</tspan></text>
 
-  <!-- Arrow: processors -> exporters -->
-  <path d="M560,325 L600,325" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 백엔드 -->
+  <path d="M717,372 V448" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Exporters -->
-  <rect x="600" y="260" width="220" height="130" rx="4" ry="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="615" y="288" font-size="13" font-weight="bold" fill="#1f2933">exporters</text>
-  <text x="615" y="315" font-size="12" fill="#52606d">(Jaeger, Tempo,</text>
-  <text x="615" y="338" font-size="12" fill="#52606d"> Datadog, S3 …)</text>
+  <rect x="24" y="456" width="832" height="76" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="48" y="500" font-size="18" font-weight="bold" fill="#6d28d9">백엔드</text>
+  <rect x="160" y="470" width="190" height="48" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="255" y="500" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">Jaeger</text>
+  <rect x="374" y="470" width="220" height="48" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="484" y="500" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">Grafana Tempo</text>
+  <rect x="618" y="470" width="214" height="48" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="725" y="500" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">SaaS APM</text>
 
-  <!-- Arrow 2: To Backends -->
-  <path d="M440,415 L440,470" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="290" y="432" width="300" height="26" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4" ry="4"/>
-  <text x="440" y="449" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">Jaeger / Grafana Tempo / SaaS APM</text>
+  <text x="48" y="566" font-size="15" fill="#4b5563">백엔드 교체는 Collector 설정 변경으로 끝남</text>
 </svg>

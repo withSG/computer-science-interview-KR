@@ -1,80 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">대략적 설계</title>
-  <desc id="d">서비스들, Notification Service, Message Queue(Kafka), 그리고 Push, SMS, Email Worker로 이어지는 알림 시스템 대략적 설계 구조도</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">알림 시스템 대략적 설계</title>
+  <desc id="d">주문·결제·마케팅 등 서비스들이 API로 Notification Service에 요청하면, Notification Service가 검증·템플릿 처리 후 Message Queue(Kafka)에 발행하고, Push(FCM)·SMS(Twilio)·Email(SES) Worker가 채널별로 나눠 발송한다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="540" fill="#ffffff"/>
 
-  <!-- Top Title Block (Document Heading) -->
-  <text x="440" y="35" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">대략적 설계</text>
+  <!-- 1. 서비스들 -->
+  <rect x="180" y="24" width="520" height="68" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="52" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">서비스들</text>
+  <text x="440" y="77" font-size="15" fill="#4b5563" text-anchor="middle">주문, 결제, 마케팅...</text>
 
-  <!-- 1. 서비스들 (주문, 결제, 마케팅...) -->
-  <g transform="translate(190, 60)">
-    <rect x="0" y="0" width="500" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="250" y="35" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서비스들 (주문, 결제, 마케팅...)</text>
-  </g>
-
-  <!-- Connection: Service -> Notification Service -->
-  <path d="M440,120 L440,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="422" y="136" width="36" height="18" fill="#ffffff"/>
-  <text x="440" y="149" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">API</text>
+  <line x1="440" y1="92" x2="440" y2="134" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="454" y="119" font-size="15" font-weight="bold" fill="#374151">API</text>
 
   <!-- 2. Notification Service -->
-  <g transform="translate(190, 170)">
-    <rect x="0" y="0" width="500" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="250" y="28" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Notification Service</text>
-    <text x="250" y="52" font-size="13" fill="#52606d" text-anchor="middle">(검증, 템플릿 처리, 큐 발행)</text>
-  </g>
+  <rect x="180" y="138" width="520" height="72" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="168" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Notification Service</text>
+  <text x="440" y="194" font-size="15" fill="#1f2937" text-anchor="middle">검증, 템플릿 처리, 큐 발행</text>
 
-  <!-- Connection: Notification Service -> Message Queue -->
-  <path d="M440,240 L440,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <line x1="440" y1="210" x2="440" y2="250" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- 3. Message Queue (Kafka) -->
-  <g transform="translate(190, 290)">
-    <rect x="0" y="0" width="500" height="70" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="250" y="28" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Message Queue (Kafka)</text>
-    <text x="250" y="52" font-size="13" fill="#52606d" text-anchor="middle">(priority별 토픽, 순서 보장)</text>
-  </g>
+  <!-- 3. Message Queue -->
+  <rect x="180" y="254" width="520" height="72" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="440" y="284" font-size="18" font-weight="bold" fill="#4c1d95" text-anchor="middle">Message Queue (Kafka)</text>
+  <text x="440" y="310" font-size="15" fill="#1f2937" text-anchor="middle">priority별 토픽, 순서 보장</text>
 
-  <!-- Connection: Message Queue -> Branch Paths -->
-  <path d="M440,360 L440,390" stroke="#059669" stroke-width="1.5" fill="none"/>
-  <path d="M230,390 L650,390" stroke="#059669" stroke-width="1.5" fill="none"/>
-
-  <path d="M230,390 L230,420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M440,390 L440,420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M650,390 L650,420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- 팬아웃 -->
+  <line x1="440" y1="326" x2="440" y2="358" stroke="#374151" stroke-width="2"/>
+  <line x1="164" y1="358" x2="716" y2="358" stroke="#374151" stroke-width="2"/>
+  <line x1="164" y1="357" x2="164" y2="392" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="440" y1="358" x2="440" y2="392" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="716" y1="357" x2="716" y2="392" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
   <!-- 4. Workers -->
-  <!-- Push Worker -->
-  <g transform="translate(140, 420)">
-    <rect x="0" y="0" width="180" height="90" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="90" y="30" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Push</text>
-    <text x="90" y="50" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Worker</text>
-    <text x="90" y="70" font-size="13" fill="#52606d" text-anchor="middle">(FCM)</text>
-  </g>
+  <rect x="44" y="396" width="240" height="84" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="164" y="430" font-size="18" font-weight="bold" fill="#064e3b" text-anchor="middle">Push Worker</text>
+  <text x="164" y="458" font-size="16" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">FCM</text>
 
-  <!-- SMS Worker -->
-  <g transform="translate(350, 420)">
-    <rect x="0" y="0" width="180" height="90" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="90" y="30" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">SMS</text>
-    <text x="90" y="50" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Worker</text>
-    <text x="90" y="70" font-size="13" fill="#52606d" text-anchor="middle">(Twilio)</text>
-  </g>
+  <rect x="320" y="396" width="240" height="84" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="430" font-size="18" font-weight="bold" fill="#064e3b" text-anchor="middle">SMS Worker</text>
+  <text x="440" y="458" font-size="16" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Twilio</text>
 
-  <!-- Email Worker -->
-  <g transform="translate(560, 420)">
-    <rect x="0" y="0" width="180" height="90" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="90" y="30" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Email</text>
-    <text x="90" y="50" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Worker</text>
-    <text x="90" y="70" font-size="13" fill="#52606d" text-anchor="middle">(SES)</text>
-  </g>
+  <rect x="596" y="396" width="240" height="84" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="716" y="430" font-size="18" font-weight="bold" fill="#064e3b" text-anchor="middle">Email Worker</text>
+  <text x="716" y="458" font-size="16" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SES</text>
 </svg>

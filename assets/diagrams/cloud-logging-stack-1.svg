@@ -1,55 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Loki — 라벨만 색인하고 본문은 압축해 던져둔다</title>
-  <desc id="d">ELK와 Loki의 로그 처리 프로세스 및 저장 방식 비교 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ELK와 Loki의 색인 방식 비교</title>
+  <desc id="d">ELK는 쓸 때 토큰화와 역색인 생성으로 비싸고 임의 단어도 즉시 찾는다. Loki는 라벨만 색인하고 본문을 압축해 오브젝트 스토리지에 두어 쓸 때 싸지만, 읽을 때는 라벨로 좁힌 뒤 병렬 스캔하므로 범위에 비례한다.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- ELK Section -->
-  <rect x="24" y="24" width="832" height="136" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="40" y="52" font-size="16" font-weight="bold" fill="#2563eb">ELK — 쓸 때 비싸고 읽을 때 싸다</text>
+  <!-- ===== ELK ===== -->
+  <rect x="24" y="24" width="832" height="150" rx="10" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="44" y="62" font-size="20" font-weight="bold" fill="#1d4ed8">ELK</text>
 
-  <!-- ELK: 로그 -->
-  <text x="64" y="105" font-size="13" font-weight="bold" fill="#1f2933">로그</text>
-  <path d="M96,100 L126,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="240" y="42" width="116" height="28" rx="14" fill="#fee2e2"/>
+  <text x="298" y="61" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">쓸 때 비싸다</text>
+  <rect x="673" y="42" width="116" height="28" rx="14" fill="#d1fae5"/>
+  <text x="731" y="61" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">읽을 때 싸다</text>
 
-  <!-- ELK: [토큰화 + 역색인 생성] -->
-  <rect x="136" y="76" width="180" height="48" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="226" y="105" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">토큰화 + 역색인 생성</text>
-  <path d="M326,100 L356,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="590" y1="36" x2="590" y2="162" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- ELK: 디스크(색인 + 원본) -->
-  <rect x="366" y="76" width="168" height="48" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="450" y="105" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">디스크(색인 + 원본)</text>
-  
-  <!-- ELK: → 임의 단어도 즉시 -->
-  <path d="M544,100 L574,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="584" y="105" font-size="13" fill="#52606d">임의 단어도 즉시</text>
+  <rect x="44" y="88" width="64" height="52" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="76" y="119" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">로그</text>
+  <line x1="110" y1="114" x2="136" y2="114" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
 
-  <!-- Loki Section -->
-  <rect x="24" y="180" width="832" height="136" rx="8" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="40" y="208" font-size="16" font-weight="bold" fill="#7c3aed">Loki — 쓸 때 싸고 읽을 때 범위에 비례한다</text>
+  <rect x="140" y="88" width="190" height="52" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="235" y="119" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">토큰화 + 역색인 생성</text>
+  <line x1="332" y1="114" x2="358" y2="114" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
 
-  <!-- Loki: 로그 -->
-  <text x="64" y="261" font-size="13" font-weight="bold" fill="#1f2933">로그</text>
-  <path d="M96,256 L126,256" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="362" y="88" width="190" height="52" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="457" y="119" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">디스크(색인 + 원본)</text>
+  <line x1="554" y1="114" x2="622" y2="114" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
 
-  <!-- Loki: [라벨만 색인, 본문 압축] -->
-  <rect x="136" y="232" width="180" height="48" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="226" y="261" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">라벨만 색인, 본문 압축</text>
-  <path d="M326,256 L356,256" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="626" y="88" width="210" height="52" rx="8" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="731" y="119" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">임의 단어도 즉시</text>
 
-  <!-- Loki: 오브젝트 스토리지 -->
-  <rect x="366" y="232" width="168" height="48" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="450" y="261" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">오브젝트 스토리지</text>
+  <!-- ===== Loki ===== -->
+  <rect x="24" y="196" width="832" height="150" rx="10" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5"/>
+  <text x="44" y="234" font-size="20" font-weight="bold" fill="#6d28d9">Loki</text>
 
-  <!-- Loki: → 라벨로 좁힌 뒤 병렬 스캔 -->
-  <path d="M544,256 L574,256" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="584" y="261" font-size="13" fill="#52606d">라벨로 좁힌 뒤 병렬 스캔</text>
+  <rect x="248" y="214" width="100" height="28" rx="14" fill="#d1fae5"/>
+  <text x="298" y="233" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">쓸 때 싸다</text>
+  <rect x="629" y="214" width="204" height="28" rx="14" fill="#fef3c7"/>
+  <text x="731" y="233" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">읽을 때 범위에 비례한다</text>
+
+  <line x1="590" y1="208" x2="590" y2="334" stroke="#c4b5fd" stroke-width="1.5" stroke-dasharray="5 5"/>
+
+  <rect x="44" y="260" width="64" height="52" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="76" y="291" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">로그</text>
+  <line x1="110" y1="286" x2="136" y2="286" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+
+  <rect x="140" y="260" width="190" height="52" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="235" y="291" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">라벨만 색인, 본문 압축</text>
+  <line x1="332" y1="286" x2="358" y2="286" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+
+  <rect x="362" y="260" width="190" height="52" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="457" y="291" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">오브젝트 스토리지</text>
+  <line x1="554" y1="286" x2="622" y2="286" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+
+  <rect x="626" y="260" width="210" height="52" rx="8" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+  <text x="731" y="291" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">라벨로 좁힌 뒤 병렬 스캔</text>
 </svg>

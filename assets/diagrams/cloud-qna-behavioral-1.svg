@@ -1,89 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 395" width="880" height="395" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">STAR 답변 구조 - Action (행동)</title>
-  <desc id="d">부하 테스트로 병목 구간 파악, 각 문제별 해결책 적용, 인프라 확장으로 이어지는 Action 단계의 3단계 흐름도</desc>
-  <rect width="880" height="395" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">블랙프라이데이 대비 Action 3단계</title>
+  <desc id="d">부하 테스트로 찾은 병목(상품 조회 API·장바구니·결제)마다 해결책을 짝지어 적용하고, 마지막으로 K8s HPA와 Auto Scaling으로 인프라를 확장한 흐름입니다.</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Step 1: Blue -->
-  <g>
-    <rect x="30" y="30" width="250" height="305" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <!-- Step Header -->
-    <rect x="30" y="30" width="250" height="42" rx="8" fill="#2563eb"/>
-    <rect x="30" y="62" width="250" height="10" fill="#2563eb"/>
-    <text x="155" y="56" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">1. 부하 테스트로 병목 구간 파악</text>
+  <!-- 단계 머리행 -->
+  <rect x="188" y="24" width="300" height="48" rx="6" fill="#b91c1c"/>
+  <text x="338" y="54" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">1. 부하 테스트로 병목 구간 파악</text>
+  <rect x="540" y="24" width="316" height="48" rx="6" fill="#047857"/>
+  <text x="698" y="54" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">2. 각 문제별 해결책 적용</text>
 
-    <!-- Content Items -->
-    <!-- Item 1 -->
-    <rect x="42" y="86" width="226" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="54" y="110" fill="#1f2933" font-size="13" font-weight="bold">- 상품 조회 API:</text>
-    <text x="64" y="137" fill="#52606d" font-size="13">DB 쿼리 지연</text>
+  <!-- 행 1: 상품 조회 API -->
+  <rect x="24" y="86" width="152" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1"/>
+  <text x="100" y="117" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">상품 조회 API</text>
+  <rect x="188" y="86" width="300" height="52" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.2"/>
+  <text x="206" y="117" font-size="16" fill="#1f2937">DB 쿼리 지연</text>
+  <line x1="494" y1="112" x2="532" y2="112" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="540" y="86" width="316" height="52" rx="6" fill="#ecfdf5" stroke="#34d399" stroke-width="1.2"/>
+  <text x="558" y="117" font-size="16" fill="#1f2937">Redis 캐시 + Read Replica</text>
 
-    <!-- Item 2 -->
-    <rect x="42" y="166" width="226" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="54" y="190" fill="#1f2933" font-size="13" font-weight="bold">- 장바구니:</text>
-    <text x="64" y="217" fill="#52606d" font-size="13">Redis 연결 풀 고갈</text>
+  <!-- 행 2: 장바구니 -->
+  <rect x="24" y="150" width="152" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1"/>
+  <text x="100" y="181" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">장바구니</text>
+  <rect x="188" y="150" width="300" height="52" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.2"/>
+  <text x="206" y="181" font-size="16" fill="#1f2937">Redis 연결 풀 고갈</text>
+  <line x1="494" y1="176" x2="532" y2="176" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="540" y="150" width="316" height="52" rx="6" fill="#ecfdf5" stroke="#34d399" stroke-width="1.2"/>
+  <text x="558" y="181" font-size="16" fill="#1f2937">커넥션 풀 확대 + 클러스터링</text>
 
-    <!-- Item 3 -->
-    <rect x="42" y="246" width="226" height="75" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="54" y="270" fill="#1f2933" font-size="13" font-weight="bold">- 결제:</text>
-    <text x="64" y="297" fill="#52606d" font-size="13">동기 처리로 인한 타임아웃</text>
-  </g>
+  <!-- 행 3: 결제 -->
+  <rect x="24" y="214" width="152" height="52" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1"/>
+  <text x="100" y="245" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">결제</text>
+  <rect x="188" y="214" width="300" height="52" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.2"/>
+  <text x="206" y="245" font-size="16" fill="#1f2937">동기 처리로 인한 타임아웃</text>
+  <line x1="494" y1="240" x2="532" y2="240" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="540" y="214" width="316" height="52" rx="6" fill="#ecfdf5" stroke="#34d399" stroke-width="1.2"/>
+  <text x="558" y="245" font-size="16" fill="#1f2937">비동기 처리 + 재시도 로직</text>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M280,182.5 L315,182.5" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 2 → 3 -->
+  <line x1="698" y1="274" x2="698" y2="304" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 2: Orange -->
-  <g>
-    <rect x="315" y="30" width="250" height="305" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <!-- Step Header -->
-    <rect x="315" y="30" width="250" height="42" rx="8" fill="#d97706"/>
-    <rect x="315" y="62" width="250" height="10" fill="#d97706"/>
-    <text x="440" y="56" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">2. 각 문제별 해결책 적용</text>
-
-    <!-- Content Items -->
-    <!-- Item 1 -->
-    <rect x="327" y="86" width="226" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="339" y="110" fill="#1f2933" font-size="13" font-weight="bold">- 상품:</text>
-    <text x="349" y="137" fill="#52606d" font-size="13">Redis 캐시 + Read Replica</text>
-
-    <!-- Item 2 -->
-    <rect x="327" y="166" width="226" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="339" y="190" fill="#1f2933" font-size="13" font-weight="bold">- 장바구니:</text>
-    <text x="349" y="217" fill="#52606d" font-size="13">커넥션 풀 확대 + 클러스터링</text>
-
-    <!-- Item 3 -->
-    <rect x="327" y="246" width="226" height="75" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="339" y="270" fill="#1f2933" font-size="13" font-weight="bold">- 결제:</text>
-    <text x="349" y="297" fill="#52606d" font-size="13">비동기 처리 + 재시도 로직</text>
-  </g>
-
-  <!-- Arrow 2 -> 3 -->
-  <path d="M565,182.5 L600,182.5" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- Step 3: Green -->
-  <g>
-    <rect x="600" y="30" width="250" height="305" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <!-- Step Header -->
-    <rect x="600" y="30" width="250" height="42" rx="8" fill="#059669"/>
-    <rect x="600" y="62" width="250" height="10" fill="#059669"/>
-    <text x="725" y="56" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">3. 인프라 확장</text>
-
-    <!-- Content Items -->
-    <!-- Item 1 -->
-    <rect x="612" y="86" width="226" height="100" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="624" y="110" fill="#1f2933" font-size="13" font-weight="bold">- K8s HPA 설정</text>
-    <text x="634" y="137" fill="#52606d" font-size="13">(CPU 70% → 스케일아웃)</text>
-
-    <!-- Item 2 -->
-    <rect x="612" y="196" width="226" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="624" y="220" fill="#1f2933" font-size="13" font-weight="bold">- Auto Scaling 최대치 상향</text>
-  </g>
+  <!-- 단계 3: 인프라 확장 -->
+  <rect x="24" y="310" width="832" height="92" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="24" y="310" width="152" height="92" rx="6" fill="#1d4ed8"/>
+  <rect x="164" y="310" width="12" height="92" fill="#1d4ed8"/>
+  <text x="100" y="362" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">3. 인프라 확장</text>
+  <rect x="188" y="324" width="300" height="64" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="206" y="351" font-size="16" fill="#1f2937">K8s HPA 설정</text>
+  <text x="206" y="374" font-size="16" fill="#1d4ed8">(CPU 70% → 스케일아웃)</text>
+  <rect x="540" y="324" width="302" height="64" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="558" y="362" font-size="16" fill="#1f2937">Auto Scaling 최대치 상향</text>
 </svg>

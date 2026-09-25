@@ -1,43 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Context Propagation</title>
-  <desc id="d">서비스 A, B, C 간의 Context Propagation 다이어그램과 HTTP Headers 전파 예시</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Context Propagation 헤더</title>
+  <desc id="d">서비스 A에서 서비스 B, 서비스 C로 요청이 이어질 때 trace 문맥을 HTTP Headers(traceparent, tracestate)로 전파하는 모습과, traceparent 예시 값을 00, {trace-id}, {span-id}, 01 형식에 맞춰 나눠 보인 그림.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
     </marker>
   </defs>
-  <rect width="880" height="410" fill="#ffffff"/>
 
-  <!-- Title Section -->
-  <text x="40" y="45.6" font-size="16" font-weight="bold" fill="#1f2933">Context Propagation</text>
+  <!-- service flow -->
+  <rect x="40" y="28" width="180" height="60" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="130" y="64" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">서비스 A</text>
+  <rect x="350" y="28" width="180" height="60" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="440" y="64" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">서비스 B</text>
+  <rect x="660" y="28" width="180" height="60" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="750" y="64" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">서비스 C</text>
 
-  <!-- Service Flow Boxes -->
-  <rect x="80" y="75" width="160" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="160" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서비스 A</text>
+  <line x1="222" y1="68" x2="346" y2="68" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="285" y="54" font-size="15" fill="#1d4ed8" text-anchor="middle">HTTP Headers</text>
+  <line x1="532" y1="68" x2="656" y2="68" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="595" y="54" font-size="15" fill="#1d4ed8" text-anchor="middle">HTTP Headers</text>
 
-  <path d="M240,100 L350,100" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- header format -->
+  <text x="40" y="136" font-size="17" font-weight="bold" fill="#1f2937">HTTP Headers로 전파</text>
+  <rect x="40" y="150" width="800" height="84" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="64" y="184" font-size="17" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-weight="bold" fill="#111827">traceparent:</tspan> 00-<tspan font-weight="bold" fill="#1d4ed8">{trace-id}</tspan>-<tspan font-weight="bold" fill="#047857">{span-id}</tspan>-01</text>
+  <text x="64" y="216" font-size="17" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-weight="bold" fill="#111827">tracestate:</tspan> vendor=value</text>
 
-  <rect x="360" y="75" width="160" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서비스 B</text>
+  <!-- example, split along the format -->
+  <text x="40" y="278" font-size="17" font-weight="bold" fill="#1f2937">예시</text>
+  <rect x="40" y="292" width="800" height="136" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="64" y="324" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">traceparent:</text>
 
-  <path d="M520,100 L630,100" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="16">
+    <rect x="64" y="338" width="52" height="42" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+    <text x="90" y="365" fill="#1f2937" text-anchor="middle">00</text>
+    <text x="128" y="365" fill="#374151" text-anchor="middle">-</text>
+    <rect x="140" y="338" width="330" height="42" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="305" y="365" fill="#1d4ed8" text-anchor="middle">4bf92f3577b34da6a3ce929d0e0e4736</text>
+    <text x="482" y="365" fill="#374151" text-anchor="middle">-</text>
+    <rect x="494" y="338" width="180" height="42" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+    <text x="584" y="365" fill="#047857" text-anchor="middle">00f067aa0ba902b7</text>
+    <text x="686" y="365" fill="#374151" text-anchor="middle">-</text>
+    <rect x="698" y="338" width="52" height="42" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+    <text x="724" y="365" fill="#1f2937" text-anchor="middle">01</text>
+  </g>
 
-  <rect x="640" y="75" width="160" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="720" y="104.55" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">서비스 C</text>
-
-  <!-- Content Group Container -->
-  <rect x="40" y="155" width="800" height="225" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- Section 1: HTTP Headers Propagation -->
-  <text x="60" y="184.9" font-size="14" font-weight="bold" fill="#1f2933">HTTP Headers로 전파:</text>
-
-  <rect x="60" y="195" width="760" height="65" rx="4" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="80" y="221.55" font-size="13" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">traceparent: 00-{trace-id}-{span-id}-01</text>
-  <text x="80" y="245.55" font-size="13" font-family="'Consolas', 'Courier New', monospace" fill="#1f2933">tracestate: vendor=value</text>
-
-  <!-- Section 2: Example -->
-  <text x="60" y="294.9" font-size="14" font-weight="bold" fill="#1f2933">예시:</text>
-
-  <rect x="60" y="305" width="760" height="50" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="80" y="334.2" font-size="12" font-family="'Consolas', 'Courier New', monospace" fill="#059669">traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01</text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" font-weight="bold" text-anchor="middle">
+    <text x="90" y="408" fill="#4b5563">00</text>
+    <text x="305" y="408" fill="#1d4ed8">{trace-id}</text>
+    <text x="584" y="408" fill="#047857">{span-id}</text>
+    <text x="724" y="408" fill="#4b5563">01</text>
+  </g>
 </svg>

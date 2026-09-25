@@ -1,43 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Jenkins의 구조</title>
-  <desc id="d">Jenkins 컨트롤러에서 여러 에이전트(linux, macos, gpu)로 작업을 배분하는 구조 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Jenkins 컨트롤러와 에이전트</title>
+  <desc id="d">Jenkins 컨트롤러는 웹 UI, 잡 스케줄링, 설정 보관, 플러그인 로드를 맡고 빌드는 직접 돌리지 않는다. 작업은 linux, macos, gpu 에이전트로 배분되며, 에이전트는 label로 골라 쓴다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="370" fill="#ffffff"/>
 
-  <!-- 컨트롤러 영역 (가로 중심 340) -->
-  <rect x="130" y="30" width="420" height="150" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="60.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Jenkins 컨트롤러</text>
-  <text x="340" y="89.55" font-size="13" fill="#1f2933" text-anchor="middle">웹 UI · 잡 스케줄링 · 설정 보관</text>
-  <text x="340" y="119.55" font-size="13" fill="#1f2933" text-anchor="middle">플러그인 로드</text>
-  <text x="340" y="149.55" font-size="13" fill="#dc2626" text-anchor="middle">(여기서 빌드를 직접 돌리면 안 된다)</text>
+  <!-- 컨트롤러 -->
+  <rect x="200" y="24" width="480" height="156" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="58" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Jenkins 컨트롤러</text>
+  <text x="440" y="90" font-size="16" fill="#1f2937" text-anchor="middle">웹 UI · 잡 스케줄링 · 설정 보관</text>
+  <text x="440" y="116" font-size="16" fill="#1f2937" text-anchor="middle">플러그인 로드</text>
+  <rect x="224" y="132" width="432" height="34" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.2"/>
+  <text x="440" y="154" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">(여기서 빌드를 직접 돌리면 안 된다)</text>
 
-  <!-- 화살표 및 라벨 -->
-  <path d="M190,180 L190,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M340,180 L340,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M490,180 L490,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 작업 배분 -->
+  <path d="M440,180 V222 H200 V252" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#ah)"/>
+  <path d="M440,180 V222 H680 V252" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#ah)"/>
+  <path d="M440,180 V252" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#ah)"/>
+  <text x="452" y="206" font-size="15" fill="#1d4ed8">작업 배분</text>
 
-  <rect x="525" y="200" width="70" height="20" fill="#ffffff"/>
-  <text x="560" y="214.55" font-size="13" fill="#52606d" text-anchor="middle">작업 배분</text>
+  <!-- 에이전트 -->
+  <rect x="100" y="256" width="200" height="90" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="200" y="290" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">에이전트</text>
+  <rect x="155" y="304" width="90" height="28" rx="14" fill="#fffbeb" stroke="#b45309" stroke-width="1.2"/>
+  <text x="200" y="323" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">linux</text>
 
-  <!-- 에이전트 1: linux -->
-  <rect x="120" y="240" width="140" height="90" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="190" y="274.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">에이전트</text>
-  <text x="190" y="304.55" font-size="13" fill="#52606d" text-anchor="middle">linux</text>
+  <rect x="340" y="256" width="200" height="90" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="440" y="290" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">에이전트</text>
+  <rect x="395" y="304" width="90" height="28" rx="14" fill="#fffbeb" stroke="#b45309" stroke-width="1.2"/>
+  <text x="440" y="323" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">macos</text>
 
-  <!-- 에이전트 2: macos -->
-  <rect x="270" y="240" width="140" height="90" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="340" y="274.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">에이전트</text>
-  <text x="340" y="304.55" font-size="13" fill="#52606d" text-anchor="middle">macos</text>
+  <rect x="580" y="256" width="200" height="90" rx="8" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="680" y="290" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">에이전트</text>
+  <rect x="635" y="304" width="90" height="28" rx="14" fill="#fffbeb" stroke="#b45309" stroke-width="1.2"/>
+  <text x="680" y="323" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">gpu</text>
 
-  <!-- 에이전트 3: gpu -->
-  <rect x="420" y="240" width="140" height="90" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="490" y="274.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">에이전트</text>
-  <text x="490" y="304.55" font-size="13" fill="#52606d" text-anchor="middle">gpu</text>
-
-  <!-- 우측 주석 라벨 -->
-  <text x="580" y="289.55" font-size="13" fill="#52606d" text-anchor="start">← label로 골라 쓴다</text>
+  <!-- label 선택 -->
+  <path d="M100,360 V370 H780 V360 M440,370 V380" fill="none" stroke="#b45309" stroke-width="1.5"/>
+  <text x="440" y="402" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">label로 골라 쓴다</text>
+  <text x="440" y="426" font-size="15" fill="#4b5563" text-anchor="middle">예: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">agent { label 'linux' }</tspan></text>
 </svg>

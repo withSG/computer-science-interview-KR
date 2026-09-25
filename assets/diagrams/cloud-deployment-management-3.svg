@@ -1,108 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 550" width="880" height="550" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">무엇이 달라지는가</title>
-  <desc id="d">StatefulSet mysql의 순서 생성/삭제, Pod와 PVC 간의 1대1 매핑 및 Headless Service의 고유 DNS 부여 구조</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 590" width="880" height="590" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">StatefulSet의 고정 이름·순서·PVC</title>
+  <desc id="d">StatefulSet mysql은 Pod를 0, 1, 2 순서로 만들고 2, 1, 0 순서로 지우며, 각 Pod는 자기 PVC(data-mysql-N)와 짝이 고정된다. Headless Service가 붙으면 Pod마다 고유 DNS 이름이 생긴다.</desc>
+  <rect width="880" height="590" fill="#ffffff"/>
   <defs>
-    <!-- Dark Ink Arrowhead for sequence and pod-to-pvc connectors -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <!-- Blue Arrowhead for creation sequence -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <!-- Amber Arrowhead for deletion sequence -->
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="550" fill="#ffffff"/>
+  <!-- StatefulSet 외곽 -->
+  <rect x="24" y="24" width="832" height="366" rx="12" fill="#f8fafc" stroke="#475569" stroke-width="2"/>
+  <text x="48" y="58" font-size="19" font-weight="bold" fill="#1f2937">StatefulSet: mysql <tspan font-weight="normal" fill="#374151">(replicas: 3)</tspan></text>
 
-  <!-- StatefulSet Group Container -->
-  <rect x="24" y="24" width="832" height="386" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- 순서 -->
+  <rect x="48" y="76" width="250" height="36" rx="18" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="68" y="100" font-size="16" font-weight="bold" fill="#065f46">생성 순서<tspan dx="14" font-weight="normal">0 → 1 → 2</tspan></text>
+  <rect x="318" y="76" width="250" height="36" rx="18" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="338" y="100" font-size="16" font-weight="bold" fill="#991b1b">삭제 순서<tspan dx="14" font-weight="normal">2 → 1 → 0</tspan></text>
 
-  <!-- StatefulSet Group Label Bar -->
-  <path d="M 24 32 C 24 28 28 24 32 24 L 848 24 C 852 24 856 28 856 32 L 856 64 L 24 64 Z" fill="#ffffff"/>
-  <line x1="24" y1="64" x2="856" y2="64" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="48.6" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">StatefulSet: mysql (replicas: 3)</text>
+  <!-- mysql-0 -->
+  <rect x="70" y="136" width="220" height="70" rx="10" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="180" y="164" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">mysql-0</text>
+  <text x="180" y="191" font-size="15" fill="#1e3a8a" text-anchor="middle">(primary)</text>
+  <line x1="180" y1="206" x2="180" y2="250" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="70" y="256" width="220" height="70" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="180" y="283" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">PVC</text>
+  <text x="180" y="310" font-size="16" fill="#78350f" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">data-mysql-0</text>
 
-  <!-- Sequence Indicators Section -->
-  <!-- Creation Sequence (Blue) -->
-  <text x="140" y="99.6" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="end">생성 순서</text>
-  <path d="M 150 95 L 170 95" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <text x="195" y="99.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">0</text>
-  <path d="M 210 95 L 230 95" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <text x="245" y="99.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-  <path d="M 260 95 L 280 95" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <text x="295" y="99.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
+  <!-- mysql-1 -->
+  <rect x="330" y="136" width="220" height="70" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="164" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">mysql-1</text>
+  <text x="440" y="191" font-size="15" fill="#1e3a8a" text-anchor="middle">(replica)</text>
+  <line x1="440" y1="206" x2="440" y2="250" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="330" y="256" width="220" height="70" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="440" y="283" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">PVC</text>
+  <text x="440" y="310" font-size="16" fill="#78350f" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">data-mysql-1</text>
 
-  <!-- Deletion Sequence (Amber) -->
-  <text x="580" y="99.6" font-size="13" font-weight="bold" fill="#d97706" text-anchor="end">삭제 순서</text>
-  <path d="M 590 95 L 610 95" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  
-  <text x="635" y="99.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
-  <path d="M 650 95 L 670 95" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  
-  <text x="685" y="99.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-  <path d="M 700 95 L 720 95" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  
-  <text x="735" y="99.6" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">0</text>
+  <!-- mysql-2 -->
+  <rect x="590" y="136" width="220" height="70" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="700" y="164" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">mysql-2</text>
+  <text x="700" y="191" font-size="15" fill="#1e3a8a" text-anchor="middle">(replica)</text>
+  <line x1="700" y1="206" x2="700" y2="250" stroke="#374151" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="590" y="256" width="220" height="70" rx="10" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="700" y="283" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">PVC</text>
+  <text x="700" y="310" font-size="16" fill="#78350f" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">data-mysql-2</text>
 
-  <!-- ================= Pods & PVCs Column 1 (mysql-0 / Primary) ================= -->
-  <!-- Pod mysql-0 Box -->
-  <rect x="74" y="130" width="220" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="184" y="157.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">mysql-0</text>
-  <text x="184" y="179.5" font-size="13" fill="#2563eb" text-anchor="middle">(primary)</text>
+  <text x="440" y="364" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">재시작해도 이름과 PVC 짝이 절대 바뀌지 않음</text>
 
-  <!-- Connecting Arrow 0 -->
-  <path d="M 184 200 L 184 250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- PVC data-mysql-0 Box -->
-  <rect x="74" y="250" width="220" height="70" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="184" y="277.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">PVC</text>
-  <text x="184" y="299.5" font-size="13" fill="#52606d" text-anchor="middle">data-mysql-0</text>
-
-  <!-- ================= Pods & PVCs Column 2 (mysql-1 / Replica) ================= -->
-  <!-- Pod mysql-1 Box -->
-  <rect x="330" y="130" width="220" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="157.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">mysql-1</text>
-  <text x="440" y="179.5" font-size="13" fill="#52606d" text-anchor="middle">(replica)</text>
-
-  <!-- Connecting Arrow 1 -->
-  <path d="M 440 200 L 440 250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- PVC data-mysql-1 Box -->
-  <rect x="330" y="250" width="220" height="70" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="277.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">PVC</text>
-  <text x="440" y="299.5" font-size="13" fill="#52606d" text-anchor="middle">data-mysql-1</text>
-
-  <!-- ================= Pods & PVCs Column 3 (mysql-2 / Replica) ================= -->
-  <!-- Pod mysql-2 Box -->
-  <rect x="586" y="130" width="220" height="70" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="696" y="157.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">mysql-2</text>
-  <text x="696" y="179.5" font-size="13" fill="#52606d" text-anchor="middle">(replica)</text>
-
-  <!-- Connecting Arrow 2 -->
-  <path d="M 696 200 L 696 250" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- PVC data-mysql-2 Box -->
-  <rect x="586" y="250" width="220" height="70" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="696" y="277.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">PVC</text>
-  <text x="696" y="299.5" font-size="13" fill="#52606d" text-anchor="middle">data-mysql-2</text>
-
-  <!-- Bottom Annotation in StatefulSet Container -->
-  <text x="440" y="365.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">재시작해도 이름과 PVC 짝이 절대 바뀌지 않음</text>
-
-  <!-- ================= Headless Service & DNS Section ================= -->
-  <text x="440" y="445.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Headless Service (clusterIP: None) 가 붙으면 각 Pod에 고유 DNS 부여</text>
-  
-  <!-- DNS List Container -->
-  <rect x="180" y="465" width="520" height="60" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="489.0" font-family="'Courier New', Courier, monospace" font-size="12" fill="#2563eb" text-anchor="middle">mysql-0.mysql-headless.default.svc.cluster.local</text>
-  <text x="440" y="509.0" font-family="'Courier New', Courier, monospace" font-size="12" fill="#52606d" text-anchor="middle">mysql-1.mysql-headless.default.svc.cluster.local</text>
+  <!-- Headless Service -->
+  <rect x="24" y="414" width="832" height="152" rx="12" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="48" y="448" font-size="17" font-weight="bold" fill="#4c1d95">Headless Service (clusterIP: None)<tspan font-weight="normal" fill="#374151"> 가 붙으면 각 Pod에 고유 DNS 부여</tspan></text>
+  <text x="72" y="484" font-size="16" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-weight="bold" fill="#1e3a8a">mysql-0</tspan>.mysql-headless.default.svc.cluster.local</text>
+  <text x="72" y="514" font-size="16" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-weight="bold" fill="#1e3a8a">mysql-1</tspan>.mysql-headless.default.svc.cluster.local</text>
+  <text x="72" y="544" font-size="16" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"><tspan font-weight="bold" fill="#1e3a8a">mysql-2</tspan>.mysql-headless.default.svc.cluster.local</text>
 </svg>

@@ -1,94 +1,77 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Canary 배포</title>
-  <desc id="d">Canary 배포 전략의 단계별 트래픽 분산 과정 다이어그램</desc>
-  
-  <rect width="880" height="500" fill="#ffffff"/>
-
+  <desc id="d">단계 1에서는 Load Balancer가 트래픽의 95%를 v1.0(Stable)에, 5%를 v2.0(Canary)에 보냅니다. 단계 2에서는 v2.0 비율을 25%, 50%, 100%로 점진적으로 확대하며, 그림은 50% 대 50% 시점을 보여줍니다. 선 굵기는 트래픽 양을 나타냅니다.</desc>
+  <rect width="880" height="400" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="hb20" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="userSpaceOnUse" markerWidth="20" markerHeight="20" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="hp12" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="hb16" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="hp16" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">Canary 배포</text>
+  <!-- ===== 단계 1 ===== -->
+  <rect x="24" y="24" width="388" height="352" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="54" font-size="17" font-weight="700" fill="#111827">단계 1: 5% 트래픽으로 시작</text>
+  <text x="44" y="91" font-size="15" fill="#374151">v2.0 트래픽</text>
+  <rect x="144" y="72" width="48" height="28" rx="14" fill="#6d28d9" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="168" y="91" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">5%</text>
 
-  <!-- ==================== 단계 1 ==================== -->
-  <g id="step1">
-    <!-- Step 1 Label -->
-    <text x="30" y="75" font-size="14" font-weight="bold" fill="#1f2933">단계 1: 5% 트래픽으로 시작</text>
-    
-    <!-- Outer Group Container -->
-    <rect x="30" y="90" width="390" height="370" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
+  <rect x="128" y="118" width="180" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="218" y="146" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Load Balancer</text>
 
-    <!-- Load Balancer -->
-    <rect x="135" y="115" width="180" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="225" y="140" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Load Balancer</text>
+  <path d="M213,190 H124 V249" fill="none" stroke="#1d4ed8" stroke-width="9.6" stroke-linejoin="round" marker-end="url(#hb20)"/>
+  <path d="M223,190 H312 V257" fill="none" stroke="#6d28d9" stroke-width="2.4" stroke-linejoin="round" marker-end="url(#hp12)"/>
+  <path d="M218,162 V194.8" fill="none" stroke="#6b7280" stroke-width="10"/>
+  <text x="108" y="234" font-size="20" font-weight="700" fill="#1d4ed8" text-anchor="end">95%</text>
+  <text x="326" y="234" font-size="20" font-weight="700" fill="#6d28d9">5%</text>
 
-    <!-- Branch Lines -->
-    <!-- Center stem down -->
-    <path d="M 225,155 L 225,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    <!-- Horizontal line -->
-    <path d="M 120,185 L 330,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    <!-- Vertical down to boxes -->
-    <path d="M 120,185 L 120,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <path d="M 330,185 L 330,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <rect x="44" y="272" width="160" height="80" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="124" y="305" font-size="19" font-weight="700" fill="#1d4ed8" text-anchor="middle">v1.0</text>
+  <text x="124" y="331" font-size="15" fill="#374151" text-anchor="middle">(Stable)</text>
 
-    <!-- Traffic Labels with background -->
-    <rect x="105" y="222" width="30" height="18" fill="#ffffff" rx="2"/>
-    <text x="120" y="235" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">95%</text>
+  <rect x="232" y="272" width="160" height="80" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="312" y="305" font-size="19" font-weight="700" fill="#6d28d9" text-anchor="middle">v2.0</text>
+  <text x="312" y="331" font-size="15" fill="#374151" text-anchor="middle">Canary</text>
 
-    <rect x="318" y="222" width="24" height="18" fill="#ffffff" rx="2"/>
-    <text x="330" y="235" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">5%</text>
+  <!-- 단계 사이 -->
+  <path d="M422,312 H458" fill="none" stroke="#6b7280" stroke-width="3" marker-end="url(#an)"/>
 
-    <!-- v1.0 Box (Stable) -->
-    <rect x="50" y="290" width="140" height="120" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
-    <text x="120" y="340" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v1.0</text>
-    <text x="120" y="370" font-size="13" fill="#52606d" text-anchor="middle">(Stable)</text>
+  <!-- ===== 단계 2 ===== -->
+  <rect x="468" y="24" width="388" height="352" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="488" y="54" font-size="17" font-weight="700" fill="#111827">단계 2: 점진적 확대</text>
+  <text x="488" y="91" font-size="15" fill="#374151">v2.0 트래픽</text>
+  <rect x="588" y="72" width="52" height="28" rx="14" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="614" y="91" font-size="15" font-weight="700" fill="#6d28d9" text-anchor="middle">25%</text>
+  <text x="657" y="91" font-size="15" fill="#4b5563" text-anchor="middle">→</text>
+  <rect x="674" y="72" width="52" height="28" rx="14" fill="#6d28d9" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="700" y="91" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">50%</text>
+  <text x="743" y="91" font-size="15" fill="#4b5563" text-anchor="middle">→</text>
+  <rect x="760" y="72" width="60" height="28" rx="14" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="790" y="91" font-size="15" font-weight="700" fill="#6d28d9" text-anchor="middle">100%</text>
 
-    <!-- v2.0 Box (Canary) -->
-    <rect x="260" y="290" width="140" height="120" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="6"/>
-    <text x="330" y="340" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v2.0</text>
-    <text x="330" y="370" font-size="13" fill="#52606d" text-anchor="middle">Canary</text>
-  </g>
+  <rect x="572" y="118" width="180" height="44" rx="6" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="662" y="146" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">Load Balancer</text>
 
-  <!-- ==================== 단계 2 ==================== -->
-  <g id="step2">
-    <!-- Step 2 Label -->
-    <text x="460" y="75" font-size="14" font-weight="bold" fill="#1f2933">단계 2: 점진적 확대 (25% → 50% → 100%)</text>
-    
-    <!-- Outer Group Container -->
-    <rect x="460" y="90" width="390" height="370" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
+  <path d="M657,190 H568 V253" fill="none" stroke="#1d4ed8" stroke-width="6" stroke-linejoin="round" marker-end="url(#hb16)"/>
+  <path d="M667,190 H756 V253" fill="none" stroke="#6d28d9" stroke-width="6" stroke-linejoin="round" marker-end="url(#hp16)"/>
+  <path d="M662,162 V194.8" fill="none" stroke="#6b7280" stroke-width="10"/>
+  <text x="552" y="234" font-size="20" font-weight="700" fill="#1d4ed8" text-anchor="end">50%</text>
+  <text x="772" y="234" font-size="20" font-weight="700" fill="#6d28d9">50%</text>
 
-    <!-- Load Balancer -->
-    <rect x="565" y="115" width="180" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="655" y="140" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Load Balancer</text>
+  <rect x="488" y="272" width="160" height="80" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="568" y="318" font-size="19" font-weight="700" fill="#1d4ed8" text-anchor="middle">v1.0</text>
 
-    <!-- Branch Lines -->
-    <!-- Center stem down -->
-    <path d="M 655,155 L 655,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    <!-- Horizontal line -->
-    <path d="M 550,185 L 760,185" stroke="#52606d" stroke-width="1.5" fill="none"/>
-    <!-- Vertical down to boxes -->
-    <path d="M 550,185 L 550,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <path d="M 760,185 L 760,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-    <!-- Traffic Labels with background -->
-    <rect x="535" y="222" width="30" height="18" fill="#ffffff" rx="2"/>
-    <text x="550" y="235" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">50%</text>
-
-    <rect x="745" y="222" width="30" height="18" fill="#ffffff" rx="2"/>
-    <text x="760" y="235" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">50%</text>
-
-    <!-- v1.0 Box -->
-    <rect x="480" y="290" width="140" height="120" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
-    <text x="550" y="355" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v1.0</text>
-
-    <!-- v2.0 Box -->
-    <rect x="690" y="290" width="140" height="120" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="6"/>
-    <text x="760" y="355" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">v2.0</text>
-  </g>
+  <rect x="676" y="272" width="160" height="80" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="756" y="318" font-size="19" font-weight="700" fill="#6d28d9" text-anchor="middle">v2.0</text>
 </svg>

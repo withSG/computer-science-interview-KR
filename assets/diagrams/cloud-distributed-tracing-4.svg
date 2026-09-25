@@ -1,34 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 230" width="880" height="230" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 350" width="880" height="350" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Head 샘플링</title>
-  <desc id="d">Gateway에서 난수를 뽑아 샘플링 여부를 결정하고 하위 서비스로 전파하는 Head 샘플링 구조도</desc>
-  <rect width="880" height="230" fill="#ffffff"/>
+  <desc id="d">요청이 들어오는 Gateway에서 난수로 1% 안에 들면 샘플링을 결정하고, 그 결정이 traceparent의 flags(01 또는 00)로 전파되어 모든 하위 서비스가 스팬을 기록하거나 기록을 생략한다. 결과를 모르는 상태에서 정하므로 에러 요청도 99% 확률로 버려진다.</desc>
+  <rect width="880" height="350" fill="#ffffff"/>
   <defs>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- Root Node (Gateway) -->
-  <rect x="24" y="85" width="370" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="209" y="120" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Gateway: 난수를 뽑아 1% 안에 들면 샘플링 결정</text>
+  <!-- 단계 머리글 -->
+  <text x="139" y="42" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">① 요청 시작 시점에 결정</text>
+  <text x="439" y="42" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">② traceparent 샘플링 비트로 전파</text>
+  <text x="726" y="42" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">③ 하위 서비스의 동작</text>
 
-  <!-- Tree Branch Line -->
-  <path d="M 394,115 L 420,115 L 420,65 L 440,65 M 420,115 L 420,165 L 440,165" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <!-- Gateway -->
+  <rect x="24" y="68" width="230" height="184" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="139" y="126" font-size="20" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Gateway</text>
+  <text x="139" y="162" font-size="15" fill="#1f2937" text-anchor="middle">난수를 뽑아</text>
+  <text x="139" y="184" font-size="15" fill="#1f2937" text-anchor="middle">1% 안에 들면</text>
+  <text x="139" y="206" font-size="15" font-weight="bold" fill="#1f2937" text-anchor="middle">샘플링 결정</text>
 
-  <!-- Upper Branch (Sampled) -->
-  <rect x="440" y="45" width="165" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="522.5" y="69" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">샘플링됨(flags=01)</text>
+  <!-- 분기 -->
+  <path d="M254,160 H284 V108 H338" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <path d="M284,160 V212 H338" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-gray)"/>
+  <text x="314" y="98" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">1%</text>
+  <text x="314" y="236" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">99%</text>
 
-  <path d="M 605,65 L 635,65" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="645" y="69.5" font-size="13" fill="#1f2933" text-anchor="start">모든 하위 서비스가 스팬 기록</text>
+  <!-- flags -->
+  <rect x="344" y="78" width="190" height="60" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="439" y="103" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">샘플링됨</text>
+  <text x="439" y="127" font-size="15" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">flags=01</text>
 
-  <!-- Lower Branch (Not Sampled) -->
-  <rect x="440" y="145" width="165" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="522.5" y="169" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">안 됨(flags=00)</text>
+  <rect x="344" y="182" width="190" height="60" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="439" y="207" font-size="17" font-weight="bold" fill="#374151" text-anchor="middle">안 됨</text>
+  <text x="439" y="231" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">flags=00</text>
 
-  <path d="M 605,165 L 635,165" stroke="#52606d" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-gray)"/>
-  <text x="645" y="169.5" font-size="13" fill="#1f2933" text-anchor="start">모든 하위 서비스가 기록 생략 (오버헤드 거의 0)</text>
+  <!-- 하위 서비스 -->
+  <path d="M534,108 H588" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <path d="M534,212 H588" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-gray)"/>
+
+  <rect x="596" y="68" width="260" height="80" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="726" y="100" font-size="15" fill="#1f2937" text-anchor="middle">모든 하위 서비스가</text>
+  <text x="726" y="126" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">스팬 기록</text>
+
+  <rect x="596" y="172" width="260" height="80" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="726" y="196" font-size="15" fill="#1f2937" text-anchor="middle">모든 하위 서비스가</text>
+  <text x="726" y="220" font-size="17" font-weight="bold" fill="#374151" text-anchor="middle">기록 생략</text>
+  <text x="726" y="242" font-size="14" fill="#4b5563" text-anchor="middle">(오버헤드 거의 0)</text>
+
+  <!-- 한계 -->
+  <rect x="24" y="282" width="832" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="44" y="310" font-size="15" fill="#1f2937"><tspan font-weight="bold" fill="#b91c1c">한계</tspan>  결과를 모르는 상태에서 결정 → 1% 샘플링이면 에러가 난 요청도 99% 확률로 버려짐</text>
 </svg>

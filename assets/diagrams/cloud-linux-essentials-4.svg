@@ -1,58 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 스트림인가</title>
-  <desc id="d">키보드에서 프로세스의 stdin(0)으로 입력되고, 프로세스에서 stdout(1)과 stderr(2)가 각각 화면으로 출력되는 구조를 설명하는 표준 스트림 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">표준 스트림 0·1·2의 기본 연결</title>
+  <desc id="d">모든 프로세스는 0 stdin, 1 stdout, 2 stderr 세 파일 디스크립터를 갖는다. 키보드 입력은 0번으로 들어오고, 1번과 2번은 기본적으로 모두 화면을 가리키므로 출력이 섞여 보인다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="m-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="m-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-
-  <rect width="880" height="380" fill="#ffffff"/>
+  <rect width="880" height="400" fill="#ffffff"/>
 
   <!-- 키보드 -->
-  <rect x="40" y="100" width="110" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="95" y="134" font-size="14" fill="#1f2933" text-anchor="middle">키보드</text>
+  <rect x="40" y="84" width="120" height="46" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="100" y="113" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">키보드</text>
 
-  <!-- 프로세스 메인 박스 -->
-  <rect x="230" y="40" width="280" height="180" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="370" y="134" font-size="16" fill="#1f2933" font-weight="bold" text-anchor="middle">프로세스</text>
+  <!-- 프로세스 -->
+  <rect x="230" y="30" width="300" height="240" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="380" y="62" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">프로세스</text>
 
-  <!-- 0 stdin (표준 입력) -->
-  <rect x="250" y="65" width="240" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="370" y="87" font-size="13" fill="#059669" text-anchor="middle">0  stdin  (표준 입력)</text>
+  <rect x="250" y="84" width="260" height="46" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text y="113" font-size="16" fill="#374151">
+    <tspan x="270" font-size="17" font-weight="bold" fill="#047857">0</tspan>
+    <tspan x="296" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">stdin</tspan>
+    <tspan x="370" font-size="15">(표준 입력)</tspan>
+  </text>
 
-  <!-- 1 stdout (표준 출력) -->
-  <rect x="250" y="125" width="240" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="370" y="147" font-size="13" fill="#2563eb" text-anchor="middle">1  stdout (표준 출력)</text>
+  <rect x="250" y="144" width="260" height="46" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text y="173" font-size="16" fill="#374151">
+    <tspan x="270" font-size="17" font-weight="bold" fill="#1d4ed8">1</tspan>
+    <tspan x="296" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">stdout</tspan>
+    <tspan x="370" font-size="15">(표준 출력)</tspan>
+  </text>
 
-  <!-- 2 stderr (표준 에러) -->
-  <rect x="250" y="165" width="240" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="370" y="187" font-size="13" fill="#d97706" text-anchor="middle">2  stderr (표준 에러)</text>
+  <rect x="250" y="204" width="260" height="46" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text y="233" font-size="16" fill="#374151">
+    <tspan x="270" font-size="17" font-weight="bold" fill="#b91c1c">2</tspan>
+    <tspan x="296" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">stderr</tspan>
+    <tspan x="370" font-size="15">(표준 에러)</tspan>
+  </text>
 
-  <!-- 화면 (stdout용) -->
-  <rect x="610" y="113" width="100" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="660" y="135" font-size="14" fill="#1f2933" text-anchor="middle">화면</text>
+  <!-- 화면 -->
+  <rect x="680" y="144" width="160" height="106" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="2"/>
+  <text x="760" y="203" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">화면</text>
 
-  <!-- 화면 (stderr용) -->
-  <rect x="610" y="165" width="100" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="660" y="187" font-size="14" fill="#1f2933" text-anchor="middle">화면</text>
+  <!-- 화살표 -->
+  <line x1="160" y1="107" x2="246" y2="107" stroke="#047857" stroke-width="2" marker-end="url(#m-green)"/>
+  <line x1="510" y1="167" x2="676" y2="167" stroke="#1d4ed8" stroke-width="2" marker-end="url(#m-blue)"/>
+  <line x1="510" y1="227" x2="676" y2="227" stroke="#b91c1c" stroke-width="2" marker-end="url(#m-red)"/>
 
-  <!-- 화살표: 키보드 -> 0 stdin -->
-  <path d="M 150 130 L 220 130 L 220 83 L 241 83" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
-
-  <!-- 화살표: 1 stdout -> 화면 -->
-  <path d="M 490 143 L 601 143" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-
-  <!-- 화살표: 2 stderr -> 화면 -->
-  <path d="M 490 183 L 601 183" fill="none" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-orange)"/>
-
-  <!-- 하단 부가 텍스트 -->
-  <text x="40" y="270" font-size="13" fill="#52606d">기본적으로 1과 2는 모두 화면을 가리키므로 섞여 보인다.</text>
-  <text x="40" y="298" font-size="13" fill="#52606d">그래서 "화면에서는 보였는데 파일에는 없다"가 발생한다.</text>
+  <!-- 설명 -->
+  <rect x="40" y="298" width="800" height="76" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text font-size="16" fill="#111827">
+    <tspan x="60" y="328">기본적으로 <tspan font-weight="bold">1과 2는 모두 화면을 가리키므로</tspan> 섞여 보인다.</tspan>
+    <tspan x="60" y="356">그래서 "화면에서는 보였는데 파일에는 없다"가 발생한다.</tspan>
+  </text>
 </svg>

@@ -1,144 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">트레이스 워터폴 — 2.8초가 어디로 갔는가</title>
-  <desc id="d">분산 트레이싱 환경에서 Gateway, order-service, inventory, pricing, payment, db, 외부 PG 호출의 실행 시간과 계측 공백을 보여주는 워터폴 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+  <desc id="d">요청 하나(Trace)를 구성하는 스팬들을 시간축에 놓은 워터폴. Gateway 2800ms 안에서 order-service 2760ms, 그 아래 inventory 15ms·pricing 28ms가 순차로, payment 2680ms 아래 db:SELECT 8ms와 HTTP POST /pg 2650ms가 이어진다. 외부 PG 호출이 병목이고, order-service에는 37ms의 계측 공백이 있다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-  </defs>
+  <!-- 제목 -->
+  <text x="24" y="40" font-size="20" font-weight="bold" fill="#111827">트레이스 워터폴 — 2.8초가 어디로 갔는가</text>
+  <text x="24" y="66" font-size="15" fill="#4b5563">요청 전체 여정(Trace)과 하위 작업 구간(Span)의 시간 흐름 분석</text>
 
-  <!-- Header -->
-  <text x="30" y="42" font-size="17" font-weight="600" fill="#1f2933">트레이스 워터폴 — 2.8초가 어디로 갔는가</text>
-  <text x="30" y="65" font-size="11.5" font-weight="400" fill="#52606d">요청 전체 여정(Trace)과 하위 작업 구간(Span)의 시간 흐름 분석</text>
+  <!-- 범례 -->
+  <rect x="24" y="86" width="28" height="16" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="60" y="99" font-size="15" fill="#111827">일반 스팬</text>
+  <rect x="160" y="86" width="28" height="16" rx="3" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="196" y="99" font-size="15" fill="#111827">임계 경로 (병목)</text>
 
-  <!-- Legend Bar -->
-  <rect x="520" y="28" width="330" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="532" y="43" width="12" height="10" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="549" y="52" font-size="11" font-weight="500" fill="#1f2933">일반 스팬</text>
-  
-  <rect x="612" y="43" width="12" height="10" rx="2" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="629" y="52" font-size="11" font-weight="500" fill="#dc2626">임계 경로 (병목)</text>
-  
-  <rect x="732" y="43" width="12" height="10" rx="2" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="749" y="52" font-size="11" font-weight="500" fill="#d97706">계측 공백 (37ms)</text>
+  <!-- 축 머리 -->
+  <rect x="24" y="118" width="832" height="30" fill="#f3f4f6"/>
+  <text x="32" y="138" font-size="14" font-weight="bold" fill="#374151">스팬 / 서비스 이름</text>
+  <text x="256" y="138" font-size="14" font-weight="bold" fill="#374151" text-anchor="middle">0ms</text>
+  <text x="434.6" y="138" font-size="14" fill="#374151" text-anchor="middle">1000ms</text>
+  <text x="613.1" y="138" font-size="14" fill="#374151" text-anchor="middle">2000ms</text>
+  <text x="756" y="138" font-size="14" font-weight="bold" fill="#374151" text-anchor="middle">2800ms</text>
+  <text x="850" y="138" font-size="14" font-weight="bold" fill="#374151" text-anchor="end">소요</text>
 
-  <!-- Axis Header Box -->
-  <rect x="30" y="80" font-size="11" width="820" height="30" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="120" y="100" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">스팬 / 서비스 이름</text>
+  <!-- 줄무늬 행 배경 -->
+  <rect x="24" y="196" width="832" height="44" fill="#f9fafb"/>
+  <rect x="24" y="284" width="832" height="44" fill="#f9fafb"/>
+  <rect x="24" y="372" width="832" height="44" fill="#f9fafb"/>
 
-  <!-- Timeline Grid Lines & Labels -->
-  <!-- Timeline mapping: X_start = 280, X_end = 840 (Width = 560px for 2800ms -> 0.2px / ms) -->
-  
-  <!-- 0ms (X=280) -->
-  <line x1="280" y1="90" x2="280" y2="400" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="263" y="88" width="34" height="18" fill="#ffffff" rx="2"/>
-  <text x="280" y="101" font-size="11.5" font-weight="600" fill="#1f2933" text-anchor="middle">0ms</text>
+  <!-- 눈금선 -->
+  <line x1="256" y1="148" x2="256" y2="460" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="434.6" y1="148" x2="434.6" y2="460" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="613.1" y1="148" x2="613.1" y2="460" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="756" y1="148" x2="756" y2="460" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="24" y1="460" x2="856" y2="460" stroke="#d1d5db" stroke-width="1"/>
 
-  <!-- 1000ms (X=480) -->
-  <line x1="480" y1="90" x2="480" y2="400" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2"/>
-  <rect x="455" y="88" width="50" height="18" fill="#ffffff" rx="2"/>
-  <text x="480" y="101" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">1000ms</text>
+  <!-- 트리 연결선 -->
+  <path d="M32,186 V218 H44" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M58,232 V350 H70 M58,262 H70 M58,306 H70" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M84,364 V438 H96 M84,394 H96" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- 2000ms (X=680) -->
-  <line x1="680" y1="90" x2="680" y2="400" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="2 2"/>
-  <rect x="655" y="88" width="50" height="18" fill="#ffffff" rx="2"/>
-  <text x="680" y="101" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">2000ms</text>
+  <!-- R1 Gateway -->
+  <text x="24" y="179.5" font-size="16" font-weight="bold" fill="#111827">Gateway</text>
+  <rect x="256" y="161" width="500" height="26" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="850" y="179.5" font-size="15" fill="#111827" text-anchor="end">2800ms</text>
 
-  <!-- 2800ms (X=840) -->
-  <line x1="840" y1="90" x2="840" y2="400" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="815" y="88" width="50" height="18" fill="#ffffff" rx="2"/>
-  <text x="840" y="101" font-size="11.5" font-weight="600" fill="#1f2933" text-anchor="middle">2800ms</text>
+  <!-- R2 order-service -->
+  <text x="50" y="223.5" font-size="16" font-weight="bold" fill="#111827">order-service</text>
+  <rect x="259.6" y="205" width="492.8" height="26" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="850" y="223.5" font-size="15" fill="#111827" text-anchor="end">2760ms</text>
 
-  <!-- Rows Background Alternating -->
-  <rect x="30" y="110" width="820" height="40" fill="#ffffff"/>
-  <rect x="30" y="150" width="820" height="40" fill="#f8fafc"/>
-  <rect x="30" y="190" width="820" height="40" fill="#ffffff"/>
-  <rect x="30" y="230" width="820" height="40" fill="#f8fafc"/>
-  <rect x="30" y="270" width="820" height="40" fill="#ffffff"/>
-  <rect x="30" y="310" width="820" height="40" fill="#f8fafc"/>
-  <rect x="30" y="350" width="820" height="40" fill="#ffffff"/>
+  <!-- R3 inventory -->
+  <text x="76" y="267.5" font-size="16" fill="#111827">inventory</text>
+  <rect x="259.6" y="249" width="2.7" height="26" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="850" y="267.5" font-size="15" fill="#111827" text-anchor="end">15ms</text>
 
-  <!-- Row Separators -->
-  <line x1="30" y1="150" x2="850" y2="150" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="30" y1="190" x2="850" y2="190" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="30" y1="230" x2="850" y2="230" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="30" y1="270" x2="850" y2="270" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="30" y1="310" x2="850" y2="310" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="30" y1="350" x2="850" y2="350" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="30" y1="390" x2="850" y2="390" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- R4 pricing -->
+  <text x="76" y="311.5" font-size="16" fill="#111827">pricing</text>
+  <rect x="262.3" y="293" width="5" height="26" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="850" y="311.5" font-size="15" fill="#111827" text-anchor="end">28ms</text>
 
-  <!-- Vertical Divider after labels -->
-  <line x1="270" y1="80" x2="270" y2="390" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="210" y1="80" x2="210" y2="390" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- R5 payment -->
+  <text x="76" y="355.5" font-size="16" font-weight="bold" fill="#b91c1c">payment</text>
+  <rect x="273.9" y="337" width="478.5" height="26" rx="3" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="850" y="355.5" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">2680ms</text>
 
-  <!-- ROW 1: Gateway (0ms ~ 2800ms) -->
-  <text x="40" y="135" font-size="13" font-weight="600" fill="#1f2933">Gateway</text>
-  <rect x="280" y="120" width="560" height="20" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="830" y="134" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="end">2800ms</text>
+  <!-- R6 db:SELECT -->
+  <text x="102" y="399.5" font-size="16" fill="#111827">db:SELECT</text>
+  <rect x="274.8" y="381" width="3" height="26" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="850" y="399.5" font-size="15" fill="#111827" text-anchor="end">8ms</text>
 
-  <!-- ROW 2: order-service (0ms ~ 2760ms) -->
-  <text x="50" y="175" font-size="13" font-weight="600" fill="#1f2933">└─ order-service</text>
-  <rect x="280" y="160" width="552" height="20" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="822" y="174" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="end">2760ms</text>
+  <!-- R7 HTTP POST /pg -->
+  <text x="102" y="443.5" font-size="16" font-weight="bold" fill="#b91c1c">HTTP POST /pg</text>
+  <rect x="278.3" y="424" width="473.2" height="28" rx="3" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="292" y="443.5" font-size="15" font-weight="bold" fill="#b91c1c">병목 지점: 외부 PG 결제 호출 (2.65초 소요)</text>
+  <text x="850" y="443.5" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">2650ms</text>
 
-  <!-- ROW 3: inventory (0ms ~ 15ms) -->
-  <text x="70" y="215" font-size="13" font-weight="500" fill="#1f2933">├─ inventory</text>
-  <rect x="280" y="200" width="10" height="20" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="296" y="214" font-size="11" font-weight="500" fill="#1f2933">15ms</text>
+  <!-- 순차 호출 표시 -->
+  <path d="M266,262 H282 V306 H271" fill="none" stroke="#6d28d9" stroke-width="1.5"/>
+  <line x1="282" y1="284" x2="300" y2="284" stroke="#6d28d9" stroke-width="1.5"/>
+  <rect x="300" y="267" width="224" height="34" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="412" y="289.5" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">순차 호출 (병렬화 가능 구간)</text>
 
-  <!-- ROW 4: pricing (15ms ~ 43ms) -->
-  <text x="70" y="255" font-size="13" font-weight="500" fill="#1f2933">├─ pricing</text>
-  <rect x="283" y="240" width="12" height="20" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="301" y="254" font-size="11" font-weight="500" fill="#1f2933">28ms</text>
+  <!-- 계측 공백 표시 -->
+  <line x1="670" y1="232" x2="670" y2="248" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="556" y="248" width="228" height="76" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="570" y="270" font-size="15" font-weight="bold" fill="#b45309">계측 공백 (37ms)</text>
+  <text x="570" y="292" font-size="15" fill="#374151">2760ms − 자식 합 2723ms</text>
+  <text x="570" y="313" font-size="15" fill="#374151">직렬화/GC/큐 대기</text>
 
-  <!-- Sequential indication between inventory and pricing -->
-  <path d="M 290 220 L 290 230 L 283 230" fill="none" stroke="#7c3aed" stroke-width="1" stroke-dasharray="2 2"/>
-
-  <!-- ROW 5: payment (80ms ~ 2760ms) -->
-  <!-- 80ms -> X = 280 + 16 = 296, Width = 2680 * 0.2 = 536px -> X_end = 832 -->
-  <text x="70" y="295" font-size="13" font-weight="600" fill="#dc2626">└─ payment</text>
-  
-  <!-- Unaccounted Gap Highlighted in order-service parent span before payment (37ms gap) -->
-  <rect x="280" y="280" width="16" height="20" rx="2" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 2"/>
-  
-  <!-- payment span bar -->
-  <rect x="296" y="280" width="536" height="20" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="822" y="294" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="end">2680ms</text>
-
-  <!-- ROW 6: db:SELECT (80ms ~ 88ms) -->
-  <text x="90" y="335" font-size="13" font-weight="500" fill="#1f2933">├─ db:SELECT</text>
-  <rect x="296" y="320" width="8" height="20" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="310" y="334" font-size="11" font-weight="500" fill="#1f2933">8ms</text>
-
-  <!-- ROW 7: HTTP POST /pg (110ms ~ 2760ms) -->
-  <!-- 110ms -> X = 280 + 22 = 302, Width = 2650 * 0.2 = 530px -> X_end = 832 -->
-  <text x="90" y="375" font-size="13" font-weight="600" fill="#dc2626">└─ HTTP POST /pg</text>
-  <rect x="302" y="360" width="530" height="20" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="822" y="374" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="end">2650ms</text>
-
-  <!-- ANNOTATIONS / CALLOUTS -->
-  
-  <!-- Callout 1: Bottleneck annotation -->
-  <path d="M 570 380 L 570 425" fill="none" stroke="#dc2626" stroke-width="1.5" marker-start="url(#a-red)"/>
-  <rect x="440" y="425" width="260" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="570" y="444" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">병목 지점: 외부 PG 결제 호출 (2.65초 소요)</text>
-
-  <!-- Callout 2: Unaccounted Gap Callout -->
-  <path d="M 288 280 L 288 245 L 360 245" fill="none" stroke="#d97706" stroke-width="1.5"/>
-  <rect x="360" y="230" width="210" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="465" y="248" font-size="11" font-weight="600" fill="#d97706" text-anchor="middle">계측 공백 (37ms): 직렬화/GC/큐 대기</text>
-
-  <!-- Callout 3: Sequential Callout -->
-  <path d="M 320 205 Q 350 205 350 185" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <rect x="350" y="170" width="160" height="26" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="430" y="187" font-size="11" font-weight="600" fill="#7c3aed" text-anchor="middle">순차 호출 (병렬화 가능 구간)</text>
-
-  <!-- Bottom Conclusion Caption -->
-  <rect x="30" y="465" width="820" height="25" rx="3" fill="#f8fafc"/>
-  <text x="440" y="482" font-size="11.5" font-weight="500" fill="#52606d" text-anchor="middle">결론: 전체 지연시간 2.8초 중 2.65초가 외부 PG 연동에서 발생하며, 37ms의 미계측 처리 시간이 존재함</text>
+  <!-- 결론 -->
+  <rect x="24" y="480" width="832" height="40" rx="6" fill="#f3f4f6"/>
+  <text x="440" y="505.5" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">결론:</tspan> 전체 지연시간 2.8초 중 2.65초가 외부 PG 연동에서 발생하며, 37ms의 미계측 처리 시간이 존재함</text>
 </svg>

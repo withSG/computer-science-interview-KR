@@ -1,102 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">안티패턴: 원인을 알 때까지 롤백하지 않는다</title>
-  <desc id="d">원인 분석으로 인해 롤백이 지연되는 안티패턴 상황을 보여주는 타임라인 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 650" width="880" height="650" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">원인을 찾느라 늦어진 롤백</title>
+  <desc id="d">14:30 배포 후 14:33에 에러율이 0.1%에서 4.2%로 올랐지만 원인을 먼저 찾느라 15:20에야 롤백을 시작해 15:24에 정상 복귀한 과정을 시간축에 놓았습니다. 사용자가 아팠던 시간은 실제 51분, 14:35에 롤백을 시작했다면 6분으로 45분 차이가 납니다.</desc>
+  <rect width="880" height="650" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-  </defs>
+  <!-- 행 배경 (짝수 행 음영) -->
+  <rect x="24" y="72" width="832" height="54" fill="#f3f4f6"/>
+  <rect x="24" y="180" width="832" height="54" fill="#f3f4f6"/>
+  <rect x="24" y="288" width="832" height="54" fill="#f3f4f6"/>
+  <rect x="24" y="396" width="832" height="54" fill="#f3f4f6"/>
 
-  <!-- Title block from section heading -->
-  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">안티패턴: 원인을 알 때까지 롤백하지 않는다</text>
+  <!-- 머리행 -->
+  <text x="40" y="56" font-size="14" font-weight="bold" fill="#4b5563">시각</text>
+  <text x="112" y="56" font-size="14" font-weight="bold" fill="#4b5563">상황</text>
+  <g font-size="14" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="540" y="56">14:30</text>
+    <text x="596" y="56">14:40</text>
+    <text x="652" y="56">14:50</text>
+    <text x="708" y="56">15:00</text>
+    <text x="764" y="56">15:10</text>
+    <text x="820" y="56">15:20</text>
+  </g>
 
-  <!-- Timeline vertical backbone line -->
-  <path d="M 120 75 L 120 485" stroke="#cbd2d9" stroke-width="2" fill="none"/>
+  <!-- 시간 눈금선 -->
+  <g stroke="#d1d5db" stroke-width="1">
+    <line x1="540" y1="64" x2="540" y2="450"/>
+    <line x1="596" y1="64" x2="596" y2="450"/>
+    <line x1="652" y1="64" x2="652" y2="450"/>
+    <line x1="708" y1="64" x2="708" y2="450"/>
+    <line x1="764" y1="64" x2="764" y2="450"/>
+    <line x1="820" y1="64" x2="820" y2="450"/>
+  </g>
 
-  <!-- Step 1: 14:30 -->
-  <circle cx="120" cy="95" r="6" fill="#2563eb"/>
-  <rect x="30" y="80" width="65" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="62.5" y="100" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">14:30</text>
-  
-  <rect x="150" y="75" width="105" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="202.5" y="100" font-size="13" fill="#1f2933" text-anchor="middle">배포 완료</text>
+  <!-- 시각 열 -->
+  <g font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="40" y="104">14:30</text>
+    <text x="40" y="158">14:33</text>
+    <text x="40" y="212">14:35</text>
+    <text x="40" y="266">14:50</text>
+    <text x="40" y="320">15:10</text>
+    <text x="40" y="374">15:20</text>
+    <text x="40" y="428">15:24</text>
+  </g>
 
-  <!-- Arrow down to Step 2 -->
-  <path d="M 120 101 L 120 151" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- 상황 열 -->
+  <text x="112" y="104" font-size="16" fill="#111827">배포 완료</text>
+  <text x="112" y="158" font-size="16" font-weight="bold" fill="#b91c1c">에러율 0.1% → 4.2%</text>
+  <text x="112" y="202" font-size="15" fill="#92400e">
+    <tspan x="112">“이번 배포는 로직 한 줄만 바꿨는데</tspan>
+    <tspan x="112" dy="21">이게 원인일 리가 없다”</tspan>
+  </text>
+  <text x="112" y="266" font-size="15" fill="#374151">로그 분석 중... 커넥션 풀 고갈 로그 발견</text>
+  <text x="112" y="310" font-size="15" fill="#374151">
+    <tspan x="112">코드 리뷰 중...</tspan>
+    <tspan x="112" dy="21">트랜잭션 안에서 외부 API를 부른다는 걸 발견</tspan>
+  </text>
+  <text x="112" y="374" font-size="16" font-weight="bold" fill="#047857">롤백 시작</text>
+  <text x="112" y="428" font-size="16" font-weight="bold" fill="#047857">에러율 정상 복귀</text>
 
-  <!-- Step 2: 14:33 -->
-  <circle cx="120" cy="160" r="6" fill="#dc2626"/>
-  <rect x="30" y="145" width="65" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="62.5" y="165" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">14:33</text>
-  
-  <rect x="150" y="140" width="180" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="240" y="165" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">에러율 0.1% → 4.2%</text>
+  <!-- 시간축 위 사건 점 -->
+  <circle cx="540" cy="99" r="7" fill="#374151"/>
+  <circle cx="556.8" cy="153" r="7" fill="#b91c1c"/>
+  <circle cx="568" cy="207" r="7" fill="#b45309"/>
+  <circle cx="652" cy="261" r="7" fill="#6b7280"/>
+  <circle cx="764" cy="315" r="7" fill="#6b7280"/>
+  <circle cx="820" cy="369" r="7" fill="#047857"/>
+  <circle cx="842.4" cy="423" r="7" fill="#047857"/>
 
-  <!-- Arrow down to Step 3 -->
-  <path d="M 120 166 L 120 216" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <!-- 요약: 사용자가 아팠던 시간 -->
+  <line x1="24" y1="468" x2="856" y2="468" stroke="#9ca3af" stroke-width="1"/>
+  <text x="40" y="500" font-size="17" font-weight="bold" fill="#111827">사용자가 아팠던 시간 <tspan font-size="15" font-weight="normal" fill="#4b5563">(에러율이 오른 14:33부터)</tspan></text>
 
-  <!-- Step 3: 14:35 -->
-  <circle cx="120" cy="225" r="6" fill="#d97706"/>
-  <rect x="30" y="210" width="65" height="30" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="62.5" y="230" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">14:35</text>
-  
-  <rect x="150" y="205" width="560" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="430" y="230" font-size="13" fill="#1f2933" text-anchor="middle">"이번 배포는 로직 한 줄만 바꿨는데 이게 원인일 리가 없다"</text>
+  <text x="40" y="538" font-size="16" font-weight="bold" fill="#b91c1c">실제</text>
+  <rect x="556.8" y="516" width="285.6" height="30" fill="#b91c1c"/>
+  <text x="699.6" y="537" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">51분</text>
 
-  <!-- Arrow down to Step 4 -->
-  <path d="M 120 231 L 120 281" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <text x="40" y="580" font-size="16" font-weight="bold" fill="#047857">14:35에 롤백을 시작했다면</text>
+  <rect x="556.8" y="558" width="33.6" height="30" fill="#047857"/>
+  <text x="600" y="579" font-size="17" font-weight="bold" fill="#047857">6분</text>
 
-  <!-- Step 4: 14:50 -->
-  <circle cx="120" cy="290" r="6" fill="#7c3aed"/>
-  <rect x="30" y="275" width="65" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="62.5" y="295" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">14:50</text>
-  
-  <rect x="150" y="270" width="375" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="337.5" y="295" font-size="13" fill="#1f2933" text-anchor="middle">로그 분석 중... 커넥션 풀 고갈 로그 발견</text>
-
-  <!-- Arrow down to Step 5 -->
-  <path d="M 120 296 L 120 346" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-
-  <!-- Step 5: 15:10 -->
-  <circle cx="120" cy="355" r="6" fill="#7c3aed"/>
-  <rect x="30" y="340" width="65" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="62.5" y="360" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">15:10</text>
-  
-  <rect x="150" y="335" width="530" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="415" y="360" font-size="13" fill="#1f2933" text-anchor="middle">코드 리뷰 중... 트랜잭션 안에서 외부 API를 부른다는 걸 발견</text>
-
-  <!-- Arrow down to Step 6 -->
-  <path d="M 120 361 L 120 411" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
-
-  <!-- Step 6: 15:20 & 15:24 with horizontal arrow -->
-  <circle cx="120" cy="420" r="6" fill="#059669"/>
-  <rect x="30" y="405" width="65" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="62.5" y="425" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">15:20</text>
-  
-  <!-- "롤백 시작" Box -->
-  <rect x="150" y="400" width="110" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="205" y="425" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">롤백 시작</text>
-
-  <!-- Arrow: → -->
-  <path d="M 260 420 L 305 420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- "15:24" Badge -->
-  <rect x="315" y="405" width="65" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="347.5" y="425" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">15:24</text>
-
-  <!-- "에러율 정상 복귀" Box -->
-  <rect x="390" y="400" width="160" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="470" y="425" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">에러율 정상 복귀</text>
-
-  <!-- Delay / Pain highlight span line on the right side -->
-  <path d="M 745 160 L 760 160 L 760 420 L 745 420" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <rect x="700" y="275" width="120" height="30" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="760" y="295" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">장애 지속 51분</text>
+  <!-- 45분 차이 괄호 -->
+  <line x1="842.4" y1="546" x2="842.4" y2="600" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="590.4" y1="588" x2="590.4" y2="600" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <path d="M590.4,598 V606 H842.4 V598" fill="none" stroke="#374151" stroke-width="1.5"/>
+  <text x="716.4" y="628" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">45분 차이</text>
 </svg>

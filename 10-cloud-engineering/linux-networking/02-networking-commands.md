@@ -155,7 +155,7 @@ dig +trace example.com             # 루트부터 위임 경로 추적
 ```
 
 <!-- diagram:cloud-networking-commands-4 -->
-![6. DNS — dig와 getent의 결정적 차이](../../assets/diagrams/cloud-networking-commands-4.svg)
+![dig 출력의 status·TTL·응답 IP 위치](../../assets/diagrams/cloud-networking-commands-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

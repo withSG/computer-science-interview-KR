@@ -1,51 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">set -euo pipefail — 기본값 바꾸기</title>
-  <desc id="d">set -e가 없을 때와 있을 때의 명령 실행 흐름 비교 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">set -e 유무에 따른 실행 흐름</title>
+  <desc id="d">cd, tar, rm -rf 순서의 스크립트에서 tar가 실패했을 때, set -e가 없으면 rm -rf까지 실행되어 사고가 나고, set -e가 있으면 tar에서 즉시 종료(exit 1)되는 것을 나란히 비교한다.</desc>
+  <rect width="880" height="400" fill="#ffffff"/>
+  <defs>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+  </defs>
 
-  <!-- Left Container (set -e 없음) -->
-  <g id="left-group">
-    <!-- Group Title -->
-    <text x="240" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">set -e 없음</text>
+  <!-- 가운데 구분선 -->
+  <line x1="440" y1="28" x2="440" y2="372" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="6 6"/>
 
-    <!-- Outer Frame for Left Block -->
-    <rect x="60" y="60" width="360" height="230" rx="6" ry="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- ───── 왼쪽: set -e 없음 ───── -->
+  <text x="226" y="46" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">set -e 없음</text>
+  <text x="226" y="72" font-size="15" fill="#4b5563" text-anchor="middle">실패해도 다음 줄로 넘어감</text>
 
-    <!-- Row 1: cd -->
-    <rect x="70" y="70" width="340" height="60" rx="4" ry="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="90" y="105" font-size="14" font-weight="bold" fill="#1f2933">cd</text>
-    <text x="380" y="105" font-size="14" font-weight="bold" fill="#059669" text-anchor="end">✓</text>
+  <rect x="32" y="96" width="388" height="56" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="50" y="130" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">cd /data/important</text>
+  <text x="402" y="130" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">✓ 성공</text>
 
-    <!-- Row 2: tar -->
-    <rect x="70" y="140" width="340" height="60" rx="4" ry="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="90" y="175" font-size="14" font-weight="bold" fill="#1f2933">tar</text>
-    <text x="380" y="175" font-size="14" fill="#dc2626" font-weight="bold" text-anchor="end">✗ 실패</text>
+  <line x1="226" y1="152" x2="226" y2="188" stroke="#4b5563" stroke-width="2" marker-end="url(#ar-gray)"/>
 
-    <!-- Row 3: rm -rf -->
-    <rect x="70" y="210" width="340" height="60" rx="4" ry="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="90" y="245" font-size="14" font-weight="bold" fill="#1f2933">rm -rf</text>
-    <text x="380" y="245" font-size="14" fill="#dc2626" font-weight="bold" text-anchor="end">✓ 실행됨 (사고)</text>
-  </g>
+  <rect x="32" y="192" width="388" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="50" y="226" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">tar czf /backup/data.tar.gz .</text>
+  <text x="402" y="226" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end">✗ 실패</text>
 
-  <!-- Right Container (set -e 있음) -->
-  <g id="right-group">
-    <!-- Group Title -->
-    <text x="640" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">set -e 있음</text>
+  <line x1="226" y1="248" x2="226" y2="284" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <text x="240" y="272" font-size="15" fill="#b91c1c">그래도 다음 줄 실행</text>
 
-    <!-- Outer Frame for Right Block -->
-    <rect x="460" y="60" width="360" height="160" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <rect x="32" y="288" width="388" height="56" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="50" y="322" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">rm -rf ./*</text>
+  <text x="402" y="322" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end">✓ 실행됨 (사고)</text>
 
-    <!-- Row 1: cd -->
-    <rect x="470" y="70" width="340" height="60" rx="4" ry="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="490" y="105" font-size="14" font-weight="bold" fill="#1f2933">cd</text>
-    <text x="780" y="105" font-size="14" font-weight="bold" fill="#059669" text-anchor="end">✓</text>
+  <text x="226" y="374" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">결과: 데이터 소실</text>
 
-    <!-- Row 2: tar -->
-    <rect x="470" y="140" width="340" height="60" rx="4" ry="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="490" y="175" font-size="14" font-weight="bold" fill="#1f2933">tar</text>
-    <text x="780" y="175" font-size="14" fill="#dc2626" font-weight="bold" text-anchor="end">✗ 실패</text>
+  <!-- ───── 오른쪽: set -e 있음 ───── -->
+  <text x="654" y="46" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">set -e 있음</text>
+  <text x="654" y="72" font-size="15" fill="#4b5563" text-anchor="middle">실패하면 그 자리에서 멈춤</text>
 
-    <!-- Exit Annotation below box -->
-    <text x="640" y="250" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">즉시 종료, exit 1</text>
-  </g>
+  <rect x="460" y="96" width="388" height="56" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="478" y="130" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">cd /data/important</text>
+  <text x="830" y="130" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">✓ 성공</text>
+
+  <line x1="654" y1="152" x2="654" y2="188" stroke="#4b5563" stroke-width="2" marker-end="url(#ar-gray)"/>
+
+  <rect x="460" y="192" width="388" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="478" y="226" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">tar czf /backup/data.tar.gz .</text>
+  <text x="830" y="226" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end">✗ 실패</text>
+
+  <line x1="654" y1="248" x2="654" y2="284" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+
+  <rect x="524" y="288" width="260" height="56" rx="28" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.5"/>
+  <text x="654" y="322" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">즉시 종료, exit 1</text>
 </svg>

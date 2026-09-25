@@ -1,41 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">구멍 2 — 드리프트(Drift)</title>
-  <desc id="d">긴급 장애 대응으로 인해 Git의 선언 상태와 클러스터의 실제 상태가 달라지는 드리프트 현상을 설명하는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 550" width="880" height="550" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">드리프트가 생기는 과정</title>
+  <desc id="d">새벽 3시 장애에 담당자가 kubectl로 replicas, 이미지, 타임아웃을 손으로 바꾸고 Git에는 반영하지 않는다. 그 결과 Git의 선언(replicas 4, api:v1.3.0, 3s)과 클러스터의 실제(replicas 20, api:hotfix-2, 30s)가 달라지는 것이 드리프트다.</desc>
+  <rect width="880" height="550" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+  <!-- 단계 레일 -->
+  <line x1="44" y1="70" x2="44" y2="218" stroke="#d1d5db" stroke-width="2"/>
+  <line x1="44" y1="254" x2="44" y2="280" stroke="#d1d5db" stroke-width="2"/>
 
-  <!-- 상단 장애 상황 박스 -->
-  <rect x="40" y="30" width="800" height="150" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
-  <text x="60" y="62" font-size="14" font-weight="bold" fill="#d97706">새벽 3시. 장애가 났다. 담당자가 급하게 손을 쓴다.</text>
-  
-  <rect x="80" y="80" width="720" height="80" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="100" y="103" font-size="13" font-family="monospace" fill="#1f2933">kubectl scale deployment/api --replicas=20</text>
-  <text x="100" y="125" font-size="13" font-family="monospace" fill="#1f2933">kubectl set image deployment/api api=api:hotfix-2</text>
-  <text x="100" y="147" font-size="13" font-family="monospace" fill="#1f2933">kubectl edit configmap/api-config</text>
-  <text x="460" y="147" font-size="13" font-family="monospace" fill="#52606d"># 타임아웃 값을 늘림</text>
+  <!-- 1. 장애와 수동 조치 -->
+  <circle cx="44" cy="52" r="16" fill="#1f2937"/>
+  <text x="44" y="58" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="76" y="58" font-size="18" font-weight="bold" fill="#111827">새벽 3시. 장애가 났다. 담당자가 급하게 손을 쓴다.</text>
 
-  <!-- 중간 설명 -->
-  <text x="40" y="215" font-size="14" font-weight="bold" fill="#1f2933">서비스는 살아났다. 그리고 아무도 이 변경을 Git에 반영하지 않았다.</text>
+  <rect x="76" y="76" width="780" height="112" rx="8" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="96" y="108" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kubectl scale deployment/api --replicas=20</text>
+  <text x="96" y="138" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kubectl set image deployment/api api=api:hotfix-2</text>
+  <text x="96" y="168" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kubectl edit configmap/api-config</text>
+  <text x="440" y="168" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace"># 타임아웃 값을 늘림</text>
 
-  <!-- 하단 드리프트 비교 영역 -->
-  <rect x="40" y="240" width="800" height="220" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="6"/>
+  <!-- 2. 복구, 그러나 Git 미반영 -->
+  <circle cx="44" cy="236" r="16" fill="#1f2937"/>
+  <text x="44" y="242" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="76" y="242" font-size="17" font-weight="bold" fill="#047857">서비스는 살아났다.<tspan fill="#b91c1c"> 그리고 아무도 이 변경을 Git에 반영하지 않았다.</tspan></text>
 
-  <!-- Git의 선언 카드 -->
-  <rect x="60" y="260" width="760" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="80" y="290" font-size="13" font-weight="bold" fill="#2563eb">Git의 선언       :</text>
-  <text x="210" y="290" font-size="13" font-family="monospace" fill="#1f2933">replicas 4,  image api:v1.3.0,  timeout 3s</text>
+  <!-- 3. 비교 표 -->
+  <circle cx="44" cy="298" r="16" fill="#1f2937"/>
+  <text x="44" y="304" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
 
-  <!-- 클러스터의 실제 카드 -->
-  <rect x="60" y="325" width="760" height="50" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="80" y="355" font-size="13" font-weight="bold" fill="#dc2626">클러스터의 실제   :</text>
-  <text x="210" y="355" font-size="13" font-family="monospace" fill="#1f2933">replicas 20, image api:hotfix-2, timeout 30s</text>
+  <rect x="76" y="276" width="780" height="44" fill="#f3f4f6"/>
+  <rect x="76" y="276" width="780" height="176" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="76" y1="320" x2="856" y2="320" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="76" y1="364" x2="856" y2="364" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="76" y1="408" x2="856" y2="408" stroke="#e5e7eb" stroke-width="1.5"/>
+  <line x1="256" y1="276" x2="256" y2="452" stroke="#d1d5db" stroke-width="1.5"/>
+  <line x1="556" y1="276" x2="556" y2="452" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- 드리프트 가리키는 화살표 및 설명 -->
-  <path d="M 210,420 L 210,385" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  <text x="225" y="415" font-size="13" font-weight="bold" fill="#dc2626">두 개가 다르다. 이게 드리프트다.</text>
+  <text x="96" y="304" font-size="16" font-weight="bold" fill="#374151">항목</text>
+  <text x="406" y="304" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Git의 선언</text>
+  <text x="706" y="304" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">클러스터의 실제</text>
+
+  <text x="96" y="348" font-size="16" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">replicas</text>
+  <text x="406" y="348" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">4</text>
+  <text x="706" y="348" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">20</text>
+
+  <text x="96" y="392" font-size="16" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">image</text>
+  <text x="406" y="392" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">api:v1.3.0</text>
+  <text x="706" y="392" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">api:hotfix-2</text>
+
+  <text x="96" y="436" font-size="16" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">timeout</text>
+  <text x="406" y="436" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">3s</text>
+  <text x="706" y="436" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">30s</text>
+
+  <!-- 결론 -->
+  <rect x="76" y="472" width="780" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="466" y="505" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">두 개가 다르다. 이게 드리프트다.</text>
 </svg>

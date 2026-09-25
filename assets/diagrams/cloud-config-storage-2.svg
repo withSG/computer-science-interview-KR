@@ -1,52 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">볼륨: 컨테이너 밖에 데이터를 두는 방법</title>
-  <desc id="d">Pod 내부의 컨테이너 A와 컨테이너 B가 각자의 이미지 레이어를 가지고, 공용 볼륨으로 /data 경로를 연결하여 데이터를 공유하거나 유지하는 구조 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Pod 안의 컨테이너와 공유 볼륨</title>
+  <desc id="d">한 Pod 안의 컨테이너 A와 B는 각자 별도의 이미지 레이어(/app)를 가지며 이 영역은 재시작 시 초기화됩니다. 두 컨테이너의 /data는 같은 볼륨에 연결되고, 볼륨은 Pod 수명 또는 그 이상 유지됩니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
-  
-  <!-- Pod 테두리 영역 -->
-  <rect x="40" y="30" width="800" height="440" rx="12" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-  <text x="440" y="65" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Pod</text>
-  
-  <!-- 컨테이너 A -->
-  <rect x="70" y="90" width="280" height="260" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="210" y="125" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">컨테이너 A</text>
-  <text x="100" y="165" font-size="13" font-weight="bold" fill="#1f2933">/app</text>
-  <text x="110" y="195" font-size="11.5" fill="#52606d">(이미지</text>
-  <text x="110" y="220" font-size="11.5" fill="#52606d"> 레이어,</text>
-  <text x="110" y="245" font-size="11.5" fill="#52606d"> 재시작 시</text>
-  <text x="110" y="270" font-size="11.5" fill="#52606d"> 초기화)</text>
-  <text x="100" y="319" font-size="13" font-weight="bold" fill="#1f2933">/data</text>
-  
-  <!-- 컨테이너 B -->
-  <rect x="530" y="90" width="280" height="260" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="670" y="125" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">컨테이너 B</text>
-  <text x="560" y="165" font-size="13" font-weight="bold" fill="#1f2933">/app</text>
-  <text x="570" y="195" font-size="11.5" fill="#52606d">(이미지</text>
-  <text x="570" y="220" font-size="11.5" fill="#52606d"> 레이어,</text>
-  <text x="570" y="245" font-size="11.5" fill="#52606d"> 각자 별도)</text>
-  <text x="730" y="319" font-size="13" font-weight="bold" fill="#1f2933">/data</text>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- 연결선: /data 라인 -->
-  <path d="M145,315 L440,315 M440,315 L720,315" stroke="#1f2933" stroke-width="2"/>
-  
-  <!-- 화살표: 볼륨으로 연결 -->
-  <path d="M440,315 L440,373" stroke="#1f2933" stroke-width="2" marker-end="url(#a-ink)"/>
-  
-  <!-- 볼륨 박스 -->
-  <rect x="350" y="375" width="180" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="418" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">볼륨</text>
-  
-  <!-- 부가 설명 텍스트 -->
-  <text x="550" y="405" font-size="11.5" fill="#52606d">Pod 수명 또는</text>
-  <text x="550" y="425" font-size="11.5" fill="#52606d">그 이상 유지</text>
+  <!-- Pod -->
+  <rect x="24" y="24" width="832" height="412" rx="14" fill="#f8fafc" stroke="#4b5563" stroke-width="2"/>
+  <text x="48" y="58" font-size="20" font-weight="bold" fill="#1f2937">Pod</text>
+
+  <!-- 컨테이너 A -->
+  <rect x="56" y="76" width="344" height="220" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="228" y="106" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">컨테이너 A</text>
+  <rect x="76" y="122" width="304" height="82" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="92" y="152" font-size="17" font-weight="bold" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/app</text>
+  <text x="92" y="184" font-size="15" fill="#374151">(이미지 레이어, 재시작 시 초기화)</text>
+  <rect x="76" y="220" width="304" height="52" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="92" y="252" font-size="17" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/data</text>
+
+  <!-- 컨테이너 B -->
+  <rect x="480" y="76" width="344" height="220" rx="10" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="652" y="106" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">컨테이너 B</text>
+  <rect x="500" y="122" width="304" height="82" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="516" y="152" font-size="17" font-weight="bold" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/app</text>
+  <text x="516" y="184" font-size="15" fill="#374151">(이미지 레이어, 각자 별도)</text>
+  <rect x="500" y="220" width="304" height="52" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="516" y="252" font-size="17" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/data</text>
+
+  <!-- /data → 볼륨 -->
+  <path d="M228,272 V370 H314" fill="none" stroke="#047857" stroke-width="2.5" marker-end="url(#arr)"/>
+  <path d="M652,272 V370 H566" fill="none" stroke="#047857" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- 볼륨 -->
+  <rect x="320" y="328" width="240" height="84" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <text x="440" y="362" font-size="20" font-weight="bold" fill="#047857" text-anchor="middle">볼륨</text>
+  <text x="440" y="392" font-size="15" fill="#1f2937" text-anchor="middle">Pod 수명 또는 그 이상 유지</text>
 </svg>

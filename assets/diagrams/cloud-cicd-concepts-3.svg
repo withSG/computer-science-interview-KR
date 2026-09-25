@@ -1,69 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">표준 순서와 그 이유</title>
-  <desc id="d">CI/CD 파이프라인의 5단계(빌드, 테스트, 정적 분석, 아티팩트, 배포) 흐름과 각 단계별 세부 작업, 소요 시간, 그리고 실패 시 이후 단계를 실행하지 않는 fail fast 원칙을 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">파이프라인 표준 순서</title>
+  <desc id="d">파이프라인은 빌드(컴파일, 의존성 해결, 약 1분), 테스트(단위, 통합, E2E, 약 5분), 정적 분석(린트, 취약점, 커버리지, 약 2분), 아티팩트(이미지, 레지스트리, 버전 태깅, 약 2분), 배포(스테이징, 운영, 수 분) 순서로 진행한다. 어느 단계에서 실패하면 뒤 단계는 아예 실행하지 않는다(fail fast).</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
+  <rect width="880" height="370" fill="#ffffff"/>
 
-  <!-- Step 1: 빌드 -->
-  <text x="100" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">① 빌드</text>
-  <rect x="25" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="100" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">컴파일</text>
-  <text x="100" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">의존성</text>
-  <text x="100" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">해결</text>
-  <text x="100" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~1분</text>
+  <!-- ① 빌드 -->
+  <rect x="24" y="28" width="144" height="208" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <path d="M24.75,72 V38 Q24.75,28.75 34,28.75 H158 Q167.25,28.75 167.25,38 V72 Z" fill="#dbeafe"/>
+  <line x1="24" y1="72" x2="168" y2="72" stroke="#2563eb" stroke-width="1"/>
+  <text x="96" y="57" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">① 빌드</text>
+  <text x="96" y="110" font-size="16" fill="#111827" text-anchor="middle">컴파일</text>
+  <text x="96" y="138" font-size="16" fill="#111827" text-anchor="middle">의존성 해결</text>
+  <line x1="40" y1="192" x2="152" y2="192" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="96" y="220" font-size="16" fill="#374151" text-anchor="middle">소요 <tspan font-weight="bold" fill="#111827">~1분</tspan></text>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M175,115 L205,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="168" y1="132" x2="194" y2="132" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 2: 테스트 -->
-  <text x="280" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">② 테스트</text>
-  <rect x="205" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="280" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">단위</text>
-  <text x="280" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">통합</text>
-  <text x="280" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">E2E</text>
-  <text x="280" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~5분</text>
+  <!-- ② 테스트 -->
+  <rect x="196" y="28" width="144" height="208" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <path d="M196.75,72 V38 Q196.75,28.75 206,28.75 H330 Q339.25,28.75 339.25,38 V72 Z" fill="#dbeafe"/>
+  <line x1="196" y1="72" x2="340" y2="72" stroke="#2563eb" stroke-width="1"/>
+  <text x="268" y="57" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">② 테스트</text>
+  <text x="268" y="110" font-size="16" fill="#111827" text-anchor="middle">단위</text>
+  <text x="268" y="138" font-size="16" fill="#111827" text-anchor="middle">통합</text>
+  <text x="268" y="166" font-size="16" fill="#111827" text-anchor="middle">E2E</text>
+  <line x1="212" y1="192" x2="324" y2="192" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="268" y="220" font-size="16" fill="#374151" text-anchor="middle">소요 <tspan font-weight="bold" fill="#111827">~5분</tspan></text>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M355,115 L385,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="340" y1="132" x2="366" y2="132" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 3: 정적 분석 -->
-  <text x="460" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">③ 정적 분석</text>
-  <rect x="385" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="460" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">린트</text>
-  <text x="460" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">취약점</text>
-  <text x="460" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">커버리지</text>
-  <text x="460" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~2분</text>
+  <!-- ③ 정적 분석 -->
+  <rect x="368" y="28" width="144" height="208" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <path d="M368.75,72 V38 Q368.75,28.75 378,28.75 H502 Q511.25,28.75 511.25,38 V72 Z" fill="#dbeafe"/>
+  <line x1="368" y1="72" x2="512" y2="72" stroke="#2563eb" stroke-width="1"/>
+  <text x="440" y="57" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">③ 정적 분석</text>
+  <text x="440" y="110" font-size="16" fill="#111827" text-anchor="middle">린트</text>
+  <text x="440" y="138" font-size="16" fill="#111827" text-anchor="middle">취약점</text>
+  <text x="440" y="166" font-size="16" fill="#111827" text-anchor="middle">커버리지</text>
+  <line x1="384" y1="192" x2="496" y2="192" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="440" y="220" font-size="16" fill="#374151" text-anchor="middle">소요 <tspan font-weight="bold" fill="#111827">~2분</tspan></text>
 
-  <!-- Arrow 3 -> 4 -->
-  <path d="M535,115 L565,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="512" y1="132" x2="538" y2="132" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 4: 아티팩트 -->
-  <text x="640" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">④ 아티팩트</text>
-  <rect x="565" y="60" width="150" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="640" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">이미지</text>
-  <text x="640" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">레지스트리</text>
-  <text x="640" y="145.2" font-size="13" fill="#1f2933" text-anchor="middle">버전 태깅</text>
-  <text x="640" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~2분</text>
+  <!-- ④ 아티팩트 -->
+  <rect x="540" y="28" width="144" height="208" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <path d="M540.75,72 V38 Q540.75,28.75 550,28.75 H674 Q683.25,28.75 683.25,38 V72 Z" fill="#dbeafe"/>
+  <line x1="540" y1="72" x2="684" y2="72" stroke="#2563eb" stroke-width="1"/>
+  <text x="612" y="57" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">④ 아티팩트</text>
+  <text x="612" y="110" font-size="16" fill="#111827" text-anchor="middle">이미지</text>
+  <text x="612" y="138" font-size="16" fill="#111827" text-anchor="middle">레지스트리</text>
+  <text x="612" y="166" font-size="16" fill="#111827" text-anchor="middle">버전 태깅</text>
+  <line x1="556" y1="192" x2="668" y2="192" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="612" y="220" font-size="16" fill="#374151" text-anchor="middle">소요 <tspan font-weight="bold" fill="#111827">~2분</tspan></text>
 
-  <!-- Arrow 4 -> 5 -->
-  <path d="M715,115 L745,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="684" y1="132" x2="710" y2="132" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 5: 배포 -->
-  <text x="820" y="44" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">⑤ 배포</text>
-  <rect x="745" y="60" width="110" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="800" y="93.2" font-size="13" fill="#1f2933" text-anchor="middle">스테이징</text>
-  <text x="800" y="119.2" font-size="13" fill="#1f2933" text-anchor="middle">운영</text>
-  <text x="800" y="198" font-size="11.5" fill="#52606d" text-anchor="middle">~수 분</text>
+  <!-- ⑤ 배포 -->
+  <rect x="712" y="28" width="144" height="208" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+  <path d="M712.75,72 V38 Q712.75,28.75 722,28.75 H846 Q855.25,28.75 855.25,38 V72 Z" fill="#dbeafe"/>
+  <line x1="712" y1="72" x2="856" y2="72" stroke="#2563eb" stroke-width="1"/>
+  <text x="784" y="57" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">⑤ 배포</text>
+  <text x="784" y="110" font-size="16" fill="#111827" text-anchor="middle">스테이징</text>
+  <text x="784" y="138" font-size="16" fill="#111827" text-anchor="middle">운영</text>
+  <line x1="728" y1="192" x2="840" y2="192" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="784" y="220" font-size="16" fill="#374151" text-anchor="middle">소요 <tspan font-weight="bold" fill="#111827">~수 분</tspan></text>
 
-  <!-- Fail Fast Lines and Label -->
-  <path d="M100,210 L100,255 L800,255 L800,210" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <rect x="180" y="242" width="520" height="26" fill="#ffffff"/>
-  <text x="440" y="259.025" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">여기서 실패하면 뒤 단계는 아예 실행하지 않는다 (fail fast)</text>
+  <!-- fail fast -->
+  <line x1="96" y1="236" x2="96" y2="282" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <line x1="268" y1="236" x2="268" y2="282" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <line x1="440" y1="236" x2="440" y2="282" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <line x1="612" y1="236" x2="612" y2="282" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <line x1="784" y1="236" x2="784" y2="282" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <rect x="24" y="284" width="832" height="58" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="319" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">여기서 실패하면 뒤 단계는 아예 실행하지 않는다 (fail fast)</text>
 </svg>

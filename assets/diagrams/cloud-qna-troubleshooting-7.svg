@@ -1,66 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">면접 답변 예시</title>
-  <desc id="d">신규 기능 배포 직후 장애 발생부터 대응, 원인 분석, 재발 방지 및 결과를 나타낸 타임라인 및 요약 다이어그램</desc>
-  <rect width="880" height="780" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">배포 장애 대응 면접 답변 흐름</title>
+  <desc id="d">배포 직후 에러율 30% 급증에 0분 Slack 장애 선언, 2분 kubectl rollout undo 롤백, 5분 에러율 정상화 확인으로 대응하고, 원인(엔드포인트 변경·환경변수 구버전)과 재발 방지 3가지, 결과(MTTR 5분)를 정리한 답변 예시.</desc>
+  <rect width="880" height="640" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 제목 헤딩 -->
-  <text x="40" y="41" font-size="16" font-weight="bold" fill="#1f2933">면접 답변 예시</text>
+  <!-- 도입: 현상 -->
+  <rect x="24" y="24" width="832" height="60" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="44" y="60" font-size="17" font-weight="bold" fill="#111827">신규 기능 배포 직후 에러율이 <tspan fill="#b91c1c">30%</tspan>로 급증한 적이 있습니다.</text>
 
-  <!-- 메인 인용 박스 / 상황 설명 -->
-  <rect x="40" y="60" width="800" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="60" y="90" font-size="13" font-weight="bold" fill="#dc2626">"신규 기능 배포 직후 에러율이 30%로 급증한 적이 있습니다.</text>
+  <path d="M440,87 L440,113" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- 대응 섹션 -->
-  <rect x="40" y="130" width="800" height="230" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="161" font-size="14" font-weight="bold" fill="#1f2933">대응:</text>
+  <!-- 대응: 시간축 -->
+  <rect x="24" y="116" width="832" height="202" rx="8" fill="#f8fafc" stroke="#93c5fd" stroke-width="1.5"/>
+  <rect x="40" y="130" width="60" height="28" rx="14" fill="#1d4ed8"/>
+  <text x="70" y="150" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">대응</text>
 
-  <!-- 타임라인 항목 1 -->
-  <circle cx="80" cy="195" r="6" fill="#dc2626"/>
-  <path d="M80,201 L80,249" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <rect x="100" y="180" width="720" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="115" y="200" font-size="13" fill="#1f2933">1. (0분) 알림 확인 즉시 Slack에 장애 선언</text>
+  <path d="M140,212 L806,212" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M260,207 L260,217 M500,207 L500,217 M620,207 L620,217" stroke="#4b5563" stroke-width="1.5" fill="none"/>
 
-  <!-- 타임라인 항목 2 -->
-  <circle cx="80" cy="255" r="6" fill="#d97706"/>
-  <path d="M80,261 L80,309" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <rect x="100" y="240" width="720" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="115" y="260" font-size="13" font-weight="bold" fill="#2563eb">2. (2분) kubectl rollout undo로 즉시 롤백</text>
+  <text x="140" y="196" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">0분</text>
+  <text x="380" y="196" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">2분</text>
+  <text x="740" y="196" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">5분</text>
+  <circle cx="140" cy="212" r="7" fill="#b91c1c"/>
+  <circle cx="380" cy="212" r="7" fill="#1d4ed8"/>
+  <circle cx="740" cy="212" r="7" fill="#047857"/>
+  <path d="M140,219 L140,234 M380,219 L380,234 M740,219 L740,234" stroke="#6b7280" stroke-width="1.5" fill="none"/>
 
-  <!-- 타임라인 항목 3 -->
-  <circle cx="80" cy="315" r="6" fill="#059669"/>
-  <rect x="100" y="300" width="720" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="115" y="320" font-size="13" fill="#059669">3. (5분) 에러율 정상화 확인</text>
+  <rect x="40" y="234" width="200" height="66" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="140" y="260" font-size="16" fill="#111827" text-anchor="middle">1. 알림 확인 즉시</text>
+  <text x="140" y="284" font-size="16" fill="#111827" text-anchor="middle">Slack에 장애 선언</text>
 
-  <!-- 원인 분석 및 재발 방지 (2열 배치) -->
+  <rect x="255" y="234" width="250" height="66" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="380" y="260" font-size="16" fill="#111827" text-anchor="middle">2. <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">kubectl rollout undo</tspan>로</text>
+  <text x="380" y="284" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">즉시 롤백</text>
+
+  <rect x="640" y="234" width="200" height="66" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="740" y="272" font-size="16" fill="#111827" text-anchor="middle">3. 에러율 정상화 확인</text>
+
+  <path d="M214,321 L214,347" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
   <!-- 원인 분석 -->
-  <rect x="40" y="380" width="390" height="220" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="60" y="411" font-size="14" font-weight="bold" fill="#d97706">원인 분석:</text>
-  
-  <text x="60" y="445" font-size="13" fill="#1f2933">- 새 버전에서 외부 API 엔드포인트가 변경됨</text>
-  <text x="60" y="480" font-size="13" fill="#1f2933">- 환경변수는 구버전 값 그대로</text>
+  <rect x="24" y="350" width="380" height="160" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <rect x="40" y="364" width="100" height="28" rx="14" fill="#b91c1c"/>
+  <text x="90" y="384" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">원인 분석</text>
+  <text x="44" y="428" font-size="16" fill="#111827">· 새 버전에서 외부 API 엔드포인트가 <tspan font-weight="bold">변경됨</tspan></text>
+  <text x="44" y="460" font-size="16" fill="#111827">· 환경변수는 <tspan font-weight="bold">구버전 값 그대로</tspan></text>
+
+  <path d="M408,430 L448,430" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
   <!-- 재발 방지 -->
-  <rect x="450" y="380" width="390" height="220" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="470" y="411" font-size="14" font-weight="bold" fill="#7c3aed">재발 방지:</text>
-  
-  <text x="470" y="445" font-size="13" fill="#1f2933">1. 환경변수 변경 시 PR 리뷰 필수</text>
-  <text x="470" y="480" font-size="13" fill="#1f2933">2. 스테이징에서 외부 연동 테스트 추가</text>
-  <text x="470" y="515" font-size="13" fill="#1f2933">3. Canary 배포로 5%부터 점진적 확대</text>
+  <rect x="452" y="350" width="404" height="160" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <rect x="468" y="364" width="100" height="28" rx="14" fill="#6d28d9"/>
+  <text x="518" y="384" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">재발 방지</text>
+  <text x="472" y="428" font-size="16" fill="#111827">1. 환경변수 변경 시 PR 리뷰 필수</text>
+  <text x="472" y="458" font-size="16" fill="#111827">2. 스테이징에서 외부 연동 테스트 추가</text>
+  <text x="472" y="488" font-size="16" fill="#111827">3. Canary 배포로 5%부터 점진적 확대</text>
 
-  <!-- 결과 섹션 -->
-  <rect x="40" y="620" width="800" height="110" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="60" y="655" font-size="14" font-weight="bold" fill="#059669">결과:</text>
-  <text x="60" y="695" font-size="16" font-weight="bold" fill="#1f2933">MTTR 5분 → 업무 시간 서비스 영향 최소화"</text>
+  <path d="M654,513 L654,539" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- 결과 -->
+  <rect x="24" y="542" width="832" height="66" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <rect x="40" y="561" width="60" height="28" rx="14" fill="#047857"/>
+  <text x="70" y="581" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">결과</text>
+  <text x="120" y="582" font-size="18" font-weight="bold" fill="#111827">MTTR 5분 → 업무 시간 서비스 영향 최소화</text>
 </svg>

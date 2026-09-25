@@ -1,68 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">구조</title>
-  <desc id="d">Internet에서 Ingress Controller를 거쳐 /users, /orders, /products 경로별로 User Service, Order Service, Product Service로 라우팅되는 Kubernetes Ingress 구조 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Ingress 라우팅 구조</title>
+  <desc id="d">Internet에서 들어온 요청이 Ingress Controller 하나를 거쳐 경로별로 나뉜다. /users는 User Service로, /orders는 Order Service로, /products는 Product Service로 라우팅된다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  
-  <rect width="880" height="430" fill="#ffffff"/>
+  <rect width="880" height="390" fill="#ffffff"/>
 
   <!-- Internet -->
-  <rect x="360" y="30" width="160" height="44" rx="22" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="57" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">Internet</text>
+  <rect x="345" y="24" width="190" height="46" rx="23" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="440" y="53" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Internet</text>
 
-  <!-- Line: Internet -> Ingress Controller -->
-  <path d="M440,74 L440,114" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="70" x2="440" y2="102" stroke="#374151" stroke-width="2.5" marker-end="url(#a-ink)"/>
 
   <!-- Ingress Controller -->
-  <rect x="340" y="114" width="200" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="141" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Ingress</text>
-  <text x="440" y="159" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Controller</text>
+  <rect x="300" y="106" width="280" height="62" rx="10" fill="#1f2937" stroke="#1f2937" stroke-width="2"/>
+  <text x="440" y="143" font-size="19" font-weight="bold" fill="#ffffff" text-anchor="middle">Ingress Controller</text>
+  <text x="604" y="135" font-size="15" fill="#374151">하나의 LB로</text>
+  <text x="604" y="156" font-size="15" fill="#374151">여러 서비스 라우팅</text>
 
-  <!-- Distribution Lines & Path Labels -->
-  <!-- Main vertical stem out of Ingress Controller -->
-  <path d="M440,174 L440,204" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Horizontal bus -->
-  <path d="M180,204 L700,204" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 분기 -->
+  <line x1="440" y1="168" x2="440" y2="198" stroke="#374151" stroke-width="2.5"/>
+  <line x1="170" y1="198" x2="710" y2="198" stroke="#374151" stroke-width="2.5"/>
+  <line x1="170" y1="198" x2="170" y2="220" stroke="#374151" stroke-width="2.5"/>
+  <line x1="710" y1="198" x2="710" y2="220" stroke="#374151" stroke-width="2.5"/>
+  <line x1="440" y1="198" x2="440" y2="220" stroke="#374151" stroke-width="2.5"/>
 
-  <!-- Branch 1: /users -->
-  <path d="M180,204 L180,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="140" y="222" width="80" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="180" y="238" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">/users</text>
+  <!-- 경로 라벨 -->
+  <rect x="110" y="220" width="120" height="36" rx="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="170" y="244" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/users</text>
+  <rect x="380" y="220" width="120" height="36" rx="18" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="440" y="244" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/orders</text>
+  <rect x="640" y="220" width="140" height="36" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="710" y="244" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/products</text>
 
-  <!-- Branch 2: /orders -->
-  <path d="M440,204 L440,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="400" y="222" width="80" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="238" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">/orders</text>
+  <line x1="170" y1="256" x2="170" y2="290" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#a-blue)"/>
+  <line x1="440" y1="256" x2="440" y2="290" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#a-purple)"/>
+  <line x1="710" y1="256" x2="710" y2="290" stroke="#047857" stroke-width="2.5" marker-end="url(#a-green)"/>
 
-  <!-- Branch 3: /products -->
-  <path d="M700,204 L700,290" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="650" y="222" width="100" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="700" y="238" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">/products</text>
-
-  <!-- User Service -->
-  <rect x="90" y="290" width="180" height="80" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="180" y="325" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">User</text>
-  <text x="180" y="347" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Service</text>
-
-  <!-- Order Service -->
-  <rect x="350" y="290" width="180" height="80" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="325" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Order</text>
-  <text x="440" y="347" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Service</text>
-
-  <!-- Product Service -->
-  <rect x="610" y="290" width="180" height="80" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="700" y="325" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Product</text>
-  <text x="700" y="347" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Service</text>
+  <!-- Services -->
+  <rect x="60" y="294" width="220" height="64" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="170" y="332" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">User Service</text>
+  <rect x="330" y="294" width="220" height="64" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="440" y="332" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">Order Service</text>
+  <rect x="600" y="294" width="220" height="64" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="710" y="332" font-size="18" font-weight="bold" fill="#1f2937" text-anchor="middle">Product Service</text>
 </svg>

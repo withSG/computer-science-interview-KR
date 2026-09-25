@@ -1,100 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">전체 흐름과 시간 지표</title>
-  <desc id="d">장애 발생부터 복구까지의 단계별 흐름과 MTTD, MTTA, MTTR 시간 지표 및 각 단계별 품질 의미를 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">장애 대응 흐름과 MTTD·MTTA·MTTR</title>
+  <desc id="d">장애 발생, 감지, 확인, 완화, 복구, 회고로 이어지는 타임라인 위에 MTTD(발생→감지, 알림 설계의 품질), MTTA(감지→확인, On-call 체계의 품질), MTTR(발생→복구, 사용자가 아팠던 시간, 대응 절차와 롤백 능력의 품질) 구간을 막대로 표시하고, 확인부터 복구까지는 원인 규명을 하면 안 되는 구간임을 보여준다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="440" fill="#ffffff"/>
+  <!-- 단계 라벨 -->
+  <g font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="300" y="52">장애 발생</text>
+    <text x="405" y="52">감지</text>
+    <text x="510" y="52">확인</text>
+    <text x="615" y="52">완화</text>
+    <text x="720" y="52">복구</text>
+    <text x="825" y="52">회고</text>
+  </g>
 
-  <!-- 메인 타임라인 수평선 -->
-  <path d="M 40,70 L 840,70" stroke="#1f2933" stroke-width="2" marker-end="url(#a-ink)"/>
+  <!-- 세로 안내선 -->
+  <g stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 5">
+    <line x1="300" y1="86" x2="300" y2="386"/>
+    <line x1="405" y1="86" x2="405" y2="386"/>
+    <line x1="510" y1="86" x2="510" y2="386"/>
+    <line x1="615" y1="86" x2="615" y2="386"/>
+    <line x1="720" y1="86" x2="720" y2="386"/>
+    <line x1="825" y1="86" x2="825" y2="386"/>
+  </g>
 
-  <!-- 단계별 수직 구분선 및 단계 라벨 -->
-  <!-- 1. 장애 발생 -->
-  <line x1="80" y1="50" x2="80" y2="240" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="35" y="16" width="90" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="80" y="33" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">장애 발생</text>
+  <!-- 시간 축 -->
+  <line x1="276" y1="74" x2="852" y2="74" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <g fill="#1f2937">
+    <circle cx="300" cy="74" r="6"/>
+    <circle cx="405" cy="74" r="6"/>
+    <circle cx="510" cy="74" r="6"/>
+    <circle cx="615" cy="74" r="6"/>
+    <circle cx="720" cy="74" r="6"/>
+    <circle cx="825" cy="74" r="6"/>
+  </g>
 
-  <!-- 2. 감지 -->
-  <line x1="210" y1="50" x2="210" y2="240" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="180" y="16" width="60" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="210" y="33" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">감지</text>
+  <!-- 행 구분선 -->
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="24" y1="170" x2="856" y2="170"/>
+    <line x1="24" y1="242" x2="856" y2="242"/>
+  </g>
+  <line x1="24" y1="318" x2="856" y2="318" stroke="#9ca3af" stroke-width="1"/>
 
-  <!-- 3. 확인 -->
-  <line x1="340" y1="50" x2="340" y2="240" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="310" y="16" width="60" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="340" y="33" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">확인</text>
+  <!-- MTTD -->
+  <text x="24" y="124" font-size="18" font-weight="bold" fill="#1d4ed8">MTTD</text>
+  <text x="88" y="124" font-size="15" fill="#4b5563">발생→감지</text>
+  <text x="24" y="148" font-size="15" fill="#111827">알림 설계의 품질</text>
+  <rect x="300" y="115" width="105" height="32" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="352.5" y="136" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">MTTD</text>
 
-  <!-- 4. 완화 -->
-  <line x1="470" y1="50" x2="470" y2="240" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="440" y="16" width="60" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="470" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">완화</text>
+  <!-- MTTA -->
+  <text x="24" y="196" font-size="18" font-weight="bold" fill="#b45309">MTTA</text>
+  <text x="88" y="196" font-size="15" fill="#4b5563">감지→확인</text>
+  <text x="24" y="220" font-size="15" fill="#111827">On-call 체계의 품질</text>
+  <rect x="405" y="187" width="105" height="32" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="457.5" y="208" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">MTTA</text>
 
-  <!-- 5. 복구 -->
-  <line x1="600" y1="50" x2="600" y2="240" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="570" y="16" width="60" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="600" y="33" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">복구</text>
+  <!-- MTTR -->
+  <text x="24" y="268" font-size="18" font-weight="bold" fill="#047857">MTTR</text>
+  <text x="88" y="268" font-size="15" fill="#4b5563">발생→복구</text>
+  <text x="24" y="292" font-size="15" fill="#111827">대응 절차와 롤백 능력의 품질</text>
+  <rect x="300" y="259" width="420" height="32" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="510" y="280" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">MTTR · 사용자가 아팠던 시간</text>
 
-  <!-- 6. 회고 -->
-  <line x1="730" y1="50" x2="730" y2="240" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <rect x="700" y="16" width="60" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="730" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">회고</text>
-
-
-  <!-- 지표 1: MTTD -->
-  <path d="M 80,100 L 210,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
-  <rect x="117" y="90" width="56" height="20" fill="#ffffff"/>
-  <text x="145" y="104.5" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">MTTD</text>
-
-  <!-- 지표 2: MTTA -->
-  <path d="M 210,130 L 340,130" stroke="#d97706" stroke-width="1.5" fill="none" marker-start="url(#a-orange)" marker-end="url(#a-orange)"/>
-  <rect x="247" y="120" width="56" height="20" fill="#ffffff"/>
-  <text x="275" y="134.5" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">MTTA</text>
-
-  <!-- 지표 3: MTTR (사용자가 아팠던 시간) -->
-  <path d="M 80,160 L 600,160" stroke="#059669" stroke-width="1.5" fill="none" marker-start="url(#a-green)" marker-end="url(#a-green)"/>
-  <rect x="238" y="150" width="204" height="20" fill="#ffffff"/>
-  <text x="340" y="164.5" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">MTTR (사용자가 아팠던 시간)</text>
-
-  <!-- 강조 경고: 여기서 원인 규명을 하면 안 된다 -->
-  <path d="M 340,195 L 600,195" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-start="url(#a-purple)" marker-end="url(#a-purple)"/>
-  <rect x="360" y="185" width="220" height="20" fill="#ffffff"/>
-  <text x="470" y="199.5" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">여기서 원인 규명을 하면 안 된다</text>
-
-
-  <!-- 설명 영역 (하단 카드가 2행으로 구성) -->
-  <!-- 카드 1: MTTD -->
-  <rect x="40" y="250" width="380" height="70" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="55" y="278.5" font-size="13" font-weight="bold" fill="#2563eb">MTTD</text>
-  <text x="100" y="278.5" font-size="13" font-weight="bold" fill="#1f2933">발생→감지:</text>
-  <text x="180" y="278.5" font-size="13" fill="#1f2933">알림 설계의 품질</text>
-
-  <!-- 카드 2: MTTA -->
-  <rect x="460" y="250" width="380" height="70" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="475" y="288.5" font-size="13" font-weight="bold" fill="#d97706">MTTA</text>
-  <text x="520" y="288.5" font-size="13" font-weight="bold" fill="#1f2933">감지→확인:</text>
-  <text x="600" y="288.5" font-size="13" fill="#1f2933">On-call 체계의 품질</text>
-
-  <!-- 카드 3: MTTR -->
-  <rect x="40" y="335" width="800" height="65" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="55" y="373.5" font-size="13" font-weight="bold" fill="#059669">MTTR</text>
-  <text x="100" y="373.5" font-size="13" font-weight="bold" fill="#1f2933">발생→복구:</text>
-  <text x="180" y="373.5" font-size="13" fill="#1f2933">대응 절차와 롤백 능력의 품질</text>
-
+  <!-- 원인 규명 금지 구간 -->
+  <text x="24" y="352" font-size="18" font-weight="bold" fill="#b91c1c">확인→복구</text>
+  <text x="24" y="376" font-size="15" font-weight="bold" fill="#b91c1c">여기서 원인 규명을 하면 안 된다</text>
+  <rect x="510" y="343" width="210" height="32" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="615" y="364" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">완화 우선</text>
 </svg>

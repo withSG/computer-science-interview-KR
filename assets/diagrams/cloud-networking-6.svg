@@ -1,45 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">VPC Endpoint: 인터넷을 거치지 않고 AWS 서비스에 닿기</title>
-  <desc id="d">Gateway Endpoint 적용 후 Private Subnet 라우팅 테이블 및 S3, NAT 트래픽 경로 설명 다이어그램</desc>
-  <rect width="880" height="300" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Gateway Endpoint 적용 후 Private Subnet 라우팅 테이블</title>
+  <desc id="d">Gateway Endpoint를 적용한 Private Subnet 라우팅 테이블. 10.0.0.0/16은 local, S3 대역(pl-xxxx)은 vpce-0a1b2c3d로 가고, 나머지 0.0.0.0/0만 nat-0f9e8d7c(NAT)로 간다.</desc>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- Section Container -->
-  <rect x="24" y="24" width="832" height="252" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="6"/>
+  <!-- 캡션 -->
+  <rect x="40" y="26" width="236" height="34" rx="17" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="158" y="49" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">Gateway Endpoint 적용 후</text>
+  <text x="40" y="92" font-size="17" font-weight="bold" fill="#1f2937">Private Subnet 라우팅 테이블</text>
 
-  <!-- Section Title -->
-  <text x="44" y="55" font-size="14" font-weight="bold" fill="#1f2933">[ Gateway Endpoint 적용 후 ]</text>
-  <text x="44" y="77" font-size="13" font-weight="bold" fill="#52606d">Private Subnet 라우팅 테이블</text>
+  <!-- 머리행 -->
+  <rect x="40" y="106" width="270" height="42" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="310" y="106" width="220" height="42" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="56" y="133" font-size="16" font-weight="bold" fill="#1f2937">Destination</text>
+  <text x="326" y="133" font-size="16" font-weight="bold" fill="#1f2937">Target</text>
 
-  <!-- Table Header -->
-  <rect x="44" y="90" width="220" height="32" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="54" y="111" font-size="13" font-weight="bold" fill="#1f2933">Destination</text>
-  <rect x="264" y="90" width="220" height="32" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="274" y="111" font-size="13" font-weight="bold" fill="#1f2933">Target</text>
+  <!-- 1행: local -->
+  <rect x="40" y="148" width="270" height="48" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <rect x="310" y="148" width="220" height="48" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="56" y="178" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">10.0.0.0/16</text>
+  <text x="326" y="178" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">local</text>
 
-  <!-- Table Row 1 -->
-  <rect x="44" y="122" width="220" height="36" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="54" y="145" font-size="13" font-family="monospace" fill="#1f2933">10.0.0.0/16</text>
-  <rect x="264" y="122" width="220" height="36" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="274" y="145" font-size="13" font-family="monospace" fill="#1f2933">local</text>
+  <!-- 2행: S3 → vpce -->
+  <rect x="40" y="196" width="270" height="48" fill="#ecfdf5" stroke="#047857" stroke-width="1.8"/>
+  <rect x="310" y="196" width="220" height="48" fill="#ecfdf5" stroke="#047857" stroke-width="1.8"/>
+  <text x="56" y="226" font-size="16" font-weight="bold" fill="#065f46"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">pl-xxxx</tspan> (S3 대역)</text>
+  <text x="326" y="226" font-size="16" font-weight="bold" fill="#065f46" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">vpce-0a1b2c3d</text>
 
-  <!-- Table Row 2 (Highlight: S3) -->
-  <rect x="44" y="158" width="220" height="36" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="54" y="181" font-size="13" font-family="monospace" fill="#059669" font-weight="bold">pl-xxxx (S3 대역)</text>
-  <rect x="264" y="158" width="220" height="36" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="274" y="181" font-size="13" font-family="monospace" fill="#059669" font-weight="bold">vpce-0a1b2c3d</text>
+  <!-- 3행: 나머지 → NAT -->
+  <rect x="40" y="244" width="270" height="48" fill="#fffbeb" stroke="#b45309" stroke-width="1.8"/>
+  <rect x="310" y="244" width="220" height="48" fill="#fffbeb" stroke="#b45309" stroke-width="1.8"/>
+  <text x="56" y="274" font-size="16" font-weight="bold" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0.0.0.0/0</text>
+  <text x="326" y="274" font-size="16" font-weight="bold" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">nat-0f9e8d7c</text>
 
-  <!-- Table Row 3 (Highlight: NAT) -->
-  <rect x="44" y="194" width="220" height="36" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="54" y="217" font-size="13" font-family="monospace" fill="#d97706" font-weight="bold">0.0.0.0/0</text>
-  <rect x="264" y="194" width="220" height="36" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="274" y="217" font-size="13" font-family="monospace" fill="#d97706" font-weight="bold">nat-0f9e8d7c</text>
-
-  <!-- Side Annotations -->
-  <!-- Arrow & Annotation for Row 2 -->
-  <text x="500" y="181" font-size="13" font-weight="bold" fill="#059669">←</text>
-  <text x="520" y="181" font-size="13" font-weight="bold" fill="#059669">S3 향 트래픽은 여기로</text>
-
-  <!-- Arrow & Annotation for Row 3 -->
-  <text x="500" y="217" font-size="13" font-weight="bold" fill="#d97706">←</text>
-  <text x="520" y="217" font-size="13" font-weight="bold" fill="#d97706">나머지만 NAT로</text>
+  <!-- 주석 -->
+  <line x1="592" y1="220" x2="540" y2="220" stroke="#047857" stroke-width="2" marker-end="url(#ag)"/>
+  <text x="604" y="226" font-size="17" font-weight="bold" fill="#047857">S3 향 트래픽은 여기로</text>
+  <line x1="592" y1="268" x2="540" y2="268" stroke="#b45309" stroke-width="2" marker-end="url(#ao)"/>
+  <text x="604" y="274" font-size="17" font-weight="bold" fill="#b45309">나머지만 NAT로</text>
 </svg>

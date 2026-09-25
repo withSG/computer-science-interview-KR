@@ -1,56 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">state 파일 — 왜 필요하고 왜 위험한가</title>
-  <desc id="d">사용자가 선언한 것, Terraform이 아는 것, 클라우드의 실제 간의 관계와 state 파일의 역할을 설명하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Terraform state 파일의 역할</title>
+  <desc id="d">main.tf의 선언(①)과 클라우드의 실제 리소스(③) 사이를 state 파일(②)이 잇는다. ①과 ③만 있으면 클라우드에 EC2가 5대 있을 때 어느 것이 내가 관리하는 1대인지 모른다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <rect width="880" height="490" fill="#ffffff"/>
 
-  <!-- 메인 박스 1: 사용자가 선언한 것 -->
-  <g>
-    <rect x="40" y="50" width="220" height="130" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="150" y="32" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">사용자가 선언한 것</text>
-    <text x="150" y="85" font-size="13" fill="#1f2933" text-anchor="middle">main.tf</text>
-    <text x="150" y="115" font-size="13" fill="#1f2933" text-anchor="middle">"EC2 1대 필요"</text>
-    <text x="150" y="210" font-size="13" fill="#2563eb" font-weight="bold" text-anchor="middle">①</text>
-  </g>
+  <!-- 열 머리 -->
+  <text x="142" y="48" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">① 사용자가 선언한 것</text>
+  <text x="440" y="48" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">② Terraform이 아는 것</text>
+  <text x="738" y="48" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">③ 클라우드의 실제</text>
 
-  <!-- 메인 박스 2: Terraform이 아는 것 (핵심 강조) -->
-  <g>
-    <rect x="330" y="50" width="220" height="130" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="440" y="32" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">Terraform이 아는 것</text>
-    <text x="440" y="85" font-size="13" fill="#1f2933" font-weight="bold" text-anchor="middle">state 파일</text>
-    <text x="440" y="115" font-size="13" fill="#1f2933" text-anchor="middle">"i-0abc123 이</text>
-    <text x="440" y="138" font-size="13" fill="#1f2933" text-anchor="middle">내가 만든 그것"</text>
-    <text x="440" y="210" font-size="13" fill="#7c3aed" font-weight="bold" text-anchor="middle">②</text>
-  </g>
+  <!-- ① main.tf -->
+  <rect x="24" y="64" width="236" height="120" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="142" y="112" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">main.tf</text>
+  <text x="142" y="144" font-size="16" fill="#111827" text-anchor="middle">"EC2 1대 필요"</text>
 
-  <!-- 메인 박스 3: 클라우드의 실제 -->
-  <g>
-    <rect x="620" y="50" width="220" height="130" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="730" y="32" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">클라우드의 실제</text>
-    <text x="730" y="85" font-size="13" fill="#1f2933" text-anchor="middle">실제 리소스</text>
-    <text x="730" y="115" font-size="13" fill="#1f2933" text-anchor="middle">i-0abc123</text>
-    <text x="730" y="210" font-size="13" fill="#059669" font-weight="bold" text-anchor="middle">③</text>
-  </g>
+  <!-- ② state 파일 (핵심) -->
+  <rect x="322" y="64" width="236" height="120" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="440" y="104" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">state 파일</text>
+  <text x="440" y="134" font-size="16" fill="#111827" text-anchor="middle">"i-0abc123 이</text>
+  <text x="440" y="158" font-size="16" fill="#111827" text-anchor="middle">내가 만든 그것"</text>
 
-  <!-- 양방향 화살표 1 <-> 2 -->
-  <path d="M269,115 L321,115" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
+  <!-- ③ 실제 리소스 -->
+  <rect x="620" y="64" width="236" height="120" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="738" y="112" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">실제 리소스</text>
+  <text x="738" y="144" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">i-0abc123</text>
 
-  <!-- 양방향 화살표 2 <-> 3 -->
-  <path d="M559,115 L611,115" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-start="url(#a-purple)" marker-end="url(#a-purple)"/>
+  <!-- 양방향 연결 -->
+  <line x1="266" y1="124" x2="316" y2="124" stroke="#6d28d9" stroke-width="2" marker-start="url(#ap)" marker-end="url(#ap)"/>
+  <line x1="564" y1="124" x2="614" y2="124" stroke="#6d28d9" stroke-width="2" marker-start="url(#ap)" marker-end="url(#ap)"/>
 
-  <!-- 설명 텍스트 구역 -->
-  <g>
-    <rect x="40" y="235" width="800" height="75" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="60" y="263" font-size="12.5" fill="#1f2933">①과 ③만 있으면: 클라우드에 EC2가 5대 있을 때 어느 것이 내가 관리하는 1대인지 모른다.</text>
-    <text x="60" y="291" font-size="12.5" fill="#1f2933">②가 그 연결을 기억한다. 코드의 논리적 이름과 클라우드의 실제 ID를 잇는 장부다.</text>
-  </g>
+  <!-- ②의 역할 -->
+  <text x="440" y="220" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">②가 그 연결을 기억한다.</text>
+  <text x="440" y="246" font-size="16" fill="#111827" text-anchor="middle">코드의 논리적 이름과 클라우드의 실제 ID를 잇는 장부다.</text>
+
+  <!-- ①과 ③만 있으면 -->
+  <rect x="24" y="274" width="832" height="192" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="48" y="304" font-size="17" font-weight="bold" fill="#b91c1c">①과 ③만 있으면</text>
+
+  <rect x="56" y="326" width="200" height="72" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="156" y="356" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">main.tf</text>
+  <text x="156" y="382" font-size="15" fill="#111827" text-anchor="middle">"EC2 1대 필요"</text>
+
+  <line x1="262" y1="362" x2="384" y2="362" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ar)"/>
+  <text x="322" y="348" font-size="26" font-weight="bold" fill="#b91c1c" text-anchor="middle">?</text>
+
+  <rect x="392" y="316" width="440" height="94" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="408" y="338" font-size="15" fill="#047857" font-weight="bold">클라우드: EC2 5대</text>
+  <rect x="408" y="350" width="72" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="444" y="377" font-size="15" fill="#111827" text-anchor="middle">EC2</text>
+  <rect x="492" y="350" width="72" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="528" y="377" font-size="15" fill="#111827" text-anchor="middle">EC2</text>
+  <rect x="576" y="350" width="72" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="612" y="377" font-size="15" fill="#111827" text-anchor="middle">EC2</text>
+  <rect x="660" y="350" width="72" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="696" y="377" font-size="15" fill="#111827" text-anchor="middle">EC2</text>
+  <rect x="744" y="350" width="72" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="780" y="377" font-size="15" fill="#111827" text-anchor="middle">EC2</text>
+
+  <text x="56" y="444" font-size="16" fill="#111827">클라우드에 EC2가 5대 있을 때 <tspan font-weight="bold" fill="#b91c1c">어느 것이 내가 관리하는 1대인지 모른다.</tspan></text>
 </svg>

@@ -1,66 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">데이터베이스 설계</title>
-  <desc id="d">Cassandra와 Redis의 데이터베이스 설계 사양 카드</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">채팅 시스템 저장소 설계: Cassandra와 Redis</title>
+  <desc id="d">Cassandra는 메시지를 저장하며 파티션 키는 chat_room_id, 클러스터링 키는 시간순 정렬되는 message_id이고 쓰기 최적화와 수평 확장이 쉽다. Redis는 세션 관리(user_id → server_id), 온라인 상태(SET), 최근 메시지 캐시를 맡는다.</desc>
+  <rect width="880" height="300" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- Cassandra 카드 -->
+  <rect x="24" y="24" width="404" height="252" rx="10" fill="#ffffff"/>
+  <path d="M24,34 A10,10 0 0 1 34,24 H418 A10,10 0 0 1 428,34 V84 H24 Z" fill="#dbeafe"/>
+  <text x="44" y="61" font-size="20" font-weight="bold" fill="#1e3a8a">Cassandra</text>
+  <text x="162" y="61" font-size="16" font-weight="bold" fill="#1d4ed8">메시지 저장</text>
 
-  <defs>
-    <!-- 그림자 효과 대체 및 테두리 스타일 정의 -->
-  </defs>
+  <text x="44" y="120" font-size="15" font-weight="bold" fill="#4b5563">파티션 키</text>
+  <text x="172" y="120" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">chat_room_id</text>
+  <line x1="24" y1="148" x2="428" y2="148" stroke="#cbd5e1" stroke-width="1"/>
 
-  <!-- Cassandra 카드 (파랑 계열) -->
-  <g transform="translate(40, 20)">
-    <!-- 카드 배경 -->
-    <rect x="0" y="0" width="380" height="300" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    
-    <!-- Header 영역 -->
-    <rect x="0" y="0" width="380" height="48" rx="8" fill="#2563eb"/>
-    <!-- 하단 모서리 사각형으로 덮어서 상단만 라운드 적용 효과 -->
-    <rect x="0" y="40" width="380" height="8" fill="#2563eb"/>
-    <text x="20" y="30" font-size="16" font-weight="bold" fill="#ffffff">Cassandra (메시지 저장):</text>
+  <text x="44" y="184" font-size="15" font-weight="bold" fill="#4b5563">클러스터링 키</text>
+  <text x="172" y="173" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">message_id</text>
+  <text x="172" y="196" font-size="15" fill="#4b5563">시간순 정렬</text>
+  <line x1="24" y1="212" x2="428" y2="212" stroke="#cbd5e1" stroke-width="1"/>
 
-    <!-- Content 영역 -->
-    <!-- 항목 1: 파티션 키 -->
-    <rect x="20" y="68" width="340" height="40" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="93" font-size="13" font-weight="bold" fill="#2563eb">•</text>
-    <text x="48" y="93" font-size="13" fill="#1f2933">파티션 키: chat_room_id</text>
+  <rect x="36" y="222" width="380" height="42" rx="6" fill="#eff6ff"/>
+  <text x="226" y="249" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">쓰기 최적화, 수평 확장 용이</text>
 
-    <!-- 항목 2: 클러스터링 키 -->
-    <rect x="20" y="120" width="340" height="40" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="145" font-size="13" font-weight="bold" fill="#2563eb">•</text>
-    <text x="48" y="145" font-size="13" fill="#1f2933">클러스터링 키: message_id (시간순 정렬)</text>
+  <rect x="24" y="24" width="404" height="252" rx="10" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
 
-    <!-- 항목 3: 특성 -->
-    <rect x="20" y="172" width="340" height="40" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="197" font-size="13" font-weight="bold" fill="#2563eb">•</text>
-    <text x="48" y="197" font-size="13" fill="#1f2933">쓰기 최적화, 수평 확장 용이</text>
-  </g>
+  <!-- Redis 카드 -->
+  <rect x="452" y="24" width="404" height="252" rx="10" fill="#ffffff"/>
+  <path d="M452,34 A10,10 0 0 1 462,24 H846 A10,10 0 0 1 856,34 V84 H452 Z" fill="#fee2e2"/>
+  <text x="472" y="61" font-size="20" font-weight="bold" fill="#7f1d1d">Redis</text>
 
-  <!-- Redis 카드 (보라 계열) -->
-  <g transform="translate(460, 20)">
-    <!-- 카드 배경 -->
-    <rect x="0" y="0" width="380" height="300" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    
-    <!-- Header 영역 -->
-    <rect x="0" y="0" width="380" height="48" rx="8" fill="#7c3aed"/>
-    <rect x="0" y="40" width="380" height="8" fill="#7c3aed"/>
-    <text x="20" y="30" font-size="16" font-weight="bold" fill="#ffffff">Redis:</text>
+  <text x="472" y="120" font-size="15" font-weight="bold" fill="#4b5563">세션 관리</text>
+  <text x="600" y="120" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">user_id → server_id</text>
+  <line x1="452" y1="148" x2="856" y2="148" stroke="#cbd5e1" stroke-width="1"/>
 
-    <!-- Content 영역 -->
-    <!-- 항목 1: 세션 관리 -->
-    <rect x="20" y="68" width="340" height="40" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="93" font-size="13" font-weight="bold" fill="#7c3aed">•</text>
-    <text x="48" y="93" font-size="13" fill="#1f2933">세션 관리 (user_id → server_id)</text>
+  <text x="472" y="184" font-size="15" font-weight="bold" fill="#4b5563">온라인 상태</text>
+  <text x="600" y="184" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SET</text>
+  <line x1="452" y1="212" x2="856" y2="212" stroke="#cbd5e1" stroke-width="1"/>
 
-    <!-- 항목 2: 온라인 상태 -->
-    <rect x="20" y="120" width="340" height="40" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="145" font-size="13" font-weight="bold" fill="#7c3aed">•</text>
-    <text x="48" y="145" font-size="13" fill="#1f2933">온라인 상태 (SET)</text>
+  <text x="472" y="249" font-size="15" font-weight="bold" fill="#4b5563">최근 메시지 캐시</text>
 
-    <!-- 항목 3: 최근 메시지 캐시 -->
-    <rect x="20" y="172" width="340" height="40" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="35" y="197" font-size="13" font-weight="bold" fill="#7c3aed">•</text>
-    <text x="48" y="197" font-size="13" fill="#1f2933">최근 메시지 캐시</text>
-  </g>
+  <rect x="452" y="24" width="404" height="252" rx="10" fill="none" stroke="#b91c1c" stroke-width="1.5"/>
 </svg>

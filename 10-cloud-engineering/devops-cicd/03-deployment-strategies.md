@@ -54,7 +54,7 @@
 ### Recreate — 다 내리고 다 올린다
 
 <!-- diagram:cloud-deployment-strategies-11 -->
-![Recreate — 다 내리고 다 올린다](../../assets/diagrams/cloud-deployment-strategies-11.svg)
+![Recreate: t0 v1 → t1 전부 종료(다운타임) → t2 v2 기동](../../assets/diagrams/cloud-deployment-strategies-11.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -267,7 +267,7 @@ Rolling과 Canary는 물론이고 Blue-Green도 전환 구간에는 두 버전�
 애플리케이션 인스턴스는 여러 개고 배포 중에 버전이 섞이지만, **DB는 하나입니다.** 애플리케이션은 롤백하면 되돌아가지만 데이터는 되돌아가지 않습니다. 이 비대칭 때문에 문제가 생깁니다.
 
 <!-- diagram:cloud-deployment-strategies-12 -->
-![문제의 구조](../../assets/diagrams/cloud-deployment-strategies-12.svg)
+![배포 중 v1·v2 인스턴스가 섞여도 DB는 한 벌](../../assets/diagrams/cloud-deployment-strategies-12.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

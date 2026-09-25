@@ -1,67 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">6.1 두 개의 시간축</title>
-  <desc id="d">RPO와 RTO를 나타내는 복구 시점 및 시간축 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">RPO와 RTO 두 개의 시간축</title>
+  <desc id="d">장애 발생 시점을 기준으로, 마지막 복제/백업 시점부터 장애까지가 RPO(잃을 수 있는 데이터), 장애부터 서비스 재개까지가 RTO(감수하는 중단 시간)다.</desc>
   <defs>
-    <!-- Arrow Marker (Main Timeline) -->
-    <marker id="arrow-timeline" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
-    <!-- Arrow Marker Left/Right for Ranges -->
-    <marker id="arrow-rpo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="mb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="arrow-rto" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="mo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
+  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- Background -->
-  <rect width="880" height="300" fill="#ffffff"/>
+  <!-- 구간 음영 -->
+  <rect x="180" y="96" width="270" height="200" fill="#eff6ff"/>
+  <rect x="450" y="96" width="270" height="200" fill="#fff7ed"/>
 
-  <!-- Shaded Regions for RPO and RTO -->
-  <rect x="230" y="40" width="230" height="150" fill="#eff6ff" rx="4"/>
-  <rect x="460" y="40" width="230" height="150" fill="#fffbeb" rx="4"/>
+  <!-- 시점 라벨 -->
+  <text x="180" y="52" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">마지막 복제/백업 시점</text>
+  <text x="450" y="52" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">장애 발생</text>
+  <text x="720" y="52" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">서비스 재개</text>
 
-  <!-- Vertical Indicator Lines -->
-  <line x1="230" y1="50" x2="230" y2="155" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="460" y1="50" x2="460" y2="155" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="690" y1="50" x2="690" y2="155" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 시점 세로선 -->
+  <path d="M180,64 L180,200" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <path d="M450,64 L450,200" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <path d="M720,64 L720,200" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
 
-  <!-- Main Horizontal Timeline Arrow -->
-  <line x1="50" y1="130" x2="820" y2="130" stroke="#1f2933" stroke-width="2" marker-end="url(#arrow-timeline)"/>
+  <!-- 시간축 -->
+  <path d="M40,130 L800,130" stroke="#1f2937" stroke-width="2.5" fill="none" marker-end="url(#ax)"/>
+  <text x="812" y="136" font-size="16" font-weight="bold" fill="#1f2937">시간</text>
 
-  <!-- Timeline Point Markers -->
-  <!-- Point 1: Last Backup (Circle) -->
-  <circle cx="230" cy="130" r="6" fill="#2563eb"/>
-  
-  <!-- Point 2: Incident Occurrence (X) -->
-  <path d="M453,123 L467,137 M467,123 L453,137" stroke="#dc2626" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="180" cy="130" r="8" fill="#1d4ed8"/>
+  <circle cx="450" cy="130" r="11" fill="#ffffff"/>
+  <path d="M442,122 L458,138 M458,122 L442,138" stroke="#b91c1c" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <circle cx="720" cy="130" r="8" fill="#047857"/>
 
-  <!-- Point 3: Service Resume (Circle) -->
-  <circle cx="690" cy="130" r="6" fill="#059669"/>
+  <!-- RPO -->
+  <path d="M290,178 L188,178" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+  <path d="M340,178 L442,178" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#mb)"/>
+  <text x="315" y="186" font-size="22" font-weight="bold" fill="#1d4ed8" text-anchor="middle">RPO</text>
+  <text x="315" y="214" font-size="15" fill="#4b5563" text-anchor="middle">Recovery Point Objective</text>
+  <text x="315" y="252" font-size="16" fill="#1f2937" text-anchor="middle">이만큼의 데이터를</text>
+  <text x="315" y="274" font-size="16" fill="#1f2937" text-anchor="middle">잃을 수 있다</text>
 
-  <!-- Top Labels -->
-  <text x="230" y="38" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">마지막 복제/백업 시점</text>
-  <text x="460" y="38" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">장애 발생</text>
-  <text x="690" y="38" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">서비스 재개</text>
-
-  <!-- Timeline Axis Label -->
-  <text x="835" y="134" font-size="13" font-weight="bold" fill="#1f2933">시간</text>
-
-  <!-- RPO Arrow Lines -->
-  <line x1="239" y1="170" x2="451" y2="170" stroke="#2563eb" stroke-width="1.5" marker-start="url(#arrow-rpo)" marker-end="url(#arrow-rpo)"/>
-  <rect x="307" y="159" width="76" height="22" fill="#ffffff" rx="2" stroke="#2563eb" stroke-width="1"/>
-  <text x="345" y="174" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">RPO</text>
-
-  <!-- RTO Arrow Lines -->
-  <line x1="469" y1="170" x2="681" y2="170" stroke="#d97706" stroke-width="1.5" marker-start="url(#arrow-rto)" marker-end="url(#arrow-rto)"/>
-  <rect x="537" y="159" width="76" height="22" fill="#ffffff" rx="2" stroke="#d97706" stroke-width="1"/>
-  <text x="575" y="174" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">RTO</text>
-
-  <!-- Bottom Description Labels -->
-  <text x="345" y="215" font-size="12" fill="#52606d" text-anchor="middle">이만큼의 데이터를</text>
-  <text x="345" y="235" font-size="12" fill="#52606d" text-anchor="middle">잃을 수 있다</text>
-
-  <text x="575" y="215" font-size="12" fill="#52606d" text-anchor="middle">이만큼의 중단 시간을</text>
-  <text x="575" y="235" font-size="12" fill="#52606d" text-anchor="middle">감수한다</text>
+  <!-- RTO -->
+  <path d="M560,178 L458,178" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#mo)"/>
+  <path d="M610,178 L712,178" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#mo)"/>
+  <text x="585" y="186" font-size="22" font-weight="bold" fill="#92400e" text-anchor="middle">RTO</text>
+  <text x="585" y="214" font-size="15" fill="#4b5563" text-anchor="middle">Recovery Time Objective</text>
+  <text x="585" y="252" font-size="16" fill="#1f2937" text-anchor="middle">이만큼의 중단 시간을</text>
+  <text x="585" y="274" font-size="16" fill="#1f2937" text-anchor="middle">감수한다</text>
 </svg>
