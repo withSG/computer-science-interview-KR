@@ -1,7 +1,7 @@
 /**
  * 줄바꿈·BOM 정규화.
  *
- * 이 저장소는 마크다운 244개, SVG 961개가 전부 CRLF 다 (core.autocrlf=true).
+ * 이 저장소는 마크다운 244개, SVG 1073개가 전부 CRLF 다 (core.autocrlf=true).
  * markdown-it 은 내부에서 CRLF 를 LF 로 바꿔놓고 token.map 을 매기므로,
  * 파싱·오프셋 계산은 반드시 LF 로 정규화한 문자열 위에서 해야 한다.
  * 디스크로 돌아갈 때는 원래 파일이 쓰던 줄바꿈으로 되돌린다.
