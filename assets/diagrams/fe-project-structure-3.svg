@@ -1,105 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Monolithic, MSA, BFF가 프론트에 미치는 영향</title>
-  <desc id="d">BFF가 없을 때 프론트엔드가 여러 서비스와 직접 통신하며 4번 왕복 및 인증을 수행하는 구조와, BFF가 있을 때 BFF를 통해 1번 왕복으로 인증, 집계, 응답 변환을 처리하는 구조의 비교 다이어그램</desc>
+  <title id="t">BFF 없음과 있음 비교</title>
+  <desc id="d">BFF가 없으면 프론트가 주문·사용자·상품·배송 서비스를 직접 호출해 4번 왕복하고 인증을 4번 처리하며 서비스 분할을 알게 된다. BFF가 있으면 프론트는 BFF와 1번 왕복하고, BFF가 인증·집계·응답 변환을 맡아 네 서비스를 호출하므로 프론트는 BFF만 안다.</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="grn" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="gry" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="430" fill="#ffffff"/>
+  <!-- ── BFF 없음 ── -->
+  <rect x="24" y="24" width="404" height="382" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="226" y="54" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">BFF 없음</text>
 
-  <!-- 좌측 구역: [BFF 없음] -->
-  <rect x="24" y="24" width="404" height="382" fill="#f8fafc" rx="8" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="226" y="52" fill="#dc2626" font-size="16" font-weight="bold" text-anchor="middle">[BFF 없음]</text>
+  <rect x="156" y="72" width="140" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="226" y="102" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">프론트</text>
+  <text x="312" y="92" font-size="16" font-weight="bold" fill="#b91c1c">4번 왕복</text>
+  <text x="312" y="114" font-size="15" fill="#b91c1c">인증 4번 처리</text>
 
-  <!-- 프론트 (좌측) -->
-  <rect x="156" y="74" width="140" height="48" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="226" y="103" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">프론트</text>
+  <path d="M226,121 V150 M82,150 H370" stroke="#b91c1c" stroke-width="2" fill="none"/>
+  <line x1="82" y1="150" x2="82" y2="298" stroke="#b91c1c" stroke-width="2" marker-end="url(#red)"/>
+  <line x1="178" y1="150" x2="178" y2="298" stroke="#b91c1c" stroke-width="2" marker-end="url(#red)"/>
+  <line x1="274" y1="150" x2="274" y2="298" stroke="#b91c1c" stroke-width="2" marker-end="url(#red)"/>
+  <line x1="370" y1="150" x2="370" y2="298" stroke="#b91c1c" stroke-width="2" marker-end="url(#red)"/>
 
-  <!-- 프론트 -> 분기선 (좌측) -->
-  <path d="M226,122 L226,160" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <path d="M96,160 L356,160" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  
-  <path d="M96,160 L96,220" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M182,160 L182,220" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M270,160 L270,220" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M356,160 L356,220" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="42" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="82" y="330" font-size="16" fill="#111827" text-anchor="middle">주문</text>
+  <rect x="138" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="178" y="330" font-size="16" fill="#111827" text-anchor="middle">사용자</text>
+  <rect x="234" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="274" y="330" font-size="16" fill="#111827" text-anchor="middle">상품</text>
+  <rect x="330" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="370" y="330" font-size="16" fill="#111827" text-anchor="middle">배송</text>
 
-  <!-- 좌측 라벨: 4번 왕복 / 인증 4번 처리 -->
-  <rect x="272" y="127" width="76" height="20" fill="#ffffff" rx="2"/>
-  <text x="310" y="141" fill="#dc2626" font-size="12" font-weight="bold" text-anchor="middle">4번 왕복</text>
-  
-  <rect x="257" y="180" width="106" height="20" fill="#ffffff" rx="2"/>
-  <text x="310" y="194" fill="#dc2626" font-size="12" font-weight="bold" text-anchor="middle">인증 4번 처리</text>
+  <text x="226" y="384" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">프론트가 서비스 분할을 안다</text>
 
-  <!-- 서비스 박스들 (좌측) -->
-  <rect x="66" y="222" width="60" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="96" y="251" fill="#1f2933" font-size="13" text-anchor="middle">주문</text>
+  <!-- ── BFF 있음 ── -->
+  <rect x="452" y="24" width="404" height="382" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="654" y="54" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">BFF 있음</text>
 
-  <rect x="146" y="222" width="72" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="182" y="251" fill="#1f2933" font-size="13" text-anchor="middle">사용자</text>
+  <rect x="584" y="72" width="140" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="654" y="102" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">프론트</text>
 
-  <rect x="240" y="222" width="60" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="270" y="251" fill="#1f2933" font-size="13" text-anchor="middle">상품</text>
+  <line x1="654" y1="121" x2="654" y2="176" stroke="#047857" stroke-width="2" marker-end="url(#grn)"/>
+  <text x="668" y="154" font-size="16" font-weight="bold" fill="#047857">1번 왕복</text>
 
-  <rect x="326" y="222" width="60" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="356" y="251" fill="#1f2933" font-size="13" text-anchor="middle">배송</text>
+  <rect x="544" y="178" width="220" height="66" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="654" y="205" font-size="18" font-weight="bold" fill="#5b21b6" text-anchor="middle">BFF</text>
+  <text x="654" y="232" font-size="15" fill="#1f2937" text-anchor="middle">인증·집계·응답 변환</text>
 
-  <!-- 하단 텍스트 (좌측) -->
-  <text x="226" y="330" fill="#52606d" font-size="13" font-weight="bold" text-anchor="middle">프론트가 서비스 분할을 안다</text>
+  <path d="M654,245 V270 M510,270 H798" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <line x1="510" y1="270" x2="510" y2="298" stroke="#4b5563" stroke-width="2" marker-end="url(#gry)"/>
+  <line x1="606" y1="270" x2="606" y2="298" stroke="#4b5563" stroke-width="2" marker-end="url(#gry)"/>
+  <line x1="702" y1="270" x2="702" y2="298" stroke="#4b5563" stroke-width="2" marker-end="url(#gry)"/>
+  <line x1="798" y1="270" x2="798" y2="298" stroke="#4b5563" stroke-width="2" marker-end="url(#gry)"/>
 
+  <rect x="470" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="510" y="330" font-size="16" fill="#111827" text-anchor="middle">주문</text>
+  <rect x="566" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="606" y="330" font-size="16" fill="#111827" text-anchor="middle">사용자</text>
+  <rect x="662" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="702" y="330" font-size="16" fill="#111827" text-anchor="middle">상품</text>
+  <rect x="758" y="300" width="80" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="798" y="330" font-size="16" fill="#111827" text-anchor="middle">배송</text>
 
-  <!-- 우측 구역: [BFF 있음] -->
-  <rect x="452" y="24" width="404" height="382" fill="#f8fafc" rx="8" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="654" y="52" fill="#059669" font-size="16" font-weight="bold" text-anchor="middle">[BFF 있음]</text>
-
-  <!-- 프론트 (우측) -->
-  <rect x="584" y="74" width="140" height="48" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="654" y="103" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">프론트</text>
-
-  <!-- 프론트 -> BFF 화살표 (우측) -->
-  <path d="M654,122 L654,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <rect x="664" y="137" width="76" height="20" fill="#ffffff" rx="2"/>
-  <text x="702" y="151" fill="#2563eb" font-size="12" font-weight="bold" text-anchor="middle">1번 왕복</text>
-
-  <!-- BFF 박스 -->
-  <rect x="584" y="172" width="140" height="48" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="654" y="201" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">BFF</text>
-  
-  <!-- BFF 옆 부가 설명 -->
-  <text x="736" y="201" fill="#52606d" font-size="11.5">인증·집계·응답 변환</text>
-
-  <!-- BFF -> 분기선 (우측) -->
-  <path d="M654,220 L654,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M524,250 L784,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  
-  <path d="M524,250 L524,290" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M610,250 L610,290" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M698,250 L698,290" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M784,250 L784,290" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 서비스 박스들 (우측) -->
-  <rect x="494" y="292" width="60" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="524" y="321" fill="#1f2933" font-size="13" text-anchor="middle">주문</text>
-
-  <rect x="574" y="292" width="72" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="610" y="321" fill="#1f2933" font-size="13" text-anchor="middle">사용자</text>
-
-  <rect x="668" y="292" width="60" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="698" y="321" fill="#1f2933" font-size="13" text-anchor="middle">상품</text>
-
-  <rect x="754" y="292" width="60" height="48" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <text x="784" y="321" fill="#1f2933" font-size="13" text-anchor="middle">배송</text>
-
-  <!-- 하단 텍스트 (우측) -->
-  <text x="654" y="380" fill="#52606d" font-size="13" font-weight="bold" text-anchor="middle">프론트는 BFF만 안다</text>
+  <text x="654" y="384" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">프론트는 BFF만 안다</text>
 </svg>

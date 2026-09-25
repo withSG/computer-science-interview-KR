@@ -1,71 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Performance 패널</title>
-  <desc id="d">Performance 패널의 Frames, Main, Raster, GPU 스레드별 프레임 드롭 및 애니메이션 상태를 보여주는 다이어그램입니다.</desc>
+  <title id="t">Performance 패널에서 볼 줄</title>
+  <desc id="d">Performance 패널 기록의 Frames, Main, Raster, GPU 줄과 각 줄에서 확인할 것. 빨간 막대는 프레임을 놓친 지점이고, Main 줄은 애니메이션 중 비어 있어야 이상적이며, Raster 줄에서는 래스터가 매 프레임 도는지 본다.</desc>
   <rect width="880" height="340" fill="#ffffff"/>
-
-  <!-- Background Grid Track Panel -->
-  <rect x="40" y="40" width="800" height="260" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-
-  <!-- Legend / Guide Header Zone -->
-  <line x1="40" y1="95" x2="840" y2="95" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="40" y1="150" x2="840" y2="150" stroke="#cbd2d9" stroke-width="1"/>
-  <line x1="40" y1="205" x2="840" y2="205" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- Markers -->
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Row 1: Frames -->
-  <text x="60" y="72.5" font-size="14" font-weight="bold" fill="#1f2933">Frames</text>
-  
-  <!-- Frames Bars: ▁▁▁█▁▁▁█▁▁ -->
-  <rect x="150" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <rect x="170" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <rect x="190" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <rect x="210" y="52" width="16" height="26" fill="#dc2626" stroke="#dc2626" stroke-width="1"/>
-  <rect x="230" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <rect x="250" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <rect x="270" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <rect x="290" y="52" width="16" height="26" fill="#dc2626" stroke="#dc2626" stroke-width="1"/>
-  <rect x="310" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <rect x="330" y="60" width="16" height="18" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
+  <!-- 패널 -->
+  <rect x="24" y="24" width="432" height="288" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="120" y1="24" x2="120" y2="312" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="24" y1="96" x2="456" y2="96" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="24" y1="168" x2="456" y2="168" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="24" y1="240" x2="456" y2="240" stroke="#cbd5e1" stroke-width="1"/>
 
-  <!-- Arrow & Annotation 1 -->
-  <path d="M430,65 L355,65" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="435" y="52.5" width="375" height="25" fill="#ffffff" stroke="#fef2f2" stroke-width="1" rx="4"/>
-  <text x="445" y="69.05" font-size="13" fill="#dc2626" font-weight="500">← 빨간 막대가 있으면 프레임을 놓친 지점</text>
+  <!-- 줄 이름 -->
+  <text x="40" y="66" font-size="16" font-weight="bold" fill="#1f2937">Frames</text>
+  <text x="40" y="138" font-size="16" font-weight="bold" fill="#1f2937">Main</text>
+  <text x="40" y="210" font-size="16" font-weight="bold" fill="#1f2937">Raster</text>
+  <text x="40" y="282" font-size="16" font-weight="bold" fill="#1f2937">GPU</text>
 
-  <!-- Row 2: Main -->
-  <text x="60" y="127.5" font-size="14" font-weight="bold" fill="#1f2933">Main</text>
-  <line x1="150" y1="122.5" x2="350" y2="122.5" stroke="#52606d" stroke-width="2" stroke-dasharray="4 3"/>
+  <!-- Frames: ▁▁▁█▁▁▁█▁▁ -->
+  <rect x="144" y="68" width="22" height="16" fill="#94a3b8"/>
+  <rect x="173" y="68" width="22" height="16" fill="#94a3b8"/>
+  <rect x="202" y="68" width="22" height="16" fill="#94a3b8"/>
+  <rect x="231" y="40" width="22" height="44" fill="#dc2626"/>
+  <rect x="260" y="68" width="22" height="16" fill="#94a3b8"/>
+  <rect x="289" y="68" width="22" height="16" fill="#94a3b8"/>
+  <rect x="318" y="68" width="22" height="16" fill="#94a3b8"/>
+  <rect x="347" y="40" width="22" height="44" fill="#dc2626"/>
+  <rect x="376" y="68" width="22" height="16" fill="#94a3b8"/>
+  <rect x="405" y="68" width="22" height="16" fill="#94a3b8"/>
 
-  <!-- Arrow & Annotation 2 -->
-  <path d="M430,122.5 L355,122.5" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="435" y="110" width="395" height="25" fill="#ffffff" stroke="#f8fafc" stroke-width="1" rx="4"/>
-  <text x="445" y="126.55" font-size="13" fill="#52606d">← 메인 스레드. 애니메이션 중 이 줄이 비어 있어야 이상적</text>
+  <!-- Main: 비어 있는 줄 -->
+  <line x1="144" y1="132" x2="432" y2="132" stroke="#94a3b8" stroke-width="2"/>
 
-  <!-- Row 3: Raster -->
-  <text x="60" y="182.5" font-size="14" font-weight="bold" fill="#1f2933">Raster</text>
-  <line x1="150" y1="177.5" x2="350" y2="177.5" stroke="#52606d" stroke-width="1.5"/>
-  <rect x="190" y="166.5" width="16" height="22" fill="#7c3aed" stroke="#7c3aed" rx="1"/>
-  <rect x="250" y="166.5" width="16" height="22" fill="#7c3aed" stroke="#7c3aed" rx="1"/>
-  <rect x="310" y="166.5" width="16" height="22" fill="#7c3aed" stroke="#7c3aed" rx="1"/>
+  <!-- Raster: ──█──█──█── -->
+  <line x1="144" y1="204" x2="432" y2="204" stroke="#94a3b8" stroke-width="2"/>
+  <rect x="196" y="192" width="26" height="24" rx="2" fill="#7c3aed"/>
+  <rect x="275" y="192" width="26" height="24" rx="2" fill="#7c3aed"/>
+  <rect x="354" y="192" width="26" height="24" rx="2" fill="#7c3aed"/>
 
-  <!-- Arrow & Annotation 3 -->
-  <path d="M430,177.5 L355,177.5" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="435" y="165" width="225" height="25" fill="#ffffff" stroke="#f5f3ff" stroke-width="1" rx="4"/>
-  <text x="445" y="181.55" font-size="13" fill="#52606d">← 래스터가 매 프레임 도는지</text>
+  <!-- GPU -->
+  <line x1="144" y1="276" x2="432" y2="276" stroke="#94a3b8" stroke-width="2"/>
 
-  <!-- Row 4: GPU -->
-  <text x="60" y="237.5" font-size="14" font-weight="bold" fill="#1f2933">GPU</text>
-  <line x1="150" y1="232.5" x2="350" y2="232.5" stroke="#059669" stroke-width="2"/>
+  <!-- 설명 -->
+  <line x1="516" y1="60" x2="466" y2="60" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="528" y="66" font-size="16" fill="#1f2937"><tspan font-weight="bold" fill="#b91c1c">빨간 막대</tspan>가 있으면 프레임을 놓친 지점</text>
+
+  <line x1="516" y1="132" x2="466" y2="132" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="528" y="122" font-size="15" fill="#4b5563">메인 스레드</text>
+  <text x="528" y="146" font-size="16" font-weight="bold" fill="#1f2937">애니메이션 중 이 줄이 비어 있어야 이상적</text>
+
+  <line x1="516" y1="204" x2="466" y2="204" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="528" y="210" font-size="16" fill="#1f2937">래스터가 매 프레임 도는지</text>
 </svg>

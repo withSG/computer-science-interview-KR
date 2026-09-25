@@ -1,111 +1,125 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">3. 작업 루프 (Work Loop)</title>
-  <desc id="d">React Fiber 작업 루프의 beginWork와 completeWork 순회 과정을 나타낸 다이어그램</desc>
-  <rect width="880" height="620" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 790" width="880" height="790" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">작업 루프의 beginWork·completeWork 순서</title>
+  <desc id="d">App, Header, List, Item 트리를 child·sibling으로 내려가고 return으로 올라오며 순회할 때 내려가면서 beginWork(컴포넌트 실행, 자식 생성), 올라오면서 completeWork(DOM 노드 준비, 변경점 수집)를 호출하는 순서 ①~⑧을 트리 위 번호와 단계별 표로 보여준다. 루트까지 올라오면 render 단계가 끝난다.</desc>
+  <rect width="880" height="790" fill="#ffffff"/>
   <defs>
-    <!-- Arrowhead Markers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-child" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ret" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
-
-  <!-- Top Header Section (Title/Context Explanations) -->
-  <g>
-    <!-- Left Column: beginWork -->
-    <rect x="50" y="30" width="370" height="64" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-    <text x="235" y="56" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">내려가면서 beginWork</text>
-    <text x="235" y="77" font-size="12" fill="#1e40af" text-anchor="middle">(컴포넌트 실행, 자식 생성)</text>
-
-    <!-- Right Column: completeWork -->
-    <rect x="460" y="30" width="370" height="64" rx="6" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
-    <text x="645" y="56" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">올라오면서 completeWork</text>
-    <text x="645" y="77" font-size="12" fill="#5b21b6" text-anchor="middle">(DOM 노드 준비, 변경점 수집)</text>
+  <!-- 범례: 두 종류의 작업 -->
+  <rect x="24" y="24" width="404" height="76" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <rect x="452" y="24" width="404" height="76" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1"/>
+  <g font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <circle cx="56" cy="62" r="15" fill="#1d4ed8"/>
+    <rect x="469" y="47" width="30" height="30" rx="6" fill="#6d28d9"/>
   </g>
-
-  <!-- Tree Structure Section -->
-  <!-- App Box -->
-  <rect x="390" y="125" width="100" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="147.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
-
-  <!-- Arrow: App -> Header (child) -->
-  <path d="M410,161 L410,199" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="365" y="172" width="40" height="18" fill="#ffffff"/>
-  <text x="385" y="185" font-size="11.5" fill="#2563eb" text-anchor="middle">child</text>
-
-  <!-- Header Box -->
-  <rect x="360" y="200" width="100" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="410" y="222.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Header</text>
-
-  <!-- Arrow: Header -> List (sibling) -->
-  <path d="M460,218 L539,218" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="475" y="209" width="50" height="18" fill="#ffffff"/>
-  <text x="500" y="222" font-size="11.5" fill="#52606d" text-anchor="middle">sibling</text>
-
-  <!-- List Box -->
-  <rect x="540" y="200" width="100" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="590" y="222.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">List</text>
-
-  <!-- Arrow: List -> Item (child) -->
-  <path d="M590,236 L590,274" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="545" y="247" width="40" height="18" fill="#ffffff"/>
-  <text x="565" y="260" font-size="11.5" fill="#2563eb" text-anchor="middle">child</text>
-
-  <!-- Item Box -->
-  <rect x="540" y="275" width="100" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="590" y="297.55" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Item</text>
-
-  <!-- Divider Line -->
-  <line x1="50" y1="335" x2="830" y2="335" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- Step-by-Step Work Loop Table Section -->
-  <g font-size="13">
-    <!-- Step 1 -->
-    <rect x="50" y="350" width="220" height="28" rx="4" fill="#eff6ff"/>
-    <text x="60" y="368.55" font-weight="bold" fill="#2563eb">① beginWork(App)</text>
-    <text x="300" y="368.55" fill="#52606d">자식이 있으니 내려간다</text>
-
-    <!-- Step 2 -->
-    <rect x="50" y="380" width="220" height="28" rx="4" fill="#eff6ff"/>
-    <text x="60" y="398.55" font-weight="bold" fill="#2563eb">② beginWork(Header)</text>
-    <text x="300" y="398.55" fill="#52606d">자식이 없다</text>
-
-    <!-- Step 3 -->
-    <rect x="50" y="410" width="220" height="28" rx="4" fill="#f5f3ff"/>
-    <text x="60" y="428.55" font-weight="bold" fill="#7c3aed">③ completeWork(Header)</text>
-    <text x="300" y="428.55" fill="#52606d">형제가 있으니 그쪽으로 넘어간다</text>
-
-    <!-- Step 4 -->
-    <rect x="50" y="440" width="220" height="28" rx="4" fill="#eff6ff"/>
-    <text x="60" y="458.55" font-weight="bold" fill="#2563eb">④ beginWork(List)</text>
-    <text x="300" y="458.55" fill="#52606d">자식이 있으니 내려간다</text>
-
-    <!-- Step 5 -->
-    <rect x="50" y="470" width="220" height="28" rx="4" fill="#eff6ff"/>
-    <text x="60" y="488.55" font-weight="bold" fill="#2563eb">⑤ beginWork(Item)</text>
-    <text x="300" y="488.55" fill="#52606d">자식이 없다</text>
-
-    <!-- Step 6 -->
-    <rect x="50" y="500" width="220" height="28" rx="4" fill="#f5f3ff"/>
-    <text x="60" y="518.55" font-weight="bold" fill="#7c3aed">⑥ completeWork(Item)</text>
-    <text x="300" y="518.55" fill="#52606d">형제가 없으니 부모로 올라간다</text>
-
-    <!-- Step 7 -->
-    <rect x="50" y="530" width="220" height="28" rx="4" fill="#f5f3ff"/>
-    <text x="60" y="548.55" font-weight="bold" fill="#7c3aed">⑦ completeWork(List)</text>
-    <text x="300" y="548.55" fill="#52606d">형제가 없으니 부모로 올라간다</text>
-
-    <!-- Step 8 -->
-    <rect x="50" y="560" width="220" height="28" rx="4" fill="#f5f3ff"/>
-    <text x="60" y="578.55" font-weight="bold" fill="#7c3aed">⑧ completeWork(App)</text>
-    <text x="300" y="578.55" fill="#52606d">루트까지 올라오면 render 단계 종료</text>
+  <path d="M56,53 V71 M49,64 L56,71 L63,64" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M484,71 V53 M477,60 L484,53 L491,60" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="86" y="56" font-size="17" font-weight="bold" fill="#111827">내려가면서 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1d4ed8">beginWork</tspan></text>
+  <text x="86" y="83" font-size="15" fill="#374151">(컴포넌트 실행, 자식 생성)</text>
+  <text x="514" y="56" font-size="17" font-weight="bold" fill="#111827">올라오면서 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#6d28d9">completeWork</tspan></text>
+  <text x="514" y="83" font-size="15" fill="#374151">(DOM 노드 준비, 변경점 수집)</text>
+  <!-- 트리 -->
+  <g font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">
+    <rect x="240" y="132" width="120" height="46" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="300" y="161">App</text>
+    <rect x="240" y="240" width="120" height="46" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="300" y="269">Header</text>
+    <rect x="540" y="240" width="120" height="46" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="600" y="269">List</text>
+    <rect x="540" y="348" width="120" height="46" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="600" y="377">Item</text>
+  </g>
+  <g font-size="16" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#374151">
+    <line x1="300" y1="180" x2="300" y2="236" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-child)"/>
+    <text x="290" y="213" text-anchor="end">child</text>
+    <line x1="405" y1="263" x2="494" y2="263" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-child)"/>
+    <text x="450" y="252" text-anchor="middle">sibling</text>
+    <line x1="600" y1="288" x2="600" y2="344" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-child)"/>
+    <text x="590" y="321" text-anchor="end">child</text>
+  </g>
+  <g font-size="16" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#b45309">
+    <line x1="686" y1="354" x2="686" y2="282" stroke="#b45309" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#ah-ret)"/>
+    <text x="698" y="323">return</text>
+    <path d="M686,246 V155 H405" fill="none" stroke="#b45309" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#ah-ret)"/>
+    <text x="698" y="206">return</text>
+  </g>
+  <g font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <circle cx="214" cy="155" r="15" fill="#1d4ed8"/>
+    <text x="214" y="161">1</text>
+    <rect x="371" y="140" width="30" height="30" rx="6" fill="#6d28d9"/>
+    <text x="386" y="161">8</text>
+    <circle cx="214" cy="263" r="15" fill="#1d4ed8"/>
+    <text x="214" y="269">2</text>
+    <rect x="371" y="248" width="30" height="30" rx="6" fill="#6d28d9"/>
+    <text x="386" y="269">3</text>
+    <circle cx="514" cy="263" r="15" fill="#1d4ed8"/>
+    <text x="514" y="269">4</text>
+    <rect x="671" y="248" width="30" height="30" rx="6" fill="#6d28d9"/>
+    <text x="686" y="269">7</text>
+    <circle cx="514" cy="371" r="15" fill="#1d4ed8"/>
+    <text x="514" y="377">5</text>
+    <rect x="671" y="356" width="30" height="30" rx="6" fill="#6d28d9"/>
+    <text x="686" y="377">6</text>
+  </g>
+  <!-- 단계표 -->
+  <rect x="24" y="424" width="832" height="36" fill="#f3f4f6"/>
+  <g font-size="15" font-weight="bold" fill="#374151">
+    <text x="54" y="447" text-anchor="middle">단계</text>
+    <text x="98" y="447">호출</text>
+    <text x="350" y="447">판단</text>
+  </g>
+  <line x1="24" y1="498" x2="856" y2="498" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="536" x2="856" y2="536" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="574" x2="856" y2="574" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="612" x2="856" y2="612" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="650" x2="856" y2="650" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="688" x2="856" y2="688" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="726" x2="856" y2="726" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="460" x2="856" y2="460" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="84" y1="424" x2="84" y2="764" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="336" y1="424" x2="336" y2="764" stroke="#e5e7eb" stroke-width="1"/>
+  <rect x="24" y="424" width="832" height="340" fill="none" stroke="#d1d5db" stroke-width="1"/>
+  <g font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <circle cx="54" cy="479" r="13" fill="#1d4ed8"/>
+    <text x="54" y="484">1</text>
+    <circle cx="54" cy="517" r="13" fill="#1d4ed8"/>
+    <text x="54" y="522">2</text>
+    <rect x="41" y="542" width="26" height="26" rx="5" fill="#6d28d9"/>
+    <text x="54" y="560">3</text>
+    <circle cx="54" cy="593" r="13" fill="#1d4ed8"/>
+    <text x="54" y="598">4</text>
+    <circle cx="54" cy="631" r="13" fill="#1d4ed8"/>
+    <text x="54" y="636">5</text>
+    <rect x="41" y="656" width="26" height="26" rx="5" fill="#6d28d9"/>
+    <text x="54" y="674">6</text>
+    <rect x="41" y="694" width="26" height="26" rx="5" fill="#6d28d9"/>
+    <text x="54" y="712">7</text>
+    <rect x="41" y="732" width="26" height="26" rx="5" fill="#6d28d9"/>
+    <text x="54" y="750">8</text>
+  </g>
+  <g font-size="17" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="98" y="485" fill="#1d4ed8">beginWork(App)</text>
+    <text x="98" y="523" fill="#1d4ed8">beginWork(Header)</text>
+    <text x="98" y="561" fill="#6d28d9">completeWork(Header)</text>
+    <text x="98" y="599" fill="#1d4ed8">beginWork(List)</text>
+    <text x="98" y="637" fill="#1d4ed8">beginWork(Item)</text>
+    <text x="98" y="675" fill="#6d28d9">completeWork(Item)</text>
+    <text x="98" y="713" fill="#6d28d9">completeWork(List)</text>
+    <text x="98" y="751" fill="#6d28d9">completeWork(App)</text>
+  </g>
+  <g font-size="16" fill="#1f2937">
+    <text x="350" y="485">자식이 있으니 내려간다</text>
+    <text x="350" y="523">자식이 없다</text>
+    <text x="350" y="561">형제가 있으니 그쪽으로 넘어간다</text>
+    <text x="350" y="599">자식이 있으니 내려간다</text>
+    <text x="350" y="637">자식이 없다</text>
+    <text x="350" y="675">형제가 없으니 부모로 올라간다</text>
+    <text x="350" y="713">형제가 없으니 부모로 올라간다</text>
+    <text x="350" y="751" font-weight="bold" fill="#111827">루트까지 올라오면 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">render</tspan> 단계 종료</text>
   </g>
 </svg>

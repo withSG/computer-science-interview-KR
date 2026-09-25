@@ -741,7 +741,7 @@ Facebook은 MVC의 양방향 데이터 흐름에서 발생하는 복잡성을 �
 ### FLUX 데이터 흐름
 
 <!-- diagram:fe-qna-react-6 -->
-![FLUX 데이터 흐름](../../assets/diagrams/fe-qna-react-6.svg)
+![Action→Dispatcher→Store→View 단방향 순환](../../assets/diagrams/fe-qna-react-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -782,7 +782,7 @@ Redux는 **단일 스토어, 읽기 전용 상태, 순수 함수 reducer**의 3�
 ### Redux 데이터 흐름
 
 <!-- diagram:fe-qna-react-7 -->
-![Redux 데이터 흐름](../../assets/diagrams/fe-qna-react-7.svg)
+![View→dispatch(Action)→Reducer→Store→View 업데이트](../../assets/diagrams/fe-qna-react-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

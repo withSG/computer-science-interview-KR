@@ -33,7 +33,7 @@
 
 **1단계: DNS 조회**
 <!-- diagram:fe-qna-browser-7 -->
-![상세 과정](../../assets/diagrams/fe-qna-browser-7.svg)
+![브라우저 캐시에서 Root DNS까지 DNS 조회 순서](../../assets/diagrams/fe-qna-browser-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -44,7 +44,7 @@
 
 **2단계: TCP 연결 (3-way handshake)**
 <!-- diagram:fe-qna-browser-8 -->
-![상세 과정](../../assets/diagrams/fe-qna-browser-8.svg)
+![SYN, SYN+ACK, ACK 순서의 3-way handshake](../../assets/diagrams/fe-qna-browser-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -86,7 +86,7 @@ CSS 파싱 → CSSOM
 ### 꼬리 질문 대비
 - "DNS 캐싱은 어디서 일어나나요?"
 <!-- diagram:fe-qna-browser-9 -->
-![꼬리 질문 대비](../../assets/diagrams/fe-qna-browser-9.svg)
+![DNS 캐시 확인 순서: 브라우저→OS→라우터→ISP](../../assets/diagrams/fe-qna-browser-9.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

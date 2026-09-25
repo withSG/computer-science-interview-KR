@@ -1,61 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">typeof — 값에서 타입 뽑기</title>
-  <desc id="d">값의 세계에서 타입의 세계로 typeof를 통해 타입을 추출하고 keyof와 T[K] 연산자를 거치는 과정을 나타낸 다이어그램</desc>
-  <rect width="880" height="400" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">typeof로 값에서 타입 뽑기</title>
+  <desc id="d">값의 세계의 const defaultConfig에 typeof를 적용하면 타입의 세계의 Config가 되고, keyof로 키 유니온 "retries" | "endpoint" | "verbose"를, T[K]로 값 타입 유니온 number | string | boolean을 얻는다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- World Columns/Background Sections -->
-  <!-- Value World -->
-  <rect x="40" y="40" width="340" height="320" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="210" y="75" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">값의 세계</text>
-  <line x1="60" y1="90" x2="360" y2="90" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- ===== 값의 세계 ===== -->
+  <rect x="24" y="24" width="260" height="402" rx="12" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="154" y="60" font-size="19" font-weight="bold" fill="#374151" text-anchor="middle">값의 세계</text>
 
-  <!-- Type World -->
-  <rect x="440" y="40" width="400" height="320" rx="8" fill="#f5f3ff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="640" y="75" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">타입의 세계</text>
-  <line x1="460" y1="90" x2="820" y2="90" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="40" y="84" width="228" height="130" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <g font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">
+    <text x="54" y="111">const <tspan font-weight="bold">defaultConfig</tspan> = {</text>
+    <text x="74" y="133"><tspan fill="#1d4ed8">retries</tspan>: 3,</text>
+    <text x="74" y="155"><tspan fill="#1d4ed8">endpoint</tspan>: "/api",</text>
+    <text x="74" y="177"><tspan fill="#1d4ed8">verbose</tspan>: false,</text>
+    <text x="54" y="199">};</text>
+  </g>
 
-  <!-- Value World Element -->
-  <!-- const defaultConfig -->
-  <rect x="70" y="125" width="200" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="170" y="149" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">const defaultConfig</text>
+  <!-- ===== 타입의 세계 ===== -->
+  <rect x="404" y="24" width="452" height="402" rx="12" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="630" y="60" font-size="19" font-weight="bold" fill="#6d28d9" text-anchor="middle">타입의 세계</text>
 
-  <!-- Type World Elements -->
-  <!-- Config -->
-  <rect x="580" y="125" width="120" height="40" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="640" y="149" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">Config</text>
+  <rect x="520" y="84" width="220" height="130" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <g font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827">
+    <text x="534" y="111">type <tspan font-weight="bold">Config</tspan> = {</text>
+    <text x="554" y="133"><tspan fill="#1d4ed8">retries</tspan>: <tspan fill="#b45309">number</tspan>;</text>
+    <text x="554" y="155"><tspan fill="#1d4ed8">endpoint</tspan>: <tspan fill="#b45309">string</tspan>;</text>
+    <text x="554" y="177"><tspan fill="#1d4ed8">verbose</tspan>: <tspan fill="#b45309">boolean</tspan>;</text>
+    <text x="534" y="199">}</text>
+  </g>
 
-  <!-- "retries" | "endpoint" | "verbose" -->
-  <rect x="490" y="215" width="300" height="40" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="640" y="239" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"retries" | "endpoint" | "verbose"</text>
+  <line x1="630" y1="215" x2="630" y2="262" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <text x="646" y="245" font-size="17" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">keyof</text>
+  <text x="708" y="245" font-size="15" fill="#4b5563">키 유니온</text>
 
-  <!-- number | string | boolean -->
-  <rect x="510" y="305" width="260" height="40" rx="6" fill="#ffffff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="640" y="329" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">number | string | boolean</text>
+  <rect x="460" y="264" width="340" height="44" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="630" y="291" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"retries" | "endpoint" | "verbose"</text>
 
-  <!-- Arrows & Connectors -->
-  <!-- typeof arrow: const defaultConfig -> Config -->
-  <path d="M270,145 L580,145" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- Label badge for typeof -->
-  <rect x="390" y="133" width="70" height="24" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="425" y="149" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">typeof</text>
+  <line x1="630" y1="309" x2="630" y2="356" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <text x="646" y="339" font-size="17" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">T[K]</text>
+  <text x="698" y="339" font-size="15" fill="#4b5563">인덱스 접근 타입</text>
 
-  <!-- keyof arrow: Config -> "retries" | ... -->
-  <path d="M640,165 L640,215" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- Label badge for keyof -->
-  <rect x="612" y="178" width="56" height="22" rx="4" fill="#ffffff"/>
-  <text x="640" y="193" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">keyof</text>
-
-  <!-- T[K] arrow: "retries" | ... -> number | ... -->
-  <path d="M640,255 L640,305" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- Label badge for T[K] -->
-  <rect x="618" y="268" width="44" height="22" rx="4" fill="#ffffff"/>
-  <text x="640" y="283" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">T[K]</text>
+  <rect x="495" y="358" width="270" height="44" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="630" y="385" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">number | string | boolean</text>
+  <!-- ===== 통로: typeof ===== -->
+  <line x1="269" y1="149" x2="517" y2="149" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+  <text x="344" y="137" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">typeof</text>
+  <text x="344" y="175" font-size="15" fill="#4b5563" text-anchor="middle">값 → 타입</text>
 </svg>

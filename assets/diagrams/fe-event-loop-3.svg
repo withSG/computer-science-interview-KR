@@ -1,65 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">브라우저 이벤트 루프의 한 사이클</title>
-  <desc id="d">태스크 큐 실행, 마이크로태스크 큐 비우기, 렌더링 기회 단계로 구성된 브라우저 이벤트 루프의 한 사이클과 반복 과정 다이어그램</desc>
-  <rect width="880" height="630" fill="#ffffff"/>
-
+  <desc id="d">한 번의 반복(tick)은 태스크 큐에서 태스크 하나를 끝까지 실행하고, 마이크로태스크 큐를 전부 비운 뒤, 필요할 때만 렌더링 기회(requestAnimationFrame 콜백, 스타일 계산·레이아웃·페인트·합성)를 갖는 순서로 진행되며 이 과정이 반복됩니다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <!-- Arrow markers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Main Outer Container Box -->
-  <rect x="40" y="30" width="800" height="510" rx="12" ry="12" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-  
-  <!-- Outer Title Header Box -->
-  <rect x="230" y="15" width="420" height="32" rx="16" ry="16" fill="#1f2933"/>
-  <text x="440" y="36" fill="#ffffff" font-size="16" font-weight="bold" text-anchor="middle">한 번의 반복(tick)</text>
+  <!-- 한 번의 반복(tick) -->
+  <rect x="24" y="24" width="740" height="476" rx="14" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="48" y="58" font-size="18" font-weight="bold" fill="#111827">한 번의 반복(tick)</text>
 
-  <!-- Step 1 Box -->
-  <rect x="70" y="70" width="740" height="90" rx="8" ry="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="106" fill="#1f2933" font-size="15" font-weight="bold" text-anchor="middle">1. 태스크 큐에서 태스크 하나를 꺼내 끝까지 실행</text>
-  <text x="440" y="136" fill="#52606d" font-size="13" text-anchor="middle">(중간에 끊기지 않는다 = run-to-completion)</text>
+  <!-- 1. 태스크 하나 -->
+  <rect x="48" y="76" width="692" height="86" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="86" cy="119" r="18" fill="#1d4ed8"/>
+  <text x="86" y="125" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="122" y="112" font-size="18" font-weight="bold" fill="#111827">태스크 큐에서 태스크 <tspan fill="#1d4ed8">하나</tspan>를 꺼내 끝까지 실행</text>
+  <text x="122" y="142" font-size="15" fill="#374151">중간에 끊기지 않는다 = <tspan font-weight="bold">run-to-completion</tspan></text>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M440,160 L440,198" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="394" y1="164" x2="394" y2="189" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 2 Box -->
-  <rect x="70" y="200" width="740" height="90" rx="8" ry="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="440" y="236" fill="#1f2933" font-size="15" font-weight="bold" text-anchor="middle">2. 마이크로태스크 큐를 전부 비운다</text>
-  <text x="440" y="266" fill="#52606d" font-size="13" text-anchor="middle">(처리 중 새로 추가된 것도 이번에 다 처리)</text>
+  <!-- 2. 마이크로태스크 전부 -->
+  <rect x="48" y="192" width="692" height="86" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <circle cx="86" cy="235" r="18" fill="#6d28d9"/>
+  <text x="86" y="241" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="122" y="228" font-size="18" font-weight="bold" fill="#111827">마이크로태스크 큐를 <tspan fill="#6d28d9">전부</tspan> 비운다</text>
+  <text x="122" y="258" font-size="15" fill="#374151">처리 중 새로 추가된 것도 이번에 다 처리</text>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M440,290 L440,328" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
+  <line x1="394" y1="280" x2="394" y2="305" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 3 Box Container -->
-  <rect x="70" y="330" width="740" height="180" rx="8" ry="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="440" y="361" fill="#1f2933" font-size="15" font-weight="bold" text-anchor="middle">3. 렌더링 기회 (필요할 때만, 대략 화면 주사율에 맞춰)</text>
+  <!-- 3. 렌더링 기회 (필요할 때만) -->
+  <rect x="48" y="308" width="692" height="172" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2" stroke-dasharray="9 5"/>
+  <circle cx="86" cy="338" r="18" fill="#047857"/>
+  <text x="86" y="344" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="122" y="344" font-size="18" font-weight="bold" fill="#111827">렌더링 기회<tspan dx="10" font-size="15" font-weight="normal" fill="#374151">(필요할 때만, 대략 화면 주사율에 맞춰)</tspan></text>
 
-  <!-- Sub-item 1 -->
-  <text x="130" y="401" fill="#059669" font-size="14" font-weight="bold">├</text>
-  <text x="150" y="401" fill="#1f2933" font-size="13.5">requestAnimationFrame 콜백 실행</text>
+  <circle cx="134" cy="375" r="4" fill="#047857"/>
+  <text x="148" y="380" font-size="15" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">requestAnimationFrame</tspan> 콜백 실행</text>
 
-  <!-- Sub-item 2 -->
-  <text x="130" y="438" fill="#059669" font-size="14" font-weight="bold">├</text>
-  <text x="150" y="438" fill="#1f2933" font-size="13.5">스타일 계산 → 레이아웃 → 페인트 → 합성</text>
+  <circle cx="134" cy="415" r="4" fill="#047857"/>
+  <rect x="148" y="398" width="104" height="34" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="200" y="420" font-size="15" fill="#065f46" text-anchor="middle">스타일 계산</text>
+  <line x1="254" y1="415" x2="282" y2="415" stroke="#047857" stroke-width="1.5" marker-end="url(#ahg)"/>
+  <rect x="286" y="398" width="86" height="34" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="329" y="420" font-size="15" fill="#065f46" text-anchor="middle">레이아웃</text>
+  <line x1="374" y1="415" x2="402" y2="415" stroke="#047857" stroke-width="1.5" marker-end="url(#ahg)"/>
+  <rect x="406" y="398" width="72" height="34" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="442" y="420" font-size="15" fill="#065f46" text-anchor="middle">페인트</text>
+  <line x1="480" y1="415" x2="508" y2="415" stroke="#047857" stroke-width="1.5" marker-end="url(#ahg)"/>
+  <rect x="512" y="398" width="58" height="34" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="541" y="420" font-size="15" fill="#065f46" text-anchor="middle">합성</text>
 
-  <!-- Sub-item 3 -->
-  <text x="130" y="475" fill="#059669" font-size="14" font-weight="bold">└</text>
-  <text x="150" y="475" fill="#52606d" font-size="13">이 단계는 매 tick마다 일어나지 않는다</text>
+  <circle cx="134" cy="455" r="4" fill="#047857"/>
+  <text x="148" y="460" font-size="15" fill="#374151">이 단계는 <tspan font-weight="bold" fill="#111827">매 tick마다 일어나지 않는다</tspan></text>
 
-  <!-- Loop Arrow and Text -->
-  <path d="M 440,540 Q 420,580 435,580" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M 435,580 A 12,12 0 1,0 445,568" stroke="#1f2933" stroke-width="2" fill="none"/>
-  <text x="465" y="582" fill="#1f2933" font-size="15" font-weight="bold">반복</text>
+  <!-- 반복 -->
+  <path d="M394,500 V526 H832 V119 H746" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="613" y="552" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">↺ 반복</text>
 </svg>

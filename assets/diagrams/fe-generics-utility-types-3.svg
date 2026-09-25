@@ -1,72 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">유니온에 적용하면 분배된다</title>
-  <desc id="d">NoString 유니온 타입이 개별 타입으로 분배되어 조건부 평가 후 최종 타입으로 합쳐지는 과정을 보여주는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">분배 조건부 타입의 평가</title>
+  <desc id="d">NoString&lt;string | number | boolean&gt;는 유니온의 멤버마다 조건이 따로 적용되어 never, number, boolean이 되고, 다시 합칠 때 never가 사라져 number | boolean이 된다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 1. Start Box: Input Union Type -->
-  <rect x="250" y="30" width="380" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="58.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">NoString&lt;string | number | boolean&gt;</text>
+  <!-- 입력 -->
+  <rect x="230" y="24" width="420" height="48" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="440" y="54" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">NoString&lt;string | number | boolean&gt;</text>
 
-  <!-- Down Arrow 1: Distribution -->
-  <path d="M440,76 L440,118" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="415" y="87" width="50" height="20" fill="#ffffff"/>
-  <text x="440" y="101" text-anchor="middle" font-size="13" font-weight="bold" fill="#52606d">↓ 분배</text>
+  <!-- ① 분배 -->
+  <path d="M440,72 V116 M155,116 H725" fill="none" stroke="#374151" stroke-width="2"/>
+  <text x="454" y="100" font-size="15" fill="#374151"><tspan font-weight="bold">분배</tspan> — 각 멤버에 조건을 따로 적용</text>
+  <line x1="155" y1="116" x2="155" y2="156" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <line x1="440" y1="116" x2="440" y2="156" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <line x1="725" y1="116" x2="725" y2="156" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-  <!-- 2. Distributed Branches Container -->
-  <rect x="30" y="130" width="820" height="230" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- ② 멤버별 조건 -->
+  <g font-size="16" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827" text-anchor="middle">
+    <rect x="30" y="158" width="250" height="64" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="155" y="185"><tspan font-weight="bold">string</tspan> extends string</text>
+    <text x="155" y="209">? never : string</text>
 
-  <!-- Branch 1: string -->
-  <rect x="50" y="150" width="460" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="280" y="180.2" text-anchor="middle" font-size="14" fill="#dc2626">(string extends string ? never : string)</text>
+    <rect x="315" y="158" width="250" height="64" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="440" y="185"><tspan font-weight="bold">number</tspan> extends string</text>
+    <text x="440" y="209">? never : number</text>
 
-  <path d="M510,175 L572,175" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+    <rect x="600" y="158" width="250" height="64" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="725" y="185"><tspan font-weight="bold">boolean</tspan> extends string</text>
+    <text x="725" y="209">? never : boolean</text>
+  </g>
 
-  <rect x="580" y="150" width="250" height="50" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="705" y="180.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#dc2626">never</text>
+  <line x1="155" y1="223" x2="155" y2="260" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="167" y="247" font-size="14" fill="#4b5563">참</text>
+  <line x1="440" y1="223" x2="440" y2="260" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="452" y="247" font-size="14" fill="#4b5563">거짓</text>
+  <line x1="725" y1="223" x2="725" y2="260" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="737" y="247" font-size="14" fill="#4b5563">거짓</text>
 
-  <!-- Branch 2: number -->
-  <text x="35" y="245.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#52606d">|</text>
+  <!-- 멤버별 결과: never | number | boolean -->
+  <rect x="75" y="262" width="160" height="44" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="155" y="290" font-size="17" font-weight="bold" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">never</text>
+  <text x="297" y="292" font-size="22" font-weight="bold" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">|</text>
+  <rect x="360" y="262" width="160" height="44" rx="6" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="290" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">number</text>
+  <text x="582" y="292" font-size="22" font-weight="bold" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">|</text>
+  <rect x="645" y="262" width="160" height="44" rx="6" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="725" y="290" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">boolean</text>
 
-  <rect x="50" y="220" width="460" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="280" y="250.2" text-anchor="middle" font-size="14" fill="#059669">(number extends string ? never : number)</text>
+  <text x="155" y="334" font-size="15" fill="#4b5563" text-anchor="middle">never는 유니온에서 사라진다</text>
 
-  <path d="M510,245 L572,245" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- ③ 합침 -->
+  <path d="M725,307 V342 H440" fill="none" stroke="#047857" stroke-width="2"/>
+  <line x1="440" y1="307" x2="440" y2="384" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+  <text x="454" y="370" font-size="15" fill="#374151"><tspan font-weight="bold">합침</tspan> — 결과를 다시 유니온으로</text>
 
-  <rect x="580" y="220" width="250" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="705" y="250.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#059669">number</text>
-
-  <!-- Branch 3: boolean -->
-  <text x="35" y="315.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#52606d">|</text>
-
-  <rect x="50" y="290" width="460" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="280" y="320.2" text-anchor="middle" font-size="14" fill="#7c3aed">(boolean extends string ? never : boolean)</text>
-
-  <path d="M510,315 L572,315" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="580" y="290" width="250" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="705" y="320.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#7c3aed">boolean</text>
-
-  <!-- Down Arrow 2: Merge -->
-  <path d="M440,360 L440,412" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="280" y="376" width="320" height="20" fill="#ffffff"/>
-  <text x="440" y="390" text-anchor="middle" font-size="13" font-weight="bold" fill="#52606d">↓ 합침 (never는 유니온에서 사라진다)</text>
-
-  <!-- 3. Final Result Box -->
-  <rect x="250" y="420" width="380" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="450.2" text-anchor="middle" font-size="16" font-weight="bold" fill="#2563eb">number | boolean</text>
+  <rect x="310" y="386" width="260" height="48" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="417" font-size="19" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">number | boolean</text>
 </svg>

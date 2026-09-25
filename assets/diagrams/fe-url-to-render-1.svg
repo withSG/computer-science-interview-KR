@@ -1,74 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">전체 지도</title>
-  <desc id="d">URL 입력부터 파싱, DNS 조회, TCP 연결, TLS 협상, HTTP 교환, 렌더링까지의 전체 흐름 다이어그램</desc>
-  <rect width="880" height="770" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">URL 입력부터 렌더링까지 전체 흐름</title>
+  <desc id="d">사용자 입력 뒤 URL 파싱, DNS 조회, TCP 연결, TLS 협상, HTTP 교환, 렌더링의 여섯 단계가 차례로 이어진다. 단계마다 오른쪽에 그 단계가 푸는 문제와 핵심 내용을 적었고, TLS 협상은 HTTPS인 경우에만 거친다.</desc>
+  <rect width="880" height="720" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- [사용자 입력] -->
-  <rect x="360" y="30" width="160" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="55" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">[사용자 입력]</text>
+  <!-- 시작: 사용자 입력 -->
+  <rect x="78" y="24" width="140" height="38" rx="19" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="148" y="49" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">사용자 입력</text>
+  <line x1="148" y1="63" x2="148" y2="89" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Downward Arrow 1 -->
-  <path d="M440,70 L440,100" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 1. URL 파싱 -->
+  <path d="M272,92 H32 a8,8 0 0 0 -8,8 V160 a8,8 0 0 0 8,8 H272 Z" fill="#eff6ff"/>
+  <rect x="24" y="92" width="832" height="76" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="272" y1="92" x2="272" y2="168" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="60" cy="130" r="17" fill="#1d4ed8"/>
+  <text x="60" y="136" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="90" y="137" font-size="19" font-weight="bold" fill="#111827">URL 파싱</text>
+  <text x="296" y="124" font-size="17" font-weight="bold" fill="#111827">문자열을 구조로 분해</text>
+  <text x="296" y="150" font-size="16" fill="#4b5563">scheme / host / port / path / query</text>
+  <line x1="148" y1="169" x2="148" y2="193" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 1: URL 파싱 -->
-  <rect x="230" y="100" width="200" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="135" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">1. URL 파싱</text>
-  
-  <text x="450" y="125" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="start">문자열을 구조로 분해</text>
-  <text x="450" y="147" fill="#52606d" font-size="12" text-anchor="start">scheme / host / port / path / query</text>
+  <!-- 2. DNS 조회 -->
+  <path d="M272,196 H32 a8,8 0 0 0 -8,8 V264 a8,8 0 0 0 8,8 H272 Z" fill="#eff6ff"/>
+  <rect x="24" y="196" width="832" height="76" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="272" y1="196" x2="272" y2="272" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="60" cy="234" r="17" fill="#1d4ed8"/>
+  <text x="60" y="240" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="90" y="241" font-size="19" font-weight="bold" fill="#111827">DNS 조회</text>
+  <text x="296" y="228" font-size="17" font-weight="bold" fill="#111827">이름(도메인) → 숫자(IP)</text>
+  <text x="296" y="254" font-size="16" fill="#4b5563">캐시 계층을 순서대로 확인</text>
+  <line x1="148" y1="273" x2="148" y2="297" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Downward Arrow 2 -->
-  <path d="M330,160 L330,200" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 3. TCP 연결 -->
+  <path d="M272,300 H32 a8,8 0 0 0 -8,8 V368 a8,8 0 0 0 8,8 H272 Z" fill="#eff6ff"/>
+  <rect x="24" y="300" width="832" height="76" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="272" y1="300" x2="272" y2="376" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="60" cy="338" r="17" fill="#1d4ed8"/>
+  <text x="60" y="344" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="90" y="345" font-size="19" font-weight="bold" fill="#111827">TCP 연결</text>
+  <text x="296" y="332" font-size="17" font-weight="bold" fill="#111827">신뢰할 수 있는 바이트 스트림 확보</text>
+  <text x="296" y="358" font-size="16" fill="#4b5563">3-way handshake (1 RTT)</text>
+  <line x1="148" y1="377" x2="148" y2="401" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 2: DNS 조회 -->
-  <rect x="230" y="200" width="200" height="60" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="330" y="235" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">2. DNS 조회</text>
-  
-  <text x="450" y="225" fill="#059669" font-size="13" font-weight="bold" text-anchor="start">이름(도메인) → 숫자(IP)</text>
-  <text x="450" y="247" fill="#52606d" font-size="12" text-anchor="start">캐시 계층을 순서대로 확인</text>
+  <!-- 4. TLS 협상 (HTTPS인 경우에만: 점선 테두리) -->
+  <path d="M272,404 H32 a8,8 0 0 0 -8,8 V472 a8,8 0 0 0 8,8 H272 Z" fill="#f5f3ff"/>
+  <rect x="24" y="404" width="832" height="76" rx="8" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <line x1="272" y1="404" x2="272" y2="480" stroke="#ddd6fe" stroke-width="1.5"/>
+  <circle cx="60" cy="442" r="17" fill="#6d28d9"/>
+  <text x="60" y="448" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="90" y="449" font-size="19" font-weight="bold" fill="#111827">TLS 협상</text>
+  <text x="296" y="436" font-size="17" font-weight="bold" fill="#6d28d9">HTTPS인 경우에만</text>
+  <text x="296" y="462" font-size="16" fill="#4b5563">인증서 검증 + 세션 키 합의</text>
+  <line x1="148" y1="481" x2="148" y2="505" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Downward Arrow 3 -->
-  <path d="M330,260 L330,300" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 5. HTTP 교환 -->
+  <path d="M272,508 H32 a8,8 0 0 0 -8,8 V576 a8,8 0 0 0 8,8 H272 Z" fill="#eff6ff"/>
+  <rect x="24" y="508" width="832" height="76" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="272" y1="508" x2="272" y2="584" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="60" cy="546" r="17" fill="#1d4ed8"/>
+  <text x="60" y="552" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="90" y="553" font-size="19" font-weight="bold" fill="#111827">HTTP 교환</text>
+  <text x="296" y="540" font-size="17" font-weight="bold" fill="#111827">요청 전송 → 응답 수신</text>
+  <text x="296" y="566" font-size="16" fill="#4b5563">상태코드 · 헤더 · 본문</text>
+  <line x1="148" y1="585" x2="148" y2="609" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Step 3: TCP 연결 -->
-  <rect x="230" y="300" width="200" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="330" y="335" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">3. TCP 연결</text>
-  
-  <text x="450" y="325" fill="#d97706" font-size="13" font-weight="bold" text-anchor="start">신뢰할 수 있는 바이트 스트림 확보</text>
-  <text x="450" y="347" fill="#52606d" font-size="12" text-anchor="start">3-way handshake (1 RTT)</text>
-
-  <!-- Downward Arrow 4 -->
-  <path d="M330,360 L330,400" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 4: TLS 협상 -->
-  <rect x="230" y="400" width="200" height="60" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="330" y="435" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">4. TLS 협상</text>
-  
-  <text x="450" y="425" fill="#7c3aed" font-size="13" font-weight="bold" text-anchor="start">HTTPS인 경우에만</text>
-  <text x="450" y="447" fill="#52606d" font-size="12" text-anchor="start">인증서 검증 + 세션 키 합의</text>
-
-  <!-- Downward Arrow 5 -->
-  <path d="M330,460 L330,500" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 5: HTTP 교환 -->
-  <rect x="230" y="500" width="200" height="60" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="330" y="535" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">5. HTTP 교환</text>
-  
-  <text x="450" y="525" fill="#dc2626" font-size="13" font-weight="bold" text-anchor="start">요청 전송 → 응답 수신</text>
-  <text x="450" y="547" fill="#52606d" font-size="12" text-anchor="start">상태코드 · 헤더 · 본문</text>
-
-  <!-- Downward Arrow 6 -->
-  <path d="M330,560 L330,600" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 6: 렌더링 -->
-  <rect x="230" y="600" width="200" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="635" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">6. 렌더링</text>
-  
-  <text x="450" y="625" fill="#2563eb" font-size="13" font-weight="bold" text-anchor="start">바이트 → DOM/CSSOM → 레이아웃 → 픽셀</text>
-  <text x="450" y="647" fill="#52606d" font-size="12" text-anchor="start">Critical Rendering Path</text>
+  <!-- 6. 렌더링 -->
+  <path d="M272,612 H32 a8,8 0 0 0 -8,8 V680 a8,8 0 0 0 8,8 H272 Z" fill="#eff6ff"/>
+  <rect x="24" y="612" width="832" height="76" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="272" y1="612" x2="272" y2="688" stroke="#cbd5e1" stroke-width="1.5"/>
+  <circle cx="60" cy="650" r="17" fill="#1d4ed8"/>
+  <text x="60" y="656" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="90" y="657" font-size="19" font-weight="bold" fill="#111827">렌더링</text>
+  <text x="296" y="644" font-size="17" font-weight="bold" fill="#111827">바이트 → DOM/CSSOM → 레이아웃 → 픽셀</text>
+  <text x="296" y="670" font-size="16" fill="#4b5563">Critical Rendering Path</text>
 </svg>

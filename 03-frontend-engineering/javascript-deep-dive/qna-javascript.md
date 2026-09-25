@@ -647,7 +647,7 @@ console.log(y);  // ReferenceError: y is not defined
 ### 호이스팅과 TDZ
 
 <!-- diagram:fe-qna-javascript-11 -->
-![호이스팅과 TDZ](../../assets/diagrams/fe-qna-javascript-11.svg)
+![var·let·const의 선언·TDZ·초기화 시점 비교](../../assets/diagrams/fe-qna-javascript-11.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -1166,7 +1166,7 @@ div.addEventListener('click', (e) => {
 ### 타임라인 비교
 
 <!-- diagram:fe-qna-javascript-12 -->
-![타임라인 비교](../../assets/diagrams/fe-qna-javascript-12.svg)
+![같은 연속 이벤트에 대한 디바운스와 스로틀의 실행 시점 비교](../../assets/diagrams/fe-qna-javascript-12.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

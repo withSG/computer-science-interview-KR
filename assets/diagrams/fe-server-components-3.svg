@@ -1,57 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">7. Next.js 캐싱 계층</title>
-  <desc id="d">브라우저의 Router Cache와 서버의 Full Route Cache, Request Memoization, Data Cache 등 Next.js의 캐싱 계층 구조</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Next.js 캐싱 계층</title>
+  <desc id="d">요청은 브라우저의 Router Cache에서 서버의 Full Route Cache, Request Memoization, Data Cache를 차례로 거쳐 실제 데이터 소스에 닿는다. 계층마다 캐시 대상과 유지 기간이 다르다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <rect width="880" height="460" fill="#ffffff"/>
+  <!-- 브라우저 구역 -->
+  <rect x="24" y="24" width="832" height="92" rx="10" fill="#eff6ff"/>
+  <text x="44" y="76" font-size="17" font-weight="bold" fill="#1d4ed8">브라우저</text>
 
-  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">7. Next.js 캐싱 계층</text>
+  <rect x="148" y="42" width="692" height="56" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="178" cy="70" r="15" fill="#1d4ed8"/>
+  <text x="178" y="75" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="206" y="76" font-size="17" font-weight="bold" fill="#111827">Router Cache</text>
+  <text x="470" y="75" font-size="15" fill="#374151">RSC payload, 세션 동안</text>
 
-  <!-- 브라우저 영역 -->
-  <rect x="40" y="65" width="800" height="90" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <rect x="55" y="80" width="80" height="26" rx="4" fill="#eff6ff"/>
-  <text x="95" y="97.9" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">브라우저</text>
+  <line x1="260" y1="98" x2="260" y2="148" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 4) Router Cache -->
-  <rect x="180" y="80" width="280" height="60" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="320" y="114.55" font-size="13" font-weight="bold" fill="#1e40af" text-anchor="middle">4) Router Cache</text>
-  <text x="480" y="114.025" font-size="11.5" fill="#52606d">RSC payload, 세션 동안</text>
+  <!-- 서버 구역 -->
+  <rect x="24" y="132" width="832" height="296" rx="10" fill="#ecfdf5"/>
+  <text x="44" y="188" font-size="17" font-weight="bold" fill="#047857">서버</text>
 
-  <!-- 화살표 (브라우저 -> 서버) -->
-  <path d="M320,140 L320,173" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="148" y="154" width="692" height="56" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="178" cy="182" r="15" fill="#047857"/>
+  <text x="178" y="187" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="206" y="188" font-size="17" font-weight="bold" fill="#111827">Full Route Cache</text>
+  <text x="470" y="187" font-size="15" fill="#374151">렌더된 HTML + RSC payload (정적 라우트만)</text>
 
-  <!-- 서버 영역 -->
-  <rect x="40" y="175" width="800" height="255" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <rect x="55" y="190" width="60" height="26" rx="4" fill="#ecfdf5"/>
-  <text x="85" y="207.9" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">서버</text>
+  <line x1="260" y1="210" x2="260" y2="250" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="278" y="236" font-size="15" fill="#065f46">미스면 아래로 내려가 렌더링</text>
 
-  <!-- 서버 캐시 계층 스택 -->
-  <rect x="180" y="190" width="280" height="65" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <rect x="180" y="255" width="280" height="50" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <rect x="180" y="305" width="280" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <rect x="180" y="190" width="280" height="165" rx="6" fill="none" stroke="#059669" stroke-width="1.5"/>
+  <rect x="148" y="256" width="692" height="56" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="178" cy="284" r="15" fill="#047857"/>
+  <text x="178" y="289" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="206" y="290" font-size="17" font-weight="bold" fill="#111827">Request Memoization</text>
+  <text x="470" y="289" font-size="15" fill="#374151">단일 렌더 패스 동안만</text>
 
-  <!-- 3) Full Route Cache -->
-  <text x="320" y="227.05" font-size="13" font-weight="bold" fill="#065f46" text-anchor="middle">3) Full Route Cache</text>
-  <text x="480" y="216.525" font-size="11.5" fill="#52606d">렌더된 HTML + RSC payload (정적 라우트만)</text>
-  <text x="480" y="238.525" font-size="11.5" fill="#52606d">미스면 아래로 내려가 렌더링</text>
+  <line x1="260" y1="312" x2="260" y2="338" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 1) Request Memoization -->
-  <text x="320" y="284.55" font-size="13" font-weight="bold" fill="#065f46" text-anchor="middle">1) Request Memoization</text>
-  <text x="480" y="284.025" font-size="11.5" fill="#52606d">단일 렌더 패스 동안만</text>
+  <rect x="148" y="344" width="692" height="56" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="178" cy="372" r="15" fill="#047857"/>
+  <text x="178" y="377" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="206" y="378" font-size="17" font-weight="bold" fill="#111827">Data Cache</text>
+  <text x="470" y="377" font-size="15" fill="#374151">fetch 응답, 요청·배포를 넘어 지속</text>
 
-  <!-- 2) Data Cache -->
-  <text x="320" y="334.55" font-size="13" font-weight="bold" fill="#065f46" text-anchor="middle">2) Data Cache</text>
-  <text x="480" y="334.025" font-size="11.5" fill="#52606d">fetch 응답, 요청·배포를 넘어 지속</text>
+  <line x1="260" y1="400" x2="260" y2="450" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 화살표 (Data Cache -> 데이터 소스) -->
-  <path d="M320,355 L320,398" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="335" y="394.025" font-size="11.5" font-weight="bold" fill="#1f2933">실제 데이터 소스 (DB, 외부 API)</text>
+  <!-- 데이터 소스 -->
+  <rect x="148" y="456" width="692" height="52" rx="8" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="178" y="488" font-size="16" font-weight="bold" fill="#111827">실제 데이터 소스 (DB, 외부 API)</text>
 </svg>

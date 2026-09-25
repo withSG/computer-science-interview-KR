@@ -332,7 +332,7 @@ Virtual DOM은 "선언적 UI"를 구현하는 **한 가지 방법**일 뿐, 유�
 Svelte는 빌드 시점에 컴포넌트를 분석해 "이 변수가 바뀌면 이 DOM 노드의 이 속성을 갱신하라"는 코드를 미리 만들어 둡니다. 런타임에 트리를 비교할 필요가 없습니다.
 
 <!-- diagram:fe-virtual-dom-5 -->
-![Svelte: 컴파일 타임에 갱신 코드를 생성](../../assets/diagrams/fe-virtual-dom-5.svg)
+![React는 런타임에 매번 비교, Svelte는 컴파일 타임에 확정](../../assets/diagrams/fe-virtual-dom-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

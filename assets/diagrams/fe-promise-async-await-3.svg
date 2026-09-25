@@ -1,43 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">안티패턴 1 — 독립적인 요청을 하나씩 await</title>
-  <desc id="d">독립적인 요청을 순차적으로 처리할 때(900ms)와 병렬로 처리할 때(400ms)의 소요 시간 비교 다이어그램</desc>
-  <rect width="880" height="320" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">순차 await와 병렬 처리 시간 비교</title>
+  <desc id="d">서로 독립적인 user(300ms), orders(400ms), notices(200ms) 요청을 하나씩 await하면 총 900ms가 걸리고, Promise.all로 동시에 시작하면 가장 느린 요청 기준인 400ms에 끝납니다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
 
-  <!-- 순차 구역 (왼쪽) -->
-  <rect x="24" y="24" width="404" height="272" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="226" y="58" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">순차</text>
+  <!-- 순차 -->
+  <text x="24" y="38" font-size="18" font-weight="bold" fill="#b91c1c">순차 <tspan fill="#374151" font-weight="normal" font-size="16">— 하나씩 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">await</tspan></tspan></text>
 
-  <!-- 순차 라벨 -->
-  <text x="56" y="99" font-size="13" fill="#1f2933">user</text>
-  <text x="56" y="139" font-size="13" fill="#1f2933">orders</text>
-  <text x="56" y="179" font-size="13" fill="#1f2933">notices</text>
+  <text x="152" y="75" font-size="16" fill="#111827" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">user</text>
+  <text x="152" y="115" font-size="16" fill="#111827" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">orders</text>
+  <text x="152" y="155" font-size="16" fill="#111827" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">notices</text>
 
-  <!-- 순차 막대 (300ms, 400ms, 200ms) -->
-  <rect x="120" y="84" width="90" height="22" rx="3" fill="#dc2626"/>
-  <rect x="210" y="124" width="120" height="22" rx="3" fill="#dc2626"/>
-  <rect x="330" y="164" width="60" height="22" rx="3" fill="#dc2626"/>
+  <!-- 대기 구간 -->
+  <rect x="170" y="95" width="206" height="30" rx="4" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="273" y="115" font-size="15" fill="#4b5563" text-anchor="middle">시작 전 대기</text>
+  <rect x="170" y="135" width="486" height="30" rx="4" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="413" y="155" font-size="15" fill="#4b5563" text-anchor="middle">시작 전 대기</text>
 
-  <!-- 순차 시간 브래킷 -->
-  <path d="M120,208 L120,218 L390,218 L390,208" fill="none" stroke="#52606d" stroke-width="1.5"/>
-  <rect x="210" y="228" width="90" height="24" fill="#ffffff"/>
-  <text x="255" y="244" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">900ms</text>
+  <!-- 실행 막대 (1ms = 0.7px) -->
+  <rect x="170" y="55" width="210" height="30" rx="4" fill="#b91c1c"/>
+  <text x="275" y="75" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">300ms</text>
+  <rect x="380" y="95" width="280" height="30" rx="4" fill="#b91c1c"/>
+  <text x="520" y="115" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">400ms</text>
+  <rect x="660" y="135" width="140" height="30" rx="4" fill="#b91c1c"/>
+  <text x="730" y="155" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">200ms</text>
 
-  <!-- 병렬 구역 (오른쪽) -->
-  <rect x="452" y="24" width="404" height="272" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="654" y="58" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">병렬</text>
+  <path d="M170,178 V188 H800 V178" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <text x="485" y="214" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">총 900ms</text>
 
-  <!-- 병렬 라벨 -->
-  <text x="484" y="99" font-size="13" fill="#1f2933">user</text>
-  <text x="484" y="139" font-size="13" fill="#1f2933">orders</text>
-  <text x="484" y="179" font-size="13" fill="#1f2933">notices</text>
+  <!-- 병렬 -->
+  <text x="24" y="262" font-size="18" font-weight="bold" fill="#047857">병렬 <tspan fill="#374151" font-weight="normal" font-size="16">— <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Promise.all</tspan>로 동시에 시작</tspan></text>
 
-  <!-- 병렬 막대 (300ms, 400ms, 200ms 동시 시작) -->
-  <rect x="548" y="84" width="90" height="22" rx="3" fill="#059669"/>
-  <rect x="548" y="124" width="120" height="22" rx="3" fill="#059669"/>
-  <rect x="548" y="164" width="60" height="22" rx="3" fill="#059669"/>
+  <text x="152" y="299" font-size="16" fill="#111827" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">user</text>
+  <text x="152" y="339" font-size="16" fill="#111827" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">orders</text>
+  <text x="152" y="379" font-size="16" fill="#111827" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">notices</text>
 
-  <!-- 병렬 시간 브래킷 -->
-  <path d="M548,208 L548,218 L668,218 L668,208" fill="none" stroke="#52606d" stroke-width="1.5"/>
-  <rect x="563" y="228" width="90" height="24" fill="#ffffff"/>
-  <text x="608" y="244" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">400ms</text>
+  <rect x="170" y="279" width="210" height="30" rx="4" fill="#047857"/>
+  <text x="275" y="299" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">300ms</text>
+  <rect x="170" y="319" width="280" height="30" rx="4" fill="#047857"/>
+  <text x="310" y="339" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">400ms</text>
+  <rect x="170" y="359" width="140" height="30" rx="4" fill="#047857"/>
+  <text x="240" y="379" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">200ms</text>
+
+  <path d="M170,402 V412 H450 V402" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="310" y="438" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">총 400ms <tspan font-size="15" font-weight="normal" fill="#374151">(가장 느린 것 기준)</tspan></text>
+
+  <!-- 시간 축 -->
+  <path d="M170,462 H800" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M170,462 v6 M240,462 v6 M310,462 v6 M380,462 v6 M450,462 v6 M520,462 v6 M590,462 v6 M660,462 v6 M730,462 v6 M800,462 v6" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <g font-size="14" fill="#4b5563" text-anchor="middle">
+    <text x="170" y="486">0</text>
+    <text x="240" y="486">100</text>
+    <text x="310" y="486">200</text>
+    <text x="380" y="486">300</text>
+    <text x="450" y="486">400</text>
+    <text x="520" y="486">500</text>
+    <text x="590" y="486">600</text>
+    <text x="660" y="486">700</text>
+    <text x="730" y="486">800</text>
+    <text x="800" y="486">900</text>
+  </g>
+  <text x="824" y="486" font-size="14" fill="#4b5563">ms</text>
 </svg>

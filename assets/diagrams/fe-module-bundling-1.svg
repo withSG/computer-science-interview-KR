@@ -1,103 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">의존성 그래프 만들기</title>
-  <desc id="d">번들러가 진입점부터 시작하여 각 모듈의 import 구문을 재귀적으로 분석해 의존성 그래프를 구축하는 과정을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 680" width="880" height="680" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">의존성 그래프 구축</title>
+  <desc id="d">번들러가 entry인 src/index.js를 AST로 파싱해 import를 찾고, App.jsx·styles.css·analytics.js·Cart.jsx·utils.js로 재귀적으로 확장해 그래프를 만든다. utils.js는 Cart.jsx와 analytics.js 두 곳에서 참조되지만 노드는 하나이며, 이미 방문한 파일은 재방문하지 않아 순환 참조가 있어도 멈춘다.</desc>
+  <rect width="880" height="680" fill="#ffffff"/>
 
   <defs>
-    <!-- Arrowhead markers for different colors -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Title Bracket Header -->
-  <g>
-    <text x="440" y="44" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[1단계: 의존성 그래프 구축]</text>
-  </g>
+  <!-- 캡션 -->
+  <text x="32" y="44" font-size="18" font-weight="bold" fill="#111827">1단계: 의존성 그래프 구축</text>
 
-  <!-- Entry Line Details -->
-  <g>
-    <text x="440" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">entry: src/index.js</text>
-    
-    <!-- Flow Down Line with Label -->
-    <path d="M440,98 L440,163" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <rect x="230" y="117" width="420" height="24" rx="4" fill="#ffffff"/>
-    <text x="440" y="133" font-size="12" fill="#52606d" text-anchor="middle">파일을 읽어 AST로 파싱 → import 구문을 전부 찾는다</text>
-  </g>
+  <!-- entry -->
+  <rect x="336" y="68" width="208" height="36" rx="18" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="92" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">entry: src/index.js</text>
 
-  <!-- Root Node: index.js -->
-  <g>
-    <rect x="365" y="170" width="150" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="440" y="198" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">index.js</text>
-  </g>
+  <!-- 파싱 단계 -->
+  <path d="M440,106 L440,150" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <text x="458" y="134" font-size="15" fill="#374151">파일을 읽어 AST로 파싱 → import 구문을 전부 찾는다</text>
 
-  <!-- Connectors from index.js to children -->
-  <!-- Main stem down -->
-  <path d="M440,216 L440,240" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Horizontal bus -->
-  <path d="M190,240 L690,240" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Branch down to App.jsx -->
-  <path d="M190,240 L190,263" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <!-- Branch down to styles.css -->
-  <path d="M440,240 L440,263" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <!-- Branch down to analytics.js -->
-  <path d="M690,240 L690,263" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- index.js -->
+  <rect x="360" y="154" width="160" height="44" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="182" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">index.js</text>
 
-  <!-- First Level Children -->
-  <!-- App.jsx -->
-  <g>
-    <rect x="120" y="270" width="140" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="190" y="298" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">App.jsx</text>
-  </g>
+  <!-- index.js → 1단 자식 -->
+  <path d="M440,198 L440,222" stroke="#475569" stroke-width="1.8" fill="none"/>
+  <path d="M170,222 L710,222" stroke="#475569" stroke-width="1.8" fill="none"/>
+  <path d="M170,222 L170,250" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
+  <path d="M440,222 L440,250" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
+  <path d="M710,222 L710,250" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
 
-  <!-- styles.css -->
-  <g>
-    <rect x="370" y="270" width="140" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="440" y="298" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">styles.css</text>
-  </g>
+  <!-- 1단 자식 -->
+  <rect x="95" y="254" width="150" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="170" y="282" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">App.jsx</text>
 
-  <!-- analytics.js -->
-  <g>
-    <rect x="615" y="270" width="150" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="690" y="298" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">analytics.js</text>
-  </g>
+  <rect x="365" y="254" width="150" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="440" y="282" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">styles.css</text>
 
-  <!-- Connection from App.jsx to Cart.jsx -->
-  <path d="M190,316 L190,363" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="635" y="254" width="150" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="710" y="282" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">analytics.js</text>
 
-  <!-- Cart.jsx -->
-  <g>
-    <rect x="120" y="370" width="140" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="190" y="398" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Cart.jsx</text>
-  </g>
+  <!-- App.jsx → Cart.jsx -->
+  <path d="M170,298 L170,346" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
+  <rect x="95" y="350" width="150" height="44" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="170" y="378" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Cart.jsx</text>
 
-  <!-- Connections to utils.js (Shared Node) -->
-  <!-- From Cart.jsx -->
-  <path d="M190,416 L190,483 L361,483" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- From analytics.js -->
-  <path d="M690,316 L690,483 L519,483" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 두 곳 → utils.js -->
+  <path d="M170,394 L170,468 L355,468" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ah-purple)"/>
+  <path d="M710,298 L710,468 L525,468" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ah-purple)"/>
 
-  <!-- Shared Node: utils.js -->
-  <g>
-    <rect x="370" y="460" width="140" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="440" y="488" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">utils.js</text>
-  </g>
+  <rect x="360" y="446" width="160" height="44" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="440" y="474" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">utils.js</text>
+  <text x="440" y="518" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">두 곳에서 참조되지만 노드는 하나다</text>
 
-  <!-- Annotation under utils.js -->
-  <g>
-    <text x="440" y="530" font-size="12" fill="#7c3aed" font-weight="bold" text-anchor="middle">두 곳에서 참조되지만 노드는 하나다</text>
-  </g>
-
-  <!-- Bottom Explanatory Notes Container -->
-  <g>
-    <rect x="80" y="570" width="720" height="100" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="440" y="608" font-size="13" fill="#1f2933" text-anchor="middle">각 노드를 방문할 때마다 다시 import를 찾아 재귀적으로 확장한다.</text>
-    <text x="440" y="638" font-size="13" fill="#1f2933" text-anchor="middle">이미 방문한 파일은 재방문하지 않으므로 순환 참조가 있어도 멈춘다.</text>
-  </g>
+  <!-- 규칙 -->
+  <rect x="32" y="552" width="816" height="100" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <circle cx="60" cy="585" r="4" fill="#475569"/>
+  <text x="76" y="590" font-size="15" fill="#1f2937">각 노드를 방문할 때마다 다시 import를 찾아 <tspan font-weight="bold">재귀적으로 확장</tspan>한다.</text>
+  <circle cx="60" cy="621" r="4" fill="#475569"/>
+  <text x="76" y="626" font-size="15" fill="#1f2937">이미 방문한 파일은 <tspan font-weight="bold">재방문하지 않으므로</tspan> 순환 참조가 있어도 멈춘다.</text>
 </svg>

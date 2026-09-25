@@ -1,53 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">호이스팅의 실체 — 등록과 초기화</title>
-  <desc id="d">스코프 시작부터 끝까지 var, let, fn 선언의 실행 및 TDZ 구간을 나타낸 다이어그램입니다.</desc>
-  
-  <!-- 배경 -->
-  <rect width="880" height="380" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">선언 종류별 스코프 안 접근 가능 구간</title>
+  <desc id="d">스코프 시작부터 끝까지 var는 전 구간 읽기 가능(undefined에서 할당된 값으로), let은 선언문 위치 전까지 TDZ라 읽으면 ReferenceError, 함수 선언문(fn)은 전 구간 호출 가능함을 가로 막대로 보여 준다. 셋 모두 생성 단계에 등록되고 초기화 시점만 다르다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
+  <!-- 시간 축 기준점 -->
+  <text x="170" y="44" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">스코프 시작</text>
+  <text x="470" y="44" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">선언문 위치</text>
+  <text x="820" y="44" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">스코프 끝</text>
+  <line x1="170" y1="56" x2="170" y2="340" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="470" y1="56" x2="470" y2="340" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="820" y1="56" x2="820" y2="340" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-  <!-- 헤딩 (문서 헤딩 사용) -->
-  <text x="30" y="45" font-size="16" font-weight="bold" fill="#1f2933">2. 호이스팅의 실체 — 등록과 초기화</text>
+  <!-- var -->
+  <text x="40" y="130" font-size="22" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">var</text>
+  <polygon points="163,80 177,80 170,93" fill="#111827"/>
+  <text x="184" y="92" font-size="14" font-weight="bold" fill="#111827">초기화 (<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">undefined</tspan>)</text>
+  <rect x="170" y="100" width="300" height="46" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="470" y="100" width="350" height="46" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="320" y="129" font-size="16" fill="#1e3a8a" text-anchor="middle">읽기 가능 · <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">undefined</tspan></text>
+  <text x="645" y="129" font-size="16" fill="#1e3a8a" text-anchor="middle">읽기 가능 · <tspan font-weight="bold">할당된 값</tspan></text>
 
-  <!-- 수직 기준선 (스코프 시작, 선언문 위치, 스코프 끝) -->
-  <!-- 1. 스코프 시작 (x = 100) -->
-  <line x1="100" y1="95" x2="100" y2="330" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="100" y="85" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">스코프 시작</text>
+  <!-- let -->
+  <text x="40" y="220" font-size="22" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">let</text>
+  <polygon points="463,170 477,170 470,183" fill="#111827"/>
+  <text x="484" y="182" font-size="14" font-weight="bold" fill="#111827">초기화 (선언문 도달 시)</text>
+  <rect x="170" y="190" width="300" height="46" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <rect x="470" y="190" width="350" height="46" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="320" y="219" font-size="16" fill="#991b1b" text-anchor="middle"><tspan font-weight="bold">TDZ</tspan> · 읽으면 <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ReferenceError</tspan></text>
+  <text x="645" y="219" font-size="16" fill="#1e3a8a" text-anchor="middle">읽기 가능</text>
 
-  <!-- 2. 선언문 위치 (x = 380) -->
-  <line x1="380" y1="95" x2="380" y2="330" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="380" y="85" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">선언문 위치</text>
+  <!-- fn (함수 선언문) -->
+  <text x="40" y="300" font-size="22" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">fn</text>
+  <text x="40" y="320" font-size="14" fill="#4b5563">함수 선언문</text>
+  <polygon points="163,260 177,260 170,273" fill="#111827"/>
+  <text x="184" y="272" font-size="14" font-weight="bold" fill="#111827">초기화 (함수 객체)</text>
+  <rect x="170" y="280" width="650" height="46" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="495" y="309" font-size="16" fill="#065f46" text-anchor="middle">전 구간 <tspan font-weight="bold">호출 가능</tspan></text>
 
-  <!-- 3. 스코프 끝 (x = 640) -->
-  <line x1="640" y1="95" x2="640" y2="330" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <text x="640" y="85" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">스코프 끝</text>
-
-  <!-- Row 1: var -->
-  <text x="50" y="140" font-size="14" font-weight="bold" fill="#1f2933">var</text>
-  <!-- 전 구간 (100 ~ 640) -->
-  <rect x="100" y="120" width="540" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="655" y="140" font-size="12" fill="#52606d">전 구간 읽기 가능(undefined→값)</text>
-
-  <!-- Row 2: let -->
-  <text x="50" y="210" font-size="14" font-weight="bold" fill="#1f2933">let</text>
-  <!-- TDZ 구간 (100 ~ 380) -->
-  <rect x="100" y="190" width="280" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3" rx="4"/>
-  <!-- 읽기 가능 구간 (380 ~ 640) -->
-  <rect x="380" y="190" width="260" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="655" y="210" font-size="12" fill="#52606d">TDZ (읽으면 ReferenceError)</text>
-
-  <!-- Row 3: fn -->
-  <text x="50" y="280" font-size="14" font-weight="bold" fill="#1f2933">fn</text>
-  <!-- 전 구간 (100 ~ 640) -->
-  <rect x="100" y="260" width="540" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="655" y="280" font-size="12" fill="#52606d">전 구간 호출 가능</text>
-
-  <!-- 범례 (Legend) -->
-  <rect x="100" y="325" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="118" y="335" font-size="11.5" fill="#52606d">읽기 가능 / 실행 가능</text>
-
-  <rect x="250" y="325" width="12" height="12" fill="#fffbeb" stroke="#d97706" stroke-width="1" stroke-dasharray="2 2"/>
-  <text x="268" y="335" font-size="11.5" fill="#52606d">TDZ (일시적 사각지대)</text>
-
-  <rect x="420" y="325" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="438" y="335" font-size="11.5" fill="#52606d">함수 생성 및 완전 초기화</text>
+  <!-- 범례·결론 -->
+  <line x1="24" y1="356" x2="856" y2="356" stroke="#e5e7eb" stroke-width="1"/>
+  <polygon points="40,375 54,375 47,388" fill="#111827"/>
+  <text x="62" y="387" font-size="15" fill="#111827">초기화 시점</text>
+  <text x="170" y="387" font-size="15" fill="#374151">등록은 셋 모두 생성 단계에 끝난다. 갈리는 것은 <tspan font-weight="bold" fill="#111827">초기화가 언제 되는가</tspan> 하나뿐.</text>
 </svg>

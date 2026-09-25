@@ -1,44 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">4. TCP 연결 — 대화가 가능한 상태 만들기</title>
-  <desc id="d">Client와 Server 간의 TCP 3-Way Handshake 과정을 나타낸 시퀀스 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TCP 3-way handshake</title>
+  <desc id="d">Client가 SYN(seq=x)을 보내고 Server가 SYN+ACK(seq=y, ack=x+1)로 답하기까지가 1 RTT이며, Client가 ACK(ack=y+1)를 보내면 연결 수립이 완료된다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="m-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="m-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="390" fill="#ffffff"/>
-  
-  <text x="40" y="32" font-size="16" font-weight="bold" fill="#1f2933">4. TCP 연결 — 대화가 가능한 상태 만들기</text>
-  
-  <rect x="180" y="55" width="120" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="240" y="78" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
-  
-  <rect x="580" y="55" width="120" height="36" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="640" y="78" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Server</text>
-  
-  <line x1="240" y1="91" x2="240" y2="360" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <line x1="640" y1="91" x2="640" y2="360" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="6 4"/>
-  
-  <path d="M240,140 L631,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#m-blue)"/>
-  <rect x="325" y="126" width="230" height="22" rx="4" fill="#ffffff"/>
-  <text x="440" y="141" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">SYN (연결하자, seq=x)</text>
-  
-  <path d="M640,210 L249,210" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#m-purple)"/>
-  <rect x="285" y="196" width="310" height="22" rx="4" fill="#ffffff"/>
-  <text x="440" y="211" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">SYN+ACK (좋다, seq=y, ack=x+1)</text>
-  
-  <text x="655" y="214" font-size="11.5" fill="#52606d">← 여기까지 1 RTT</text>
-  
-  <path d="M240,280 L631,280" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#m-green)"/>
-  <rect x="330" y="266" width="220" height="22" rx="4" fill="#ffffff"/>
-  <text x="440" y="281" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">ACK (확인, ack=y+1)</text>
-  
-  <rect x="360" y="322" width="160" height="28" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="440" y="340" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">[연결 수립 완료]</text>
+
+  <!-- 참여자 -->
+  <rect x="150" y="24" width="120" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="210" y="50" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Client</text>
+  <rect x="620" y="24" width="120" height="40" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="680" y="50" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">Server</text>
+  <line x1="210" y1="64" x2="210" y2="388" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="680" y1="64" x2="680" y2="388" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+  <!-- 1 RTT 구간 표시 (SYN 전송 ~ SYN+ACK 수신) -->
+  <path d="M198,112 H184 V258 H198" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="172" y="178" font-size="15" fill="#374151" text-anchor="end">여기까지</text>
+  <text x="172" y="204" font-size="20" font-weight="bold" fill="#b45309" text-anchor="end">1 RTT</text>
+
+  <!-- SYN -->
+  <line x1="210" y1="112" x2="676" y2="166" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-b)"/>
+  <text x="445" y="118" font-size="16" fill="#374151" text-anchor="middle"><tspan font-size="17" font-weight="bold" fill="#1d4ed8">SYN</tspan>  (연결하자, seq=x)</text>
+
+  <!-- SYN+ACK -->
+  <line x1="680" y1="204" x2="214" y2="258" stroke="#6d28d9" stroke-width="2" marker-end="url(#arr-p)"/>
+  <text x="445" y="200" font-size="16" fill="#374151" text-anchor="middle"><tspan font-size="17" font-weight="bold" fill="#6d28d9">SYN+ACK</tspan>  (좋다, seq=y, ack=x+1)</text>
+
+  <!-- ACK -->
+  <line x1="210" y1="304" x2="676" y2="358" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-b)"/>
+  <text x="445" y="310" font-size="16" fill="#374151" text-anchor="middle"><tspan font-size="17" font-weight="bold" fill="#1d4ed8">ACK</tspan>  (확인, ack=y+1)</text>
+
+  <!-- 연결 수립 완료 -->
+  <rect x="210" y="390" width="470" height="40" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="445" y="416" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">연결 수립 완료</text>
 </svg>

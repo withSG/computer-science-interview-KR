@@ -1,76 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">CRP 다섯 단계</title>
-  <desc id="d">HTML과 CSS 바이트부터 파싱, DOM/CSSOM 트리 생성, 렌더 트리, Layout, Paint, Composite까지 진행되는 Critical Rendering Path 과정 다이어그램</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+  <desc id="d">HTML 바이트는 파싱을 거쳐 DOM 트리가, CSS 바이트는 파싱을 거쳐 CSSOM 트리가 되고, 두 트리가 합쳐 렌더 트리가 된 뒤 Layout(리플로우), Paint, Composite 순으로 진행된다. 각 단계 상자에 그 단계가 만드는 결과를 적었다.</desc>
+  <rect width="880" height="730" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
   </defs>
 
-  <!-- HTML Branch (Left) -->
-  <text x="240" y="44" text-anchor="middle" font-size="13" font-weight="bold" fill="#2563eb">HTML 바이트</text>
-  <path d="M240,55 L240,80" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 입력: HTML 바이트 / CSS 바이트 -->
+  <rect x="165" y="24" width="170" height="40" rx="20" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="250" y="50" text-anchor="middle" font-size="17" font-weight="bold" fill="#1d4ed8">HTML 바이트</text>
+  <rect x="545" y="24" width="170" height="40" rx="20" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="630" y="50" text-anchor="middle" font-size="17" font-weight="bold" fill="#6d28d9">CSS 바이트</text>
 
-  <rect x="175" y="80" width="130" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="240" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">파싱</text>
-  <path d="M240,124 L240,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="250" y1="64" x2="250" y2="94" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="630" y1="64" x2="630" y2="94" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
 
-  <rect x="160" y="150" width="160" height="54" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="240" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">DOM</text>
-  <text x="240" y="193" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">트리</text>
+  <!-- 파싱 -->
+  <rect x="160" y="98" width="180" height="46" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="250" y="127" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">파싱</text>
+  <rect x="540" y="98" width="180" height="46" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="630" y="127" text-anchor="middle" font-size="17" font-weight="bold" fill="#0f172a">파싱</text>
 
-  <!-- CSS Branch (Right) -->
-  <text x="640" y="44" text-anchor="middle" font-size="13" font-weight="bold" fill="#7c3aed">CSS 바이트</text>
-  <path d="M640,55 L640,80" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <line x1="250" y1="144" x2="250" y2="172" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="630" y1="144" x2="630" y2="172" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
 
-  <rect x="575" y="80" width="130" height="44" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="640" y="106" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">파싱</text>
-  <path d="M640,124 L640,150" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- DOM 트리 / CSSOM 트리 -->
+  <rect x="150" y="176" width="200" height="54" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="250" y="209" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e3a8a">DOM 트리</text>
+  <rect x="530" y="176" width="200" height="54" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="630" y="209" text-anchor="middle" font-size="18" font-weight="bold" fill="#4c1d95">CSSOM 트리</text>
 
-  <rect x="560" y="150" width="160" height="54" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="640" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">CSSOM</text>
-  <text x="640" y="193" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">트리</text>
+  <!-- 두 트리가 렌더 트리로 합류 -->
+  <line x1="250" y1="230" x2="250" y2="280" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="630" y1="230" x2="630" y2="280" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Merge Paths to Render Tree -->
-  <path d="M240,204 L240,240 L440,240 L440,260" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <path d="M640,204 L640,240 L440,240" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <!-- 렌더 트리 -->
+  <rect x="190" y="284" width="500" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="311" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f172a">렌더 트리</text>
+  <text x="440" y="336" text-anchor="middle" font-size="15" fill="#374151">보이는 노드 + 계산된 스타일</text>
 
-  <!-- Step 3: Render Tree -->
-  <rect x="320" y="260" width="240" height="48" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="289" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">렌더 트리</text>
-  <text x="575" y="289" text-anchor="start" font-size="11.5" fill="#52606d">보이는 노드 + 계산된 스타일</text>
-  <path d="M440,308 L440,360" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <line x1="440" y1="348" x2="440" y2="380" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 4: Layout -->
-  <rect x="310" y="360" width="260" height="48" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="389" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">Layout(리플로우)</text>
-  <text x="585" y="389" text-anchor="start" font-size="11.5" fill="#52606d">각 박스의 위치·크기 (px)</text>
-  <path d="M440,408 L440,460" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <!-- Layout -->
+  <rect x="190" y="384" width="500" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="411" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f172a">Layout(리플로우)</text>
+  <text x="440" y="436" text-anchor="middle" font-size="15" fill="#374151">각 박스의 위치·크기 (px)</text>
 
-  <!-- Step 5: Paint -->
-  <rect x="320" y="460" width="240" height="48" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="489" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">Paint</text>
-  <text x="575" y="489" text-anchor="start" font-size="11.5" fill="#52606d">"여기에 이 색으로 사각형" 그리기 명령</text>
-  <path d="M440,508 L440,560" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="440" y1="448" x2="440" y2="480" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 6: Composite -->
-  <rect x="320" y="560" width="240" height="48" rx="4" fill="#f8fafc" stroke="#1f2933" stroke-width="1.5"/>
-  <text x="440" y="589" text-anchor="middle" font-size="13" font-weight="bold" fill="#1f2933">Composite</text>
-  <text x="575" y="589" text-anchor="start" font-size="11.5" fill="#52606d">레이어를 순서대로 겹쳐 화면 출력</text>
+  <!-- Paint -->
+  <rect x="190" y="484" width="500" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="511" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f172a">Paint</text>
+  <text x="440" y="536" text-anchor="middle" font-size="15" fill="#374151">"여기에 이 색으로 사각형" 그리기 명령</text>
+
+  <line x1="440" y1="548" x2="440" y2="580" stroke="#475569" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- Composite -->
+  <rect x="190" y="584" width="500" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="611" text-anchor="middle" font-size="18" font-weight="bold" fill="#0f172a">Composite</text>
+  <text x="440" y="636" text-anchor="middle" font-size="15" fill="#374151">레이어를 순서대로 겹쳐 화면 출력</text>
+
+  <!-- 요점 -->
+  <text x="440" y="694" text-anchor="middle" font-size="15" fill="#4b5563">앞 단계가 끝나야 뒷 단계 시작 → 앞쪽(DOM/CSSOM)에서 막히면 뒤가 전부 밀림</text>
 </svg>

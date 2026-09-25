@@ -1,29 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">하이드레이션 과정</title>
-  <desc id="d">FCP, 하이드레이션 진행 중, TTI의 3단계 과정을 보여주는 다이어그램</desc>
+  <title id="t">FCP에서 TTI까지</title>
+  <desc id="d">시간축 위에서 FCP(사용자가 정적 콘텐츠를 봄)와 TTI(페이지가 완전히 인터랙티브) 사이에 하이드레이션이 진행되는 구간이 있고, 이 구간에는 버튼을 클릭해도 반응이 없음을 보여준다.</desc>
   <rect width="880" height="300" fill="#ffffff"/>
+  <defs>
+    <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
 
-  <!-- 메인 프레임 테두리 -->
-  <rect x="40" y="30" width="800" height="240" rx="8" fill="none" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- FCP 이정표 -->
+  <text x="180" y="48" text-anchor="middle" fill="#1d4ed8"><tspan font-size="20" font-weight="bold">FCP</tspan><tspan font-size="15"> (First Contentful Paint)</tspan></text>
+  <text x="180" y="76" font-size="15" fill="#374151" text-anchor="middle">사용자가 콘텐츠를 봄 (정적)</text>
+  <line x1="180" y1="92" x2="180" y2="246" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="5 4"/>
 
-  <!-- 구역 1: FCP -->
-  <path d="M 40 38 A 8 8 0 0 1 48 30 L 832 30 A 8 8 0 0 1 840 38 L 840 100 L 40 100 Z" fill="#eff6ff"/>
-  <text x="60" y="61" font-size="16" font-weight="bold" fill="#2563eb">FCP (First Contentful Paint)</text>
-  <text x="60" y="85" font-size="13" fill="#52606d">사용자가 콘텐츠를 봄 (정적)</text>
+  <!-- TTI 이정표 -->
+  <text x="680" y="48" text-anchor="middle" fill="#047857"><tspan font-size="20" font-weight="bold">TTI</tspan><tspan font-size="15"> (Time To Interactive)</tspan></text>
+  <text x="680" y="76" font-size="15" fill="#374151" text-anchor="middle">페이지가 완전히 인터랙티브</text>
+  <line x1="680" y1="92" x2="680" y2="246" stroke="#047857" stroke-width="2" stroke-dasharray="5 4"/>
 
-  <!-- 구분선 1 -->
-  <line x1="40" y1="100" x2="840" y2="100" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- 하이드레이션 구간 -->
+  <rect x="180" y="126" width="500" height="72" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="430" y="156" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">하이드레이션 진행 중...</text>
+  <text x="430" y="182" font-size="15" fill="#92400e" text-anchor="middle">(버튼 클릭해도 반응 없음)</text>
 
-  <!-- 구역 2: 하이드레이션 진행 중... -->
-  <rect x="40" y="100" width="800" height="80" fill="#fffbeb"/>
-  <text x="60" y="131" font-size="16" font-weight="bold" fill="#d97706">하이드레이션 진행 중...</text>
-  <text x="60" y="155" font-size="13" fill="#52606d">(버튼 클릭해도 반응 없음)</text>
+  <!-- TTI 이후 -->
+  <rect x="680" y="126" width="160" height="72" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="760" y="168" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">인터랙티브</text>
 
-  <!-- 구분선 2 -->
-  <line x1="40" y1="180" x2="840" y2="180" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- 구역 3: TTI -->
-  <path d="M 40 180 L 840 180 L 840 262 A 8 8 0 0 1 832 270 L 48 270 A 8 8 0 0 1 40 262 Z" fill="#ecfdf5"/>
-  <text x="60" y="211" font-size="16" font-weight="bold" fill="#059669">TTI (Time To Interactive)</text>
-  <text x="60" y="235" font-size="13" fill="#52606d">페이지가 완전히 인터랙티브</text>
+  <!-- 시간축 -->
+  <line x1="40" y1="250" x2="846" y2="250" stroke="#374151" stroke-width="2" marker-end="url(#ax)"/>
+  <circle cx="180" cy="250" r="7" fill="#1d4ed8"/>
+  <circle cx="680" cy="250" r="7" fill="#047857"/>
+  <text x="846" y="278" font-size="15" fill="#4b5563" text-anchor="end">시간</text>
+  <text x="180" y="278" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">FCP</text>
+  <text x="680" y="278" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">TTI</text>
 </svg>

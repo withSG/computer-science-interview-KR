@@ -1,62 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">렉시컬 환경 스코프 체인 탐색 과정</title>
-  <desc id="d">inner, outer, 전역 환경 레코드가 outer 참조로 연결되어 ReferenceError까지 탐색하는 과정을 나타낸 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">스코프 체인 탐색</title>
+  <desc id="d">inner의 환경 레코드에서 outer 참조를 따라 outer의 환경 레코드, 전역 환경 레코드, null 순으로 안에서 밖으로 한 방향 탐색하며, null까지 가도 없으면 ReferenceError가 난다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
+  <rect width="880" height="470" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 탐색 방향 레일 -->
+  <text x="84" y="52" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">탐색 방향</text>
+  <text x="84" y="74" font-size="15" fill="#374151" text-anchor="middle">안 → 밖</text>
+  <line x1="84" y1="90" x2="84" y2="430" stroke="#6b7280" stroke-width="3" marker-end="url(#ah-gray)"/>
 
-  <!-- 제목 -->
-  <text x="440" y="40" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">렉시컬 환경 = 환경 레코드 + 외부 참조</text>
+  <!-- inner의 환경 레코드 -->
+  <rect x="150" y="32" width="580" height="60" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="172" y="68" font-size="17" font-weight="bold" fill="#0f172a">inner의 환경 레코드</text>
+  <rect x="420" y="44" width="290" height="36" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="565" y="68" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{ i: 'I' }</text>
 
-  <!-- 1. inner의 환경 레코드 -->
-  <rect x="230" y="70" width="220" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="99" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">inner의 환경 레코드</text>
-  
-  <rect x="470" y="70" width="180" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="560" y="99" font-size="13" fill="#1f2933" text-anchor="middle">{ i: 'I' }</text>
+  <line x1="285" y1="92" x2="285" y2="148" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="300" y="126" font-size="15" font-weight="bold" fill="#1d4ed8">outer 참조</text>
 
-  <!-- 화살표 1: inner -> outer -->
-  <path d="M340,118 L340,162" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="306" y="132" width="68" height="18" fill="#ffffff"/>
-  <text x="340" y="145" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">outer 참조</text>
+  <!-- outer의 환경 레코드 -->
+  <rect x="150" y="150" width="580" height="60" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="172" y="186" font-size="17" font-weight="bold" fill="#0f172a">outer의 환경 레코드</text>
+  <rect x="420" y="162" width="290" height="36" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="565" y="186" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{ o: 'O', inner: fn }</text>
 
-  <!-- 2. outer의 환경 레코드 -->
-  <rect x="230" y="164" width="220" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="193" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">outer의 환경 레코드</text>
+  <line x1="285" y1="210" x2="285" y2="266" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="300" y="244" font-size="15" font-weight="bold" fill="#1d4ed8">outer 참조</text>
 
-  <rect x="470" y="164" width="180" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="560" y="193" font-size="13" fill="#1f2933" text-anchor="middle">{ o: 'O', inner: fn }</text>
+  <!-- 전역 환경 레코드 -->
+  <rect x="150" y="268" width="580" height="60" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+  <text x="172" y="304" font-size="17" font-weight="bold" fill="#0f172a">전역 환경 레코드</text>
+  <rect x="420" y="280" width="290" height="36" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="565" y="304" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{ global: 'G', outer: fn }</text>
 
-  <!-- 화살표 2: outer -> 전역 -->
-  <path d="M340,212 L340,256" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="306" y="226" width="68" height="18" fill="#ffffff"/>
-  <text x="340" y="239" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">outer 참조</text>
+  <line x1="285" y1="328" x2="285" y2="384" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <text x="300" y="362" font-size="15" font-weight="bold" fill="#b91c1c">outer 참조</text>
 
-  <!-- 3. 전역 환경 레코드 -->
-  <rect x="230" y="258" width="220" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="287" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">전역 환경 레코드</text>
-
-  <rect x="470" y="258" width="180" height="48" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="560" y="287" font-size="13" fill="#1f2933" text-anchor="middle">{ global: 'G', outer: fn }</text>
-
-  <!-- 화살표 3: 전역 -> null -->
-  <path d="M340,306 L340,350" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="306" y="320" width="68" height="18" fill="#ffffff"/>
-  <text x="340" y="333" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">outer 참조</text>
-
-  <!-- 4. null & ReferenceError 설명 -->
-  <rect x="290" y="352" width="100" height="44" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="340" y="379" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">null</text>
-
-  <path d="M400,374 L420,374" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-red)"/>
-  <text x="430" y="378" font-size="13" fill="#dc2626">← 여기까지 없으면 ReferenceError</text>
+  <!-- null -->
+  <rect x="235" y="386" width="100" height="48" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="285" y="416" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">null</text>
+  <text x="352" y="416" font-size="16" fill="#b91c1c">← 여기까지 없으면 ReferenceError</text>
 </svg>

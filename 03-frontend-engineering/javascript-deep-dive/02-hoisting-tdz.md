@@ -186,7 +186,7 @@ const arrowFn = () => console.log('ok');
 ```
 
 <!-- diagram:fe-hoisting-tdz-2 -->
-![5. 함수 선언문 vs 함수 표현식](../../assets/diagrams/fe-hoisting-tdz-2.svg)
+![함수 선언문·var 표현식·const 표현식의 초기화와 에러 차이](../../assets/diagrams/fe-hoisting-tdz-2.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

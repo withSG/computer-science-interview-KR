@@ -1,53 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">CORS Preflight 동작 과정</title>
-  <desc id="d">Client와 Server 간의 Preflight(OPTIONS) 요청 및 응답, 이어서 실제 POST 요청 및 응답의 시퀀스 다이어그램</desc>
-  
-  <rect width="880" height="380" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">CORS Preflight 요청 흐름</title>
+  <desc id="d">Client가 먼저 OPTIONS /api로 사전 확인(Preflight)을 보내 Server에서 200과 CORS 헤더를 받은 뒤, 실제 요청 POST /api를 보내 200 response를 받는 순서.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
 
   <defs>
-    <!-- Blue arrow marker for Requests -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-req" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <!-- Green arrow marker for Responses -->
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr-res" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Title (from context document section header) -->
-  <text x="440" y="38" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">동작 과정</text>
+  <!-- 참여자 -->
+  <rect x="70" y="24" width="180" height="46" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="2"/>
+  <text x="160" y="53" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <rect x="630" y="24" width="180" height="46" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="2"/>
+  <text x="720" y="53" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
 
-  <!-- Participant Boxes -->
-  <!-- Client Box -->
-  <rect x="180" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="260" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
+  <!-- 구간 배경 -->
+  <rect x="40" y="90" width="800" height="178" rx="10" fill="#f5f3ff"/>
+  <text x="440" y="116" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">Preflight Request · OPTIONS로 사전 확인</text>
+  <rect x="40" y="282" width="800" height="148" rx="10" fill="#f9fafb"/>
+  <text x="440" y="308" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">실제 요청</text>
 
-  <!-- Server Box -->
-  <rect x="540" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="620" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Server</text>
+  <!-- 생명선 -->
+  <line x1="160" y1="70" x2="160" y2="440" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <line x1="720" y1="70" x2="720" y2="440" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 5"/>
 
-  <!-- Lifelines -->
-  <line x1="260" y1="100" x2="260" y2="340" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="620" y1="100" x2="620" y2="340" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 1. OPTIONS /api -->
+  <text x="440" y="152" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">1. <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OPTIONS /api</tspan></text>
+  <line x1="162" y1="164" x2="716" y2="164" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-req)"/>
 
-  <!-- 1. OPTIONS /api Request -->
-  <path d="M260,140 L620,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="382" y="125" width="116" height="20" fill="#ffffff" rx="2"/>
-  <text x="440" y="139" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">OPTIONS /api</text>
+  <!-- 2. 200 + CORS 헤더 -->
+  <text x="440" y="206" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">2. 200 + CORS 헤더</text>
+  <line x1="718" y1="218" x2="164" y2="218" stroke="#047857" stroke-width="2" stroke-dasharray="8 5" marker-end="url(#arr-res)"/>
+  <text x="440" y="246" font-size="14" fill="#047857" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Access-Control-Allow-Origin</tspan> 등</text>
 
-  <!-- 2. 200 + CORS 헤더 Response -->
-  <path d="M620,190 L260,190" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="360" y="175" width="160" height="20" fill="#ffffff" rx="2"/>
-  <text x="440" y="189" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">200 + CORS 헤더</text>
+  <!-- 3. POST /api -->
+  <text x="440" y="344" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">3. <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">POST /api</tspan></text>
+  <line x1="162" y1="356" x2="716" y2="356" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-req)"/>
 
-  <!-- 3. POST /api Request -->
-  <path d="M260,240 L620,240" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="395" y="225" width="90" height="20" fill="#ffffff" rx="2"/>
-  <text x="440" y="239" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">POST /api</text>
+  <!-- 4. 200 response -->
+  <text x="440" y="398" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">4. 200 response</text>
+  <line x1="718" y1="410" x2="164" y2="410" stroke="#047857" stroke-width="2" stroke-dasharray="8 5" marker-end="url(#arr-res)"/>
 
-  <!-- 4. 200 response Response -->
-  <path d="M620,290 L260,290" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="375" y="275" width="130" height="20" fill="#ffffff" rx="2"/>
-  <text x="440" y="289" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">200 response</text>
+  <!-- 범례 -->
+  <line x1="300" y1="472" x2="344" y2="472" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-req)"/>
+  <text x="354" y="477" font-size="15" fill="#374151">요청</text>
+  <line x1="470" y1="472" x2="514" y2="472" stroke="#047857" stroke-width="2" stroke-dasharray="8 5" marker-end="url(#arr-res)"/>
+  <text x="524" y="477" font-size="15" fill="#374151">응답</text>
 </svg>

@@ -1,69 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">언제 실행되는가</title>
-  <desc id="d">useEffect 의존성이 변경되거나 마운트, 언마운트될 때 effect와 cleanup 함수의 실행 순서를 보여주는 다이어그램입니다.</desc>
-
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
-
-  <!-- 마커 정의 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">cleanup 실행 시점</title>
+  <desc id="d">roomId를 의존성으로 가진 effect의 타임라인. 마운트 때 effect가 'A'에 연결하고, roomId가 'A'에서 'B'로 바뀌면 이전 cleanup이 먼저 'A' 연결을 해제한 뒤 새 effect가 'B'에 연결하며, 언마운트 때 cleanup이 'B' 연결을 해제한다.</desc>
+  <rect width="880" height="400" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 세로 타임라인 / 연결선 -->
-  <path d="M 180,60 L 180,280" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="4 4" fill="none"/>
+  <!-- 시간 축 -->
+  <path d="M32,80 H850" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ah-ink)"/>
+  <text x="856" y="66" font-size="14" fill="#4b5563" text-anchor="end">시간</text>
 
-  <!-- [마운트] 단계 -->
-  <g id="step-mount">
-    <rect x="50" y="40" width="120" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="110" y="65" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">[마운트]</text>
+  <!-- 사건 -->
+  <text x="150" y="56" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">마운트</text>
+  <text x="440" y="56" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">roomId</tspan> 'A' → 'B'</text>
+  <text x="730" y="56" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">언마운트</text>
+  <circle cx="150" cy="80" r="7" fill="#1f2937"/>
+  <circle cx="440" cy="80" r="7" fill="#1f2937"/>
+  <circle cx="730" cy="80" r="7" fill="#1f2937"/>
+  <path d="M150,87 V112" stroke="#9ca3af" stroke-width="1.5" fill="none"/>
+  <path d="M440,87 V112" stroke="#9ca3af" stroke-width="1.5" fill="none"/>
+  <path d="M730,87 V112" stroke="#9ca3af" stroke-width="1.5" fill="none"/>
 
-    <path d="M 170,60 L 250,60" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 마운트: effect -->
+  <rect x="40" y="112" width="220" height="64" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="150" y="139" font-size="16" font-weight="bold" fill="#1e40af" text-anchor="middle">effect 실행</text>
+  <text x="150" y="162" font-size="15" fill="#1f2937" text-anchor="middle">(roomId: 'A')</text>
 
-    <rect x="250" y="40" width="230" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="365" y="65" font-size="13" fill="#1f2933" text-anchor="middle">effect 실행 (roomId: 'A')</text>
-  </g>
+  <!-- roomId 변경: 이전 cleanup → 새 effect -->
+  <rect x="296" y="112" width="288" height="64" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="310" y="128" width="64" height="32" rx="16" fill="#b45309"/>
+  <text x="342" y="149.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">먼저</text>
+  <text x="392" y="139" font-size="16" font-weight="bold" fill="#92400e">이전 cleanup</text>
+  <text x="392" y="162" font-size="15" fill="#1f2937">('A' 연결 해제)</text>
+  <path d="M440,176 V196" stroke="#374151" stroke-width="1.8" fill="none" marker-end="url(#ah-ink)"/>
+  <rect x="296" y="200" width="288" height="64" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="310" y="216" width="64" height="32" rx="16" fill="#1d4ed8"/>
+  <text x="342" y="237.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">나중</text>
+  <text x="392" y="227" font-size="16" font-weight="bold" fill="#1e40af">새 effect</text>
+  <text x="392" y="250" font-size="15" fill="#1f2937">('B' 연결)</text>
 
-  <!-- [roomId 'A' → 'B'] 단계 -->
-  <g id="step-update">
-    <rect x="50" y="125" width="180" height="70" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="140" y="165" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">[roomId 'A' → 'B']</text>
+  <!-- 언마운트: cleanup -->
+  <rect x="620" y="112" width="220" height="64" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="730" y="139" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">cleanup</text>
+  <text x="730" y="162" font-size="15" fill="#1f2937" text-anchor="middle">('B' 연결 해제)</text>
 
-    <!-- 이전 cleanup 연결선 -->
-    <path d="M 230,145 L 290,145" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
+  <!-- 연결이 살아 있는 구간 -->
+  <path d="M150,176 V300" stroke="#9ca3af" stroke-width="1.3" stroke-dasharray="4 4" fill="none"/>
+  <path d="M440,264 V340" stroke="#9ca3af" stroke-width="1.3" stroke-dasharray="4 4" fill="none"/>
+  <path d="M730,176 V300" stroke="#9ca3af" stroke-width="1.3" stroke-dasharray="4 4" fill="none"/>
+  <rect x="150" y="300" width="282" height="32" rx="6" fill="#e0f2fe"/>
+  <text x="291" y="321.5" font-size="15" font-weight="bold" fill="#075985" text-anchor="middle">'A' 연결</text>
+  <rect x="448" y="300" width="282" height="32" rx="6" fill="#ede9fe"/>
+  <text x="589" y="321.5" font-size="15" font-weight="bold" fill="#5b21b6" text-anchor="middle">'B' 연결</text>
 
-    <rect x="290" y="125" width="250" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="415" y="150" font-size="13" fill="#1f2933" text-anchor="middle">이전 cleanup ('A' 연결 해제)</text>
-
-    <rect x="555" y="132" width="70" height="26" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="590" y="149" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">← 먼저</text>
-
-    <!-- 새 effect 연결선 -->
-    <path d="M 230,175 L 290,175" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <rect x="290" y="175" width="250" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="415" y="200" font-size="13" fill="#1f2933" text-anchor="middle">새 effect ('B' 연결)</text>
-
-    <rect x="555" y="182" width="70" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="590" y="199" font-size="12" font-weight="bold" fill="#059669" text-anchor="middle">← 나중</text>
-  </g>
-
-  <!-- [언마운트] 단계 -->
-  <g id="step-unmount">
-    <rect x="50" y="260" width="120" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="110" y="285" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">[언마운트]</text>
-
-    <path d="M 170,280 L 250,280" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-    <rect x="250" y="260" width="230" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="365" y="285" font-size="13" fill="#1f2933" text-anchor="middle">cleanup ('B' 연결 해제)</text>
-  </g>
+  <text x="440" y="374" font-size="15" fill="#4b5563" text-anchor="middle">cleanup은 자신이 만들어진 렌더의 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">roomId</tspan>를 본다 → 자기가 연 연결을 자기가 닫는다</text>
 </svg>

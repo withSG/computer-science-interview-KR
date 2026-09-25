@@ -1,88 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">문제 상황: 툴팁 위치 잡기 (useEffect 흐름)</title>
-  <desc id="d">useEffect 사용 시 툴팁의 높이 측정 과정에서 깜빡임이 발생하는 6단계 플로우차트 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">useEffect로 측정할 때의 깜빡임</title>
+  <desc id="d">useEffect로 툴팁 높이를 잴 때의 6단계 실행 순서. 높이가 0인 채 렌더·커밋·페인트가 먼저 일어나 사용자가 엉뚱한 위치의 툴팁을 보고, 그 뒤 useEffect가 setHeight(32)를 호출해 다시 렌더·커밋·페인트되면서 툴팁이 제자리로 점프한다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <text x="24" y="38" font-size="16" font-weight="bold" fill="#1f2933">문제 상황: 툴팁 위치 잡기</text>
+  <text x="24" y="44" font-size="18" font-weight="bold" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useEffect</tspan>로 측정할 때</text>
 
-  <!-- Step 1 -->
-  <rect x="24" y="60" width="60" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="54" y="84" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">1. 렌더</text>
-  <rect x="94" y="60" width="460" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="110" y="84" font-size="13" fill="#1f2933">height = 0  →  top 계산이 틀림 (엉뚱한 위치)</text>
+  <!-- 번호 사이 화살표 -->
+  <path d="M44,110 V136" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah-ink)"/>
+  <path d="M44,174 V200" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah-ink)"/>
+  <path d="M44,238 V264" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah-ink)"/>
+  <path d="M44,302 V328" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah-ink)"/>
+  <path d="M44,366 V392" stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#ah-ink)"/>
 
-  <!-- Flow Arrow 1 to 2 -->
-  <path d="M54,100 L54,120" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 1. 렌더 -->
+  <circle cx="44" cy="92" r="16" fill="#374151"/>
+  <text x="44" y="98" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="72" y="68" width="640" height="48" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="84" y="76" width="180" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="174" y="97.5" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">렌더</text>
+  <text x="284" y="98" font-size="16" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">height = 0</tspan>  →  <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">top</tspan> 계산이 틀림 (엉뚱한 위치)</text>
 
-  <!-- Step 2 -->
-  <rect x="24" y="120" width="60" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="54" y="144" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2. 커밋</text>
-  <rect x="94" y="120" width="460" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="110" y="144" font-size="13" fill="#1f2933">DOM에 반영</text>
+  <!-- 2. 커밋 -->
+  <circle cx="44" cy="156" r="16" fill="#374151"/>
+  <text x="44" y="162" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="72" y="132" width="640" height="48" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="84" y="140" width="180" height="32" rx="16" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="174" y="161.5" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">커밋</text>
+  <text x="284" y="162" font-size="16" fill="#1f2937">DOM에 반영</text>
 
-  <!-- Flow Arrow 2 to 3 -->
-  <path d="M54,160 L54,180" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- 3. 페인트 (문제 지점) -->
+  <circle cx="44" cy="220" r="16" fill="#b91c1c"/>
+  <text x="44" y="226" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="72" y="196" width="640" height="48" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.8"/>
+  <rect x="84" y="204" width="180" height="32" rx="16" fill="#1f2937"/>
+  <text x="174" y="225.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">페인트</text>
+  <text x="284" y="226" font-size="16" fill="#1f2937">사용자가 “엉뚱한 위치의 툴팁”을 본다</text>
+  <text x="698" y="226" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end">◀ 여기가 문제</text>
 
-  <!-- Step 3 (Problem Highlight) -->
-  <rect x="24" y="180" width="70" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="59" y="204" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">3. 페인트</text>
-  <rect x="104" y="180" width="450" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="120" y="204" font-size="13" fill="#dc2626">사용자가 "엉뚱한 위치의 툴팁"을 본다</text>
-  <rect x="564" y="180" width="130" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="629" y="204" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">← 여기가 문제</text>
+  <!-- 4. useEffect -->
+  <circle cx="44" cy="284" r="16" fill="#374151"/>
+  <text x="44" y="290" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="72" y="260" width="640" height="48" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="84" y="268" width="180" height="32" rx="16" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.2"/>
+  <text x="174" y="289.5" font-size="16" font-weight="bold" fill="#1e40af" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useEffect</text>
+  <text x="284" y="290" font-size="16" fill="#1f2937">높이 측정  →  <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">setHeight(32)</tspan></text>
 
-  <!-- Flow Arrow 3 to 4 -->
-  <path d="M54,220 L54,240" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 5. 렌더 -->
+  <circle cx="44" cy="348" r="16" fill="#374151"/>
+  <text x="44" y="354" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="72" y="324" width="640" height="48" rx="8" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="84" y="332" width="180" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="174" y="353.5" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">렌더</text>
+  <text x="284" y="354" font-size="16" fill="#1f2937"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">height = 32</tspan>  →  <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">top</tspan>이 올바르게 계산됨</text>
 
-  <!-- Step 4 -->
-  <rect x="24" y="240" width="92" height="40" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="70" y="264" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">4. useEffect</text>
-  <rect x="126" y="240" width="428" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="142" y="264" font-size="13" fill="#1f2933">높이 측정 → setHeight(32)</text>
+  <!-- 6. 커밋 + 페인트 -->
+  <circle cx="44" cy="412" r="16" fill="#b45309"/>
+  <text x="44" y="418" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <rect x="72" y="388" width="640" height="48" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <rect x="84" y="396" width="180" height="32" rx="16" fill="#1f2937"/>
+  <text x="174" y="417.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">커밋 + 페인트</text>
+  <text x="284" y="418" font-size="16" fill="#1f2937">사용자가 “제자리로 점프하는 툴팁”을 본다</text>
 
-  <!-- Flow Arrow 4 to 5 -->
-  <path d="M54,280 L54,300" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 5 -->
-  <rect x="24" y="300" width="60" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="54" y="324" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">5. 렌더</text>
-  <rect x="94" y="300" width="460" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="110" y="324" font-size="13" fill="#1f2933">height = 32  →  top이 올바르게 계산됨</text>
-
-  <!-- Flow Arrow 5 to 6 -->
-  <path d="M54,340 L54,360" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 6 -->
-  <rect x="24" y="360" width="126" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="87" y="384" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">6. 커밋 + 페인트</text>
-  <rect x="160" y="360" width="394" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="176" y="384" font-size="13" fill="#1f2933">사용자가 "제자리로 점프하는 툴팁"을 본다</text>
-
-  <!-- Legend -->
-  <rect x="24" y="430" width="832" height="46" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="40" y="458" font-size="11.5" font-weight="bold" fill="#52606d">범례:</text>
-
-  <rect x="85" y="445" width="12" height="12" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="103" y="456" font-size="11.5" fill="#52606d">렌더링</text>
-
-  <rect x="160" y="445" width="12" height="12" rx="2" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="178" y="456" font-size="11.5" fill="#52606d">Effect 실행</text>
-
-  <rect x="255" y="445" width="12" height="12" rx="2" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="273" y="456" font-size="11.5" fill="#52606d">시각적 오류 발생 지점 (깜빡임 원인)</text>
-
-  <rect x="495" y="445" width="12" height="12" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="513" y="456" font-size="11.5" fill="#52606d">최종 상태 반영</text>
+  <!-- 3~6 구간: 깜빡임 -->
+  <path d="M726,220 H740 V412 H726" stroke="#b91c1c" stroke-width="1.8" fill="none"/>
+  <text x="752" y="300" font-size="18" font-weight="bold" fill="#b91c1c">깜빡임</text>
+  <text x="752" y="324" font-size="14" fill="#4b5563">틀린 위치가</text>
+  <text x="752" y="344" font-size="14" fill="#4b5563">한 프레임 보임</text>
 </svg>

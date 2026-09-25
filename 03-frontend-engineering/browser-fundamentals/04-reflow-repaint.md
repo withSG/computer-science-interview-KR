@@ -153,7 +153,7 @@ for (const card of cards) {
 ```
 
 <!-- diagram:fe-reflow-repaint-4 -->
-![개선 1: 읽기를 밖으로 빼기](../../assets/diagrams/fe-reflow-repaint-4.svg)
+![루프 밖 읽기 1회와 프레임 끝 레이아웃 1회](../../assets/diagrams/fe-reflow-repaint-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

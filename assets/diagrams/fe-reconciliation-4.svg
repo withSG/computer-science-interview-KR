@@ -1,48 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 230" width="880" height="230" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실제 버그 시나리오 - React의 재조정 - key가 id일 때</title>
-  <desc id="d">React 재조정 과정에서 key가 고유 id일 때 새로 마운트되는 항목과 그대로 유지되며 상태가 정확히 매칭되는 모습을 보여주는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">id를 key로 쓸 때의 재조정</title>
+  <desc id="d">key가 데이터 고유의 id이면 key 3("운동하기")만 새로 마운트되고 key 1("우유 사기")과 key 2("설거지")는 그대로 유지되어, done=true가 "설거지"에 정확히 남는다.</desc>
+  <rect width="880" height="310" fill="#ffffff"/>
   <defs>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="230" fill="#ffffff"/>
 
-  <!-- Title Section -->
-  <text x="440" y="32" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">[React의 재조정 - key가 id일 때]</text>
+  <text x="24" y="46" font-size="18" font-weight="bold" fill="#111827">React의 재조정 — <tspan fill="#047857">key가 id일 때</tspan></text>
 
-  <!-- Item 1: key 3 -->
-  <g transform="translate(140, 50)">
-    <rect x="0" y="0" width="600" height="42" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="20" y="26" font-size="13" font-weight="bold" fill="#2563eb">key 3 :</text>
-    <rect x="80" y="10" width="100" height="22" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="130" y="25" font-size="11.5" fill="#1f2933" text-anchor="middle">새로 마운트</text>
-    <path d="M 190,21 L 220,21" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <text x="235" y="26" font-size="13" fill="#1f2933">done=false,</text>
-    <text x="330" y="26" font-size="13" fill="#1f2933">"운동하기"</text>
-  </g>
+  <!-- 표 -->
+  <path d="M24,108 V72 Q24,64 32,64 H848 Q856,64 856,72 V108 Z" fill="#f3f4f6"/>
+  <path d="M24,228 H856 V278 Q856,286 848,286 H32 Q24,286 24,278 Z" fill="#ecfdf5"/>
+  <line x1="24" y1="108" x2="856" y2="108" stroke="#9ca3af" stroke-width="1.2"/>
+  <line x1="24" y1="168" x2="856" y2="168" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="24" y1="228" x2="856" y2="228" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="24" y="64" width="832" height="222" rx="8" fill="none" stroke="#9ca3af" stroke-width="1.2"/>
 
-  <!-- Item 2: key 1 -->
-  <g transform="translate(140, 102)">
-    <rect x="0" y="0" width="600" height="42" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-    <text x="20" y="26" font-size="13" font-weight="bold" fill="#1f2933">key 1 :</text>
-    <rect x="80" y="10" width="100" height="22" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="130" y="25" font-size="11.5" fill="#52606d" text-anchor="middle">그대로</text>
-    <path d="M 190,21 L 220,21" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <text x="235" y="26" font-size="13" fill="#1f2933">done=false,</text>
-    <text x="330" y="26" font-size="13" fill="#1f2933">"우유 사기"</text>
-  </g>
+  <!-- 머리행 -->
+  <text x="44" y="92" font-size="15" font-weight="bold" fill="#4b5563">key</text>
+  <text x="170" y="92" font-size="15" font-weight="bold" fill="#4b5563">재조정</text>
+  <text x="425" y="92" font-size="15" font-weight="bold" text-anchor="middle" fill="#4b5563">done</text>
+  <text x="540" y="92" font-size="15" font-weight="bold" fill="#4b5563">text</text>
 
-  <!-- Item 3: key 2 (Highlighted / Correct) -->
-  <g transform="translate(140, 154)">
-    <rect x="0" y="0" width="600" height="42" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="20" y="26" font-size="13" font-weight="bold" fill="#059669">key 2 :</text>
-    <rect x="80" y="10" width="100" height="22" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="130" y="25" font-size="11.5" fill="#52606d" text-anchor="middle">그대로</text>
-    <path d="M 190,21 L 220,21" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <text x="235" y="26" font-size="13" fill="#1f2933">done=true,</text>
-    <text x="330" y="26" font-size="13" fill="#1f2933">"설거지"</text>
-    <path d="M 440,21 L 465,21" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <text x="475" y="26" font-size="13" font-weight="bold" fill="#059669">정확</text>
-  </g>
+  <!-- key 3 -->
+  <text x="44" y="144" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 3</text>
+  <text x="170" y="144" font-size="16" font-weight="bold" fill="#1d4ed8">새로 마운트</text>
+  <line x1="300" y1="139" x2="356" y2="139" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="368" y="125" width="114" height="26" rx="13" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="425" y="143" font-size="15" text-anchor="middle" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
+  <text x="540" y="144" font-size="17" fill="#111827">"운동하기"</text>
+
+  <!-- key 1 -->
+  <text x="44" y="204" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 1</text>
+  <text x="170" y="204" font-size="16" font-weight="bold" fill="#374151">그대로</text>
+  <line x1="300" y1="199" x2="356" y2="199" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="368" y="185" width="114" height="26" rx="13" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="425" y="203" font-size="15" text-anchor="middle" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
+  <text x="540" y="204" font-size="17" fill="#111827">"우유 사기"</text>
+
+  <!-- key 2 -->
+  <text x="44" y="264" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 2</text>
+  <text x="170" y="264" font-size="16" font-weight="bold" fill="#374151">그대로</text>
+  <line x1="300" y1="259" x2="356" y2="259" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+  <rect x="368" y="245" width="114" height="26" rx="13" fill="#ffffff" stroke="#34d399" stroke-width="1"/>
+  <text x="425" y="263" font-size="15" text-anchor="middle" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=true</text>
+  <text x="540" y="264" font-size="17" font-weight="bold" fill="#111827">"설거지"</text>
+  <rect x="648" y="245" width="72" height="26" rx="13" fill="#047857"/>
+  <text x="684" y="263" font-size="15" font-weight="bold" text-anchor="middle" fill="#ffffff">정확</text>
 </svg>

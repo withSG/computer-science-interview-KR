@@ -1,47 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 멈추나</title>
-  <desc id="d">HTML 파싱 중 동기 스크립트를 발견했을 때 다운로드와 실행으로 인해 파싱이 중단되고 이어서 진행되는 타임라인 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">스크립트의 파서 차단</title>
+  <desc id="d">HTML 파싱 중 &lt;script src="a.js"&gt;를 발견하면 파싱이 멈추고, a.js 다운로드와 실행이 끝난 뒤에야 HTML 파싱을 이어서 진행하는 타임라인.</desc>
+  <rect width="880" height="290" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
   </defs>
-  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- 메인 배경/가이드 영역 -->
-  <rect x="40" y="40" width="800" height="240" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 기준선: 스크립트 발견 / 실행 끝 -->
+  <line x1="340" y1="60" x2="340" y2="218" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="630" y1="80" x2="630" y2="218" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-  <!-- 타임라인 막대 및 트랙 -->
-  <!-- 1. HTML 파싱 (첫 번째 구간) -->
-  <rect x="80" y="80" width="180" height="36" rx="4" fill="#2563eb"/>
-  <text x="170" y="103" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">HTML 파싱</text>
+  <!-- 발견 지점 라벨 -->
+  <rect x="222" y="24" width="236" height="36" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="48" text-anchor="middle" font-size="15" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;script src="a.js"&gt;</tspan> 발견</text>
 
-  <!-- 2. 다운로드 -->
-  <rect x="360" y="130" width="120" height="36" rx="4" fill="#d97706"/>
-  <text x="420" y="153" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">다운로드</text>
+  <!-- 행 라벨 -->
+  <text x="108" y="120" text-anchor="end" font-size="16" font-weight="bold" fill="#111827">파서</text>
+  <text x="108" y="190" text-anchor="end" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">a.js</text>
 
-  <!-- 3. 실행 -->
-  <rect x="480" y="180" width="90" height="36" rx="4" fill="#dc2626"/>
-  <text x="525" y="203" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">실행</text>
+  <!-- 1행: 파서 -->
+  <rect x="124" y="90" width="212" height="48" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="230" y="120" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e3a8a">HTML 파싱</text>
 
-  <!-- 4. HTML 파싱 이어서 -->
-  <rect x="570" y="230" width="230" height="36" rx="4" fill="#2563eb"/>
-  <text x="685" y="253" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">HTML 파싱 이어서</text>
+  <rect x="344" y="90" width="282" height="48" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="485" y="120" text-anchor="middle" font-size="16" font-weight="bold" fill="#b91c1c">파싱 멈춤</text>
 
-  <!-- 파싱 중단 및 재개 연결선 -->
-  <path d="M 260,98 L 330,98 C 340,98 345,103 345,113 L 345,235 C 345,245 350,248 360,248 L 570,248" fill="none" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <rect x="634" y="90" width="222" height="48" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="745" y="120" text-anchor="middle" font-size="16" font-weight="bold" fill="#1e3a8a">HTML 파싱 이어서</text>
 
-  <!-- 분기/트리 연결선 -->
-  <path d="M 345,148 L 360,148" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M 345,198 L 480,198" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 2행: a.js -->
+  <rect x="344" y="160" width="160" height="48" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="424" y="190" text-anchor="middle" font-size="16" font-weight="bold" fill="#78350f">다운로드</text>
 
-  <!-- 이벤트/요소 라벨: <script src="a.js"> 발견 -->
-  <g>
-    <rect x="348" y="86" width="164" height="24" fill="#ffffff" rx="3" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="430" y="102" fill="#1f2933" font-size="11.5" text-anchor="middle">&lt;script src="a.js"&gt; 발견</text>
-  </g>
+  <rect x="508" y="160" width="118" height="48" rx="6" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="567" y="190" text-anchor="middle" font-size="16" font-weight="bold" fill="#7f1d1d">실행</text>
 
-  <!-- 타임라인 진행 화살표 (보조) -->
-  <path d="M 80,48 L 800,48" stroke="#cbd2d9" stroke-width="1" fill="none" marker-end="url(#a-ink)"/>
-  <text x="800" y="42" fill="#52606d" font-size="11" text-anchor="end">시간 흐름</text>
+  <!-- 시간 축 -->
+  <line x1="124" y1="238" x2="850" y2="238" stroke="#475569" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="856" y="266" text-anchor="end" font-size="15" fill="#4b5563">시간</text>
 </svg>

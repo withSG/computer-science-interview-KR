@@ -1,59 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Promise의 세 상태</title>
-  <desc id="d">Promise가 pending 상태에서 resolve()를 통해 fulfilled로, 또는 reject()를 통해 rejected로 전이되는 과정과 settled 구역을 나타낸 다이어그램</desc>
+  <desc id="d">대기(pending) 상태의 Promise는 resolve()로 이행(fulfilled), reject()로 거부(rejected) 상태가 됩니다. 둘을 합쳐 settled라 하며, 한 번 정해지면 되돌릴 수 없습니다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="400" fill="#ffffff"/>
+  <!-- pending -->
+  <rect x="340" y="28" width="200" height="70" rx="10" fill="#f3f4f6" stroke="#6b7280" stroke-width="2"/>
+  <text x="440" y="59" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">pending</text>
+  <text x="440" y="85" font-size="16" fill="#374151" text-anchor="middle">대기</text>
 
-  <!-- 문서 헤딩 (원본 절) -->
-  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">2. Promise의 세 상태</text>
+  <!-- 분기 -->
+  <path d="M440,98 V140" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <path d="M440,140 H240 V192" fill="none" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <path d="M440,140 H640 V192" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <text x="330" y="128" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">resolve()</text>
+  <text x="550" y="128" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">reject()</text>
 
-  <!-- 1. pending 박스 (상단 중앙) -->
-  <rect x="340" y="60" width="200" height="50" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="90" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">pending</text>
-  <!-- 대기 -->
-  <text x="560" y="90" font-size="13" fill="#52606d">대기</text>
+  <!-- fulfilled -->
+  <rect x="120" y="196" width="240" height="84" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="240" y="230" font-size="20" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">fulfilled</text>
+  <text x="240" y="259" font-size="16" fill="#111827" text-anchor="middle">이행 (value)</text>
 
-  <!-- 분기 경로 (pending 하단 -> 분기점 -> fulfilled / rejected) -->
-  <!-- pending 하단 중앙(440, 110)에서 아래로(440, 140), 좌우로 분기(250, 140 / 630, 140), 각 박스 상단(250, 190 / 630, 190)으로 -->
-  <path d="M440,110 L440,140 L250,140 L250,190" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M440,140 L630,140 L630,190" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- rejected -->
+  <rect x="520" y="196" width="240" height="84" rx="10" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="640" y="230" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">rejected</text>
+  <text x="640" y="259" font-size="16" fill="#111827" text-anchor="middle">거부 (reason)</text>
 
-  <!-- resolve() 라벨 (좌측) -->
-  <rect x="280" y="128" width="75" height="24" fill="#ffffff"/>
-  <text x="317" y="144" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">resolve()</text>
-
-  <!-- reject() 라벨 (우측) -->
-  <rect x="525" y="128" width="70" height="24" fill="#ffffff"/>
-  <text x="560" y="144" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">reject()</text>
-
-  <!-- settled 배경 영역 (하단 두 상태 그룹화) -->
-  <rect x="130" y="175" width="620" height="155" rx="8" ry="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
-
-  <!-- 2. fulfilled 박스 (하단 좌측) -->
-  <rect x="150" y="190" width="200" height="70" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="220" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">fulfilled</text>
-  <text x="250" y="244" font-size="13" fill="#1f2933" text-anchor="middle">이행 (value)</text>
-
-  <!-- 3. rejected 박스 (하단 우측) -->
-  <rect x="530" y="190" width="200" height="70" rx="6" ry="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="630" y="220" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">rejected</text>
-  <text x="630" y="244" font-size="13" fill="#1f2933" text-anchor="middle">거부 (reason)</text>
-
-  <!-- settled 괄호 및 텍스트 표현 -->
-  <!-- └──────────── settled ────────────┘ -->
-  <path d="M250,270 L250,285 L630,285 L630,270" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <rect x="390" y="273" width="100" height="24" fill="#f8fafc"/>
-  <text x="440" y="290" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">settled</text>
-
-  <!-- (한 번 정해지면 되돌릴 수 없다) -->
-  <text x="440" y="315" font-size="13" fill="#52606d" text-anchor="middle">(한 번 정해지면 되돌릴 수 없다)</text>
+  <!-- settled 묶음 -->
+  <path d="M240,290 V310 H388" fill="none" stroke="#4b5563" stroke-width="2"/>
+  <path d="M492,310 H640 V290" fill="none" stroke="#4b5563" stroke-width="2"/>
+  <text x="440" y="316" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">settled</text>
+  <text x="440" y="348" font-size="16" fill="#374151" text-anchor="middle">한 번 정해지면 <tspan font-weight="bold" fill="#111827">되돌릴 수 없다</tspan></text>
 </svg>

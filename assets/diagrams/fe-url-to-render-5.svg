@@ -1,61 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">TLS 핸드셰이크 — HTTPS가 추가로 하는 일</title>
-  <desc id="d">Client와 Server 간의 TLS 핸드셰이크 과정으로 ClientHello, ServerHello, 인증서 및 키 공유, 인증서 검증과 세션 키 도출 후 Finished 메시지를 통해 암호화된 HTTP가 시작되는 1 RTT 교환을 나타낸 다이어그램</desc>
-  <rect width="880" height="430" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TLS 핸드셰이크 순서</title>
+  <desc id="d">Client가 ClientHello(지원 암호 스위트, 키 공유)를 보내고 Server가 ServerHello, 인증서, 키 공유로 답하기까지가 1 RTT입니다. 이어 Client가 인증서 체인과 도메인 일치를 확인하고, 양쪽이 같은 세션 키를 도출한 뒤 Client가 Finished를 보내면 암호화된 HTTP가 시작됩니다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <!-- Arrow Markers for Primary/Ink (#1f2933) and Accent/Blue (#2563eb) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="440" y="36" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">5. TLS 핸드셰이크 — HTTPS가 추가로 하는 일</text>
+  <!-- 참여자 -->
+  <rect x="180" y="24" width="140" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="250" y="52" font-size="18" font-weight="700" fill="#1e3a8a" text-anchor="middle">Client</text>
+  <rect x="620" y="24" width="140" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="690" y="52" font-size="18" font-weight="700" fill="#1e3a8a" text-anchor="middle">Server</text>
 
-  <!-- Actor Boxes & Vertical Lifelines -->
-  <!-- Client Column Header -->
-  <rect x="130" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="210" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
-  <!-- Client Lifeline -->
-  <path d="M210,100 L210,380" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 생명선 (상자에서 끊김) -->
+  <g stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5" fill="none">
+    <line x1="250" y1="68" x2="250" y2="212"/>
+    <line x1="250" y1="254" x2="250" y2="274"/>
+    <line x1="250" y1="316" x2="250" y2="392"/>
+    <line x1="690" y1="68" x2="690" y2="274"/>
+    <line x1="690" y1="316" x2="690" y2="392"/>
+  </g>
 
-  <!-- Server Column Header -->
-  <rect x="590" y="60" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="670" y="85" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Server</text>
-  <!-- Server Lifeline -->
-  <path d="M670,100 L670,380" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- ClientHello -->
+  <text x="470" y="110" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="700">ClientHello</tspan><tspan font-size="15" fill="#4b5563"> (지원 암호 스위트, 키 공유)</tspan></text>
+  <line x1="252" y1="122" x2="688" y2="122" stroke="#1f2937" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 1 RTT Bracket / Range Indicator -->
-  <path d="M685,115 L700,115 L700,215 L685,215" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-  <text x="710" y="170" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="start">← 여기까지 1 RTT</text>
+  <!-- ServerHello -->
+  <text x="470" y="174" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="700">ServerHello</tspan> + 인증서 + 키 공유</text>
+  <line x1="688" y1="186" x2="252" y2="186" stroke="#1f2937" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 1. ClientHello -->
-  <path d="M210,130 L670,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="280" y="116" width="320" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
-  <text x="440" y="132" font-size="13" fill="#1f2933" text-anchor="middle">ClientHello (지원 암호 스위트, 키 공유)</text>
+  <!-- 1 RTT 구간 -->
+  <path d="M238,122 L224,122 L224,186 L238,186" fill="none" stroke="#6d28d9" stroke-width="2"/>
+  <text x="212" y="148" font-size="15" fill="#6d28d9" text-anchor="end">여기까지</text>
+  <text x="212" y="172" font-size="20" font-weight="700" fill="#6d28d9" text-anchor="end">1 RTT</text>
 
-  <!-- 2. ServerHello + 인증서 + 키 공유 -->
-  <path d="M670,200 L210,200" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="290" y="186" width="300" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
-  <text x="440" y="202" font-size="13" fill="#1f2933" text-anchor="middle">ServerHello + 인증서 + 키 공유</text>
+  <!-- Client 쪽 검증 -->
+  <rect x="100" y="212" width="300" height="42" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="250" y="238" font-size="16" fill="#1f2937" text-anchor="middle">인증서 체인 검증 · 도메인 일치 확인</text>
 
-  <!-- Internal Processing Blocks on Client Side -->
-  <rect x="220" y="232" width="280" height="28" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
-  <text x="360" y="250" font-size="13" fill="#1f2933" text-anchor="middle">[인증서 체인 검증 · 도메인 일치 확인]</text>
+  <!-- 양쪽 세션 키 -->
+  <rect x="170" y="274" width="600" height="42" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="470" y="300" font-size="16" font-weight="700" fill="#4c1d95" text-anchor="middle">양쪽이 같은 세션 키 도출</text>
 
-  <rect x="220" y="270" width="280" height="28" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
-  <text x="360" y="288" font-size="13" fill="#1f2933" text-anchor="middle">[양쪽이 같은 세션 키 도출]</text>
+  <!-- Finished -->
+  <text x="470" y="354" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Finished</text>
+  <line x1="252" y1="366" x2="688" y2="366" stroke="#1f2937" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 3. Finished -->
-  <path d="M210,320 L670,320" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="390" y="306" width="100" height="24" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" rx="3"/>
-  <text x="440" y="322" font-size="13" fill="#1f2933" text-anchor="middle">Finished</text>
-
-  <!-- Encrypted HTTP Starts Notification -->
-  <rect x="330" y="352" width="220" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="440" y="371" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[암호화된 HTTP 시작]</text>
+  <!-- 암호화된 HTTP -->
+  <rect x="170" y="392" width="600" height="44" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="470" y="420" font-size="17" font-weight="700" fill="#065f46" text-anchor="middle">암호화된 HTTP 시작</text>
 </svg>

@@ -52,7 +52,7 @@ function App() {
 ### SSR (Server-Side Rendering)
 
 <!-- diagram:fe-qna-nextjs-5 -->
-![SSR (Server-Side Rendering)](../../assets/diagrams/fe-qna-nextjs-5.svg)
+![SSR: 브라우저 요청→서버 HTML 생성→전송→하이드레이션](../../assets/diagrams/fe-qna-nextjs-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -81,7 +81,7 @@ async function Page() {
 ### SSG (Static Site Generation)
 
 <!-- diagram:fe-qna-nextjs-6 -->
-![SSG (Static Site Generation)](../../assets/diagrams/fe-qna-nextjs-6.svg)
+![SSG: 빌드 시 HTML 미리 생성→CDN 캐싱→즉시 응답](../../assets/diagrams/fe-qna-nextjs-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -110,7 +110,7 @@ async function Page() {
 ### ISR (Incremental Static Regeneration)
 
 <!-- diagram:fe-qna-nextjs-7 -->
-![ISR (Incremental Static Regeneration)](../../assets/diagrams/fe-qna-nextjs-7.svg)
+![ISR: stale 응답→백그라운드 재생성→다음 요청에 새 HTML](../../assets/diagrams/fe-qna-nextjs-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -528,7 +528,7 @@ export default async function Page() {
 ### loading.tsx 활용
 
 <!-- diagram:fe-qna-nextjs-8 -->
-![loading.tsx 활용](../../assets/diagrams/fe-qna-nextjs-8.svg)
+![app/와 dashboard/에 loading.tsx를 둔 디렉터리 트리](../../assets/diagrams/fe-qna-nextjs-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

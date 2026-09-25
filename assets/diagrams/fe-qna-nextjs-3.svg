@@ -1,107 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">기존 SSR vs Streaming SSR</title>
-  <desc id="d">기존 SSR과 Streaming SSR의 처리 과정 비교 다이어그램</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
-
+  <desc id="d">기존 SSR은 데이터 로딩 완료가 병목이 되어 전체 HTML 생성, 전송, 표시가 모두 그 뒤로 밀린다. Streaming SSR은 Header와 Main을 먼저 전송해 표시하고, 데이터 로딩이 끝난 Comments만 나중에 전송해 표시한다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">기존 SSR vs Streaming SSR</text>
+  <!-- ───── 기존 SSR ───── -->
+  <text x="28" y="44" font-size="19" font-weight="bold" fill="#111827">기존 SSR</text>
 
-  <!-- Existing SSR Section -->
-  <rect x="24" y="60" width="832" height="130" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="40" y="85" font-size="14" font-weight="bold" fill="#1f2933">기존 SSR:</text>
+  <rect x="28" y="64" width="164" height="48" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="110" y="94" font-size="16" font-weight="bold" fill="#991b1b" text-anchor="middle">데이터 로딩 완료</text>
+  <line x1="198" y1="88" x2="242" y2="88" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Process Row 1 -->
-  <!-- Box 1: [데이터 로딩 완료] -->
-  <rect x="40" y="100" width="160" height="38" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="120" y="123" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">데이터 로딩 완료</text>
+  <rect x="248" y="64" width="164" height="48" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="330" y="94" font-size="16" fill="#1f2937" text-anchor="middle">전체 HTML 생성</text>
+  <line x1="418" y1="88" x2="462" y2="88" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Arrow 1 -->
-  <path d="M200,119 L230,119" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="468" y="64" width="164" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="550" y="94" font-size="16" fill="#1e3a8a" text-anchor="middle">전송</text>
+  <line x1="638" y1="88" x2="682" y2="88" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Box 2: [전체 HTML 생성] -->
-  <rect x="230" y="100" width="140" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="300" y="123" font-size="13" fill="#1f2933" text-anchor="middle">전체 HTML 생성</text>
+  <rect x="688" y="64" width="164" height="48" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="770" y="94" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">표시</text>
 
-  <!-- Arrow 2 -->
-  <path d="M370,119 L400,119" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="110" y1="142" x2="110" y2="118" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <text x="110" y="162" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">병목 지점</text>
 
-  <!-- Box 3: [전송] -->
-  <rect x="400" y="100" width="80" height="38" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="440" y="123" font-size="13" fill="#1f2933" text-anchor="middle">전송</text>
+  <line x1="24" y1="188" x2="856" y2="188" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- Arrow 3 -->
-  <path d="M480,119 L510,119" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- ───── Streaming SSR ───── -->
+  <text x="28" y="226" font-size="19" font-weight="bold" fill="#111827">Streaming SSR</text>
 
-  <!-- Box 4: [표시] -->
-  <rect x="510" y="100" width="80" height="38" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="550" y="123" font-size="13" fill="#1f2933" text-anchor="middle">표시</text>
+  <!-- Header -->
+  <rect x="28" y="244" width="164" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="110" y="272" font-size="16" fill="#1e3a8a" text-anchor="middle">Header 전송</text>
+  <line x1="198" y1="266" x2="242" y2="266" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="248" y="244" width="164" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="330" y="272" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">표시</text>
 
-  <!-- Bottleneck Indicator -->
-  <path d="M120,165 L120,138" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <text x="120" y="179" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">병목 지점</text>
+  <!-- Main -->
+  <rect x="28" y="304" width="164" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="110" y="332" font-size="16" fill="#1e3a8a" text-anchor="middle">Main 전송</text>
+  <line x1="198" y1="326" x2="242" y2="326" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="248" y="304" width="164" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="330" y="332" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">표시</text>
 
-  <!-- Streaming SSR Section -->
-  <rect x="24" y="205" width="832" height="160" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="40" y="230" font-size="14" font-weight="bold" fill="#1f2933">Streaming SSR:</text>
+  <!-- Comments -->
+  <rect x="28" y="364" width="164" height="44" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="110" y="392" font-size="16" fill="#92400e" text-anchor="middle">데이터 로딩 완료</text>
+  <line x1="198" y1="386" x2="242" y2="386" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="248" y="364" width="164" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="330" y="392" font-size="16" fill="#1e3a8a" text-anchor="middle">Comments 전송</text>
+  <line x1="418" y1="386" x2="462" y2="386" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="468" y="364" width="164" height="44" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="550" y="392" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">표시</text>
 
-  <!-- Streaming Row 1 -->
-  <!-- Box 1: [Header 전송] -->
-  <rect x="40" y="245" width="130" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="105" y="265" font-size="13" fill="#1f2933" text-anchor="middle">Header 전송</text>
-
-  <!-- Arrow -->
-  <path d="M170,261 L200,261" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Box 2: [표시] -->
-  <rect x="200" y="245" width="80" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="240" y="265" font-size="13" fill="#1f2933" text-anchor="middle">표시</text>
-
-  <!-- Streaming Row 2 -->
-  <!-- Box 1: [Main 전송] -->
-  <rect x="40" y="285" width="130" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="105" y="305" font-size="13" fill="#1f2933" text-anchor="middle">Main 전송</text>
-
-  <!-- Arrow -->
-  <path d="M170,301 L200,301" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Box 2: [표시] -->
-  <rect x="200" y="285" width="80" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="240" y="305" font-size="13" fill="#1f2933" text-anchor="middle">표시</text>
-
-  <!-- Streaming Row 3 -->
-  <!-- Box 1: [데이터 로딩 완료] -->
-  <rect x="40" y="325" width="160" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="120" y="345" font-size="13" fill="#1f2933" text-anchor="middle">데이터 로딩 완료</text>
-
-  <!-- Arrow -->
-  <path d="M200,341 L230,341" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Box 2: [Comments 전송] -->
-  <rect x="230" y="325" width="140" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="300" y="345" font-size="13" fill="#1f2933" text-anchor="middle">Comments 전송</text>
-
-  <!-- Arrow -->
-  <path d="M370,341 L400,341" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Box 3: [표시] -->
-  <rect x="400" y="325" width="80" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="440" y="345" font-size="13" fill="#1f2933" text-anchor="middle">표시</text>
+  <!-- 먼저 표시되는 부분 -->
+  <path d="M428,248 Q438,248 438,258 L438,286 Q438,296 448,296 Q438,296 438,306 L438,334 Q438,344 428,344" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="462" y="290" font-size="16" font-weight="bold" fill="#047857">전체 로딩을 기다리지 않고</text>
+  <text x="462" y="314" font-size="16" font-weight="bold" fill="#047857">일부 콘텐츠를 먼저 표시</text>
 </svg>

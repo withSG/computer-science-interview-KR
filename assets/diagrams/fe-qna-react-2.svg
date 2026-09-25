@@ -1,95 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 660" width="880" height="660" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">재조정 과정</title>
-  <desc id="d">React의 Virtual DOM 재조정 과정을 나타낸 6단계 플로우차트입니다.</desc>
-  <rect width="880" height="570" fill="#ffffff"/>
-
+  <desc id="d">Root부터 엘리먼트 타입을 비교해 같은 타입이면 속성만 업데이트하고 자식을 key로 재귀 비교하며, 다른 타입이면 이전 트리를 제거하고 새 트리를 만든 뒤, 변경사항을 수집해 실제 DOM에 반영하는 6단계 흐름.</desc>
+  <rect width="880" height="660" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arrb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- 제목 헤더 -->
-  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">재조정 과정</text>
-
   <!-- 1. Root부터 비교 시작 -->
-  <g transform="translate(140, 70)">
-    <rect width="600" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="36" cy="28" r="14" fill="#2563eb"/>
-    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
-    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">Root부터 비교 시작</text>
-  </g>
+  <rect x="300" y="24" width="280" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="342" cy="52" r="15" fill="#1d4ed8"/>
+  <text x="342" y="57.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="368" y="58" font-size="17" font-weight="bold" fill="#111827">Root부터 비교 시작</text>
 
-  <!-- 화살표 1 -> 2/3 분기 -->
-  <path d="M440,126 L440,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M440,80 V114" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- 분기 구역 (2. 같은 타입 & 3. 다른 타입) -->
+  <!-- 분기: 타입 비교 -->
+  <polygon points="440,116 540,152 440,188 340,152" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="440" y="158" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">타입 비교</text>
+
+  <path d="M440,188 V208" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M230,208 H650" stroke="#4b5563" stroke-width="2" fill="none"/>
+  <path d="M230,207 V250" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M650,207 V250" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="218" y="238" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="end">같은 타입</text>
+  <text x="662" y="238" font-size="16" font-weight="bold" fill="#b91c1c">다른 타입</text>
+
   <!-- 2. 같은 타입 → 속성만 업데이트 -->
-  <g transform="translate(60, 150)">
-    <rect width="360" height="70" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="30" cy="35" r="14" fill="#2563eb"/>
-    <text x="30" y="40" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
-    <text x="56" y="40" font-size="13.5" font-weight="bold" fill="#1f2933">같은 타입 → 속성만 업데이트</text>
-  </g>
+  <rect x="64" y="252" width="332" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="96" cy="280" r="15" fill="#1d4ed8"/>
+  <text x="96" y="285.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="122" y="286" font-size="17" font-weight="bold" fill="#111827">속성만 업데이트</text>
 
   <!-- 3. 다른 타입 → 이전 트리 제거, 새 트리 생성 -->
-  <g transform="translate(460, 150)">
-    <rect width="360" height="70" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <circle cx="30" cy="35" r="14" fill="#dc2626"/>
-    <text x="30" y="40" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
-    <text x="56" y="40" font-size="13.5" font-weight="bold" fill="#1f2933">다른 타입 → 이전 트리 제거, 새 트리 생성</text>
-  </g>
+  <rect x="484" y="252" width="332" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="516" cy="280" r="15" fill="#1d4ed8"/>
+  <text x="516" y="285.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="542" y="286" font-size="17" font-weight="bold" fill="#111827">이전 트리 제거, 새 트리 생성</text>
 
-  <!-- 분기 합류 화살표 -> Step 4 -->
-  <path d="M240,220 L240,245 L440,245 L440,260" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <path d="M640,220 L640,245 L440,245" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <path d="M440,245 L440,260" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M230,308 V342" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
   <!-- 4. 자식 재귀적 비교 (key 활용) -->
-  <g transform="translate(140, 260)">
-    <rect width="600" height="56" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <circle cx="36" cy="28" r="14" fill="#2563eb"/>
-    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
-    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">자식 재귀적 비교 (key 활용)</text>
-  </g>
+  <rect x="64" y="344" width="332" height="56" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="96" cy="372" r="15" fill="#1d4ed8"/>
+  <text x="96" y="377.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="122" y="378" font-size="17" font-weight="bold" fill="#111827">자식 재귀적 비교 (key 활용)</text>
 
-  <!-- 화살표 4 -> 5 -->
-  <path d="M440,316 L440,340" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 재귀: 자식마다 타입 비교로 돌아감 -->
+  <path d="M64,372 H40 V152 H336" stroke="#1d4ed8" stroke-width="2" fill="none" stroke-dasharray="7 5" marker-end="url(#arrb)"/>
+  <text x="56" y="142" font-size="15" font-weight="bold" fill="#1d4ed8">자식마다 재귀적으로 반복</text>
+
+  <!-- 4 → 5, 3 → 5 -->
+  <path d="M230,400 V472 H298" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <path d="M650,308 V472 H582" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
   <!-- 5. 변경사항 수집 -->
-  <g transform="translate(140, 340)">
-    <rect width="600" height="56" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <circle cx="36" cy="28" r="14" fill="#7c3aed"/>
-    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
-    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">변경사항 수집</text>
-  </g>
+  <rect x="300" y="444" width="280" height="56" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="342" cy="472" r="15" fill="#6d28d9"/>
+  <text x="342" y="477.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="368" y="478" font-size="17" font-weight="bold" fill="#111827">변경사항 수집</text>
 
-  <!-- 화살표 5 -> 6 -->
-  <path d="M440,396 L440,420" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <path d="M440,500 V534" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
   <!-- 6. 실제 DOM에 반영 -->
-  <g transform="translate(140, 420)">
-    <rect width="600" height="56" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <circle cx="36" cy="28" r="14" fill="#059669"/>
-    <text x="36" y="33" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
-    <text x="64" y="33" font-size="14" font-weight="bold" fill="#1f2933">실제 DOM에 반영</text>
-  </g>
+  <rect x="300" y="536" width="280" height="56" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="342" cy="564" r="15" fill="#047857"/>
+  <text x="342" y="569.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="368" y="570" font-size="17" font-weight="bold" fill="#111827">실제 DOM에 반영</text>
 
-  <!-- 범례 (Legend) -->
-  <g transform="translate(140, 506)">
-    <rect width="12" height="12" rx="2" fill="#2563eb" y="0"/>
-    <text x="18" y="10" font-size="11.5" fill="#52606d">비교 및 가상 DOM 연산</text>
-
-    <rect width="12" height="12" rx="2" fill="#7c3aed" x="200" y="0"/>
-    <text x="218" y="10" font-size="11.5" fill="#52606d">diff 수집</text>
-
-    <rect width="12" height="12" rx="2" fill="#059669" x="330" y="0"/>
-    <text x="348" y="10" font-size="11.5" fill="#52606d">실제 DOM 패치</text>
-  </g>
+  <!-- 범례 -->
+  <rect x="64" y="619" width="16" height="16" rx="3" fill="#1d4ed8"/>
+  <text x="88" y="632" font-size="15" fill="#374151">비교 및 가상 DOM 연산 (1~4)</text>
+  <rect x="330" y="619" width="16" height="16" rx="3" fill="#6d28d9"/>
+  <text x="354" y="632" font-size="15" fill="#374151">diff 수집 (5)</text>
+  <rect x="496" y="619" width="16" height="16" rx="3" fill="#047857"/>
+  <text x="520" y="632" font-size="15" fill="#374151">실제 DOM 패치 (6)</text>
 </svg>

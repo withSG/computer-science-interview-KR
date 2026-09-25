@@ -337,7 +337,7 @@ const Label = lazy(() => import('./Label'));
 번들을 어떻게 나눌지는 결국 **캐시 적중률을 얼마나 높이느냐**의 문제입니다.
 
 <!-- diagram:fe-module-bundling-2 -->
-![5. 청크 전략](../../assets/diagrams/fe-module-bundling-2.svg)
+![전략 A 단일 900KB 번들과 전략 B 성격별 청크 비교](../../assets/diagrams/fe-module-bundling-2.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

@@ -1,73 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">section인가 article인가 div인가</title>
-  <desc id="d">HTML 태그 section, article, div의 사용 기준을 결정하는 의사결정 흐름도</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">section·article·div 판별 순서</title>
+  <desc id="d">다른 사이트에 그대로 퍼가도 말이 되는 덩어리면 article, 아니면서 붙일 제목(h2~h6)이 있으면 section과 제목, 둘 다 아니면 CSS를 걸기 위한 껍데기인 div를 쓴다는 판별 흐름.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ay" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 질문 1 -->
+  <rect x="24" y="24" width="380" height="84" rx="10" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="54" cy="66" r="15" fill="#374151"/>
+  <text x="54" y="72" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">1</text>
+  <text x="84" y="59" font-size="17" font-weight="700" fill="#111827">이 덩어리를 다른 사이트에<tspan x="84" dy="25">그대로 퍼가도 말이 되는가?</tspan></text>
 
-  <!-- 메인 질문 1 -->
-  <rect x="180" y="30" width="520" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="440" y="65" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">이 덩어리를 다른 사이트에 그대로 퍼가도 말이 되는가?</text>
+  <!-- 1 예 → article -->
+  <line x1="404" y1="66" x2="510" y2="66" stroke="#047857" stroke-width="2.5" marker-end="url(#ay)"/>
+  <text x="457" y="54" text-anchor="middle" font-size="16" font-weight="700" fill="#047857">예</text>
+  <rect x="516" y="24" width="340" height="84" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="536" y="58" font-size="20" font-weight="700" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;article&gt;</text>
+  <text x="536" y="88" font-size="15" fill="#374151">블로그 글, 뉴스 기사, 상품 후기, 댓글 하나</text>
 
-  <!-- 질문 1 -> 예 / 아니오 분기선 -->
-  <!-- 예 (오른쪽으로) -->
-  <path d="M 700 60 L 760 60 L 760 101" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  <rect x="715" y="48" width="30" height="24" fill="#ffffff"/>
-  <text x="730" y="65" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">예</text>
+  <!-- 1 아니오 → 질문 2 -->
+  <line x1="214" y1="108" x2="214" y2="178" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#an)"/>
+  <text x="228" y="149" font-size="16" font-weight="700" fill="#b91c1c">아니오</text>
 
-  <!-- 아니오 (아래로) -->
-  <path d="M 440 90 L 440 180" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="420" y="123" width="40" height="24" fill="#ffffff"/>
-  <text x="440" y="140" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">아니오</text>
+  <!-- 질문 2 -->
+  <rect x="24" y="184" width="380" height="84" rx="10" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <circle cx="54" cy="226" r="15" fill="#374151"/>
+  <text x="54" y="232" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">2</text>
+  <text x="84" y="219" font-size="17" font-weight="700" fill="#111827">이 덩어리에 붙일<tspan x="84" dy="25">제목(h2~h6)이 있는가?</tspan></text>
 
-  <!-- 결과 1: <article> -->
-  <g transform="translate(610, 101)">
-    <rect x="0" y="0" width="260" height="68" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <text x="130" y="30" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">&lt;article&gt;</text>
-    <text x="130" y="54" font-size="12" fill="#52606d" text-anchor="middle">(블로그 글, 뉴스 기사, 상품 후기, 댓글 하나)</text>
-  </g>
+  <!-- 2 예 → section -->
+  <line x1="404" y1="226" x2="510" y2="226" stroke="#047857" stroke-width="2.5" marker-end="url(#ay)"/>
+  <text x="457" y="214" text-anchor="middle" font-size="16" font-weight="700" fill="#047857">예</text>
+  <rect x="516" y="184" width="340" height="84" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="536" y="218" font-size="20" font-weight="700" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;section&gt;<tspan font-size="18" fill="#111827" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"> + 제목</tspan></text>
+  <text x="536" y="248" font-size="15" fill="#374151">"배송 정보", "리뷰" 같은 주제 묶음</text>
 
-  <!-- 메인 질문 2 -->
-  <rect x="180" y="180" width="520" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="440" y="215" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">이 덩어리에 붙일 제목(h2~h6)이 있는가?</text>
-
-  <!-- 질문 2 -> 예 / 아니오 분기선 -->
-  <!-- 예 (왼쪽 아래로) -->
-  <path d="M 310 240 L 310 320" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="295" y="268" width="30" height="24" fill="#ffffff"/>
-  <text x="310" y="285" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">예</text>
-
-  <!-- 아니오 (오른쪽 아래로) -->
-  <path d="M 570 240 L 570 320" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="550" y="268" width="40" height="24" fill="#ffffff"/>
-  <text x="570" y="285" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">아니오</text>
-
-  <!-- 결과 2: <section> + 제목 -->
-  <g transform="translate(110, 320)">
-    <rect x="0" y="0" width="320" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="160" y="42" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">&lt;section&gt; + 제목</text>
-    <text x="160" y="74" font-size="12" fill="#52606d" text-anchor="middle">("배송 정보", "리뷰" 같은 주제 묶음)</text>
-  </g>
-
-  <!-- 결과 3: <div> -->
-  <g transform="translate(450, 320)">
-    <rect x="0" y="0" width="320" height="110" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="160" y="42" font-size="16" font-weight="bold" fill="#7c3aed" text-anchor="middle">&lt;div&gt;</text>
-    <text x="160" y="74" font-size="12" fill="#52606d" text-anchor="middle">(순수하게 CSS를 걸기 위한 껍데기)</text>
-  </g>
+  <!-- 2 아니오 → div -->
+  <path d="M214,268 V386 H510" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#an)"/>
+  <text x="228" y="318" font-size="16" font-weight="700" fill="#b91c1c">아니오</text>
+  <rect x="516" y="344" width="340" height="84" rx="10" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="536" y="378" font-size="20" font-weight="700" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;div&gt;</text>
+  <text x="536" y="408" font-size="15" fill="#374151">순수하게 CSS를 걸기 위한 껍데기</text>
 </svg>

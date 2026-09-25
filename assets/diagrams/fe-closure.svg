@@ -1,112 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">콜 스택과 힙의 수명 차이 — 클로저가 환경을 붙드는 구조</title>
-  <desc id="d">outer() 함수 실행 중과 반환 후 콜 스택과 힙의 상태 변화를 나타낸 다이어그램. outer() 컨텍스트가 스택에서 제거되어도 inner 함수 객체와 outer 렉시컬 환경은 힙에 남아 참조가 유지됨을 보여준다.</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">콜 스택과 힙의 수명 차이</title>
+  <desc id="d">outer() 호출 중과 반환 후(const fn = outer())를 시간 순으로 나눠, outer 컨텍스트는 반환과 함께 콜 스택에서 제거되지만 힙의 렉시컬 환경 { secret: 'hidden' }과 inner 함수 객체는 계속 남는 모습을 보여준다. fn → inner → [[Environment]] → 렉시컬 환경으로 이어지는 도달 가능성(Reachability) 체인 때문에 secret은 GC되지 않는다.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 메인 제목 -->
-  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">콜 스택과 힙의 수명 차이 — 클로저가 환경을 붙드는 구조</text>
+  <text x="24" y="38" font-size="18" font-weight="700" fill="#111827">핵심: 실행 컨텍스트와 렉시컬 환경의 수명이 다르다</text>
 
-  <!-- 섹션 1: outer() 호출 중 (상단) -->
-  <rect x="20" y="50" width="840" height="190" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="6"/>
-  <text x="40" y="75" font-size="14" font-weight="600" fill="#2563eb">1. outer() 호출 중</text>
+  <!-- 시간 구간 머리 -->
+  <rect x="212" y="56" width="288" height="52" rx="6" fill="#f3f4f6"/>
+  <text x="356" y="88" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">① outer() 호출 중</text>
+  <rect x="512" y="56" width="344" height="52" rx="6" fill="#f3f4f6"/>
+  <text x="684" y="78" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">② outer() 반환 후</text>
+  <text x="684" y="100" font-size="15" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">const fn = outer()</text>
 
-  <!-- 스택 구역 (좌측) -->
-  <rect x="40" y="90" width="230" height="135" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="155" y="108" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">콜 스택 (실행 컨텍스트)</text>
-  
-  <rect x="50" y="120" width="210" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="155" y="144" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">outer 컨텍스트</text>
+  <!-- 반환 시점 경계선 (막대 뒤에 깔림) -->
+  <line x1="506" y1="56" x2="506" y2="448" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-  <rect x="50" y="170" width="210" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="155" y="194" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Global 컨텍스트</text>
+  <!-- L1: outer 컨텍스트 -->
+  <text x="24" y="143" font-size="16" font-weight="700" fill="#111827">outer 컨텍스트</text>
+  <text x="24" y="162" font-size="14" fill="#4b5563">콜 스택</text>
+  <rect x="220" y="124" width="272" height="44" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="356" y="151" font-size="15" fill="#1e3a8a" text-anchor="middle">실행 중</text>
+  <rect x="520" y="124" width="328" height="44" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="684" y="151" font-size="15" fill="#b91c1c" text-anchor="middle">콜 스택에서 제거됨</text>
 
-  <!-- 힙 구역 (우측) -->
-  <rect x="360" y="90" width="480" height="135" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="600" y="108" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">힙 (렉시컬 환경 &amp; 객체)</text>
+  <!-- L2: outer의 렉시컬 환경 -->
+  <text x="24" y="237" font-size="16" font-weight="700" fill="#111827">outer의 렉시컬 환경</text>
+  <text x="24" y="257" font-size="14" fill="#4b5563">힙</text>
+  <rect x="220" y="208" width="628" height="68" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="356" y="236" font-size="16" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{ secret: 'hidden' }</text>
+  <text x="356" y="262" font-size="15" fill="#374151" text-anchor="middle">outer ref → 전역 렉시컬 환경</text>
+  <text x="684" y="236" font-size="16" font-weight="700" fill="#065f46" text-anchor="middle">유지됨</text>
+  <text x="684" y="262" font-size="15" font-weight="700" fill="#065f46" text-anchor="middle">GC: "도달 가능" (수거 불가)</text>
 
-  <rect x="380" y="120" width="220" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="490" y="144" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">{ secret: 'hidden' }</text>
+  <!-- L3: inner 함수 객체 -->
+  <text x="24" y="335" font-size="16" font-weight="700" fill="#111827">inner 함수 객체</text>
+  <text x="24" y="354" font-size="14" fill="#4b5563">힙</text>
+  <rect x="220" y="316" width="628" height="44" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="356" y="343" font-size="15" fill="#5b21b6" text-anchor="middle">outer가 반환하는 함수</text>
+  <text x="684" y="343" font-size="16" font-weight="700" fill="#5b21b6" text-anchor="middle">유지됨</text>
 
-  <rect x="630" y="120" width="190" height="40" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="725" y="144" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">전역 렉시컬 환경</text>
+  <!-- L4: Global 컨텍스트 -->
+  <text x="24" y="419" font-size="16" font-weight="700" fill="#111827">Global 컨텍스트</text>
+  <text x="24" y="438" font-size="14" fill="#4b5563">콜 스택</text>
+  <rect x="220" y="400" width="628" height="44" rx="6" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="540" y="427" font-size="15" fill="#111827"><tspan font-weight="700" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">fn</tspan> 변수 보유</text>
 
-  <rect x="380" y="175" width="220" height="35" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="490" y="197" font-size="13" font-weight="500" fill="#7c3aed" text-anchor="middle">inner 함수 객체</text>
+  <!-- ① 구간의 참조 -->
+  <path d="M300,170 L300,204" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+  <text x="312" y="194" font-size="15" fill="#1d4ed8">LexicalEnv</text>
+  <path d="M440,314 L440,280" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ap)"/>
+  <text x="428" y="302" font-size="15" fill="#6d28d9" text-anchor="end">[[Environment]]</text>
 
-  <!-- 상단 화살표 연결들 -->
-  <!-- LexicalEnv 참조 -->
-  <path d="M260,140 L380,140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="272" y="128" width="96" height="16" fill="#ffffff"/>
-  <text x="320" y="140" font-size="11.5" font-weight="400" fill="#2563eb" text-anchor="middle">LexicalEnv</text>
+  <!-- ② 구간의 참조: 도달 가능성 체인 -->
+  <path d="M552,398 L552,364" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#ao)"/>
+  <text x="564" y="386" font-size="15" font-weight="700" fill="#b45309">fn 변수 참조</text>
+  <path d="M552,314 L552,280" stroke="#b45309" stroke-width="2.5" fill="none" marker-end="url(#ao)"/>
+  <text x="564" y="302" font-size="15" font-weight="700" fill="#b45309">[[Environment]]</text>
 
-  <!-- outer ref -->
-  <path d="M600,140 L630,140" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="601" y="123" width="28" height="14" fill="#ffffff"/>
-  <text x="615" y="133" font-size="11" font-weight="400" fill="#52606d" text-anchor="middle">ref</text>
-
-  <!-- [[Environment]] 참조 -->
-  <path d="M490,175 L490,160" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="495" y="161" width="95" height="16" fill="#ffffff"/>
-  <text x="500" y="172" font-size="11.5" font-weight="400" fill="#7c3aed">[[Environment]]</text>
-
-  <!-- 섹션 2: outer() 반환 후 (하단) -->
-  <rect x="20" y="250" width="840" height="200" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="6"/>
-  <text x="40" y="275" font-size="14" font-weight="600" fill="#dc2626">2. outer() 반환 후 (const fn = outer())</text>
-
-  <!-- 스택 구역 (좌측) -->
-  <rect x="40" y="290" width="230" height="145" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="155" y="308" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">콜 스택 (실행 컨텍스트)</text>
-
-  <!-- 제거된 공간 표시 -->
-  <rect x="50" y="320" width="210" height="40" fill="#fef2f2" stroke="#dc2626" stroke-width="1" stroke-dasharray="5 4" rx="4"/>
-  <text x="155" y="344" font-size="12" font-weight="400" fill="#dc2626" text-anchor="middle">outer 컨텍스트 제거됨</text>
-
-  <rect x="50" y="375" width="210" height="45" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="155" y="394" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">Global 컨텍스트</text>
-  <text x="155" y="410" font-size="11.5" font-weight="400" fill="#2563eb" text-anchor="middle">( fn 변수 보유 )</text>
-
-  <!-- 힙 구역 (우측) -->
-  <rect x="360" y="290" width="480" height="145" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="600" y="308" font-size="13" font-weight="600" fill="#1f2933" text-anchor="middle">힙 (렉시컬 환경 유지됨)</text>
-
-  <rect x="380" y="320" width="220" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="490" y="344" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">{ secret: 'hidden' }</text>
-
-  <rect x="610" y="320" width="210" height="40" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="715" y="344" font-size="12" font-weight="500" fill="#d97706" text-anchor="middle">GC: "도달 가능" (수거 불가)</text>
-
-  <rect x="380" y="380" width="220" height="35" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="490" y="402" font-size="13" font-weight="500" fill="#7c3aed" text-anchor="middle">inner 함수 객체</text>
-
-  <!-- 하단 화살표 연결들 -->
-  <!-- fn -> inner 참조 -->
-  <path d="M260,400 Q320,400 380,397" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="270" y="387" width="95" height="16" fill="#ffffff"/>
-  <text x="317" y="399" font-size="11.5" font-weight="400" fill="#2563eb" text-anchor="middle">fn 변수 참조</text>
-
-  <!-- [[Environment]] 참조 유지 -->
-  <path d="M490,380 L490,360" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="495" y="363" width="95" height="16" fill="#ffffff"/>
-  <text x="500" y="374" font-size="11.5" font-weight="400" fill="#7c3aed">[[Environment]]</text>
-
-  <!-- 도달 가능 체인 가리키는 라벨 -->
-  <path d="M600,340 L610,340" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 하단 결론 캡션 -->
-  <text x="440" y="475" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: fn → inner → [[Environment]] → 렉시컬 환경으로 연결되는 도달 가능성(Reachability) 체인으로 인해 secret이 GC되지 않고 유지된다.</text>
+  <!-- 결론 -->
+  <rect x="24" y="468" width="832" height="68" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="44" y="495" font-size="16" font-weight="700" fill="#92400e">도달 가능성(Reachability) 체인 (주황 화살표): fn → inner → [[Environment]] → 렉시컬 환경</text>
+  <text x="44" y="522" font-size="15" fill="#92400e">→ 그래서 secret은 GC되지 않고 유지된다</text>
 </svg>

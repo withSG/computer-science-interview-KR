@@ -1,82 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">에러는 아래로 흐른다</title>
-  <desc id="d">Promise 체인에서 에러가 발생했을 때 then 단계를 건너뛰고 catch에서 처리된 후 다시 then으로 복귀하는 과정을 나타낸 다이어그램입니다.</desc>
+  <desc id="d">getUser()가 실패하면 거부 상태가 체인을 따라 내려가며 .then(A)와 .then(B)를 건너뛰고 .catch(H)에서 처리됩니다. catch가 값을 반환하면 이행 상태로 복귀해 .then(C)가 실행됩니다.</desc>
   <rect width="880" height="540" fill="#ffffff"/>
-
   <defs>
-    <!-- Normal Arrow Marker (Blue) -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <!-- Skipped/Dashed Arrow Marker (Gray) -->
-    <marker id="a-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#9aa5b1"/>
-    </marker>
-    <!-- Error Arrow Marker (Red) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">에러는 아래로 흐른다</text>
-
-  <!-- Main Chain Flow -->
+  <!-- 체인 화살표 -->
+  <path d="M190,90 V124" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <path d="M190,186 V220" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <path d="M190,282 V316" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <path d="M190,378 V412" fill="none" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
 
   <!-- 1. getUser() -->
-  <rect x="230" y="80" width="150" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="305" y="104" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">getUser()</text>
-
-  <!-- Error Marker Next to getUser() -->
-  <path d="M380,100 L400,100" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <text x="408" y="104" font-size="13" font-weight="bold" fill="#dc2626">✕ 실패</text>
-
-  <!-- Flow 1 -> 2 -->
-  <path d="M305,120 L305,160" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-red)"/>
+  <rect x="80" y="32" width="220" height="56" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="190" y="66" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">getUser()</text>
+  <rect x="336" y="44" width="84" height="32" rx="16" fill="#fee2e2"/>
+  <text x="378" y="66" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">✕ 실패</text>
 
   <!-- 2. .then(A) -->
-  <rect x="230" y="160" width="150" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="305" y="184" font-size="13" fill="#52606d" text-anchor="middle">.then(A)</text>
-
-  <!-- Note for .then(A) -->
-  <text x="395" y="184" font-size="12" fill="#52606d">← 건너뜀 (거부 상태는 이행 핸들러를 실행하지 않는다)</text>
-
-  <!-- Flow 2 -> 3 -->
-  <path d="M305,200 L305,240" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-gray)"/>
+  <rect x="80" y="128" width="220" height="56" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="190" y="162" font-size="18" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.then(A)</text>
+  <rect x="336" y="140" width="76" height="32" rx="16" fill="#e5e7eb"/>
+  <text x="374" y="162" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">건너뜀</text>
+  <text x="428" y="162" font-size="16" fill="#374151">거부 상태는 이행 핸들러를 실행하지 않는다</text>
 
   <!-- 3. .then(B) -->
-  <rect x="230" y="240" width="150" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="305" y="264" font-size="13" fill="#52606d" text-anchor="middle">.then(B)</text>
-
-  <!-- Note for .then(B) -->
-  <text x="395" y="264" font-size="12" fill="#52606d">← 건너뜀</text>
-
-  <!-- Flow 3 -> 4 -->
-  <path d="M305,280 L305,320" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="80" y="224" width="220" height="56" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="190" y="258" font-size="18" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.then(B)</text>
+  <rect x="336" y="236" width="76" height="32" rx="16" fill="#e5e7eb"/>
+  <text x="374" y="258" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">건너뜀</text>
 
   <!-- 4. .catch(H) -->
-  <rect x="230" y="320" width="150" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="305" y="344" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">.catch(H)</text>
-
-  <!-- Note for .catch(H) -->
-  <text x="395" y="344" font-size="12" fill="#d97706" font-weight="bold">← 여기서 처리</text>
-
-  <!-- Flow 4 -> 5 -->
-  <path d="M305,360 L305,400" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="80" y="320" width="220" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="190" y="354" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.catch(H)</text>
+  <rect x="336" y="332" width="116" height="32" rx="16" fill="#fef3c7"/>
+  <text x="394" y="354" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">여기서 처리</text>
 
   <!-- 5. .then(C) -->
-  <rect x="230" y="400" width="150" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="305" y="424" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">.then(C)</text>
+  <rect x="80" y="416" width="220" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="190" y="450" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.then(C)</text>
+  <rect x="336" y="428" width="76" height="32" rx="16" fill="#d1fae5"/>
+  <text x="374" y="450" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">실행됨</text>
+  <text x="428" y="450" font-size="16" fill="#374151">catch가 값을 반환했으면 이행 상태로 복귀</text>
 
-  <!-- Note for .then(C) -->
-  <text x="395" y="424" font-size="12" fill="#2563eb">← 실행됨 (catch가 값을 반환했으면 이행 상태로 복귀)</text>
-
-  <!-- Legend / Footnote Box -->
-  <rect x="40" y="470" width="800" height="40" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <circle cx="60" cy="490" r="5" fill="#dc2626"/>
-  <text x="72" y="494" font-size="11.5" fill="#52606d">에러(거부) 상태 흐름</text>
-  <circle cx="210" cy="490" r="5" fill="#9aa5b1"/>
-  <text x="222" y="494" font-size="11.5" fill="#52606d">건너뜀 (실행 안 됨)</text>
-  <circle cx="360" cy="490" r="5" fill="#059669"/>
-  <text x="372" y="494" font-size="11.5" fill="#52606d">정상(이행) 상태 복귀</text>
+  <!-- 범례 -->
+  <path d="M80,512 H118" fill="none" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <text x="128" y="517" font-size="15" fill="#374151">거부 상태로 전달</text>
+  <path d="M276,512 H314" fill="none" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="324" y="517" font-size="15" fill="#374151">이행 상태로 전달</text>
 </svg>

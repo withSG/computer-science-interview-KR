@@ -1,34 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Virtual DOM 동작 원리</title>
-  <desc id="d">상태 변경 발생부터 새로운 Virtual DOM 생성, Diffing, Reconciliation, 배치 업데이트까지의 Virtual DOM 동작 원리를 보여주는 순서도</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-  
+  <desc id="d">상태 변경이 일어나면 메모리에서 새 Virtual DOM을 만들어 이전 Virtual DOM과 비교(Diffing)하고, 변경된 부분만 Real DOM에 반영(Reconciliation)해 배치로 한 번에 업데이트하는 5단계 흐름.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
+
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <rect x="230" y="30" width="420" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="60" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">1. 상태 변경 발생</text>
+  <!-- 1. 상태 변경 발생 -->
+  <circle cx="62" cy="51" r="17" fill="#1d4ed8"/>
+  <text x="62" y="57" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="100" y="24" width="520" height="54" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="124" y="57" font-size="17" fill="#111827">상태 변경 발생</text>
 
-  <path d="M440,80 L440,120" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="360" y1="82" x2="360" y2="103" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="230" y="120" width="420" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">2. 새로운 Virtual DOM 생성</text>
+  <!-- 2. 새로운 Virtual DOM 생성 -->
+  <circle cx="62" cy="135" r="17" fill="#1d4ed8"/>
+  <text x="62" y="141" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="100" y="108" width="520" height="54" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="124" y="141" font-size="17" fill="#111827">새로운 Virtual DOM 생성</text>
 
-  <path d="M440,170 L440,210" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="360" y1="166" x2="360" y2="187" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="230" y="210" width="420" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="240" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">3. 이전 Virtual DOM과 비교 (Diffing)</text>
+  <!-- 3. 이전 Virtual DOM과 비교 (Diffing) -->
+  <circle cx="62" cy="219" r="17" fill="#1d4ed8"/>
+  <text x="62" y="225" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="100" y="192" width="520" height="54" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="124" y="225" font-size="17" fill="#111827">이전 Virtual DOM과 비교</text>
+  <rect x="496" y="204" width="108" height="30" rx="15" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="550" y="224" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Diffing</text>
 
-  <path d="M440,260 L440,300" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="360" y1="250" x2="360" y2="271" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="230" y="300" width="420" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="330" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">4. 변경된 부분만 Real DOM에 반영 (Reconciliation)</text>
+  <!-- 4. 변경된 부분만 Real DOM에 반영 (Reconciliation) -->
+  <circle cx="62" cy="303" r="17" fill="#047857"/>
+  <text x="62" y="309" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="100" y="276" width="520" height="54" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="124" y="309" font-size="17" fill="#111827"><tspan font-weight="bold">변경된 부분만</tspan> Real DOM에 반영</text>
+  <rect x="444" y="288" width="160" height="30" rx="15" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="524" y="308" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">Reconciliation</text>
 
-  <path d="M440,350 L440,390" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="360" y1="334" x2="360" y2="355" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
 
-  <rect x="230" y="390" width="420" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="420" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">5. 배치로 한 번에 업데이트</text>
+  <!-- 5. 배치로 한 번에 업데이트 -->
+  <circle cx="62" cy="387" r="17" fill="#047857"/>
+  <text x="62" y="393" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="100" y="360" width="520" height="54" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="124" y="393" font-size="17" fill="#111827"><tspan font-weight="bold">배치로 한 번에</tspan> 업데이트</text>
+
+  <!-- 구간 표시 -->
+  <path d="M640,24 h12 v222 h-12" fill="none" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="668" y="130" font-size="16" font-weight="bold" fill="#1d4ed8">메모리</text>
+  <text x="668" y="154" font-size="16" font-weight="bold" fill="#1d4ed8">(JavaScript)</text>
+
+  <path d="M640,276 h12 v138 h-12" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="668" y="340" font-size="16" font-weight="bold" fill="#047857">브라우저</text>
+  <text x="668" y="364" font-size="16" font-weight="bold" fill="#047857">(Real DOM)</text>
 </svg>

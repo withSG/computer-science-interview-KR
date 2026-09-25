@@ -1,109 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Fiber 트리의 포인터 연결 구조</title>
-  <desc id="d">App, Header, List, Footer, Item 1, Item 2 Fiber 노드 간의 child, sibling, return 포인터 관계를 나타낸 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Fiber 트리의 포인터 연결</title>
+  <desc id="d">App, Header, List, Footer, Item 1, Item 2 fiber가 child(첫째 자식), sibling(다음 형제), return(부모) 포인터로 이어진 모습. 자식은 배열이 아니라 child 하나와 sibling 체인으로 연결된다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <!-- Dark Ink Arrow for child & sibling pointers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-child" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <!-- Blue Arrow for child pointers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-sib" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <!-- Purple Arrow for sibling pointers -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <!-- Orange Arrow for return pointers -->
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ah-ret" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <rect width="880" height="380" fill="#ffffff"/>
+  <!-- 요점 캡션 -->
+  <text x="24" y="42" font-size="17" font-weight="bold" fill="#111827">자식은 배열이 아니라 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1d4ed8">child</tspan> 하나 + <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#6d28d9">sibling</tspan> 체인</text>
 
-  <!-- Legend -->
-  <rect x="520" y="24" width="320" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <circle cx="540" cy="44" r="5" fill="#2563eb"/>
-  <text x="550" y="48" font-size="11.5" fill="#1f2933">child (첫째 자식)</text>
-  <circle cx="650" cy="44" r="5" fill="#7c3aed"/>
-  <text x="660" y="48" font-size="11.5" fill="#1f2933">sibling (다음 형제)</text>
-  <circle cx="760" cy="44" r="5" fill="#d97706"/>
-  <text x="770" y="48" font-size="11.5" fill="#1f2933">return (부모)</text>
+  <!-- 노드 -->
+  <g font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">
+    <rect x="95" y="76" width="150" height="52" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="170" y="109">App</text>
 
-  <!-- Node 1: App (Root) -->
-  <g>
-    <rect x="230" y="20" width="120" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="290" y="48" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
+    <rect x="95" y="220" width="150" height="52" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="170" y="253">Header</text>
+    <rect x="375" y="220" width="150" height="52" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="450" y="253">List</text>
+    <rect x="655" y="220" width="150" height="52" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="730" y="253">Footer</text>
+
+    <rect x="375" y="364" width="150" height="52" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="450" y="397">Item 1</text>
+    <rect x="655" y="364" width="150" height="52" rx="8" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+    <text x="730" y="397">Item 2</text>
   </g>
 
-  <!-- Vertical Connection (App <-> Header) -->
-  <!-- App -> Header (child) -->
-  <path d="M 275,66 L 275,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="248" y="93" width="36" height="18" fill="#ffffff"/>
-  <text x="266" y="106" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">child</text>
+  <g font-size="16" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <!-- App ↔ Header -->
+    <line x1="146" y1="130" x2="146" y2="216" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-child)"/>
+    <text x="136" y="179" fill="#1d4ed8" text-anchor="end">child</text>
+    <line x1="194" y1="218" x2="194" y2="132" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-ret)"/>
+    <text x="204" y="179" fill="#b45309">return</text>
 
-  <!-- Header -> App (return) -->
-  <path d="M 305,140 L 305,68" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-orange)"/>
-  <rect x="298" y="93" width="48" height="18" fill="#ffffff"/>
-  <text x="322" y="106" font-size="11.5" fill="#d97706" text-anchor="middle" font-weight="bold">return</text>
+    <!-- List ↔ Item 1 -->
+    <line x1="426" y1="274" x2="426" y2="360" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-child)"/>
+    <text x="416" y="323" fill="#1d4ed8" text-anchor="end">child</text>
+    <line x1="474" y1="362" x2="474" y2="276" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-ret)"/>
+    <text x="484" y="323" fill="#b45309">return</text>
 
-  <!-- Row 1 Nodes: Header, List, Footer -->
-  <!-- Header -->
-  <g>
-    <rect x="230" y="140" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="290" y="168" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Header</text>
+    <!-- sibling 체인 -->
+    <line x1="247" y1="246" x2="371" y2="246" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-sib)"/>
+    <text x="310" y="234" fill="#6d28d9" text-anchor="middle">sibling</text>
+    <line x1="527" y1="246" x2="651" y2="246" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-sib)"/>
+    <text x="590" y="234" fill="#6d28d9" text-anchor="middle">sibling</text>
+    <line x1="527" y1="390" x2="651" y2="390" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-sib)"/>
+    <text x="590" y="378" fill="#6d28d9" text-anchor="middle">sibling</text>
   </g>
 
-  <!-- Header -> List (sibling) -->
-  <path d="M 350,163 L 478,163" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="390" y="154" width="48" height="18" fill="#ffffff"/>
-  <text x="414" y="167" font-size="11.5" fill="#7c3aed" text-anchor="middle" font-weight="bold">sibling</text>
+  <!-- 범례 -->
+  <line x1="24" y1="444" x2="856" y2="444" stroke="#e5e7eb" stroke-width="1"/>
+  <g font-size="15">
+    <line x1="24" y1="476" x2="62" y2="476" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-child)"/>
+    <text x="74" y="481" font-size="16" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">child</text>
+    <text x="128" y="481" fill="#1f2937">첫째 자식</text>
 
-  <!-- List -->
-  <g>
-    <rect x="480" y="140" width="120" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="540" y="168" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">List</text>
-  </g>
+    <line x1="236" y1="476" x2="274" y2="476" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-sib)"/>
+    <text x="286" y="481" font-size="16" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sibling</text>
+    <text x="358" y="481" fill="#1f2937">다음 형제</text>
 
-  <!-- List -> Footer (sibling) -->
-  <path d="M 600,163 L 728,163" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="640" y="154" width="48" height="18" fill="#ffffff"/>
-  <text x="664" y="167" font-size="11.5" fill="#7c3aed" text-anchor="middle" font-weight="bold">sibling</text>
-
-  <!-- Footer -->
-  <g>
-    <rect x="730" y="140" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="790" y="168" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Footer</text>
-  </g>
-
-  <!-- Vertical Connection (List <-> Item 1) -->
-  <!-- List -> Item 1 (child) -->
-  <path d="M 525,186 L 525,258" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="498" y="213" width="36" height="18" fill="#ffffff"/>
-  <text x="516" y="226" font-size="11.5" fill="#2563eb" text-anchor="middle" font-weight="bold">child</text>
-
-  <!-- Item 1 -> List (return) -->
-  <path d="M 555,260 L 555,188" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-orange)"/>
-  <rect x="548" y="213" width="48" height="18" fill="#ffffff"/>
-  <text x="572" y="226" font-size="11.5" fill="#d97706" text-anchor="middle" font-weight="bold">return</text>
-
-  <!-- Row 2 Nodes: Item 1, Item 2 -->
-  <!-- Item 1 -->
-  <g>
-    <rect x="480" y="260" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="540" y="288" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Item 1</text>
-  </g>
-
-  <!-- Item 1 -> Item 2 (sibling) -->
-  <path d="M 600,283 L 728,283" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="640" y="274" width="48" height="18" fill="#ffffff"/>
-  <text x="664" y="287" font-size="11.5" fill="#7c3aed" text-anchor="middle" font-weight="bold">sibling</text>
-
-  <!-- Item 2 -->
-  <g>
-    <rect x="730" y="260" width="120" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="790" y="288" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Item 2</text>
+    <line x1="466" y1="476" x2="504" y2="476" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-ret)"/>
+    <text x="516" y="481" font-size="16" font-weight="bold" fill="#b45309" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">return</text>
+    <text x="580" y="481" fill="#1f2937">부모 (작업이 끝나면 돌아갈 곳)</text>
   </g>
 </svg>

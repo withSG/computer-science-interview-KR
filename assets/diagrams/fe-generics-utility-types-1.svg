@@ -1,85 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">선택지가 둘뿐이던 시절</title>
-  <desc id="d">any 방식과 제네릭 방식을 비교하여 입력 타입과 출력 타입 간의 관계 소실 및 보존을 보여주는 다이어그램</desc>
-  <rect width="880" height="380" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">any 방식과 제네릭 방식 비교</title>
+  <desc id="d">같은 User[]를 넣어도 any 방식의 first()는 any를 돌려주어 입력과 출력 타입의 관계가 끊기고, 제네릭 방식의 first&lt;T&gt;()는 T = User를 기억해 User | undefined를 돌려주어 관계가 보존된다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (잉크/기본) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <!-- 화살표 마커 (빨강 / any 방식 / 관계 소실) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <!-- 화살표 마커 (파랑 / 제네릭 방식 / 관계 보존) -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 좌측 영역: any 방식 (경고/위험/소실 - 빨강 계열 배경) -->
-  <rect x="30" y="30" width="390" height="320" rx="12" fill="#fef2f2" stroke="#fee2e2" stroke-width="1"/>
-  
-  <!-- 우측 영역: 제네릭 방식 (안전/보존 - 파랑 계열 배경) -->
-  <rect x="460" y="30" width="390" height="320" rx="12" fill="#eff6ff" stroke="#dbeafe" stroke-width="1"/>
+  <!-- ===== 왼쪽: any 방식 ===== -->
+  <rect x="24" y="24" width="404" height="372" rx="12" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="44" y="60" font-size="19" font-weight="bold" fill="#b91c1c">any 방식</text>
 
-  <!-- 제목 헤더 -->
-  <text x="225" y="65" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[any 방식]</text>
-  <text x="655" y="65" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">[제네릭 방식]</text>
+  <rect x="114" y="84" width="120" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="174" y="112" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">User[]</text>
 
-  <!-- ==================== [any 방식] 요소를 좌표에 구성 ==================== -->
+  <line x1="174" y1="129" x2="174" y2="186" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-  <!-- 입력: User[] -->
-  <rect x="165" y="90" width="120" height="36" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="225" y="113" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">User[]</text>
+  <rect x="84" y="188" width="180" height="52" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="174" y="220" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">first()</text>
 
-  <!-- 함수 박스: first() -->
-  <rect x="155" y="180" width="140" height="44" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="225" y="207" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">first()</text>
+  <line x1="174" y1="241" x2="174" y2="294" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-  <!-- 출력: any -->
-  <rect x="175" y="270" width="100" height="36" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="225" y="293" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">any</text>
+  <rect x="114" y="296" width="120" height="46" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <text x="174" y="325" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">any</text>
+  <text x="248" y="325" font-size="15" fill="#b91c1c">← 무엇이든 될 수 있음</text>
 
-  <!-- 연결 화살표: User[] -> first() -->
-  <path d="M225,126 L225,180" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- 관계선: 입력에서 출발했지만 first()에서 끊긴다 -->
+  <path d="M235,106 H354 V196" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 5"/>
+  <rect x="306" y="198" width="96" height="32" rx="16" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="354" y="220" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">관계 소실</text>
 
-  <!-- 화살표 라벨: 관계 소실 -->
-  <rect x="235" y="143" width="72" height="20" fill="#ffffff" rx="3" stroke="#fee2e2" stroke-width="1"/>
-  <text x="271" y="157" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">관계 소실</text>
+  <!-- ===== 오른쪽: 제네릭 방식 ===== -->
+  <rect x="452" y="24" width="404" height="372" rx="12" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="472" y="60" font-size="19" font-weight="bold" fill="#047857">제네릭 방식</text>
 
-  <!-- 연결 화살표: first() -> any -->
-  <path d="M225,224 L225,270" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="542" y="84" width="120" height="44" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="602" y="112" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">User[]</text>
 
-  <!-- 부가 설명 라벨: ← 무엇이든 될 수 있음 -->
-  <text x="285" y="293" font-size="12" fill="#52606d" text-anchor="start">← 무엇이든 될 수 있음</text>
+  <line x1="602" y1="129" x2="602" y2="186" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="616" y="163" font-size="15" font-weight="bold" fill="#047857">T = User 로 기억</text>
 
+  <rect x="512" y="188" width="180" height="52" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="602" y="220" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">first&lt;T&gt;()</text>
 
-  <!-- ==================== [제네릭 방식] 요소를 좌표에 구성 ==================== -->
+  <line x1="602" y1="241" x2="602" y2="294" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-  <!-- 입력: User[] -->
-  <rect x="595" y="90" width="120" height="36" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="655" y="113" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">User[]</text>
+  <rect x="497" y="296" width="210" height="46" rx="6" fill="#ffffff" stroke="#059669" stroke-width="2"/>
+  <text x="602" y="325" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">User | undefined</text>
 
-  <!-- 함수 박스: first<T>() -->
-  <rect x="575" y="180" width="160" height="44" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="655" y="207" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">first&lt;T&gt;()</text>
-
-  <!-- 출력: User | undefined -->
-  <rect x="570" y="270" width="170" height="36" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="655" y="293" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">User | undefined</text>
-
-  <!-- 연결 화살표: User[] -> first<T>() -->
-  <path d="M655,126 L655,180" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 화살표 부가 설명: T = User 로 기억 & 관계 보존 -->
-  <text x="665" y="147" font-size="11.5" fill="#52606d" text-anchor="start">T = User 로 기억</text>
-
-  <rect x="665" y="237" width="72" height="20" fill="#ffffff" rx="3" stroke="#dbeafe" stroke-width="1"/>
-  <text x="701" y="251" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">관계 보존</text>
-
-  <!-- 연결 화살표: first<T>() -> User | undefined -->
-  <path d="M655,224 L655,270" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
+  <!-- 관계선: 입력 타입이 출력까지 이어진다 -->
+  <path d="M663,106 H782 V196" fill="none" stroke="#059669" stroke-width="2"/>
+  <rect x="734" y="198" width="96" height="32" rx="16" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
+  <text x="782" y="220" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">관계 보존</text>
+  <path d="M782,231 V319 H710" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#ah-green)"/>
 </svg>

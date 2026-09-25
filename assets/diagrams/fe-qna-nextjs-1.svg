@@ -1,52 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">하이드레이션 과정</title>
-  <desc id="d">하이드레이션의 5단계 순서를 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="480" fill="#ffffff"/>
+  <desc id="d">서버가 HTML을 렌더링해 보내면 브라우저가 정적 HTML을 먼저 표시하고, JS 다운로드·파싱 뒤 React 하이드레이션으로 DOM에 이벤트를 연결해야 페이지가 인터랙티브(TTI)해지는 5단계를 보여준다. 2~4단계 동안 화면은 정적이라 클릭이 안 된다.</desc>
+  <rect width="880" height="490" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 문서 헤딩 -->
-  <text x="40" y="42" font-size="16" font-weight="bold" fill="#1f2933">하이드레이션 과정</text>
+  <!-- 열 머리 -->
+  <text x="74" y="44" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">주체</text>
+  <text x="140" y="44" font-size="15" font-weight="bold" fill="#4b5563">단계</text>
+  <text x="752" y="44" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="middle">화면 상태</text>
+
+  <!-- 레인 띠 -->
+  <rect x="24" y="56" width="832" height="74" rx="10" fill="#eff6ff"/>
+  <rect x="24" y="140" width="832" height="326" rx="10" fill="#f3f4f6"/>
+  <text x="74" y="99" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">서버</text>
+  <text x="74" y="309" font-size="17" font-weight="bold" fill="#374151" text-anchor="middle">브라우저</text>
+
+  <!-- 단계 사이 화살표 -->
+  <line x1="172" y1="124" x2="172" y2="146" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="172" y1="208" x2="172" y2="230" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="172" y1="292" x2="172" y2="314" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="172" y1="376" x2="172" y2="398" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
   <!-- 1. 서버: HTML 렌더링 → 클라이언트 전송 -->
-  <rect x="80" y="70" width="720" height="54" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="100" y="80" width="230" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="215" y="102" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 서버: HTML 렌더링</text>
-  <path d="M340,97 L430,97" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="440" y="80" width="220" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="550" y="102" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">클라이언트 전송</text>
+  <rect x="140" y="64" width="500" height="58" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="172" cy="93" r="15" fill="#1f2937"/>
+  <text x="172" y="99" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="200" y="99" font-size="17" font-weight="bold" fill="#111827">HTML 렌더링</text>
+  <line x1="312" y1="93" x2="350" y2="93" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="362" y="99" font-size="17" font-weight="bold" fill="#111827">클라이언트 전송</text>
 
-  <!-- 화살표 1 -> 2 -->
-  <path d="M440,124 L440,154" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 2. 브라우저: HTML 표시 (정적, 클릭 안됨) -->
-  <rect x="80" y="154" width="720" height="54" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="186" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2. 브라우저: HTML 표시 (정적, 클릭 안됨)</text>
-
-  <!-- 화살표 2 -> 3 -->
-  <path d="M440,208 L440,238" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 2. 브라우저: HTML 표시 -->
+  <rect x="140" y="148" width="500" height="58" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="172" cy="177" r="15" fill="#1f2937"/>
+  <text x="172" y="183" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="200" y="183" font-size="17" font-weight="bold" fill="#111827">HTML 표시</text>
 
   <!-- 3. JS 다운로드 및 파싱 -->
-  <rect x="80" y="238" width="720" height="54" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="270" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3. JS 다운로드 및 파싱</text>
-
-  <!-- 화살표 3 -> 4 -->
-  <path d="M440,292 L440,322" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="140" y="232" width="500" height="58" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="172" cy="261" r="15" fill="#1f2937"/>
+  <text x="172" y="267" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="200" y="267" font-size="17" font-weight="bold" fill="#111827">JS 다운로드 및 파싱</text>
 
   <!-- 4. React 하이드레이션: DOM에 이벤트 연결 -->
-  <rect x="80" y="322" width="720" height="54" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="354" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">4. React 하이드레이션: DOM에 이벤트 연결</text>
-
-  <!-- 화살표 4 -> 5 -->
-  <path d="M440,376 L440,406" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="140" y="316" width="500" height="58" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <circle cx="172" cy="345" r="15" fill="#1d4ed8"/>
+  <text x="172" y="351" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="200" y="351" font-size="17" font-weight="bold" fill="#1e3a8a">React 하이드레이션:</text>
+  <text x="372" y="351" font-size="17" fill="#1e3a8a">DOM에 이벤트 연결</text>
 
   <!-- 5. 페이지 인터랙티브 (TTI) -->
-  <rect x="80" y="406" width="720" height="54" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="438" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5. 페이지 인터랙티브 (TTI)</text>
+  <rect x="140" y="400" width="500" height="58" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <circle cx="172" cy="429" r="15" fill="#047857"/>
+  <text x="172" y="435" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="200" y="435" font-size="17" font-weight="bold" fill="#065f46">페이지 인터랙티브 (TTI)</text>
+
+  <!-- 화면 상태 열 -->
+  <rect x="664" y="148" width="176" height="226" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="752" y="267" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">정적, 클릭 안됨</text>
+  <rect x="664" y="400" width="176" height="58" rx="8" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="752" y="435" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">인터랙티브</text>
 </svg>

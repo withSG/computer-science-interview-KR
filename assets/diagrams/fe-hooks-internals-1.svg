@@ -1,65 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">훅은 fiber에 붙은 링크드 리스트에 저장된다</title>
-  <desc id="d">fiber 노드의 memoizedState 필드가 첫 번째 훅 객체를 가리키고, 각 훅 객체들이 next 포인터로 연결된 링크드 리스트 구조</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">fiber에 연결된 훅 리스트</title>
+  <desc id="d">Counter 컴포넌트 fiber의 memoizedState가 첫 번째 훅 객체를 가리키고, Hook #0(useState, state: 1)에서 Hook #1(useRef, current: dom), Hook #2(useEffect, deps: [1])까지 next로 이어지다 null로 끝난다. 훅은 이름이 아니라 호출 순서로 식별된다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Fiber Group/Box -->
-  <g id="fiber-node">
-    <rect x="240" y="30" width="300" height="110" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="390" y="55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">fiber (Counter 컴포넌트)</text>
-    <line x1="240" y1="68" x2="540" y2="68" stroke="#cbd2d9" stroke-width="1"/>
-    
-    <text x="260" y="93" font-size="13" fill="#1f2933">type: Counter</text>
-    <text x="260" y="121" font-size="13" fill="#1f2933">memoizedState:</text>
-  </g>
+  <!-- fiber 노드 -->
+  <rect x="24" y="24" width="320" height="128" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <path d="M25,64 V32 A7,7 0 0 1 32,25 H336 A7,7 0 0 1 343,32 V64 Z" fill="#dbeafe"/>
+  <line x1="25" y1="64" x2="343" y2="64" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="44" y="51" font-size="17" font-weight="bold" fill="#1e3a8a"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">fiber</tspan> (Counter 컴포넌트)</text>
+  <text x="44" y="98" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">type: Counter</text>
+  <text x="44" y="134" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">memoizedState:</text>
+  <circle cx="186" cy="129" r="5" fill="#1d4ed8"/>
 
-  <!-- Fiber to Hook #0 Arrow -->
-  <path d="M380,117 L490,117 L490,170 L110,170 L110,190" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#a-blue)"/>
+  <!-- memoizedState → Hook #0 -->
+  <line x1="186" y1="134" x2="186" y2="232" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="200" y="196" font-size="15" fill="#1d4ed8">연결 리스트의 첫 노드</text>
+
+  <!-- 요점 -->
+  <line x1="392" y1="40" x2="392" y2="136" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="410" y="66" font-size="16" font-weight="bold" fill="#111827">훅은 이름표가 없다</text>
+  <text x="410" y="96" font-size="15" fill="#374151">React가 아는 것은 몇 번째로 호출됐는가뿐</text>
+  <text x="410" y="124" font-size="15" fill="#374151">렌더링마다 커서가 #0부터 한 칸씩 전진</text>
 
   <!-- Hook #0 -->
-  <g id="hook-0">
-    <rect x="24" y="200" width="220" height="110" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="40" y="225" font-size="13" font-weight="bold" fill="#1f2933">Hook #0</text>
-    <text x="40" y="250" font-size="13" fill="#52606d">useState</text>
-    <text x="40" y="285" font-size="13" fill="#1f2933">state: 1</text>
-  </g>
+  <rect x="96" y="236" width="180" height="120" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M97,272 V244 A7,7 0 0 1 104,237 H268 A7,7 0 0 1 275,244 V272 Z" fill="#f1f5f9"/>
+  <line x1="97" y1="272" x2="275" y2="272" stroke="#94a3b8" stroke-width="1"/>
+  <text x="186" y="261" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Hook #0</text>
+  <text x="114" y="304" font-size="16" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useState</text>
+  <text x="114" y="334" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">state: 1</text>
 
-  <!-- Arrow: Hook #0 -> Hook #1 -->
-  <path d="M244,255 L300,255" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <rect x="254" y="235" width="36" height="18" fill="#ffffff"/>
-  <text x="272" y="248" font-size="11.5" fill="#52606d" text-anchor="middle">next</text>
+  <!-- next -->
+  <line x1="276" y1="304" x2="332" y2="304" stroke="#374151" stroke-width="1.5" marker-end="url(#arr-ink)"/>
+  <text x="305" y="292" font-size="15" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">next</text>
 
   <!-- Hook #1 -->
-  <g id="hook-1">
-    <rect x="310" y="200" width="220" height="110" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="326" y="225" font-size="13" font-weight="bold" fill="#1f2933">Hook #1</text>
-    <text x="326" y="250" font-size="13" fill="#52606d">useRef</text>
-    <text x="326" y="285" font-size="13" fill="#1f2933">current: dom</text>
-  </g>
+  <rect x="336" y="236" width="180" height="120" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M337,272 V244 A7,7 0 0 1 344,237 H508 A7,7 0 0 1 515,244 V272 Z" fill="#f1f5f9"/>
+  <line x1="337" y1="272" x2="515" y2="272" stroke="#94a3b8" stroke-width="1"/>
+  <text x="426" y="261" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Hook #1</text>
+  <text x="354" y="304" font-size="16" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useRef</text>
+  <text x="354" y="334" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">current: dom</text>
 
-  <!-- Arrow: Hook #1 -> Hook #2 -->
-  <path d="M530,255 L586,255" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <rect x="540" y="235" width="36" height="18" fill="#ffffff"/>
-  <text x="558" y="248" font-size="11.5" fill="#52606d" text-anchor="middle">next</text>
+  <!-- next -->
+  <line x1="516" y1="304" x2="572" y2="304" stroke="#374151" stroke-width="1.5" marker-end="url(#arr-ink)"/>
+  <text x="545" y="292" font-size="15" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">next</text>
 
   <!-- Hook #2 -->
-  <g id="hook-2">
-    <rect x="596" y="200" width="220" height="110" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="612" y="225" font-size="13" font-weight="bold" fill="#1f2933">Hook #2</text>
-    <text x="612" y="250" font-size="13" fill="#52606d">useEffect</text>
-    <text x="612" y="285" font-size="13" fill="#1f2933">deps: [1]</text>
-  </g>
+  <rect x="576" y="236" width="180" height="120" rx="8" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M577,272 V244 A7,7 0 0 1 584,237 H748 A7,7 0 0 1 755,244 V272 Z" fill="#f1f5f9"/>
+  <line x1="577" y1="272" x2="755" y2="272" stroke="#94a3b8" stroke-width="1"/>
+  <text x="666" y="261" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Hook #2</text>
+  <text x="594" y="304" font-size="16" font-weight="bold" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useEffect</text>
+  <text x="594" y="334" font-size="16" fill="#1f2937" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">deps: [1]</text>
 
-  <!-- Arrow: Hook #2 -> null -->
-  <path d="M816,255 L836,255" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <text x="846" y="259" font-size="13" fill="#52606d">null</text>
+  <!-- next → null -->
+  <line x1="756" y1="304" x2="792" y2="304" stroke="#374151" stroke-width="1.5" marker-end="url(#arr-ink)"/>
+  <text x="800" y="309" font-size="16" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">null</text>
+
+  <!-- 호출 순서 -->
+  <text x="186" y="386" font-size="15" fill="#4b5563" text-anchor="middle">첫 번째 호출</text>
+  <text x="426" y="386" font-size="15" fill="#4b5563" text-anchor="middle">두 번째 호출</text>
+  <text x="666" y="386" font-size="15" fill="#4b5563" text-anchor="middle">세 번째 호출</text>
 </svg>

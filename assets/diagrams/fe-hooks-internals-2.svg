@@ -1,62 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">규칙을 어기면 벌어지는 일</title>
-  <desc id="d">렌더 1과 렌더 2에서 조건부 훅 호출로 인해 저장소 순서가 어긋나는 과정을 보여주는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">조건부 훅 호출의 짝 어긋남</title>
+  <desc id="d">렌더 1(userId 있음)은 name, email, theme 순으로 저장소 0, 1, 2와 짝지어진다. 렌더 2(userId 없음)는 email 훅을 건너뛰어 theme이 저장소 1(email 값)을 읽고, 저장소 2의 'light'는 접근 불가로 유실된다.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-  
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
 
-  <!-- 구역 배경 및 테두리 -->
-  <!-- [렌더 1] 구역 -->
-  <rect x="24" y="24" width="380" height="292" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="40" y="52" fill="#059669" font-size="14" font-weight="bold">[렌더 1] userId 있음</text>
+  <!-- 머리행 -->
+  <text x="114" y="48" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">[렌더 1]</text>
+  <text x="114" y="73" font-size="15" fill="#374151" text-anchor="middle">userId 있음</text>
+  <text x="348" y="48" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">저장소</text>
+  <text x="582" y="48" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">[렌더 2]</text>
+  <text x="582" y="73" font-size="15" fill="#374151" text-anchor="middle">userId 없음 (email 훅을 건너뜀)</text>
+  <line x1="24" y1="88" x2="856" y2="88" stroke="#e5e7eb" stroke-width="1"/>
 
-  <!-- [렌더 2] 구역 -->
-  <rect x="424" y="24" width="432" height="292" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="52" fill="#dc2626" font-size="14" font-weight="bold">[렌더 2] userId 없음 (email 훅을 건너뜀)</text>
+  <!-- 저장소 칸 -->
+  <rect x="268" y="106" width="160" height="44" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="348" y="134" font-size="16" fill="#111827" text-anchor="middle">저장소 0 : <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">''</tspan></text>
+  <rect x="268" y="174" width="160" height="44" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="348" y="202" font-size="16" fill="#111827" text-anchor="middle">저장소 1 : <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">''</tspan></text>
+  <rect x="268" y="242" width="160" height="44" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="348" y="270" font-size="16" fill="#111827" text-anchor="middle">저장소 2 : <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'light'</tspan></text>
 
-  <!-- [렌더 1] 행 1 -->
-  <text x="40" y="102" fill="#1f2933" font-size="13">useState(name)</text>
-  <path d="M165,97 L190,97" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="200" y="78" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="260" y="100.5" fill="#1f2933" font-size="12" text-anchor="middle">저장소 0 : ''</text>
-  <text x="335" y="101.5" fill="#059669" font-size="13" font-weight="bold">정상</text>
+  <!-- 렌더 1 호출 -->
+  <rect x="24" y="106" width="180" height="44" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="114" y="134" font-size="16" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useState(name)</text>
+  <rect x="24" y="174" width="180" height="44" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="114" y="202" font-size="16" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useState(email)</text>
+  <rect x="24" y="242" width="180" height="44" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="114" y="270" font-size="16" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useState(theme)</text>
 
-  <!-- [렌더 1] 행 2 -->
-  <text x="40" y="172" fill="#1f2933" font-size="13">useState(email)</text>
-  <path d="M165,167 L190,167" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="200" y="148" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="260" y="170.5" fill="#1f2933" font-size="12" text-anchor="middle">저장소 1 : ''</text>
+  <line x1="206" y1="128" x2="264" y2="128" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-ink)"/>
+  <line x1="206" y1="196" x2="264" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-ink)"/>
+  <line x1="206" y1="264" x2="264" y2="264" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-ink)"/>
 
-  <!-- [렌더 1] 행 3 -->
-  <text x="40" y="242" fill="#1f2933" font-size="13">useState(theme)</text>
-  <path d="M165,237 L190,237" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="200" y="218" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="260" y="240.5" fill="#1f2933" font-size="12" text-anchor="middle">저장소 2 : 'light'</text>
+  <!-- 렌더 2 호출 -->
+  <rect x="492" y="106" width="180" height="44" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="582" y="134" font-size="16" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useState(name)</text>
+  <rect x="492" y="174" width="180" height="44" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="582" y="202" font-size="16" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useState(theme)</text>
+  <rect x="492" y="242" width="180" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="582" y="270" font-size="15" fill="#4b5563" text-anchor="middle">호출 없음</text>
 
-  <!-- [렌더 2] 행 1 -->
-  <text x="440" y="102" fill="#1f2933" font-size="13">useState(name)</text>
-  <path d="M565,97 L590,97" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="600" y="78" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="660" y="100.5" fill="#1f2933" font-size="12" text-anchor="middle">저장소 0 : ''</text>
-  <text x="735" y="101.5" fill="#059669" font-size="13" font-weight="bold">정상</text>
+  <line x1="490" y1="128" x2="432" y2="128" stroke="#475569" stroke-width="1.5" marker-end="url(#arr-ink)"/>
+  <line x1="490" y1="196" x2="432" y2="196" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr-red)"/>
 
-  <!-- [렌더 2] 행 2 -->
-  <text x="440" y="172" fill="#1f2933" font-size="13">useState(theme)</text>
-  <path d="M565,167 L590,167" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="600" y="148" width="120" height="36" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="660" y="170.5" fill="#1f2933" font-size="12" text-anchor="middle">저장소 1 : ''</text>
-  <text x="735" y="171.5" fill="#dc2626" font-size="12.5" font-weight="bold">email 값을 읽는다!</text>
+  <!-- 결과 (렌더 2) -->
+  <text x="692" y="134" font-size="16" font-weight="bold" fill="#047857">정상</text>
+  <text x="692" y="202" font-size="16" font-weight="bold" fill="#b91c1c">email 값을 읽는다!</text>
+  <text x="692" y="270" font-size="16" font-weight="bold" fill="#b91c1c">접근 불가로 유실</text>
 
-  <!-- [렌더 2] 행 3 -->
-  <rect x="600" y="218" width="120" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="4 3"/>
-  <text x="660" y="240.5" fill="#52606d" font-size="12" text-anchor="middle">저장소 2 : 'light'</text>
-  <text x="735" y="241.5" fill="#dc2626" font-size="12.5" font-weight="bold">접근 불가로 유실</text>
+  <!-- 요점 -->
+  <text x="24" y="336" font-size="15" fill="#374151">훅은 호출 순서로만 저장소와 짝지어진다 → email을 건너뛰면 두 번째로 호출된 theme이 저장소 1을 읽는다</text>
 </svg>

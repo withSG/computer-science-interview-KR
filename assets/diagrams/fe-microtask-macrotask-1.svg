@@ -1,71 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">규칙은 두 줄이 전부다</title>
-  <desc id="d">매크로태스크 큐와 마이크로태스크 큐의 실행 순서 및 사이클 규칙 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이벤트 루프의 두 규칙</title>
+  <desc id="d">규칙 1: 매크로태스크는 한 사이클에 딱 하나만 꺼내 실행한다. 규칙 2: 매크로태스크가 끝나면 마이크로태스크 큐를 완전히 비우며, 비우는 도중 추가된 마이크로태스크도 이번에 처리한다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="620" fill="#ffffff"/>
+  <rect width="880" height="310" fill="#ffffff"/>
 
-  <!-- Top Rule Box -->
-  <rect x="80" y="30" width="720" height="120" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="110" y="66.55" font-size="14" font-weight="bold" fill="#1f2933">1. 매크로태스크는 한 사이클에 딱 하나만 꺼내 실행한다</text>
-  <text x="110" y="96.55" font-size="14" font-weight="bold" fill="#1f2933">2. 매크로태스크가 끝나면 마이크로태스크 큐를 완전히 비운다</text>
-  <text x="128" y="122.025" font-size="11.5" fill="#52606d">(비우는 도중 추가된 마이크로태스크도 이번에 처리한다)</text>
+  <!-- 규칙 1: 매크로태스크 -->
+  <rect x="24" y="24" width="832" height="100" rx="12" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="72" cy="74" r="24" fill="#1d4ed8"/>
+  <text x="72" y="82" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="116" y="81" font-size="18" fill="#111827">매크로태스크는 한 사이클에 <tspan font-weight="bold" fill="#1d4ed8">딱 하나만</tspan> 꺼내 실행한다</text>
 
-  <!-- Macrotask Queue Section -->
-  <text x="250" y="194.9" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">매크로태스크 큐</text>
-  <!-- Macrotask Queue Cells: T1, T2, T3 -->
-  <g transform="translate(130, 210)">
-    <rect x="0" y="0" width="240" height="44" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="80" y1="0" x2="80" y2="44" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="160" y1="0" x2="160" y2="44" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="40" y="26.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">T1</text>
-    <text x="120" y="26.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">T2</text>
-    <text x="200" y="26.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">T3</text>
-  </g>
+  <rect x="648" y="40" width="56" height="40" rx="6" fill="#1d4ed8"/>
+  <text x="676" y="66" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">T1</text>
+  <rect x="708" y="40" width="56" height="40" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="736" y="66" font-size="16" fill="#1d4ed8" text-anchor="middle">T2</text>
+  <rect x="768" y="40" width="56" height="40" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="796" y="66" font-size="16" fill="#1d4ed8" text-anchor="middle">T3</text>
+  <path d="M650,86 v6 h52 v-6" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="676" y="113" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">하나만</text>
 
-  <!-- Microtask Queue Section -->
-  <text x="630" y="194.9" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">마이크로태스크 큐</text>
-  <!-- Microtask Queue Cells: m1, m2, ... -->
-  <g transform="translate(510, 210)">
-    <rect x="0" y="0" width="240" height="44" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <line x1="80" y1="0" x2="80" y2="44" stroke="#7c3aed" stroke-width="1.5"/>
-    <line x1="160" y1="0" x2="160" y2="44" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="40" y="26.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">m1</text>
-    <text x="120" y="26.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">m2</text>
-    <text x="200" y="26.55" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">...</text>
-  </g>
+  <!-- 1 다음에 2 -->
+  <line x1="72" y1="128" x2="72" y2="151" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Flow Arrows & Labels -->
-  <!-- Macrotask Arrow: From T1 (x=170, y=254) to (x=270, y=380) -->
-  <path d="M170,254 L170,330 L270,330 L270,378" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="180" y="280" width="56" height="22" fill="#ffffff" rx="2"/>
-  <text x="208" y="295.025" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">하나만</text>
+  <!-- 규칙 2: 마이크로태스크 -->
+  <rect x="24" y="156" width="832" height="128" rx="12" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="72" cy="219" r="24" fill="#6d28d9"/>
+  <text x="72" y="227" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="116" y="210" font-size="18" fill="#111827">매크로태스크가 끝나면 마이크로태스크 큐를 <tspan font-weight="bold" fill="#6d28d9">완전히 비운다</tspan></text>
+  <text x="116" y="240" font-size="15" fill="#4b5563">(비우는 도중 추가된 마이크로태스크도 이번에 처리한다)</text>
 
-  <!-- Microtask Arrow: From m1 (x=550, y=254) to (x=610, y=380) -->
-  <path d="M550,254 L550,330 L610,330 L610,378" fill="none" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <rect x="560" y="280" width="44" height="22" fill="#ffffff" rx="2"/>
-  <text x="582" y="295.025" font-size="11.5" font-weight="bold" fill="#7c3aed" text-anchor="middle">전부</text>
-
-  <!-- Bottom Execution Box -->
-  <rect x="150" y="380" width="580" height="180" rx="6" fill="#f8fafc" stroke="#1f2933" stroke-width="1.5"/>
-  
-  <!-- Content Inside Execution Box -->
-  <!-- Line 1: T1 실행 → m1 m2 ... 전부 소진 -->
-  <text x="180" y="421.55" font-size="13" font-weight="bold" fill="#1f2933">T1 실행 → m1 m2 ... 전부 소진</text>
-  <!-- Line 2: (렌더링 기회) -->
-  <text x="180" y="451.025" font-size="11.5" fill="#52606d">(렌더링 기회)</text>
-  <!-- Line 3: T2 실행 → 마이크로태스크 전부 소진 -->
-  <text x="180" y="491.55" font-size="13" font-weight="bold" fill="#1f2933">T2 실행 → 마이크로태스크 전부 소진</text>
-  <!-- Line 4: (렌더링 기회) -->
-  <text x="180" y="521.025" font-size="11.5" fill="#52606d">(렌더링 기회)</text>
-
-  <!-- Side Annotations: ← 사이클 1 , ← 사이클 2 -->
-  <text x="745" y="421.025" font-size="11.5" font-weight="bold" fill="#059669">← 사이클 1</text>
-  <text x="745" y="491.025" font-size="11.5" font-weight="bold" fill="#059669">← 사이클 2</text>
+  <rect x="648" y="180" width="56" height="40" rx="6" fill="#6d28d9"/>
+  <text x="676" y="206" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">m1</text>
+  <rect x="708" y="180" width="56" height="40" rx="6" fill="#6d28d9"/>
+  <text x="736" y="206" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">m2</text>
+  <rect x="768" y="180" width="56" height="40" rx="6" fill="#6d28d9"/>
+  <text x="796" y="205" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">+추가</text>
+  <path d="M650,226 v6 h172 v-6" fill="none" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="736" y="257" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">전부</text>
 </svg>

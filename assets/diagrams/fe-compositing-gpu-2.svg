@@ -1,85 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">left vs transform — 파이프라인 비교</title>
-  <desc id="d">left 속성과 transform 속성 변경 시 매 프레임 발생하는 브라우저 렌더링 파이프라인 단계를 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">left와 transform 파이프라인 비교</title>
+  <desc id="d">A안(left)은 매 프레임 Style, Layout, Paint, Raster, Composite를 모두 거치며 Layout에서 위치를 다시 계산하고 Paint에서 다시 그린다. B안(transform)은 매 프레임 Style에서 곧바로 Composite로 가서 이미 만들어 둔 비트맵을 다른 좌표에 겹치기만 한다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ar-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-sub" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- ===== A안 (left) ===== -->
+  <text x="28" y="44" font-size="19" font-weight="bold" fill="#b91c1c">A안 (left)</text>
+  <text x="140" y="44" font-size="15" fill="#4b5563">매 프레임</text>
 
-  <!-- 제목 (주어진 문서 헤딩) -->
-  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">left vs transform — 파이프라인 비교</text>
+  <rect x="28" y="64" width="136" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="96" y="96" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Style</text>
+  <line x1="168" y1="90" x2="196" y2="90" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <rect x="200" y="64" width="136" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="268" y="96" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Layout</text>
+  <line x1="340" y1="90" x2="368" y2="90" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <rect x="372" y="64" width="136" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="96" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Paint</text>
+  <line x1="512" y1="90" x2="540" y2="90" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <rect x="544" y="64" width="136" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="612" y="96" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Raster</text>
+  <line x1="684" y1="90" x2="712" y2="90" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <rect x="716" y="64" width="136" height="52" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="784" y="96" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Composite</text>
 
-  <!-- ================= A안 (left) 영역 ================= -->
-  <rect x="20" y="55" width="840" height="120" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
-  
-  <text x="40" y="85" font-size="14" font-weight="bold" fill="#dc2626">A안 (left)</text>
-  <text x="145" y="85" font-size="13" font-weight="bold" fill="#52606d">매 프레임:</text>
+  <line x1="268" y1="144" x2="268" y2="121" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ar-gray)"/>
+  <text x="268" y="164" font-size="15" fill="#b91c1c" text-anchor="middle">위치를 다시 계산</text>
+  <line x1="440" y1="144" x2="440" y2="121" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ar-gray)"/>
+  <text x="440" y="164" font-size="15" fill="#b91c1c" text-anchor="middle">다시 그림</text>
 
-  <!-- A안 노드들 -->
-  <!-- Style -->
-  <rect x="40" y="110" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="80" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Style</text>
+  <line x1="28" y1="192" x2="852" y2="192" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <path d="M120,128 L150,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- ===== B안 (transform) ===== -->
+  <text x="28" y="230" font-size="19" font-weight="bold" fill="#047857">B안 (transform)</text>
+  <text x="190" y="230" font-size="15" fill="#4b5563">매 프레임</text>
 
-  <!-- Layout -->
-  <rect x="157" y="110" width="90" height="36" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
-  <text x="202" y="132" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Layout</text>
+  <!-- 우회 화살표: Style → Composite -->
+  <path d="M96,266 V250 H400" fill="none" stroke="#047857" stroke-width="2"/>
+  <text x="440" y="255" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">건너뜀</text>
+  <path d="M480,250 H784 V266" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ar-green)"/>
 
-  <path d="M247,128 L277,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <rect x="28" y="270" width="136" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="96" y="302" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Style</text>
+  <rect x="200" y="270" width="136" height="52" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="268" y="302" font-size="17" fill="#4b5563" text-anchor="middle">Layout</text>
+  <rect x="372" y="270" width="136" height="52" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="440" y="302" font-size="17" fill="#4b5563" text-anchor="middle">Paint</text>
+  <rect x="544" y="270" width="136" height="52" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="612" y="302" font-size="17" fill="#4b5563" text-anchor="middle">Raster</text>
+  <rect x="716" y="270" width="136" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="784" y="302" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">Composite</text>
 
-  <!-- Paint -->
-  <rect x="284" y="110" width="80" height="36" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
-  <text x="324" y="132" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">Paint</text>
+  <line x1="784" y1="350" x2="784" y2="327" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ar-gray)"/>
+  <text x="852" y="372" font-size="15" fill="#047857" text-anchor="end">이미 만들어 둔 비트맵을</text>
+  <text x="852" y="394" font-size="15" fill="#047857" text-anchor="end">다른 좌표에 겹치기만</text>
 
-  <path d="M364,128 L394,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Raster -->
-  <rect x="401" y="110" width="85" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="443" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Raster</text>
-
-  <path d="M486,128 L516,128" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Composite -->
-  <rect x="523" y="110" width="105" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="575" y="132" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Composite</text>
-
-  <!-- A안 주석/화살표 -->
-  <path d="M202,160 L202,148" stroke="#52606d" stroke-width="1" fill="none" marker-end="url(#a-sub)"/>
-  <text x="210" y="164" font-size="11.5" fill="#52606d">위치를 다시 계산</text>
-
-  <path d="M324,160 L324,148" stroke="#52606d" stroke-width="1" fill="none" marker-end="url(#a-sub)"/>
-  <text x="332" y="164" font-size="11.5" fill="#52606d">다시 그림</text>
-
-
-  <!-- ================= B안 (transform) 영역 ================= -->
-  <rect x="20" y="190" width="840" height="130" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
-
-  <text x="40" y="220" font-size="14" font-weight="bold" fill="#059669">B안 (transform)</text>
-  <text x="190" y="220" font-size="13" font-weight="bold" fill="#52606d">매 프레임:</text>
-
-  <!-- B안 노드들 -->
-  <!-- Style -->
-  <rect x="40" y="245" width="80" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="80" y="267" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">Style</text>
-
-  <path d="M120,263 L516,263" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-
-  <!-- Composite -->
-  <rect x="523" y="245" width="105" height="36" rx="4" fill="#ffffff" stroke="#059669" stroke-width="2"/>
-  <text x="575" y="267" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">Composite</text>
-
-  <!-- B안 주석/화살표 -->
-  <path d="M575,299 L575,283" stroke="#52606d" stroke-width="1" fill="none" marker-end="url(#a-sub)"/>
-  <text x="583" y="299" font-size="11.5" fill="#52606d">이미 만들어 둔 비트맵을</text>
-  <text x="583" y="313" font-size="11.5" fill="#52606d">다른 좌표에 겹치기만</text>
+  <!-- 범례 -->
+  <rect x="28" y="360" width="40" height="22" rx="4" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="78" y="377" font-size="15" fill="#374151">매 프레임 실행</text>
+  <rect x="210" y="360" width="40" height="22" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="260" y="377" font-size="15" fill="#374151">건너뜀</text>
 </svg>

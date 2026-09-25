@@ -1,75 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Node.js의 이벤트 루프</title>
-  <desc id="d">Node.js libuv 이벤트 루프의 6개 주요 페이즈 순환 구조와 페이즈 사이의 process.nextTick 및 Promise 마이크로태스크 큐 처리 순서를 나타낸 다이어그램입니다.</desc>
+  <desc id="d">Node.js 이벤트 루프는 timers, pending callbacks, idle·prepare, poll, check, close callbacks 여섯 페이즈를 정해진 순서로 순회하고 다시 timers로 돌아갑니다. 각 콜백 사이마다 process.nextTick 큐를 먼저, Promise 마이크로태스크 큐를 그다음으로 비웁니다.</desc>
+  <rect width="880" height="620" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="580" fill="#ffffff"/>
 
-  <!-- 메인 이벤트 루프 박스 그룹 -->
-  <g id="event-loop-phases">
-    <!-- 1. timers -->
-    <rect x="70" y="30" width="320" height="56" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="230" y="63" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">timers</text>
-    <text x="414" y="63" text-anchor="start" font-size="13" fill="#52606d">setTimeout / setInterval 콜백</text>
+  <!-- 행 배경 -->
+  <rect x="64" y="28" width="792" height="50" rx="8" fill="#f1f5f9"/>
+  <rect x="64" y="104" width="792" height="50" rx="8" fill="#f1f5f9"/>
+  <rect x="64" y="180" width="792" height="50" rx="8" fill="#f1f5f9"/>
+  <rect x="64" y="256" width="792" height="50" rx="8" fill="#f1f5f9"/>
+  <rect x="64" y="332" width="792" height="50" rx="8" fill="#f1f5f9"/>
+  <rect x="64" y="408" width="792" height="50" rx="8" fill="#f1f5f9"/>
 
-    <!-- 2. pending callbacks -->
-    <rect x="70" y="102" width="320" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="230" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">pending callbacks</text>
-    <text x="414" y="135" text-anchor="start" font-size="13" fill="#52606d">일부 시스템 오퍼레이션 콜백</text>
+  <!-- 1 timers -->
+  <rect x="76" y="28" width="276" height="50" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="102" cy="53" r="14" fill="#334155"/>
+  <text x="102" y="58" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="128" y="59" font-size="17" font-weight="bold" fill="#111827">timers</text>
+  <text x="384" y="59" font-size="16" fill="#374151"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1d4ed8">setTimeout</tspan> / <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1d4ed8">setInterval</tspan> 콜백</text>
 
-    <!-- 3. idle, prepare -->
-    <rect x="70" y="174" width="320" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="230" y="207" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">idle, prepare</text>
-    <text x="414" y="207" text-anchor="start" font-size="13" fill="#52606d">내부용</text>
+  <line x1="214" y1="80" x2="214" y2="101" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
 
-    <!-- 4. poll -->
-    <rect x="70" y="246" width="320" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <text x="230" y="279" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">poll</text>
-    <text x="414" y="279" text-anchor="start" font-size="13" fill="#52606d">I/O 이벤트 수집, 여기서 대기</text>
+  <!-- 2 pending callbacks -->
+  <rect x="76" y="104" width="276" height="50" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="102" cy="129" r="14" fill="#334155"/>
+  <text x="102" y="134" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="128" y="135" font-size="17" font-weight="bold" fill="#111827">pending callbacks</text>
+  <text x="384" y="135" font-size="16" fill="#374151">일부 시스템 오퍼레이션 콜백</text>
 
-    <!-- 5. check -->
-    <rect x="70" y="318" width="320" height="56" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-    <text x="230" y="351" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">check</text>
-    <text x="414" y="351" text-anchor="start" font-size="13" fill="#52606d">setImmediate 콜백</text>
+  <line x1="214" y1="156" x2="214" y2="177" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
 
-    <!-- 6. close callbacks -->
-    <rect x="70" y="390" width="320" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="230" y="423" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">close callbacks</text>
-    <text x="414" y="423" text-anchor="start" font-size="13" fill="#52606d">socket.on('close') 등</text>
-  </g>
+  <!-- 3 idle, prepare -->
+  <rect x="76" y="180" width="276" height="50" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="102" cy="205" r="14" fill="#334155"/>
+  <text x="102" y="210" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="128" y="211" font-size="17" font-weight="bold" fill="#111827">idle, prepare</text>
+  <text x="384" y="211" font-size="16" fill="#374151">내부용</text>
 
-  <!-- 순환 루프 화살표 (오른쪽 순차 연결 + 왼쪽 리턴) -->
-  <g id="loop-arrows">
-    <path d="M 230,86 L 230,102" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-    <path d="M 230,158 L 230,174" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-    <path d="M 230,230 L 230,246" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-    <path d="M 230,302 L 230,318" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-    <path d="M 230,374 L 230,390" stroke="#cbd2d9" stroke-width="1.5" fill="none"/>
-    <!-- 왼쪽 대형 리턴 루프 화살표 -->
-    <path d="M 70,418 L 36,418 L 36,58 L 61,58" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  </g>
+  <line x1="214" y1="232" x2="214" y2="253" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
 
-  <!-- 구분선 -->
-  <line x1="40" y1="480" x2="840" y2="480" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 4 poll -->
+  <rect x="76" y="256" width="276" height="50" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="102" cy="281" r="14" fill="#334155"/>
+  <text x="102" y="286" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="128" y="287" font-size="17" font-weight="bold" fill="#111827">poll</text>
+  <text x="384" y="287" font-size="16" fill="#374151">I/O 이벤트 수집, <tspan font-weight="bold" fill="#111827">여기서 대기</tspan></text>
 
-  <!-- 각주 / 하단 설명 영역 -->
-  <g id="footer-note">
-    <text x="70" y="525" text-anchor="start" font-size="13" font-weight="bold" fill="#1f2933">각 콜백 사이마다:</text>
-    
-    <!-- process.nextTick 큐 -->
-    <rect x="210" y="504" width="180" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="300" y="527" text-anchor="middle" font-size="13" font-weight="bold" fill="#d97706">process.nextTick 큐</text>
-    
-    <!-- 화살표 -->
-    <text x="402" y="527" text-anchor="middle" font-size="14" fill="#52606d">→</text>
-    
-    <!-- Promise 마이크로태스크 큐 -->
-    <rect x="420" y="504" width="230" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="535" y="527" text-anchor="middle" font-size="13" font-weight="bold" fill="#dc2626">Promise 마이크로태스크 큐</text>
-    
-    <text x="662" y="527" text-anchor="start" font-size="13" fill="#1f2933">순으로 비운다</text>
-  </g>
+  <line x1="214" y1="308" x2="214" y2="329" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- 5 check -->
+  <rect x="76" y="332" width="276" height="50" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="102" cy="357" r="14" fill="#334155"/>
+  <text x="102" y="362" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="128" y="363" font-size="17" font-weight="bold" fill="#111827">check</text>
+  <text x="384" y="363" font-size="16" fill="#374151"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1d4ed8">setImmediate</tspan> 콜백</text>
+
+  <line x1="214" y1="384" x2="214" y2="405" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- 6 close callbacks -->
+  <rect x="76" y="408" width="276" height="50" rx="8" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="102" cy="433" r="14" fill="#334155"/>
+  <text x="102" y="438" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="128" y="439" font-size="17" font-weight="bold" fill="#111827">close callbacks</text>
+  <text x="384" y="439" font-size="16" fill="#374151"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1d4ed8">socket.on('close')</tspan> 등</text>
+
+  <!-- 다시 timers로 -->
+  <path d="M76,433 H40 V53 H72" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ahb)"/>
+
+  <!-- 각 콜백 사이마다 -->
+  <rect x="24" y="486" width="832" height="110" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="518" font-size="17" font-weight="bold" fill="#111827">각 콜백 사이마다</text>
+
+  <rect x="48" y="536" width="236" height="44" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="70" cy="558" r="12" fill="#92400e"/>
+  <text x="70" y="563" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="90" y="564" font-size="16" fill="#92400e"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">process.nextTick</tspan> 큐</text>
+
+  <line x1="290" y1="558" x2="326" y2="558" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
+
+  <rect x="332" y="536" width="270" height="44" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <circle cx="354" cy="558" r="12" fill="#991b1b"/>
+  <text x="354" y="563" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="374" y="564" font-size="16" fill="#991b1b">Promise 마이크로태스크 큐</text>
+
+  <text x="618" y="564" font-size="16" fill="#111827">순으로 비운다</text>
 </svg>

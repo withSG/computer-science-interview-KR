@@ -195,7 +195,7 @@ button {
 `element.textContent = 'x'` 한 줄이 비싼 게 아닙니다. 비용은 그 변경이 **파이프라인의 어느 단계부터 다시 돌게 만드느냐**에서 옵니다.
 
 <!-- diagram:fe-dom-cssom-4 -->
-![비용은 어디서 생기나](../../assets/diagrams/fe-dom-cssom-4.svg)
+![DOM 변경 후 스타일 재계산·레이아웃·페인트·합성 흐름](../../assets/diagrams/fe-dom-cssom-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

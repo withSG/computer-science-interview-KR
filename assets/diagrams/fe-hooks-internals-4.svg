@@ -1,58 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">의존성 배열에 거짓말하지 않는다</title>
-  <desc id="d">react-hooks/exhaustive-deps 경고 발생 시 3가지 원인과 해결 방안 전사 다이어그램</desc>
-  <rect width="880" height="420" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">의존성 경고 대응 갈래</title>
+  <desc id="d">react-hooks/exhaustive-deps 경고가 뜨면 세 경우 중 하나다. 값이 바뀌면 effect를 다시 실행해야 하면 의존성에 넣고, 갱신만 하면 되면 setState 함수형 업데이트로 의존성을 없애고, 함수·객체가 매 렌더마다 새로 만들어지는 문제면 정의를 effect 안이나 컴포넌트 밖으로 옮기거나 useCallback/useMemo로 참조를 고정한다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Root Warning Box -->
-  <rect x="40" y="24" width="160" height="42" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="120" y="50" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">경고가 뜬다</text>
+  <!-- 뿌리: 경고 -->
+  <rect x="24" y="24" width="300" height="64" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="44" y="51" font-size="18" font-weight="bold" fill="#92400e">경고가 뜬다</text>
+  <text x="44" y="75" font-size="15" fill="#92400e" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">react-hooks/exhaustive-deps</text>
 
-  <!-- Tree Trunk -->
-  <path d="M80,66 L80,350" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <!-- 열 머리 -->
+  <text x="72" y="122" font-size="15" font-weight="bold" fill="#4b5563">어떤 경우인가</text>
+  <text x="500" y="122" font-size="15" font-weight="bold" fill="#4b5563">답</text>
 
-  <!-- Branch 1 -->
-  <path d="M80,125 L110,125" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  
-  <rect x="110" y="97" width="350" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="126" y="129.5" font-size="13" fill="#1f2933">값이 바뀌면 정말로 effect를 다시 실행해야 한다</text>
+  <!-- 줄기 -->
+  <line x1="46" y1="88" x2="46" y2="368" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="46" y1="164" x2="72" y2="164" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="46" y1="254" x2="72" y2="254" stroke="#94a3b8" stroke-width="2"/>
+  <line x1="46" y1="368" x2="72" y2="368" stroke="#94a3b8" stroke-width="2"/>
 
-  <path d="M460,125 L502,125" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 경우 1 -->
+  <rect x="72" y="136" width="380" height="56" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="90" y="169" font-size="15" fill="#1f2937">값이 바뀌면 정말로 effect를 다시 실행해야 한다</text>
+  <line x1="454" y1="164" x2="494" y2="164" stroke="#047857" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="500" y="136" width="356" height="56" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="518" y="170" font-size="16" font-weight="bold" fill="#065f46">의존성에 넣는다</text>
 
-  <rect x="510" y="97" width="330" height="56" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="526" y="129.5" font-size="13" font-weight="bold" fill="#1e40af">의존성에 넣는다</text>
+  <!-- 경우 2 -->
+  <rect x="72" y="216" width="380" height="76" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="90" y="259" font-size="15" fill="#1f2937">값을 읽는 게 아니라 "갱신"만 하면 된다</text>
+  <line x1="454" y1="254" x2="494" y2="254" stroke="#047857" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="500" y="216" width="356" height="76" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="518" y="248" font-size="16" font-weight="bold" fill="#065f46">
+    <tspan x="518">setState 함수형 업데이트로 바꿔</tspan>
+    <tspan x="518" dy="24">의존성을 없앤다</tspan>
+  </text>
 
-  <!-- Branch 2 -->
-  <path d="M80,225 L110,225" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-
-  <rect x="110" y="197" width="350" height="56" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="126" y="229.5" font-size="13" fill="#1f2933">값을 읽는 게 아니라 "갱신"만 하면 된다</text>
-
-  <path d="M460,225 L502,225" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-  <rect x="510" y="197" width="330" height="56" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="526" y="229.5" font-size="12.5" font-weight="bold" fill="#065f46">setState 함수형 업데이트로 바꿔 의존성을 없앤다</text>
-
-  <!-- Branch 3 -->
-  <path d="M80,350 L110,350" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-
-  <rect x="110" y="318" width="372" height="64" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="126" y="354.5" font-size="12.5" fill="#1f2933">이 값(주로 함수·객체)이 매 렌더마다 새로 만들어져서 문제다</text>
-
-  <path d="M482,350 L502,350" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="510" y="310" width="330" height="80" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="526" y="340.3" font-size="12" font-weight="bold" fill="#5b21b6">정의를 effect 안으로 옮기거나, 컴포넌트 밖으로 빼거나,</text>
-  <text x="526" y="368.3" font-size="12" font-weight="bold" fill="#5b21b6">useCallback/useMemo로 참조를 고정한다</text>
+  <!-- 경우 3 -->
+  <rect x="72" y="316" width="380" height="104" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="1.5"/>
+  <text x="90" y="360" font-size="15" fill="#1f2937">
+    <tspan x="90">이 값(주로 함수·객체)이</tspan>
+    <tspan x="90" dy="24">매 렌더마다 새로 만들어져서 문제다</tspan>
+  </text>
+  <line x1="454" y1="368" x2="494" y2="368" stroke="#047857" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="500" y="316" width="356" height="104" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="518" y="348" font-size="15" font-weight="bold" fill="#065f46">
+    <tspan x="518">정의를 effect 안으로 옮기거나,</tspan>
+    <tspan x="518" dy="24">컴포넌트 밖으로 빼거나,</tspan>
+    <tspan x="518" dy="24">useCallback/useMemo로 참조를 고정한다</tspan>
+  </text>
 </svg>

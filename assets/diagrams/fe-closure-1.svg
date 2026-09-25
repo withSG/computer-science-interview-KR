@@ -1,102 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 종료된 함수의 변수가 살아남나</title>
-  <desc id="d">outer 함수 호출 중과 반환 후 콜 스택과 힙의 렉시컬 환경 참조 상태 변화를 보여주는 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">outer 반환 전후의 스택과 힙</title>
+  <desc id="d">outer() 호출 중에는 콜 스택의 outer 컨텍스트가 LexicalEnv로 힙의 { secret:'hidden' } 환경을 가리키고, inner 함수 객체도 [[Environment]]로 같은 환경을 가리킨다. outer() 반환 후 스택에는 Global만 남지만, fn 변수가 inner를 참조하고 inner가 [[Environment]]로 환경을 참조하므로 { secret:'hidden' }은 여전히 참조된다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커: 잉크/보조/파랑/초록/주황 -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 메인 타이틀 (주어진 문서 헤딩) -->
-  <text x="440" y="36" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">왜 종료된 함수의 변수가 살아남나</text>
+  <!-- 열 머리 -->
+  <text x="160" y="42" font-size="16" font-weight="700" fill="#1d4ed8" text-anchor="middle">콜 스택 (실행 컨텍스트)</text>
+  <line x1="48" y1="54" x2="272" y2="54" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="575" y="42" font-size="16" font-weight="700" fill="#047857" text-anchor="middle">힙 (렉시컬 환경)</text>
+  <line x1="450" y1="54" x2="700" y2="54" stroke="#047857" stroke-width="2"/>
 
-  <!-- 열 헤더 (구역 구분) -->
-  <!-- [ 콜 스택 (실행 컨텍스트) ] -->
-  <rect x="50" y="55" width="340" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="220" y="76" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">[ 콜 스택 (실행 컨텍스트) ]</text>
+  <!-- ===== ① outer() 호출 중 ===== -->
+  <rect x="24" y="68" width="832" height="232" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="40" y="94" font-size="16" font-weight="700" fill="#111827">① outer() 호출 중</text>
 
-  <!-- [ 힙 (렉시컬 환경) ] -->
-  <rect x="490" y="55" width="340" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="660" y="76" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">[ 힙 (렉시컬 환경) ]</text>
+  <rect x="60" y="112" width="200" height="44" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="160" y="140" font-size="16" fill="#1e3a8a" text-anchor="middle">outer 컨텍스트</text>
+  <rect x="60" y="162" width="200" height="44" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="160" y="190" font-size="16" fill="#111827" text-anchor="middle">Global</text>
 
+  <rect x="450" y="108" width="250" height="72" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="575" y="136" font-size="16" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{ secret:'hidden' }</text>
+  <text x="575" y="164" font-size="15" fill="#374151" text-anchor="middle">outer ref → 전역</text>
 
-  <!-- ==================== SECTION 1: outer() 호출 중 ==================== -->
-  <g id="section-calling">
-    <text x="50" y="115" font-size="14" font-weight="bold" fill="#52606d">outer() 호출 중</text>
+  <path d="M262,134 L446,134" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+  <text x="354" y="124" font-size="15" fill="#1d4ed8" text-anchor="middle">LexicalEnv</text>
 
-    <!-- 콜 스택 박스들 -->
-    <!-- outer 컨텍스트 -->
-    <rect x="70" y="130" width="180" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="160" y="154" font-size="13" fill="#1f2933" text-anchor="middle">outer 컨텍스트</text>
+  <rect x="450" y="236" width="250" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="575" y="264" font-size="16" fill="#5b21b6" text-anchor="middle">inner 함수 객체</text>
+  <path d="M575,234 L575,184" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ap)"/>
+  <text x="587" y="214" font-size="15" fill="#6d28d9">[[Environment]]</text>
 
-    <!-- Global -->
-    <rect x="70" y="180" width="180" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="160" y="204" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
+  <!-- ===== ② outer() 반환 후 ===== -->
+  <rect x="24" y="316" width="832" height="238" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="40" y="342" font-size="16" font-weight="700" fill="#111827">② outer() 반환 후</text>
+  <text x="196" y="342" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">const fn = outer()</text>
 
-    <!-- 힙 박스들 -->
-    <!-- { secret:'hidden' } outer ref ──► 전역 -->
-    <rect x="530" y="125" width="260" height="60" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="660" y="149" font-size="13" fill="#1f2933" text-anchor="middle">{ secret:'hidden' }</text>
-    <text x="610" y="169" font-size="13" fill="#52606d">outer ref</text>
-    <path d="M680,165 L735,165" stroke="#52606d" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="745" y="169" font-size="13" fill="#1f2933">전역</text>
+  <rect x="60" y="360" width="200" height="44" rx="4" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="160" y="387" font-size="15" fill="#4b5563" text-anchor="middle">outer 컨텍스트 (사라짐)</text>
+  <rect x="60" y="410" width="200" height="44" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="124" y="438" font-size="16" fill="#111827" text-anchor="middle">Global</text>
+  <rect x="200" y="418" width="48" height="28" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="224" y="438" font-size="16" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">fn</text>
 
-    <!-- inner 함수 객체 -->
-    <rect x="530" y="235" width="260" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="660" y="259" font-size="13" fill="#1f2933" text-anchor="middle">inner 함수 객체</text>
+  <rect x="450" y="356" width="250" height="56" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="575" y="390" font-size="16" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">{ secret:'hidden' }</text>
+  <text x="712" y="390" font-size="15" font-weight="700" fill="#b45309">← 여전히 참조됨</text>
 
-    <!-- 화살표 1: outer 컨텍스트 ──── LexicalEnv ─────► { secret:'hidden' } -->
-    <path d="M250,150 L530,150" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <!-- LexicalEnv 라벨 배경 + 텍스트 -->
-    <rect x="340" y="140" width="100" height="20" fill="#ffffff"/>
-    <text x="390" y="154" font-size="11.5" fill="#2563eb" text-anchor="middle">LexicalEnv</text>
+  <rect x="450" y="486" width="250" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="575" y="514" font-size="16" fill="#5b21b6" text-anchor="middle">inner 함수 객체</text>
+  <path d="M575,484 L575,416" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ap)"/>
+  <text x="587" y="455" font-size="15" fill="#6d28d9">[[Environment]]</text>
 
-    <!-- 화살표 2: inner 함수 객체 ──[[Environment]]──► { secret:'hidden' } -->
-    <path d="M660,235 L660,185" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <!-- [[Environment]] 라벨 배경 + 텍스트 -->
-    <rect x="590" y="200" width="140" height="20" fill="#ffffff"/>
-    <text x="660" y="214" font-size="11.5" fill="#059669" text-anchor="middle">[[Environment]]</text>
-  </g>
-
-
-  <!-- 구분선 -->
-  <line x1="50" y1="300" x2="830" y2="300" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-
-  <!-- ==================== SECTION 2: outer() 반환 후 ==================== -->
-  <g id="section-returned">
-    <text x="50" y="335" font-size="14" font-weight="bold" fill="#52606d">outer() 반환 후</text>
-
-    <!-- 콜 스택 박스 -->
-    <!-- Global -->
-    <rect x="70" y="360" width="180" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="160" y="384" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
-
-    <!-- 힙 박스 -->
-    <!-- { secret:'hidden' } -->
-    <rect x="530" y="360" width="260" height="40" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="620" y="384" font-size="13" fill="#1f2933" text-anchor="middle">{ secret:'hidden' }</text>
-
-    <!-- ← 여전히 참조됨 라벨 -->
-    <text x="690" y="384" font-size="11.5" fill="#d97706" font-weight="bold">← 여전히 참조됨</text>
-
-    <!-- 화살표 3: fn 변수가 inner를 참조 ( Global ── fn 변수가 inner를 참조 ──► { secret:'hidden' } ) -->
-    <path d="M160,400 L160,450 L660,450 L660,400" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-
-    <!-- fn 변수가 inner를 참조 라벨 배경 + 텍스트 -->
-    <rect x="250" y="440" width="300" height="20" fill="#ffffff"/>
-    <text x="400" y="454" font-size="11.5" fill="#d97706" text-anchor="middle">fn 변수가 inner를 참조</text>
-  </g>
+  <path d="M224,448 L224,508 L446,508" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#ao)"/>
+  <text x="248" y="496" font-size="15" fill="#b45309">fn 변수가 inner를 참조</text>
 </svg>

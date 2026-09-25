@@ -1,133 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">기본, async, defer 스크립트의 파싱·다운로드·실행 타임라인 비교</title>
-  <desc id="d">기본, async, defer 속성에 따른 HTML 파싱, 스크립트 다운로드, 스크립트 실행 시점과 DOMContentLoaded 이벤트 간의 관계를 보여주는 타임라인 다이어그램입니다.</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 680" width="880" height="680" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">기본·async·defer 실행 타임라인</title>
+  <desc id="d">기본, async, defer 스크립트에서 HTML 파싱, 스크립트 다운로드, 실행이 언제 일어나는지 비교한 타임라인. 기본은 스크립트를 발견하면 다운로드와 실행 동안 파싱이 중단되고, async는 파싱과 병행해 받은 뒤 다운로드 즉시 실행되며, defer는 파싱을 중단 없이 마친 뒤 DOMContentLoaded 전에 실행된다.</desc>
+  <rect width="880" height="680" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="40" y="42" font-size="17" font-weight="600" fill="#1f2933">기본 / async / defer 스크립트 실행 타임라인</text>
-  <text x="40" y="64" font-size="11.5" fill="#52606d">스크립트 속성에 따른 HTML 파싱 차단 여부 및 실행 시점 비교</text>
+  <!-- 범례 -->
+  <rect x="24" y="28" width="20" height="16" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="52" y="41" font-size="15" fill="#111827">HTML 파싱</text>
+  <rect x="150" y="28" width="20" height="16" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="178" y="41" font-size="15" fill="#111827">다운로드</text>
+  <rect x="260" y="28" width="20" height="16" rx="3" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="288" y="41" font-size="15" fill="#111827">실행</text>
+  <rect x="348" y="28" width="20" height="16" rx="3" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="376" y="41" font-size="15" fill="#111827">파싱 멈춘 채 대기</text>
 
-  <!-- Legend -->
-  <rect x="520" y="28" width="320" height="40" fill="#f8fafc" rx="4" stroke="#cbd2d9" stroke-width="1"/>
-  <rect x="532" y="43" width="14" height="10" fill="#2563eb" rx="2"/>
-  <text x="550" y="52" font-size="11" fill="#1f2933">HTML 파싱</text>
-  
-  <rect x="625" y="43" width="14" height="10" fill="#d97706" rx="2"/>
-  <text x="643" y="52" font-size="11" fill="#1f2933">다운로드</text>
+  <!-- 시간 축 -->
+  <text x="196" y="77" text-anchor="end" font-size="15" font-weight="bold" fill="#111827">시간 (Time)</text>
+  <line x1="210" y1="72" x2="850" y2="72" stroke="#475569" stroke-width="1.5" marker-end="url(#ah)"/>
 
-  <rect x="710" y="43" width="14" height="10" fill="#dc2626" rx="2"/>
-  <text x="728" y="52" font-size="11" fill="#1f2933">실행</text>
+  <!-- 레인 배경 -->
+  <rect x="24" y="120" width="832" height="124" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="24" y="256" width="832" height="124" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <rect x="24" y="392" width="832" height="124" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
 
-  <!-- Main Timeline Grid / Track Structure -->
-  <!-- Header Axis -->
-  <line x1="200" y1="100" x2="800" y2="100" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <text x="800" y="90" font-size="11.5" font-weight="600" fill="#1f2933" text-anchor="end">시간 (Time)</text>
+  <!-- 공통 기준선: 스크립트 발견 -->
+  <text x="310" y="104" text-anchor="middle" font-size="15" font-weight="bold" fill="#374151">스크립트 발견</text>
+  <line x1="310" y1="110" x2="310" y2="516" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
 
-  <!-- Vertical Milestone Guidelines -->
-  <!-- t1: Script discovered (x=270) -->
-  <line x1="270" y1="100" x2="270" y2="400" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="270" y="90" font-size="11" fill="#52606d" text-anchor="middle">스크립트 발견</text>
+  <!-- ── 레인 1: 기본 ── -->
+  <text x="40" y="182" font-size="18" font-weight="bold" fill="#111827">기본</text>
+  <text x="40" y="210" font-size="14" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;script src="..."&gt;</text>
 
-  <!-- t2: Download finished for async (x=450) -->
-  <line x1="450" y1="100" x2="450" y2="400" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <text x="421" y="144" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">파싱 중단 (파서 차단)</text>
+  <path d="M312,156 V150 H530 V156" fill="none" stroke="#b91c1c" stroke-width="1.5"/>
 
-  <!-- t3: HTML Parsing complete (x=630) -->
-  <line x1="630" y1="100" x2="630" y2="400" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="630" y="90" font-size="11" fill="#52606d" text-anchor="middle">DOM 파싱 완료</text>
+  <rect x="210" y="160" width="98" height="32" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="259" y="181" text-anchor="middle" font-size="15" fill="#1e3a8a">HTML 파싱</text>
+  <rect x="312" y="160" width="146" height="32" rx="4" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="462" y="160" width="68" height="32" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="496" y="181" text-anchor="middle" font-size="15" font-weight="bold" fill="#7f1d1d">실행</text>
+  <rect x="534" y="160" width="286" height="32" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="677" y="181" text-anchor="middle" font-size="15" fill="#1e3a8a">HTML 파싱 재개</text>
 
-  <!-- t4: DOMContentLoaded event line (x=730) -->
-  <line x1="730" y1="100" x2="730" y2="400" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <path d="M730,105 L730,400" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#a-purple)"/>
-  <rect x="662" y="105" width="136" height="18" fill="#ffffff" rx="2"/>
-  <text x="730" y="118" font-size="11" font-weight="600" fill="#7c3aed" text-anchor="middle">DOMContentLoaded</text>
+  <rect x="312" y="200" width="146" height="32" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="385" y="221" text-anchor="middle" font-size="15" fill="#78350f">다운로드</text>
 
-  <!-- LANE 1: 기본 (Default Script) -->
-  <rect x="40" y="130" width="800" height="80" fill="#f8fafc" rx="6" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="55" y="162" font-size="14" font-weight="600" fill="#1f2933">기본</text>
-  <text x="55" y="182" font-size="11" fill="#52606d">&lt;script src="..."&gt;</text>
+  <!-- ── 레인 2: async ── -->
+  <text x="40" y="318" font-size="18" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">async</text>
+  <text x="40" y="346" font-size="14" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;script async&gt;</text>
 
-  <!-- Lane 1 Tracks -->
-  <!-- HTML Parsing Part 1 -->
-  <rect x="200" y="150" width="70" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-  <text x="235" y="164" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">HTML 파싱</text>
-  
-  <!-- Paused indicator -->
-  <rect x="270" y="138" width="180" height="16" fill="#fef2f2" rx="2"/>
-  <text x="360" y="150" font-size="11" fill="#dc2626" font-weight="500" text-anchor="middle">파싱 중단 (파서 차단)</text>
+  <text x="496" y="282" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">다운로드 즉시 실행</text>
 
-  <!-- Download -->
-  <rect x="270" y="158" width="100" height="20" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="3"/>
-  <text x="320" y="172" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">다운로드</text>
+  <rect x="210" y="296" width="248" height="32" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="334" y="317" text-anchor="middle" font-size="15" fill="#1e3a8a">HTML 파싱 (병행)</text>
+  <rect x="462" y="296" width="68" height="32" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="496" y="317" text-anchor="middle" font-size="15" font-weight="bold" fill="#7f1d1d">실행</text>
+  <rect x="534" y="296" width="136" height="32" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="602" y="317" text-anchor="middle" font-size="15" fill="#1e3a8a">HTML 파싱</text>
 
-  <!-- Execution -->
-  <rect x="370" y="158" width="80" height="20" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="3"/>
-  <text x="410" y="172" font-size="11.5" font-weight="500" fill="#dc2626" text-anchor="middle">실행</text>
+  <rect x="312" y="336" width="146" height="32" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="385" y="357" text-anchor="middle" font-size="15" fill="#78350f">다운로드 (병행)</text>
 
-  <!-- HTML Parsing Part 2 -->
-  <rect x="450" y="150" width="180" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-  <text x="540" y="164" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">HTML 파싱 재개</text>
+  <!-- ── 레인 3: defer ── -->
+  <text x="40" y="454" font-size="18" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">defer</text>
+  <text x="40" y="482" font-size="14" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;script defer&gt;</text>
 
+  <text x="590" y="418" text-anchor="end" font-size="15" font-weight="bold" fill="#1e3a8a">DOM 파싱 완료</text>
+  <line x1="596" y1="408" x2="596" y2="468" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="684" y="418" font-size="15" font-weight="bold" fill="#6d28d9">DOMContentLoaded</text>
+  <line x1="676" y1="406" x2="676" y2="468" stroke="#6d28d9" stroke-width="2" stroke-dasharray="5 3"/>
 
-  <!-- LANE 2: async Script -->
-  <rect x="40" y="220" width="800" height="80" fill="#f8fafc" rx="6" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="55" y="252" font-size="14" font-weight="600" fill="#1f2933">async</text>
-  <text x="55" y="272" font-size="11" fill="#52606d">&lt;script async&gt;</text>
+  <rect x="210" y="432" width="384" height="32" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="402" y="453" text-anchor="middle" font-size="15" fill="#1e3a8a">HTML 파싱 중단 없이 진행</text>
+  <rect x="600" y="432" width="68" height="32" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="634" y="453" text-anchor="middle" font-size="15" font-weight="bold" fill="#7f1d1d">실행</text>
 
-  <!-- Lane 2 Tracks -->
-  <!-- HTML Parsing Part 1 (Parallel with Download) -->
-  <rect x="200" y="238" width="250" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-  <text x="325" y="252" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">HTML 파싱 (병행)</text>
+  <rect x="312" y="472" width="146" height="32" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="385" y="493" text-anchor="middle" font-size="15" fill="#78350f">다운로드 (병행)</text>
+  <text x="606" y="493" font-size="15" font-weight="bold" fill="#047857">↑ DOMContentLoaded 전 실행</text>
 
-  <!-- Download (Parallel) -->
-  <rect x="270" y="264" width="180" height="20" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="3"/>
-  <text x="360" y="278" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">다운로드 (병행)</text>
-
-  <!-- Execution (Interrupts) -->
-  <rect x="450" y="238" width="80" height="20" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="3"/>
-  <text x="490" y="252" font-size="11.5" font-weight="500" fill="#dc2626" text-anchor="middle">실행</text>
-  
-  <text x="490" y="278" font-size="11" fill="#dc2626" text-anchor="middle">다운로드 즉시 실행</text>
-
-  <!-- HTML Parsing Part 2 -->
-  <rect x="530" y="238" width="100" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-  <text x="580" y="252" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">HTML 파싱</text>
-
-
-  <!-- LANE 3: defer Script -->
-  <rect x="40" y="310" width="800" height="80" fill="#f8fafc" rx="6" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="55" y="342" font-size="14" font-weight="600" fill="#1f2933">defer</text>
-  <text x="55" y="362" font-size="11" fill="#52606d">&lt;script defer&gt;</text>
-
-  <!-- Lane 3 Tracks -->
-  <!-- HTML Parsing Uninterrupted -->
-  <rect x="200" y="328" width="430" height="20" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-  <text x="415" y="342" font-size="11.5" font-weight="500" fill="#2563eb" text-anchor="middle">HTML 파싱 중단 없이 진행</text>
-
-  <!-- Download (Parallel) -->
-  <rect x="270" y="354" width="230" height="20" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="3"/>
-  <text x="385" y="368" font-size="11.5" font-weight="500" fill="#d97706" text-anchor="middle">다운로드 (병행)</text>
-
-  <!-- Execution (Post-Parsing, Pre-DOMContentLoaded) -->
-  <rect x="630" y="328" width="80" height="20" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="3"/>
-  <text x="670" y="342" font-size="11.5" font-weight="500" fill="#dc2626" text-anchor="middle">실행</text>
-  <text x="670" y="368" font-size="11" fill="#059669" font-weight="500" text-anchor="middle">DOMContentLoaded 전 실행</text>
-
-
-  <!-- Summary Box / Conclusion Banner -->
-  <rect x="40" y="410" width="800" height="50" fill="#ecfdf5" rx="6" stroke="#059669" stroke-width="1.5"/>
-  <text x="55" y="432" font-size="13" font-weight="600" fill="#059669">요약 및 권장사항:</text>
-  <text x="55" y="449" font-size="11.5" fill="#1f2933">· DOM 조작 및 타 스크립트 의존 시 <tspan font-weight="600" fill="#059669">defer</tspan> 사용 (파싱 완료 후 순서대로 실행 보장)</text>
-  <text x="480" y="449" font-size="11.5" fill="#1f2933">· 독립적인 분석 태그 등은 <tspan font-weight="600" fill="#d97706">async</tspan> 사용 (다운로드 완료 즉시 실행)</text>
-
-  <!-- Caption Footer -->
-  <text x="440" y="485" font-size="11.5" fill="#52606d" text-anchor="middle">결론: defer는 HTML 파싱을 차단하지 않고 DOMContentLoaded 직전에 순서대로 실행되므로 가장 안전한 기본값입니다.</text>
+  <!-- 요약 -->
+  <rect x="24" y="536" width="832" height="122" rx="8" fill="#f0fdf4" stroke="#047857" stroke-width="1.5"/>
+  <text x="44" y="563" font-size="16" font-weight="bold" fill="#065f46">요약 및 권장사항</text>
+  <text x="44" y="591" font-size="15" fill="#111827">• DOM 조작·다른 스크립트에 의존 → <tspan font-weight="bold" fill="#065f46">defer</tspan> (파싱 완료 후 순서대로 실행 보장)</text>
+  <text x="44" y="617" font-size="15" fill="#111827">• 독립적인 분석 태그 등 → <tspan font-weight="bold" fill="#92400e">async</tspan> (다운로드 완료 즉시 실행)</text>
+  <text x="44" y="643" font-size="15" fill="#111827">• 결론: <tspan font-weight="bold" fill="#065f46">defer</tspan>는 HTML 파싱을 차단하지 않고 DOMContentLoaded 전에 순서대로 실행 → 가장 안전한 기본값</text>
 </svg>

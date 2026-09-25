@@ -1,97 +1,75 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">규칙 - key 유무에 따른 Reconciliation 비교</title>
-  <desc id="d">key가 없을 때는 순서로 매칭하여 3번의 작업이 발생하고, key가 있을 때는 key로 매칭하여 1번의 작업이 발생하는 과정을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">key 유무에 따른 형제 매칭 비교</title>
+  <desc id="d">목록 [A, B, C]가 [B, C]로 바뀔 때, key가 없으면 순서(0번·1번·2번)로 짝을 맞춰 내용 갱신 두 번과 삭제 한 번, 총 3번의 작업이 생긴다. key가 있으면 key로 짝을 맞춰 a만 삭제하고 b와 c는 그대로 두어 1번의 작업으로 끝난다.</desc>
+  <rect width="880" height="640" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-  </defs>
+  <!-- ===== 패널 1: key 없음 ===== -->
+  <rect x="24" y="24" width="832" height="280" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="58" font-size="19" font-weight="bold" fill="#111827">key 없음 <tspan font-weight="normal" fill="#4b5563">(순서로 매칭)</tspan></text>
 
-  <!-- ================= SECTION 1: key 없음 (순서로 매칭) ================= -->
-  <rect x="24" y="24" width="832" height="320" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <text x="48" y="106" font-size="16" font-weight="bold" fill="#4b5563">이전</text>
+  <text x="48" y="174" font-size="16" font-weight="bold" fill="#4b5563">새것</text>
 
-  <!-- Section 1 Header -->
-  <text x="48" y="58" font-size="16" font-weight="bold" fill="#1f2933">key 없음 (순서로 매칭)</text>
+  <!-- 0번 -->
+  <rect x="190" y="80" width="120" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="250" y="107" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">A</text>
+  <line x1="250" y1="120" x2="250" y2="148" stroke="#b45309" stroke-width="2.5"/>
+  <rect x="190" y="148" width="120" height="40" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="250" y="175" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">B</text>
+  <text x="250" y="216" font-size="16" fill="#111827" text-anchor="middle">0번: A와 B 비교</text>
+  <text x="250" y="240" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">→ 내용 갱신</text>
 
-  <!-- Section 1 Diagram Content -->
-  <!-- 이전 / 새것 Labels -->
-  <text x="70" y="105" font-size="14" fill="#52606d">이전:</text>
-  <text x="70" y="155" font-size="14" fill="#52606d">새것:</text>
+  <!-- 1번 -->
+  <rect x="410" y="80" width="120" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="470" y="107" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">B</text>
+  <line x1="470" y1="120" x2="470" y2="148" stroke="#b45309" stroke-width="2.5"/>
+  <rect x="410" y="148" width="120" height="40" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="470" y="175" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">C</text>
+  <text x="470" y="216" font-size="16" fill="#111827" text-anchor="middle">1번: B와 C 비교</text>
+  <text x="470" y="240" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">→ 내용 갱신</text>
 
-  <!-- 이전 Boxes: [ A ] [ B ] [ C ] -->
-  <rect x="120" y="84" width="60" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="150" y="105" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">A</text>
+  <!-- 2번 -->
+  <rect x="630" y="80" width="120" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="690" y="107" font-size="19" font-weight="bold" fill="#b91c1c" text-anchor="middle">C</text>
+  <rect x="630" y="148" width="120" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="690" y="216" font-size="16" fill="#111827" text-anchor="middle">2번: C</text>
+  <text x="690" y="240" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">→ 삭제</text>
 
-  <rect x="195" y="84" width="60" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="225" y="105" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">B</text>
+  <rect x="40" y="256" width="800" height="36" rx="6" fill="#fef3c7"/>
+  <text x="60" y="280" font-size="18" font-weight="bold" fill="#92400e">→ 3번의 작업</text>
 
-  <rect x="270" y="84" width="60" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="300" y="105" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
+  <!-- ===== 패널 2: key 있음 ===== -->
+  <rect x="24" y="328" width="832" height="280" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="362" font-size="19" font-weight="bold" fill="#111827">key 있음 <tspan font-weight="normal" fill="#4b5563">(key로 매칭)</tspan></text>
 
-  <!-- 새것 Boxes: [ B ] [ C ] (Aligned under B and C of previous) -->
-  <rect x="195" y="134" width="60" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="225" y="155" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">B</text>
+  <text x="48" y="410" font-size="16" font-weight="bold" fill="#4b5563">이전</text>
+  <text x="48" y="478" font-size="16" font-weight="bold" fill="#4b5563">새것</text>
 
-  <rect x="270" y="134" width="60" height="32" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="300" y="155" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
+  <!-- a -->
+  <rect x="190" y="384" width="120" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="250" y="410" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key:a</text>
+  <rect x="190" y="452" width="120" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="250" y="520" font-size="16" fill="#111827" text-anchor="middle">a: 새 목록에 없음</text>
+  <text x="250" y="544" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">→ 삭제</text>
 
-  <!-- Arrows from 새것 [ B ] [ C ] pointing down -->
-  <path d="M225,166 L225,198" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M300,166 L300,198" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- b -->
+  <rect x="410" y="384" width="120" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="470" y="410" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key:b</text>
+  <line x1="470" y1="424" x2="470" y2="452" stroke="#059669" stroke-width="2.5"/>
+  <rect x="410" y="452" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="470" y="478" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key:b</text>
+  <text x="470" y="520" font-size="16" fill="#111827" text-anchor="middle">b: 그대로</text>
+  <text x="470" y="544" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">→ 아무 작업 없음</text>
 
-  <!-- Operations List -->
-  <text x="70" y="222" font-size="13" fill="#1f2933">0번: A와 B 비교 → 내용 갱신</text>
-  <text x="70" y="250" font-size="13" fill="#1f2933">1번: B와 C 비교 → 내용 갱신</text>
-  <text x="70" y="278" font-size="13" fill="#dc2626">2번: C 삭제</text>
+  <!-- c -->
+  <rect x="630" y="384" width="120" height="40" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="690" y="410" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key:c</text>
+  <line x1="690" y1="424" x2="690" y2="452" stroke="#059669" stroke-width="2.5"/>
+  <rect x="630" y="452" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="690" y="478" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key:c</text>
+  <text x="690" y="520" font-size="16" fill="#111827" text-anchor="middle">c: 그대로</text>
+  <text x="690" y="544" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">→ 아무 작업 없음</text>
 
-  <!-- Summary Line -->
-  <text x="70" y="316" font-size="14" font-weight="bold" fill="#d97706">→ 3번의 작업</text>
-
-
-  <!-- ================= SECTION 2: key 있음 (key로 매칭) ================= -->
-  <rect x="24" y="368" width="832" height="328" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- Section 2 Header -->
-  <text x="48" y="402" font-size="16" font-weight="bold" fill="#1f2933">key 있음 (key로 매칭)</text>
-
-  <!-- Section 2 Diagram Content -->
-  <!-- 이전 / 새것 Labels -->
-  <text x="70" y="449" font-size="14" fill="#52606d">이전:</text>
-  <text x="70" y="499" font-size="14" fill="#52606d">새것:</text>
-
-  <!-- 이전 Boxes: [key:a] [key:b] [key:c] -->
-  <rect x="120" y="428" width="80" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="160" y="449" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">key:a</text>
-
-  <rect x="215" y="428" width="80" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="255" y="449" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">key:b</text>
-
-  <rect x="310" y="428" width="80" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="350" y="449" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">key:c</text>
-
-  <!-- 새것 Boxes: [key:b] [key:c] (Aligned under key:b and key:c of previous) -->
-  <rect x="215" y="478" width="80" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="255" y="499" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">key:b</text>
-
-  <rect x="310" y="478" width="80" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="350" y="499" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">key:c</text>
-
-  <!-- Arrows from 새것 [key:b] [key:c] pointing down -->
-  <path d="M255,510 L255,542" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M350,510 L350,542" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Operations List -->
-  <text x="70" y="566" font-size="13" fill="#dc2626">a: 새 목록에 없음 → 삭제</text>
-  <text x="70" y="594" font-size="13" fill="#059669">b: 그대로 → 아무 작업 없음</text>
-  <text x="70" y="622" font-size="13" fill="#059669">c: 그대로 → 아무 작업 없음</text>
-
-  <!-- Summary Line -->
-  <text x="70" y="660" font-size="14" font-weight="bold" fill="#059669">→ 1번의 작업</text>
+  <rect x="40" y="560" width="800" height="36" rx="6" fill="#d1fae5"/>
+  <text x="60" y="584" font-size="18" font-weight="bold" fill="#065f46">→ 1번의 작업</text>
 </svg>

@@ -1,70 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Fiber의 해결책</title>
-  <desc id="d">React 16 이상 Fiber Reconciler의 작업 분할 및 중단 가능 구조를 나타낸 다이어그램</desc>
+  <desc id="d">React 16 이상 Fiber Reconciler는 렌더링 작업을 A~E 작은 단위로 나눠 단위 사이에서 중단할 수 있다. 우선순위 높은 긴급한 업데이트(입력, 애니메이션)를 먼저 처리한 뒤 남은 작업을 재개해 완료한다.</desc>
+  <rect width="880" height="330" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="arra" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <text x="24" y="44" font-size="18" font-weight="bold" fill="#111827">Fiber Reconciler (React 16+)</text>
 
-  <!-- 헤딩/제목 -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">Fiber Reconciler (React 16+):</text>
+  <!-- 레인 1: 렌더링 작업 -->
+  <rect x="24" y="72" width="832" height="80" rx="12" fill="#f1f5f9"/>
+  <text x="40" y="108" font-size="16" font-weight="bold" fill="#1d4ed8">렌더링 작업</text>
+  <text x="40" y="130" font-size="15" fill="#374151">작은 단위로 분할</text>
 
-  <!-- 작업 노드 (A, B, C, D, E) -->
-  <!-- A -->
-  <rect x="40" y="80" width="70" height="50" rx="6" fill="#f8fafc" stroke="#2563eb" stroke-width="2"/>
-  <text x="75" y="111" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
+  <rect x="184" y="84" width="56" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="212" y="119" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">A</text>
+  <path d="M240,112 H262" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="264" y="84" width="56" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="292" y="119" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">B</text>
 
-  <!-- 화살표 A -> B -->
-  <path d="M110,105 L150,105" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 중단 지점 -->
+  <rect x="334" y="84" width="196" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="432" y="106" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">중단 가능!</text>
+  <text x="432" y="128" font-size="15" fill="#374151" text-anchor="middle">우선순위 높은 작업 먼저</text>
 
-  <!-- B -->
-  <rect x="150" y="80" width="70" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="185" y="111" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">B</text>
+  <rect x="544" y="84" width="56" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="572" y="119" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">C</text>
+  <path d="M600,112 H622" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="624" y="84" width="56" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="652" y="119" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">D</text>
+  <path d="M680,112 H702" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <rect x="704" y="84" width="56" height="56" rx="8" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="732" y="119" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">E</text>
+  <path d="M760,112 H790" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="798" y="118" font-size="17" font-weight="bold" fill="#047857">완료</text>
 
-  <!-- 화살표 B -> C -->
-  <path d="M220,105 L260,105" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 레인 2: 긴급한 업데이트 -->
+  <rect x="24" y="184" width="832" height="80" rx="12" fill="#fffbeb"/>
+  <text x="40" y="220" font-size="16" font-weight="bold" fill="#92400e">긴급한 업데이트</text>
+  <text x="40" y="242" font-size="15" fill="#374151">우선순위 높음</text>
 
-  <!-- C -->
-  <rect x="260" y="80" width="70" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="295" y="111" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
+  <rect x="346" y="196" width="172" height="56" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="432" y="230" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">입력, 애니메이션</text>
 
-  <!-- 화살표 C -> D -->
-  <path d="M330,105 L370,105" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- B 뒤 중단 → 긴급 처리 → C 재개 -->
+  <path d="M292,140 V224 H344" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arra)"/>
+  <text x="284" y="174" font-size="15" font-weight="bold" fill="#92400e" text-anchor="end">중단</text>
+  <path d="M518,224 H572 V142" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arra)"/>
+  <text x="580" y="174" font-size="15" font-weight="bold" fill="#92400e">재개</text>
 
-  <!-- D -->
-  <rect x="370" y="80" width="70" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="405" y="111" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">D</text>
-
-  <!-- 화살표 D -> E -->
-  <path d="M440,105 L480,105" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- E -->
-  <rect x="480" y="80" width="70" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="515" y="111" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">E</text>
-
-  <!-- 화살표 E -> 완료 -->
-  <path d="M550,105 L590,105" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 완료 라벨 -->
-  <text x="600" y="109" font-size="13" font-weight="bold" fill="#059669">완료</text>
-
-  <!-- 중단 위치 표시 화살표 (↑) -->
-  <path d="M75,175 L75,138" stroke="#d97706" stroke-width="2" fill="none" marker-end="url(#a-amber)"/>
-
-  <!-- 주석 1: 중단 가능! 우선순위 높은 작업 먼저 -->
-  <text x="75" y="198" font-size="13" font-weight="bold" fill="#d97706" text-anchor="start">중단 가능! 우선순위 높은 작업 먼저</text>
-
-  <!-- 하단 부가 설명 화살표 (→) 및 텍스트 -->
-  <path d="M40,260 L60,260" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <text x="70" y="264" font-size="13" fill="#1f2933">긴급한 업데이트(입력, 애니메이션)를 먼저 처리</text>
+  <!-- 결론 -->
+  <path d="M40,294 H66" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+  <text x="76" y="300" font-size="17" font-weight="bold" fill="#111827">긴급한 업데이트(입력, 애니메이션)를 먼저 처리</text>
 </svg>

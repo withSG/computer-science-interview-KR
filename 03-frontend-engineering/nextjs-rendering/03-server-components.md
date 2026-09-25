@@ -47,7 +47,7 @@ function Article({ raw, createdAt }) {
 CSR 시대에는 브라우저가 DB에 직접 접근할 수 없으니 반드시 사이에 API가 있어야 했습니다.
 
 <!-- diagram:fe-server-components-4 -->
-![문제 2 — 데이터를 가져오려고 만드는 계층](../../assets/diagrams/fe-server-components-4.svg)
+![컴포넌트→fetch→API 라우트 핸들러→DB 중간 계층](../../assets/diagrams/fe-server-components-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

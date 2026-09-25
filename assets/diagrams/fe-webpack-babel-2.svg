@@ -1,52 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">loader 체인은 오른쪽에서 왼쪽으로</title>
-  <desc id="d">Webpack loader 체인의 SCSS 처리 과정 다이어그램: 파일 읽기부터 style-loader를 거쳐 자바스크립트 모듈 생성까지의 흐름</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">loader 체인 실행 순서</title>
+  <desc id="d">use 배열은 왼쪽에서 오른쪽으로 읽지만 loader는 오른쪽에서 왼쪽으로 실행된다. styles.scss가 sass-loader, css-loader, style-loader를 차례로 거쳐 Webpack이 이해하는 자바스크립트 모듈이 된다.</desc>
+  <rect width="880" height="630" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Step 0: Input File -->
-  <rect x="265" y="30" width="350" height="44" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="56.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">파일 읽기: styles.scss</text>
+  <!-- 설정 배열: 읽는 순서 vs 실행 순서 -->
+  <rect x="24" y="24" width="832" height="160" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
 
-  <!-- Arrow 1 -->
-  <path d="M440,74 L440,114" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <text x="188" y="63" font-size="15" fill="#4b5563" text-anchor="end">읽는 순서</text>
+  <line x1="200" y1="58" x2="726" y2="58" stroke="#9ca3af" stroke-width="2" marker-end="url(#ah-gray)"/>
 
-  <!-- Step 1: sass-loader -->
-  <rect x="50" y="114" width="780" height="64" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="70" y="130" width="130" height="32" rx="4" fill="#2563eb"/>
-  <text x="135" y="150.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">sass-loader</text>
-  <text x="220" y="150.5" font-size="13" fill="#1f2933" text-anchor="start">SCSS 문법을 해석해 순수 CSS 문자열로</text>
+  <text x="135" y="100" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">use: [</text>
 
-  <!-- Arrow 2 -->
-  <path d="M440,178 L440,218" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="200" y="76" width="168" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="214" y="100" font-size="16" font-weight="bold" fill="#1d4ed8">③</text>
+  <text x="238" y="100" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'style-loader'</text>
+  <text x="373" y="100" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">,</text>
 
-  <!-- Step 2: css-loader -->
-  <rect x="50" y="218" width="780" height="64" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="70" y="234" width="130" height="32" rx="4" fill="#2563eb"/>
-  <text x="135" y="254.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">css-loader</text>
-  <text x="220" y="254.5" font-size="13" fill="#1f2933" text-anchor="start">CSS 안의 @import·url()을 모듈 의존성으로 바꿔 JS 모듈화</text>
+  <rect x="392" y="76" width="152" height="36" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="406" y="100" font-size="16" font-weight="bold" fill="#1d4ed8">②</text>
+  <text x="430" y="100" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'css-loader'</text>
+  <text x="549" y="100" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">,</text>
 
-  <!-- Arrow 3 -->
-  <path d="M440,282 L440,322" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="568" y="76" width="160" height="36" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="582" y="100" font-size="16" font-weight="bold" fill="#1d4ed8">①</text>
+  <text x="606" y="100" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">'sass-loader'</text>
 
-  <!-- Step 3: style-loader -->
-  <rect x="50" y="322" width="780" height="64" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="70" y="338" width="130" height="32" rx="4" fill="#2563eb"/>
-  <text x="135" y="358.5" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">style-loader</text>
-  <text x="220" y="358.5" font-size="13" fill="#1f2933" text-anchor="start">"이 CSS를 &lt;style&gt; 태그로 DOM에 꽂아라"는 JS 코드로 감싼다</text>
+  <text x="740" y="100" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">]</text>
 
-  <!-- Arrow 4 -->
-  <path d="M440,386 L440,426" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <line x1="726" y1="132" x2="202" y2="132" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+  <text x="740" y="137" font-size="15" font-weight="bold" fill="#1d4ed8">실행 순서</text>
 
-  <!-- Step 4: Output JS Module -->
-  <rect x="140" y="426" width="600" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="452.5" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">자바스크립트 모듈 (Webpack이 드디어 이해할 수 있는 형태)</text>
+  <text x="440" y="164" font-size="15" fill="#374151" text-anchor="middle">배열의 마지막 원소가 원본 파일에 가장 가깝다 · 함수 합성 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">style(css(sass(source)))</tspan>와 같은 순서</text>
+
+  <!-- 실행 흐름 -->
+  <rect x="290" y="206" width="300" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="234" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">파일 읽기: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">styles.scss</tspan></text>
+
+  <line x1="440" y1="250" x2="440" y2="277" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- ① sass-loader -->
+  <rect x="80" y="280" width="720" height="56" rx="8" fill="#ffffff"/>
+  <path d="M88,280 H260 V336 H88 A8,8 0 0 1 80,328 V288 A8,8 0 0 1 88,280 Z" fill="#dbeafe"/>
+  <rect x="80" y="280" width="720" height="56" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="94" y="313.5" font-size="16" font-weight="bold" fill="#1e3a8a">① <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">sass-loader</tspan></text>
+  <text x="276" y="313.5" font-size="15" fill="#111827">SCSS 문법을 해석해 순수 CSS 문자열로</text>
+
+  <line x1="440" y1="336" x2="440" y2="363" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- ② css-loader -->
+  <rect x="80" y="366" width="720" height="56" rx="8" fill="#ffffff"/>
+  <path d="M88,366 H260 V422 H88 A8,8 0 0 1 80,414 V374 A8,8 0 0 1 88,366 Z" fill="#dbeafe"/>
+  <rect x="80" y="366" width="720" height="56" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="94" y="399.5" font-size="16" font-weight="bold" fill="#1e3a8a">② <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">css-loader</tspan></text>
+  <text x="276" y="399.5" font-size="15" fill="#111827">CSS 안의 @import·url()을 모듈 의존성으로 바꿔 JS 모듈화</text>
+
+  <line x1="440" y1="422" x2="440" y2="449" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- ③ style-loader -->
+  <rect x="80" y="452" width="720" height="56" rx="8" fill="#ffffff"/>
+  <path d="M88,452 H260 V508 H88 A8,8 0 0 1 80,500 V460 A8,8 0 0 1 88,452 Z" fill="#dbeafe"/>
+  <rect x="80" y="452" width="720" height="56" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="94" y="485.5" font-size="16" font-weight="bold" fill="#1e3a8a">③ <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">style-loader</tspan></text>
+  <text x="276" y="485.5" font-size="15" fill="#111827">"이 CSS를 &lt;style&gt; 태그로 DOM에 꽂아라"는 JS 코드로 감싼다</text>
+
+  <line x1="440" y1="508" x2="440" y2="535" stroke="#047857" stroke-width="2" marker-end="url(#ah-green)"/>
+
+  <!-- 결과 -->
+  <rect x="190" y="538" width="500" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="440" y="564" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">자바스크립트 모듈</text>
+  <text x="440" y="588" font-size="15" fill="#065f46" text-anchor="middle">(Webpack이 드디어 이해할 수 있는 형태)</text>
 </svg>

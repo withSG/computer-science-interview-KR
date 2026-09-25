@@ -1,71 +1,72 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">var 사용 vs let 사용 시 클로저 환경 레코드 차이</title>
-  <desc id="d">var 키워드는 단 하나의 환경 레코드를 공유하여 문제가 발생하지만, let 키워드는 반복마다 새로운 환경 레코드를 생성함을 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 450" width="880" height="450" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">var와 let 반복문에서 콜백이 붙잡는 바인딩</title>
+  <desc id="d">var 루프에서는 함수(또는 전역) 환경 레코드에 i 바인딩이 하나만 있어 세 콜백이 모두 i : 3을 보고 3 3 3을 출력한다. let 루프에서는 반복마다 새 환경(i=0, i=1, i=2)이 생겨 각 콜백이 자기 바인딩을 붙잡고 0 1 2를 출력한다.</desc>
+  <rect width="880" height="450" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="390" fill="#ffffff"/>
+  <!-- ===== var 사용 ===== -->
+  <rect x="24" y="24" width="404" height="402" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="48" y="58" font-size="20" font-weight="700" fill="#b91c1c">var 사용</text>
+  <text x="48" y="86" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">for (var i = 0; i &lt; 3; i++)</text>
 
-  <!-- ==================== 상단 섹션: var 사용 ==================== -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">var 사용</text>
+  <rect x="48" y="108" width="356" height="84" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="226" y="136" font-size="15" fill="#111827" text-anchor="middle">함수(또는 전역) 환경 레코드</text>
+  <text x="128" y="175" font-size="22" font-weight="700" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">i : 3</text>
+  <text x="208" y="174" font-size="15" fill="#b91c1c">← 딱 하나만 존재</text>
 
-  <!-- var 박스 -->
-  <rect x="230" y="45" width="420" height="60" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="70" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">함수(또는 전역) 환경 레코드</text>
-  
-  <text x="330" y="90" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">i : 3</text>
-  <text x="490" y="90" font-size="13" fill="#52606d" text-anchor="middle">← 딱 하나만 존재</text>
+  <path d="M102,256 L176,198" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+  <path d="M226,256 L226,198" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ar)"/>
+  <path d="M350,256 L276,198" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#ar)"/>
 
-  <!-- var 화살표 -->
-  <path d="M290,140 L350,113" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <path d="M440,140 L440,113" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <path d="M590,140 L530,113" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
+  <rect x="54" y="258" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="102" y="284" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">콜백0</text>
+  <rect x="178" y="258" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="284" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">콜백1</text>
+  <rect x="302" y="258" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="350" y="284" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">콜백2</text>
 
-  <!-- var 부가 설명 (오른쪽) -->
-  <text x="665" y="127" font-size="11.5" fill="#52606d">세 콜백이 같은 바인딩을 참조</text>
+  <text x="226" y="328" font-size="16" font-weight="700" fill="#b91c1c" text-anchor="middle">세 콜백이 같은 바인딩을 참조</text>
 
-  <!-- var 콜백 라벨들 -->
-  <text x="290" y="155" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">콜백0</text>
-  <text x="440" y="155" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">콜백1</text>
-  <text x="590" y="155" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">콜백2</text>
+  <rect x="48" y="344" width="356" height="64" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1"/>
+  <text x="226" y="370" font-size="19" font-weight="700" fill="#b91c1c" text-anchor="middle">출력: 3 3 3</text>
+  <text x="226" y="396" font-size="15" fill="#374151" text-anchor="middle">콜백이 실행될 때 i는 이미 3</text>
 
+  <!-- ===== let 사용 ===== -->
+  <rect x="452" y="24" width="404" height="402" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="476" y="58" font-size="20" font-weight="700" fill="#1d4ed8">let 사용</text>
+  <text x="476" y="86" font-size="15" fill="#374151" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">for (let i = 0; i &lt; 3; i++)</text>
 
-  <!-- 구분선 -->
-  <line x1="30" y1="185" x2="850" y2="185" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="476" y="108" width="108" height="84" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="530" y="136" font-size="15" fill="#111827" text-anchor="middle">반복1</text>
+  <text x="530" y="175" font-size="22" font-weight="700" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">i=0</text>
+  <rect x="600" y="108" width="108" height="84" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="654" y="136" font-size="15" fill="#111827" text-anchor="middle">반복2</text>
+  <text x="654" y="175" font-size="22" font-weight="700" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">i=1</text>
+  <rect x="724" y="108" width="108" height="84" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="778" y="136" font-size="15" fill="#111827" text-anchor="middle">반복3</text>
+  <text x="778" y="175" font-size="22" font-weight="700" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">i=2</text>
 
+  <path d="M530,256 L530,198" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+  <path d="M654,256 L654,198" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ab)"/>
+  <path d="M778,256 L778,198" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ab)"/>
 
-  <!-- ==================== 하단 섹션: let 사용 ==================== -->
-  <text x="30" y="223" font-size="16" font-weight="bold" fill="#1f2933">let 사용</text>
+  <rect x="482" y="258" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="530" y="284" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">콜백0</text>
+  <rect x="606" y="258" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="654" y="284" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">콜백1</text>
+  <rect x="730" y="258" width="96" height="40" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="778" y="284" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">콜백2</text>
 
-  <!-- let 박스 1 -->
-  <rect x="210" y="235" width="160" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="290" y="265" font-size="13" fill="#1f2933" text-anchor="middle">반복1: i=0</text>
+  <text x="654" y="328" font-size="16" font-weight="700" fill="#1d4ed8" text-anchor="middle">반복마다 새 환경</text>
 
-  <!-- let 박스 2 -->
-  <rect x="390" y="235" width="160" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="470" y="265" font-size="13" fill="#1f2933" text-anchor="middle">반복2: i=1</text>
-
-  <!-- let 박스 3 -->
-  <rect x="570" y="235" width="160" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="650" y="265" font-size="13" fill="#1f2933" text-anchor="middle">반복3: i=2</text>
-
-  <!-- let 부가 설명 (오른쪽) -->
-  <text x="745" y="265" font-size="11.5" fill="#52606d">반복마다 새 환경</text>
-
-  <!-- let 화살표 -->
-  <path d="M290,325 L290,293" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M470,325 L470,293" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M650,325 L650,293" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- let 콜백 라벨들 -->
-  <text x="290" y="340" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">콜백0</text>
-  <text x="470" y="340" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">콜백1</text>
-  <text x="650" y="340" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">콜백2</text>
+  <rect x="476" y="344" width="356" height="64" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="654" y="370" font-size="19" font-weight="700" fill="#1d4ed8" text-anchor="middle">출력: 0 1 2</text>
+  <text x="654" y="396" font-size="15" fill="#374151" text-anchor="middle">각 콜백이 서로 다른 바인딩을 붙잡음</text>
 </svg>

@@ -1,145 +1,154 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">index vs unique id key reconciliation comparison</title>
-  <desc id="d">React reconciliation comparison showing state mismatch when using index as key vs correct state preservation when using id as key when prepending an item.</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 700" width="880" height="700" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">key={index}와 key={todo.id}의 체크 상태 비교</title>
+  <desc id="d">"설거지"에 체크한 뒤 맨 앞에 "운동하기"를 삽입한다. key가 index면 key 1의 done=true 상태가 그 자리로 온 "우유 사기"에 남아 체크가 엉뚱한 항목으로 옮겨 간다. key가 todo.id면 상태가 key를 따라가 "설거지"의 체크가 정확히 보존된다.</desc>
+  <rect width="880" height="700" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ar-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="540" fill="#ffffff"/>
+  <!-- ================= 패널 A: key={index} ================= -->
+  <rect x="24" y="24" width="832" height="298" rx="10" fill="#ffffff" stroke="#fca5a5" stroke-width="2"/>
+  <text x="48" y="58" font-size="19" font-weight="bold" fill="#b91c1c">문제가 발생하는 경우: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key={index}</tspan></text>
 
-  <!-- Diagram Title -->
-  <text x="440" y="32" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">index를 key로 쓸 때 체크 상태가 엉뚱한 항목으로 옮겨가는 과정</text>
+  <text x="48" y="96" font-size="15" font-weight="bold" fill="#4b5563">[추가 전]</text>
+  <text x="132" y="96" font-size="15" font-weight="bold" fill="#111827">맨 앞에 "운동하기" 삽입</text>
+  <path d="M308,91 L508,91" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ar-gray)"/>
+  <text x="520" y="96" font-size="15" font-weight="bold" fill="#4b5563">[추가 후 - 재조정 과정]</text>
 
-  <!-- Center Divider Line -->
-  <line x1="440" y1="55" x2="440" y2="485" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <!-- 추가 전 -->
+  <rect x="48" y="108" width="272" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="56" y="115" width="64" height="26" rx="4" fill="#f3f4f6"/>
+  <text x="88" y="133" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 0</text>
+  <text x="132" y="134" font-size="16" fill="#111827">우유 사기</text>
+  <text x="308" y="133" font-size="16" fill="#4b5563" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
 
-  <!-- LEFT PANEL: key = index (Problem) -->
-  <text x="220" y="65" font-size="14" font-weight="600" fill="#dc2626" text-anchor="middle">문제가 발생하는 경우: key={index}</text>
+  <rect x="48" y="160" width="272" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="56" y="167" width="64" height="26" rx="4" fill="#f3f4f6"/>
+  <text x="88" y="185" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 1</text>
+  <text x="132" y="186" font-size="16" fill="#111827">설거지</text>
+  <rect x="220" y="167" width="96" height="26" rx="4" fill="#fef3c7"/>
+  <text x="308" y="185" font-size="16" font-weight="bold" fill="#92400e" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=true</text>
 
-  <!-- Left Pre-Insertion Subtitle -->
-  <text x="50" y="95" font-size="11.5" font-weight="600" fill="#52606d">[추가 전]</text>
-  
-  <!-- Left Pre-Insertion Boxes -->
-  <!-- Box 1 (Index 0) -->
-  <rect x="50" y="105" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="129" font-size="13" font-weight="500" fill="#1f2933">key 0: "우유 사기"</text>
-  <rect x="200" y="105" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="129" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
+  <!-- 짝 맞추기: 같은 key(=같은 자리)끼리 -->
+  <path d="M326,128 L512,128" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ar-gray)"/>
+  <rect x="366" y="116" width="108" height="24" fill="#ffffff"/>
+  <text x="420" y="133" font-size="15" fill="#374151" text-anchor="middle">기존 컴포넌트</text>
 
-  <!-- Box 2 (Index 1) -->
-  <rect x="50" y="155" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="179" font-size="13" font-weight="500" fill="#1f2933">key 1: "설거지"</text>
-  <rect x="200" y="155" width="100" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="250" y="179" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">done=true [v]</text>
+  <path d="M326,180 L512,180" stroke="#dc2626" stroke-width="2.5" fill="none" marker-end="url(#ar-red)"/>
+  <rect x="354" y="168" width="132" height="24" fill="#ffffff"/>
+  <text x="420" y="185" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">상태 유지(버그!)</text>
 
-  <!-- Left Action Label -->
-  <text x="170" y="222" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">맨 앞에 "운동하기" 삽입</text>
+  <text x="470" y="237" font-size="15" fill="#374151" text-anchor="end">새로 마운트</text>
+  <path d="M478,232 L512,232" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ar-gray)"/>
 
-  <!-- Left Post-Insertion Subtitle -->
-  <text x="50" y="245" font-size="11.5" font-weight="600" fill="#52606d">[추가 후 - 재조정 과정]</text>
+  <!-- 추가 후 -->
+  <rect x="520" y="108" width="272" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="528" y="115" width="64" height="26" rx="4" fill="#f3f4f6"/>
+  <text x="560" y="133" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 0</text>
+  <text x="604" y="134" font-size="16" fill="#111827">운동하기</text>
+  <text x="780" y="133" font-size="16" fill="#4b5563" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
 
-  <!-- Left Post-Insertion Boxes -->
-  <!-- Box 1 (Index 0 reused) -->
-  <rect x="50" y="255" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="279" font-size="13" font-weight="500" fill="#1f2933">key 0: "운동하기"</text>
-  <rect x="200" y="255" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="279" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
+  <rect x="520" y="160" width="272" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <rect x="528" y="167" width="64" height="26" rx="4" fill="#ffffff"/>
+  <text x="560" y="185" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 1</text>
+  <text x="604" y="186" font-size="16" fill="#111827">우유 사기</text>
+  <rect x="692" y="167" width="96" height="26" rx="4" fill="#fef3c7"/>
+  <text x="780" y="185" font-size="16" font-weight="bold" fill="#92400e" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=true</text>
+  <text x="804" y="186" font-size="16" font-weight="bold" fill="#b91c1c">버그!</text>
 
-  <!-- Box 2 (Index 1 reused - BUG) -->
-  <rect x="50" y="305" width="140" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="60" y="329" font-size="13" font-weight="500" fill="#dc2626">key 1: "우유 사기"</text>
-  <rect x="200" y="305" width="100" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="250" y="329" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">done=true [v]</text>
+  <rect x="520" y="212" width="272" height="40" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <rect x="528" y="219" width="64" height="26" rx="4" fill="#ffffff"/>
+  <text x="560" y="237" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 2</text>
+  <text x="604" y="238" font-size="16" fill="#111827">설거지</text>
+  <text x="780" y="237" font-size="16" fill="#4b5563" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
+  <text x="804" y="238" font-size="16" font-weight="bold" fill="#b91c1c">버그!</text>
 
-  <!-- Box 3 (Index 2 new - BUG) -->
-  <rect x="50" y="355" width="140" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="60" y="379" font-size="13" font-weight="500" fill="#dc2626">key 2: "설거지"</text>
-  <rect x="200" y="355" width="100" height="40" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="250" y="379" font-size="13" font-weight="600" fill="#dc2626" text-anchor="middle">done=false</text>
+  <!-- 화면 -->
+  <rect x="40" y="266" width="800" height="40" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="56" y="291" font-size="15" font-weight="bold" fill="#374151">[화면 렌더링 결과]</text>
+  <rect x="200" y="278" width="16" height="16" rx="3" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="224" y="292" font-size="16" fill="#111827">운동하기</text>
+  <rect x="316" y="278" width="16" height="16" rx="3" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+  <path d="M319.5,286 L322.5,289.5 L328.5,282" stroke="#ffffff" stroke-width="2.2" fill="none"/>
+  <text x="340" y="292" font-size="16" fill="#111827">우유 사기</text>
+  <text x="420" y="291" font-size="15" font-weight="bold" fill="#b91c1c">← 체크 옮겨감!</text>
+  <rect x="560" y="278" width="16" height="16" rx="3" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="584" y="292" font-size="16" fill="#111827">설거지</text>
 
-  <!-- Left Arrows -->
-  <path d="M120,145 L120,250" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="75" y="190" width="90" height="18" fill="#ffffff"/>
-  <text x="120" y="203" font-size="11.5" fill="#2563eb" text-anchor="middle">기존 컴포넌트</text>
+  <!-- ================= 패널 B: key={todo.id} ================= -->
+  <rect x="24" y="346" width="832" height="298" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="2"/>
+  <text x="48" y="380" font-size="19" font-weight="bold" fill="#047857">올바른 해결책: <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key={todo.id}</tspan></text>
 
-  <path d="M250,195 L250,300" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  <rect x="205" y="228" width="90" height="18" fill="#ffffff"/>
-  <text x="250" y="241" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">상태 유지(버그!)</text>
+  <text x="48" y="418" font-size="15" font-weight="bold" fill="#4b5563">[추가 전]</text>
+  <text x="132" y="418" font-size="15" font-weight="bold" fill="#111827">맨 앞에 "운동하기" (id: 3) 삽입</text>
+  <path d="M372,413 L508,413" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ar-gray)"/>
+  <text x="520" y="418" font-size="15" font-weight="bold" fill="#4b5563">[추가 후 - 재조정 과정]</text>
 
-  <!-- Left Result Render Block -->
-  <rect x="50" y="415" width="250" height="60" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="60" y="435" font-size="11.5" font-weight="600" fill="#dc2626">[화면 렌더링 결과]</text>
-  <text x="60" y="453" font-size="11.5" fill="#1f2933">[ ] 운동하기</text>
-  <text x="60" y="468" font-size="11.5" font-weight="600" fill="#dc2626">[v] 우유 사기   (체크 옮겨감!)</text>
+  <!-- 추가 전 -->
+  <rect x="48" y="430" width="272" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="56" y="437" width="64" height="26" rx="4" fill="#f3f4f6"/>
+  <text x="88" y="455" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 1</text>
+  <text x="132" y="456" font-size="16" fill="#111827">우유 사기</text>
+  <text x="308" y="455" font-size="16" fill="#4b5563" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
 
+  <rect x="48" y="482" width="272" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="56" y="489" width="64" height="26" rx="4" fill="#f3f4f6"/>
+  <text x="88" y="507" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 2</text>
+  <text x="132" y="508" font-size="16" fill="#111827">설거지</text>
+  <rect x="220" y="489" width="96" height="26" rx="4" fill="#fef3c7"/>
+  <text x="308" y="507" font-size="16" font-weight="bold" fill="#92400e" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=true</text>
 
-  <!-- RIGHT PANEL: key = todo.id (Correct) -->
-  <text x="660" y="65" font-size="14" font-weight="600" fill="#059669" text-anchor="middle">올바른 해결책: key={todo.id}</text>
+  <!-- 짝 맞추기: 같은 key(=같은 데이터)끼리 -->
+  <text x="470" y="455" font-size="15" fill="#374151" text-anchor="end">새로 마운트</text>
+  <path d="M478,450 L512,450" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ar-gray)"/>
 
-  <!-- Right Pre-Insertion Subtitle -->
-  <text x="490" y="95" font-size="11.5" font-weight="600" fill="#52606d">[추가 전]</text>
+  <path d="M326,450 L512,502" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ar-gray)"/>
 
-  <!-- Right Pre-Insertion Boxes -->
-  <!-- Box 1 (ID 1) -->
-  <rect x="490" y="105" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="500" y="129" font-size="13" font-weight="500" fill="#1f2933">key 1: "우유 사기"</text>
-  <rect x="640" y="105" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="690" y="129" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
+  <path d="M326,502 L512,554" stroke="#059669" stroke-width="2.5" fill="none" marker-end="url(#ar-green)"/>
+  <rect x="356" y="516" width="128" height="24" fill="#ffffff"/>
+  <text x="420" y="533" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">상태 정확히 보존</text>
 
-  <!-- Box 2 (ID 2) -->
-  <rect x="490" y="155" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="500" y="179" font-size="13" font-weight="500" fill="#1f2933">key 2: "설거지"</text>
-  <rect x="640" y="155" width="100" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="690" y="179" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">done=true [v]</text>
+  <!-- 추가 후 -->
+  <rect x="520" y="430" width="272" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="528" y="437" width="64" height="26" rx="4" fill="#f3f4f6"/>
+  <text x="560" y="455" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 3</text>
+  <text x="604" y="456" font-size="16" fill="#111827">운동하기</text>
+  <text x="780" y="455" font-size="16" fill="#4b5563" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
 
-  <!-- Right Action Label -->
-  <text x="610" y="222" font-size="11.5" font-weight="600" fill="#059669" text-anchor="middle">맨 앞에 "운동하기" (id: 3) 삽입</text>
+  <rect x="520" y="482" width="272" height="40" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="528" y="489" width="64" height="26" rx="4" fill="#f3f4f6"/>
+  <text x="560" y="507" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 1</text>
+  <text x="604" y="508" font-size="16" fill="#111827">우유 사기</text>
+  <text x="780" y="507" font-size="16" fill="#4b5563" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=false</text>
 
-  <!-- Right Post-Insertion Subtitle -->
-  <text x="490" y="245" font-size="11.5" font-weight="600" fill="#52606d">[추가 후 - 재조정 과정]</text>
+  <rect x="520" y="534" width="272" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <rect x="528" y="541" width="64" height="26" rx="4" fill="#ffffff"/>
+  <text x="560" y="559" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">key 2</text>
+  <text x="604" y="560" font-size="16" fill="#111827">설거지</text>
+  <rect x="692" y="541" width="96" height="26" rx="4" fill="#fef3c7"/>
+  <text x="780" y="559" font-size="16" font-weight="bold" fill="#92400e" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">done=true</text>
+  <text x="804" y="560" font-size="16" font-weight="bold" fill="#047857">정확</text>
 
-  <!-- Right Post-Insertion Boxes -->
-  <!-- Box 1 (ID 3 new) -->
-  <rect x="490" y="255" width="140" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="500" y="279" font-size="13" font-weight="500" fill="#059669">key 3: "운동하기"</text>
-  <rect x="640" y="255" width="100" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="690" y="279" font-size="13" font-weight="500" fill="#059669" text-anchor="middle">done=false</text>
+  <!-- 화면 -->
+  <rect x="40" y="588" width="800" height="40" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="56" y="613" font-size="15" font-weight="bold" fill="#374151">[화면 렌더링 결과]</text>
+  <rect x="200" y="600" width="16" height="16" rx="3" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="224" y="614" font-size="16" fill="#111827">운동하기</text>
+  <rect x="316" y="600" width="16" height="16" rx="3" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="340" y="614" font-size="16" fill="#111827">우유 사기</text>
+  <rect x="560" y="600" width="16" height="16" rx="3" fill="#1f2937" stroke="#1f2937" stroke-width="1.5"/>
+  <path d="M563.5,608 L566.5,611.5 L572.5,604" stroke="#ffffff" stroke-width="2.2" fill="none"/>
+  <text x="584" y="614" font-size="16" fill="#111827">설거지</text>
+  <text x="644" y="613" font-size="15" font-weight="bold" fill="#047857">← 체크 상태 유지!</text>
 
-  <!-- Box 2 (ID 1 moved) -->
-  <rect x="490" y="305" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="500" y="329" font-size="13" font-weight="500" fill="#1f2933">key 1: "우유 사기"</text>
-  <rect x="640" y="305" width="100" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="690" y="329" font-size="13" font-weight="500" fill="#2563eb" text-anchor="middle">done=false</text>
-
-  <!-- Box 3 (ID 2 moved) -->
-  <rect x="490" y="355" width="140" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="500" y="379" font-size="13" font-weight="500" fill="#1f2933">key 2: "설거지"</text>
-  <rect x="640" y="355" width="100" height="40" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="690" y="379" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">done=true [v]</text>
-
-  <!-- Right Matching Arrows -->
-  <path d="M530,145 L530,300" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M690,195 L690,350" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  
-  <rect x="746" y="266" width="104" height="18" fill="#ffffff"/>
-  <text x="748" y="279" font-size="11.5" font-weight="600" fill="#059669">상태 정확히 보존</text>
-
-  <!-- Right Result Render Block -->
-  <rect x="490" y="415" width="250" height="60" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="500" y="435" font-size="11.5" font-weight="600" fill="#059669">[화면 렌더링 결과]</text>
-  <text x="500" y="453" font-size="11.5" fill="#1f2933">[ ] 운동하기</text>
-  <text x="500" y="468" font-size="11.5" font-weight="600" fill="#059669">[v] 설거지      (체크 상태 유지!)</text>
-
-  <!-- Bottom Conclusion Caption -->
-  <text x="440" y="515" font-size="11.5" fill="#52606d" text-anchor="middle">결론: index를 key로 쓰면 순서 변경 시 내부 상태(State)가 엉뚱한 항목에 남으므로, 고유 ID를 key로 지정해야 한다.</text>
+  <!-- 결론 -->
+  <text x="440" y="676" font-size="16" fill="#111827" text-anchor="middle">결론: <tspan font-weight="bold">index</tspan>를 key로 쓰면 순서 변경 시 상태가 엉뚱한 항목에 남는다 → <tspan font-weight="bold">고유 ID</tspan>를 key로 지정해야 한다</text>
 </svg>

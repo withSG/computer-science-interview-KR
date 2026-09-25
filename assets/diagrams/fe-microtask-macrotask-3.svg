@@ -1,155 +1,98 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 770" width="880" height="770" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">퀴즈 1 — 마이크로태스크 도중 추가되는 마이크로태스크</title>
-  <desc id="d">동기 실행, 마이크로태스크 소진, 매크로태스크 실행 과정을 단계별로 나타낸 이벤트 루프 추적 다이어그램</desc>
-  <rect width="880" height="770" fill="#ffffff"/>
-
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-  </defs>
-
-  <!-- 범례 -->
-  <g transform="translate(24, 16)">
-    <rect x="0" y="0" width="832" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="16" y="22" font-size="12" font-weight="bold" fill="#1f2933">범례:</text>
-    
-    <rect x="65" y="10" width="16" height="16" rx="2" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="87" y="22" font-size="11.5" fill="#1f2933">동기 실행</text>
-
-    <rect x="170" y="10" width="16" height="16" rx="2" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="192" y="22" font-size="11.5" fill="#1f2933">마이크로태스크 큐</text>
-
-    <rect x="330" y="10" width="16" height="16" rx="2" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="352" y="22" font-size="11.5" fill="#1f2933">매크로태스크 큐</text>
-
-    <rect x="480" y="10" width="16" height="16" rx="2" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="502" y="22" font-size="11.5" fill="#1f2933">콘솔 출력</text>
-  </g>
-
-  <!-- Section 1: [동기 실행 구간] -->
-  <g transform="translate(24, 68)">
-    <rect x="0" y="0" width="832" height="260" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="0" y="0" width="832" height="34" rx="8" fill="#2563eb"/>
-    <!-- bottom corners fix for header rect -->
-    <rect x="0" y="26" width="832" height="8" fill="#2563eb"/>
-    <text x="16" y="22" font-size="14" font-weight="bold" fill="#ffffff">[동기 실행 구간]</text>
-
-    <!-- Item 1 -->
-    <rect x="20" y="46" width="180" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="30" y="64" font-size="13" fill="#1f2933">'1' 출력</text>
-    <rect x="210" y="46" width="70" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="245" y="64" font-size="12" fill="#059669" text-anchor="middle">출력: '1'</text>
-
-    <!-- Item 2 -->
-    <rect x="20" y="82" width="180" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="30" y="100" font-size="13" fill="#1f2933">setTimeout(2) 등록</text>
-    <path d="M200,96 L270,96" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-    <rect x="280" y="82" width="220" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="290" y="100" font-size="12" fill="#d97706">매크로 큐: [2]</text>
-
-    <!-- Item 3 -->
-    <rect x="20" y="118" width="180" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="30" y="136" font-size="13" fill="#1f2933">Promise.then(3) 등록</text>
-    <path d="M200,132 L270,132" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="280" y="118" width="530" height="28" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="290" y="136" font-size="12" fill="#7c3aed">이미 이행됨 → 마이크로 큐: [then3]</text>
-
-    <!-- Item 3 subnote -->
-    <text x="40" y="162" font-size="11.5" fill="#52606d">.then(5)는 아직 앞 단계가 끝나지 않아 대기 상태로 연결만 해둔다</text>
-
-    <!-- Item 4 -->
-    <rect x="20" y="176" width="180" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="30" y="194" font-size="13" fill="#1f2933">setTimeout(6) 등록</text>
-    <path d="M200,190 L270,190" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-    <rect x="280" y="176" width="220" height="28" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="290" y="194" font-size="12" fill="#d97706">매크로 큐: [2, 6]</text>
-
-    <!-- Item 5 -->
-    <rect x="20" y="212" width="180" height="28" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="30" y="230" font-size="13" fill="#1f2933">'7' 출력</text>
-    <rect x="210" y="212" width="70" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="245" y="230" font-size="12" fill="#059669" text-anchor="middle">출력: '7'</text>
-
-    <text x="310" y="230" font-size="12" font-weight="bold" fill="#52606d">콜 스택 비었음</text>
-  </g>
-
-  <!-- Section 2: [마이크로태스크 소진] -->
-  <g transform="translate(24, 344)">
-    <rect x="0" y="0" width="832" height="230" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <rect x="0" y="0" width="832" height="34" rx="8" fill="#7c3aed"/>
-    <rect x="0" y="26" width="832" height="8" fill="#7c3aed"/>
-    <text x="16" y="22" font-size="14" font-weight="bold" fill="#ffffff">[마이크로태스크 소진]</text>
-
-    <!-- Step 1 -->
-    <rect x="20" y="46" width="150" height="80" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="30" y="68" font-size="13" font-weight="bold" fill="#7c3aed">then3 실행</text>
-    <path d="M100,74 L100,84" stroke="#059669" stroke-width="1.5" stroke-dasharray="3 3"/>
-    <text x="30" y="96" font-size="12" fill="#1f2933">→ '3' 출력</text>
-
-    <path d="M170,64 L220,64" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="230" y="50" width="572" height="28" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="240" y="68" font-size="12" fill="#1f2933">queueMicrotask(4)</text>
-    <text x="420" y="68" font-size="12" font-weight="bold" fill="#7c3aed">마이크로 큐: [4]</text>
-
-    <path d="M170,100 L220,100" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-    <rect x="230" y="86" width="572" height="28" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="240" y="104" font-size="12" fill="#1f2933">then3이 undefined 반환 → 다음 then 예약</text>
-    <text x="560" y="104" font-size="12" font-weight="bold" fill="#7c3aed">마이크로 큐: [4, then5]</text>
-
-    <!-- Step 2 -->
-    <rect x="20" y="136" width="150" height="28" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="30" y="154" font-size="13" font-weight="bold" fill="#7c3aed">4 실행</text>
-    <path d="M170,150 L220,150" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="230" y="136" width="120" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="240" y="154" font-size="12" fill="#059669">→ '4' 출력</text>
-
-    <!-- Step 3 -->
-    <rect x="20" y="172" width="150" height="28" rx="4" fill="#ffffff" stroke="#7c3aed" stroke-width="1"/>
-    <text x="30" y="190" font-size="13" font-weight="bold" fill="#7c3aed">then5 실행</text>
-    <path d="M170,186 L220,186" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="230" y="172" width="120" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="240" y="190" font-size="12" fill="#059669">→ '5' 출력</text>
-
-    <text x="380" y="190" font-size="12" font-weight="bold" fill="#52606d">마이크로 큐 비었음</text>
-  </g>
-
-  <!-- Section 3: [매크로태스크 하나] & [다음 사이클] -->
-  <g transform="translate(24, 590)">
-    <rect x="0" y="0" width="832" height="70" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <rect x="0" y="0" width="832" height="30" rx="8" fill="#d97706"/>
-    <rect x="0" y="22" width="832" height="8" fill="#d97706"/>
-    <text x="16" y="20" font-size="13" font-weight="bold" fill="#ffffff">[매크로태스크 하나]</text>
-
-    <rect x="20" y="36" width="110" height="26" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
-    <text x="30" y="53" font-size="12.5" font-weight="bold" fill="#d97706">2 실행</text>
-    <path d="M130,49 L165,49" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="175" y="36" width="100" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="185" y="53" font-size="12" fill="#059669">→ '2' 출력</text>
-
-    <path d="M275,49 L305,49" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="315" y="53" font-size="12" fill="#52606d">→ 이후 마이크로 큐 확인 (비어 있음)</text>
-  </g>
-
-  <g transform="translate(24, 672)">
-    <rect x="0" y="0" width="832" height="70" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <rect x="0" y="0" width="832" height="30" rx="8" fill="#52606d"/>
-    <rect x="0" y="22" width="832" height="8" fill="#52606d"/>
-    <text x="16" y="20" font-size="13" font-weight="bold" fill="#ffffff">[다음 사이클]</text>
-
-    <rect x="20" y="36" width="110" height="26" rx="4" fill="#ffffff" stroke="#52606d" stroke-width="1"/>
-    <text x="30" y="53" font-size="12.5" font-weight="bold" fill="#1f2933">6 실행</text>
-    <path d="M130,49 L165,49" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="175" y="36" width="100" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="185" y="53" font-size="12" fill="#059669">→ '6' 출력</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 960" width="880" height="960" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">퀴즈 1 실행 순서 추적</title>
+  <desc id="d">동기 실행 구간, 마이크로태스크 소진, 매크로태스크 하나, 다음 사이클의 네 구간으로 나눠 각 단계의 실행 내용과 매크로·마이크로 큐 변화, 출력을 표로 추적한다. 소진 도중 추가된 4가 then5보다 앞에 줄 서므로 출력은 1, 7, 3, 4, 5, 2, 6 순이다.</desc>
+  <rect width="880" height="960" fill="#ffffff"/>
+  <rect x="24" y="24" width="832" height="36" fill="#f3f4f6"/>
+  <rect x="24" y="68" width="832" height="40" rx="6" fill="#f1f5f9"/>
+  <rect x="756" y="108" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="146" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="184" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="222" width="100" height="34" fill="#f0fdf4"/>
+  <rect x="756" y="256" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="294" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="332" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="24" y="382" width="832" height="40" rx="6" fill="#f5f3ff"/>
+  <rect x="756" y="422" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="460" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="498" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="536" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="574" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="612" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="24" y="662" width="832" height="40" rx="6" fill="#eff6ff"/>
+  <rect x="756" y="702" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="756" y="740" width="100" height="38" fill="#f0fdf4"/>
+  <rect x="24" y="790" width="832" height="40" rx="6" fill="#eff6ff"/>
+  <rect x="756" y="830" width="100" height="38" fill="#f0fdf4"/>
+  <line x1="24" y1="868" x2="856" y2="868" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="778" x2="856" y2="778" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="740" x2="856" y2="740" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="650" x2="856" y2="650" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="612" x2="856" y2="612" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="574" x2="856" y2="574" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="536" x2="856" y2="536" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="498" x2="856" y2="498" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="460" x2="856" y2="460" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="370" x2="856" y2="370" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="332" x2="856" y2="332" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="294" x2="856" y2="294" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="256" x2="856" y2="256" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="184" x2="856" y2="184" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="24" y1="146" x2="856" y2="146" stroke="#e5e7eb" stroke-width="1"/>
+  <circle cx="50" cy="88" r="13" fill="#334155"/>
+  <circle cx="804" cy="127" r="14" fill="#047857"/>
+  <rect x="476" y="152" width="224" height="26" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.25"/>
+  <rect x="476" y="190" width="224" height="26" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.25"/>
+  <rect x="476" y="262" width="224" height="26" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.25"/>
+  <circle cx="804" cy="313" r="14" fill="#047857"/>
+  <circle cx="50" cy="402" r="13" fill="#6d28d9"/>
+  <circle cx="804" cy="441" r="14" fill="#047857"/>
+  <rect x="476" y="466" width="224" height="26" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.25"/>
+  <rect x="476" y="504" width="224" height="26" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.25"/>
+  <circle cx="804" cy="555" r="14" fill="#047857"/>
+  <circle cx="804" cy="593" r="14" fill="#047857"/>
+  <circle cx="50" cy="682" r="13" fill="#1d4ed8"/>
+  <circle cx="804" cy="721" r="14" fill="#047857"/>
+  <circle cx="50" cy="810" r="13" fill="#1d4ed8"/>
+  <circle cx="804" cy="849" r="14" fill="#047857"/>
+  <rect x="24" y="888" width="832" height="48" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="48" y="48" font-size="15" font-weight="bold" fill="#374151">실행 흐름</text>
+  <text x="490" y="48" font-size="15" font-weight="bold" fill="#374151">큐 변화</text>
+  <text x="804" y="48" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">출력</text>
+  <text x="50" y="93.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="74" y="94" font-size="17" font-weight="bold" fill="#1e293b">동기 실행 구간</text>
+  <text x="48" y="133" font-size="16" fill="#111827">'1' 출력</text>
+  <text x="804" y="132.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="48" y="171" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">setTimeout(2)</tspan> 등록</text>
+  <text x="490" y="170" font-size="15" fill="#1e40af">매크로 큐: <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[2]</tspan></text>
+  <text x="48" y="209" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Promise.then(3)</tspan> 등록 → 이미 이행됨</text>
+  <text x="490" y="208" font-size="15" fill="#5b21b6">마이크로 큐: <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[then3]</tspan></text>
+  <text x="74" y="244" font-size="15" fill="#4b5563"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.then(5)</tspan>는 아직 앞 단계가 끝나지 않아 대기 상태로 연결만 해둔다</text>
+  <text x="48" y="281" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">setTimeout(6)</tspan> 등록</text>
+  <text x="490" y="280" font-size="15" fill="#1e40af">매크로 큐: <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[2, 6]</tspan></text>
+  <text x="48" y="319" font-size="16" fill="#111827">'7' 출력</text>
+  <text x="804" y="318.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="48" y="356" font-size="15" font-weight="bold" fill="#4b5563">콜 스택 비었음</text>
+  <text x="50" y="407.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="74" y="408" font-size="17" font-weight="bold" fill="#5b21b6">마이크로태스크 소진</text>
+  <text x="48" y="447" font-size="16" fill="#111827">then3 실행 → '3' 출력</text>
+  <text x="804" y="446.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="74" y="485" font-size="16" fill="#111827">→ <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">queueMicrotask(4)</tspan></text>
+  <text x="490" y="484" font-size="15" fill="#5b21b6">마이크로 큐: <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[4]</tspan></text>
+  <text x="74" y="523" font-size="16" fill="#111827">→ then3이 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">undefined</tspan> 반환 → 다음 then 예약</text>
+  <text x="490" y="522" font-size="15" fill="#5b21b6">마이크로 큐: <tspan font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[4, then5]</tspan></text>
+  <text x="48" y="561" font-size="16" fill="#111827">4 실행 → '4' 출력</text>
+  <text x="804" y="560.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="48" y="599" font-size="16" fill="#111827">then5 실행 → '5' 출력</text>
+  <text x="804" y="598.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="48" y="636" font-size="15" font-weight="bold" fill="#4b5563">마이크로 큐 비었음</text>
+  <text x="50" y="687.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="74" y="688" font-size="17" font-weight="bold" fill="#1e40af">매크로태스크 하나</text>
+  <text x="48" y="727" font-size="16" fill="#111827">2 실행 → '2' 출력</text>
+  <text x="804" y="726.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="74" y="764" font-size="15" font-weight="bold" fill="#4b5563">→ 이후 마이크로 큐 확인(비어 있음)</text>
+  <text x="50" y="815.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="74" y="816" font-size="17" font-weight="bold" fill="#1e40af">다음 사이클</text>
+  <text x="48" y="855" font-size="16" fill="#111827">6 실행 → '6' 출력</text>
+  <text x="804" y="854.5" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="440" y="919" font-size="19" font-weight="bold" fill="#065f46" text-anchor="middle">출력: 1 → 7 → 3 → 4 → 5 → 2 → 6</text>
 </svg>

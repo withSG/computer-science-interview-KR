@@ -1,37 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">클로저의 동작 원리</title>
-  <desc id="d">outer 함수 실행 컨텍스트 내부와 inner 함수의 Lexical Environment 참조 관계 및 가비지 컬렉션 방지 설명 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+  <desc id="d">outer() 호출 시 inner 함수의 [[Environment]]가 outer의 렉시컬 환경을 참조합니다. outer()가 종료된 뒤에도 inner(closure)가 그 렉시컬 환경을 계속 참조하므로 message 변수는 가비지 컬렉션되지 않습니다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- Section Header Label -->
-  <text x="240" y="42" font-size="14" font-weight="bold" fill="#2563eb">outer() 호출 시:</text>
+  <!-- ① outer() 호출 시 -->
+  <text x="24" y="42" font-size="18" font-weight="bold" fill="#1d4ed8">① <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">outer()</tspan> 호출 시</text>
 
-  <!-- Outer Box (outer Execution Context) -->
-  <rect x="240" y="55" width="400" height="180" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="260" y="85" font-size="14" font-weight="bold" fill="#1f2933">outer Execution Context</text>
+  <rect x="24" y="60" width="420" height="264" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="44" y="90" font-size="16" font-weight="bold" fill="#1e3a8a">outer Execution Context</text>
 
-  <!-- Inner Variables -->
-  <text x="280" y="118" font-size="13" fill="#1f2933">message: 'Hello'</text>
-  <text x="280" y="148" font-size="13" fill="#1f2933">inner: function</text>
+  <!-- outer의 렉시컬 환경 -->
+  <rect x="44" y="106" width="296" height="186" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="62" y="130" font-size="14" font-weight="bold" fill="#6d28d9">outer의 렉시컬 환경</text>
+  <text x="62" y="164" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">message: 'Hello'</text>
+  <text x="62" y="196" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">inner: function</text>
 
-  <!-- Sub Tree for [[Environment]] -->
-  <path d="M 310,162 L 310,178 L 324,178" stroke="#52606d" stroke-width="1.2" fill="none"/>
-  
-  <!-- Environment Badge/Box -->
-  <rect x="330" y="163" width="280" height="28" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="340" y="181" font-size="12" fill="#7c3aed" font-weight="bold">[[Environment]]: outer의 렉시컬 환경 참조</text>
+  <!-- inner의 [[Environment]] -->
+  <path d="M76,204 V252 H92" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+  <rect x="94" y="234" width="206" height="36" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="197" y="257" font-size="15" font-weight="bold" fill="#5b21b6" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[[Environment]]</text>
 
-  <!-- Reference Arrow pointing back to the outer Lexical Environment -->
-  <path d="M 610,177 C 660,177 660,80 642,80" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 참조 화살표: [[Environment]] → outer의 렉시컬 환경 -->
+  <path d="M300,252 H412 V125 H346" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ah-purple)"/>
+  <text x="378" y="194" font-size="14" font-weight="bold" fill="#6d28d9" text-anchor="middle">참조</text>
 
-  <!-- Footer Explanation Note -->
-  <rect x="140" y="260" width="600" height="52" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="283" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">outer() 종료 후에도 inner가 outer의 렉시컬 환경을 참조하므로</text>
-  <text x="440" y="301" text-anchor="middle" font-size="13" font-weight="bold" fill="#059669">message 변수는 가비지 컬렉션되지 않음</text>
+  <!-- 단계 전환 화살표 -->
+  <line x1="452" y1="192" x2="488" y2="192" stroke="#6b7280" stroke-width="2" marker-end="url(#ah-gray)"/>
+
+  <!-- ② outer() 종료 후 -->
+  <text x="500" y="42" font-size="18" font-weight="bold" fill="#1d4ed8">② <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">outer()</tspan> 종료 후</text>
+
+  <rect x="500" y="60" width="356" height="52" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="520" y="92" font-size="16" fill="#4b5563">outer Execution Context (종료)</text>
+
+  <rect x="500" y="132" width="356" height="104" rx="8" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="520" y="156" font-size="14" font-weight="bold" fill="#6d28d9">outer의 렉시컬 환경</text>
+  <text x="520" y="188" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">message: 'Hello'</text>
+  <text x="520" y="218" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">inner: function</text>
+
+  <path d="M600,278 V242" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ah-purple)"/>
+  <text x="614" y="265" font-size="14" font-weight="bold" fill="#6d28d9"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">[[Environment]]</tspan> 참조 유지</text>
+
+  <rect x="500" y="280" width="200" height="44" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="600" y="308" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">closure (= inner)</text>
+
+  <!-- 결론 -->
+  <rect x="24" y="348" width="832" height="68" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="376" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">outer() 종료 후에도 inner가 outer의 렉시컬 환경을 참조하므로</text>
+  <text x="440" y="402" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">message 변수는 가비지 컬렉션되지 않음</text>
 </svg>

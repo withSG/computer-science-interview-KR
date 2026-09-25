@@ -1,70 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">기준은 줄 수가 아니라 변경 이유다</title>
-  <desc id="d">줄 수로 잘못 분리한 나쁜 사례와 변경 이유로 올바르게 분리한 좋은 사례를 비교한 컴포넌트 설계 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">줄 수로 자른 분리와 변경 이유로 자른 분리</title>
+  <desc id="d">OrderPage를 줄 수로 OrderPart1~3으로 자르면 수량 상태를 서로 주고받느라 하나를 고치면 나머지를 확인해야 한다. 변경 이유(장바구니·프로모션·배송·결제)로 자르면 쿠폰 정책이 바뀔 때 CouponSelector 한 파일만 고친다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
 
-  <!-- Left Header -->
-  <text x="210" y="38" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[나쁜 분리]</text>
-  <text x="290" y="38" font-size="14" fill="#52606d">줄 수로 자름</text>
+  <!-- 왼쪽: 나쁜 분리 -->
+  <text x="24" y="50"><tspan font-size="20" font-weight="bold" fill="#b91c1c">나쁜 분리</tspan><tspan dx="12" font-size="16" fill="#4b5563">줄 수로 자름</tspan></text>
+  <rect x="24" y="68" width="400" height="304" rx="10" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/>
+  <text x="44" y="100" font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderPage</text>
 
-  <!-- Right Header -->
-  <text x="630" y="38" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[좋은 분리]</text>
-  <text x="710" y="38" font-size="14" fill="#52606d">변경 이유로 자름</text>
+  <rect x="48" y="120" width="252" height="48" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="64" y="150" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderPart1</text>
+  <text x="284" y="150" font-size="15" fill="#b91c1c" text-anchor="end">수량 상태</text>
 
-  <!-- Left Container (Bad Separation) -->
-  <rect x="30" y="60" width="360" height="200" rx="6" ry="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="50" y="93" font-size="14" font-weight="bold" fill="#1f2933">OrderPage</text>
+  <rect x="48" y="210" width="252" height="48" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="64" y="240" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderPart2</text>
+  <text x="284" y="240" font-size="15" fill="#b91c1c" text-anchor="end">수량 필요</text>
 
-  <!-- Left Item 1 -->
-  <text x="70" y="125" font-size="13" fill="#52606d">├─</text>
-  <text x="92" y="125" font-size="13" fill="#1f2933">OrderPart1</text>
-  <text x="175" y="125" font-size="13" fill="#dc2626">(수량 상태)</text>
+  <rect x="48" y="300" width="252" height="48" rx="6" fill="#ffffff" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="64" y="330" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderPart3</text>
+  <text x="284" y="330" font-size="15" fill="#b91c1c" text-anchor="end">수량+쿠폰</text>
 
-  <!-- Left Item 2 -->
-  <text x="70" y="165" font-size="13" fill="#52606d">├─</text>
-  <text x="92" y="165" font-size="13" fill="#1f2933">OrderPart2</text>
-  <text x="175" y="165" font-size="13" fill="#dc2626">(수량 필요)</text>
+  <!-- OrderPart2 가 OrderPart1 의 수량 상태를 끌어다 씀 -->
+  <path d="M300,234 H338 V144 H305" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
+  <text x="350" y="184" font-size="14" fill="#b91c1c"><tspan x="350">props</tspan><tspan x="350" dy="20">얽힘</tspan></text>
 
-  <!-- Left Item 3 -->
-  <text x="70" y="205" font-size="13" fill="#52606d">└─</text>
-  <text x="92" y="205" font-size="13" fill="#1f2933">OrderPart3</text>
-  <text x="175" y="205" font-size="13" fill="#dc2626">(수량+쿠폰)</text>
+  <text x="224" y="408" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">하나를 고치면 나머지를 확인</text>
 
-  <!-- Left Arrow Path (Coupled dependencies) -->
-  <path d="M 268 160 L 320 160 L 320 120 L 290 120" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- 오른쪽: 좋은 분리 -->
+  <text x="456" y="50"><tspan font-size="20" font-weight="bold" fill="#047857">좋은 분리</tspan><tspan dx="12" font-size="16" fill="#4b5563">변경 이유로 자름</tspan></text>
+  <rect x="456" y="68" width="400" height="304" rx="10" fill="#ecfdf5" stroke="#34d399" stroke-width="1.5"/>
+  <text x="476" y="100"><tspan font-size="17" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">OrderPage</tspan><tspan dx="8" font-size="15" fill="#374151">(조립 + 상태)</tspan></text>
+  <text x="816" y="100" font-size="14" fill="#4b5563" text-anchor="end">변경 이유</text>
 
-  <!-- Left Footer Caption -->
-  <text x="210" y="290" font-size="13" fill="#dc2626" text-anchor="middle">하나를 고치면 나머지를 확인</text>
+  <rect x="480" y="120" width="352" height="48" rx="6" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="496" y="150" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CartItemList</text>
+  <text x="816" y="150" font-size="15" font-weight="bold" fill="#047857" text-anchor="end">장바구니</text>
 
-  <!-- Right Container (Good Separation) -->
-  <rect x="450" y="60" width="360" height="200" rx="6" ry="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="470" y="93" font-size="14" font-weight="bold" fill="#1f2933">OrderPage (조립 + 상태)</text>
+  <rect x="480" y="180" width="352" height="48" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="2.5"/>
+  <text x="496" y="210" font-size="16" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CouponSelector</text>
+  <text x="816" y="210" font-size="15" font-weight="bold" fill="#047857" text-anchor="end">프로모션</text>
 
-  <!-- Right Item 1 -->
-  <text x="490" y="125" font-size="13" fill="#52606d">├─</text>
-  <text x="512" y="125" font-size="13" fill="#1f2933">CartItemList</text>
-  <text x="635" y="125" font-size="13" font-weight="bold" fill="#059669">장바구니</text>
+  <rect x="480" y="240" width="352" height="48" rx="6" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="496" y="270" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">AddressSection</text>
+  <text x="816" y="270" font-size="15" font-weight="bold" fill="#047857" text-anchor="end">배송</text>
 
-  <!-- Right Item 2 -->
-  <text x="490" y="157" font-size="13" fill="#52606d">├─</text>
-  <text x="512" y="157" font-size="13" fill="#1f2933">CouponSelector</text>
-  <text x="635" y="157" font-size="13" font-weight="bold" fill="#059669">프로모션</text>
+  <rect x="480" y="300" width="352" height="48" rx="6" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="496" y="330" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PaymentSummary</text>
+  <text x="816" y="330" font-size="15" font-weight="bold" fill="#047857" text-anchor="end">결제</text>
 
-  <!-- Right Item 3 -->
-  <text x="490" y="189" font-size="13" fill="#52606d">├─</text>
-  <text x="512" y="189" font-size="13" fill="#1f2933">AddressSection</text>
-  <text x="635" y="189" font-size="13" font-weight="bold" fill="#059669">배송</text>
-
-  <!-- Right Item 4 -->
-  <text x="490" y="221" font-size="13" fill="#52606d">└─</text>
-  <text x="512" y="221" font-size="13" fill="#1f2933">PaymentSummary</text>
-  <text x="635" y="221" font-size="13" font-weight="bold" fill="#059669">결제</text>
-
-  <!-- Right Footer Caption -->
-  <text x="630" y="290" font-size="13" fill="#059669" text-anchor="middle">쿠폰 정책이 바뀌면 한 파일만</text>
+  <text x="656" y="408" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">쿠폰 정책이 바뀌면 한 파일만</text>
 </svg>

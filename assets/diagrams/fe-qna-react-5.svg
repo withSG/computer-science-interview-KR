@@ -1,62 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">실행 순서</title>
-  <desc id="d">React의 렌더링, 커밋, useLayoutEffect, 브라우저 페인트, useEffect의 execution order 순서도</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">useEffect와 useLayoutEffect 실행 순서</title>
+  <desc id="d">렌더링, 커밋, useLayoutEffect 실행, 브라우저 페인트, useEffect 실행의 5단계 순서. useLayoutEffect는 브라우저 페인트 전에 동기로, useEffect는 페인트 후에 비동기로 실행된다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- 제목 -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">실행 순서</text>
+  <!-- 1. 렌더링 -->
+  <circle cx="58" cy="51" r="19" fill="#374151"/>
+  <text x="58" y="57" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <rect x="96" y="24" width="424" height="54" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="120" y="57" font-size="18" font-weight="bold" fill="#111827">렌더링<tspan font-size="16" font-weight="normal" fill="#4b5563">  (Virtual DOM 생성)</tspan></text>
 
-  <!-- Step 1: 렌더링 (Virtual DOM 생성) -->
-  <rect x="240" y="70" width="400" height="48" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="99" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 렌더링 (Virtual DOM 생성)</text>
+  <path d="M308,80 L308,100" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M440,118 L440,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 2. 커밋 -->
+  <circle cx="58" cy="129" r="19" fill="#374151"/>
+  <text x="58" y="135" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <rect x="96" y="102" width="424" height="54" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="120" y="135" font-size="18" font-weight="bold" fill="#111827">커밋<tspan font-size="16" font-weight="normal" fill="#4b5563">  (Real DOM 업데이트)</tspan></text>
 
-  <!-- Step 2: 커밋 (Real DOM 업데이트) -->
-  <rect x="240" y="140" width="400" height="48" rx="6" ry="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="169" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">2. 커밋 (Real DOM 업데이트)</text>
+  <path d="M308,158 L308,178" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M440,188 L440,210" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 3. useLayoutEffect 실행 -->
+  <circle cx="58" cy="207" r="19" fill="#6d28d9"/>
+  <text x="58" y="213" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <rect x="96" y="180" width="424" height="54" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="120" y="213" font-size="18" font-weight="bold" fill="#5b21b6"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useLayoutEffect</tspan> 실행</text>
 
-  <!-- Step 3: useLayoutEffect 실행 -->
-  <rect x="240" y="210" width="400" height="48" rx="6" ry="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="239" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">3. useLayoutEffect 실행</text>
+  <path d="M564,207 L526,207" stroke="#6d28d9" stroke-width="1.8" fill="none" marker-end="url(#ah-purple)"/>
+  <rect x="568" y="180" width="288" height="54" rx="27" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="712" y="202" font-size="17" font-weight="bold" fill="#5b21b6" text-anchor="middle">브라우저 페인트 전</text>
+  <text x="712" y="223" font-size="15" fill="#5b21b6" text-anchor="middle">동기 실행 · 렌더링 차단 O</text>
 
-  <!-- Annotation 3: ← 브라우저 페인트 전 -->
-  <path d="M640,234 L682,234" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="687" y="220" width="150" height="28" rx="4" ry="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="762" y="238" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">← 브라우저 페인트 전</text>
+  <path d="M308,236 L308,256" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
 
-  <!-- Arrow 3 -> 4 -->
-  <path d="M440,258 L440,280" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 4. 브라우저 페인트 -->
+  <circle cx="58" cy="285" r="19" fill="#b45309"/>
+  <text x="58" y="291" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <rect x="96" y="258" width="424" height="54" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="120" y="291" font-size="18" font-weight="bold" fill="#92400e">브라우저 페인트<tspan font-size="16" font-weight="normal" fill="#92400e">  (화면 그리기)</tspan></text>
 
-  <!-- Step 4: 브라우저 페인트 (화면 그리기) -->
-  <rect x="240" y="280" width="400" height="48" rx="6" ry="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="309" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">4. 브라우저 페인트 (화면 그리기)</text>
+  <path d="M308,314 L308,334" stroke="#4b5563" stroke-width="1.8" fill="none" marker-end="url(#ah)"/>
 
-  <!-- Arrow 4 -> 5 -->
-  <path d="M440,328 L440,350" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 5. useEffect 실행 -->
+  <circle cx="58" cy="363" r="19" fill="#1d4ed8"/>
+  <text x="58" y="369" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="96" y="336" width="424" height="54" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="120" y="369" font-size="18" font-weight="bold" fill="#1e40af"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">useEffect</tspan> 실행</text>
 
-  <!-- Step 5: useEffect 실행 -->
-  <rect x="240" y="350" width="400" height="48" rx="6" ry="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="379" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">5. useEffect 실행</text>
-
-  <!-- Annotation 5: ← 브라우저 페인트 후 -->
-  <path d="M640,374 L682,374" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="687" y="360" width="150" height="28" rx="4" ry="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="762" y="378" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">← 브라우저 페인트 후</text>
+  <path d="M564,363 L526,363" stroke="#1d4ed8" stroke-width="1.8" fill="none" marker-end="url(#ah-blue)"/>
+  <rect x="568" y="336" width="288" height="54" rx="27" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="712" y="358" font-size="17" font-weight="bold" fill="#1e40af" text-anchor="middle">브라우저 페인트 후</text>
+  <text x="712" y="379" font-size="15" fill="#1e40af" text-anchor="middle">비동기 실행 · 렌더링 차단 X</text>
 </svg>

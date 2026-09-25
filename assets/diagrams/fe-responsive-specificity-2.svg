@@ -1,68 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">모바일 퍼스트가 유리한 진짜 이유</title>
-  <desc id="d">데스크톱 퍼스트의 되돌리기 사슬과 모바일 퍼스트의 속성 추가 방식을 비교하는 구조도</desc>
-  <rect width="880" height="730" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">데스크톱 퍼스트와 모바일 퍼스트의 덮어쓰기 차이</title>
+  <desc id="d">데스크톱 퍼스트는 기본 .sidebar에 float, width, border-right, padding을 크게 준 뒤 @media (max-width: 768px)에서 네 속성을 하나하나 취소하는 되돌리기 사슬이 생긴다. 모바일 퍼스트는 기본에 padding: 12px만 두고 @media (min-width: 769px)에서 속성을 추가만 한다.</desc>
+  <rect width="880" height="630" fill="#ffffff"/>
 
-  <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-  </defs>
+  <!-- ===== 왼쪽: 데스크톱 퍼스트 ===== -->
+  <rect x="24" y="24" width="408" height="580" rx="12" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <rect x="40" y="40" width="150" height="32" rx="6" fill="#b91c1c"/>
+  <text x="115" y="62" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">데스크톱 퍼스트</text>
+  <text x="40" y="98" font-size="15" fill="#374151">기본을 크게 잡고 좁아지면 되돌린다</text>
 
-  <!-- Section 1: Desktop First -->
-  <g>
-    <!-- Card Container -->
-    <rect x="24" y="24" width="832" height="310" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    
-    <!-- Title Section -->
-    <rect x="40" y="40" width="140" height="28" rx="4" fill="#dc2626"/>
-    <text x="110" y="58" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[데스크톱 퍼스트]</text>
-    <text x="195" y="58" font-size="14" fill="#52606d">기본을 크게 잡고 좁아지면 되돌린다</text>
-
-    <!-- Base Code Box -->
-    <rect x="40" y="80" width="800" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1"/>
-    <text x="56" y="102" font-family="Consolas, monospace" font-size="13" fill="#1f2933">.sidebar { float: left; width: 240px; border-right: 1px solid; padding: 24px; }</text>
-
-    <!-- Media Query Code Box -->
-    <rect x="40" y="130" width="800" height="60" rx="4" fill="#ffffff" stroke="#9aa5b1"/>
-    <text x="56" y="153" font-family="Consolas, monospace" font-size="13" fill="#1f2933">@media (max-width: 768px) {</text>
-    <text x="76" y="173" font-family="Consolas, monospace" font-size="13" fill="#1f2933">.sidebar { float: none; width: auto; border-right: none; padding: 12px; }</text>
-    <text x="56" y="180" font-family="Consolas, monospace" font-size="13" fill="#1f2933">}</text>
-
-    <!-- Arrow Annotation -->
-    <path d="M 180,270 L 180,183" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-    
-    <text x="200" y="215" font-size="13" font-weight="bold" fill="#dc2626">↑ 앞에서 준 걸 하나하나 취소하는 "되돌리기 사슬"</text>
-    <text x="212" y="240" font-size="12.5" fill="#52606d">속성을 추가할 때마다 취소 코드도 같이 추가해야 한다</text>
-    <text x="212" y="265" font-size="12.5" fill="#52606d">하나 빠뜨리면 모바일에서만 깨진다</text>
+  <!-- 기본 스타일 -->
+  <rect x="40" y="114" width="376" height="162" rx="6" fill="#f8fafc" stroke="#d1d5db" stroke-width="1"/>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#111827">
+    <text x="56" y="142">.sidebar {</text>
+    <text x="74" y="166">float: left;</text>
+    <text x="74" y="190">width: 240px;</text>
+    <text x="74" y="214">border-right: 1px solid;</text>
+    <text x="74" y="238">padding: 24px;</text>
+    <text x="56" y="262">}</text>
   </g>
 
-  <!-- Section 2: Mobile First -->
-  <g>
-    <!-- Card Container -->
-    <rect x="24" y="360" width="832" height="346" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    
-    <!-- Title Section -->
-    <rect x="40" y="376" width="130" height="28" rx="4" fill="#059669"/>
-    <text x="105" y="394" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">[모바일 퍼스트]</text>
-    <text x="185" y="394" font-size="14" fill="#52606d">기본을 작게 잡고 넓어지면 더한다</text>
-
-    <!-- Base Code Box -->
-    <rect x="40" y="416" width="800" height="36" rx="4" fill="#ffffff" stroke="#9aa5b1"/>
-    <text x="56" y="438" font-family="Consolas, monospace" font-size="13" fill="#1f2933">.sidebar { padding: 12px; }</text>
-
-    <!-- Media Query Code Box -->
-    <rect x="40" y="466" width="800" height="60" rx="4" fill="#ffffff" stroke="#9aa5b1"/>
-    <text x="56" y="489" font-family="Consolas, monospace" font-size="13" fill="#1f2933">@media (min-width: 769px) {</text>
-    <text x="76" y="509" font-family="Consolas, monospace" font-size="13" fill="#1f2933">.sidebar { float: left; width: 240px; border-right: 1px solid; padding: 24px; }</text>
-    <text x="56" y="516" font-family="Consolas, monospace" font-size="13" fill="#1f2933">}</text>
-
-    <!-- Arrow Annotation -->
-    <path d="M 180,565 L 180,519" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-    
-    <text x="200" y="550" font-size="13" font-weight="bold" fill="#059669">↑ 취소가 아니라 "추가"만 한다</text>
+  <!-- 미디어 쿼리: 되돌리기 -->
+  <rect x="40" y="290" width="376" height="208" rx="6" fill="#f8fafc" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="52" y="346" width="352" height="100" rx="4" fill="#fef2f2"/>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#111827">
+    <text x="56" y="316" font-weight="bold" fill="#b91c1c">@media (max-width: 768px) {</text>
+    <text x="74" y="340">.sidebar {</text>
+    <text x="92" y="364">float: none;</text>
+    <text x="92" y="388">width: auto;</text>
+    <text x="92" y="412">border-right: none;</text>
+    <text x="92" y="436">padding: 12px;</text>
+    <text x="74" y="460">}</text>
+    <text x="56" y="484">}</text>
   </g>
+  <g font-size="14" font-weight="bold" fill="#b91c1c" text-anchor="middle">
+    <rect x="336" y="349" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+    <text x="364" y="365">취소</text>
+    <rect x="336" y="373" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+    <text x="364" y="389">취소</text>
+    <rect x="336" y="397" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+    <text x="364" y="413">취소</text>
+    <rect x="336" y="421" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#b91c1c" stroke-width="1.2"/>
+    <text x="364" y="437">취소</text>
+  </g>
+
+  <text x="40" y="532" font-size="16" font-weight="bold" fill="#b91c1c">앞에서 준 걸 하나하나 취소하는 "되돌리기 사슬"</text>
+  <text x="40" y="558" font-size="15" fill="#374151">속성을 추가할 때마다 취소 코드도 같이 추가해야 한다</text>
+  <text x="40" y="582" font-size="15" fill="#374151">하나 빠뜨리면 모바일에서만 깨진다</text>
+
+  <!-- ===== 오른쪽: 모바일 퍼스트 ===== -->
+  <rect x="448" y="24" width="408" height="580" rx="12" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <rect x="464" y="40" width="134" height="32" rx="6" fill="#047857"/>
+  <text x="531" y="62" font-size="17" font-weight="bold" fill="#ffffff" text-anchor="middle">모바일 퍼스트</text>
+  <text x="464" y="98" font-size="15" fill="#374151">기본을 작게 잡고 넓어지면 더한다</text>
+
+  <!-- 기본 스타일 -->
+  <rect x="464" y="114" width="376" height="90" rx="6" fill="#f8fafc" stroke="#d1d5db" stroke-width="1"/>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#111827">
+    <text x="480" y="142">.sidebar {</text>
+    <text x="498" y="166">padding: 12px;</text>
+    <text x="480" y="190">}</text>
+  </g>
+
+  <!-- 미디어 쿼리: 추가 -->
+  <rect x="464" y="290" width="376" height="208" rx="6" fill="#f8fafc" stroke="#d1d5db" stroke-width="1"/>
+  <rect x="476" y="346" width="352" height="100" rx="4" fill="#ecfdf5"/>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" fill="#111827">
+    <text x="480" y="316" font-weight="bold" fill="#047857">@media (min-width: 769px) {</text>
+    <text x="498" y="340">.sidebar {</text>
+    <text x="516" y="364">float: left;</text>
+    <text x="516" y="388">width: 240px;</text>
+    <text x="516" y="412">border-right: 1px solid;</text>
+    <text x="516" y="436">padding: 24px;</text>
+    <text x="498" y="460">}</text>
+    <text x="480" y="484">}</text>
+  </g>
+  <g font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">
+    <rect x="760" y="349" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+    <text x="788" y="365">추가</text>
+    <rect x="760" y="373" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+    <text x="788" y="389">추가</text>
+    <rect x="760" y="397" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+    <text x="788" y="413">추가</text>
+    <rect x="760" y="421" width="56" height="21" rx="10.5" fill="#ffffff" stroke="#047857" stroke-width="1.2"/>
+    <text x="788" y="437">추가</text>
+  </g>
+
+  <text x="464" y="532" font-size="16" font-weight="bold" fill="#047857">취소가 아니라 "추가"만 한다</text>
 </svg>

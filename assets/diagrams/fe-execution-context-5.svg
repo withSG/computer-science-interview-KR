@@ -1,74 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">콜 스택 — 컨텍스트가 쌓이고 걷히는 과정</title>
-  <desc id="d">시간 흐름에 따라 전역, first, second, third 실행 컨텍스트가 콜 스택에 푸시되고 팝되는 6단계 과정을 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">콜 스택이 쌓이고 걷히는 과정</title>
+  <desc id="d">시간 순서대로 스크립트 평가, first 호출, second 호출, third 호출 때 Global, first, second, third 컨텍스트가 콜 스택에 쌓이고, third 반환과 second 반환 때 위에서부터 걷힌다. 각 시점의 맨 위 컨텍스트가 현재 실행 중인 컨텍스트다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-time" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
+  <rect width="880" height="410" fill="#ffffff"/>
 
-  <!-- Timeline Top Header -->
-  <path d="M40,30 L840,30" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="400" y="18" width="80" height="24" fill="#ffffff"/>
-  <text x="440" y="34.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">시간 →</text>
+  <!-- 시간 축 -->
+  <text x="24" y="35" font-size="15" font-weight="bold" fill="#374151">시간</text>
+  <line x1="68" y1="30" x2="846" y2="30" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ah-time)"/>
 
-  <!-- Step Column 1 -->
-  <text x="90" y="70.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">①</text>
-  <rect x="35" y="200" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="90" y="222.55" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
-  <text x="90" y="260.55" font-size="11.5" fill="#52606d" text-anchor="middle">스크립트</text>
-  <text x="90" y="278.55" font-size="11.5" fill="#52606d" text-anchor="middle">평가</text>
+  <!-- 단계 번호 -->
+  <circle cx="94" cy="66" r="14" fill="#111827"/>
+  <text x="94" y="71.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <circle cx="232" cy="66" r="14" fill="#111827"/>
+  <text x="232" y="71.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <circle cx="370" cy="66" r="14" fill="#111827"/>
+  <text x="370" y="71.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <circle cx="508" cy="66" r="14" fill="#111827"/>
+  <text x="508" y="71.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <circle cx="646" cy="66" r="14" fill="#111827"/>
+  <text x="646" y="71.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <circle cx="784" cy="66" r="14" fill="#111827"/>
+  <text x="784" y="71.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
 
-  <!-- Step Column 2 -->
-  <text x="230" y="70.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">②</text>
-  <rect x="175" y="160" width="110" height="36" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="230" y="182.55" font-size="13" fill="#1f2933" text-anchor="middle">first</text>
-  <rect x="175" y="200" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="230" y="222.55" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
-  <text x="230" y="260.55" font-size="11.5" fill="#52606d" text-anchor="middle">first 호출</text>
+  <!-- 스택 통 -->
+  <path d="M34,92 L34,282 L154,282 L154,92" fill="none" stroke="#9ca3af" stroke-width="2"/>
+  <path d="M172,92 L172,282 L292,282 L292,92" fill="none" stroke="#9ca3af" stroke-width="2"/>
+  <path d="M310,92 L310,282 L430,282 L430,92" fill="none" stroke="#9ca3af" stroke-width="2"/>
+  <path d="M448,92 L448,282 L568,282 L568,92" fill="none" stroke="#9ca3af" stroke-width="2"/>
+  <path d="M586,92 L586,282 L706,282 L706,92" fill="none" stroke="#9ca3af" stroke-width="2"/>
+  <path d="M724,92 L724,282 L844,282 L844,92" fill="none" stroke="#9ca3af" stroke-width="2"/>
 
-  <!-- Step Column 3 -->
-  <text x="370" y="70.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">③</text>
-  <rect x="315" y="120" width="110" height="36" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="370" y="142.55" font-size="13" fill="#1f2933" text-anchor="middle">second</text>
-  <rect x="315" y="160" width="110" height="36" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="370" y="182.55" font-size="13" fill="#1f2933" text-anchor="middle">first</text>
-  <rect x="315" y="200" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="370" y="222.55" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
-  <text x="370" y="260.55" font-size="11.5" fill="#52606d" text-anchor="middle">second 호출</text>
+  <g font-size="17" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <!-- ① Global -->
+    <rect x="42" y="236" width="104" height="40" rx="5" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="94" y="261.5" font-weight="bold" fill="#ffffff">Global</text>
 
-  <!-- Step Column 4 -->
-  <text x="510" y="70.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">④</text>
-  <rect x="455" y="80" width="110" height="36" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="510" y="102.55" font-size="13" fill="#1f2933" text-anchor="middle">third</text>
-  <rect x="455" y="120" width="110" height="36" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="510" y="142.55" font-size="13" fill="#1f2933" text-anchor="middle">second</text>
-  <rect x="455" y="160" width="110" height="36" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="510" y="182.55" font-size="13" fill="#1f2933" text-anchor="middle">first</text>
-  <rect x="455" y="200" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="510" y="222.55" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
-  <text x="510" y="260.55" font-size="11.5" fill="#52606d" text-anchor="middle">third 호출</text>
+    <!-- ② first / Global -->
+    <rect x="180" y="190" width="104" height="40" rx="5" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="232" y="215.5" font-weight="bold" fill="#ffffff">first</text>
+    <rect x="180" y="236" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="232" y="261.5" fill="#111827">Global</text>
 
-  <!-- Step Column 5 -->
-  <text x="650" y="70.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">⑤</text>
-  <rect x="595" y="120" width="110" height="36" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="650" y="142.55" font-size="13" fill="#1f2933" text-anchor="middle">second</text>
-  <rect x="595" y="160" width="110" height="36" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="650" y="182.55" font-size="13" fill="#1f2933" text-anchor="middle">first</text>
-  <rect x="595" y="200" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="650" y="222.55" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
-  <text x="650" y="260.55" font-size="11.5" fill="#52606d" text-anchor="middle">third 반환</text>
+    <!-- ③ second / first / Global -->
+    <rect x="318" y="144" width="104" height="40" rx="5" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="370" y="169.5" font-weight="bold" fill="#ffffff">second</text>
+    <rect x="318" y="190" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="370" y="215.5" fill="#111827">first</text>
+    <rect x="318" y="236" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="370" y="261.5" fill="#111827">Global</text>
 
-  <!-- Step Column 6 -->
-  <text x="790" y="70.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">⑥</text>
-  <rect x="735" y="160" width="110" height="36" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="790" y="182.55" font-size="13" fill="#1f2933" text-anchor="middle">first</text>
-  <rect x="735" y="200" width="110" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="790" y="222.55" font-size="13" fill="#1f2933" text-anchor="middle">Global</text>
-  <text x="790" y="260.55" font-size="11.5" fill="#52606d" text-anchor="middle">second 반환</text>
+    <!-- ④ third / second / first / Global -->
+    <rect x="456" y="98" width="104" height="40" rx="5" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="508" y="123.5" font-weight="bold" fill="#ffffff">third</text>
+    <rect x="456" y="144" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="508" y="169.5" fill="#111827">second</text>
+    <rect x="456" y="190" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="508" y="215.5" fill="#111827">first</text>
+    <rect x="456" y="236" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="508" y="261.5" fill="#111827">Global</text>
 
-  <!-- Base Line for Call Stack floor -->
-  <path d="M20,236 L860,236" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+    <!-- ⑤ second / first / Global -->
+    <rect x="594" y="144" width="104" height="40" rx="5" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="646" y="169.5" font-weight="bold" fill="#ffffff">second</text>
+    <rect x="594" y="190" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="646" y="215.5" fill="#111827">first</text>
+    <rect x="594" y="236" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="646" y="261.5" fill="#111827">Global</text>
+
+    <!-- ⑥ first / Global -->
+    <rect x="732" y="190" width="104" height="40" rx="5" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+    <text x="784" y="215.5" font-weight="bold" fill="#ffffff">first</text>
+    <rect x="732" y="236" width="104" height="40" rx="5" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="784" y="261.5" fill="#111827">Global</text>
+  </g>
+
+  <!-- 각 시점의 사건 -->
+  <g font-size="16" text-anchor="middle" fill="#1f2937">
+    <text x="94" y="310">스크립트 평가</text>
+    <text x="232" y="310">first 호출</text>
+    <text x="370" y="310">second 호출</text>
+    <text x="508" y="310">third 호출</text>
+    <text x="646" y="310">third 반환</text>
+    <text x="784" y="310">second 반환</text>
+  </g>
+
+  <!-- 쌓임 / 걷힘 구간 -->
+  <path d="M34,324 L34,332 L568,332 L568,324" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="301" y="356" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">컨텍스트가 쌓임</text>
+  <path d="M586,324 L586,332 L844,332 L844,324" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="715" y="356" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">컨텍스트가 걷힘</text>
+
+  <!-- 범례 -->
+  <rect x="24" y="374" width="30" height="18" rx="3" fill="#1d4ed8"/>
+  <text x="64" y="388" font-size="15" fill="#1f2937">스택 맨 위 = 현재 실행 중인 컨텍스트</text>
 </svg>

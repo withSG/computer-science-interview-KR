@@ -1,75 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">단방향 규칙</title>
-  <desc id="d">FSD 아키텍처의 app, features, entities, shared 레이어 간 단방향 의존성 및 형제 슬라이스 간 import 금지 규칙을 나타낸 다이어그램</desc>
-  <rect width="880" height="640" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 630" width="880" height="630" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">레이어 단방향 import 규칙</title>
+  <desc id="d">app → features → entities → shared 순으로 위 레이어만 아래 레이어를 import할 수 있다. 형제 기능인 features/auth와 features/order는 서로 import할 수 없고, shared/Button.tsx가 features/auth를 import하는 것처럼 아래에서 위로 향하면 규칙 위반이다.</desc>
+  <rect width="880" height="630" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (파랑) -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ok" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <!-- 화살표 마커 (빨강 / 금지) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="no" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">단방향 규칙</text>
+  <!-- app -->
+  <rect x="120" y="24" width="500" height="52" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="370" y="56" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">app</text>
+  <text x="644" y="55" font-size="15" fill="#4b5563">라우팅, 프로바이더</text>
 
-  <!-- Outer Layer Container -->
-  <rect x="40" y="70" width="800" height="460" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <line x1="370" y1="78" x2="370" y2="128" stroke="#047857" stroke-width="2" marker-end="url(#ok)"/>
+  <text x="384" y="108" font-size="15" font-weight="bold" fill="#047857">import 가능</text>
 
-  <!-- 1. app Layer -->
-  <rect x="80" y="90" width="500" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="120" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">app</text>
-  <text x="610" y="120" font-size="13" fill="#52606d">라우팅, 프로바이더</text>
+  <!-- features -->
+  <rect x="120" y="130" width="500" height="150" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="370" y="158" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">features</text>
+  <text x="644" y="205" font-size="15" fill="#4b5563">기능</text>
 
-  <!-- Arrow 1: app -> features -->
-  <path d="M330,140 L330,178" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="286" y="148" width="88" height="20" fill="#ffffff" rx="3"/>
-  <text x="330" y="162" font-size="11.5" fill="#2563eb" text-anchor="middle">import 가능</text>
+  <rect x="144" y="174" width="180" height="52" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <text x="234" y="205" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">features/auth</text>
+  <rect x="416" y="174" width="180" height="52" rx="6" fill="#ffffff" stroke="#475569" stroke-width="1.5"/>
+  <text x="506" y="205" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">features/order</text>
 
-  <!-- 2. features Layer Container -->
-  <rect x="80" y="180" width="500" height="120" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="610" y="245" font-size="13" fill="#52606d">기능</text>
+  <line x1="330" y1="200" x2="410" y2="200" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4" marker-start="url(#no)" marker-end="url(#no)"/>
+  <circle cx="370" cy="200" r="11" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <path d="M364.5,194.5 L375.5,205.5 M375.5,194.5 L364.5,205.5" stroke="#b91c1c" stroke-width="2.5" fill="none"/>
+  <text x="370" y="258" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">형제끼리는 금지</text>
 
-  <!-- Inner Feature Slices -->
-  <rect x="130" y="200" width="160" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="210" y="225" font-size="13" fill="#1f2933" text-anchor="middle">features/auth</text>
+  <line x1="370" y1="282" x2="370" y2="332" stroke="#047857" stroke-width="2" marker-end="url(#ok)"/>
+  <text x="384" y="312" font-size="15" font-weight="bold" fill="#047857">import 가능</text>
 
-  <rect x="370" y="200" width="160" height="40" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="450" y="225" font-size="13" fill="#1f2933" text-anchor="middle">features/order</text>
+  <!-- entities -->
+  <rect x="120" y="334" width="500" height="52" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="370" y="366" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">entities</text>
+  <text x="644" y="365" font-size="15" fill="#4b5563">도메인 개체</text>
 
-  <!-- Forbidden import between siblings -->
-  <path d="M210,240 L210,270 L450,270 L450,240" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <!-- Red 'X' mark -->
-  <circle cx="330" cy="270" r="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="330" y="274" font-size="12" font-weight="bold" fill="#dc2626" text-anchor="middle">X</text>
-  <text x="610" y="275" font-size="13" fill="#dc2626">형제끼리는 금지</text>
+  <line x1="370" y1="388" x2="370" y2="438" stroke="#047857" stroke-width="2" marker-end="url(#ok)"/>
+  <text x="384" y="418" font-size="15" font-weight="bold" fill="#047857">import 가능</text>
 
-  <!-- Arrow 2: features -> entities -->
-  <path d="M330,300 L330,338" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="286" y="308" width="88" height="20" fill="#ffffff" rx="3"/>
-  <text x="330" y="322" font-size="11.5" fill="#2563eb" text-anchor="middle">import 가능</text>
+  <!-- shared -->
+  <rect x="120" y="440" width="500" height="52" rx="8" fill="#f8fafc" stroke="#475569" stroke-width="1.5"/>
+  <text x="370" y="472" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">shared</text>
+  <text x="644" y="471" font-size="15" fill="#4b5563">도메인 모름</text>
+  <rect x="144" y="452" width="116" height="28" rx="5" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="202" y="471" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Button.tsx</text>
 
-  <!-- 3. entities Layer -->
-  <rect x="80" y="340" width="500" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="370" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">entities</text>
-  <text x="610" y="370" font-size="13" fill="#52606d">도메인 개체</text>
+  <!-- 위반: 아래에서 위로 import -->
+  <path d="M142,466 H70 V200 H138" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#no)"/>
+  <rect x="32" y="321" width="76" height="26" rx="4" fill="#ffffff"/>
+  <text x="70" y="339" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">✕ 위반</text>
 
-  <!-- Arrow 3: entities -> shared -->
-  <path d="M330,390 L330,428" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="286" y="398" width="88" height="20" fill="#ffffff" rx="3"/>
-  <text x="330" y="412" font-size="11.5" fill="#2563eb" text-anchor="middle">import 가능</text>
-
-  <!-- 4. shared Layer -->
-  <rect x="80" y="430" width="500" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="460" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">shared</text>
-  <text x="610" y="460" font-size="13" fill="#52606d">도메인 모름</text>
-
-  <!-- Bottom Footnote Box -->
-  <rect x="40" y="550" width="800" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="60" y="574" font-size="12" fill="#1f2933">아래 레이어는 위 레이어를 절대 모른다.</text>
-  <text x="60" y="596" font-size="12" fill="#1f2933">shared/Button.tsx 안에 features/auth가 import돼 있다면 규칙 위반이다.</text>
+  <!-- 설명 -->
+  <rect x="24" y="516" width="832" height="84" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="48" y="548" font-size="16" font-weight="bold" fill="#111827">아래 레이어는 위 레이어를 절대 모른다.</text>
+  <text x="48" y="580" font-size="15" fill="#b91c1c">✕ <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">shared/Button.tsx</tspan> 안에 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">features/auth</tspan>가 import돼 있다면 규칙 위반이다.</text>
 </svg>

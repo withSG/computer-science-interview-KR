@@ -1,60 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">스레드 관점</title>
-  <desc id="d">메인 스레드, 합성 스레드, GPU의 역할 분담을 나타낸 스레드 관점 다이어그램</desc>
-  
-  <rect width="880" height="380" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">메인·합성 스레드와 GPU의 역할 분담</title>
+  <desc id="d">메인 스레드는 JS 실행·스타일 계산·레이아웃·페인트 기록, 합성 스레드는 스크롤 처리·합성된 transform/opacity 애니메이션 진행·레이어 트리 관리, GPU는 텍스처 합성과 래스터 일부를 맡는다. 메인 스레드가 무거운 JS로 1초 동안 멈춰도 합성 스레드의 스크롤과 합성 애니메이션은 계속 동작한다.</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <text x="30" y="45" font-size="16" font-weight="bold" fill="#1f2933">스레드 관점</text>
+  <!-- 열 1: 메인 스레드 -->
+  <rect x="24" y="24" width="256" height="292" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="24" y1="72" x2="280" y2="72" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="152" y="54" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">메인 스레드</text>
 
-  <rect x="30" y="75" width="260" height="40" fill="#eff6ff" rx="4" ry="4"/>
-  <rect x="30" y="75" width="260" height="40" stroke="#2563eb" stroke-width="1.5" fill="none" rx="4" ry="4"/>
-  <text x="160" y="100" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">메인 스레드</text>
+  <rect x="36" y="84" width="232" height="44" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="152" y="112" font-size="16" fill="#1f2937" text-anchor="middle">JS 실행</text>
+  <rect x="36" y="140" width="232" height="44" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="152" y="168" font-size="16" fill="#1f2937" text-anchor="middle">스타일 계산</text>
+  <rect x="36" y="196" width="232" height="44" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="152" y="224" font-size="16" fill="#1f2937" text-anchor="middle">레이아웃</text>
+  <rect x="36" y="252" width="232" height="44" rx="6" fill="#ffffff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="152" y="280" font-size="16" fill="#1f2937" text-anchor="middle">페인트 기록</text>
 
-  <rect x="310" y="75" width="260" height="40" fill="#ecfdf5" rx="4" ry="4"/>
-  <rect x="310" y="75" width="260" height="40" stroke="#059669" stroke-width="1.5" fill="none" rx="4" ry="4"/>
-  <text x="440" y="100" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">합성 스레드</text>
+  <!-- 열 2: 합성 스레드 -->
+  <rect x="312" y="24" width="256" height="292" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <line x1="312" y1="72" x2="568" y2="72" stroke="#047857" stroke-width="1"/>
+  <text x="440" y="54" font-size="18" font-weight="bold" fill="#064e3b" text-anchor="middle">합성 스레드</text>
 
-  <rect x="590" y="75" width="260" height="40" fill="#f5f3ff" rx="4" ry="4"/>
-  <rect x="590" y="75" width="260" height="40" stroke="#7c3aed" stroke-width="1.5" fill="none" rx="4" ry="4"/>
-  <text x="720" y="100" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">GPU</text>
+  <rect x="324" y="84" width="232" height="44" rx="6" fill="#ffffff" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="440" y="112" font-size="16" fill="#1f2937" text-anchor="middle">스크롤 처리</text>
+  <rect x="324" y="140" width="232" height="64" rx="6" fill="#ffffff" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="440" y="166" font-size="16" fill="#1f2937" text-anchor="middle">합성된 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">transform/opacity</tspan></text>
+  <text x="440" y="190" font-size="16" fill="#1f2937" text-anchor="middle">애니메이션 진행</text>
+  <rect x="324" y="216" width="232" height="44" rx="6" fill="#ffffff" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="440" y="244" font-size="16" fill="#1f2937" text-anchor="middle">레이어 트리 관리</text>
 
-  <line x1="300" y1="75" x2="300" y2="350" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <line x1="580" y1="75" x2="580" y2="350" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- 열 3: GPU -->
+  <rect x="600" y="24" width="256" height="292" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <line x1="600" y1="72" x2="856" y2="72" stroke="#6d28d9" stroke-width="1"/>
+  <text x="728" y="54" font-size="18" font-weight="bold" fill="#4c1d95" text-anchor="middle">GPU</text>
 
-  <line x1="30" y1="125" x2="850" y2="125" stroke="#9aa5b1" stroke-width="1.5"/>
+  <rect x="612" y="84" width="232" height="44" rx="6" fill="#ffffff" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="728" y="112" font-size="16" fill="#1f2937" text-anchor="middle">텍스처 합성</text>
+  <rect x="612" y="140" width="232" height="44" rx="6" fill="#ffffff" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="728" y="168" font-size="16" fill="#1f2937" text-anchor="middle">래스터 일부</text>
 
-  <rect x="45" y="145" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="160" y="168" font-size="13" fill="#1f2933" text-anchor="middle">JS 실행</text>
+  <!-- 아래: 메인 스레드가 멈췄을 때 -->
+  <rect x="24" y="340" width="256" height="64" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="152" y="366" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">무거운 JS로</text>
+  <text x="152" y="390" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">1초 동안 멈춰도</text>
 
-  <rect x="45" y="195" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="160" y="218" font-size="13" fill="#1f2933" text-anchor="middle">스타일 계산</text>
+  <line x1="285" y1="372" x2="306" y2="372" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
 
-  <rect x="45" y="245" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="160" y="268" font-size="13" fill="#1f2933" text-anchor="middle">레이아웃</text>
-
-  <rect x="45" y="295" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="160" y="318" font-size="13" fill="#1f2933" text-anchor="middle">페인트 기록</text>
-
-  <rect x="325" y="145" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="440" y="168" font-size="13" fill="#1f2933" text-anchor="middle">스크롤 처리</text>
-
-  <rect x="325" y="195" width="230" height="56" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="440" y="218" font-size="13" fill="#1f2933" text-anchor="middle">합성된 transform/opacity</text>
-  <text x="440" y="238" font-size="13" fill="#1f2933" text-anchor="middle">애니메이션 진행</text>
-
-  <rect x="325" y="265" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="440" y="288" font-size="13" fill="#1f2933" text-anchor="middle">레이어 트리 관리</text>
-
-  <rect x="605" y="145" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="720" y="168" font-size="13" fill="#1f2933" text-anchor="middle">텍스처 합성</text>
-
-  <rect x="605" y="195" width="230" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-  <text x="720" y="218" font-size="13" fill="#1f2933" text-anchor="middle">래스터 일부</text>
-
+  <rect x="312" y="340" width="256" height="64" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="440" y="366" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">스크롤·합성 애니메이션은</text>
+  <text x="440" y="390" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">계속 동작</text>
 </svg>

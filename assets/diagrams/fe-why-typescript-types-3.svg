@@ -1,62 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">5. any, unknown, never의 자리</title>
-  <desc id="d">TypeScript의 unknown, never, any 타입 계층 구조 및 각 타입의 역할을 설명하는 다이어그램</desc>
-  <rect width="880" height="430" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">any·unknown·never의 자리</title>
+  <desc id="d">타입 계층에서 unknown은 모든 값을 받는 최상위(top), never는 어떤 값도 없는 최하위(bottom)이며 그 사이에 string, number, boolean, object 등이 놓인다. any는 계층 바깥에서 never만 빼면 모든 타입과 자유롭게 오가는, 타입 검사를 끄는 스위치다.</desc>
+  <defs>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- unknown Box (Top) -->
-  <rect x="220" y="30" width="220" height="48" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="330" y="60.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">unknown</text>
+  <!-- 타입 계층 테두리 -->
+  <rect x="24" y="24" width="832" height="300" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="44" y="52" font-size="15" font-weight="bold" fill="#4b5563">타입 계층</text>
 
-  <!-- unknown Annotations -->
-  <text x="455" y="52" fill="#52606d" font-size="13" font-weight="bold">← 최상위(top). 모든 값을 받는다</text>
-  <text x="472" y="72" fill="#52606d" font-size="11.5">쓰려면 반드시 좁혀야 한다</text>
+  <!-- unknown (top) -->
+  <rect x="202" y="68" width="160" height="48" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="282" y="99" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">unknown</text>
 
-  <!-- Connecting line: unknown to concrete types -->
-  <path d="M330,78 L330,120" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 위 연결선 -->
+  <path d="M282,116 V140 M90,140 H474 M90,140 V162 M186,140 V162 M282,140 V162 M378,140 V162 M474,140 V162" fill="none" stroke="#6b7280" stroke-width="1.5"/>
 
-  <!-- Concrete Types Box Array -->
-  <!-- Line connecting all concrete types top -->
-  <path d="M120,120 L540,120" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 중간 타입들 -->
+  <rect x="48" y="162" width="84" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="90" y="189" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">string</text>
+  <rect x="144" y="162" width="84" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="186" y="189" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">number</text>
+  <rect x="240" y="162" width="84" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="282" y="189" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">boolean</text>
+  <rect x="336" y="162" width="84" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="378" y="189" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">object</text>
+  <rect x="432" y="162" width="84" height="44" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="474" y="189" font-size="15" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">...</text>
 
-  <!-- Individual type vertical drop lines -->
-  <path d="M120,120 L120,135" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M200,120 L200,135" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M290,120 L290,135" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M390,120 L390,135" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M540,120 L540,135" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 아래 연결선 -->
+  <path d="M90,206 V228 M186,206 V228 M282,206 V228 M378,206 V228 M474,206 V228 M90,228 H474 M282,228 V252" fill="none" stroke="#6b7280" stroke-width="1.5"/>
 
-  <!-- Main combined concrete types box border -->
-  <rect x="70" y="135" width="520" height="42" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- never (bottom) -->
+  <rect x="202" y="252" width="160" height="48" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="282" y="283" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">never</text>
 
-  <!-- Internal dividing lines -->
-  <line x1="160" y1="135" x2="160" y2="177" stroke="#cbd2d9" stroke-width="1.5"/>
-  <line x1="240" y1="135" x2="240" y2="177" stroke="#cbd2d9" stroke-width="1.5"/>
-  <line x1="340" y1="135" x2="340" y2="177" stroke="#cbd2d9" stroke-width="1.5"/>
-  <line x1="440" y1="135" x2="440" y2="177" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- unknown 설명 -->
+  <line x1="548" y1="92" x2="368" y2="92" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#ah-blue)"/>
+  <text x="560" y="75" font-size="16" font-weight="bold" fill="#1d4ed8">최상위(top)</text>
+  <text x="560" y="98" font-size="15" fill="#1f2937">모든 값을 받는다</text>
+  <text x="560" y="120" font-size="15" fill="#1f2937">쓰려면 반드시 좁혀야 한다</text>
 
-  <!-- Labels for concrete types -->
-  <text x="115" y="161" fill="#1f2933" font-size="13" text-anchor="middle">string</text>
-  <text x="200" y="161" fill="#1f2933" font-size="13" text-anchor="middle">number</text>
-  <text x="290" y="161" fill="#1f2933" font-size="13" text-anchor="middle">boolean</text>
-  <text x="390" y="161" fill="#1f2933" font-size="13" text-anchor="middle">object</text>
-  <text x="515" y="161" fill="#1f2933" font-size="13" text-anchor="middle">...</text>
+  <!-- never 설명 -->
+  <line x1="548" y1="276" x2="368" y2="276" stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ah-red)"/>
+  <text x="560" y="259" font-size="16" font-weight="bold" fill="#b91c1c">최하위(bottom)</text>
+  <text x="560" y="282" font-size="15" fill="#1f2937">어떤 값도 없다</text>
+  <text x="560" y="304" font-size="15" fill="#1f2937">어디에나 할당 가능</text>
 
-  <!-- Connecting line: concrete types to never -->
-  <path d="M330,177 L330,220" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-
-  <!-- never Box (Bottom) -->
-  <rect x="220" y="220" width="220" height="48" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="330" y="250.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">never</text>
-
-  <!-- never Annotations -->
-  <text x="455" y="242" fill="#52606d" font-size="13" font-weight="bold">← 최하위(bottom). 어떤 값도 없다</text>
-  <text x="472" y="262" fill="#52606d" font-size="11.5">어디에나 할당 가능</text>
-
-  <!-- any Box -->
-  <rect x="220" y="330" width="220" height="48" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="330" y="360.5" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">any</text>
-
-  <!-- any Annotations -->
-  <text x="455" y="344" fill="#52606d" font-size="13" font-weight="bold">← 계층 바깥. never만 빼면 위아래 모두와</text>
-  <text x="472" y="366" fill="#52606d" font-size="11.5">자유롭게 오간다 = 타입 검사를 끄는 스위치</text>
+  <!-- any (계층 바깥) -->
+  <rect x="202" y="364" width="160" height="48" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="282" y="395" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">any</text>
+  <line x1="548" y1="388" x2="368" y2="388" stroke="#b45309" stroke-width="1.5" marker-end="url(#ah-amber)"/>
+  <text x="560" y="361" font-size="16" font-weight="bold" fill="#b45309">계층 바깥</text>
+  <text x="560" y="384" font-size="15" fill="#1f2937">never만 빼면 위아래 모두와</text>
+  <text x="560" y="406" font-size="15" fill="#1f2937">자유롭게 오간다</text>
+  <text x="560" y="428" font-size="15" font-weight="bold" fill="#b45309">= 타입 검사를 끄는 스위치</text>
 </svg>

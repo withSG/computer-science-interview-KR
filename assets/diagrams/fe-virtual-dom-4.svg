@@ -1,58 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">크로스 플랫폼</title>
-  <desc id="d">React의 Virtual DOM 트리가 react-dom과 react-native 렌더러를 거쳐 각각 HTML 요소와 네이티브 View로 매핑되는 크로스 플랫폼 구조 다이어그램</desc>
-  
-  <rect width="880" height="380" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">크로스 플랫폼 렌더러 구조</title>
+  <desc id="d">컴포넌트 코드와 Virtual DOM 트리는 공통이고, 트리를 해석하는 렌더러만 react-dom과 react-native로 바뀌어 각각 HTML 요소와 네이티브 View를 만든다.</desc>
+  <rect width="880" height="430" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Level 1: 컴포넌트 코드 (공통) -->
-  <rect x="330" y="30" width="220" height="46" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="58" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">컴포넌트 코드 (공통)</text>
+  <!-- 공통 구간 -->
+  <rect x="160" y="32" width="280" height="56" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="300" y="66" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">컴포넌트 코드 (공통)</text>
 
-  <!-- Line 1 -> 2 -->
-  <path d="M440,76 L440,110" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M300,88 V124" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-gray)"/>
 
-  <!-- Level 2: Virtual DOM 트리 (공통) -->
-  <rect x="320" y="110" width="240" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="138" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Virtual DOM 트리 (공통)</text>
+  <rect x="160" y="130" width="280" height="56" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="300" y="164" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Virtual DOM 트리 (공통)</text>
 
-  <!-- Fork Lines (Level 2 -> Level 3) -->
-  <!-- Left branch to react-dom -->
-  <path d="M440,156 L440,180 L250,180 L250,210" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- Right branch to react-native -->
-  <path d="M440,156 L440,180 L630,180 L630,210" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 분기 -->
+  <path d="M300,186 V216 H160 V248" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <path d="M300,216 H440 V248" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ah-purple)"/>
 
-  <!-- Level 3: Renderers -->
-  <!-- react-dom -->
-  <rect x="160" y="210" width="180" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="238" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">react-dom</text>
+  <!-- 렌더러 -->
+  <rect x="50" y="254" width="220" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="160" y="286" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">react-dom</text>
 
-  <!-- react-native -->
-  <rect x="540" y="210" width="180" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="630" y="238" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">react-native</text>
+  <rect x="330" y="254" width="220" height="52" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="440" y="286" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">react-native</text>
 
-  <!-- Line 3 -> 4 (Left) -->
-  <path d="M250,256 L250,290" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- Line 3 -> 4 (Right) -->
-  <path d="M630,256 L630,290" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <path d="M160,306 V342" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <path d="M440,306 V342" stroke="#6d28d9" stroke-width="2" fill="none" marker-end="url(#ah-purple)"/>
 
-  <!-- Level 4: Targets -->
-  <!-- HTML 요소 -->
-  <rect x="160" y="290" width="180" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="318" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">HTML 요소</text>
+  <!-- 결과물 -->
+  <rect x="50" y="348" width="220" height="52" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="160" y="380" font-size="16" fill="#111827" text-anchor="middle">HTML 요소</text>
 
-  <!-- 네이티브 View -->
-  <rect x="540" y="290" width="180" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="630" y="318" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">네이티브 View</text>
+  <rect x="330" y="348" width="220" height="52" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="440" y="380" font-size="16" fill="#111827" text-anchor="middle">네이티브 View</text>
+
+  <!-- 오른쪽 설명: 공통 구간 -->
+  <path d="M586,32 H600 V186 H586" stroke="#6b7280" stroke-width="2" fill="none"/>
+  <text x="620" y="88" font-size="18" font-weight="bold" fill="#111827">공통</text>
+  <text x="620" y="114" font-size="15" fill="#374151">"무엇을 그릴지"만 담음</text>
+  <text x="620" y="138" font-size="15" fill="#374151">재조정 로직 그대로</text>
+
+  <!-- 오른쪽 설명: 교체 구간 -->
+  <path d="M586,254 H600 V400 H586" stroke="#6b7280" stroke-width="2" fill="none"/>
+  <text x="620" y="320" font-size="18" font-weight="bold" fill="#111827">렌더러만 교체 (커밋 단계)</text>
+  <text x="620" y="346" font-size="15" fill="#374151">"어떻게 그릴지"는 렌더러 몫</text>
 </svg>

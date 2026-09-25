@@ -1,46 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">viewport meta 유무에 따른 반응형 동작 차이</title>
-  <desc id="d">viewport meta가 없을 때는 가상 폭 980px로 렌더링되어 미디어 쿼리가 발동하지 않고, width=device-width 설정 시 실제 폭 375px로 렌더링되어 미디어 쿼리가 정상 동작함을 비교 설명하는 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">viewport meta 유무와 미디어 쿼리 판정</title>
+  <desc id="d">viewport meta가 없으면 가상 폭 980px로 렌더링한 뒤 전체를 축소해 글씨가 아주 작아지고, @media (max-width: 768px)가 980 기준으로 판정되어 발동하지 않는다. width=device-width를 주면 실제 폭 375px로 렌더링되어 읽을 수 있는 크기가 되고, 미디어 쿼리가 실제 화면 폭으로 판정되어 정상 동작한다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
+  <defs>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+  </defs>
 
-  <!-- Left Column: viewport meta 없음 (실패/무력화 - 빨강/주황 계열 강조) -->
-  <rect x="24" y="20" width="404" height="300" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  
-  <!-- Sub-header Left -->
-  <rect x="44" y="40" width="364" height="36" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="226" y="62.6" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[viewport meta 없음]</text>
+  <!-- 왼쪽: viewport meta 없음 -->
+  <rect x="24" y="24" width="404" height="372" rx="12" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="226" y="58" font-size="19" font-weight="bold" fill="#b91c1c" text-anchor="middle">viewport meta 없음</text>
+  <line x1="44" y1="76" x2="408" y2="76" stroke="#fecaca" stroke-width="1.5"/>
 
-  <!-- Status / Process Left -->
-  <text x="226" y="104.9" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">가상 폭 980px로 렌더링</text>
+  <text x="226" y="106" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">가상 폭 980px로 렌더링</text>
 
-  <!-- Screen Representation Left (Wide virtual screen scaled down) -->
-  <rect x="84" y="125" width="284" height="90" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="226" y="159.55" font-size="13" fill="#1f2933" text-anchor="middle">아주  작은  글씨들</text>
-  <text x="226" y="184.55" font-size="13" fill="#1f2933" text-anchor="middle">전체를 축소해서 보여줌</text>
+  <!-- 폭 치수선 -->
+  <line x1="56" y1="130" x2="192" y2="130" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="260" y1="130" x2="396" y2="130" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="56" y1="122" x2="56" y2="138" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="396" y1="122" x2="396" y2="138" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="135" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">980px</text>
 
-  <!-- Description / Consequence Left -->
-  <text x="226" y="244.55" font-size="13" fill="#dc2626" text-anchor="middle">@media (max-width: 768px) 가</text>
-  <text x="226" y="269.55" font-size="13" fill="#dc2626" text-anchor="middle">980 기준으로 판정 → 발동 안 함</text>
+  <!-- 980px 레이아웃을 축소한 화면 -->
+  <rect x="56" y="148" width="340" height="104" rx="4" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="192" font-size="14" fill="#4b5563" text-anchor="middle">아주 작은 글씨들</text>
+  <text x="226" y="216" font-size="14" fill="#4b5563" text-anchor="middle">전체를 축소해서 보여줌</text>
 
+  <!-- 미디어 쿼리 판정 -->
+  <text x="226" y="290" font-size="15" fill="#111827" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">@media (max-width: 768px)</tspan> 가</text>
+  <text x="226" y="314" font-size="15" fill="#111827" text-anchor="middle">980 기준으로 판정</text>
+  <line x1="226" y1="324" x2="226" y2="340" stroke="#b91c1c" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="151" y="344" width="150" height="34" rx="17" fill="#b91c1c"/>
+  <text x="226" y="367" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">발동 안 함</text>
 
-  <!-- Right Column: width=device-width (성공/정상 동작 - 파랑/초록 계열 강조) -->
-  <rect x="452" y="20" width="404" height="300" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 오른쪽: width=device-width -->
+  <rect x="452" y="24" width="404" height="372" rx="12" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="654" y="58" font-size="19" font-weight="bold" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">width=device-width</text>
+  <line x1="472" y1="76" x2="836" y2="76" stroke="#a7f3d0" stroke-width="1.5"/>
 
-  <!-- Sub-header Right -->
-  <rect x="472" y="40" width="364" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="654" y="62.6" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[width=device-width]</text>
+  <text x="654" y="106" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">실제 폭 375px로 렌더링</text>
 
-  <!-- Status / Process Right -->
-  <text x="654" y="104.9" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">실제 폭 375px로 렌더링</text>
+  <!-- 폭 치수선 (980 : 375 비율) -->
+  <line x1="589" y1="130" x2="620" y2="130" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="688" y1="130" x2="719" y2="130" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="589" y1="122" x2="589" y2="138" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="719" y1="122" x2="719" y2="138" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="654" y="135" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">375px</text>
 
-  <!-- Screen Representation Right (Actual device width, readable) -->
-  <rect x="584" y="125" width="140" height="90" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="654" y="159.55" font-size="13" fill="#1f2933" text-anchor="middle">읽을 수</text>
-  <text x="654" y="184.55" font-size="13" fill="#1f2933" text-anchor="middle">있는 크기</text>
+  <!-- 실제 폭 화면 -->
+  <rect x="589" y="148" width="130" height="104" rx="4" fill="#f0fdf4" stroke="#047857" stroke-width="1.5"/>
+  <text x="654" y="194" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">읽을 수</text>
+  <text x="654" y="222" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">있는 크기</text>
 
-  <!-- Description / Consequence Right -->
-  <text x="654" y="244.55" font-size="13" fill="#059669" text-anchor="middle">미디어 쿼리가 실제 화면 폭으로</text>
-  <text x="654" y="269.55" font-size="13" fill="#059669" text-anchor="middle">판정 → 정상 동작</text>
+  <!-- 미디어 쿼리 판정 -->
+  <text x="654" y="290" font-size="15" fill="#111827" text-anchor="middle">미디어 쿼리가</text>
+  <text x="654" y="314" font-size="15" fill="#111827" text-anchor="middle">실제 화면 폭으로 판정</text>
+  <line x1="654" y1="324" x2="654" y2="340" stroke="#047857" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="579" y="344" width="150" height="34" rx="17" fill="#047857"/>
+  <text x="654" y="367" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">정상 동작</text>
 </svg>

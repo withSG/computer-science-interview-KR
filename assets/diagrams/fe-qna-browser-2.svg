@@ -1,70 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">상세 과정</title>
-  <desc id="d">HTML 파싱부터 DOM, CSSOM 생성, Render Tree, Layout, Paint, Composite 과정으로 이어지는 브라우저 렌더링 과정 다이어그램입니다.</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 200" width="880" height="200" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">브라우저 렌더링 흐름</title>
+  <desc id="d">HTML 파싱은 DOM으로, CSS 파싱은 CSSOM으로 이어지고, 두 결과가 Render Tree로 합쳐진 뒤 Layout, Paint, Composite 순서로 진행된다.</desc>
+  <rect width="880" height="200" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- HTML 파싱 -> DOM -->
-  <rect x="220" y="30" width="160" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="300" y="59" text-anchor="middle" font-size="14" font-weight="600" fill="#1e40af">HTML 파싱</text>
+  <!-- HTML 갈래 -->
+  <rect x="28" y="36" width="116" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="86" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">HTML 파싱</text>
+  <path d="M146,60 L172,60" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <rect x="176" y="36" width="96" height="48" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="224" y="66" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">DOM</text>
 
-  <path d="M380,54 L440,54" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- CSS 갈래 -->
+  <rect x="28" y="116" width="116" height="48" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="86" y="146" text-anchor="middle" font-size="16" font-weight="700" fill="#6d28d9">CSS 파싱</text>
+  <path d="M146,140 L172,140" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <rect x="176" y="116" width="96" height="48" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="224" y="146" text-anchor="middle" font-size="16" font-weight="700" fill="#6d28d9">CSSOM</text>
 
-  <rect x="440" y="30" width="120" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="500" y="59" text-anchor="middle" font-size="14" font-weight="600" fill="#1e40af">DOM</text>
-
-  <!-- CSS 파싱 -> CSSOM -->
-  <rect x="220" y="100" width="160" height="48" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="300" y="129" text-anchor="middle" font-size="14" font-weight="600" fill="#5b21b6">CSS 파싱</text>
-
-  <path d="M380,124 L440,124" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <rect x="440" y="100" width="120" height="48" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="500" y="129" text-anchor="middle" font-size="14" font-weight="600" fill="#5b21b6">CSSOM</text>
+  <!-- 두 갈래가 합쳐짐 -->
+  <path d="M272,60 L296,60 L296,140 L272,140" stroke="#374151" stroke-width="1.5" fill="none"/>
+  <path d="M296,100 L318,100" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
 
   <!-- Render Tree -->
-  <path d="M500,148 L500,180" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="322" y="76" width="136" height="48" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <text x="390" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#047857">Render Tree</text>
 
-  <rect x="390" y="180" width="220" height="48" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="500" y="209" text-anchor="middle" font-size="14" font-weight="600" fill="#065f46">Render Tree</text>
+  <!-- Layout → Paint → Composite -->
+  <path d="M460,100 L486,100" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <rect x="490" y="76" width="98" height="48" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="539" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2937">Layout</text>
 
-  <!-- Render Tree -> Layout -->
-  <path d="M500,228 L500,260" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
+  <path d="M590,100 L616,100" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <rect x="620" y="76" width="88" height="48" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="664" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2937">Paint</text>
 
-  <!-- Layout -->
-  <rect x="410" y="260" width="180" height="48" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="500" y="289" text-anchor="middle" font-size="14" font-weight="600" fill="#92400e">Layout</text>
-
-  <!-- Layout -> Paint -->
-  <path d="M500,308 L500,340" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Paint -->
-  <rect x="410" y="340" width="180" height="48" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="500" y="369" text-anchor="middle" font-size="14" font-weight="600" fill="#991b1b">Paint</text>
-
-  <!-- Paint -> Composite -->
-  <path d="M500,388 L500,420" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Composite -->
-  <rect x="410" y="420" width="180" height="48" rx="6" fill="#f8fafc" stroke="#1f2933" stroke-width="1.5"/>
-  <text x="500" y="449" text-anchor="middle" font-size="14" font-weight="600" fill="#1f2933">Composite</text>
+  <path d="M710,100 L736,100" stroke="#374151" stroke-width="1.5" fill="none" marker-end="url(#ah)"/>
+  <rect x="740" y="76" width="116" height="48" rx="8" fill="#f8fafc" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="798" y="106" text-anchor="middle" font-size="16" font-weight="700" fill="#1f2937">Composite</text>
 </svg>

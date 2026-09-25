@@ -1,45 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">트리 셰이킹</title>
-  <desc id="d">ES Modules와 CommonJS의 트리 셰이킹 지원 여부 및 특성을 비교한 다이어그램</desc>
-  <rect width="880" height="300" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">트리 셰이킹: ES Modules vs CommonJS</title>
+  <desc id="d">ES Modules는 정적 분석이 가능해 import { add }로 가져오면 add만 번들에 포함하고 subtract는 제거한다. CommonJS는 동적이라 정적 분석이 불가능해 require로 add만 꺼내도 전체 모듈이 번들에 포함된다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
   <defs>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">트리 셰이킹</text>
+  <!-- ES Modules -->
+  <rect x="24" y="24" width="832" height="170" rx="12" fill="#f0fdf4" stroke="#047857" stroke-width="1.5"/>
+  <text x="44" y="58" font-size="19" font-weight="bold" fill="#047857">ES Modules<tspan font-size="16" font-weight="normal"> (정적 분석 가능)</tspan></text>
+  <rect x="44" y="78" width="320" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="60" y="106" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">import { add } from './math.js'</text>
+  <line x1="370" y1="100" x2="428" y2="100" stroke="#047857" stroke-width="2" marker-end="url(#ag)"/>
+  <rect x="434" y="74" width="148" height="52" rx="8" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="450" y="106" font-size="15" font-weight="bold" fill="#047857">번들</text>
+  <rect x="494" y="84" width="70" height="32" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="529" y="105" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">add</text>
+  <rect x="602" y="84" width="110" height="32" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="657" y="105" font-size="16" fill="#4b5563" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">subtract</text>
+  <text x="726" y="106" font-size="16" font-weight="bold" fill="#b91c1c">✗ 제거</text>
+  <text x="44" y="164" font-size="16" fill="#1f2937">→ add만 번들에 포함, subtract는 제거 <tspan font-weight="bold" fill="#047857">(트리 셰이킹)</tspan></text>
 
-  <!-- ES Modules Section Box -->
-  <rect x="30" y="60" width="820" height="95" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="50" y="88" font-size="14" font-weight="bold" fill="#059669">ES Modules (정적 분석 가능)</text>
-  
-  <!-- ESM Sub-item Line & Box -->
-  <path d="M 60,95 L 60,120 L 80,120" stroke="#059669" stroke-width="1.5" fill="none"/>
-  <rect x="80" y="103" width="280" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="92" y="124" font-size="13" font-family="Consolas, monospace" fill="#1f2933">import { add } from './math.js'</text>
-  
-  <!-- ESM Arrow & Description Box -->
-  <path d="M 360,120 L 410,120" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="415" y="103" width="415" height="34" rx="4" fill="#ffffff" stroke="#059669" stroke-width="1"/>
-  <text x="427" y="124" font-size="13" fill="#059669">add만 번들에 포함, subtract는 제거 (트리 셰이킹)</text>
-
-  <!-- CommonJS Section Box -->
-  <rect x="30" y="175" width="820" height="95" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="50" y="203" font-size="14" font-weight="bold" fill="#dc2626">CommonJS (동적 분석)</text>
-  
-  <!-- CJS Sub-item Line & Box -->
-  <path d="M 60,210 L 60,235 L 80,235" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <rect x="80" y="218" width="280" height="34" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="92" y="239" font-size="13" font-family="Consolas, monospace" fill="#1f2933">const { add } = require('./math')</text>
-  
-  <!-- CJS Arrow & Description Box -->
-  <path d="M 360,235 L 410,235" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="415" y="218" width="260" height="34" rx="4" fill="#ffffff" stroke="#dc2626" stroke-width="1"/>
-  <text x="427" y="239" font-size="13" fill="#dc2626">정적 분석 불가, 전체 모듈 포함</text>
+  <!-- CommonJS -->
+  <rect x="24" y="214" width="832" height="170" rx="12" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="44" y="248" font-size="19" font-weight="bold" fill="#b91c1c">CommonJS<tspan font-size="16" font-weight="normal"> (동적 분석)</tspan></text>
+  <rect x="44" y="268" width="320" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="60" y="296" font-size="16" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">const { add } = require('./math')</text>
+  <line x1="370" y1="290" x2="428" y2="290" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar)"/>
+  <rect x="434" y="264" width="294" height="52" rx="8" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="450" y="296" font-size="15" font-weight="bold" fill="#b91c1c">번들</text>
+  <rect x="494" y="274" width="70" height="32" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="529" y="295" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">add</text>
+  <rect x="602" y="274" width="110" height="32" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="657" y="295" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">subtract</text>
+  <text x="44" y="354" font-size="16" fill="#1f2937">→ 정적 분석 불가, <tspan font-weight="bold" fill="#b91c1c">전체 모듈 포함</tspan></text>
 </svg>

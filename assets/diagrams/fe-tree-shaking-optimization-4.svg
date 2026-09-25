@@ -1,154 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1180" width="880" height="1180"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">개발 서버 동작 방식 비교: Webpack dev server vs Vite dev server</title>
-  <desc id="d">Webpack dev server의 전체 모듈 번들링 방식과 Vite dev server의 On-demand ES 모듈 서빙 방식을 비교하는 다이어그램</desc>
-  <rect width="880" height="1180" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 890" width="880" height="890" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Webpack과 Vite 개발 서버</title>
+  <desc id="d">Webpack dev server는 entry부터 모든 모듈로 그래프를 구축하고 전부 변환해 하나로 묶은 뒤에야 브라우저에 서빙하므로 프로젝트가 커질수록 첫 화면 시간이 늘어난다. Vite dev server는 거의 즉시 시작하고, 브라우저가 index.html의 script type="module"에서 시작해 import를 따라 모듈을 하나씩 요청하면 요청된 모듈만 변환해 응답한다.</desc>
+  <rect width="880" height="890" fill="#ffffff"/>
   <defs>
-    <!-- Markers -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="agn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- ================= WEBPACK DEV SERVER CONTAINER ================= -->
-  <rect x="30" y="30" width="820" height="370" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="50" y="65" font-size="16" font-weight="bold" fill="#dc2626">[Webpack dev server]</text>
+  <!-- ── Webpack dev server ── -->
+  <rect x="24" y="25" width="6" height="26" fill="#b45309"/>
+  <text x="42" y="45" font-size="18" font-weight="700" fill="#111827">Webpack dev server</text>
+  <text x="236" y="45" font-size="15" fill="#4b5563">전체 사전 번들링 (프로젝트 크기 비례 대기)</text>
 
-  <!-- Flow Steps Box -->
-  <rect x="180" y="85" width="300" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="330" y="109" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">서버 시작</text>
-
-  <!-- Flow Line down from Server Start -->
-  <path d="M 330 125 L 330 280" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-
-  <!-- Sub-items tree branches -->
-  <!-- Branch 1 -->
-  <path d="M 330 155 L 370 155" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <rect x="370" y="137" width="285" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="382" y="160" font-size="13" fill="#1f2933">entry부터 모든 모듈을 훑어 그래프 구축</text>
-
-  <!-- Branch 2 -->
-  <path d="M 330 200 L 370 200" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <rect x="370" y="182" width="100" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="382" y="205" font-size="13" fill="#1f2933">전부 변환</text>
-
-  <!-- Branch 3 -->
-  <path d="M 330 245 L 370 245" stroke="#dc2626" stroke-width="1.5" fill="none"/>
-  <rect x="370" y="227" width="130" height="36" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="382" y="250" font-size="13" fill="#1f2933">전부 하나로 묶기</text>
-
-  <!-- Arrow down to Serving -->
-  <path d="M 330 280 L 330 303" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Serving Box -->
-  <rect x="230" y="310" width="200" height="40" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="330" y="334" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">브라우저에 서빙</text>
-
-  <!-- Left Arrow and Explanations -->
-  <path d="M 490 330 L 440 330" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="500" y="334" font-size="13" font-weight="bold" fill="#dc2626">← 여기까지 와야 첫 화면이 뜬다</text>
-  <text x="516" y="360" font-size="11.5" fill="#52606d">프로젝트가 커질수록 이 시간이 비례해서 늘어난다</text>
-
-
-  <!-- ================= VITE DEV SERVER CONTAINER ================= -->
-  <rect x="30" y="430" width="820" height="720" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="50" y="465" font-size="16" font-weight="bold" fill="#059669">[Vite dev server]</text>
-
-  <!-- Step 1: Server Start -->
-  <rect x="240" y="485" width="180" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-  <text x="330" y="509" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">서버 시작 (거의 즉시)</text>
-
-  <!-- Down Arrow 1 -->
-  <path d="M 330 523 L 330 543" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Step 2: Request index.html -->
-  <rect x="220" y="550" width="220" height="38" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="330" y="574" font-size="13" fill="#1f2933" text-anchor="middle">브라우저가 index.html 요청</text>
-
-  <!-- Down Arrow 2 + Script tag note -->
-  <path d="M 330 588 L 330 633" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="340" y="598" width="280" height="24" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="348" y="615" font-size="11.5" font-family="monospace" fill="#2563eb">&lt;script type="module" src="/src/main.js"&gt;</text>
-
-  <!-- Interaction 1 -->
-  <g transform="translate(60, 640)">
-    <!-- Browser side -->
-    <rect x="0" y="0" width="270" height="38" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="15" y="24" font-size="13" fill="#1f2933">브라우저: "/src/main.js 주세요"</text>
-
-    <!-- Down Arrow -->
-    <path d="M 270 19 L 320 19" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Vite side -->
-    <rect x="330" y="0" width="370" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-    <text x="345" y="24" font-size="13" fill="#059669" font-weight="bold">Vite: main.js 하나만 변환해서 응답</text>
+  <g font-size="16" fill="#111827" text-anchor="middle">
+    <rect x="40" y="70" width="96" height="58" rx="8" fill="#fffbeb" stroke="#d97706"/>
+    <text x="88" y="105">서버 시작</text>
+    <rect x="166" y="70" width="196" height="58" rx="8" fill="#fffbeb" stroke="#d97706"/>
+    <text x="264" y="94"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">entry</tspan>부터 모든 모듈을</text>
+    <text x="264" y="117">훑어 그래프 구축</text>
+    <rect x="392" y="70" width="96" height="58" rx="8" fill="#fffbeb" stroke="#d97706"/>
+    <text x="440" y="105">전부 변환</text>
+    <rect x="518" y="70" width="146" height="58" rx="8" fill="#fffbeb" stroke="#d97706"/>
+    <text x="591" y="105">전부 하나로 묶기</text>
+    <rect x="694" y="70" width="146" height="58" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="767" y="105" font-weight="700" fill="#1d4ed8">브라우저에 서빙</text>
+  </g>
+  <g stroke="#4b5563" stroke-width="2">
+    <line x1="139" y1="99" x2="162" y2="99" marker-end="url(#ag)"/>
+    <line x1="365" y1="99" x2="388" y2="99" marker-end="url(#ag)"/>
+    <line x1="491" y1="99" x2="514" y2="99" marker-end="url(#ag)"/>
+    <line x1="667" y1="99" x2="690" y2="99" marker-end="url(#ag)"/>
   </g>
 
-  <!-- Down Arrow 3 -->
-  <path d="M 330 688 L 330 708" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <path d="M40,138 V148 H840 V138" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="440" y="176" text-anchor="middle" font-size="16" font-weight="700" fill="#111827">브라우저에 서빙까지 와야 첫 화면이 뜬다</text>
+  <text x="440" y="200" text-anchor="middle" font-size="15" fill="#b91c1c">프로젝트가 커질수록 이 시간이 비례해서 늘어난다</text>
 
-  <!-- Interaction 2 -->
-  <g transform="translate(60, 715)">
-    <!-- Browser side -->
-    <rect x="0" y="0" width="370" height="38" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="12" y="24" font-size="12.5" fill="#1f2933">브라우저: 응답 안의 import를 보고 "/src/App.jsx 주세요"</text>
+  <line x1="24" y1="226" x2="856" y2="226" stroke="#d1d5db" stroke-dasharray="6 6"/>
 
-    <!-- Arrow -->
-    <path d="M 370 19 L 410 19" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ── Vite dev server ── -->
+  <rect x="24" y="245" width="6" height="26" fill="#6d28d9"/>
+  <text x="42" y="265" font-size="18" font-weight="700" fill="#111827">Vite dev server</text>
+  <text x="200" y="265" font-size="15" fill="#4b5563">필요시 즉시 서빙 (On-Demand ES Module Serving)</text>
 
-    <!-- Vite side -->
-    <rect x="420" y="0" width="280" height="38" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-    <text x="435" y="24" font-size="13" fill="#059669" font-weight="bold">Vite: App.jsx 하나만 변환해서 응답</text>
+  <!-- 범례 -->
+  <line x1="40" y1="298" x2="80" y2="298" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="90" y="303" font-size="15" fill="#111827">브라우저 요청 (Native ESM)</text>
+  <line x1="340" y1="298" x2="380" y2="298" stroke="#047857" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#agn)"/>
+  <text x="390" y="303" font-size="15" fill="#111827">Vite 서버 응답 (개별 모듈 변환)</text>
+
+  <!-- 생명선 머리 -->
+  <rect x="160" y="324" width="140" height="36" rx="6" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="230" y="348" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">브라우저</text>
+  <rect x="610" y="324" width="140" height="36" rx="6" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="680" y="348" text-anchor="middle" font-size="16" font-weight="700" fill="#6d28d9">Vite 서버</text>
+
+  <g stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4">
+    <line x1="230" y1="360" x2="230" y2="776"/>
+    <line x1="680" y1="360" x2="680" y2="372"/>
+    <line x1="680" y1="406" x2="680" y2="776"/>
   </g>
 
-  <!-- Down Arrow 4 -->
-  <path d="M 330 763 L 330 783" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="585" y="372" width="190" height="34" rx="17" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="680" y="395" text-anchor="middle" font-size="15" fill="#111827">서버 시작 (거의 즉시)</text>
 
-  <!-- Interaction 3 -->
-  <g transform="translate(60, 790)">
-    <!-- Browser side -->
-    <rect x="0" y="0" width="270" height="38" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="15" y="24" font-size="13" fill="#1f2933">브라우저: "/src/Button.jsx 주세요"</text>
-
-    <!-- Arrow -->
-    <path d="M 270 19 L 320 19" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- Vite side (Ellipsis) -->
-    <text x="335" y="24" font-size="16" font-weight="bold" fill="#52606d">...</text>
+  <!-- 메시지 -->
+  <g font-size="15" fill="#111827" text-anchor="middle">
+    <text x="455" y="436"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">index.html</tspan> 요청</text>
+    <text x="455" y="480" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">&lt;script type="module" src="/src/main.js"&gt;</text>
+    <text x="455" y="524">"<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/src/main.js</tspan> 주세요"</text>
+    <text x="455" y="568"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">main.js</tspan> 하나만 변환해서 응답</text>
+    <text x="455" y="606" fill="#4b5563">응답 안의 import를 보고</text>
+    <text x="455" y="628">"<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/src/App.jsx</tspan> 주세요"</text>
+    <text x="455" y="672"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">App.jsx</tspan> 하나만 변환해서 응답</text>
+    <text x="455" y="716">"<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">/src/Button.jsx</tspan> 주세요"</text>
+    <text x="455" y="760" font-size="18" font-weight="700" fill="#4b5563">...</text>
   </g>
 
-  <!-- Explanatory Footnotes / Cards in Vite container -->
-  <rect x="60" y="865" width="760" height="110" rx="6" fill="#ffffff" stroke="#059669" stroke-width="1"/>
-  <text x="80" y="898" font-size="13.5" font-weight="bold" fill="#059669">실제로 화면에 필요한 모듈만 요청되고, 요청된 것만 변환한다.</text>
-  <text x="80" y="930" font-size="13" fill="#1f2933">프로젝트에 파일이 1000개든 10000개든 첫 화면 시간은 크게 변하지 않는다.</text>
-
-  <!-- Legend inside container -->
-  <g transform="translate(60, 1000)">
-    <rect x="0" y="0" width="760" height="110" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="20" y="28" font-size="12" font-weight="bold" fill="#52606d">범례 (Legend)</text>
-
-    <rect x="20" y="45" width="16" height="16" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="44" y="58" font-size="11.5" fill="#1f2933">Webpack: 전체 사전 번들링 (프로젝트 크기 비례 대기)</text>
-
-    <rect x="20" y="75" width="16" height="16" rx="3" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="44" y="88" font-size="11.5" fill="#1f2933">Vite: 필요시 즉시 서빙 (On-Demand ES Module Serving)</text>
-
-    <rect x="420" y="45" width="16" height="16" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="444" y="58" font-size="11.5" fill="#1f2933">브라우저 요청 (Native ESM)</text>
-
-    <rect x="420" y="75" width="16" height="16" rx="3" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-    <text x="444" y="88" font-size="11.5" fill="#1f2933">Vite 서버 응답 (개별 모듈 변환)</text>
+  <g stroke-width="2">
+    <line x1="232" y1="444" x2="676" y2="444" stroke="#1d4ed8" marker-end="url(#ab)"/>
+    <line x1="678" y1="488" x2="234" y2="488" stroke="#047857" stroke-dasharray="6 4" marker-end="url(#agn)"/>
+    <line x1="232" y1="532" x2="676" y2="532" stroke="#1d4ed8" marker-end="url(#ab)"/>
+    <line x1="678" y1="576" x2="234" y2="576" stroke="#047857" stroke-dasharray="6 4" marker-end="url(#agn)"/>
+    <line x1="232" y1="636" x2="676" y2="636" stroke="#1d4ed8" marker-end="url(#ab)"/>
+    <line x1="678" y1="680" x2="234" y2="680" stroke="#047857" stroke-dasharray="6 4" marker-end="url(#agn)"/>
+    <line x1="232" y1="724" x2="676" y2="724" stroke="#1d4ed8" marker-end="url(#ab)"/>
   </g>
 
+  <rect x="40" y="796" width="800" height="72" rx="10" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
+  <text x="440" y="826" text-anchor="middle" font-size="16" font-weight="700" fill="#111827">실제로 화면에 필요한 모듈만 요청되고, 요청된 것만 변환한다.</text>
+  <text x="440" y="852" text-anchor="middle" font-size="15" fill="#047857">프로젝트에 파일이 1000개든 10000개든 첫 화면 시간은 크게 변하지 않는다.</text>
 </svg>

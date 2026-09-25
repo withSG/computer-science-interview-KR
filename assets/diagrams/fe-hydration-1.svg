@@ -1,75 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">시간축으로 보기</title>
-  <desc id="d">요청부터 TTFB, FCP, JS 실행, TTI까지의 하이드레이션 흐름을 나타낸 시간축 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">하이드레이션 시간축: FCP와 TTI 사이</title>
+  <desc id="d">요청 후 TTFB 동안 서버가 데이터 조회와 HTML 생성을 하고, HTML이 도착해 파싱·페인트되면 FCP로 콘텐츠가 보인다. 이후 JS 번들 다운로드, JS 파싱·실행, React 트리 재실행과 대조, 이벤트 핸들러 부착이 끝나는 TTI까지는 화면은 보이지만 클릭이 안 먹는다.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="540" fill="#ffffff"/>
+  <!-- 이정표 라벨 -->
+  <text x="48" y="58" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">요청</text>
+  <text x="240" y="58" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">HTML 도착</text>
+  <text x="376" y="58" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">FCP</text>
+  <text x="376" y="82" font-size="15" fill="#1f2937" text-anchor="middle">콘텐츠가 보인다</text>
+  <text x="760" y="58" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">TTI</text>
+  <text x="760" y="82" font-size="15" fill="#1f2937" text-anchor="middle">이제 인터랙션이 동작한다</text>
 
-  <!-- Left Side: Request Label -->
-  <rect x="30" y="40" width="80" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="70" y="62.5" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">요청</text>
+  <!-- 시간축 -->
+  <line x1="48" y1="104" x2="850" y2="104" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="376" y1="104" x2="760" y2="104" stroke="#f59e0b" stroke-width="7"/>
+  <circle cx="48" cy="104" r="6" fill="#374151"/>
+  <circle cx="240" cy="104" r="6" fill="#374151"/>
+  <circle cx="376" cy="104" r="7" fill="#1d4ed8"/>
+  <circle cx="760" cy="104" r="7" fill="#047857"/>
+  <text x="846" y="132" font-size="14" fill="#4b5563" text-anchor="end">시간</text>
 
-  <!-- Flow Lines from Request -->
-  <!-- Horizontal line to TTFB arrow -->
-  <path d="M110,58 L250,58" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <!-- Downward vertical line on the left -->
-  <path d="M110,58 L110,480" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 구간 1: TTFB -->
+  <rect x="48" y="122" width="188" height="100" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="142" y="154" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">TTFB</text>
+  <text x="142" y="182" font-size="15" fill="#1f2937" text-anchor="middle">서버가 데이터 조회</text>
+  <text x="142" y="204" font-size="15" fill="#1f2937" text-anchor="middle">+ HTML 생성</text>
 
-  <!-- Timeline Point 1: TTFB -->
-  <path d="M250,58 L250,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="125" y="46" width="60" height="24" fill="#ffffff"/>
-  <text x="155" y="62" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">TTFB</text>
-  
-  <text x="265" y="62" font-size="13" fill="#52606d">(서버가 데이터 조회 + HTML 생성)</text>
+  <!-- 구간 2: 파싱·페인트 -->
+  <rect x="244" y="122" width="128" height="100" rx="8" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="308" y="177" font-size="15" fill="#1f2937" text-anchor="middle">파싱 · 페인트</text>
 
-  <!-- Main Node: HTML Arrival -->
-  <rect x="250" y="105" width="280" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="390" y="129.5" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">HTML 도착 · 파싱 · 페인트</text>
+  <!-- 구간 3: FCP ~ TTI -->
+  <rect x="380" y="122" width="376" height="242" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <text x="568" y="155" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">화면은 보이지만 클릭이 안 먹는다</text>
 
-  <!-- Line connecting HTML arrival to subtree -->
-  <path d="M250,125 L210,125 L210,200" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="396" y="172" width="344" height="38" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/>
+  <circle cx="418" cy="191" r="12" fill="#b45309"/>
+  <text x="418" y="196" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="440" y="196" font-size="15" fill="#1f2937">JS 번들 다운로드</text>
 
-  <!-- Timeline Point 2: FCP -->
-  <circle cx="210" cy="200" r="4" fill="#2563eb"/>
-  <path d="M210,200 L210,480" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  
-  <text x="220" y="204" font-size="13" font-weight="bold" fill="#2563eb">FCP</text>
-  <text x="255" y="204" font-size="13" fill="#1f2933">─ 콘텐츠가 보인다</text>
+  <rect x="396" y="218" width="344" height="38" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/>
+  <circle cx="418" cy="237" r="12" fill="#b45309"/>
+  <text x="418" y="242" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="440" y="242" font-size="15" fill="#1f2937">JS 파싱 · 실행</text>
 
-  <!-- Hydration Inner Block (Yellow/Amber Warning Zone) -->
-  <rect x="220" y="230" width="280" height="190" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  
-  <text x="240" y="263" font-size="13" fill="#1f2933">JS 번들 다운로드</text>
-  <text x="240" y="303" font-size="13" fill="#1f2933">JS 파싱 · 실행</text>
-  <text x="240" y="343" font-size="13" fill="#1f2933">React 트리 재실행 + 대조</text>
-  <text x="240" y="383" font-size="13" fill="#1f2933">이벤트 핸들러 부착</text>
+  <rect x="396" y="264" width="344" height="38" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/>
+  <circle cx="418" cy="283" r="12" fill="#b45309"/>
+  <text x="418" y="288" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="440" y="288" font-size="15" fill="#1f2937">React 트리 재실행 + 대조</text>
 
-  <!-- Side Annotation for Hydration Zone -->
-  <path d="M510,325 L535,325" stroke="#d97706" stroke-width="1.5" fill="none"/>
-  <text x="545" y="308" font-size="13" font-weight="bold" fill="#d97706">← 이 구간 동안</text>
-  <text x="560" y="328" font-size="13" fill="#d97706">   화면은 보이지만</text>
-  <text x="560" y="348" font-size="13" fill="#d97706">   클릭이 안 먹는다</text>
-
-  <!-- Line from HTML to TTI -->
-  <path d="M210,200 L210,440" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
-
-  <!-- Timeline Point 3: TTI -->
-  <circle cx="210" cy="440" r="4" fill="#059669"/>
-  <text x="220" y="444" font-size="13" font-weight="bold" fill="#059669">TTI</text>
-  <text x="250" y="444" font-size="13" fill="#1f2933">─ 이제 인터랙션이 동작한다</text>
-
+  <rect x="396" y="310" width="344" height="38" rx="6" fill="#ffffff" stroke="#fcd34d" stroke-width="1.5"/>
+  <circle cx="418" cy="329" r="12" fill="#b45309"/>
+  <text x="418" y="334" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="440" y="334" font-size="15" fill="#1f2937">이벤트 핸들러 부착</text>
 </svg>

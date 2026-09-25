@@ -154,7 +154,7 @@ const category = searchParams.get('category') ?? 'all';
 ### 권장 폴더 구조
 
 <!-- diagram:fe-qna-frontend-architecture-3 -->
-![권장 폴더 구조](../../assets/diagrams/fe-qna-frontend-architecture-3.svg)
+![feature 기반 최상위와 layer 기반 내부의 src 폴더 트리](../../assets/diagrams/fe-qna-frontend-architecture-3.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

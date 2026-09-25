@@ -1,81 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">더블 버퍼링</title>
-  <desc id="d">React의 current 트리와 workInProgress 트리 간의 alternate 포인터 연결 및 더블 버퍼링 메커니즘을 설명하는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">current 트리와 workInProgress 트리의 더블 버퍼링</title>
+  <desc id="d">화면에 반영된 current 트리와 계산 중인 workInProgress 트리의 각 fiber(App, List, Item)가 alternate로 짝을 가리킨다. render 단계는 workInProgress만 수정하므로 중간에 버려도 current는 멀쩡하고, commit이 끝나면 두 트리의 역할을 맞바꾼다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
 
   <defs>
-    <!-- Alternate bidirectional arrow marker (Ink) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <!-- Alternate bidirectional arrow marker (Purple) -->
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <!-- Downward single arrow marker -->
-    <marker id="a-down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#52606d"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
-  <!-- Left Container: current 트리 -->
-  <rect x="40" y="30" width="360" height="310" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="220" y="65" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">current 트리</text>
-  <text x="220" y="88" font-size="13" fill="#52606d" text-anchor="middle">(화면에 반영된 것)</text>
+  <!-- current 트리 패널 -->
+  <rect x="40" y="24" width="320" height="316" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="200" y="60" font-size="19" font-weight="bold" fill="#1e3a8a" text-anchor="middle">current 트리</text>
+  <text x="200" y="86" font-size="15" fill="#1e3a8a" text-anchor="middle">(화면에 반영된 것)</text>
 
-  <!-- Right Container: workInProgress 트리 -->
-  <rect x="480" y="30" width="360" height="310" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="660" y="65" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">workInProgress 트리</text>
-  <text x="660" y="88" font-size="13" fill="#52606d" text-anchor="middle">(계산 중인 것)</text>
+  <!-- workInProgress 트리 패널 -->
+  <rect x="520" y="24" width="320" height="316" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="680" y="60" font-size="19" font-weight="bold" fill="#065f46" text-anchor="middle">workInProgress 트리</text>
+  <text x="680" y="86" font-size="15" fill="#065f46" text-anchor="middle">(계산 중인 것)</text>
 
-  <!-- Left Tree Nodes (current) -->
-  <rect x="150" y="120" width="140" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="145" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">App</text>
+  <!-- 트리 간선 (부모-자식) -->
+  <line x1="200" y1="164" x2="200" y2="196" stroke="#374151" stroke-width="2"/>
+  <line x1="200" y1="240" x2="200" y2="272" stroke="#374151" stroke-width="2"/>
+  <line x1="680" y1="164" x2="680" y2="196" stroke="#374151" stroke-width="2"/>
+  <line x1="680" y1="240" x2="680" y2="272" stroke="#374151" stroke-width="2"/>
 
-  <rect x="150" y="190" width="140" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="215" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">List</text>
+  <!-- current 노드 -->
+  <rect x="130" y="120" width="140" height="44" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="200" y="149" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">App</text>
+  <rect x="130" y="196" width="140" height="44" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="200" y="225" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">List</text>
+  <rect x="130" y="272" width="140" height="44" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="200" y="301" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Item</text>
 
-  <rect x="150" y="260" width="140" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="285" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Item</text>
+  <!-- workInProgress 노드 -->
+  <rect x="610" y="120" width="140" height="44" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="680" y="149" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">App'</text>
+  <rect x="610" y="196" width="140" height="44" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="680" y="225" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">List'</text>
+  <rect x="610" y="272" width="140" height="44" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="680" y="301" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">Item'</text>
 
-  <!-- Left Vertical Lines -->
-  <path d="M220,160 L220,190" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <path d="M220,230 L220,260" stroke="#52606d" stroke-width="1.5" fill="none"/>
+  <!-- alternate 양방향 연결 -->
+  <line x1="274" y1="142" x2="606" y2="142" stroke="#6d28d9" stroke-width="2" stroke-dasharray="6 4" marker-start="url(#ah-purple)" marker-end="url(#ah-purple)"/>
+  <text x="440" y="130" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">alternate</text>
+  <line x1="274" y1="218" x2="606" y2="218" stroke="#6d28d9" stroke-width="2" stroke-dasharray="6 4" marker-start="url(#ah-purple)" marker-end="url(#ah-purple)"/>
+  <text x="440" y="206" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">alternate</text>
+  <line x1="274" y1="294" x2="606" y2="294" stroke="#6d28d9" stroke-width="2" stroke-dasharray="6 4" marker-start="url(#ah-purple)" marker-end="url(#ah-purple)"/>
+  <text x="440" y="282" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">alternate</text>
 
-  <!-- Right Tree Nodes (workInProgress) -->
-  <rect x="590" y="120" width="140" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="660" y="145" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">App'</text>
+  <!-- 동작 설명 -->
+  <rect x="40" y="368" width="800" height="128" rx="10" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <rect x="590" y="190" width="140" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="660" y="215" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">List'</text>
+  <circle cx="76" cy="400" r="15" fill="#047857"/>
+  <text x="76" y="406" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="104" y="406" font-size="16" fill="#111827"><tspan font-weight="bold">render 단계</tspan>에서는 <tspan font-weight="bold" fill="#065f46">workInProgress</tspan>만 수정한다.</text>
+  <text x="104" y="434" font-size="16" fill="#111827">→ 중간에 버려도 <tspan font-weight="bold" fill="#1e3a8a">current</tspan>는 멀쩡하다.</text>
 
-  <rect x="590" y="260" width="140" height="40" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="660" y="285" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Item'</text>
-
-  <!-- Right Vertical Lines -->
-  <path d="M660,160 L660,190" stroke="#52606d" stroke-width="1.5" fill="none"/>
-  <path d="M660,230 L660,260" stroke="#52606d" stroke-width="1.5" fill="none"/>
-
-  <!-- Horizontal Bidirectional Alternate Connections -->
-  <!-- App <-> App' -->
-  <path d="M290,140 L590,140" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-start="url(#a-purple)" marker-end="url(#a-purple)"/>
-  <rect x="390" y="128" width="100" height="24" fill="#ffffff"/>
-  <text x="440" y="144" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">alternate</text>
-
-  <!-- List <-> List' -->
-  <path d="M290,210 L590,210" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-start="url(#a-purple)" marker-end="url(#a-purple)"/>
-  <rect x="390" y="198" width="100" height="24" fill="#ffffff"/>
-  <text x="440" y="214" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">alternate</text>
-
-  <!-- Item <-> Item' -->
-  <path d="M290,280 L590,280" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-start="url(#a-purple)" marker-end="url(#a-purple)"/>
-  <rect x="390" y="268" width="100" height="24" fill="#ffffff"/>
-  <text x="440" y="284" font-size="13" fill="#7c3aed" text-anchor="middle" font-weight="bold">alternate</text>
-
-  <!-- Explanatory Text Area at Bottom -->
-  <rect x="40" y="360" width="800" height="110" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  
-  <text x="60" y="392" font-size="13" fill="#1f2933">render 단계에서는 workInProgress만 수정한다.</text>
-  <text x="60" y="418" font-size="13" fill="#d97706">→ 중간에 버려도 current는 멀쩡하다.</text>
-  <text x="60" y="444" font-size="13" fill="#1f2933">commit이 끝나면 두 트리의 역할을 맞바꾼다(포인터 교체).</text>
+  <circle cx="76" cy="466" r="15" fill="#374151"/>
+  <text x="76" y="472" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="104" y="472" font-size="16" fill="#111827"><tspan font-weight="bold">commit이 끝나면</tspan> 두 트리의 역할을 맞바꾼다 (포인터 교체).</text>
 </svg>

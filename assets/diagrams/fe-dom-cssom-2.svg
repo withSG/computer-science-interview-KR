@@ -1,119 +1,96 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">DOM 트리와 렌더 트리 비교</title>
-  <desc id="d">DOM 트리에서 비시각적 노드 및 display:none 노드가 제외되고 가상 요소가 추가되어 렌더 트리가 형성되는 과정을 보여주는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+  <desc id="d">같은 줄에 맞춰 놓은 DOM 트리와 렌더 트리를 비교합니다. head·meta·title·style 같은 비시각적 노드와 display:none인 aside는 렌더 트리에서 제외되고, DOM엔 없던 ::before 노드가 렌더 트리의 main 아래에 생깁니다.</desc>
+  <rect width="880" height="560" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arr-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title Labels -->
-  <text x="210" y="40" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">DOM 트리</text>
-  <text x="670" y="40" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">렌더 트리</text>
+  <!-- 머리글 -->
+  <text x="144" y="40" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">DOM 트리</text>
+  <text x="666" y="40" font-size="19" font-weight="bold" fill="#111827" text-anchor="middle">렌더 트리</text>
+  <text x="666" y="64" font-size="15" fill="#4b5563" text-anchor="middle">화면에 실제로 그려질 것만</text>
 
-  <!-- Left Main Box: DOM Tree -->
-  <rect x="40" y="60" width="340" height="400" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- 패널 -->
+  <rect x="24" y="76" width="240" height="456" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <rect x="476" y="76" width="380" height="456" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- Left Tree Nodes (DOM) -->
-  <text x="60" y="98" font-size="13" fill="#1f2933">html</text>
+  <!-- ===== DOM 트리 연결선 ===== -->
+  <g stroke="#9ca3af" stroke-width="1.5" fill="none">
+    <path d="M52,120 V286 M52,142 H66 M52,286 H66"/>
+    <path d="M78,156 V250 M78,178 H92 M78,214 H92 M78,250 H92"/>
+    <path d="M78,300 V502 M78,322 H92 M78,358 H92 M78,466 H92 M78,502 H92"/>
+    <path d="M104,372 V430 M104,430 H118"/>
+  </g>
 
-  <text x="60" y="132" font-size="13" fill="#52606d">├─</text>
-  <rect x="80" y="115" width="80" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="120" y="131" font-size="13" fill="#dc2626" text-anchor="middle">head</text>
+  <!-- 제외 표시선 (DOM → 렌더 트리로 가지 않음) -->
+  <g stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="5 4" fill="none">
+    <path d="M128,142 H284"/>
+    <path d="M154,178 H284"/>
+    <path d="M163,214 H284"/>
+    <path d="M163,250 H284"/>
+    <path d="M163,466 H284"/>
+  </g>
+  <path d="M284,142 V250" stroke="#b91c1c" stroke-width="2" fill="none"/>
+  <path d="M284,196 H300" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M284,466 H300" stroke="#b91c1c" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+  <text x="308" y="201" font-size="15" font-weight="bold" fill="#b91c1c">비시각적 노드 → 제외</text>
+  <text x="308" y="471" font-size="15" font-weight="bold" fill="#b91c1c"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">display:none</tspan> → 제외</text>
 
-  <text x="80" y="162" font-size="13" fill="#52606d">│  ├─</text>
-  <rect x="115" y="145" width="80" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="155" y="161" font-size="13" fill="#dc2626" text-anchor="middle">meta</text>
+  <!-- ===== DOM 트리 노드 ===== -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" text-anchor="middle">
+    <rect x="40" y="92" width="56" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="68" y="111" fill="#111827">html</text>
 
-  <text x="80" y="192" font-size="13" fill="#52606d">│  ├─</text>
-  <rect x="115" y="175" width="80" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="155" y="191" font-size="13" fill="#dc2626" text-anchor="middle">title</text>
+    <rect x="66" y="128" width="56" height="28" rx="5" fill="#fef2f2" stroke="#b91c1c" stroke-dasharray="4 3"/>
+    <text x="94" y="147" fill="#b91c1c">head</text>
+    <rect x="92" y="164" width="56" height="28" rx="5" fill="#fef2f2" stroke="#b91c1c" stroke-dasharray="4 3"/>
+    <text x="120" y="183" fill="#b91c1c">meta</text>
+    <rect x="92" y="200" width="65" height="28" rx="5" fill="#fef2f2" stroke="#b91c1c" stroke-dasharray="4 3"/>
+    <text x="124.5" y="219" fill="#b91c1c">title</text>
+    <rect x="92" y="236" width="65" height="28" rx="5" fill="#fef2f2" stroke="#b91c1c" stroke-dasharray="4 3"/>
+    <text x="124.5" y="255" fill="#b91c1c">style</text>
 
-  <text x="80" y="222" font-size="13" fill="#52606d">│  └─</text>
-  <rect x="115" y="205" width="80" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="155" y="221" font-size="13" fill="#dc2626" text-anchor="middle">style</text>
+    <rect x="66" y="272" width="56" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="94" y="291" fill="#111827">body</text>
+    <rect x="92" y="308" width="74" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="129" y="327" fill="#111827">header</text>
+    <rect x="92" y="344" width="56" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="120" y="363" fill="#111827">main</text>
+    <rect x="118" y="416" width="40" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="138" y="435" fill="#111827">p</text>
+    <rect x="92" y="452" width="65" height="28" rx="5" fill="#fef2f2" stroke="#b91c1c" stroke-dasharray="4 3"/>
+    <text x="124.5" y="471" fill="#b91c1c">aside</text>
+    <rect x="92" y="488" width="74" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="129" y="507" fill="#111827">footer</text>
+  </g>
 
-  <text x="60" y="258" font-size="13" fill="#52606d">└─</text>
-  <text x="80" y="258" font-size="13" fill="#1f2933">body</text>
+  <!-- ===== 렌더 트리 연결선 ===== -->
+  <g stroke="#9ca3af" stroke-width="1.5" fill="none">
+    <path d="M504,120 V286 M504,286 H518"/>
+    <path d="M530,300 V502 M530,322 H544 M530,358 H544 M530,502 H544"/>
+    <path d="M556,372 V430 M556,394 H570 M556,430 H570"/>
+  </g>
 
-  <text x="80" y="292" font-size="13" fill="#52606d">├─</text>
-  <text x="100" y="292" font-size="13" fill="#1f2933">header</text>
-
-  <text x="80" y="326" font-size="13" fill="#52606d">├─</text>
-  <text x="100" y="326" font-size="13" fill="#1f2933">main</text>
-
-  <text x="100" y="360" font-size="13" fill="#52606d">└─</text>
-  <text x="120" y="360" font-size="13" fill="#1f2933">p</text>
-
-  <text x="80" y="398" font-size="13" fill="#52606d">├─</text>
-  <rect x="100" y="381" width="80" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="140" y="397" font-size="13" fill="#dc2626" text-anchor="middle">aside</text>
-
-  <text x="80" y="432" font-size="13" fill="#52606d">└─</text>
-  <text x="100" y="432" font-size="13" fill="#1f2933">footer</text>
-
-
-  <!-- Right Main Box: Render Tree -->
-  <rect x="500" y="60" width="340" height="400" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- Right Tree Nodes (Render Tree) -->
-  <text x="520" y="98" font-size="13" fill="#1f2933">html</text>
-
-  <text x="520" y="132" font-size="13" fill="#52606d">└─</text>
-  <text x="540" y="132" font-size="13" fill="#1f2933">body</text>
-
-  <text x="540" y="166" font-size="13" fill="#52606d">├─</text>
-  <text x="560" y="166" font-size="13" fill="#1f2933">header</text>
-
-  <text x="540" y="200" font-size="13" fill="#52606d">├─</text>
-  <text x="560" y="200" font-size="13" fill="#1f2933">main</text>
-
-  <text x="560" y="234" font-size="13" fill="#52606d">├─</text>
-  <rect x="580" y="217" width="90" height="24" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="625" y="233" font-size="13" fill="#7c3aed" text-anchor="middle">::before</text>
-
-  <text x="560" y="268" font-size="13" fill="#52606d">└─</text>
-  <text x="580" y="268" font-size="13" fill="#1f2933">p</text>
-
-  <text x="540" y="302" font-size="13" fill="#52606d">└─</text>
-  <text x="560" y="302" font-size="13" fill="#1f2933">footer</text>
-
-
-  <!-- Arrows and Exclusion Labels (Middle Area) -->
-  <!-- head 제외 -->
-  <path d="M165,127 L430,127" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="360" y="117" width="48" height="20" fill="#ffffff"/>
-  <text x="384" y="131" font-size="13" fill="#dc2626" text-anchor="middle">제외 →</text>
-
-  <!-- meta 제외 -->
-  <path d="M200,157 L430,157" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="360" y="147" width="36" height="20" fill="#ffffff"/>
-  <text x="378" y="161" font-size="13" fill="#dc2626" text-anchor="middle">제외</text>
-
-  <!-- title 제외 -->
-  <path d="M200,187 L430,187" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="360" y="177" width="36" height="20" fill="#ffffff"/>
-  <text x="378" y="191" font-size="13" fill="#dc2626" text-anchor="middle">제외</text>
-
-  <!-- style 제외 -->
-  <path d="M200,217 L430,217" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="360" y="207" width="36" height="20" fill="#ffffff"/>
-  <text x="378" y="221" font-size="13" fill="#dc2626" text-anchor="middle">제외</text>
-
-  <!-- aside display:none → 제외 -->
-  <path d="M185,393 L430,393" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-red)"/>
-  <rect x="290" y="383" width="138" height="20" fill="#ffffff"/>
-  <text x="359" y="397" font-size="13" fill="#dc2626" text-anchor="middle">display:none → 제외</text>
-
-  <!-- Arrow pointing to ::before (DOM엔 없던 노드) -->
-  <path d="M700,229 L675,229" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="706" y="233" font-size="13" fill="#7c3aed">← DOM엔 없던 노드</text>
+  <!-- ===== 렌더 트리 노드 ===== -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="15" text-anchor="middle">
+    <rect x="492" y="92" width="56" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="520" y="111" fill="#111827">html</text>
+    <rect x="518" y="272" width="56" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="546" y="291" fill="#111827">body</text>
+    <rect x="544" y="308" width="74" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="581" y="327" fill="#111827">header</text>
+    <rect x="544" y="344" width="56" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="572" y="363" fill="#111827">main</text>
+    <rect x="570" y="380" width="92" height="28" rx="5" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+    <text x="616" y="399" fill="#6d28d9" font-weight="bold">::before</text>
+    <rect x="570" y="416" width="40" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="590" y="435" fill="#111827">p</text>
+    <rect x="544" y="488" width="74" height="28" rx="5" fill="#ffffff" stroke="#6b7280"/>
+    <text x="581" y="507" fill="#111827">footer</text>
+  </g>
+  <text x="676" y="399" font-size="15" font-weight="bold" fill="#6d28d9">← DOM엔 없던 노드</text>
 </svg>
