@@ -1,51 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">동작 원리 — 주소 계산</title>
-  <desc id="d">배열의 각 인덱스와 해당 요소의 값, 시작 주소 및 4바이트씩 일정하게 증가하는 주소 계산 구조를 보여주는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">배열의 연속 메모리 배치</title>
+  <desc id="d">int arr[5]의 값 10~50이 0x1000부터 빈틈없이 이어진 칸에 놓이고, 주소가 0x1000, 0x1004, 0x1008, 0x100C, 0x1010으로 각 칸 4바이트씩 정확히 일정하게 늘어나는 모습.</desc>
+  <rect width="880" height="280" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
-  <rect width="880" height="260" fill="#ffffff"/>
 
-  <!-- 인덱스 라벨 -->
-  <text x="148" y="32" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">arr[0]</text>
-  <text x="294" y="32" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">arr[1]</text>
-  <text x="440" y="32" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">arr[2]</text>
-  <text x="586" y="32" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">arr[3]</text>
-  <text x="732" y="32" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">arr[4]</text>
+  <!-- 행 머리 -->
+  <text x="24" y="53" font-size="15" fill="#4b5563">인덱스</text>
+  <text x="24" y="100" font-size="15" fill="#4b5563">값</text>
+  <text x="24" y="163" font-size="15" fill="#4b5563">주소</text>
 
-  <!-- 배열 박스 그룹 -->
-  <g stroke="#9aa5b1" stroke-width="1.5">
-    <rect x="75" y="44" width="146" height="50" fill="#eff6ff"/>
-    <rect x="221" y="44" width="146" height="50" fill="#eff6ff"/>
-    <rect x="367" y="44" width="146" height="50" fill="#eff6ff"/>
-    <rect x="513" y="44" width="146" height="50" fill="#eff6ff"/>
-    <rect x="659" y="44" width="146" height="50" fill="#eff6ff"/>
+  <!-- 인덱스 -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="16" fill="#374151" text-anchor="middle">
+    <text x="168" y="53">arr[0]</text>
+    <text x="304" y="53">arr[1]</text>
+    <text x="440" y="53">arr[2]</text>
+    <text x="576" y="53">arr[3]</text>
+    <text x="712" y="53">arr[4]</text>
   </g>
 
-  <!-- 배열 값 -->
-  <text x="148" y="74.5" font-size="16" fill="#1f2933" text-anchor="middle" font-weight="bold">10</text>
-  <text x="294" y="74.5" font-size="16" fill="#1f2933" text-anchor="middle" font-weight="bold">20</text>
-  <text x="440" y="74.5" font-size="16" fill="#1f2933" text-anchor="middle" font-weight="bold">30</text>
-  <text x="586" y="74.5" font-size="16" fill="#1f2933" text-anchor="middle" font-weight="bold">40</text>
-  <text x="732" y="74.5" font-size="16" fill="#1f2933" text-anchor="middle" font-weight="bold">50</text>
+  <!-- 연속된 칸 -->
+  <g fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5">
+    <rect x="100" y="66" width="136" height="60"/>
+    <rect x="236" y="66" width="136" height="60"/>
+    <rect x="372" y="66" width="136" height="60"/>
+    <rect x="508" y="66" width="136" height="60"/>
+    <rect x="644" y="66" width="136" height="60"/>
+  </g>
+  <g font-size="24" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="168" y="104">10</text>
+    <text x="304" y="104">20</text>
+    <text x="440" y="104">30</text>
+    <text x="576" y="104">40</text>
+    <text x="712" y="104">50</text>
+  </g>
 
-  <!-- 주소 라벨 -->
-  <text x="148" y="118" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">0x1000</text>
-  <text x="294" y="118" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">0x1004</text>
-  <text x="440" y="118" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">0x1008</text>
-  <text x="586" y="118" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">0x100C</text>
-  <text x="732" y="118" font-size="13" fill="#2563eb" text-anchor="middle" font-weight="bold">0x1010</text>
+  <!-- 주소 -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">
+    <text x="168" y="163">0x1000</text>
+    <text x="304" y="163">0x1004</text>
+    <text x="440" y="163">0x1008</text>
+    <text x="576" y="163">0x100C</text>
+    <text x="712" y="163">0x1010</text>
+  </g>
 
-  <!-- 각 칸 연결 선 및 화살표 구조 -->
-  <path d="M148,126 L148,150 L732,150 L732,126" fill="none" stroke="#52606d" stroke-width="1.5"/>
-  <line x1="294" y1="126" x2="294" y2="150" stroke="#52606d" stroke-width="1.5"/>
-  <line x1="440" y1="126" x2="440" y2="150" stroke="#52606d" stroke-width="1.5"/>
-  <line x1="586" y1="126" x2="586" y2="150" stroke="#52606d" stroke-width="1.5"/>
-  <line x1="440" y1="150" x2="440" y2="182" stroke="#52606d" stroke-width="1.5" marker-end="url(#a-ink)"/>
+  <!-- 주소 간격 -->
+  <g fill="none" stroke="#b45309" stroke-width="1.6" marker-end="url(#ah-o)">
+    <path d="M194,176 Q236,206 276,178"/>
+    <path d="M330,176 Q372,206 412,178"/>
+    <path d="M466,176 Q508,206 548,178"/>
+    <path d="M602,176 Q644,206 684,178"/>
+  </g>
+  <g font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">
+    <text x="236" y="222">+4바이트</text>
+    <text x="372" y="222">+4바이트</text>
+    <text x="508" y="222">+4바이트</text>
+    <text x="644" y="222">+4바이트</text>
+  </g>
 
-  <!-- 하단 부가 설명 라벨 -->
-  <rect x="330" y="192" width="220" height="28" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="210" font-size="13" fill="#1f2933" text-anchor="middle">각 칸 4바이트씩 정확히 일정</text>
+  <!-- 요점 -->
+  <text x="440" y="258" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">각 칸 4바이트씩 정확히 일정</text>
 </svg>

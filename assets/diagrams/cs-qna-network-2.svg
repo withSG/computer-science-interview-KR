@@ -1,60 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">4-way Handshake (연결 종료)</title>
-  <desc id="d">Client와 Server 간의 4-way Handshake 연결 종료 과정을 나타낸 시퀀스 다이어그램</desc>
-  <rect width="880" height="440" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TCP 4-way Handshake 연결 종료</title>
+  <desc id="d">Client가 FIN으로 종료를 요청하면 Server가 ACK로 확인하고, 남은 데이터를 보낸 뒤 FIN으로 종료 준비 완료를 알리며, Client의 ACK로 연결이 종료되는 네 단계.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="440" y="36" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">4-way Handshake (연결 종료)</text>
+  <!-- 주체 -->
+  <rect x="95" y="24" width="150" height="44" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="170" y="52" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Client</text>
+  <rect x="455" y="24" width="150" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="530" y="52" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">Server</text>
 
-  <!-- Actor Boxes -->
-  <!-- Client Box: x=140, y=50, w=120, h=40 -->
-  <rect x="140" y="50" width="120" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="200" y="74" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+  <!-- 생명선 -->
+  <line x1="170" y1="68" x2="170" y2="430" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="530" y1="68" x2="530" y2="430" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- Server Box: x=500, y=50, w=120, h=40 -->
-  <rect x="500" y="50" width="120" height="40" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="560" y="74" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <!-- 2와 3 사이: 서버 쪽 남은 데이터 전송 구간 -->
+  <rect x="523" y="220" width="14" height="90" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
 
-  <!-- Lifelines -->
-  <path d="M200,90 L200,410" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <path d="M560,90 L560,410" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+  <!-- 1. FIN (Client → Server) -->
+  <line x1="170" y1="130" x2="528" y2="130" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ab)"/>
+  <text x="350" y="116" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">FIN</text>
 
-  <!-- Step 1: Client -> Server FIN -->
-  <path d="M200,130 L560,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="352" y="117" width="56" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
-  <text x="380" y="134" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">FIN</text>
-  <text x="640" y="134" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">1. 종료 요청</text>
+  <!-- 2. ACK (Server → Client) -->
+  <line x1="530" y1="200" x2="172" y2="200" stroke="#047857" stroke-width="2.5" marker-end="url(#ag)"/>
+  <text x="350" y="186" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">ACK</text>
 
-  <!-- Step 2: Server -> Client ACK -->
-  <path d="M560,200 L200,200" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="350" y="187" width="60" height="26" fill="#ffffff" stroke="#059669" stroke-width="1" rx="3"/>
-  <text x="380" y="204" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">ACK</text>
-  <text x="640" y="204" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">2. 확인</text>
+  <!-- 3. FIN (Server → Client) -->
+  <line x1="530" y1="330" x2="172" y2="330" stroke="#047857" stroke-width="2.5" marker-end="url(#ag)"/>
+  <text x="350" y="316" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">FIN</text>
 
-  <!-- Step 3: Server -> Client FIN -->
-  <path d="M560,270 L200,270" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-  <rect x="352" y="257" width="56" height="26" fill="#ffffff" stroke="#d97706" stroke-width="1" rx="3"/>
-  <text x="380" y="274" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">FIN</text>
-  <text x="640" y="274" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">3. 서버도 종료 준비 완료</text>
+  <!-- 4. ACK (Client → Server) -->
+  <line x1="170" y1="400" x2="528" y2="400" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ab)"/>
+  <text x="350" y="386" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">ACK</text>
 
-  <!-- Step 4: Client -> Server ACK -->
-  <path d="M200,340 L560,340" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="350" y="327" width="60" height="26" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="3"/>
-  <text x="380" y="344" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">ACK</text>
-  <text x="640" y="344" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">4. 확인, 연결 종료</text>
+  <!-- 단계 설명 -->
+  <line x1="542" y1="130" x2="638" y2="130" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <line x1="542" y1="200" x2="638" y2="200" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <line x1="542" y1="330" x2="638" y2="330" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <line x1="542" y1="400" x2="638" y2="400" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+
+  <circle cx="660" cy="130" r="14" fill="#374151"/>
+  <text x="660" y="135" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="686" y="136" font-size="17" fill="#1f2937">종료 요청</text>
+
+  <circle cx="660" cy="200" r="14" fill="#374151"/>
+  <text x="660" y="205" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="686" y="206" font-size="17" fill="#1f2937">확인</text>
+
+  <line x1="542" y1="265" x2="638" y2="265" stroke="#b45309" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="648" y="258" font-size="15" fill="#b45309">서버가 남은 데이터를</text>
+  <text x="648" y="280" font-size="15" fill="#b45309">전송할 시간</text>
+
+  <circle cx="660" cy="330" r="14" fill="#374151"/>
+  <text x="660" y="335" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="686" y="336" font-size="17" fill="#1f2937">서버도 종료 준비 완료</text>
+
+  <circle cx="660" cy="400" r="14" fill="#374151"/>
+  <text x="660" y="405" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="686" y="406" font-size="17" font-weight="bold" fill="#1f2937">확인, 연결 종료</text>
 </svg>

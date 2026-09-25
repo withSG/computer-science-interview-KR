@@ -1,74 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">연결 수립 — 3-way 핸드셰이크</title>
-  <desc id="d">Client와 Server 간의 TCP 3-way 핸드셰이크 과정과 데이터 송수신 상태를 나타낸 시퀀스 다이어그램</desc>
-  <rect width="880" height="540" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TCP 3-way 핸드셰이크</title>
+  <desc id="d">Client가 SYN, Server가 SYN+ACK, Client가 ACK를 보내는 세 단계로 양쪽이 CLOSED·LISTEN에서 SYN_SENT·SYN_RECEIVED를 거쳐 ESTABLISHED가 되고, 그 뒤 데이터를 주고받는 과정입니다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Lifeline Header Boxes & Background Columns -->
-  <!-- Client Column Header -->
-  <rect x="160" y="30" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="240" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+  <!-- 참여자 머리 -->
+  <rect x="180" y="24" width="160" height="42" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="260" y="51" font-size="18" font-weight="700" fill="#1e3a8a" text-anchor="middle">Client</text>
+  <rect x="540" y="24" width="160" height="42" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="620" y="51" font-size="18" font-weight="700" fill="#4c1d95" text-anchor="middle">Server</text>
 
-  <!-- Server Column Header -->
-  <rect x="560" y="30" width="160" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="640" y="55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <!-- 생명선 -->
+  <line x1="260" y1="66" x2="260" y2="486" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="620" y1="66" x2="620" y2="486" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
 
-  <!-- Lifelines -->
-  <path d="M240,70 L240,490" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
-  <path d="M640,70 L640,490" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="6 4"/>
-
-  <!-- Client States -->
-  <rect x="180" y="85" width="120" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="240" y="102" font-size="13" font-weight="600" fill="#52606d" text-anchor="middle">CLOSED</text>
-
-  <rect x="170" y="185" width="140" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="240" y="202" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">SYN_SENT</text>
-
-  <rect x="160" y="355" width="160" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="240" y="374" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">ESTABLISHED</text>
-
-  <!-- Server States -->
-  <rect x="580" y="85" width="120" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="640" y="102" font-size="13" font-weight="600" fill="#52606d" text-anchor="middle">LISTEN</text>
-
-  <rect x="560" y="185" width="160" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="640" y="202" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">SYN_RECEIVED</text>
-
-  <rect x="560" y="355" width="160" height="28" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="640" y="374" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">ESTABLISHED</text>
-
-  <!-- Messages / Handshake Arrows -->
+  <!-- 상태: 처음 -->
+  <rect x="190" y="86" width="140" height="32" rx="16" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="260" y="107" font-size="15" font-weight="700" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CLOSED</text>
+  <rect x="550" y="86" width="140" height="32" rx="16" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="107" font-size="15" font-weight="700" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LISTEN</text>
 
   <!-- 1. SYN -->
-  <path d="M240,140 L640,170" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="361" y="138" width="158" height="24" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="154" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">SYN, seq=x</text>
+  <circle cx="292" cy="147" r="13" fill="#1d4ed8"/>
+  <text x="292" y="152" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="316" y="153" font-size="16" font-weight="700" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SYN, seq=x</text>
+  <line x1="262" y1="170" x2="617" y2="170" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+
+  <!-- 상태: SYN 이후 -->
+  <rect x="190" y="190" width="140" height="32" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="260" y="211" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SYN_SENT</text>
+  <rect x="540" y="190" width="160" height="32" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="620" y="211" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SYN_RECEIVED</text>
 
   <!-- 2. SYN+ACK -->
-  <path d="M640,225 L240,255" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="303" y="223" width="274" height="24" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="239" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">SYN+ACK, seq=y, ack=x+1</text>
+  <circle cx="292" cy="253" r="13" fill="#6d28d9"/>
+  <text x="292" y="258" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="316" y="259" font-size="16" font-weight="700" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">SYN+ACK, seq=y, ack=x+1</text>
+  <line x1="618" y1="276" x2="263" y2="276" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-purple)"/>
 
   <!-- 3. ACK -->
-  <path d="M240,310 L640,340" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="323" y="308" width="234" height="24" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="324" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">ACK, seq=x+1, ack=y+1</text>
+  <circle cx="292" cy="319" r="13" fill="#1d4ed8"/>
+  <text x="292" y="324" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="316" y="325" font-size="16" font-weight="700" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ACK, seq=x+1, ack=y+1</text>
+  <line x1="262" y1="342" x2="617" y2="342" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
 
-  <!-- Data Exchange Area -->
-  <rect x="200" y="420" width="480" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" stroke-dasharray="4 2"/>
-  <path d="M240,445 L640,445" stroke="#059669" stroke-width="3" marker-start="url(#a-green)" marker-end="url(#a-green)"/>
-  <rect x="375" y="433" width="130" height="24" rx="3" fill="#ffffff" stroke="#059669" stroke-width="1"/>
-  <text x="440" y="449" font-size="13.5" font-weight="bold" fill="#059669" text-anchor="middle">데이터 송수신</text>
+  <!-- 상태: 연결 수립 -->
+  <rect x="185" y="362" width="150" height="34" rx="17" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="260" y="384" font-size="16" font-weight="700" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ESTABLISHED</text>
+  <rect x="545" y="362" width="150" height="34" rx="17" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="620" y="384" font-size="16" font-weight="700" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ESTABLISHED</text>
+
+  <!-- 데이터 송수신 -->
+  <text x="440" y="440" font-size="16" font-weight="700" fill="#047857" text-anchor="middle">데이터 송수신</text>
+  <line x1="265" y1="456" x2="615" y2="456" stroke="#047857" stroke-width="4" marker-start="url(#ah-green)" marker-end="url(#ah-green)"/>
 </svg>

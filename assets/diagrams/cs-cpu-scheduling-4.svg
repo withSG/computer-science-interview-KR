@@ -1,168 +1,205 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 730" width="880" height="730" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Round Robin (RR) — 선점</title>
-  <desc id="d">Round Robin 스케줄링의 갠트 차트, 시간별 타임라인 진행 상태와 Ready 큐의 원형 순환 구조를 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 760" width="880" height="760" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Round Robin 실행 순서 (퀀텀 2)</title>
+  <desc id="d">타임 퀀텀 2로 P1~P4를 Round Robin 스케줄링한 간트 차트, 각 시점의 실행 결과와 Ready 큐 상태 표, 퀀텀을 다 쓴 프로세스가 큐 맨 뒤로 돌아가는 원형 구조입니다.</desc>
+  <rect width="880" height="760" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-  <rect width="880" height="730" fill="#ffffff"/>
 
-  <!-- 헤더 / 섹션 제목 -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">Round Robin (RR) — 선점</text>
-  <text x="30" y="65" font-size="13" font-weight="bold" fill="#2563eb">타임 퀀텀 = 2 인 경우</text>
+  <!-- 캡션 -->
+  <text x="40" y="42" font-size="19" font-weight="bold" fill="#111827">타임 퀀텀 = 2 인 경우</text>
 
-  <!-- 1. Gantt Chart 구역 -->
-  <!-- Timeline Scale Labels -->
-  <text x="60" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">0</text>
-  <text x="160" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">2</text>
-  <text x="260" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">4</text>
-  <text x="360" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">6</text>
-  <text x="410" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">7</text>
-  <text x="510" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">9</text>
-  <text x="610" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">11</text>
-  <text x="710" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">13</text>
-  <text x="810" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">15</text>
-  <text x="860" y="97" font-size="12" font-weight="bold" fill="#52606d" text-anchor="middle">16</text>
+  <!-- 간트 차트: t → x = 64 + 47t -->
+  <rect x="65" y="62" width="92" height="48" fill="#dbeafe"/>
+  <text x="111" y="92" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <rect x="159" y="62" width="92" height="48" fill="#d1fae5"/>
+  <text x="205" y="92" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <rect x="253" y="62" width="92" height="48" fill="#dbeafe"/>
+  <text x="299" y="92" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <rect x="347" y="62" width="45" height="48" fill="#fef3c7"/>
+  <text x="369.5" y="92" font-size="17" font-weight="bold" fill="#78350f" text-anchor="middle">P3</text>
+  <rect x="394" y="62" width="92" height="48" fill="#d1fae5"/>
+  <text x="440" y="92" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <rect x="488" y="62" width="92" height="48" fill="#ede9fe"/>
+  <text x="534" y="92" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <rect x="582" y="62" width="92" height="48" fill="#dbeafe"/>
+  <text x="628" y="92" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <rect x="676" y="62" width="92" height="48" fill="#ede9fe"/>
+  <text x="722" y="92" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <rect x="770" y="62" width="45" height="48" fill="#dbeafe"/>
+  <text x="792.5" y="92" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
 
-  <!-- Gantt Chart Blocks -->
-  <!-- P1: 0-2 (100px) -->
-  <rect x="60" y="105" width="100" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="127" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
+  <!-- 시간축 -->
+  <line x1="64" y1="116" x2="816" y2="116" stroke="#6b7280" stroke-width="1.5"/>
+  <g stroke="#6b7280" stroke-width="1.5">
+    <line x1="64" y1="112" x2="64" y2="122"/>
+    <line x1="158" y1="112" x2="158" y2="122"/>
+    <line x1="252" y1="112" x2="252" y2="122"/>
+    <line x1="346" y1="112" x2="346" y2="122"/>
+    <line x1="393" y1="112" x2="393" y2="122"/>
+    <line x1="487" y1="112" x2="487" y2="122"/>
+    <line x1="581" y1="112" x2="581" y2="122"/>
+    <line x1="675" y1="112" x2="675" y2="122"/>
+    <line x1="769" y1="112" x2="769" y2="122"/>
+    <line x1="816" y1="112" x2="816" y2="122"/>
+  </g>
+  <g font-size="15" fill="#374151" text-anchor="middle">
+    <text x="64" y="142">0</text>
+    <text x="158" y="142">2</text>
+    <text x="252" y="142">4</text>
+    <text x="346" y="142">6</text>
+    <text x="393" y="142">7</text>
+    <text x="487" y="142">9</text>
+    <text x="581" y="142">11</text>
+    <text x="675" y="142">13</text>
+    <text x="769" y="142">15</text>
+    <text x="816" y="142">16</text>
+  </g>
 
-  <!-- P2: 2-4 (100px) -->
-  <rect x="160" y="105" width="100" height="36" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="210" y="127" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">P2</text>
+  <!-- 진행 표 -->
+  <rect x="40" y="170" width="800" height="36" fill="#f3f4f6"/>
+  <rect x="40" y="242" width="800" height="36" fill="#f9fafb"/>
+  <rect x="40" y="314" width="800" height="36" fill="#f9fafb"/>
+  <rect x="40" y="386" width="800" height="36" fill="#f9fafb"/>
+  <rect x="40" y="458" width="800" height="36" fill="#f9fafb"/>
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="40" y1="242" x2="840" y2="242"/>
+    <line x1="40" y1="278" x2="840" y2="278"/>
+    <line x1="40" y1="314" x2="840" y2="314"/>
+    <line x1="40" y1="350" x2="840" y2="350"/>
+    <line x1="40" y1="386" x2="840" y2="386"/>
+    <line x1="40" y1="422" x2="840" y2="422"/>
+    <line x1="40" y1="458" x2="840" y2="458"/>
+    <line x1="40" y1="494" x2="840" y2="494"/>
+  </g>
+  <line x1="40" y1="206" x2="840" y2="206" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="40" y1="530" x2="840" y2="530" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="40" y1="170" x2="840" y2="170" stroke="#9ca3af" stroke-width="1.5"/>
 
-  <!-- P1: 4-6 (100px) -->
-  <rect x="260" y="105" width="100" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="310" y="127" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
+  <g font-size="15" font-weight="bold" fill="#111827">
+    <text x="80" y="194" text-anchor="middle">시각</text>
+    <text x="160" y="194" text-anchor="middle">실행</text>
+    <text x="216" y="194">결과</text>
+    <text x="596" y="194">끝난 뒤 Ready 큐 (앞 → 뒤)</text>
+  </g>
 
-  <!-- P3: 6-7 (50px) -->
-  <rect x="360" y="105" width="50" height="36" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="385" y="127" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">P3</text>
+  <!-- 행 1: t=0 -->
+  <text x="80" y="230" font-size="15" fill="#111827" text-anchor="middle">t=0</text>
+  <rect x="138" y="212" width="44" height="24" rx="4" fill="#dbeafe"/>
+  <text x="160" y="229" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <text x="216" y="230" font-size="15" fill="#111827">퀀텀 소진, 그사이 도착한 P2 뒤로</text>
+  <rect x="596" y="212" width="40" height="24" rx="4" fill="#d1fae5"/>
+  <text x="616" y="229" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <rect x="642" y="212" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="662" y="229" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
 
-  <!-- P2: 7-9 (100px) -->
-  <rect x="410" y="105" width="100" height="36" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="460" y="127" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">P2</text>
+  <!-- 행 2: t=2 -->
+  <text x="80" y="266" font-size="15" fill="#111827" text-anchor="middle">t=2</text>
+  <rect x="138" y="248" width="44" height="24" rx="4" fill="#d1fae5"/>
+  <text x="160" y="265" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <text x="216" y="266" font-size="15" fill="#111827">퀀텀 소진, t=4에 P3 도착</text>
+  <rect x="596" y="248" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="616" y="265" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <rect x="642" y="248" width="40" height="24" rx="4" fill="#fef3c7"/>
+  <text x="662" y="265" font-size="15" font-weight="bold" fill="#78350f" text-anchor="middle">P3</text>
+  <rect x="688" y="248" width="40" height="24" rx="4" fill="#d1fae5"/>
+  <text x="708" y="265" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
 
-  <!-- P4: 9-11 (100px) -->
-  <rect x="510" y="105" width="100" height="36" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="560" y="127" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P4</text>
+  <!-- 행 3: t=4 -->
+  <text x="80" y="302" font-size="15" fill="#111827" text-anchor="middle">t=4</text>
+  <rect x="138" y="284" width="44" height="24" rx="4" fill="#dbeafe"/>
+  <text x="160" y="301" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <text x="216" y="302" font-size="15" fill="#111827">퀀텀 소진, t=5에 P4 도착</text>
+  <rect x="596" y="284" width="40" height="24" rx="4" fill="#fef3c7"/>
+  <text x="616" y="301" font-size="15" font-weight="bold" fill="#78350f" text-anchor="middle">P3</text>
+  <rect x="642" y="284" width="40" height="24" rx="4" fill="#d1fae5"/>
+  <text x="662" y="301" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <rect x="688" y="284" width="40" height="24" rx="4" fill="#ede9fe"/>
+  <text x="708" y="301" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <rect x="734" y="284" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="754" y="301" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
 
-  <!-- P1: 11-13 (100px) -->
-  <rect x="610" y="105" width="100" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="660" y="127" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
+  <!-- 행 4: t=6 -->
+  <text x="80" y="338" font-size="15" fill="#111827" text-anchor="middle">t=6</text>
+  <rect x="138" y="320" width="44" height="24" rx="4" fill="#fef3c7"/>
+  <text x="160" y="337" font-size="15" font-weight="bold" fill="#78350f" text-anchor="middle">P3</text>
+  <text x="216" y="338" font-size="15" fill="#111827">1만 쓰고 <tspan font-weight="bold" fill="#047857">종료(t=7)</tspan></text>
+  <rect x="596" y="320" width="40" height="24" rx="4" fill="#d1fae5"/>
+  <text x="616" y="337" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <rect x="642" y="320" width="40" height="24" rx="4" fill="#ede9fe"/>
+  <text x="662" y="337" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <rect x="688" y="320" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="708" y="337" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
 
-  <!-- P4: 13-15 (100px) -->
-  <rect x="710" y="105" width="100" height="36" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="760" y="127" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P4</text>
+  <!-- 행 5: t=7 -->
+  <text x="80" y="374" font-size="15" fill="#111827" text-anchor="middle">t=7</text>
+  <rect x="138" y="356" width="44" height="24" rx="4" fill="#d1fae5"/>
+  <text x="160" y="373" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <text x="216" y="374" font-size="15" fill="#111827">남은 2를 다 쓰고 <tspan font-weight="bold" fill="#047857">종료(t=9)</tspan></text>
+  <rect x="596" y="356" width="40" height="24" rx="4" fill="#ede9fe"/>
+  <text x="616" y="373" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <rect x="642" y="356" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="662" y="373" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
 
-  <!-- P1: 15-16 (50px) -->
-  <rect x="810" y="105" width="50" height="36" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="835" y="127" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
+  <!-- 행 6: t=9 -->
+  <text x="80" y="410" font-size="15" fill="#111827" text-anchor="middle">t=9</text>
+  <rect x="138" y="392" width="44" height="24" rx="4" fill="#ede9fe"/>
+  <text x="160" y="409" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <text x="216" y="410" font-size="15" fill="#111827">퀀텀 소진</text>
+  <rect x="596" y="392" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="616" y="409" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <rect x="642" y="392" width="40" height="24" rx="4" fill="#ede9fe"/>
+  <text x="662" y="409" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
 
-  <!-- Timeline ticks/end boundary -->
-  <line x1="60" y1="100" x2="60" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="160" y1="100" x2="160" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="260" y1="100" x2="260" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="360" y1="100" x2="360" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="410" y1="100" x2="410" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="510" y1="100" x2="510" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="610" y1="100" x2="610" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="710" y1="100" x2="710" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="810" y1="100" x2="810" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
-  <line x1="860" y1="100" x2="860" y2="146" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- 행 7: t=11 -->
+  <text x="80" y="446" font-size="15" fill="#111827" text-anchor="middle">t=11</text>
+  <rect x="138" y="428" width="44" height="24" rx="4" fill="#dbeafe"/>
+  <text x="160" y="445" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <text x="216" y="446" font-size="15" fill="#111827">퀀텀 소진</text>
+  <rect x="596" y="428" width="40" height="24" rx="4" fill="#ede9fe"/>
+  <text x="616" y="445" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <rect x="642" y="428" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="662" y="445" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
 
-  <!-- 구분선 -->
-  <line x1="30" y1="165" x2="850" y2="165" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 행 8: t=13 -->
+  <text x="80" y="482" font-size="15" fill="#111827" text-anchor="middle">t=13</text>
+  <rect x="138" y="464" width="44" height="24" rx="4" fill="#ede9fe"/>
+  <text x="160" y="481" font-size="15" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
+  <text x="216" y="482" font-size="15" font-weight="bold" fill="#047857">종료(t=15)</text>
+  <rect x="596" y="464" width="40" height="24" rx="4" fill="#dbeafe"/>
+  <text x="616" y="481" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
 
-  <!-- 2. 시간별 텍스트 설명 및 Ready 큐 상태 -->
-  <!-- Line 1: t=0 -->
-  <text x="40" y="195" font-size="13" font-weight="bold" fill="#1f2933">t=0</text>
-  <text x="80" y="195" font-size="13" fill="#1f2933">P1 실행 → 퀀텀 소진, 그사이 도착한 P2 뒤로</text>
-  <rect x="730" y="179" width="110" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="785" y="195" font-size="12.5" font-weight="bold" fill="#1f2933" text-anchor="middle">[P2 P1]</text>
+  <!-- 행 9: t=15 -->
+  <text x="80" y="518" font-size="15" fill="#111827" text-anchor="middle">t=15</text>
+  <rect x="138" y="500" width="44" height="24" rx="4" fill="#dbeafe"/>
+  <text x="160" y="517" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <text x="216" y="518" font-size="15" fill="#111827">남은 1 소진 후 <tspan font-weight="bold" fill="#047857">종료</tspan></text>
+  <text x="616" y="518" font-size="15" fill="#4b5563" text-anchor="middle">—</text>
 
-  <!-- Line 2: t=2 -->
-  <text x="40" y="225" font-size="13" font-weight="bold" fill="#1f2933">t=2</text>
-  <text x="80" y="225" font-size="13" fill="#1f2933">P2 실행 → 퀀텀 소진, t=4에 P3 도착</text>
-  <rect x="730" y="209" width="110" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="785" y="225" font-size="12.5" font-weight="bold" fill="#1f2933" text-anchor="middle">[P1 P3 P2]</text>
+  <!-- Ready 큐 원형 순환 -->
+  <text x="40" y="582" font-size="18" font-weight="bold" fill="#111827">Ready 큐가 원형으로 돈다</text>
 
-  <!-- Line 3: t=4 -->
-  <text x="40" y="255" font-size="13" font-weight="bold" fill="#1f2933">t=4</text>
-  <text x="80" y="255" font-size="13" fill="#1f2933">P1 실행 → 퀀텀 소진, t=5에 P4 도착</text>
-  <rect x="730" y="239" width="110" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="785" y="255" font-size="12.5" font-weight="bold" fill="#1f2933" text-anchor="middle">[P3 P2 P4 P1]</text>
+  <path d="M668,634 L668,612 L212,612 L212,632" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-gray)"/>
 
-  <!-- Line 4: t=6 -->
-  <text x="40" y="285" font-size="13" font-weight="bold" fill="#1f2933">t=6</text>
-  <text x="80" y="285" font-size="13" fill="#1f2933">P3 실행 → 1만 쓰고 종료(t=7)</text>
-  <rect x="730" y="269" width="110" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="785" y="285" font-size="12.5" font-weight="bold" fill="#1f2933" text-anchor="middle">[P2 P4 P1]</text>
+  <rect x="168" y="636" width="88" height="48" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="212" y="666" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <rect x="320" y="636" width="88" height="48" rx="6" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="364" y="666" font-size="18" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <rect x="472" y="636" width="88" height="48" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="516" y="666" font-size="18" font-weight="bold" fill="#78350f" text-anchor="middle">P3</text>
+  <rect x="624" y="636" width="88" height="48" rx="6" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="668" y="666" font-size="18" font-weight="bold" fill="#4c1d95" text-anchor="middle">P4</text>
 
-  <!-- Line 5: t=7 -->
-  <text x="40" y="315" font-size="13" font-weight="bold" fill="#1f2933">t=7</text>
-  <text x="80" y="315" font-size="13" fill="#1f2933">P2 실행 → 남은 2를 다 쓰고 종료(t=9)</text>
-  <rect x="730" y="299" width="110" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="785" y="315" font-size="12.5" font-weight="bold" fill="#1f2933" text-anchor="middle">[P4 P1]</text>
+  <path d="M258,660 L316,660" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-gray)"/>
+  <path d="M410,660 L468,660" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-gray)"/>
+  <path d="M562,660 L620,660" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-gray)"/>
 
-  <!-- Line 6: t=9 -->
-  <text x="40" y="345" font-size="13" font-weight="bold" fill="#1f2933">t=9</text>
-  <text x="80" y="345" font-size="13" fill="#1f2933">P4 실행 → 퀀텀 소진</text>
-  <rect x="730" y="329" width="110" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="785" y="345" font-size="12.5" font-weight="bold" fill="#1f2933" text-anchor="middle">[P1 P4]</text>
-
-  <!-- Line 7: t=11 -->
-  <text x="40" y="375" font-size="13" font-weight="bold" fill="#1f2933">t=11</text>
-  <text x="80" y="375" font-size="13" fill="#1f2933">P1 실행 → 퀀텀 소진</text>
-  <rect x="730" y="359" width="110" height="24" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="785" y="375" font-size="12.5" font-weight="bold" fill="#1f2933" text-anchor="middle">[P4 P1]</text>
-
-  <!-- Line 8: t=13 -->
-  <text x="40" y="405" font-size="13" font-weight="bold" fill="#1f2933">t=13</text>
-  <text x="80" y="405" font-size="13" fill="#1f2933">P4 실행 → 종료(t=15) / t=15 P1이 남은 1 소진 후 종료</text>
-
-  <!-- 구분선 -->
-  <line x1="30" y1="430" x2="850" y2="430" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 3. Ready 큐 순환 다이어그램 구역 -->
-  <!-- 구역 제목 -->
-  <text x="440" y="462" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Ready 큐가 원형으로 돈다</text>
-
-  <!-- Queue Nodes: P1, P2, P3, P4 -->
-  <!-- Node P1 -->
-  <rect x="230" y="550" width="80" height="46" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="270" y="578" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
-
-  <!-- Node P2 -->
-  <rect x="350" y="550" width="80" height="46" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="390" y="578" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">P2</text>
-
-  <!-- Node P3 -->
-  <rect x="470" y="550" width="80" height="46" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="510" y="578" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">P3</text>
-
-  <!-- Node P4 -->
-  <rect x="590" y="550" width="80" height="46" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="630" y="578" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">P4</text>
-
-  <!-- Inter-node Arrows -->
-  <path d="M310,573 L350,573" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M430,573 L470,573" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M550,573 L590,573" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Top Return Loop (Top Feedback) -->
-  <path d="M270,550 L270,500 L630,500 L630,550" stroke="#1f2933" stroke-width="1.5" fill="none" marker-start="url(#a-ink)"/>
-
-  <!-- Bottom Feedback Loop with Text Box -->
-  <path d="M270,596 L270,660 L630,660 L630,596" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Bottom Label Box with White Background -->
-  <rect x="350" y="647" width="180" height="26" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
-  <text x="440" y="664" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">퀀텀 소진 → 맨 뒤로</text>
+  <path d="M212,686 L212,718 L350,718" fill="none" stroke="#1d4ed8" stroke-width="2"/>
+  <path d="M530,718 L668,718 L668,690" fill="none" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <text x="440" y="724" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">퀀텀 소진 → 맨 뒤로</text>
 </svg>

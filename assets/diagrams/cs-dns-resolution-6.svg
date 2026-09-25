@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">IP 변경 전후 TTL 조정 일정</title>
+  <desc id="d">D-2일에 TTL을 86400에서 300으로 낮추고, D-Day에 IP를 바꾼 뒤, D+1일에 안정화를 확인하고 TTL을 다시 86400으로 돌리는 순서를 타임라인과 TTL 계단 그래프로 보여준다.</desc>
+  <defs>
+    <marker id="ar-axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+  </defs>
+  <rect width="880" height="360" fill="#ffffff"/>
+
+  <!-- 날짜 가이드선 -->
+  <line x1="156" y1="46" x2="156" y2="182" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="440" y1="46" x2="440" y2="182" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="724" y1="46" x2="724" y2="182" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- TTL 계단 그래프 -->
+  <path d="M30,72 H156" fill="none" stroke="#64748b" stroke-width="3"/>
+  <path d="M724,72 H850" fill="none" stroke="#64748b" stroke-width="3"/>
+  <path d="M156,72 V132 H724 V72" fill="none" stroke="#b45309" stroke-width="3" stroke-linejoin="round"/>
+  <text x="92" y="60" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">TTL 86400</text>
+  <text x="298" y="120" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">TTL 300</text>
+  <text x="788" y="60" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">TTL 86400</text>
+
+  <!-- 시간 축 -->
+  <line x1="30" y1="190" x2="848" y2="190" stroke="#374151" stroke-width="2" marker-end="url(#ar-axis)"/>
+  <circle cx="156" cy="190" r="8" fill="#b45309" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="440" cy="190" r="8" fill="#b91c1c" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="724" cy="190" r="8" fill="#047857" stroke="#ffffff" stroke-width="2"/>
+  <text x="156" y="224" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">D-2일</text>
+  <text x="440" y="224" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">D-Day</text>
+  <text x="724" y="224" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">D+1일</text>
+
+  <!-- 단계 카드 -->
+  <rect x="24" y="240" width="264" height="92" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="156" y="274" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">TTL을 86400 → 300으로 변경</text>
+  <text x="156" y="304" font-size="15" fill="#4b5563" text-anchor="middle">기존 TTL이 만료되며 서서히 전파</text>
+
+  <rect x="308" y="240" width="264" height="92" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="440" y="274" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">IP 변경</text>
+  <text x="440" y="304" font-size="15" fill="#4b5563" text-anchor="middle">5분 안에 대부분 전파됨</text>
+
+  <rect x="592" y="240" width="264" height="92" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="724" y="274" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">TTL을 다시 86400으로</text>
+  <text x="724" y="304" font-size="15" fill="#4b5563" text-anchor="middle">안정화 확인 후</text>
+</svg>

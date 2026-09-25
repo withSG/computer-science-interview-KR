@@ -1,110 +1,133 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">짝수 패리티(even parity)</title>
-  <desc id="d">짝수 패리티 생성 과정 및 수신 측의 오류 검출 원리를 보여주는 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">짝수 패리티 붙이기와 검사</title>
+  <desc id="d">데이터 1101001은 1이 4개라 패리티 0을, 1101011은 1이 5개라 패리티 1을 덧붙여 8비트로 전송한다. 수신 측은 받은 8비트의 1을 세어 홀수면 전송 중 무언가 뒤집혔다고 판단한다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
+  <rect width="880" height="390" fill="#ffffff"/>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 제목 -->
+  <text x="32" y="46" font-size="20" font-weight="bold" fill="#111827">짝수 패리티(even parity)</text>
+  <text x="32" y="74" font-size="15" fill="#4b5563">데이터에 비트 1개를 덧붙여 전체 1의 개수를 짝수로 맞춘다</text>
 
-  <!-- Diagram Title -->
-  <text x="40" y="44" font-size="16" font-weight="bold" fill="#1f2933">[짝수 패리티(even parity)]</text>
-
-  <!-- Section 1: Even Case (2563eb / eff6ff) -->
-  <g transform="translate(40, 70)">
-    <!-- Main Box -->
-    <rect x="0" y="0" width="800" height="110" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    
-    <!-- Row 1: Data -> 1's count -> Parity -->
-    <!-- Data -->
-    <text x="30" y="41.2" font-size="13" font-weight="bold" fill="#1f2933">데이터</text>
-    <rect x="80" y="20" width="85" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-    <text x="122.5" y="39.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101001</text>
-    
-    <!-- Arrow 1 -->
-    <path d="M175,35 L215,35" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    
-    <!-- Count -->
-    <rect x="225" y="20" width="200" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-    <text x="325" y="39.2" font-size="13" fill="#1f2933" text-anchor="middle">1의 개수 4개(이미 짝수)</text>
-    
-    <!-- Arrow 2 -->
-    <path d="M435,35 L475,35" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    
-    <!-- Parity -->
-    <rect x="485" y="20" width="90" height="30" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="530" y="39.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">패리티 0</text>
-    
-    <!-- Row 2: Transmission -->
-    <text x="30" y="81.2" font-size="13" font-weight="bold" fill="#1f2933">전송</text>
-    <rect x="80" y="60" width="110" height="30" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-    <text x="125" y="79.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101001</text>
-    <text x="158" y="79.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">|</text>
-    <text x="168" y="79.2" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">0</text>
+  <!-- 열 머리 -->
+  <g font-size="14" font-weight="bold" fill="#4b5563" text-anchor="middle">
+    <text x="139" y="114">데이터</text>
+    <text x="360" y="114">1의 개수</text>
+    <text x="506" y="114">패리티</text>
+    <text x="705" y="114">전송</text>
   </g>
 
-  <!-- Section 2: Odd Case (d97706 / fffbeb) -->
-  <g transform="translate(40, 200)">
-    <!-- Main Box -->
-    <rect x="0" y="0" width="800" height="110" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    
-    <!-- Row 1: Data -> 1's count -> Parity -->
-    <!-- Data -->
-    <text x="30" y="41.2" font-size="13" font-weight="bold" fill="#1f2933">데이터</text>
-    <rect x="80" y="20" width="85" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-    <text x="122.5" y="39.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101011</text>
-    
-    <!-- Arrow 1 -->
-    <path d="M175,35 L215,35" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-    
-    <!-- Count -->
-    <rect x="225" y="20" width="200" height="30" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="4"/>
-    <text x="325" y="39.2" font-size="13" fill="#1f2933" text-anchor="middle">1의 개수 5개(홀수)</text>
-    
-    <!-- Arrow 2 -->
-    <path d="M435,35 L475,35" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-    
-    <!-- Parity -->
-    <rect x="485" y="20" width="90" height="30" fill="#ffffff" stroke="#d97706" stroke-width="1.5" rx="4"/>
-    <text x="530" y="39.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">패리티 1</text>
-    
-    <!-- Row 2: Transmission -->
-    <text x="30" y="81.2" font-size="13" font-weight="bold" fill="#1f2933">전송</text>
-    <rect x="80" y="60" width="110" height="30" fill="#ffffff" stroke="#d97706" stroke-width="1.5" rx="4"/>
-    <text x="125" y="79.2" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="1">1101011</text>
-    <text x="158" y="79.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">|</text>
-    <text x="168" y="79.2" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">1</text>
+  <!-- ── 예 1: 1101001 -->
+  <!-- 데이터 칸 (1은 파란 칸) -->
+  <g stroke-width="1.5">
+    <rect x="36" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="66" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="96" y="128" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="126" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="156" y="128" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="186" y="128" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="216" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+  </g>
+  <g font-size="17" font-weight="bold" text-anchor="middle">
+    <text x="49" y="154" fill="#1e3a8a">1</text>
+    <text x="79" y="154" fill="#1e3a8a">1</text>
+    <text x="109" y="154" fill="#374151">0</text>
+    <text x="139" y="154" fill="#1e3a8a">1</text>
+    <text x="169" y="154" fill="#374151">0</text>
+    <text x="199" y="154" fill="#374151">0</text>
+    <text x="229" y="154" fill="#1e3a8a">1</text>
+  </g>
+  <line x1="250" y1="148" x2="282" y2="148" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ag)"/>
+  <rect x="290" y="128" width="140" height="40" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="360" y="154" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">4개</tspan>(이미 짝수)</text>
+  <line x1="438" y1="148" x2="470" y2="148" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ag)"/>
+  <rect x="478" y="128" width="56" height="40" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="506" y="155" font-size="19" font-weight="bold" fill="#92400e" text-anchor="middle">0</text>
+  <line x1="542" y1="148" x2="574" y2="148" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ag)"/>
+  <!-- 전송 8비트 -->
+  <g stroke-width="1.5">
+    <rect x="582" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="612" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="642" y="128" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="672" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="702" y="128" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="732" y="128" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="762" y="128" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+  </g>
+  <line x1="795" y1="124" x2="795" y2="172" stroke="#b45309" stroke-width="2"/>
+  <rect x="802" y="128" width="26" height="40" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <g font-size="17" font-weight="bold" text-anchor="middle">
+    <text x="595" y="154" fill="#1e3a8a">1</text>
+    <text x="625" y="154" fill="#1e3a8a">1</text>
+    <text x="655" y="154" fill="#374151">0</text>
+    <text x="685" y="154" fill="#1e3a8a">1</text>
+    <text x="715" y="154" fill="#374151">0</text>
+    <text x="745" y="154" fill="#374151">0</text>
+    <text x="775" y="154" fill="#1e3a8a">1</text>
+    <text x="815" y="154" fill="#92400e">0</text>
   </g>
 
-  <!-- Section 3: Receiver Logic (dc2626 / fef2f2) -->
-  <g transform="translate(40, 330)">
-    <!-- Receiver Box -->
-    <rect x="0" y="0" width="800" height="130" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    
-    <!-- Receiver Line 1 -->
-    <text x="30" y="41.2" font-size="13" fill="#1f2933">수신 측은 받은 8비트의 1을 세어 본다.</text>
-    
-    <!-- Receiver Line 2 with Arrow -->
-    <text x="30" y="86.2" font-size="13" font-weight="bold" fill="#1f2933">홀수면</text>
-    
-    <!-- Arrow -->
-    <path d="M80,82 L120,82" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    
-    <!-- Error Text Label Box -->
-    <rect x="130" y="67" width="240" height="30" fill="#ffffff" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-    <text x="250" y="86.2" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">전송 중 무언가 뒤집혔다.</text>
+  <!-- ── 예 2: 1101011 -->
+  <g stroke-width="1.5">
+    <rect x="36" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="66" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="96" y="192" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="126" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="156" y="192" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="186" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="216" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
   </g>
+  <g font-size="17" font-weight="bold" text-anchor="middle">
+    <text x="49" y="218" fill="#1e3a8a">1</text>
+    <text x="79" y="218" fill="#1e3a8a">1</text>
+    <text x="109" y="218" fill="#374151">0</text>
+    <text x="139" y="218" fill="#1e3a8a">1</text>
+    <text x="169" y="218" fill="#374151">0</text>
+    <text x="199" y="218" fill="#1e3a8a">1</text>
+    <text x="229" y="218" fill="#1e3a8a">1</text>
+  </g>
+  <line x1="250" y1="212" x2="282" y2="212" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ag)"/>
+  <rect x="290" y="192" width="140" height="40" rx="6" fill="#f9fafb" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="360" y="218" font-size="15" fill="#111827" text-anchor="middle"><tspan font-weight="bold">5개</tspan>(홀수)</text>
+  <line x1="438" y1="212" x2="470" y2="212" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ag)"/>
+  <rect x="478" y="192" width="56" height="40" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="506" y="219" font-size="19" font-weight="bold" fill="#92400e" text-anchor="middle">1</text>
+  <line x1="542" y1="212" x2="574" y2="212" stroke="#4b5563" stroke-width="1.5" marker-end="url(#ag)"/>
+  <g stroke-width="1.5">
+    <rect x="582" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="612" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="642" y="192" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="672" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="702" y="192" width="26" height="40" rx="3" fill="#ffffff" stroke="#9ca3af"/>
+    <rect x="732" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="762" y="192" width="26" height="40" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+  </g>
+  <line x1="795" y1="188" x2="795" y2="236" stroke="#b45309" stroke-width="2"/>
+  <rect x="802" y="192" width="26" height="40" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <g font-size="17" font-weight="bold" text-anchor="middle">
+    <text x="595" y="218" fill="#1e3a8a">1</text>
+    <text x="625" y="218" fill="#1e3a8a">1</text>
+    <text x="655" y="218" fill="#374151">0</text>
+    <text x="685" y="218" fill="#1e3a8a">1</text>
+    <text x="715" y="218" fill="#374151">0</text>
+    <text x="745" y="218" fill="#1e3a8a">1</text>
+    <text x="775" y="218" fill="#1e3a8a">1</text>
+    <text x="815" y="218" fill="#92400e">1</text>
+  </g>
+
+  <!-- ── 수신 측 -->
+  <line x1="32" y1="262" x2="848" y2="262" stroke="#e5e7eb" stroke-width="1.5"/>
+  <text x="32" y="296" font-size="16" font-weight="bold" fill="#111827">수신 측</text>
+  <rect x="32" y="314" width="340" height="48" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="202" y="344" font-size="16" fill="#111827" text-anchor="middle">받은 8비트의 1을 세어 본다</text>
+  <line x1="382" y1="338" x2="520" y2="338" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="451" y="326" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">홀수면</text>
+  <rect x="530" y="314" width="318" height="48" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="689" y="344" font-size="16" font-weight="bold" fill="#991b1b" text-anchor="middle">전송 중 무언가 뒤집혔다</text>
 </svg>

@@ -1,55 +1,81 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">고정 소수점 (Fixed Point)</title>
-  <desc id="d">16비트 고정 소수점 표현 구조: 부호 1비트, 정수부 7비트, 소수부 8비트로 구성되어 3.25를 나타내는 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
-  <!-- Top Title / Heading Note -->
-  <text x="440" y="36" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">16비트, 부호 1 + 정수부 7 + 소수부 8 로 정한 경우</text>
-
-  <!-- Section Column Headers / Bit Field Labels -->
-  <!-- Sign (1 bit) -->
-  <text x="135" y="80" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">부호</text>
-
-  <!-- Integer Part (7 bits) -->
-  <text x="310" y="80" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">정수부(7)</text>
-
-  <!-- Fractional Part (8 bits) -->
-  <text x="630" y="80" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">소수부(8)</text>
-
-  <!-- Main Bit Representation Boxes -->
-  <!-- Sign Box: x=100, y=95, w=70, h=50 -->
-  <rect x="100" y="95" width="70" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="135" y="126" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">0</text>
-
-  <!-- Integer Box: x=170, y=95, w=280, h=50 -->
-  <rect x="170" y="95" width="280" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="310" y="126" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="2px">0000011</text>
-
-  <!-- Fractional Box: x=450, y=95, w=360, h=50 -->
-  <rect x="450" y="95" width="360" height="50" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
-  <text x="630" y="126" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle" letter-spacing="2px">0100 0000</text>
-
-  <!-- Value Conversions below Boxes -->
-  <!-- Integer part value = 3 -->
-  <text x="310" y="180" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">= 3</text>
-
-  <!-- Fractional part value = 0.25 -->
-  <text x="630" y="180" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">= 0.25</text>
-
-  <!-- Arrow Marker Definition -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 310" width="880" height="310" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">16비트 고정 소수점 예시</title>
+  <desc id="d">16비트를 부호 1비트, 정수부 7비트, 소수부 8비트로 나누고 소수점 위치를 고정한 예시입니다. 정수부 0000011은 3, 소수부 0100 0000은 0.25이므로 값은 3.25입니다.</desc>
+  <rect width="880" height="310" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Final Calculated Value Section -->
-  <!-- Arrow -> -->
-  <path d="M370,240 L400,240" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <text x="440" y="38" font-size="16" fill="#374151" text-anchor="middle">16비트를 부호 1 + 정수부 7 + 소수부 8로 정한 경우</text>
 
-  <!-- Value Label -->
-  <text x="415" y="245" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="start">값 3.25</text>
+  <!-- 필드 이름 -->
+  <text x="110" y="86" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">부호</text>
+  <text x="286" y="86" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">정수부 (7비트)</text>
+  <text x="616" y="86" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">소수부 (8비트)</text>
 
+  <!-- 비트 칸: 부호 -->
+  <rect x="88" y="100" width="44" height="56" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <!-- 비트 칸: 정수부 -->
+  <rect x="132" y="100" width="308" height="56" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <g stroke="#047857" stroke-width="1" stroke-opacity="0.45">
+    <line x1="176" y1="100" x2="176" y2="156"/>
+    <line x1="220" y1="100" x2="220" y2="156"/>
+    <line x1="264" y1="100" x2="264" y2="156"/>
+    <line x1="308" y1="100" x2="308" y2="156"/>
+    <line x1="352" y1="100" x2="352" y2="156"/>
+    <line x1="396" y1="100" x2="396" y2="156"/>
+  </g>
+  <!-- 비트 칸: 소수부 -->
+  <rect x="440" y="100" width="352" height="56" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <g stroke="#6d28d9" stroke-width="1" stroke-opacity="0.45">
+    <line x1="484" y1="100" x2="484" y2="156"/>
+    <line x1="528" y1="100" x2="528" y2="156"/>
+    <line x1="572" y1="100" x2="572" y2="156"/>
+    <line x1="660" y1="100" x2="660" y2="156"/>
+    <line x1="704" y1="100" x2="704" y2="156"/>
+    <line x1="748" y1="100" x2="748" y2="156"/>
+  </g>
+  <line x1="616" y1="100" x2="616" y2="156" stroke="#6d28d9" stroke-width="2" stroke-opacity="0.7"/>
+
+  <!-- 비트 값 -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="110" y="136">0</text>
+    <text x="154" y="136">0</text>
+    <text x="198" y="136">0</text>
+    <text x="242" y="136">0</text>
+    <text x="286" y="136">0</text>
+    <text x="330" y="136">0</text>
+    <text x="374" y="136">1</text>
+    <text x="418" y="136">1</text>
+    <text x="462" y="136">0</text>
+    <text x="506" y="136">1</text>
+    <text x="550" y="136">0</text>
+    <text x="594" y="136">0</text>
+    <text x="638" y="136">0</text>
+    <text x="682" y="136">0</text>
+    <text x="726" y="136">0</text>
+    <text x="770" y="136">0</text>
+  </g>
+
+  <!-- 고정된 소수점 -->
+  <line x1="440" y1="92" x2="440" y2="180" stroke="#b91c1c" stroke-width="3"/>
+  <text x="440" y="202" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">소수점 (위치 고정)</text>
+
+  <!-- 묶음 괄호 -->
+  <path d="M92,166 V174 H128 V166" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M136,166 V174 H434 V166" fill="none" stroke="#047857" stroke-width="1.5"/>
+  <path d="M446,166 V174 H788 V166" fill="none" stroke="#6d28d9" stroke-width="1.5"/>
+
+  <!-- 각 부분의 값 -->
+  <text x="110" y="202" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">양수</text>
+  <text x="286" y="202" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">= 3</text>
+  <text x="616" y="202" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">= 0.25</text>
+
+  <!-- 합쳐서 값 -->
+  <path d="M286,214 V262 H310" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <path d="M616,214 V262 H570" fill="none" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="320" y="236" width="240" height="52" rx="8" fill="#f9fafb" stroke="#111827" stroke-width="2"/>
+  <text x="440" y="269" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">값 = 3 + 0.25 = 3.25</text>
 </svg>

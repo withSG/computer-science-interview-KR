@@ -1,86 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">DNS 계층 구조와 등장인물</title>
-  <desc id="d">루트 서버부터 TLD, 2단계 도메인, 서브도메인으로 이어지는 DNS 계층 구조 다이어그램</desc>
-  <rect width="880" height="440" fill="#ffffff"/>
-
-  <!-- Markers -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 650" width="880" height="650" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DNS 도메인 계층 구조</title>
+  <desc id="d">루트 아래 TLD(com, org, kr), com 아래 2단계 도메인(example, google), example 아래 서브도메인(www, api, blog)이 있는 트리. 루트는 com을 아는 서버를, com은 example.com을 아는 ns1.example.com을 알려 주며, 도메인 www.example.com.은 오른쪽부터 루트, TLD, 등록한 도메인, 호스트 순으로 읽는다.</desc>
+  <rect width="880" height="650" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Level 1: Root . (루트) -->
-  <rect x="340" y="30" width="120" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="400" y="55" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">. (루트)</text>
+  <!-- 층 띠 -->
+  <rect x="24" y="28" width="832" height="60" rx="8" fill="#f5f6f8"/>
+  <rect x="24" y="160" width="832" height="60" rx="8" fill="#f5f6f8"/>
+  <rect x="24" y="292" width="832" height="60" rx="8" fill="#f5f6f8"/>
+  <rect x="24" y="400" width="832" height="60" rx="8" fill="#f5f6f8"/>
+  <text x="44" y="64" font-size="16" font-weight="bold" fill="#5b21b6">루트</text>
+  <text x="44" y="196" font-size="16" font-weight="bold" fill="#1e40af">TLD</text>
+  <text x="44" y="328" font-size="16" font-weight="bold" fill="#065f46">2단계 도메인</text>
+  <text x="44" y="436" font-size="16" font-weight="bold" fill="#92400e">서브도메인</text>
 
-  <!-- Speech Callout 1: "com은 저쪽 서버들이 안다" -->
-  <rect x="475" y="37" width="205" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="577.5" y="54" font-size="12" fill="#d97706" text-anchor="middle">"com은 저쪽 서버들이 안다"</text>
+  <!-- 연결선 (회색: 나머지 가지) -->
+  <g stroke="#9ca3af" stroke-width="2" fill="none">
+    <path d="M410,144 L710,144"/>
+    <path d="M560,144 L560,170"/>
+    <path d="M710,144 L710,170"/>
+    <path d="M340,276 L480,276 L480,302"/>
+    <path d="M250,380 L430,380"/>
+    <path d="M340,380 L340,410"/>
+    <path d="M430,380 L430,410"/>
+  </g>
+  <!-- 연결선 (진한 선: www.example.com. 의 경로) -->
+  <g stroke="#1f2937" stroke-width="3.5" fill="none" stroke-linejoin="round">
+    <path d="M560,78 L560,144 L410,144 L410,170"/>
+    <path d="M410,210 L410,276 L340,276 L340,302"/>
+    <path d="M340,342 L340,380 L250,380 L250,410"/>
+  </g>
 
-  <!-- Connector from Root down -->
-  <path d="M400,70 L400,120" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Branching line for TLD level: com(200), org(400), kr(600) -->
-  <path d="M200,120 L600,120" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M200,120 L200,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M400,120 L400,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M600,120 L600,140" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 루트 -->
+  <rect x="500" y="38" width="120" height="40" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="560" y="64" font-size="17" font-weight="bold" fill="#5b21b6" text-anchor="middle">. (루트)</text>
 
-  <!-- Level 2: TLD (com, org, kr) -->
-  <rect x="160" y="140" width="80" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="200" y="163" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">com</text>
+  <!-- 루트가 알려 주는 것 -->
+  <rect x="586" y="98" width="228" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <path d="M587,108 L570,114 L587,120" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="700" y="119" font-size="15" fill="#1f2937" text-anchor="middle">“com은 저쪽 서버들이 안다”</text>
 
-  <rect x="360" y="140" width="80" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="400" y="163" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">org</text>
+  <!-- TLD -->
+  <rect x="370" y="170" width="80" height="40" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="410" y="196" font-size="17" font-weight="bold" fill="#1e40af" text-anchor="middle">com</text>
+  <rect x="520" y="170" width="80" height="40" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="560" y="196" font-size="17" font-weight="bold" fill="#1e40af" text-anchor="middle">org</text>
+  <rect x="670" y="170" width="80" height="40" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="710" y="196" font-size="17" font-weight="bold" fill="#1e40af" text-anchor="middle">kr</text>
 
-  <rect x="560" y="140" width="80" height="36" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="600" y="163" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">kr</text>
+  <!-- com이 알려 주는 것 -->
+  <rect x="438" y="230" width="330" height="32" rx="16" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <path d="M439,240 L420,246 L439,252" fill="#ffffff" stroke="#6b7280" stroke-width="1.25"/>
+  <text x="603" y="251" font-size="15" fill="#1f2937" text-anchor="middle">“example.com은 ns1.example.com이 안다”</text>
 
-  <!-- Level annotation: ← TLD -->
-  <text x="680" y="163" font-size="13" font-weight="bold" fill="#52606d">← TLD</text>
+  <!-- 2단계 도메인 -->
+  <rect x="285" y="302" width="110" height="40" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <text x="340" y="328" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">example</text>
+  <rect x="430" y="302" width="100" height="40" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="480" y="328" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">google</text>
 
-  <!-- Speech Callout 2: "example.com은 ns1.example.com이 안다" -->
-  <rect x="255" y="187" width="290" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="400" y="204" font-size="12" fill="#d97706" text-anchor="middle">"example.com은 ns1.example.com이 안다"</text>
+  <!-- 서브도메인 -->
+  <rect x="214" y="410" width="72" height="40" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2.5"/>
+  <text x="250" y="436" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">www</text>
+  <rect x="304" y="410" width="72" height="40" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="340" y="436" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">api</text>
+  <rect x="394" y="410" width="72" height="40" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="430" y="436" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">blog</text>
 
-  <!-- Connector from com down to 2nd level -->
-  <path d="M200,176 L200,230" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Branching line for 2nd level: example(140), google(260) -->
-  <path d="M140,230 L260,230" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M140,230 L140,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M260,230 L260,250" stroke="#1f2933" stroke-width="1.5" fill="none"/>
+  <!-- 이름 읽는 법 -->
+  <rect x="24" y="488" width="832" height="140" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="518" font-size="16" font-weight="bold" fill="#111827">도메인은 오른쪽부터 읽는다</text>
+  <path d="M600,512 L636,512" stroke="#1f2937" stroke-width="3.5"/>
+  <text x="646" y="518" font-size="15" fill="#374151">진한 선 = 이 이름의 경로</text>
 
-  <!-- Level 3: 2단계 도메인 (example, google) -->
-  <rect x="95" y="250" width="90" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="140" y="273" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">example</text>
+  <rect x="243" y="532" width="80" height="40" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="283" y="559" font-size="21" font-weight="bold" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">www</text>
+  <text x="335" y="561" font-size="24" font-weight="bold" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.</text>
+  <rect x="347" y="532" width="120" height="40" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="407" y="559" font-size="21" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">example</text>
+  <text x="479" y="561" font-size="24" font-weight="bold" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.</text>
+  <rect x="491" y="532" width="80" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="531" y="559" font-size="21" font-weight="bold" fill="#1e40af" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">com</text>
+  <rect x="583" y="532" width="56" height="40" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="611" y="561" font-size="24" font-weight="bold" fill="#5b21b6" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">.</text>
 
-  <rect x="215" y="250" width="90" height="36" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="260" y="273" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">google</text>
+  <text x="283" y="594" font-size="15" font-weight="bold" fill="#92400e" text-anchor="middle">호스트</text>
+  <text x="407" y="594" font-size="15" font-weight="bold" fill="#065f46" text-anchor="middle">등록한 도메인</text>
+  <text x="531" y="594" font-size="15" font-weight="bold" fill="#1e40af" text-anchor="middle">TLD</text>
+  <text x="611" y="594" font-size="15" font-weight="bold" fill="#5b21b6" text-anchor="middle">루트</text>
 
-  <!-- Level annotation: ← 2단계 도메인 -->
-  <text x="680" y="273" font-size="13" font-weight="bold" fill="#52606d">← 2단계 도메인</text>
-
-  <!-- Connector from example down to subdomain level -->
-  <path d="M140,286 L140,340" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <!-- Branching line for subdomains: www(70), api(140), blog(210) -->
-  <path d="M70,340 L210,340" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M70,340 L70,360" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M140,340 L140,360" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-  <path d="M210,340 L210,360" stroke="#1f2933" stroke-width="1.5" fill="none"/>
-
-  <!-- Level 4: 서브도메인 (www, api, blog) -->
-  <rect x="40" y="360" width="60" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="70" y="383" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">www</text>
-
-  <rect x="110" y="360" width="60" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="140" y="383" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">api</text>
-
-  <rect x="180" y="360" width="60" height="36" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="210" y="383" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">blog</text>
-
-  <!-- Level annotation: ← 서브도메인 -->
-  <text x="680" y="383" font-size="13" font-weight="bold" fill="#52606d">← 서브도메인</text>
-
+  <path d="M639,612 L249,612" stroke="#374151" stroke-width="1.75" fill="none" marker-end="url(#arr)"/>
 </svg>

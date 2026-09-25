@@ -1,101 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">LR 케이스 회전 과정</title>
-  <desc id="d">LR 케이스에서 노드 x를 좌회전하여 LL 상태로 만든 후 노드 z를 우회전하여 균형을 맞추는 AVL 트리 회전 과정을 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="300" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">AVL LR 케이스의 이중 회전</title>
+  <desc id="d">왼쪽 자식 x의 오른쪽에 y가 붙은 지그재그(LR) 모양을, ① x를 좌회전해 일직선(LL)으로 만든 뒤 ② z를 우회전해 y가 루트이고 x와 z가 자식인 균형 트리로 복구하는 과정.</desc>
+  <rect width="880" height="330" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (잉크/기본) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <!-- 화살표 마커 (파랑/1단계) -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <!-- 화살표 마커 (초록/2단계) -->
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
+    <marker id="mb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+    <marker id="mg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
   </defs>
-
-  <!-- 제목 헤딩 -->
-  <text x="24" y="35" font-size="16" font-weight="bold" fill="#1f2933">LR 케이스:</text>
-
-  <!-- ==================== 트리 1 (초기 LR 상태) ==================== -->
-  <!-- 노드 z -->
-  <circle cx="120" cy="70" r="18" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="120" y="76.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">z</text>
-
-  <!-- 간선 z -> x -->
-  <line x1="108" y1="84" x2="82" y2="116" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- 노드 x -->
-  <circle cx="70" cy="130" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="70" y="136.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">x</text>
-
-  <!-- 간선 x -> y -->
-  <line x1="82" y1="144" x2="108" y2="176" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- 노드 y -->
-  <circle cx="120" cy="190" r="18" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="120" y="196.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">y</text>
-
-
-  <!-- ==================== 변환 1: ① x를 좌회전 ==================== -->
-  <path d="M 180,130 L 290,130" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- 화살표 라벨 1 -->
-  <rect x="193" y="98" width="84" height="22" fill="#ffffff" rx="4"/>
-  <text x="235" y="113.025" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#2563eb">① x를 좌회전</text>
-
-
-  <!-- ==================== 트리 2 (중간 LL 상태) ==================== -->
-  <!-- 노드 z -->
-  <circle cx="410" cy="70" r="18" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="410" y="76.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">z</text>
-
-  <!-- 간선 z -> y -->
-  <line x1="398" y1="84" x2="372" y2="116" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- 노드 y -->
-  <circle cx="360" cy="130" r="18" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="360" y="136.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">y</text>
-
-  <!-- 간선 y -> x -->
-  <line x1="348" y1="144" x2="322" y2="176" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- 노드 x -->
-  <circle cx="310" cy="190" r="18" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="310" y="196.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">x</text>
-
-
-  <!-- ==================== 변환 2: ② z를 우회전 ==================== -->
-  <path d="M 470,130 L 580,130" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  
-  <!-- 화살표 라벨 2 -->
-  <rect x="483" y="98" width="84" height="22" fill="#ffffff" rx="4"/>
-  <text x="525" y="113.025" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#059669">② z를 우회전</text>
-
-
-  <!-- ==================== 트리 3 (완료 균형 상태) ==================== -->
-  <!-- 노드 y (루트) -->
-  <circle cx="700" cy="70" r="18" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="700" y="76.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">y</text>
-
-  <!-- 간선 y -> x -->
-  <line x1="688" y1="84" x2="662" y2="116" stroke="#9aa5b1" stroke-width="1.5"/>
-  <!-- 간선 y -> z -->
-  <line x1="712" y1="84" x2="738" y2="116" stroke="#9aa5b1" stroke-width="1.5"/>
-
-  <!-- 노드 x -->
-  <circle cx="650" cy="130" r="18" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="650" y="136.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">x</text>
-
-  <!-- 노드 z -->
-  <circle cx="750" cy="130" r="18" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="750" y="136.3" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">z</text>
-
-  <!-- 범례 및 각주 설명 영역 -->
-  <line x1="24" y1="245" x2="856" y2="245" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <text x="24" y="270" font-size="11.5" fill="#52606d">※ 지그재그 구조(LR)를 좌회전으로 일직선(LL) 형태로 변환한 뒤, 우회전을 수행하여 균형을 맞춥니다.</text>
+  <text x="24" y="40" font-size="18" font-weight="bold" fill="#1f2933">LR 케이스: 지그재그라 한 번에 펼 수 없어 두 번 회전</text>
+  <rect x="24" y="62" width="190" height="246" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="119" y="92" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2933">지그재그 (LR)</text>
+  <rect x="345" y="62" width="190" height="246" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="440" y="92" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2933">일직선 (LL)</text>
+  <rect x="666" y="62" width="190" height="246" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="761" y="92" font-size="16" font-weight="bold" text-anchor="middle" fill="#1f2933">균형 복구</text>
+  <line x1="128.6" y1="155.9" x2="109.4" y2="184.1" stroke="#6b7280" stroke-width="2"/>
+  <line x1="109.4" y1="223.9" x2="128.6" y2="252.1" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="142" cy="136" r="22" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="142" y="142.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">z</text>
+  <circle cx="96" cy="204" r="22" fill="#eff6ff" stroke="#1d4ed8" stroke-width="4"/>
+  <text x="96" y="210.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1d4ed8">x</text>
+  <circle cx="142" cy="272" r="22" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="142" y="278.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">y</text>
+  <line x1="472.6" y1="155.9" x2="453.4" y2="184.1" stroke="#6b7280" stroke-width="2"/>
+  <line x1="426.6" y1="223.9" x2="407.4" y2="252.1" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="486" cy="136" r="22" fill="#ecfdf5" stroke="#047857" stroke-width="4"/>
+  <text x="486" y="142.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#047857">z</text>
+  <circle cx="440" cy="204" r="22" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="440" y="210.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">y</text>
+  <circle cx="394" cy="272" r="22" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="394" y="278.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">x</text>
+  <line x1="746.4" y1="189.1" x2="723.6" y2="218.9" stroke="#6b7280" stroke-width="2"/>
+  <line x1="775.6" y1="189.1" x2="798.4" y2="218.9" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="761" cy="170" r="22" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="761" y="176.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">y</text>
+  <circle cx="709" cy="238" r="22" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="709" y="244.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">x</text>
+  <circle cx="813" cy="238" r="22" fill="#ffffff" stroke="#4b5563" stroke-width="2"/>
+  <text x="813" y="244.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">z</text>
+  <line x1="226" y1="204" x2="333" y2="204" stroke="#1d4ed8" stroke-width="3" marker-end="url(#mb)"/>
+  <text x="279.5" y="188" font-size="16" font-weight="bold" text-anchor="middle" fill="#1d4ed8">① x를 좌회전</text>
+  <text x="279.5" y="236" font-size="14" text-anchor="middle" fill="#4b5563">LR → LL</text>
+  <line x1="547" y1="204" x2="654" y2="204" stroke="#047857" stroke-width="3" marker-end="url(#mg)"/>
+  <text x="600.5" y="188" font-size="16" font-weight="bold" text-anchor="middle" fill="#047857">② z를 우회전</text>
+  <text x="600.5" y="236" font-size="14" text-anchor="middle" fill="#4b5563">LL → 균형</text>
 </svg>

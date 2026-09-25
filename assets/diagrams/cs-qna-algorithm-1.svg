@@ -1,46 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">동작 과정</title>
-  <desc id="d">이진 탐색으로 배열에서 숫자 7을 찾는 3단계 동작 과정 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">이진 탐색으로 7 찾기</title>
+  <desc id="d">정렬된 배열 [1, 3, 5, 7, 9, 11]에서 7을 찾을 때, 단계마다 mid 값과 비교해 탐색 범위를 절반으로 줄여 3단계 만에 찾는 과정입니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="500" fill="#ffffff"/>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- Initial Info Box -->
-  <rect x="40" y="30" width="800" height="70" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="60" y="58" font-size="14" font-weight="bold" fill="#1f2933">찾는 값: 7</text>
-  <text x="60" y="83" font-size="14" font-weight="bold" fill="#1f2933">배열: [1, 3, 5, 7, 9, 11]</text>
+  <!-- 입력 -->
+  <rect x="32" y="24" width="150" height="44" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="107" y="52" font-size="18" font-weight="bold" fill="#78350f" text-anchor="middle">찾는 값: 7</text>
+  <text x="206" y="52" font-size="16" fill="#1f2937">배열: [1, 3, 5, 7, 9, 11]</text>
 
-  <!-- Step 1 -->
-  <rect x="40" y="120" width="800" height="100" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="152" font-size="14" font-weight="bold" fill="#2563eb">1단계: mid=5, 7&gt;5 → 오른쪽 탐색</text>
-  <rect x="60" y="168" width="200" height="36" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1"/>
-  <text x="160" y="190.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[7, 9, 11]</text>
+  <!-- 단계 사이 연결 -->
+  <line x1="80" y1="168" x2="80" y2="230" stroke="#4b5563" stroke-width="1.5" marker-end="url(#down)"/>
+  <line x1="80" y1="276" x2="80" y2="338" stroke="#4b5563" stroke-width="1.5" marker-end="url(#down)"/>
 
-  <!-- Connection Step 1 -> Step 2 -->
-  <path d="M440,220 L440,238" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 1단계: 전체 범위, mid=5 -->
+  <rect x="32" y="128" width="96" height="36" rx="18" fill="#1f2937"/>
+  <text x="80" y="152" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1단계</text>
+  <text x="326" y="110" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">mid</text>
+  <rect x="160" y="120" width="60" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="190" y="152" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">1</text>
+  <rect x="228" y="120" width="60" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="258" y="152" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">3</text>
+  <rect x="296" y="120" width="60" height="52" rx="6" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="326" y="152" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <rect x="364" y="120" width="60" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="394" y="152" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">7</text>
+  <rect x="432" y="120" width="60" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="462" y="152" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">9</text>
+  <rect x="500" y="120" width="60" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="530" y="152" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">11</text>
+  <text x="592" y="140" font-size="17" font-weight="bold" fill="#111827">mid=5, 7 &gt; 5</text>
+  <text x="592" y="166" font-size="16" fill="#1f2937">→ 오른쪽 탐색 <tspan font-weight="bold" fill="#1d4ed8">[7, 9, 11]</tspan></text>
 
-  <!-- Step 2 -->
-  <rect x="40" y="240" width="800" height="100" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="60" y="272" font-size="14" font-weight="bold" fill="#d97706">2단계: mid=9, 7&lt;9 → 왼쪽 탐색</text>
-  <rect x="60" y="288" width="80" height="36" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1"/>
-  <text x="100" y="310.5" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">[7]</text>
+  <!-- 2단계: [7, 9, 11], mid=9 -->
+  <rect x="32" y="236" width="96" height="36" rx="18" fill="#1f2937"/>
+  <text x="80" y="260" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2단계</text>
+  <text x="462" y="218" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle">mid</text>
+  <rect x="160" y="228" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="190" y="260" font-size="18" fill="#4b5563" text-anchor="middle">1</text>
+  <rect x="228" y="228" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="258" y="260" font-size="18" fill="#4b5563" text-anchor="middle">3</text>
+  <rect x="296" y="228" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="326" y="260" font-size="18" fill="#4b5563" text-anchor="middle">5</text>
+  <rect x="364" y="228" width="60" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="394" y="260" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">7</text>
+  <rect x="432" y="228" width="60" height="52" rx="6" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="462" y="260" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">9</text>
+  <rect x="500" y="228" width="60" height="52" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="530" y="260" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">11</text>
+  <text x="592" y="248" font-size="17" font-weight="bold" fill="#111827">mid=9, 7 &lt; 9</text>
+  <text x="592" y="274" font-size="16" fill="#1f2937">→ 왼쪽 탐색 <tspan font-weight="bold" fill="#1d4ed8">[7]</tspan></text>
 
-  <!-- Connection Step 2 -> Step 3 -->
-  <path d="M440,340 L440,358" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 3단계: [7], mid=7 찾음 -->
+  <rect x="32" y="344" width="96" height="36" rx="18" fill="#1f2937"/>
+  <text x="80" y="368" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3단계</text>
+  <text x="394" y="326" font-size="14" font-weight="bold" fill="#047857" text-anchor="middle">mid</text>
+  <rect x="160" y="336" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="190" y="368" font-size="18" fill="#4b5563" text-anchor="middle">1</text>
+  <rect x="228" y="336" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="258" y="368" font-size="18" fill="#4b5563" text-anchor="middle">3</text>
+  <rect x="296" y="336" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="326" y="368" font-size="18" fill="#4b5563" text-anchor="middle">5</text>
+  <rect x="364" y="336" width="60" height="52" rx="6" fill="#047857" stroke="#047857" stroke-width="1.5"/>
+  <text x="394" y="368" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <rect x="432" y="336" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="462" y="368" font-size="18" fill="#4b5563" text-anchor="middle">9</text>
+  <rect x="500" y="336" width="60" height="52" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="530" y="368" font-size="18" fill="#4b5563" text-anchor="middle">11</text>
+  <text x="592" y="356" font-size="17" font-weight="bold" fill="#111827">mid=7</text>
+  <text x="592" y="382" font-size="18" font-weight="bold" fill="#047857">찾음!</text>
 
-  <!-- Step 3 -->
-  <rect x="40" y="360" width="800" height="100" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="60" y="417" font-size="15" font-weight="bold" fill="#059669">3단계: mid=7, 찾음!</text>
+  <!-- 범례 -->
+  <rect x="160" y="418" width="18" height="18" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="186" y="432" font-size="15" fill="#374151">탐색 범위</text>
+  <rect x="282" y="418" width="18" height="18" rx="3" fill="#1d4ed8" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="308" y="432" font-size="15" fill="#374151">mid (비교하는 중간값)</text>
+  <rect x="492" y="418" width="18" height="18" rx="3" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="518" y="432" font-size="15" fill="#374151">탐색에서 제외</text>
+  <rect x="644" y="418" width="18" height="18" rx="3" fill="#047857" stroke="#047857" stroke-width="1.5"/>
+  <text x="670" y="432" font-size="15" fill="#374151">찾음</text>
 </svg>

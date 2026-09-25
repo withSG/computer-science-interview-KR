@@ -1,48 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">덱 (Deque, Double-Ended Queue)</title>
-  <desc id="d">양쪽 끝에서 모두 요소의 추가와 제거가 가능한 덱 구조를 나타낸 다이어그램</desc>
-  <rect width="880" height="260" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">덱의 양쪽 끝 연산</title>
+  <desc id="d">A, B, C, D가 든 덱에서 앞쪽은 addFirst와 removeFirst, 뒤쪽은 addLast와 removeLast로 양쪽 끝 모두 넣고 뺄 수 있음을 보이고, 한쪽 끝만 쓰면 스택(LIFO), 뒤로 넣고 앞에서 빼면 큐(FIFO)가 됨을 정리한 그림.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
   <defs>
-    <!-- Blue Marker for Add Operations -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="add" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <!-- Red Marker for Remove Operations -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="rem" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Container Box (Deque Outer Shadow / Array Container) -->
-  <rect x="280" y="80" width="320" height="80" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 양 끝 표시 -->
+  <text x="272" y="56" font-size="15" font-weight="bold" fill="#374151">앞 (First)</text>
+  <text x="608" y="56" font-size="15" font-weight="bold" fill="#374151" text-anchor="end">뒤 (Last)</text>
 
-  <!-- Cells (A, B, C, D) -->
-  <rect x="290" y="90" width="70" height="60" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="325" y="129" font-size="20" font-weight="bold" fill="#1f2933" text-anchor="middle">A</text>
+  <!-- 덱 본체: A B C D -->
+  <rect x="272" y="72" width="336" height="80" rx="4" fill="#f9fafb" stroke="#374151" stroke-width="2"/>
+  <line x1="356" y1="72" x2="356" y2="152" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="440" y1="72" x2="440" y2="152" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="524" y1="72" x2="524" y2="152" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="314" y="120" font-size="24" font-weight="bold" fill="#111827" text-anchor="middle">A</text>
+  <text x="398" y="120" font-size="24" font-weight="bold" fill="#111827" text-anchor="middle">B</text>
+  <text x="482" y="120" font-size="24" font-weight="bold" fill="#111827" text-anchor="middle">C</text>
+  <text x="566" y="120" font-size="24" font-weight="bold" fill="#111827" text-anchor="middle">D</text>
 
-  <rect x="360" y="90" width="70" height="60" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="395" y="129" font-size="20" font-weight="bold" fill="#1f2933" text-anchor="middle">B</text>
+  <!-- 앞쪽: addFirst 들어옴, removeFirst 나감 -->
+  <text x="176" y="98" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">addFirst</text>
+  <line x1="186" y1="92" x2="262" y2="92" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#add)"/>
+  <text x="176" y="138" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">removeFirst</text>
+  <line x1="264" y1="132" x2="188" y2="132" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#rem)"/>
 
-  <rect x="430" y="90" width="70" height="60" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="465" y="129" font-size="20" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
+  <!-- 뒤쪽: addLast 들어옴, removeLast 나감 -->
+  <text x="704" y="98" font-size="17" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">addLast</text>
+  <line x1="694" y1="92" x2="618" y2="92" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#add)"/>
+  <text x="704" y="138" font-size="17" font-weight="bold" fill="#b91c1c" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">removeLast</text>
+  <line x1="616" y1="132" x2="692" y2="132" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#rem)"/>
 
-  <rect x="500" y="90" width="70" height="60" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="535" y="129" font-size="20" font-weight="bold" fill="#1f2933" text-anchor="middle">D</text>
+  <!-- 범례 -->
+  <line x1="286" y1="188" x2="322" y2="188" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#add)"/>
+  <text x="332" y="193" font-size="15" fill="#374151">넣기 (add)</text>
+  <line x1="468" y1="188" x2="504" y2="188" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#rem)"/>
+  <text x="514" y="193" font-size="15" fill="#374151">빼기 (remove)</text>
 
-  <!-- Top-Left: addFirst ─▶ -->
-  <text x="210" y="104" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="end">addFirst</text>
-  <path d="M220,100 L270,100" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 스택·큐와의 관계 -->
+  <text x="440" y="244" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">덱 = 스택과 큐를 모두 포함하는 상위 개념</text>
 
-  <!-- Top-Right: ◀─ addLast -->
-  <text x="670" y="104" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="start">addLast</text>
-  <path d="M660,100 L610,100" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="24" y="262" width="404" height="94" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="46" y="292" font-size="17" font-weight="bold" fill="#111827">스택처럼 쓰기 → LIFO</text>
+  <text x="46" y="318" font-size="15" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827"><tspan fill="#1d4ed8">addFirst</tspan> + <tspan fill="#b91c1c">removeFirst</tspan></text>
+  <text x="46" y="342" font-size="15" fill="#4b5563">앞쪽에서만 넣고 뺀다</text>
 
-  <!-- Bottom-Left: removeFirst ◀─ -->
-  <text x="210" y="144" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="end">removeFirst</text>
-  <path d="M270,140 L220,140" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Bottom-Right: ─▶ removeLast -->
-  <text x="670" y="144" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="start">removeLast</text>
-  <path d="M610,140 L660,140" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <rect x="452" y="262" width="404" height="94" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="474" y="292" font-size="17" font-weight="bold" fill="#111827">큐처럼 쓰기 → FIFO</text>
+  <text x="474" y="318" font-size="15" font-weight="bold" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#111827"><tspan fill="#1d4ed8">addLast</tspan> + <tspan fill="#b91c1c">removeFirst</tspan></text>
+  <text x="474" y="342" font-size="15" fill="#4b5563">뒤로 넣고 앞에서 뺀다</text>
 </svg>

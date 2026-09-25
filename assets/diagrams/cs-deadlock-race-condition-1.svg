@@ -1,87 +1,79 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 count++ 가 안전하지 않은가</title>
-  <desc id="d">count++ 의 3단계 동작 원리와 두 스레드(T1, T2)가 동시에 실행될 때 발생하는 갱신 유실(lost update) 과정을 보여주는 타임라인 다이어그램입니다.</desc>
+  <title id="t">count++ 갱신 유실</title>
+  <desc id="d">count++ 는 LOAD, ADD, STORE 세 단계로 나뉜다. count = 0 에서 T2가 T1의 STORE 전에 LOAD 하면 두 스레드 모두 STORE(1)을 써서 최종 count = 1, 즉 갱신 유실이 생긴다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Background -->
-  <rect width="880" height="540" fill="#ffffff"/>
+  <!-- A. count++ 의 실제 동작 -->
+  <text x="24" y="44" font-size="18" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">count++</tspan> 의 실제 동작</text>
 
-  <!-- Section 1: count++ 의 실제 동작 -->
-  <rect x="24" y="24" width="832" height="180" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="44" y="55" font-size="16" font-weight="bold" fill="#1f2933">count++ 의 실제 동작</text>
+  <rect x="24" y="64" width="248" height="100" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="54" cy="96" r="14" fill="#1d4ed8"/>
+  <text x="54" y="102" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="78" y="103" font-size="19" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LOAD</text>
+  <text x="42" y="134" font-size="15" fill="#1f2937">count 값을 메모리에서</text>
+  <text x="42" y="155" font-size="15" fill="#1f2937">레지스터로 읽는다</text>
 
-  <!-- Step 1 -->
-  <rect x="44" y="74" width="256" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="56" y="86" width="60" height="22" rx="4" fill="#2563eb"/>
-  <text x="86" y="101" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1. LOAD</text>
-  <text x="56" y="132" font-size="13" fill="#1f2933">count 값을 메모리에서</text>
-  <text x="56" y="152" font-size="13" fill="#1f2933">레지스터로 읽는다</text>
+  <line x1="278" y1="114" x2="310" y2="114" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 2 -->
-  <rect x="312" y="74" width="256" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="324" y="86" width="54" height="22" rx="4" fill="#2563eb"/>
-  <text x="351" y="101" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2. ADD</text>
-  <text x="324" y="132" font-size="13" fill="#1f2933">레지스터 값에 1을</text>
-  <text x="324" y="152" font-size="13" fill="#1f2933">더한다</text>
+  <rect x="316" y="64" width="248" height="100" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="346" cy="96" r="14" fill="#1d4ed8"/>
+  <text x="346" y="102" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="370" y="103" font-size="19" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ADD</text>
+  <text x="334" y="134" font-size="15" fill="#1f2937">레지스터 값에</text>
+  <text x="334" y="155" font-size="15" fill="#1f2937">1을 더한다</text>
 
-  <!-- Step 3 -->
-  <rect x="580" y="74" width="264" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <rect x="592" y="86" width="68" height="22" rx="4" fill="#2563eb"/>
-  <text x="626" y="101" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3. STORE</text>
-  <text x="592" y="132" font-size="13" fill="#1f2933">결과를 메모리에 다시</text>
-  <text x="592" y="152" font-size="13" fill="#1f2933">쓴다</text>
+  <line x1="570" y1="114" x2="602" y2="114" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Section 2: 두 스레드 동시 실행 시나리오 -->
-  <rect x="24" y="224" width="832" height="292" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="44" y="255" font-size="16" font-weight="bold" fill="#1f2933">count = 0 인 상태에서 두 스레드가 끼어들면</text>
+  <rect x="608" y="64" width="248" height="100" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="638" cy="96" r="14" fill="#1d4ed8"/>
+  <text x="638" y="102" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="662" y="103" font-size="19" font-weight="bold" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">STORE</text>
+  <text x="626" y="134" font-size="15" fill="#1f2937">결과를 메모리에</text>
+  <text x="626" y="155" font-size="15" fill="#1f2937">다시 쓴다</text>
 
-  <!-- Timeline Axis -->
-  <text x="44" y="295" font-size="13" font-weight="bold" fill="#52606d">시간 →</text>
-  <path d="M100,291 L836,291" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-ink)"/>
+  <!-- B. 두 스레드가 끼어들면 -->
+  <text x="24" y="216" font-size="18" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">count = 0</tspan> 인 상태에서 두 스레드가 끼어들면</text>
 
-  <!-- Thread Labels -->
-  <text x="44" y="339" font-size="14" font-weight="bold" fill="#2563eb">T1:</text>
-  <text x="44" y="399" font-size="14" font-weight="bold" fill="#7c3aed">T2:</text>
+  <text x="24" y="252" font-size="15" fill="#4b5563">시간</text>
+  <line x1="100" y1="247" x2="852" y2="247" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah)"/>
 
-  <!-- T1 Steps -->
-  <!-- T1: LOAD(0) -->
-  <rect x="100" y="318" width="110" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="155" y="340" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">LOAD(0)</text>
+  <!-- T1 lane -->
+  <rect x="96" y="264" width="760" height="56" rx="6" fill="#f3f4f6"/>
+  <text x="24" y="298" font-size="18" font-weight="bold" fill="#1d4ed8">T1</text>
+  <rect x="106" y="272" width="114" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="163" y="298" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LOAD(0)</text>
+  <rect x="358" y="272" width="114" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="415" y="298" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ADD(1)</text>
+  <rect x="610" y="272" width="114" height="40" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="667" y="298" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">STORE(1)</text>
 
-  <!-- T1: ADD(1) -->
-  <rect x="340" y="318" width="100" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="390" y="340" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">ADD(1)</text>
+  <!-- T2 lane -->
+  <rect x="96" y="332" width="760" height="56" rx="6" fill="#f3f4f6"/>
+  <text x="24" y="366" font-size="18" font-weight="bold" fill="#6d28d9">T2</text>
+  <rect x="232" y="340" width="114" height="40" rx="6" fill="#f5f3ff" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="289" y="366" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LOAD(0)</text>
+  <rect x="484" y="340" width="114" height="40" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="541" y="366" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ADD(1)</text>
+  <rect x="736" y="340" width="114" height="40" rx="6" fill="#f5f3ff" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="793" y="366" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">STORE(1)</text>
 
-  <!-- T1: STORE(1) -->
-  <rect x="580" y="318" width="110" height="34" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="635" y="340" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">STORE(1)</text>
+  <!-- 주석 -->
+  <line x1="289" y1="384" x2="289" y2="398" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="289" y="418" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">T1의 STORE 전에 LOAD</text>
+  <text x="779" y="418" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="end">T1의 결과를 덮어씀</text>
+  <line x1="793" y1="384" x2="793" y2="452" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-red)"/>
 
-  <!-- T2 Steps -->
-  <!-- T2: LOAD(0) -->
-  <rect x="220" y="378" width="110" height="34" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="275" y="400" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">LOAD(0)</text>
-
-  <!-- T2: ADD(1) -->
-  <rect x="460" y="378" width="100" height="34" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="510" y="400" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">ADD(1)</text>
-
-  <!-- T2: STORE(1) -->
-  <rect x="700" y="378" width="110" height="34" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="755" y="400" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">STORE(1)</text>
-
-  <!-- Error Connection Line & Label -->
-  <!-- Vertical line from T2 STORE(1) pointing down to result label line -->
-  <path d="M755,412 L755,475 L560,475" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- Result Box / Label -->
-  <rect x="44" y="456" font-size="14" width="500" height="38" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="56" y="480" font-size="14" font-weight="bold" fill="#dc2626">최종 count = 1</text>
-  <text x="165" y="480" font-size="13" fill="#52606d">← 두 번 증가시켰는데 1만 늘었다</text>
+  <!-- 결과 -->
+  <rect x="24" y="456" width="832" height="58" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="44" y="492" font-size="20" font-weight="bold" fill="#b91c1c">최종 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">count = 1</tspan></text>
+  <text x="216" y="491" font-size="16" fill="#1f2937">← 두 번 증가시켰는데 1만 늘었다</text>
+  <text x="836" y="491" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="end">갱신 유실 (lost update)</text>
 </svg>

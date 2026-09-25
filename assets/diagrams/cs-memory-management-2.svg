@@ -1,52 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">메모리 구조 시각화</title>
-  <desc id="d">높은 주소의 Stack 영역부터 낮은 주소의 Code 영역까지, Stack과 Heap 사이의 빈 공간과 수직 화살표 방향을 포함한 프로세스 메모리 구조 다이어그램</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 700" width="880" height="700" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">프로세스 메모리 구조</title>
+  <desc id="d">높은 주소부터 Stack, 빈 공간, Heap, BSS, Data, Code 순으로 놓인 메모리 영역. Stack은 아래로, Heap은 위로 자라며 둘 사이의 빈 공간을 채운다.</desc>
+  <rect width="880" height="700" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (보조/잉크 색상) -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="m-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="m-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- 주소 표시 텍스트 -->
-  <text x="730" y="74.2" fill="#52606d" font-size="13" font-weight="bold" text-anchor="start">높은 주소</text>
-  <text x="730" y="654.2" fill="#52606d" font-size="13" font-weight="bold" text-anchor="start">낮은 주소</text>
+  <!-- 영역 면 -->
+  <rect x="170" y="72" width="480" height="100" fill="#dbeafe"/>
+  <rect x="170" y="172" width="480" height="140" fill="#ffffff"/>
+  <rect x="170" y="312" width="480" height="100" fill="#d1fae5"/>
+  <rect x="170" y="412" width="480" height="80" fill="#fef3c7"/>
+  <rect x="170" y="492" width="480" height="80" fill="#ede9fe"/>
+  <rect x="170" y="572" width="480" height="80" fill="#fee2e2"/>
 
-  <!-- 메인 메모리 구조 박스 (외곽선) -->
-  <rect x="180" y="60" width="530" height="600" fill="none" stroke="#9aa5b1" stroke-width="2" rx="4"/>
+  <!-- 경계선 -->
+  <line x1="170" y1="172" x2="650" y2="172" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="170" y1="312" x2="650" y2="312" stroke="#047857" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="170" y1="412" x2="650" y2="412" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="170" y1="492" x2="650" y2="492" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="170" y1="572" x2="650" y2="572" stroke="#9ca3af" stroke-width="1"/>
+  <rect x="170" y="72" width="480" height="580" fill="none" stroke="#6b7280" stroke-width="2"/>
 
-  <!-- 1. Stack 영역 -->
-  <rect x="180" y="60" width="530" height="110" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="445" y="104.55" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">Stack</text>
-  <text x="445" y="132.55" fill="#52606d" font-size="13" text-anchor="middle">(지역변수, 함수호출정보)</text>
-  <!-- Stack 아래쪽 화살표 -->
-  <path d="M445,140 L445,162" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Stack -->
+  <text x="410" y="114" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Stack</text>
+  <text x="410" y="146" font-size="16" fill="#1f2937" text-anchor="middle">지역변수, 함수호출정보</text>
 
-  <!-- 2. (빈 공간) 영역 -->
-  <rect x="180" y="170" width="530" height="130" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="445" y="239.55" fill="#52606d" font-size="14" font-weight="bold" text-anchor="middle">(빈 공간)</text>
+  <!-- 빈 공간 -->
+  <line x1="410" y1="180" x2="410" y2="218" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#m-blue)"/>
+  <text x="426" y="205" font-size="15" fill="#1d4ed8">아래로 자란다</text>
+  <text x="410" y="248" font-size="16" fill="#4b5563" text-anchor="middle">(빈 공간)</text>
+  <line x1="410" y1="304" x2="410" y2="266" stroke="#047857" stroke-width="2.5" marker-end="url(#m-green)"/>
+  <text x="426" y="291" font-size="15" fill="#047857">위로 자란다</text>
 
-  <!-- 3. Heap 영역 -->
-  <rect x="180" y="300" width="530" height="110" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1.5"/>
-  <!-- Heap 위쪽 화살표 -->
-  <path d="M445,330 L445,308" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-  <text x="445" y="354.55" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">Heap</text>
-  <text x="445" y="382.55" fill="#52606d" font-size="13" text-anchor="middle">(동적 할당 객체)</text>
+  <!-- Heap -->
+  <text x="410" y="354" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">Heap</text>
+  <text x="410" y="386" font-size="16" fill="#1f2937" text-anchor="middle">동적 할당 객체</text>
 
-  <!-- 4. BSS 영역 -->
-  <rect x="180" y="410" width="530" height="80" fill="#fffbeb" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="445" y="442.55" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">BSS</text>
-  <text x="445" y="468.55" fill="#52606d" font-size="13" text-anchor="middle">(초기화되지 않은 전역변수)</text>
+  <!-- BSS -->
+  <text x="410" y="446" font-size="20" font-weight="bold" fill="#92400e" text-anchor="middle">BSS</text>
+  <text x="410" y="474" font-size="16" fill="#1f2937" text-anchor="middle">초기화되지 않은 전역변수</text>
 
-  <!-- 5. Data 영역 -->
-  <rect x="180" y="490" width="530" height="80" fill="#f5f3ff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="445" y="522.55" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">Data</text>
-  <text x="445" y="548.55" fill="#52606d" font-size="13" text-anchor="middle">(초기화된 전역변수)</text>
+  <!-- Data -->
+  <text x="410" y="526" font-size="20" font-weight="bold" fill="#5b21b6" text-anchor="middle">Data</text>
+  <text x="410" y="554" font-size="16" fill="#1f2937" text-anchor="middle">초기화된 전역변수</text>
 
-  <!-- 6. Code 영역 -->
-  <rect x="180" y="570" width="530" height="90" fill="#fef2f2" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="445" y="607.55" fill="#1f2933" font-size="16" font-weight="bold" text-anchor="middle">Code</text>
-  <text x="445" y="633.55" fill="#52606d" font-size="13" text-anchor="middle">(실행 코드)</text>
+  <!-- Code -->
+  <text x="410" y="606" font-size="20" font-weight="bold" fill="#991b1b" text-anchor="middle">Code</text>
+  <text x="410" y="634" font-size="16" fill="#1f2937" text-anchor="middle">실행 코드</text>
+
+  <!-- 주소 축 -->
+  <line x1="724" y1="640" x2="724" y2="84" stroke="#6b7280" stroke-width="1.5" marker-end="url(#m-gray)"/>
+  <text x="724" y="58" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">높은 주소</text>
+  <text x="724" y="676" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">낮은 주소</text>
 </svg>

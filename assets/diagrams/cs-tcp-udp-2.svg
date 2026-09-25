@@ -1,103 +1,87 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">연결 종료 — 4-way 핸드셰이크</title>
-  <desc id="d">Client와 Server 간의 TCP 연결 종료 4-way 핸드셰이크 과정과 각 상태 변화를 나타낸 시퀀스 다이어그램</desc>
-  <rect width="880" height="620" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 760" width="880" height="760" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TCP 4-way 연결 종료</title>
+  <desc id="d">먼저 닫는 Client가 FIN을 보내면 Server가 ACK로 답하고 남은 데이터를 마저 보낸 뒤 FIN을 보내며, Client가 마지막 ACK를 보내고 TIME_WAIT에서 2MSL 동안 기다린 후 CLOSED가 되는 과정과 양쪽 상태 변화입니다.</desc>
+  <rect width="880" height="760" fill="#ffffff"/>
   <defs>
-    <!-- Arrowhead Markers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-brown" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Headers -->
-  <!-- Client Header Box -->
-  <rect x="140" y="30" width="220" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="250" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Client (먼저 닫는 쪽)</text>
+  <!-- 참여자 머리 -->
+  <rect x="160" y="24" width="200" height="58" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="260" y="49" font-size="18" font-weight="700" fill="#1e3a8a" text-anchor="middle">Client</text>
+  <text x="260" y="72" font-size="15" fill="#1e3a8a" text-anchor="middle">(먼저 닫는 쪽)</text>
+  <rect x="520" y="24" width="200" height="58" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="620" y="59" font-size="18" font-weight="700" fill="#4c1d95" text-anchor="middle">Server</text>
 
-  <!-- Server Header Box -->
-  <rect x="520" y="30" width="220" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="630" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">Server</text>
+  <!-- 생명선 -->
+  <line x1="260" y1="82" x2="260" y2="628" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
+  <line x1="620" y1="82" x2="620" y2="600" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 5"/>
 
-  <!-- Vertical Lifelines -->
-  <line x1="250" y1="70" x2="250" y2="580" stroke="#cbd2d9" stroke-width="2"/>
-  <line x1="630" y1="70" x2="630" y2="580" stroke="#cbd2d9" stroke-width="2"/>
+  <!-- 상태: 처음 -->
+  <rect x="185" y="100" width="150" height="32" rx="16" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="260" y="121" font-size="15" font-weight="700" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ESTABLISHED</text>
+  <rect x="545" y="100" width="150" height="32" rx="16" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="620" y="121" font-size="15" font-weight="700" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ESTABLISHED</text>
 
-  <!-- Initial State: ESTABLISHED -->
-  <rect x="190" y="85" width="120" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="250" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">ESTABLISHED</text>
+  <!-- 1. FIN (Client → Server) -->
+  <circle cx="292" cy="163" r="13" fill="#1d4ed8"/>
+  <text x="292" y="168" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="316" y="169" font-size="16" font-weight="700" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">FIN</text>
+  <line x1="262" y1="186" x2="617" y2="186" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
 
-  <rect x="570" y="85" width="120" height="26" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="630" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#059669">ESTABLISHED</text>
+  <rect x="185" y="206" width="150" height="32" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="260" y="227" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">FIN_WAIT_1</text>
+  <rect x="545" y="206" width="150" height="32" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="620" y="227" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CLOSE_WAIT</text>
 
-  <!-- Step 1: FIN -->
-  <line x1="250" y1="135" x2="630" y2="135" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="410" y="123" width="60" height="22" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
-  <text x="440" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">FIN</text>
+  <!-- 2. ACK (Server → Client) -->
+  <circle cx="292" cy="269" r="13" fill="#6d28d9"/>
+  <text x="292" y="274" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="316" y="275" font-size="16" font-weight="700" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ACK</text>
+  <line x1="618" y1="292" x2="263" y2="292" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-purple)"/>
+  <rect x="640" y="254" width="176" height="58" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="656" y="278" font-size="15" fill="#374151">“알겠다. 근데 아직</text>
+  <text x="656" y="300" font-size="15" fill="#374151">보낼 게 남았다”</text>
 
-  <!-- Client State: FIN_WAIT_1 -->
-  <rect x="190" y="150" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="250" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">FIN_WAIT_1</text>
+  <rect x="185" y="312" width="150" height="32" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="260" y="333" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">FIN_WAIT_2</text>
 
-  <!-- Server State: CLOSE_WAIT -->
-  <rect x="570" y="150" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="630" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">CLOSE_WAIT</text>
+  <!-- 남은 데이터 전송 (Server → Client) -->
+  <text x="316" y="381" font-size="16" font-weight="700" fill="#b45309">(남은 데이터 전송)</text>
+  <line x1="618" y1="398" x2="263" y2="398" stroke="#b45309" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#ah-brown)"/>
 
-  <!-- Step 2: ACK -->
-  <line x1="630" y1="215" x2="250" y2="215" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <rect x="410" y="203" width="60" height="22" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="3"/>
-  <text x="440" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">ACK</text>
+  <!-- 3. FIN (Server → Client) -->
+  <circle cx="292" cy="445" r="13" fill="#6d28d9"/>
+  <text x="292" y="450" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="316" y="451" font-size="16" font-weight="700" fill="#6d28d9" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">FIN</text>
+  <line x1="618" y1="468" x2="263" y2="468" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ah-purple)"/>
 
-  <!-- Server Note: "알겠다. 근데 아직 보낼 게 남았다" -->
-  <text x="660" y="208" text-anchor="start" font-size="11.5" fill="#52606d">"알겠다. 근데 아직</text>
-  <text x="665" y="226" text-anchor="start" font-size="11.5" fill="#52606d">보낼 게 남았다"</text>
+  <rect x="545" y="488" width="150" height="32" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="620" y="509" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LAST_ACK</text>
 
-  <!-- Client State: FIN_WAIT_2 -->
-  <rect x="190" y="230" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="250" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">FIN_WAIT_2</text>
+  <!-- 4. ACK (Client → Server) -->
+  <circle cx="292" cy="551" r="13" fill="#1d4ed8"/>
+  <text x="292" y="556" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="316" y="557" font-size="16" font-weight="700" fill="#1d4ed8" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">ACK</text>
+  <line x1="262" y1="574" x2="617" y2="574" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
 
-  <!-- Step 3: (남은 데이터 전송) -->
-  <line x1="630" y1="295" x2="250" y2="295" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#a-amber)"/>
-  <rect x="360" y="283" width="160" height="22" fill="#ffffff" stroke="#d97706" stroke-width="1" rx="3"/>
-  <text x="440" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">(남은 데이터 전송)</text>
+  <!-- 끝 상태 -->
+  <rect x="185" y="596" width="150" height="32" rx="16" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="260" y="617" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">TIME_WAIT</text>
+  <rect x="545" y="596" width="150" height="32" rx="16" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="617" font-size="15" font-weight="700" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CLOSED</text>
 
-  <!-- Step 4: FIN -->
-  <line x1="630" y1="365" x2="250" y2="365" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <rect x="410" y="353" width="60" height="22" fill="#ffffff" stroke="#7c3aed" stroke-width="1" rx="3"/>
-  <text x="440" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c3aed">FIN</text>
-
-  <!-- Server State: LAST_ACK -->
-  <rect x="570" y="350" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="630" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">LAST_ACK</text>
-
-  <!-- Step 5: ACK -->
-  <line x1="250" y1="435" x2="630" y2="435" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
-  <rect x="410" y="423" width="60" height="22" fill="#ffffff" stroke="#2563eb" stroke-width="1" rx="3"/>
-  <text x="440" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#2563eb">ACK</text>
-
-  <!-- Client State: TIME_WAIT -->
-  <rect x="190" y="450" width="120" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="250" y="467" text-anchor="middle" font-size="12" font-weight="bold" fill="#d97706">TIME_WAIT</text>
-
-  <!-- Server State: CLOSED -->
-  <rect x="570" y="450" width="120" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="630" y="467" text-anchor="middle" font-size="12" font-weight="bold" fill="#52606d">CLOSED</text>
-
-  <!-- Sub-transition under TIME_WAIT: └─ 2MSL 대기 후 ─► CLOSED -->
-  <path d="M 250,476 L 250,520 L 310,520" fill="none" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)"/>
-  <rect x="202" y="508" width="96" height="22" fill="#ffffff"/>
-  <text x="250" y="523" text-anchor="middle" font-size="11.5" fill="#1f2933">2MSL 대기 후</text>
-
-  <!-- Final Client State: CLOSED -->
-  <rect x="315" y="507" width="90" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="360" y="524" text-anchor="middle" font-size="12" font-weight="bold" fill="#52606d">CLOSED</text>
+  <!-- TIME_WAIT → 2MSL 대기 후 → CLOSED -->
+  <line x1="260" y1="630" x2="260" y2="692" stroke="#b45309" stroke-width="2.5" marker-end="url(#ah-brown)"/>
+  <text x="278" y="667" font-size="16" font-weight="700" fill="#b45309">2MSL 대기 후</text>
+  <rect x="185" y="696" width="150" height="32" rx="16" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="260" y="717" font-size="15" font-weight="700" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">CLOSED</text>
 </svg>

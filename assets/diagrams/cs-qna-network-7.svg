@@ -1,79 +1,57 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Non-blocking I/O (동기 논블로킹)</title>
-  <desc id="d">Non-blocking I/O 모델의 흐름, 특징 및 예시를 보여주는 SVG 다이어그램</desc>
-
+  <desc id="d">read()가 EAGAIN/EWOULDBLOCK으로 즉시 반환되므로, 호출자가 다른 작업과 read() 재호출(폴링)을 반복하다가 데이터가 있을 때 반환받는 흐름과 이 모델의 특징·예를 정리한 그림.</desc>
   <defs>
-    <!-- Arrow Markers -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
+  <rect width="880" height="470" fill="#ffffff"/>
 
-  <!-- Background -->
-  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- 1행: 호출자 → read() 호출 → 즉시 반환 → 다른 작업 -->
+  <rect x="24" y="44" width="88" height="60" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="68" y="80" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">호출자</text>
+  <line x1="114" y1="74" x2="146" y2="74" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Title Section Header -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">2. Non-blocking I/O (동기 논블로킹)</text>
-  <line x1="30" y1="50" x2="850" y2="50" stroke="#cbd2d9" stroke-width="1"/>
+  <rect x="150" y="44" width="140" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="220" y="80" font-size="16" fill="#1e3a8a" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">read()</tspan> 호출</text>
+  <line x1="292" y1="74" x2="326" y2="74" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Flow Section -->
-  <!-- Step 1: read() 호출 -->
-  <rect x="30" y="80" width="80" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="70" y="103" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">호출자</text>
+  <rect x="330" y="44" width="230" height="60" rx="8" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="445" y="69" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">즉시 반환</text>
+  <text x="445" y="92" font-size="15" fill="#92400e" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(EAGAIN/EWOULDBLOCK)</text>
+  <line x1="562" y1="74" x2="672" y2="74" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <path d="M110,98 L200,98" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="676" y="44" width="180" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="766" y="80" font-size="16" fill="#1e3a8a" text-anchor="middle">다른 작업</text>
 
-  <rect x="200" y="80" width="120" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="260" y="103" font-size="13" fill="#1f2933" text-anchor="middle">read() 호출</text>
+  <!-- 다른 작업 → read() 재호출 -->
+  <path d="M766,106 V200 H699" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <path d="M320,98 L410,98" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 2행: read() 재호출 (폴링) -->
+  <rect x="515" y="170" width="180" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="605" y="195" font-size="16" fill="#1e3a8a" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">read()</tspan> 재호출</text>
+  <text x="605" y="218" font-size="15" fill="#1e3a8a" text-anchor="middle">(폴링)</text>
 
-  <rect x="410" y="80" width="310" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="565" y="103" font-size="13" fill="#1f2933" text-anchor="middle">즉시 반환 (EAGAIN/EWOULDBLOCK)</text>
+  <!-- 반복: read() 재호출 → 다시 즉시 반환 -->
+  <path d="M540,168 V108" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+  <text x="554" y="144" font-size="16" font-weight="bold" fill="#92400e">...반복...</text>
 
-  <!-- Step 2: 다른 작업 -->
-  <path d="M110,138 L410,138" stroke="#52606d" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <path d="M110,125 L110,150" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 끝: 데이터 있으면 반환 -->
+  <line x1="513" y1="200" x2="478" y2="200" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="254" y="170" width="220" height="60" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="364" y="206" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">데이터 있으면 반환</text>
 
-  <rect x="410" y="126" width="120" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="470" y="149" font-size="13" fill="#1f2933" text-anchor="middle">다른 작업</text>
+  <!-- 특징 -->
+  <rect x="24" y="262" width="832" height="112" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="294" font-size="17" font-weight="bold" fill="#1d4ed8">특징</text>
+  <circle cx="50" cy="323" r="3" fill="#1d4ed8"/>
+  <text x="62" y="328" font-size="15" fill="#1f2937">호출자가 계속 확인해야 함 (Busy Waiting)</text>
+  <circle cx="50" cy="353" r="3" fill="#1d4ed8"/>
+  <text x="62" y="358" font-size="15" fill="#1f2937">CPU 낭비 발생 가능</text>
 
-  <!-- Step 3: read() 재호출 (폴링) -->
-  <path d="M110,184 L410,184" stroke="#d97706" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <path d="M110,165 L110,195" stroke="#cbd2d9" stroke-width="1"/>
-
-  <path d="M320,184 L410,184" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <rect x="410" y="172" width="180" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="500" y="195" font-size="13" fill="#1f2933" text-anchor="middle">read() 재호출 (폴링)</text>
-
-  <!-- Step 4: ...반복... -->
-  <path d="M110,230 L410,230" stroke="#52606d" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <path d="M110,210 L110,240" stroke="#cbd2d9" stroke-width="1"/>
-
-  <text x="420" y="235" font-size="13" font-weight="bold" fill="#52606d">...반복...</text>
-
-  <!-- Step 5: 데이터 있으면 반환 -->
-  <path d="M110,276 L410,276" stroke="#059669" stroke-width="1.5" fill="none"/>
-  <path d="M110,255 L110,285" stroke="#cbd2d9" stroke-width="1"/>
-
-  <path d="M320,276 L410,276" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="410" y="258" width="180" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="500" y="281" font-size="13" fill="#1f2933" text-anchor="middle">데이터 있으면 반환</text>
-
-  <!-- Features Section -->
-  <rect x="30" y="320" width="820" height="110" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="50" y="348" font-size="14" font-weight="bold" fill="#d97706">특징:</text>
-  <text x="70" y="376" font-size="13" fill="#1f2933">- 호출자가 계속 확인해야 함 (Busy Waiting)</text>
-  <text x="70" y="404" font-size="13" fill="#1f2933">- CPU 낭비 발생 가능</text>
-
-  <!-- Example Section -->
-  <rect x="30" y="445" width="820" height="50" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="50" y="475" font-size="13" font-weight="bold" fill="#1f2933">예:</text>
-  <text x="80" y="475" font-size="13" fill="#52606d">Unix Non-blocking 소켓 + read() 반복 호출</text>
+  <!-- 예 -->
+  <rect x="24" y="390" width="832" height="56" rx="10" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="424" font-size="16" font-weight="bold" fill="#111827">예</text>
+  <text x="76" y="424" font-size="15" fill="#1f2937">Unix Non-blocking 소켓(<tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">O_NONBLOCK</tspan>) + <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">read()</tspan> 반복 호출</text>
 </svg>

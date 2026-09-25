@@ -1,75 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">동작</title>
-  <desc id="d">A, B, C를 넣은 뒤 dequeue 한 번 수행 시 front와 rear 포인터의 변화를 보여주는 큐 동작 다이어그램</desc>
-  <rect width="880" height="260" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">큐의 dequeue 동작</title>
+  <desc id="d">A, B, C를 넣은 큐에서 dequeue를 한 번 하면 front 쪽의 A가 빠져 반환되고, front는 B로 옮겨 가며 rear는 C에 그대로 있다. 넣는 쪽(rear)과 빼는 쪽(front)이 반대 끝이라 서로 간섭하지 않는다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
   <defs>
-    <!-- Dark Ink Arrow Pointer for Front/Rear -->
-    <marker id="a-ink" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
     </marker>
-    <!-- Blue Arrow for Dequeue Operation -->
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- Title/Header Line -->
-  <text x="40" y="38" font-size="14" font-weight="bold" fill="#1f2933">A, B, C 를 넣은 뒤 dequeue 한 번</text>
+  <!-- ① 넣은 뒤 -->
+  <circle cx="36" cy="38" r="12" fill="#1f2937"/>
+  <text x="36" y="43.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="56" y="44" font-size="17" font-weight="bold" fill="#111827">A, B, C를 넣은 뒤</text>
 
-  <!-- ================= LEFT QUEUE STATE ================= -->
-  <!-- Pointer Labels (Left Queue) -->
-  <text x="130" y="74" font-size="13" fill="#1f2933" text-anchor="middle">front</text>
-  <text x="250" y="74" font-size="13" fill="#1f2933" text-anchor="middle">rear</text>
+  <text x="444" y="86" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">front</text>
+  <text x="444" y="106" font-size="15" fill="#4b5563" text-anchor="middle">빼는 쪽</text>
+  <line x1="444" y1="113" x2="444" y2="129" stroke="#111827" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="604" y="86" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">rear</text>
+  <text x="604" y="106" font-size="15" fill="#4b5563" text-anchor="middle">넣는 쪽</text>
+  <line x1="604" y1="113" x2="604" y2="129" stroke="#111827" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-  <!-- Pointer Arrows (Left Queue) -->
-  <path d="M 130,80 L 130,94" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M 250,80 L 250,94" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <rect x="404" y="132" width="80" height="56" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="444" y="168" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">A</text>
+  <rect x="484" y="132" width="80" height="56" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="524" y="168" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">B</text>
+  <rect x="564" y="132" width="80" height="56" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="604" y="168" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">C</text>
 
-  <!-- Left Queue Cells Container (Outer Box) -->
-  <g transform="translate(100, 100)">
-    <!-- Cell 1: 'A' -->
-    <rect x="0" y="0" width="60" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="30" y="24" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">A</text>
+  <!-- ② dequeue 한 번 -->
+  <circle cx="36" cy="238" r="12" fill="#1f2937"/>
+  <text x="36" y="243.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="56" y="244" font-size="17" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">dequeue</tspan> 한 번</text>
 
-    <!-- Cell 2: 'B' -->
-    <rect x="60" y="0" width="60" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="90" y="24" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">B</text>
+  <text x="524" y="286" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">front</text>
+  <line x1="524" y1="293" x2="524" y2="309" stroke="#111827" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="604" y="286" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">rear</text>
+  <line x1="604" y1="293" x2="604" y2="309" stroke="#111827" stroke-width="2" marker-end="url(#ah-ink)"/>
 
-    <!-- Cell 3: 'C' -->
-    <rect x="120" y="0" width="60" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="150" y="24" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
-  </g>
+  <rect x="404" y="312" width="80" height="56" fill="#ffffff" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6 4"/>
+  <rect x="484" y="312" width="80" height="56" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="524" y="348" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">B</text>
+  <rect x="564" y="312" width="80" height="56" fill="#f3f4f6" stroke="#4b5563" stroke-width="2"/>
+  <text x="604" y="348" font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">C</text>
 
-  <!-- ================= MIDDLE OPERATION (DEQUEUE) ================= -->
-  <!-- Dequeue Operation Arrow -->
-  <path d="M 340,120 L 450,120" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <text x="395" y="110" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">dequeue</text>
-  <text x="395" y="142" font-size="13" fill="#52606d" text-anchor="middle">A 반환</text>
+  <!-- 빠져나간 A -->
+  <line x1="398" y1="340" x2="302" y2="340" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ah-red)"/>
+  <text x="350" y="329" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">dequeue</text>
+  <text x="350" y="362" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">A 반환</text>
+  <rect x="236" y="312" width="60" height="56" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="266" y="348" font-size="22" font-weight="bold" fill="#7f1d1d" text-anchor="middle">A</text>
 
-  <!-- ================= RIGHT QUEUE STATE ================= -->
-  <!-- Pointer Labels (Right Queue) -->
-  <text x="570" y="74" font-size="13" fill="#1f2933" text-anchor="middle">front</text>
-  <text x="630" y="74" font-size="13" fill="#1f2933" text-anchor="middle">rear</text>
-
-  <!-- Pointer Arrows (Right Queue) -->
-  <path d="M 570,80 L 570,94" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <path d="M 630,80 L 630,94" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Right Queue Cells Container (Outer Box) -->
-  <g transform="translate(480, 100)">
-    <!-- Cell 1: Empty (after Dequeue) -->
-    <rect x="0" y="0" width="60" height="40" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3"/>
-
-    <!-- Cell 2: 'B' -->
-    <rect x="60" y="0" width="60" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="90" y="24" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">B</text>
-
-    <!-- Cell 3: 'C' -->
-    <rect x="120" y="0" width="60" height="40" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="150" y="24" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">C</text>
-  </g>
-
-  <!-- ================= FOOTNOTE TEXT ================= -->
-  <text x="440" y="210" font-size="13" fill="#52606d" text-anchor="middle">넣는 쪽과 빼는 쪽이 반대 끝이라 서로 간섭하지 않는다</text>
+  <!-- 요점 -->
+  <rect x="24" y="396" width="832" height="42" rx="6" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1"/>
+  <text x="440" y="422.5" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">넣는 쪽과 빼는 쪽이 반대 끝이라 서로 간섭하지 않는다</text>
 </svg>

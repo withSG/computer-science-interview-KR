@@ -1,98 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">명령어 실행 사이클 (Instruction Cycle)</title>
-  <desc id="d">명령어 실행 사이클의 4단계인 Fetch, Decode, Execute, Memory Access 및 Write Back의 순서와 세부 동작을 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 550" width="880" height="550" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">명령어 실행 사이클</title>
+  <desc id="d">① Fetch에서 PC → MAR → 메모리에서 명령어 읽기 → MBR → IR 순으로 명령어를 가져오고 PC = PC + 1로 다음 명령어 주소로 증가한다. ② Decode에서 제어장치가 IR의 명령어를 해석하고, ③ Execute에서 ALU가 연산하거나 메모리에 접근해 결과를 저장하며, 필요하면 ④ Memory Access / Write Back을 거친 뒤 다음 명령어로 다시 반복한다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
   </defs>
+  <rect width="880" height="550" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="610" fill="#ffffff"/>
+  <!-- ① Fetch -->
+  <rect x="80" y="24" width="776" height="146" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="92" y="36" width="140" height="122" rx="8" fill="#1d4ed8"/>
+  <text x="162" y="92" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">① Fetch</text>
+  <text x="162" y="118" font-size="16" fill="#ffffff" text-anchor="middle">인출</text>
 
-  <!-- 제목 헤딩 -->
-  <text x="30" y="42" font-size="16" font-weight="bold" fill="#1f2933">명령어 실행 사이클 (Instruction Cycle)</text>
+  <rect x="264" y="46" width="64" height="46" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="296" y="75" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">PC</text>
+  <path d="M334,69 H365" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <rect x="372" y="46" width="72" height="46" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="408" y="75" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">MAR</text>
+  <path d="M450,69 H481" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <rect x="488" y="40" width="128" height="58" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="552" y="64" font-size="15" fill="#111827" text-anchor="middle">메모리에서<tspan x="552" dy="21">명령어 읽기</tspan></text>
+  <path d="M622,69 H653" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <rect x="660" y="46" width="72" height="46" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="696" y="75" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">MBR</text>
+  <path d="M738,69 H769" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <rect x="776" y="46" width="64" height="46" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="808" y="75" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">IR</text>
 
-  <!-- 메인 프로세스 컨테이너 (820px 너비, 좌우여백 30px) -->
+  <path d="M296,96 V113" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <rect x="264" y="118" width="140" height="34" rx="17" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="334" y="141" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PC = PC + 1</text>
+  <text x="418" y="141" font-size="15" fill="#374151">다음 명령어 주소로 증가</text>
 
-  <!-- STEP 1: Fetch (인출) -->
-  <g id="step1">
-    <rect x="30" y="60" width="820" height="135" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="45" y="75" width="790" height="32" rx="4" fill="#2563eb"/>
-    <text x="60" y="96" font-size="14" font-weight="bold" fill="#ffffff">① Fetch (인출)</text>
+  <path d="M162,174 V196" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-ink)"/>
 
-    <!-- 세부 내용 카드 1 -->
-    <rect x="45" y="115" width="410" height="65" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <!-- PC -> MAR -> 메모리에서 명령어 읽기 -> MBR -> IR -->
-    <text x="60" y="142" font-size="13" font-weight="bold" fill="#2563eb">PC</text>
-    <path d="M82,138 L98,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ② Decode -->
+  <rect x="80" y="202" width="776" height="84" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <rect x="92" y="214" width="140" height="60" rx="8" fill="#6d28d9"/>
+  <text x="162" y="240" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">② Decode</text>
+  <text x="162" y="264" font-size="16" fill="#ffffff" text-anchor="middle">해석</text>
+  <text x="256" y="237" font-size="16" fill="#111827"><tspan font-weight="bold">IR</tspan>의 명령어를 <tspan font-weight="bold">제어장치</tspan>가 해석</text>
+  <text x="256" y="265" font-size="15" fill="#4b5563">어떤 연산인지, 피연산자는 무엇인지 파악</text>
 
-    <text x="104" y="142" font-size="13" font-weight="bold" fill="#2563eb">MAR</text>
-    <path d="M140,138 L156,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M162,290 V312" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-ink)"/>
 
-    <text x="162" y="142" font-size="13" fill="#1f2933">메모리에서 명령어 읽기</text>
-    <path d="M305,138 L321,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ③ Execute -->
+  <rect x="80" y="318" width="776" height="84" rx="10" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <rect x="92" y="330" width="140" height="60" rx="8" fill="#047857"/>
+  <text x="162" y="356" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">③ Execute</text>
+  <text x="162" y="380" font-size="16" fill="#ffffff" text-anchor="middle">실행</text>
+  <text x="256" y="353" font-size="16" fill="#111827"><tspan font-weight="bold">ALU</tspan>가 연산 수행 또는 메모리 접근</text>
+  <text x="256" y="381" font-size="15" fill="#4b5563">결과를 레지스터나 메모리에 저장</text>
 
-    <text x="327" y="142" font-size="13" font-weight="bold" fill="#2563eb">MBR</text>
-    <path d="M363,138 L379,138" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M162,406 V428" stroke="#374151" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#ah-ink)"/>
 
-    <text x="385" y="142" font-size="13" font-weight="bold" fill="#2563eb">IR</text>
+  <!-- ④ (필요 시) Memory Access / Write Back -->
+  <rect x="80" y="434" width="776" height="84" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <rect x="92" y="446" width="140" height="60" rx="8" fill="#b45309"/>
+  <text x="162" y="472" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">④</text>
+  <text x="162" y="496" font-size="16" fill="#ffffff" text-anchor="middle">(필요 시)</text>
+  <text x="256" y="483" font-size="18" font-weight="bold" fill="#111827">Memory Access / Write Back</text>
 
-    <!-- 세부 내용 카드 2 -->
-    <rect x="465" y="115" width="370" height="65" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="480" y="152" font-size="13" fill="#1f2933">PC = PC + 1 (다음 명령어 주소로 증가)</text>
-  </g>
-
-  <!-- 연결 화살표 1 -> 2 -->
-  <path d="M440,195 L440,213" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- STEP 2: Decode (해석) -->
-  <g id="step2">
-    <rect x="30" y="215" width="820" height="110" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <rect x="45" y="230" width="790" height="32" rx="4" fill="#7c3aed"/>
-    <text x="60" y="251" font-size="14" font-weight="bold" fill="#ffffff">② Decode (해석)</text>
-
-    <rect x="45" y="270" width="790" height="42" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="60" y="295" font-size="13" fill="#1f2933">IR의 명령어를 제어장치가 해석</text>
-    <text x="480" y="295" font-size="13" fill="#52606d">어떤 연산인지, 피연산자는 무엇인지 파악</text>
-  </g>
-
-  <!-- 연결 화살표 2 -> 3 -->
-  <path d="M440,325 L440,343" stroke="#1f2933" stroke-width="2" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- STEP 3: Execute (실행) -->
-  <g id="step3">
-    <rect x="30" y="345" width="820" height="110" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <rect x="45" y="360" width="790" height="32" rx="4" fill="#059669"/>
-    <text x="60" y="381" font-size="14" font-weight="bold" fill="#ffffff">③ Execute (실행)</text>
-
-    <rect x="45" y="400" width="790" height="42" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="60" y="425" font-size="13" fill="#1f2933">ALU가 연산 수행 또는 메모리 접근</text>
-    <text x="480" y="425" font-size="13" fill="#52606d">결과를 레지스터나 메모리에 저장</text>
-  </g>
-
-  <!-- 연결 화살표 3 -> 4 (점선) -->
-  <path d="M440,455 L440,473" stroke="#1f2933" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- STEP 4: (필요 시) Memory Access / Write Back -->
-  <g id="step4">
-    <rect x="30" y="475" width="820" height="65" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6 4"/>
-    <rect x="45" y="491" width="790" height="32" rx="4" fill="#d97706"/>
-    <text x="60" y="512" font-size="14" font-weight="bold" fill="#ffffff">④ (필요 시) Memory Access / Write Back</text>
-  </g>
-
-  <!-- 사이클 재귀 연결 선 (Loop Back Arrow) -->
-  <path d="M850,507 L865,507 L865,127 L857,127" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 다음 명령어로 반복 -->
+  <path d="M78,476 H56 V97 H75" stroke="#6b7280" stroke-width="1.5" fill="none" marker-end="url(#ah-gray)"/>
+  <text x="42" y="286" font-size="15" fill="#4b5563" text-anchor="middle" transform="rotate(-90 42 286)">다음 명령어</text>
 </svg>

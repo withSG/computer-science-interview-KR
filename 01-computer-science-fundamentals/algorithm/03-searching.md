@@ -165,7 +165,7 @@ static int countOf(int[] a, int key) {
 배열이 아니라 **답의 범위**에 이진 탐색을 거는 기법입니다. 정확히는 문제를 바꿔치기합니다.
 
 <!-- diagram:cs-searching-7 -->
-![아이디어](../../assets/diagrams/cs-searching-7.svg)
+![최적화 문제를 결정 문제로 바꿔치기](../../assets/diagrams/cs-searching-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

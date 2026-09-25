@@ -1,85 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">BFS의 큐 상태 변화 (start = 1)</title>
-  <desc id="d">BFS 그래프 탐색 알고리즘에서 각 단계별 큐의 상태 변화와 거리 배열(dist)의 update 과정을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">BFS의 큐 상태 변화</title>
+  <desc id="d">start = 1에서 BFS를 돌릴 때 큐가 [1] → [2, 3] → [3, 4, 5] → [4, 5, 6]으로 바뀌며, 앞에서 꺼낸 노드의 이웃을 뒤에 삽입하고 dist를 기록한다. 큐에서 꺼내는 순서가 곧 시작점으로부터 가까운 순서라서, 처음 도달한 순간의 거리가 최단 거리로 보장된다.</desc>
+  <rect width="880" height="580" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="mk" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- 제목 -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">BFS의 큐 상태 변화 (start = 1)</text>
+  <!-- 제목 + 범례 -->
+  <text x="24" y="46" font-size="19" font-weight="bold" fill="#111827">BFS의 큐 상태 변화 (start = 1)</text>
+  <rect x="556" y="29" width="22" height="22" rx="5" fill="#ffffff" stroke="#c2410c" stroke-width="3"/>
+  <text x="588" y="46" font-size="15" fill="#374151">꺼내는 노드</text>
+  <rect x="686" y="29" width="22" height="22" rx="5" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="718" y="46" font-size="15" fill="#374151">방금 삽입된 노드</text>
 
-  <!-- 단계별 큐 상태 및 동작 영역 (표/격자 형태) -->
-  <!-- Header Background -->
-  <rect x="30" y="55" width="820" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="90" y="74.5" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">큐 상태</text>
-  <text x="340" y="74.5" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">동작 (꺼냄 / 삽입)</text>
-  <text x="680" y="74.5" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">최단 거리 정보 (dist)</text>
-
-  <!-- Row 1 -->
-  <g transform="translate(0, 95)">
-    <rect x="30" y="0" width="120" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="90" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-
-    <path d="M 160,18 L 182,18" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <rect x="190" y="0" width="300" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="205" y="22" font-size="13" fill="#1f2933">1 꺼냄, 2·3 삽입</text>
-
-    <rect x="500" y="0" width="350" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="515" y="22" font-size="13" font-weight="bold" fill="#059669">dist[2]=1, dist[3]=1</text>
+  <!-- 머리행 -->
+  <rect x="24" y="68" width="832" height="36" rx="6" fill="#f3f4f6"/>
+  <g font-size="16" font-weight="bold" fill="#374151">
+    <text x="80" y="92">큐 상태 (왼쪽이 앞)</text>
+    <text x="322" y="92">동작</text>
+    <text x="560" y="92">dist 기록</text>
   </g>
 
-  <!-- Row 2 -->
-  <g transform="translate(0, 140)">
-    <rect x="30" y="0" width="120" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="90" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[2, 3]</text>
-
-    <path d="M 160,18 L 182,18" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <rect x="190" y="0" width="300" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="205" y="22" font-size="13" fill="#1f2933">2 꺼냄, 4·5 삽입</text>
-
-    <rect x="500" y="0" width="350" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="515" y="22" font-size="13" font-weight="bold" fill="#059669">dist[4]=2, dist[5]=2</text>
+  <!-- 행 구분선 -->
+  <g stroke="#e5e7eb" stroke-width="1.5">
+    <line x1="24" y1="194" x2="856" y2="194"/>
+    <line x1="24" y1="278" x2="856" y2="278"/>
+    <line x1="24" y1="362" x2="856" y2="362"/>
   </g>
 
-  <!-- Row 3 -->
-  <g transform="translate(0, 185)">
-    <rect x="30" y="0" width="120" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="90" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[3, 4, 5]</text>
-
-    <path d="M 160,18 L 182,18" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <rect x="190" y="0" width="300" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="205" y="22" font-size="13" fill="#1f2933">3 꺼냄, 6 삽입</text>
-
-    <rect x="500" y="0" width="350" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="515" y="22" font-size="13" font-weight="bold" fill="#059669">dist[6]=2</text>
+  <!-- 단계 번호 -->
+  <g fill="#374151">
+    <circle cx="44" cy="152" r="14"/>
+    <circle cx="44" cy="236" r="14"/>
+    <circle cx="44" cy="320" r="14"/>
+    <circle cx="44" cy="404" r="14"/>
+  </g>
+  <g font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <text x="44" y="157">1</text>
+    <text x="44" y="241">2</text>
+    <text x="44" y="325">3</text>
+    <text x="44" y="409">4</text>
   </g>
 
-  <!-- Row 4 -->
-  <g transform="translate(0, 230)">
-    <rect x="30" y="0" width="120" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="90" y="22" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[4, 5, 6]</text>
+  <!-- 큐 칸: 채움 = 방금 삽입, 굵은 주황 테두리 = 이번에 꺼냄 -->
+  <!-- 1행 [1] -->
+  <rect x="80" y="122" width="60" height="60" rx="8" fill="#ffffff" stroke="#c2410c" stroke-width="3"/>
+  <!-- 2행 [2, 3] -->
+  <rect x="80" y="206" width="60" height="60" rx="8" fill="#dbeafe" stroke="#c2410c" stroke-width="3"/>
+  <rect x="146" y="206" width="60" height="60" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+  <!-- 3행 [3, 4, 5] -->
+  <rect x="80" y="290" width="60" height="60" rx="8" fill="#ffffff" stroke="#c2410c" stroke-width="3"/>
+  <rect x="146" y="290" width="60" height="60" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+  <rect x="212" y="290" width="60" height="60" rx="8" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+  <!-- 4행 [4, 5, 6] -->
+  <rect x="80" y="374" width="60" height="60" rx="8" fill="#ffffff" stroke="#c2410c" stroke-width="3"/>
+  <rect x="146" y="374" width="60" height="60" rx="8" fill="#ffffff" stroke="#c2410c" stroke-width="3"/>
+  <rect x="212" y="374" width="60" height="60" rx="8" fill="#dbeafe" stroke="#c2410c" stroke-width="3"/>
 
-    <path d="M 160,18 L 182,18" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <rect x="190" y="0" width="660" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="205" y="22" font-size="13" font-weight="bold" fill="#dc2626">나머지 꺼냄, 새 노드 없음 → 종료</text>
+  <g font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="110" y="149">1</text>
+    <text x="110" y="233">2</text>
+    <text x="176" y="233">3</text>
+    <text x="110" y="317">3</text>
+    <text x="176" y="317">4</text>
+    <text x="242" y="317">5</text>
+    <text x="110" y="401">4</text>
+    <text x="176" y="401">5</text>
+    <text x="242" y="401">6</text>
+  </g>
+  <g font-size="14" fill="#374151" text-anchor="middle">
+    <text x="110" y="172">거리 0</text>
+    <text x="110" y="256">거리 1</text>
+    <text x="176" y="256">거리 1</text>
+    <text x="110" y="340">거리 1</text>
+    <text x="176" y="340">거리 2</text>
+    <text x="242" y="340">거리 2</text>
+    <text x="110" y="424">거리 2</text>
+    <text x="176" y="424">거리 2</text>
+    <text x="242" y="424">거리 2</text>
   </g>
 
-  <!-- 하단 결론 및 부연 설명 영역 -->
-  <rect x="30" y="285" width="820" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <!-- 동작 -->
+  <g stroke="#6b7280" stroke-width="2" marker-end="url(#mk)">
+    <line x1="286" y1="152" x2="308" y2="152"/>
+    <line x1="286" y1="236" x2="308" y2="236"/>
+    <line x1="286" y1="320" x2="308" y2="320"/>
+    <line x1="286" y1="404" x2="308" y2="404"/>
+  </g>
+  <g font-size="16" fill="#111827">
+    <text x="322" y="158"><tspan font-weight="bold" fill="#c2410c">1</tspan> 꺼냄, <tspan font-weight="bold" fill="#1d4ed8">2·3</tspan> 삽입</text>
+    <text x="322" y="242"><tspan font-weight="bold" fill="#c2410c">2</tspan> 꺼냄, <tspan font-weight="bold" fill="#1d4ed8">4·5</tspan> 삽입</text>
+    <text x="322" y="326"><tspan font-weight="bold" fill="#c2410c">3</tspan> 꺼냄, <tspan font-weight="bold" fill="#1d4ed8">6</tspan> 삽입</text>
+    <text x="322" y="410"><tspan font-weight="bold" fill="#c2410c">나머지</tspan> 꺼냄, 새 노드 없음 <tspan font-weight="bold" fill="#b91c1c">→ 종료</tspan></text>
+  </g>
 
-  <text x="50" y="315" font-size="13" font-weight="bold" fill="#1f2933">큐에서 꺼내는 순서가 곧 시작점으로부터 가까운 순서다.</text>
+  <!-- dist 기록 -->
+  <g fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5">
+    <rect x="560" y="135" width="112" height="34" rx="6"/>
+    <rect x="686" y="135" width="112" height="34" rx="6"/>
+    <rect x="560" y="219" width="112" height="34" rx="6"/>
+    <rect x="686" y="219" width="112" height="34" rx="6"/>
+    <rect x="560" y="303" width="112" height="34" rx="6"/>
+  </g>
+  <g font-size="16" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="616" y="158">dist[2]=1</text>
+    <text x="742" y="158">dist[3]=1</text>
+    <text x="616" y="242">dist[4]=2</text>
+    <text x="742" y="242">dist[5]=2</text>
+    <text x="616" y="326">dist[6]=2</text>
+  </g>
 
-  <path d="M 50,326 L 62,326" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="70" y="342" font-size="13" fill="#52606d">처음 도달한 순간의 거리가 최단 거리라는 보장이 여기서 나온다.</text>
+  <!-- 결론 -->
+  <rect x="24" y="462" width="832" height="94" rx="10" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="48" y="500" font-size="17" font-weight="bold" fill="#111827">큐에서 꺼내는 순서가 곧 시작점으로부터 가까운 순서다.</text>
+  <text x="48" y="534" font-size="16" fill="#374151">→ 처음 도달한 순간의 거리가 최단 거리라는 보장이 여기서 나온다.</text>
 </svg>

@@ -263,7 +263,7 @@ put(key, value)
 ### 트리화가 막아 주는 것
 
 <!-- diagram:cs-hash-table-7 -->
-![트리화가 막아 주는 것](../../assets/diagrams/cs-hash-table-7.svg)
+![트리화 전 리스트 조회 O(n)과 트리화 후 트리 조회 O(log n) 비교](../../assets/diagrams/cs-hash-table-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

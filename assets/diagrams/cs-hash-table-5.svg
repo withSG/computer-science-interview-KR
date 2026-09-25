@@ -1,106 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 710" width="880" height="710" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">리사이징(Rehashing)</title>
-  <desc id="d">버킷 4개, 원소 3개 상태에서 하나 더 삽입되어 버킷 8개로 확장되면서 전체 인덱스를 다시 계산하여 체인이 흩어지는 리사이징 과정 설명 다이어그램</desc>
+  <desc id="d">버킷 4개에 원소 3개(α = 0.75)인 테이블에 하나를 더 넣어 버킷 8개로 늘리면 모든 인덱스를 다시 계산한다. 버킷 0에 뭉쳐 있던 K1, K5 체인이 버킷 0(K5)과 버킷 4(K1)로 갈라지고 K3는 버킷 2에 남아, 기존 버킷 j의 원소는 j 또는 j + 기존버킷수로만 간다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ah-orange" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
+  <rect width="880" height="710" fill="#ffffff"/>
 
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 캡션 -->
+  <text x="24" y="44" font-size="17" font-weight="bold" fill="#111827">버킷 4개, 원소 3개 (α = 0.75) 상태에서 하나 더 삽입 → 8개로 확장</text>
 
-  <!-- 헤딩 / 제목 영역 -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">리사이징(Rehashing)</text>
-  <text x="30" y="65" font-size="13" fill="#52606d">버킷 4개, 원소 3개 (α = 0.75) 상태에서 하나 더 삽입 → 8개로 확장</text>
+  <!-- 머리행: before ── rehashing ──▶ after -->
+  <text x="40" y="97" font-size="18" font-weight="bold" fill="#111827">before (n=4)</text>
+  <line x1="180" y1="91" x2="280" y2="91" stroke="#374151" stroke-width="2"/>
+  <text x="326" y="97" font-size="15" fill="#374151" text-anchor="middle">rehashing</text>
+  <line x1="372" y1="91" x2="470" y2="91" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="484" y="97" font-size="18" font-weight="bold" fill="#111827">after (n=8)</text>
 
-  <!-- Left Container: before (n=4) -->
-  <rect x="30" y="90" width="310" height="230" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="50" y="118" font-size="14" font-weight="bold" fill="#2563eb">before (n=4)</text>
+  <!-- ── before 패널 ── -->
+  <rect x="24" y="114" width="292" height="224" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- Row 0 -->
-  <text x="60" y="153" font-size="13" font-weight="bold" fill="#1f2933">0</text>
-  <path d="M75,150 L95,150" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="none" marker-end="url(#a-ink)" fill="none"/>
-  <rect x="98" y="135" width="48" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="122" y="154" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">K1</text>
-  <path d="M146,150 L166,150" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <rect x="169" y="135" width="48" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="193" y="154" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">K5</text>
+  <!-- row 0 : K1 → K5 -->
+  <text x="58" y="163" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">0</text>
+  <rect x="68" y="140" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="98" cy="158" r="4" fill="#111827"/>
+  <line x1="98" y1="158" x2="152" y2="158" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <rect x="154" y="141" width="56" height="34" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="1.8"/>
+  <text x="182" y="164" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">K1</text>
+  <line x1="210" y1="158" x2="234" y2="158" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <rect x="236" y="141" width="56" height="34" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.8"/>
+  <text x="264" y="164" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">K5</text>
 
-  <!-- Row 1 -->
-  <text x="60" y="198" font-size="13" font-weight="bold" fill="#1f2933">1</text>
-  <path d="M75,195 L95,195" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="100" y="199" font-size="13" fill="#52606d">null</text>
+  <!-- row 1 -->
+  <text x="58" y="211" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">1</text>
+  <rect x="68" y="188" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="98" y="211" font-size="14" fill="#4b5563" text-anchor="middle">null</text>
 
-  <!-- Row 2 -->
-  <text x="60" y="243" font-size="13" font-weight="bold" fill="#1f2933">2</text>
-  <path d="M75,240 L95,240" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <rect x="98" y="225" width="48" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="122" y="244" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">K3</text>
+  <!-- row 2 : K3 -->
+  <text x="58" y="259" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">2</text>
+  <rect x="68" y="236" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="98" cy="254" r="4" fill="#111827"/>
+  <line x1="98" y1="254" x2="152" y2="254" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <rect x="154" y="237" width="56" height="34" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.8"/>
+  <text x="182" y="260" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">K3</text>
 
-  <!-- Row 3 -->
-  <text x="60" y="288" font-size="13" font-weight="bold" fill="#1f2933">3</text>
-  <path d="M75,285 L95,285" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="100" y="289" font-size="13" fill="#52606d">null</text>
+  <!-- row 3 -->
+  <text x="58" y="307" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">3</text>
+  <rect x="68" y="284" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="98" y="307" font-size="14" fill="#4b5563" text-anchor="middle">null</text>
 
-  <!-- Transition Arrow -->
-  <path d="M355,205 L415,205" stroke="#2563eb" stroke-width="2.5" marker-end="url(#a-blue)" fill="none"/>
+  <!-- ── after 패널 ── -->
+  <rect x="468" y="114" width="388" height="416" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- Right Container: after (n=8) -->
-  <rect x="430" y="90" width="420" height="230" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="450" y="118" font-size="14" font-weight="bold" fill="#059669">after (n=8)</text>
+  <!-- row 0 : K5 -->
+  <text x="508" y="163" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">0</text>
+  <rect x="518" y="140" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="548" cy="158" r="4" fill="#111827"/>
+  <line x1="548" y1="158" x2="602" y2="158" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <rect x="604" y="141" width="56" height="34" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.8"/>
+  <text x="632" y="164" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">K5</text>
 
-  <!-- Left Column inside After Container (0..3) -->
-  <!-- Row 0 -->
-  <text x="460" y="153" font-size="13" font-weight="bold" fill="#1f2933">0</text>
-  <path d="M475,150 L495,150" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <rect x="498" y="135" width="48" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="522" y="154" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">K5</text>
+  <!-- row 1 -->
+  <text x="508" y="211" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">1</text>
+  <rect x="518" y="188" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="548" y="211" font-size="14" fill="#4b5563" text-anchor="middle">null</text>
 
-  <!-- Row 1 -->
-  <text x="460" y="198" font-size="13" font-weight="bold" fill="#1f2933">1</text>
-  <path d="M475,195 L495,195" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="500" y="199" font-size="13" fill="#52606d">null</text>
+  <!-- row 2 : K3 -->
+  <text x="508" y="259" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">2</text>
+  <rect x="518" y="236" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="548" cy="254" r="4" fill="#111827"/>
+  <line x1="548" y1="254" x2="602" y2="254" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <rect x="604" y="237" width="56" height="34" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.8"/>
+  <text x="632" y="260" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">K3</text>
 
-  <!-- Row 2 -->
-  <text x="460" y="243" font-size="13" font-weight="bold" fill="#1f2933">2</text>
-  <path d="M475,240 L495,240" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <rect x="498" y="225" width="48" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="522" y="244" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">K3</text>
+  <!-- row 3 -->
+  <text x="508" y="307" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">3</text>
+  <rect x="518" y="284" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="548" y="307" font-size="14" fill="#4b5563" text-anchor="middle">null</text>
 
-  <!-- Row 3 -->
-  <text x="460" y="288" font-size="13" font-weight="bold" fill="#1f2933">3</text>
-  <path d="M475,285 L495,285" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="500" y="289" font-size="13" fill="#52606d">null</text>
+  <!-- row 4 : K1 -->
+  <text x="508" y="355" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">4</text>
+  <rect x="518" y="332" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="548" cy="350" r="4" fill="#111827"/>
+  <line x1="548" y1="350" x2="602" y2="350" stroke="#374151" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <rect x="604" y="333" width="56" height="34" rx="6" fill="#fff7ed" stroke="#b45309" stroke-width="1.8"/>
+  <text x="632" y="356" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">K1</text>
 
-  <!-- Right Column inside After Container (4..7) -->
-  <!-- Row 4 -->
-  <text x="650" y="153" font-size="13" font-weight="bold" fill="#1f2933">4</text>
-  <path d="M665,150 L685,150" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <rect x="688" y="135" width="48" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="712" y="154" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">K1</text>
+  <!-- row 5 -->
+  <text x="508" y="403" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">5</text>
+  <rect x="518" y="380" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="548" y="403" font-size="14" fill="#4b5563" text-anchor="middle">null</text>
 
-  <!-- Row 5 -->
-  <text x="650" y="198" font-size="13" font-weight="bold" fill="#1f2933">5</text>
-  <path d="M665,195 L685,195" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="690" y="199" font-size="13" fill="#52606d">null</text>
+  <!-- row 6 -->
+  <text x="508" y="451" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">6</text>
+  <rect x="518" y="428" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="548" y="451" font-size="14" fill="#4b5563" text-anchor="middle">null</text>
 
-  <!-- Row 6 -->
-  <text x="650" y="243" font-size="13" font-weight="bold" fill="#1f2933">6</text>
-  <path d="M665,240 L685,240" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="690" y="244" font-size="13" fill="#52606d">null</text>
+  <!-- row 7 -->
+  <text x="508" y="499" font-size="15" font-weight="bold" fill="#4b5563" text-anchor="end">7</text>
+  <rect x="518" y="476" width="60" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="548" y="499" font-size="14" fill="#4b5563" text-anchor="middle">null</text>
 
-  <!-- Row 7 -->
-  <text x="650" y="288" font-size="13" font-weight="bold" fill="#1f2933">7</text>
-  <path d="M665,285 L685,285" stroke="#1f2933" stroke-width="1.5" marker-end="url(#a-ink)" fill="none"/>
-  <text x="690" y="289" font-size="13" fill="#52606d">null</text>
+  <!-- 묶음 괄호: 0~3 = j 그대로, 4~7 = j + 4 -->
+  <path d="M686,142 L694,142 L694,318 L686,318" fill="none" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="708" y="224" font-size="16" font-weight="bold" fill="#1d4ed8">j 그대로</text>
+  <text x="708" y="248" font-size="14" fill="#374151">새로 보게 된 비트 0</text>
+  <path d="M686,334 L694,334 L694,510 L686,510" fill="none" stroke="#b45309" stroke-width="2"/>
+  <text x="708" y="416" font-size="16" font-weight="bold" fill="#b45309">j + 4</text>
+  <text x="708" y="440" font-size="14" fill="#374151">새로 보게 된 비트 1</text>
 
-  <!-- Footer / Description Box -->
-  <rect x="30" y="340" width="820" height="130" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
+  <!-- 이동선: 원소별 새 버킷 -->
+  <line x1="296" y1="158" x2="490" y2="158" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-blue)"/>
+  <line x1="214" y1="254" x2="490" y2="254" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-blue)"/>
+  <path d="M198,178 C248,290 380,350 490,350" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-orange)"/>
 
-  <text x="50" y="369" font-size="13" fill="#1f2933">전체 인덱스를 다시 계산하므로 뭉쳐 있던 체인이 흩어진다. O(n) 비용 발생</text>
-  <text x="50" y="399" font-size="13" fill="#1f2933">버킷 수가 2배가 되면 기존 버킷 j의 원소는 j 또는 j + 기존버킷수로만 간다. 새로 보게 된</text>
-  <text x="50" y="425" font-size="13" fill="#1f2933">비트가 0이냐 1이냐로 갈리기 때문이다. Java 8의 resize가 체인을 두 갈래로 나눠 옮기는 근거다.</text>
+  <!-- 설명 -->
+  <rect x="24" y="554" width="832" height="132" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="44" y="585" font-size="15" fill="#111827">• 전체 인덱스를 다시 계산하므로 뭉쳐 있던 체인이 흩어진다 → <tspan font-weight="bold" fill="#b91c1c">O(n) 비용 발생</tspan></text>
+  <text x="44" y="614" font-size="15" fill="#111827">• 버킷 수가 2배가 되면 기존 버킷 j의 원소는 <tspan font-weight="bold">j 또는 j + 기존버킷수</tspan>로만 간다</text>
+  <text x="44" y="643" font-size="15" fill="#111827">• 새로 보게 된 비트가 0이냐 1이냐로 갈리기 때문이다</text>
+  <text x="58" y="670" font-size="15" fill="#111827">→ Java 8의 resize가 체인을 두 갈래로 나눠 옮기는 근거</text>
 </svg>

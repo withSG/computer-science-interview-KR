@@ -1,63 +1,97 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">DFS와 BFS</title>
-  <desc id="d">트리 구조에서의 DFS와 BFS 탐색 순서 및 설명 다이어그램</desc>
-  <rect width="880" height="280" fill="#ffffff"/>
-
-  <!-- Left: Tree Structure Group -->
-  <g id="tree">
-    <!-- Edges -->
-    <line x1="200" y1="60" x2="110" y2="135" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="200" y1="60" x2="200" y2="135" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="200" y1="60" x2="290" y2="135" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="110" y1="135" x2="70" y2="215" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="110" y1="135" x2="150" y2="215" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="290" y1="135" x2="290" y2="215" stroke="#9aa5b1" stroke-width="2"/>
-
-    <!-- Node 1 -->
-    <circle cx="200" cy="60" r="22" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="200" y="64.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">1</text>
-
-    <!-- Node 2 -->
-    <circle cx="110" cy="135" r="22" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-    <text x="110" y="139.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">2</text>
-
-    <!-- Node 3 -->
-    <circle cx="200" cy="135" r="22" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-    <text x="200" y="139.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">3</text>
-
-    <!-- Node 4 -->
-    <circle cx="290" cy="135" r="22" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-    <text x="290" y="139.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">4</text>
-
-    <!-- Node 5 -->
-    <circle cx="70" cy="215" r="22" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-    <text x="70" y="219.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">5</text>
-
-    <!-- Node 6 -->
-    <circle cx="150" cy="215" r="22" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-    <text x="150" y="219.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">6</text>
-
-    <!-- Node 7 -->
-    <circle cx="290" cy="215" r="22" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-    <text x="290" y="219.9" text-anchor="middle" font-size="14" font-weight="bold" fill="#1f2933">7</text>
-  </g>
-
-  <!-- Vertical Divider -->
-  <line x1="370" y1="35" x2="370" y2="245" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-
-  <!-- Right: DFS Section -->
-  <g id="dfs-section">
-    <rect x="390" y="45" width="460" height="85" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="415" y="77.55" font-size="14" font-weight="bold" fill="#7c3aed">DFS:</text>
-    <text x="460" y="77.55" font-size="13" font-weight="bold" fill="#1f2933">1 → 2 → 5 → 6 → 3 → 4 → 7</text>
-    <text x="415" y="107.03" font-size="11.5" fill="#52606d">한 갈래를 끝까지 판 뒤 되돌아옴</text>
-  </g>
-
-  <!-- Right: BFS Section -->
-  <g id="bfs-section">
-    <rect x="390" y="150" width="460" height="85" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="415" y="182.55" font-size="14" font-weight="bold" fill="#059669">BFS:</text>
-    <text x="460" y="182.55" font-size="13" font-weight="bold" fill="#1f2933">1 → 2 → 3 → 4 → 5 → 6 → 7</text>
-    <text x="415" y="212.03" font-size="11.5" fill="#52606d">거리 1을 다 본 뒤 거리 2로</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DFS와 BFS의 방문 순서</title>
+  <desc id="d">같은 트리(1의 자식 2·3·4, 2의 자식 5·6, 4의 자식 7)를 DFS는 1→2→5→6→3→4→7로 한 갈래를 끝까지 판 뒤 되돌아오며, BFS는 1→2→3→4→5→6→7로 거리 1을 다 본 뒤 거리 2로 방문한다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
+  <rect x="24" y="20" width="408" height="396" rx="12" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <rect x="448" y="20" width="408" height="396" rx="12" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="44" y="54" font-size="20" font-weight="bold" fill="#6d28d9">DFS</text>
+  <text x="98" y="53" font-size="15" fill="#4b5563">스택 · 깊이로 파고듦</text>
+  <text x="468" y="54" font-size="20" font-weight="bold" fill="#047857">BFS</text>
+  <text x="522" y="53" font-size="15" fill="#4b5563">큐 · 가까운 곳부터</text>
+  <rect x="48" y="153" width="140" height="135" rx="12" fill="#ede9fe"/>
+  <text x="118" y="310" font-size="14" font-weight="bold" text-anchor="middle" fill="#6d28d9">갈래 1</text>
+  <rect x="198" y="153" width="60" height="60" rx="12" fill="#ede9fe"/>
+  <text x="228" y="310" font-size="14" font-weight="bold" text-anchor="middle" fill="#6d28d9">갈래 2</text>
+  <rect x="308" y="153" width="60" height="135" rx="12" fill="#ede9fe"/>
+  <text x="338" y="310" font-size="14" font-weight="bold" text-anchor="middle" fill="#6d28d9">갈래 3</text>
+  <line x1="211.5" y1="119.3" x2="134.5" y2="171.7" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="228.0" y1="128.0" x2="228.0" y2="163.0" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="244.5" y1="119.3" x2="321.5" y2="171.7" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="108.6" y1="200.6" x2="87.4" y2="240.4" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="127.4" y1="200.6" x2="148.6" y2="240.4" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="338.0" y1="203.0" x2="338.0" y2="238.0" stroke="#9ca3af" stroke-width="2"/>
+  <circle cx="228" cy="108" r="20" fill="#ffffff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="228" y="114" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
+  <circle cx="118" cy="183" r="20" fill="#ffffff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="118" y="189" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">2</text>
+  <circle cx="228" cy="183" r="20" fill="#ffffff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="228" y="189" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">3</text>
+  <circle cx="338" cy="183" r="20" fill="#ffffff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="338" y="189" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">4</text>
+  <circle cx="78" cy="258" r="20" fill="#ffffff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="78" y="264" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">5</text>
+  <circle cx="158" cy="258" r="20" fill="#ffffff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="158" y="264" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">6</text>
+  <circle cx="338" cy="258" r="20" fill="#ffffff" stroke="#6d28d9" stroke-width="2.5"/>
+  <text x="338" y="264" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">7</text>
+  <rect x="104" y="324" width="132" height="34" rx="8" fill="#ede9fe"/>
+  <rect x="270" y="324" width="32" height="34" rx="8" fill="#ede9fe"/>
+  <rect x="336" y="324" width="82" height="34" rx="8" fill="#ede9fe"/>
+  <text x="54" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
+  <text x="87" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="120" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">2</text>
+  <text x="145" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="170" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">5</text>
+  <text x="195" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="220" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">6</text>
+  <text x="253" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="286" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">3</text>
+  <text x="319" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="352" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">4</text>
+  <text x="377" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="402" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">7</text>
+  <text x="228" y="394" font-size="16" text-anchor="middle" fill="#1f2933">한 갈래를 끝까지 판 뒤 되돌아옴</text>
+  <rect x="460" y="82" width="388" height="52" rx="10" fill="#d1fae5"/>
+  <text x="836" y="113" font-size="15" font-weight="bold" text-anchor="end" fill="#047857">시작점</text>
+  <rect x="460" y="157" width="388" height="52" rx="10" fill="#d1fae5"/>
+  <text x="836" y="188" font-size="15" font-weight="bold" text-anchor="end" fill="#047857">거리 1</text>
+  <rect x="460" y="232" width="388" height="52" rx="10" fill="#d1fae5"/>
+  <text x="836" y="263" font-size="15" font-weight="bold" text-anchor="end" fill="#047857">거리 2</text>
+  <line x1="623.5" y1="119.3" x2="546.5" y2="171.7" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="640.0" y1="128.0" x2="640.0" y2="163.0" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="656.5" y1="119.3" x2="733.5" y2="171.7" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="520.6" y1="200.6" x2="499.4" y2="240.4" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="539.4" y1="200.6" x2="560.6" y2="240.4" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="750.0" y1="203.0" x2="750.0" y2="238.0" stroke="#9ca3af" stroke-width="2"/>
+  <circle cx="640" cy="108" r="20" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="640" y="114" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
+  <circle cx="530" cy="183" r="20" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="530" y="189" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">2</text>
+  <circle cx="640" cy="183" r="20" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="640" y="189" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">3</text>
+  <circle cx="750" cy="183" r="20" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="750" y="189" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">4</text>
+  <circle cx="490" cy="258" r="20" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="490" y="264" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">5</text>
+  <circle cx="570" cy="258" r="20" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="570" y="264" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">6</text>
+  <circle cx="750" cy="258" r="20" fill="#ffffff" stroke="#047857" stroke-width="2.5"/>
+  <text x="750" y="264" font-size="18" font-weight="bold" text-anchor="middle" fill="#1f2933">7</text>
+  <rect x="470" y="324" width="32" height="34" rx="8" fill="#d1fae5"/>
+  <rect x="536" y="324" width="132" height="34" rx="8" fill="#d1fae5"/>
+  <rect x="702" y="324" width="132" height="34" rx="8" fill="#d1fae5"/>
+  <text x="486" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
+  <text x="519" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="552" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">2</text>
+  <text x="577" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="602" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">3</text>
+  <text x="627" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="652" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">4</text>
+  <text x="685" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="718" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">5</text>
+  <text x="743" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="768" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">6</text>
+  <text x="793" y="347" font-size="16" text-anchor="middle" fill="#4b5563">→</text>
+  <text x="818" y="348" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">7</text>
+  <text x="652" y="394" font-size="16" text-anchor="middle" fill="#1f2933">거리 1을 다 본 뒤 거리 2로</text>
 </svg>

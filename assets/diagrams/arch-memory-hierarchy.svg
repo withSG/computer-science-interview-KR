@@ -1,128 +1,128 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 640" width="880" height="640" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">메모리 계층 — 지연 시간과 용량의 자릿수 격차</title>
-  <desc id="d">하드웨어 메모리 계층(레지스터부터 SSD)의 지연 시간 및 용량 차이와 소프트웨어 캐시 계층의 대응 관계를 나타낸 다이어그램입니다.</desc>
-  
-  <!-- 배경 흰색 -->
-  <rect width="880" height="640" fill="#ffffff"/>
-
-  <!-- 마커 정의 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 750" width="880" height="750" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">메모리 계층과 지연 시간 격차</title>
+  <desc id="d">레지스터부터 SSD/HDD까지 여섯 계층을 위는 빠르고 작고 비싸게, 아래는 느리고 크고 싸게 쌓고 계층별 지연 시간과 용량, L1 대비 DRAM 약 100배와 DRAM 대비 SSD 수백 배의 격차를 표시합니다. 아래에는 CPU 캐시에서 디스크까지 백엔드가 같은 구조를 소프트웨어로 반복하는 흐름을 보입니다.</desc>
+  <rect width="880" height="750" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
 
-  <!-- 메인 제목 -->
-  <text x="440" y="36" font-size="17" font-weight="600" fill="#1f2933" text-anchor="middle">메모리 계층 — 지연 시간과 용량의 자릿수 격차</text>
+  <!-- ===== 하드웨어 계층 ===== -->
+  <!-- 위쪽 끝 표시 + 열 머리 -->
+  <text x="254" y="44" font-size="16" font-weight="700" fill="#b91c1c" text-anchor="middle">▲ 빠름 · 작음 · 비쌈</text>
+  <text x="548" y="44" font-size="15" font-weight="700" fill="#4b5563" text-anchor="middle">지연 시간</text>
+  <text x="796" y="44" font-size="15" font-weight="700" fill="#4b5563" text-anchor="middle">용량</text>
+  <line x1="500" y1="54" x2="856" y2="54" stroke="#d1d5db" stroke-width="1"/>
 
-  <!-- ==================== Section 1: 하드웨어 메모리 계층 (피라미드 & 축) ==================== -->
-  <text x="40" y="72" font-size="14" font-weight="600" fill="#1f2933">1. 하드웨어 메모리 계층 (Hardware Hierarchy)</text>
+  <!-- 1. 레지스터 -->
+  <rect x="166" y="64" width="176" height="46" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="254" y="93" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">레지스터</text>
+  <line x1="348" y1="87" x2="510" y2="87" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <text x="548" y="93" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">&lt; 1ns</text>
+  <text x="796" y="93" font-size="16" fill="#111827" text-anchor="middle">수백 바이트</text>
 
-  <!-- 지연 시간 / 용량 축 라벨 (x좌표 조정하여 캔버스 밖 이탈 방지) -->
-  <!-- Left axis text: center x=100 (width ~110 -> x range 45~155) -->
-  <text x="100" y="105" font-size="11.5" font-weight="600" fill="#dc2626" text-anchor="middle">▲ 지연 시간 (느림 → 빠름)</text>
-  <path d="M100,280 L100,115" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 2. L1 -->
+  <rect x="138" y="116" width="232" height="64" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="254" y="142" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">L1 캐시 (코어 전용)</text>
+  <text x="254" y="166" font-size="14.5" fill="#374151" text-anchor="middle">I-cache / D-cache 분리</text>
+  <line x1="376" y1="148" x2="510" y2="148" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <text x="548" y="154" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">~1ns</text>
+  <text x="796" y="154" font-size="16" fill="#111827" text-anchor="middle">32~64KB</text>
 
-  <!-- Right axis text: center x=780 (width ~110 -> x range 725~835 <= 880) -->
-  <text x="780" y="105" font-size="11.5" font-weight="600" fill="#2563eb" text-anchor="middle">▼ 저장 용량 (작음 → 큼)</text>
-  <path d="M780,115 L780,280" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 3. L2 -->
+  <rect x="110" y="186" width="288" height="46" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="254" y="215" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">L2 캐시 (코어 전용)</text>
+  <line x1="404" y1="209" x2="510" y2="209" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <text x="548" y="215" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">~4ns</text>
+  <text x="796" y="215" font-size="16" fill="#111827" text-anchor="middle">256KB~3MB</text>
 
-  <!-- 피라미드 계층 박스 (중심 x=440, 계층별 폭 확장, 색상 농도 대응) -->
-  <!-- 1. 레지스터 (y=110, w=200, h=30) -->
-  <rect x="340" y="110" width="200" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" rx="4"/>
-  <text x="440" y="129" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">레지스터</text>
-  <text x="320" y="129" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="end">&lt; 1ns</text>
-  <text x="560" y="129" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="start">수백 바이트</text>
+  <!-- 4. L3 -->
+  <rect x="82" y="238" width="344" height="46" rx="4" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="254" y="267" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">L3 캐시 (코어 간 공유)</text>
+  <line x1="432" y1="261" x2="510" y2="261" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <text x="548" y="267" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">~10ns</text>
+  <text x="796" y="267" font-size="16" fill="#111827" text-anchor="middle">수 MB~수십 MB</text>
 
-  <!-- 2. L1 캐시 (y=145, w=260, h=30) -->
-  <rect x="310" y="145" width="260" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="440" y="164" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">L1 캐시 (I-cache / D-cache)</text>
-  <text x="290" y="164" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="end">~1ns</text>
-  <text x="590" y="164" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="start">32~64KB</text>
+  <!-- 5. DRAM -->
+  <rect x="54" y="290" width="400" height="46" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="254" y="319" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">메인 메모리 (DRAM)</text>
+  <line x1="460" y1="313" x2="510" y2="313" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <text x="548" y="319" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">~100ns</text>
+  <text x="796" y="319" font-size="16" fill="#111827" text-anchor="middle">GB 단위</text>
 
-  <!-- 3. L2 캐시 (y=180, w=320, h=30) -->
-  <rect x="280" y="180" width="320" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="440" y="199" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">L2 캐시 (코어 전용)</text>
-  <text x="260" y="199" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="end">~4ns</text>
-  <text x="610" y="199" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="start">256KB~3MB</text>
+  <!-- 6. SSD / HDD -->
+  <rect x="28" y="342" width="452" height="46" rx="4" fill="#e5e7eb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="254" y="371" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">SSD / HDD</text>
+  <line x1="486" y1="365" x2="510" y2="365" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <text x="548" y="371" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">㎲ ~ ㎳</text>
+  <text x="796" y="371" font-size="16" fill="#111827" text-anchor="middle">TB 단위</text>
 
-  <!-- 4. L3 캐시 (y=215, w=380, h=30) -->
-  <rect x="250" y="215" width="380" height="30" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="440" y="234" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">L3 캐시 (코어 간 공유)</text>
-  <text x="230" y="234" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="end">~10ns</text>
-  <text x="640" y="234" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="start">수 MB~수십 MB</text>
+  <!-- 아래쪽 끝 표시 -->
+  <text x="254" y="416" font-size="16" font-weight="700" fill="#1d4ed8" text-anchor="middle">▼ 느림 · 큼 · 쌈</text>
 
-  <!-- 5. 메인 메모리 (DRAM) (y=250, w=440, h=30) -->
-  <rect x="220" y="250" width="440" height="30" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="440" y="269" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">메인 메모리 (DRAM)</text>
-  <text x="200" y="269" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="end">~100ns</text>
-  <text x="670" y="269" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="start">GB 단위</text>
+  <!-- 격차 괄호 -->
+  <path d="M590,148 H602 V310 H590" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <text x="614" y="226" font-size="15" font-weight="700" fill="#b91c1c">L1 대비</text>
+  <text x="614" y="246" font-size="15" font-weight="700" fill="#b91c1c">약 100배 느림</text>
+  <path d="M590,316 H602 V365 H590" fill="none" stroke="#b91c1c" stroke-width="2"/>
+  <text x="614" y="336" font-size="15" font-weight="700" fill="#b91c1c">DRAM 대비</text>
+  <text x="614" y="356" font-size="15" font-weight="700" fill="#b91c1c">수백 배 느림</text>
 
-  <!-- 6. SSD / HDD (y=285, w=500, h=30) -->
-  <rect x="190" y="285" width="500" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="440" y="304" font-size="13" font-weight="500" fill="#1f2933" text-anchor="middle">SSD / HDD</text>
-  <text x="170" y="304" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="end">㎲ ~ ㎳</text>
-  <text x="700" y="304" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="start">TB 단위</text>
+  <!-- 기준 메모 -->
+  <text x="24" y="452" font-size="15" fill="#374151">숫자는 제품마다 다르니 자릿수에 주목. 3GHz CPU 1사이클 ≈ 0.33ns → DRAM 한 번 접근에 약 300사이클 대기</text>
 
-  <!-- 주요 지표 기준점 주석 (겹침 방지를 위해 별도 영역에 명확히 위치) -->
-  <rect x="40" y="330" width="380" height="32" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="50" y="350" font-size="11.5" font-weight="400" fill="#1f2933">기준점 1: 3GHz CPU 1사이클 ≈ 0.33ns</text>
+  <line x1="24" y1="476" x2="856" y2="476" stroke="#d1d5db" stroke-width="1" stroke-dasharray="5 5"/>
 
-  <rect x="460" y="330" width="380" height="32" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4"/>
-  <text x="470" y="350" font-size="11.5" font-weight="400" fill="#1f2933">기준점 2: DRAM 접근 ≈ 100ns (L1 대비 약 100배 느림)</text>
+  <!-- ===== 소프트웨어 캐시 계층 ===== -->
+  <text x="24" y="510" font-size="17" font-weight="700" fill="#111827">백엔드도 같은 구조를 소프트웨어로 반복</text>
 
-  <!-- 구분선 -->
-  <path d="M40,380 L840,380" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 1. CPU L1/L2/L3 -->
+  <rect x="24" y="528" width="132" height="88" rx="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="90" y="567" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">CPU L1/L2/L3</text>
+  <text x="90" y="589" font-size="14" fill="#374151" text-anchor="middle">CPU 캐시</text>
 
-  <!-- ==================== Section 2: 소프트웨어 계층 매핑 ==================== -->
-  <text x="40" y="410" font-size="14" font-weight="600" fill="#1f2933">2. 하드웨어 vs 소프트웨어 캐시 계층 대응 (Software Mapping)</text>
+  <line x1="158" y1="572" x2="180" y2="572" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 계층 연결 흐름 박스들 -->
-  <!-- 1. CPU 캐시 (x=40, w=130, h=60) -->
-  <rect x="40" y="430" width="130" height="60" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="6"/>
-  <text x="105" y="455" font-size="13" font-weight="600" fill="#7c3aed" text-anchor="middle">CPU 캐시</text>
-  <text x="105" y="475" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">L1 / L2 / L3</text>
+  <!-- 2. 로컬 캐시 -->
+  <rect x="182" y="528" width="180" height="88" rx="6" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="272" y="556" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">애플리케이션</text>
+  <text x="272" y="578" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">로컬 캐시</text>
+  <text x="272" y="600" font-size="14" fill="#374151" text-anchor="middle">(JVM Heap)</text>
 
-  <!-- 화살표 1 -->
-  <path d="M170,460 L190,460" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="364" y1="572" x2="386" y2="572" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 2. 로컬 캐시 (x=200, w=140, h=60) -->
-  <rect x="200" y="430" width="140" height="60" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
-  <text x="270" y="455" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">로컬 캐시</text>
-  <text x="270" y="475" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">JVM Heap 메모리</text>
+  <!-- 3. Redis -->
+  <rect x="388" y="528" width="124" height="88" rx="6" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="450" y="556" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">Redis</text>
+  <text x="450" y="578" font-size="14" fill="#374151" text-anchor="middle">인메모리</text>
+  <text x="450" y="598" font-size="14" fill="#374151" text-anchor="middle">Global Cache</text>
 
-  <!-- 화살표 2 -->
-  <path d="M340,460 L360,460" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="514" y1="572" x2="536" y2="572" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 3. Redis (x=370, w=130, h=60) -->
-  <rect x="370" y="430" width="130" height="60" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="6"/>
-  <text x="435" y="455" font-size="13" font-weight="600" fill="#d97706" text-anchor="middle">Global Cache</text>
-  <text x="435" y="475" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">Redis 인메모리</text>
+  <!-- 4. DB Buffer Pool -->
+  <rect x="538" y="528" width="156" height="88" rx="6" fill="#f9fafb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="616" y="567" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">DB Buffer Pool</text>
+  <text x="616" y="589" font-size="14" fill="#374151" text-anchor="middle">데이터베이스 캐시</text>
 
-  <!-- 화살표 3 -->
-  <path d="M500,460 L520,460" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="696" y1="572" x2="718" y2="572" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- 4. DB Buffer Pool (x=530, w=140, h=60) -->
-  <rect x="530" y="430" width="140" height="60" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
-  <text x="600" y="455" font-size="13" font-weight="600" fill="#2563eb" text-anchor="middle">DB Buffer Pool</text>
-  <text x="600" y="475" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">데이터베이스 캐시</text>
+  <!-- 5. 디스크 -->
+  <rect x="720" y="528" width="136" height="88" rx="6" fill="#e5e7eb" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="788" y="556" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">디스크</text>
+  <text x="788" y="578" font-size="14" fill="#374151" text-anchor="middle">영속 저장소</text>
+  <text x="788" y="598" font-size="14" fill="#374151" text-anchor="middle">SSD / HDD</text>
 
-  <!-- 화살표 4 -->
-  <path d="M670,460 L690,460" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 속도 축 -->
+  <text x="24" y="647" font-size="15" font-weight="700" fill="#b91c1c">빠름</text>
+  <line x1="66" y1="642" x2="808" y2="642" stroke="#6b7280" stroke-width="1.5" marker-end="url(#ah-gray)"/>
+  <text x="856" y="647" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="end">느림</text>
 
-  <!-- 5. 디스크 (x=700, w=140, h=60) -->
-  <rect x="700" y="430" width="140" height="60" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="6"/>
-  <text x="770" y="455" font-size="13" font-weight="600" fill="#059669" text-anchor="middle">영속 저장소</text>
-  <text x="770" y="475" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">SSD / HDD 디스크</text>
-
-  <!-- 공통 메커니즘 설명 상자 -->
-  <rect x="40" y="510" width="800" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="6"/>
-  <text x="440" y="532" font-size="12" font-weight="600" fill="#1f2933" text-anchor="middle">소프트웨어 캐싱 메커니즘의 핵심 발상</text>
-  <text x="440" y="549" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">"느린 저장소 앞에 빠른 저장소를 두고 자주 쓰는 데이터만 올려둔다" (캐시 무효화, TTL, 일관성 유지)</text>
-
-  <!-- ==================== Section 3: 캡션 ==================== -->
-  <text x="440" y="605" font-size="11.5" font-weight="400" fill="#52606d" text-anchor="middle">결론: 하드웨어의 메모리 계층 구조와 지연 시간 격차 원리는 현대 백엔드 소프트웨어 캐시 설계에도 그대로 반영된다.</text>
+  <!-- 공통 발상 -->
+  <rect x="24" y="664" width="832" height="66" rx="6" fill="#f0fdf4" stroke="#047857" stroke-width="1.5"/>
+  <text x="40" y="690" font-size="15" fill="#111827"><tspan font-weight="700" fill="#047857">같은 발상</tspan>  느린 저장소 앞에 빠른 저장소를 두고 자주 쓰는 것만 올려둔다</text>
+  <text x="40" y="716" font-size="15" fill="#111827"><tspan font-weight="700" fill="#047857">같은 고민</tspan>  캐시 무효화 전략 · TTL · 일관성 문제</text>
 </svg>

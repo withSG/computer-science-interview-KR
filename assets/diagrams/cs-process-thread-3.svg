@@ -1,68 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">동시성 vs 병렬성</title>
-  <desc id="d">단일 코어에서의 동시성 실행 구조와 멀티 코어에서의 병렬성 실행 구조를 비교하는 다이어그램</desc>
-  <rect width="880" height="440" fill="#ffffff"/>
-
+  <desc id="d">동시성(단일 코어)에서는 T1과 T2가 시간 구간을 번갈아가며 실행되고, 병렬성(멀티 코어)에서는 Core1과 Core2가 같은 시간 내내 실제로 동시에 실행된다.</desc>
+  <rect width="880" height="470" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- Section 1: 동시성 (단일 코어) -->
-  <g id="concurrency-section">
-    <!-- Section Title -->
-    <text x="40" y="46.6" font-size="16" font-weight="bold" fill="#1f2933">동시성 (단일 코어)</text>
+  <!-- 범례 -->
+  <rect x="690" y="28" width="18" height="18" rx="3" fill="#1d4ed8"/>
+  <text x="716" y="43" font-size="15" fill="#374151">실행 중</text>
+  <rect x="784" y="28" width="18" height="18" rx="3" fill="#cbd5e1"/>
+  <text x="810" y="43" font-size="15" fill="#374151">대기</text>
 
-    <!-- T1 Row -->
-    <text x="40" y="89.55" font-size="13" font-weight="bold" fill="#2563eb">T1:</text>
-    
-    <!-- T1 Active Blocks (████) -->
-    <rect x="80" y="70" width="130" height="28" fill="#2563eb" rx="2"/>
-    <rect x="340" y="70" width="130" height="28" fill="#2563eb" rx="2"/>
-    <rect x="600" y="70" width="130" height="28" fill="#2563eb" rx="2"/>
+  <!-- 동시성 (단일 코어) -->
+  <rect x="24" y="60" width="832" height="184" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="94" font-size="20" font-weight="bold" fill="#111827">동시성<tspan font-size="16" font-weight="normal" fill="#374151"> (단일 코어)</tspan></text>
+  <text x="832" y="94" font-size="15" fill="#4b5563" text-anchor="end">번갈아가며 실행 · 시분할</text>
 
-    <!-- T1 Inactive / Idle Dotted Lines (░░░░) -->
-    <line x1="210" y1="84" x2="340" y2="84" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="4 4"/>
-    <line x1="470" y1="84" x2="600" y2="84" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="48" y="138" font-size="18" font-weight="bold" fill="#111827">T1</text>
+  <rect x="128" y="114" width="128" height="36" fill="#1d4ed8"/>
+  <rect x="256" y="114" width="128" height="36" fill="#cbd5e1"/>
+  <rect x="384" y="114" width="128" height="36" fill="#1d4ed8"/>
+  <rect x="512" y="114" width="128" height="36" fill="#cbd5e1"/>
+  <rect x="640" y="114" width="128" height="36" fill="#1d4ed8"/>
 
-    <!-- T2 Row -->
-    <text x="40" y="139.55" font-size="13" font-weight="bold" fill="#059669">T2:</text>
-    
-    <!-- T2 Inactive / Idle Dotted Lines (░░░░) -->
-    <line x1="80" y1="134" x2="210" y2="134" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="4 4"/>
-    <line x1="340" y1="134" x2="470" y2="134" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="4 4"/>
-    <line x1="600" y1="134" x2="730" y2="134" stroke="#cbd2d9" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="48" y="186" font-size="18" font-weight="bold" fill="#111827">T2</text>
+  <rect x="128" y="162" width="128" height="36" fill="#cbd5e1"/>
+  <rect x="256" y="162" width="128" height="36" fill="#1d4ed8"/>
+  <rect x="384" y="162" width="128" height="36" fill="#cbd5e1"/>
+  <rect x="512" y="162" width="128" height="36" fill="#1d4ed8"/>
+  <rect x="640" y="162" width="128" height="36" fill="#cbd5e1"/>
 
-    <!-- T2 Active Blocks (████) -->
-    <rect x="210" y="120" width="130" height="28" fill="#059669" rx="2"/>
-    <rect x="470" y="120" width="130" height="28" fill="#059669" rx="2"/>
+  <path d="M128,220 L786,220" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="796" y="225" font-size="15" fill="#374151">시간</text>
 
-    <!-- Time Axis for Concurrency -->
-    <path d="M80,175 L760,175" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="768" y="167" width="32" height="16" fill="#ffffff"/>
-    <text x="770" y="179.025" font-size="11.5" fill="#52606d">시간</text>
-  </g>
+  <!-- 병렬성 (멀티 코어) -->
+  <rect x="24" y="262" width="832" height="184" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="48" y="296" font-size="20" font-weight="bold" fill="#111827">병렬성<tspan font-size="16" font-weight="normal" fill="#374151"> (멀티 코어)</tspan></text>
+  <text x="832" y="296" font-size="15" fill="#4b5563" text-anchor="end">실제로 동시에 실행</text>
 
-  <!-- Divider Line -->
-  <line x1="40" y1="210" x2="840" y2="210" stroke="#f8fafc" stroke-width="2"/>
+  <text x="48" y="340" font-size="18" font-weight="bold" fill="#111827">Core1</text>
+  <rect x="128" y="316" width="640" height="36" fill="#1d4ed8"/>
 
-  <!-- Section 2: 병렬성 (멀티 코어) -->
-  <g id="parallelism-section">
-    <!-- Section Title -->
-    <text x="40" y="256.6" font-size="16" font-weight="bold" fill="#1f2933">병렬성 (멀티 코어)</text>
+  <text x="48" y="388" font-size="18" font-weight="bold" fill="#111827">Core2</text>
+  <rect x="128" y="364" width="640" height="36" fill="#1d4ed8"/>
 
-    <!-- Core1 Row -->
-    <text x="40" y="299.55" font-size="13" font-weight="bold" fill="#7c3aed">Core1:</text>
-    <rect x="100" y="280" width="630" height="28" fill="#7c3aed" rx="2"/>
-
-    <!-- Core2 Row -->
-    <text x="40" y="349.55" font-size="13" font-weight="bold" fill="#d97706">Core2:</text>
-    <rect x="100" y="330" width="630" height="28" fill="#d97706" rx="2"/>
-
-    <!-- Time Axis for Parallelism -->
-    <path d="M100,385 L760,385" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="768" y="377" width="32" height="16" fill="#ffffff"/>
-    <text x="770" y="389.025" font-size="11.5" fill="#52606d">시간</text>
-  </g>
+  <path d="M128,422 L786,422" fill="none" stroke="#374151" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="796" y="427" font-size="15" fill="#374151">시간</text>
 </svg>

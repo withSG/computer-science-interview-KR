@@ -300,7 +300,7 @@ Min Heap                        배열 표현
 삽입은 배열 맨 뒤에 붙인 뒤 부모보다 작으면 계속 위로 올라갑니다(heapify-up). 삭제는 루트를 꺼내고 마지막 원소를 루트에 올린 뒤 더 작은 자식과 바꾸며 내려갑니다(heapify-down). 둘 다 트리 높이만큼만 움직이므로 O(log n)입니다.
 
 <!-- diagram:cs-stack-queue-7 -->
-![삽입과 삭제](../../assets/diagrams/cs-stack-queue-7.svg)
+![힙에 0 삽입(heapify-up)과 루트 삭제(heapify-down) 5단계](../../assets/diagrams/cs-stack-queue-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

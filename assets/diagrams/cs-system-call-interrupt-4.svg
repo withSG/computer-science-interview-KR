@@ -1,47 +1,43 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">왜 ISR은 짧아야 하는가</title>
-  <desc id="d">장치 인터럽트 발생 시 상반부(ISR)와 하반부(softirq/tasklet/workqueue)로 나뉘어 처리되는 과정을 보여주는 다이어그램</desc>
-  <rect width="880" height="390" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 530" width="880" height="530" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">인터럽트 처리의 상반부와 하반부</title>
+  <desc id="d">장치 인터럽트가 오면 상반부(ISR)가 인터럽트가 막힌 상태에서 최소 작업만 매우 짧게 하고 나머지 일을 예약하며, 하반부(softirq/tasklet/workqueue)가 인터럽트가 열린 상태에서 무거운 작업을 처리한다.</desc>
+  <rect width="880" height="530" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
 
-  <!-- 1. Start trigger label -->
-  <text x="440" y="32" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">장치 인터럽트 발생</text>
+  <!-- 시작: 장치 인터럽트 -->
+  <rect x="330" y="24" width="220" height="40" rx="20" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="440" y="50" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">장치 인터럽트 발생</text>
+  <line x1="440" y1="66" x2="440" y2="96" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
 
-  <!-- Arrow from trigger to Top Half -->
-  <path d="M440,42 L440,68" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 상반부 -->
+  <path d="M100,110 A10,10 0 0 1 110,100 H770 A10,10 0 0 1 780,110 V150 H100 Z" fill="#fee2e2"/>
+  <text x="124" y="132" font-size="20" font-weight="bold" fill="#991b1b">상반부 (top half) — ISR</text>
+  <circle cx="130" cy="178" r="3.5" fill="#991b1b"/>
+  <text x="144" y="184" font-size="16" fill="#1f2937">인터럽트를 받았다고 장치에 응답</text>
+  <circle cx="130" cy="208" r="3.5" fill="#991b1b"/>
+  <text x="144" y="214" font-size="16" fill="#1f2937">데이터를 커널 버퍼로 옮기는 등 최소 작업</text>
+  <circle cx="130" cy="238" r="3.5" fill="#991b1b"/>
+  <text x="144" y="244" font-size="16" fill="#1f2937">"나머지 일은 나중에" 예약</text>
+  <path d="M100,262 H780 V298 A10,10 0 0 1 770,308 H110 A10,10 0 0 1 100,298 Z" fill="#fef2f2"/>
+  <line x1="100" y1="262" x2="780" y2="262" stroke="#fca5a5" stroke-width="1"/>
+  <text x="124" y="291" font-size="17" font-weight="bold" fill="#b91c1c">→ 매우 짧게, 인터럽트 막힌 상태</text>
+  <rect x="100" y="100" width="680" height="208" rx="10" fill="none" stroke="#dc2626" stroke-width="1.5"/>
 
-  <!-- 2. Top Half Box (Red tint: Interrupts disabled / time-critical) -->
-  <g id="top-half">
-    <rect x="190" y="70" width="500" height="135" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="210" y="96" font-size="14" font-weight="bold" fill="#dc2626">상반부 (top half) — ISR</text>
-    
-    <text x="210" y="121" font-size="13" fill="#1f2933">- 인터럽트를 받았다고 장치에 응답</text>
-    <text x="210" y="143" font-size="13" fill="#1f2933">- 데이터를 커널 버퍼로 옮기는 등 최소 작업</text>
-    <text x="210" y="165" font-size="13" fill="#1f2933">- "나머지 일은 나중에" 예약</text>
-    
-    <!-- Arrow indicator in original -->
-    <text x="210" y="188" font-size="13" font-weight="bold" fill="#dc2626">→ 매우 짧게, 인터럽트 막힌 상태</text>
-  </g>
+  <!-- 상반부 → 하반부 -->
+  <line x1="440" y1="312" x2="440" y2="350" stroke="#374151" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="456" y="337" font-size="15" fill="#4b5563">예약된 나머지 일</text>
 
-  <!-- Arrow from Top Half to Bottom Half -->
-  <path d="M440,205 L440,238" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 3. Bottom Half Box (Blue tint: Interrupts enabled / extended work) -->
-  <g id="bottom-half">
-    <rect x="140" y="240" width="600" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="160" y="266" font-size="14" font-weight="bold" fill="#2563eb">하반부 (bottom half) — softirq/tasklet/workqueue</text>
-    
-    <text x="160" y="293" font-size="13" fill="#1f2933">- 프로토콜 처리, 상위 계층 전달 등 무거운 작업</text>
-    
-    <!-- Arrow indicator in original -->
-    <text x="160" y="323" font-size="13" font-weight="bold" fill="#2563eb">→ 인터럽트가 열린 상태에서 처리</text>
-  </g>
+  <!-- 하반부 -->
+  <path d="M100,366 A10,10 0 0 1 110,356 H770 A10,10 0 0 1 780,366 V406 H100 Z" fill="#d1fae5"/>
+  <text x="124" y="388" font-size="20" font-weight="bold" fill="#065f46">하반부 (bottom half) — <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="18">softirq/tasklet/workqueue</tspan></text>
+  <circle cx="130" cy="432" r="3.5" fill="#065f46"/>
+  <text x="144" y="438" font-size="16" fill="#1f2937">프로토콜 처리, 상위 계층 전달 등 무거운 작업</text>
+  <path d="M100,458 H780 V494 A10,10 0 0 1 770,504 H110 A10,10 0 0 1 100,494 Z" fill="#ecfdf5"/>
+  <line x1="100" y1="458" x2="780" y2="458" stroke="#6ee7b7" stroke-width="1"/>
+  <text x="124" y="487" font-size="17" font-weight="bold" fill="#047857">→ 인터럽트가 열린 상태에서 처리</text>
+  <rect x="100" y="356" width="680" height="148" rx="10" fill="none" stroke="#059669" stroke-width="1.5"/>
 </svg>

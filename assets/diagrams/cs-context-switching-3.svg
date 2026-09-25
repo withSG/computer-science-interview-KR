@@ -1,63 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">컨텍스트 스위칭 비용 비교</title>
-  <desc id="d">프로세스 스위칭과 스레드 스위칭의 비용 차이 및 각 세부 항목을 트리 형태로 비교한 다이어그램</desc>
+  <desc id="d">프로세스 스위칭(PCB 저장/복원, 메모리 매핑 변경, TLB 플러시, 캐시 미스 페널티)은 수천~수만 CPU 사이클, 스레드 스위칭(TCB 저장/복원, 레지스터 교체)은 수백~수천 CPU 사이클로, 스레드 쪽이 한 자릿수 가량 싸다는 관계를 자릿수 눈금 위에 나란히 보여 준다.</desc>
   <rect width="880" height="500" fill="#ffffff"/>
 
-  <!-- Main Title Container -->
-  <rect x="40" y="30" width="800" height="50" rx="8" fill="#1f2933"/>
-  <text x="440" y="61" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">컨텍스트 스위칭 비용 비교</text>
+  <text x="40" y="44" font-size="18" font-weight="bold" fill="#111827">컨텍스트 스위칭 비용 비교</text>
 
-  <!-- Connectors from Root to Main Branches -->
-  <path d="M 440,80 L 440,110 L 250,110 L 250,130" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <path d="M 440,110 L 630,110 L 630,130" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <!-- 열 머리 -->
+  <text x="40" y="80" font-size="15" font-weight="bold" fill="#4b5563">구성 요소</text>
+  <text x="370" y="80" font-size="15" font-weight="bold" fill="#4b5563">비용 (CPU 사이클, 자릿수 눈금)</text>
 
-  <!-- Left Branch: Process Switching (High Cost / Red accent) -->
-  <!-- Process Header Box -->
-  <rect x="50" y="130" width="400" height="60" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="250" y="157" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">프로세스 스위칭</text>
-  <text x="250" y="177" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">수천 ~ 수만 CPU 사이클</text>
+  <!-- 행 배경 -->
+  <rect x="24" y="92" width="832" height="170" rx="10" fill="#fef2f2"/>
+  <rect x="24" y="278" width="832" height="114" rx="10" fill="#eff6ff"/>
 
-  <!-- Process Items Tree Structure lines -->
-  <path d="M 90,190 L 90,425" stroke="#9aa5b1" stroke-width="2" fill="none"/>
+  <!-- 눈금 격자 -->
+  <line x1="390" y1="92" x2="390" y2="404" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="610" y1="92" x2="610" y2="404" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="830" y1="92" x2="830" y2="404" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 4"/>
 
-  <!-- Process Item 1: PCB 저장/복원 -->
-  <path d="M 90,230 L 115,230" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="115" y="208" width="315" height="44" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="135" y="234" font-size="14" font-weight="bold" fill="#1f2933">PCB 저장/복원</text>
+  <!-- 프로세스 스위칭 -->
+  <text x="40" y="122" font-size="18" font-weight="bold" fill="#b91c1c">프로세스 스위칭</text>
+  <path d="M52,132 L52,237 M52,153 L64,153 M52,181 L64,181 M52,209 L64,209 M52,237 L64,237" stroke="#b91c1c" stroke-width="1.5" fill="none"/>
+  <text x="72" y="158" font-size="16" fill="#111827">PCB 저장/복원</text>
+  <text x="72" y="186" font-size="16" fill="#111827">메모리 매핑 변경</text>
+  <text x="72" y="214" font-size="16" fill="#111827">TLB 플러시</text>
+  <text x="72" y="242" font-size="16" fill="#111827">캐시 미스 페널티</text>
+  <rect x="610" y="157" width="220" height="40" rx="6" fill="#b91c1c"/>
+  <text x="720" y="182" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">수천 ~ 수만 CPU 사이클</text>
 
-  <!-- Process Item 2: 메모리 매핑 변경 -->
-  <path d="M 90,295 L 115,295" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="115" y="273" width="315" height="44" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="135" y="299" font-size="14" font-weight="bold" fill="#1f2933">메모리 매핑 변경</text>
+  <!-- 스레드 스위칭 -->
+  <text x="40" y="308" font-size="18" font-weight="bold" fill="#1d4ed8">스레드 스위칭</text>
+  <path d="M52,318 L52,367 M52,339 L64,339 M52,367 L64,367" stroke="#1d4ed8" stroke-width="1.5" fill="none"/>
+  <text x="72" y="344" font-size="16" fill="#111827">TCB 저장/복원</text>
+  <text x="72" y="372" font-size="16" fill="#111827">레지스터 교체</text>
+  <rect x="390" y="315" width="220" height="40" rx="6" fill="#1d4ed8"/>
+  <text x="500" y="340" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">수백 ~ 수천 CPU 사이클</text>
 
-  <!-- Process Item 3: TLB 플러시 -->
-  <path d="M 90,360 L 115,360" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="115" y="338" width="315" height="44" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="135" y="364" font-size="14" font-weight="bold" fill="#1f2933">TLB 플러시</text>
+  <!-- 축 -->
+  <line x1="370" y1="404" x2="846" y2="404" stroke="#374151" stroke-width="1.5"/>
+  <line x1="390" y1="404" x2="390" y2="411" stroke="#374151" stroke-width="1.5"/>
+  <line x1="610" y1="404" x2="610" y2="411" stroke="#374151" stroke-width="1.5"/>
+  <line x1="830" y1="404" x2="830" y2="411" stroke="#374151" stroke-width="1.5"/>
+  <text x="390" y="432" font-size="15" fill="#374151" text-anchor="middle">수백</text>
+  <text x="610" y="432" font-size="15" fill="#374151" text-anchor="middle">수천</text>
+  <text x="830" y="432" font-size="15" fill="#374151" text-anchor="middle">수만</text>
 
-  <!-- Process Item 4: 캐시 미스 페널티 -->
-  <path d="M 90,425 L 115,425" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="115" y="403" width="315" height="44" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="135" y="429" font-size="14" font-weight="bold" fill="#d97706">캐시 미스 페널티</text>
-
-
-  <!-- Right Branch: Thread Switching (Lower Cost / Blue accent) -->
-  <!-- Thread Header Box -->
-  <rect x="480" y="130" width="350" height="60" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="655" y="157" font-size="16" font-weight="bold" fill="#2563eb" text-anchor="middle">스레드 스위칭</text>
-  <text x="655" y="177" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">수백 ~ 수천 CPU 사이클</text>
-
-  <!-- Thread Items Tree Structure lines -->
-  <path d="M 515,190 L 515,295" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-
-  <!-- Thread Item 1: TCB 저장/복원 -->
-  <path d="M 515,230 L 540,230" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="540" y="208" width="270" height="44" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="560" y="234" font-size="14" font-weight="bold" fill="#1f2933">TCB 저장/복원</text>
-
-  <!-- Thread Item 2: 레지스터 교체 -->
-  <path d="M 515,295 L 540,295" stroke="#9aa5b1" stroke-width="2" fill="none"/>
-  <rect x="540" y="273" width="270" height="44" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="560" y="299" font-size="14" font-weight="bold" fill="#1f2933">레지스터 교체</text>
-
+  <!-- 요점 -->
+  <text x="40" y="474" font-size="16" font-weight="bold" fill="#111827">스레드 쪽이 한 자릿수 가량 싸다 <tspan font-size="15" font-weight="normal" fill="#4b5563">(범위는 자릿수 감각으로만 볼 것)</tspan></text>
 </svg>

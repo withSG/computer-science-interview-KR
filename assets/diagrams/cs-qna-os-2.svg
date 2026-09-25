@@ -1,63 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">FCFS (First Come First Served) — 비선점</title>
-  <desc id="d">FCFS 스케줄링의 특징, Convoy Effect 단점, Gantt 차트 예시 및 대기 시간 계산 설명</desc>
-  
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 410" width="880" height="410" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">FCFS 대기 시간 예시</title>
+  <desc id="d">P1(24ms), P2(3ms), P3(3ms)가 순서대로 도착해 도착 순서대로 처리되면 P1이 0~24ms, P2가 24~27ms, P3가 27~30ms에 실행되고, 대기 시간은 P1=0, P2=24, P3=27로 평균 17ms다. 앞의 긴 작업이 뒤를 막는 Convoy Effect가 단점이다.</desc>
+  <rect width="880" height="410" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 규칙과 작업 -->
+  <text x="24" y="44" font-size="19" font-weight="bold" fill="#1d4ed8">도착 순서대로 처리</text>
+  <text x="24" y="76" font-size="16" fill="#111827"><tspan font-weight="bold">작업:</tspan> P1(24ms), P2(3ms), P3(3ms) 순서로 도착</text>
 
-  <!-- 헤딩 / 제목 -->
-  <text x="30" y="36" font-size="16" font-weight="bold" fill="#1f2933">1. FCFS (First Come First Served) — 비선점</text>
+  <!-- 눈금 보조선 (0, 24, 27, 30ms; 1ms = 20px, 0ms = x130) -->
+  <line x1="610" y1="116" x2="610" y2="266" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="670" y1="116" x2="670" y2="266" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="730" y1="116" x2="730" y2="266" stroke="#d1d5db" stroke-width="1" stroke-dasharray="4 4"/>
 
-  <!-- 핵심 개념 및 단점 블록 -->
-  <g transform="translate(30, 55)">
-    <!-- 특징 -->
-    <rect x="0" y="0" width="820" height="36" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="16" y="22" font-size="13" font-weight="bold" fill="#2563eb">도착 순서대로 처리</text>
+  <!-- 오른쪽 열 머리 -->
+  <text x="803" y="108" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">대기 시간</text>
 
-    <!-- 단점 (Convoy Effect) -->
-    <rect x="0" y="44" width="820" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-    <text x="16" y="66" font-size="13" font-weight="bold" fill="#dc2626">단점: 앞의 긴 작업이 뒤를 막음 (Convoy Effect)</text>
-  </g>
+  <!-- P1 -->
+  <text x="116" y="146" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">P1 (24ms)</text>
+  <rect x="130" y="122" width="480" height="36" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="370" y="146" font-size="15" fill="#1e3a8a" text-anchor="middle">실행</text>
+  <text x="803" y="146" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">0ms</text>
 
-  <!-- 작업 정보 영역 -->
-  <g transform="translate(30, 150)">
-    <rect x="0" y="0" width="820" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="16" y="20" font-size="13" fill="#1f2933"><tspan font-weight="bold">작업:</tspan> P1(24ms), P2(3ms), P3(3ms) 순서로 도착</text>
-  </g>
+  <!-- P2 -->
+  <text x="116" y="194" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">P2 (3ms)</text>
+  <rect x="130" y="170" width="478" height="36" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="369" y="194" font-size="15" fill="#4b5563" text-anchor="middle">대기</text>
+  <rect x="610" y="170" width="60" height="36" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="640" y="194" font-size="15" fill="#1e3a8a" text-anchor="middle">실행</text>
+  <text x="803" y="194" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">24ms</text>
 
-  <!-- Gantt 차트 (시각적 전사) -->
-  <g transform="translate(30, 198)">
-    <!-- P1 Box (24ms - 상대적 폭 반영) -->
-    <rect x="0" y="0" width="560" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="280" y="24" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">P1 (24ms)</text>
+  <!-- P3 -->
+  <text x="116" y="242" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">P3 (3ms)</text>
+  <rect x="130" y="218" width="538" height="36" rx="4" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="399" y="242" font-size="15" fill="#4b5563" text-anchor="middle">대기</text>
+  <rect x="670" y="218" width="60" height="36" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="700" y="242" font-size="15" fill="#1e3a8a" text-anchor="middle">실행</text>
+  <text x="803" y="242" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">27ms</text>
 
-    <!-- P2 Box (3ms) -->
-    <rect x="560" y="0" width="120" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="620" y="24" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">P2 (3ms)</text>
+  <!-- 시간 축 -->
+  <line x1="130" y1="266" x2="730" y2="266" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="130" y1="266" x2="130" y2="273" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="610" y1="266" x2="610" y2="273" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="670" y1="266" x2="670" y2="273" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="730" y1="266" x2="730" y2="273" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="130" y="292" font-size="15" fill="#374151" text-anchor="middle">0</text>
+  <text x="610" y="292" font-size="15" fill="#374151" text-anchor="middle">24</text>
+  <text x="670" y="292" font-size="15" fill="#374151" text-anchor="middle">27</text>
+  <text x="730" y="292" font-size="15" fill="#374151" text-anchor="middle">30</text>
+  <text x="752" y="292" font-size="15" fill="#374151">(ms)</text>
 
-    <!-- P3 Box (3ms) -->
-    <rect x="680" y="0" width="120" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="740" y="24" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">P3 (3ms)</text>
+  <!-- 결과 -->
+  <rect x="24" y="318" width="408" height="68" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="228" y="344" font-size="15" fill="#92400e" text-anchor="middle">평균 대기 시간</text>
+  <text x="228" y="370" font-size="18" font-weight="bold" fill="#92400e" text-anchor="middle">(0 + 24 + 27) / 3 = 17ms</text>
 
-    <!-- 타임라인 타임스탬프 -->
-    <text x="0" y="56" font-size="11.5" fill="#52606d" text-anchor="middle">0</text>
-    <text x="560" y="56" font-size="11.5" fill="#52606d" text-anchor="middle">24</text>
-    <text x="680" y="56" font-size="11.5" fill="#52606d" text-anchor="middle">27</text>
-    <text x="800" y="56" font-size="11.5" fill="#52606d" text-anchor="middle">30</text>
-  </g>
-
-  <!-- 대기 시간 계산 결과 -->
-  <g transform="translate(30, 280)">
-    <rect x="0" y="0" width="820" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="16" y="22" font-size="13" font-weight="bold" fill="#1f2933">대기 시간: P1=0, P2=24, P3=27 → 평균 17ms</text>
-  </g>
+  <rect x="448" y="318" width="408" height="68" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="652" y="344" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">단점: 앞의 긴 작업이 뒤를 막음</text>
+  <text x="652" y="370" font-size="16" fill="#b91c1c" text-anchor="middle">(Convoy Effect)</text>
 </svg>

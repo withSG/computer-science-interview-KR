@@ -1,51 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 230" width="880" height="230" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">연결 리스트 정의 다이어그램</title>
-  <desc id="d">head 포인터가 첫 번째 노드를 가리키고, 각 노드가 데이터와 다음 노드의 메모리 주소를 가리키는 포인터를 가져 사슬처럼 연결된 모습을 보여주는 다이어그램입니다.</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 260" width="880" height="260" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">연결 리스트의 노드 사슬</title>
+  <desc id="d">head가 첫 노드(10)를 가리키고, 각 노드의 next가 다음 노드(20, 30)를 가리키며 마지막 next는 null이다. 노드 주소는 0x7A20, 0x3C08, 0xF140으로 제각각이어서 연속일 필요가 없다.</desc>
+  <rect width="880" height="260" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#111827"/>
     </marker>
   </defs>
 
-  <rect width="880" height="230" fill="#ffffff"/>
-
-  <!-- head pointer -->
-  <text x="110" y="32" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">head</text>
-  <path d="M110,40 L110,72" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Node 1 (Address: 0x7A20) -->
-  <g>
-    <rect x="50" y="80" width="120" height="48" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="110" y1="80" x2="110" y2="128" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="80" y="108.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">10</text>
-    <circle cx="135" cy="104" r="4" fill="#1f2933"/>
-    <path d="M135,104 L318,104" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="110" y="148" font-size="12" fill="#52606d" text-anchor="middle">0x7A20</text>
+  <!-- 필드 이름 -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14" fill="#4b5563" text-anchor="middle">
+    <text x="192.5" y="80">data</text>
+    <text x="277.5" y="80">next</text>
+    <text x="432.5" y="80">data</text>
+    <text x="517.5" y="80">next</text>
+    <text x="672.5" y="80">data</text>
+    <text x="757.5" y="80">next</text>
   </g>
 
-  <!-- Node 2 (Address: 0x3C08) -->
-  <g>
-    <rect x="325" y="80" width="120" height="48" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="385" y1="80" x2="385" y2="128" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="355" y="108.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">20</text>
-    <circle cx="410" cy="104" r="4" fill="#1f2933"/>
-    <path d="M410,104 L593,104" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="385" y="148" font-size="12" fill="#52606d" text-anchor="middle">0x3C08</text>
+  <!-- head -->
+  <text x="24" y="126" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="17" font-weight="bold" fill="#111827">head</text>
+  <line x1="74" y1="120" x2="146" y2="120" stroke="#111827" stroke-width="2" marker-end="url(#ah-k)"/>
+
+  <!-- 노드 -->
+  <g fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5">
+    <rect x="150" y="90" width="170" height="60" rx="4"/>
+    <rect x="390" y="90" width="170" height="60" rx="4"/>
+    <rect x="630" y="90" width="170" height="60" rx="4"/>
+  </g>
+  <g stroke="#1d4ed8" stroke-width="1.5">
+    <line x1="235" y1="90" x2="235" y2="150"/>
+    <line x1="475" y1="90" x2="475" y2="150"/>
+    <line x1="715" y1="90" x2="715" y2="150"/>
+  </g>
+  <g font-size="22" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="192.5" y="128">10</text>
+    <text x="432.5" y="128">20</text>
+    <text x="672.5" y="128">30</text>
   </g>
 
-  <!-- Node 3 (Address: 0xF140) -->
-  <g>
-    <rect x="600" y="80" width="120" height="48" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <line x1="660" y1="80" x2="660" y2="128" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="630" y="108.2" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">30</text>
-    <text x="690" y="108.2" font-size="13" font-weight="500" fill="#7c3aed" text-anchor="middle">null</text>
-    <text x="660" y="148" font-size="12" fill="#52606d" text-anchor="middle">0xF140</text>
+  <!-- next 포인터 -->
+  <circle cx="277.5" cy="120" r="5" fill="#111827"/>
+  <circle cx="517.5" cy="120" r="5" fill="#111827"/>
+  <line x1="277.5" y1="120" x2="387" y2="120" stroke="#111827" stroke-width="2" marker-end="url(#ah-k)"/>
+  <line x1="517.5" y1="120" x2="627" y2="120" stroke="#111827" stroke-width="2" marker-end="url(#ah-k)"/>
+  <text x="757.5" y="126" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">null</text>
+
+  <!-- 주소 -->
+  <text x="24" y="184" font-size="15" fill="#4b5563">주소</text>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">
+    <text x="235" y="184">0x7A20</text>
+    <text x="475" y="184">0x3C08</text>
+    <text x="715" y="184">0xF140</text>
   </g>
 
-  <!-- Bottom Annotation Note -->
-  <text x="440" y="194.2" font-size="13" font-weight="500" fill="#d97706" text-anchor="middle">주소가 제각각 — 연속일 필요가 전혀 없다</text>
+  <!-- 요점 -->
+  <text x="440" y="234" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">주소가 제각각 — 연속일 필요가 전혀 없다</text>
 </svg>

@@ -1,125 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1160" width="880" height="1160" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">TLS 1.2 핸드셰이크</title>
-  <desc id="d">Client와 Server 간의 TLS 1.2 핸드셰이크 과정을 나타낸 Sequence Diagram</desc>
-  <rect width="880" height="1160" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 1010" width="880" height="1010" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TLS 1.2 핸드셰이크 흐름</title>
+  <desc id="d">TCP 연결 뒤 Client와 Server가 두 번 왕복하며 메시지를 주고받는 TLS 1.2 핸드셰이크. 첫 왕복은 ClientHello부터 ServerHelloDone까지, 인증서 검증 뒤 두 번째 왕복에서 키 교환과 Finished를 마치고 대칭키 암호화 통신으로 넘어간다.</desc>
+  <rect width="880" height="1010" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Title Section -->
-  <text x="440" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">TLS 1.2 핸드셰이크</text>
+  <!-- 참여자 -->
+  <rect x="50" y="24" width="140" height="44" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="120" y="52" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <rect x="530" y="24" width="140" height="44" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="600" y="52" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
+  <line x1="120" y1="68" x2="120" y2="950" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="600" y1="68" x2="600" y2="950" stroke="#9ca3af" stroke-width="2"/>
 
-  <!-- RTT Sections Background & Markers -->
-  <!-- 1 RTT Zone -->
-  <rect x="50" y="145" width="710" height="370" rx="8" fill="#eff6ff" fill-opacity="0.5" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M 800,165 L 820,165 L 820,505 L 800,505" stroke="#2563eb" stroke-width="2" fill="none"/>
-  <text x="830" y="340" font-size="14" font-weight="bold" fill="#2563eb">1 RTT</text>
+  <!-- 전제 -->
+  <rect x="190" y="86" width="340" height="34" rx="6" fill="#f9fafb" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="360" y="108" font-size="15" fill="#4b5563" text-anchor="middle">TCP 3-way 핸드셰이크가 이미 끝난 상태</text>
 
-  <!-- 2 RTT Zone -->
-  <rect x="50" y="585" width="710" height="340" rx="8" fill="#f5f3ff" fill-opacity="0.5" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="4 4"/>
-  <path d="M 800,605 L 820,605 L 820,905 L 800,905" stroke="#7c3aed" stroke-width="2" fill="none"/>
-  <text x="830" y="760" font-size="14" font-weight="bold" fill="#7c3aed">2 RTT</text>
+  <!-- 첫 번째 왕복 -->
+  <line x1="122" y1="178" x2="598" y2="178" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="136" y="170" font-size="16" font-weight="bold" fill="#111827">ClientHello</text>
+  <rect x="136" y="190" width="316" height="106" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="152" y="213" font-size="15" fill="#374151">· 지원 TLS 버전</text>
+  <text x="152" y="236" font-size="15" fill="#374151">· Cipher Suite 목록</text>
+  <text x="152" y="259" font-size="15" fill="#374151">· 클라이언트 랜덤</text>
+  <text x="152" y="282" font-size="15" fill="#374151">· SNI(접속하려는 도메인) <tspan font-weight="bold" fill="#b91c1c">← 평문</tspan></text>
 
-  <!-- Lifelines & Headers -->
-  <rect x="110" y="70" width="140" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="180" y="94" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+  <line x1="598" y1="334" x2="122" y2="334" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="584" y="326" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">ServerHello</text>
+  <rect x="324" y="346" width="260" height="60" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="340" y="369" font-size="15" fill="#374151">· 선택한 버전 / Cipher Suite</text>
+  <text x="340" y="392" font-size="15" fill="#374151">· 서버 랜덤</text>
 
-  <rect x="610" y="70" width="140" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="680" y="94" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <line x1="598" y1="446" x2="122" y2="446" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="584" y="438" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">Certificate (인증서 체인)</text>
 
-  <line x1="180" y1="110" x2="180" y2="1090" stroke="#cbd2d9" stroke-width="2"/>
-  <line x1="680" y1="110" x2="680" y2="1090" stroke="#cbd2d9" stroke-width="2"/>
+  <line x1="598" y1="492" x2="122" y2="492" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="584" y="484" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">ServerKeyExchange (ECDHE 공개값 + 서명)</text>
 
-  <!-- Top Note: TCP 3-way -->
-  <rect x="230" y="120" width="400" height="26" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="430" y="137" font-size="12" fill="#52606d" text-anchor="middle">(TCP 3-way 핸드셰이크가 이미 끝난 상태)</text>
+  <line x1="598" y1="538" x2="122" y2="538" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="584" y="530" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">ServerHelloDone</text>
 
-  <!-- 1. ClientHello -->
-  <path d="M 180,175 L 680,175" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="230" y="162" width="105" height="20" fill="#ffffff"/>
-  <text x="235" y="177" font-size="13" font-weight="bold" fill="#2563eb">ClientHello</text>
+  <path d="M 624 178 H 640 V 538 H 624" fill="none" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="654" y="356" font-size="20" font-weight="bold" fill="#1d4ed8">1 RTT</text>
+  <text x="654" y="380" font-size="15" fill="#4b5563">첫 번째 왕복</text>
 
-  <text x="210" y="200" font-size="11.5" fill="#52606d">· 지원 TLS 버전</text>
-  <text x="210" y="220" font-size="11.5" fill="#52606d">· Cipher Suite 목록</text>
-  <text x="210" y="240" font-size="11.5" fill="#52606d">· 클라이언트 랜덤</text>
-  <text x="210" y="260" font-size="11.5" fill="#52606d">· SNI(접속하려는 도메인) ← 평문</text>
+  <!-- 클라이언트의 인증서 검증 -->
+  <rect x="96" y="566" width="460" height="46" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="326" y="595" font-size="16" fill="#111827" text-anchor="middle"><tspan font-weight="bold" fill="#b45309">인증서 검증:</tspan> 서명 · 유효기간 · 도메인 · 폐기 여부</text>
 
-  <!-- 2. Server Hello Group -->
-  <path d="M 680,295 L 180,295" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="540" y="282" width="105" height="20" fill="#ffffff"/>
-  <text x="545" y="297" font-size="13" font-weight="bold" fill="#1f2933">ServerHello</text>
+  <!-- 두 번째 왕복 -->
+  <line x1="122" y1="666" x2="598" y2="666" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="136" y="658" font-size="16" font-weight="bold" fill="#111827">ClientKeyExchange (ECDHE 공개값)</text>
 
-  <text x="510" y="320" font-size="11.5" fill="#52606d">· 선택한 버전 / Cipher Suite</text>
-  <text x="510" y="340" font-size="11.5" fill="#52606d">· 서버 랜덤</text>
+  <line x1="122" y1="712" x2="598" y2="712" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="136" y="704" font-size="16" font-weight="bold" fill="#111827">ChangeCipherSpec</text>
 
-  <!-- Certificate -->
-  <path d="M 680,375 L 180,375" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="480" y="362" width="165" height="20" fill="#ffffff"/>
-  <text x="485" y="377" font-size="13" font-weight="bold" fill="#1f2933">Certificate (인증서 체인)</text>
+  <line x1="122" y1="758" x2="598" y2="758" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="136" y="750" font-size="16" font-weight="bold" fill="#047857">Finished (암호화됨)</text>
 
-  <!-- ServerKeyExchange -->
-  <path d="M 680,425 L 180,425" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="360" y="412" width="285" height="20" fill="#ffffff"/>
-  <text x="365" y="427" font-size="13" font-weight="bold" fill="#1f2933">ServerKeyExchange (ECDHE 공개값 + 서명)</text>
+  <line x1="598" y1="812" x2="122" y2="812" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="584" y="804" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">ChangeCipherSpec</text>
 
-  <!-- ServerHelloDone -->
-  <path d="M 680,475 L 180,475" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="525" y="462" width="120" height="20" fill="#ffffff"/>
-  <text x="530" y="477" font-size="13" font-weight="bold" fill="#1f2933">ServerHelloDone</text>
+  <line x1="598" y1="858" x2="122" y2="858" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="584" y="850" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">Finished (암호화됨)</text>
 
-  <!-- Certificate Verification (Client Internal Process) -->
-  <rect x="120" y="525" width="370" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="305" y="550" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">[인증서 검증: 서명 · 유효기간 · 도메인 · 폐기 여부]</text>
+  <path d="M 624 666 H 640 V 858 H 624" fill="none" stroke="#6d28d9" stroke-width="2"/>
+  <text x="654" y="762" font-size="20" font-weight="bold" fill="#6d28d9">2 RTT</text>
+  <text x="654" y="786" font-size="15" fill="#4b5563">두 번째 왕복</text>
 
-  <!-- 3. Client Key Exchange & Cipher Spec -->
-  <!-- ClientKeyExchange -->
-  <path d="M 180,615 L 680,615" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="602" width="235" height="20" fill="#ffffff"/>
-  <text x="235" y="617" font-size="13" font-weight="bold" fill="#7c3aed">ClientKeyExchange (ECDHE 공개값)</text>
+  <!-- 이후 데이터 -->
+  <line x1="124" y1="916" x2="596" y2="916" stroke="#047857" stroke-width="3.5" marker-start="url(#ah-green)" marker-end="url(#ah-green)"/>
+  <rect x="240" y="898" width="240" height="36" rx="18" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <text x="360" y="922" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">이후 대칭키로 암호화된 통신</text>
 
-  <!-- ChangeCipherSpec -->
-  <path d="M 180,665 L 680,665" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="652" width="145" height="20" fill="#ffffff"/>
-  <text x="235" y="667" font-size="13" font-weight="bold" fill="#7c3aed">ChangeCipherSpec</text>
-
-  <!-- Finished -->
-  <path d="M 180,715 L 680,715" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="702" width="140" height="20" fill="#ffffff"/>
-  <text x="235" y="717" font-size="13" font-weight="bold" fill="#7c3aed">Finished (암호화됨)</text>
-
-  <!-- Server ChangeCipherSpec & Finished -->
-  <!-- ChangeCipherSpec -->
-  <path d="M 680,785 L 180,785" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="500" y="772" width="145" height="20" fill="#ffffff"/>
-  <text x="505" y="787" font-size="13" font-weight="bold" fill="#7c3aed">ChangeCipherSpec</text>
-
-  <!-- Finished -->
-  <path d="M 680,835 L 180,835" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="505" y="822" width="140" height="20" fill="#ffffff"/>
-  <text x="510" y="837" font-size="13" font-weight="bold" fill="#7c3aed">Finished (암호화됨)</text>
-
-  <!-- Secure Communication Phase -->
-  <rect x="180" y="955" width="500" height="50" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <path d="M 195,980 L 665,980" stroke="#059669" stroke-width="2.5" fill="none" marker-start="url(#a-green)" marker-end="url(#a-green)"/>
-  <rect x="330" y="970" width="200" height="20" fill="#ecfdf5"/>
-  <text x="430" y="985" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">이후 대칭키로 암호화된 통신</text>
-
-  <!-- Bottom Lifeline End Caps -->
-  <rect x="110" y="1050" width="140" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="180" y="1070" font-size="13" fill="#52606d" text-anchor="middle">Client</text>
-
-  <rect x="610" y="1050" width="140" height="30" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="680" y="1070" font-size="13" fill="#52606d" text-anchor="middle">Server</text>
+  <!-- 범례와 요약 -->
+  <line x1="40" y1="982" x2="84" y2="982" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="94" y="987" font-size="15" fill="#374151">평문 메시지</text>
+  <line x1="200" y1="982" x2="244" y2="982" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="254" y="987" font-size="15" fill="#374151">암호화된 메시지</text>
+  <text x="856" y="987" font-size="15" fill="#374151" text-anchor="end">TCP 1 RTT까지 합치면 데이터 전송 전 <tspan font-weight="bold" fill="#111827">3 RTT</tspan></text>
 </svg>

@@ -1,89 +1,102 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">홉마다 바뀌는 것, 안 바뀌는 것</title>
-  <desc id="d">L2 MAC 주소는 홉마다 변경되고 L3 IP 주소는 종단 간에 유지됨을 보여주는 네트워크 경로 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">홉마다 바뀌는 MAC, 그대로인 IP</title>
+  <desc id="d">내 PC에서 공유기, ISP 라우터를 거쳐 서버까지 가는 동안 구간마다 출발·도착 MAC 주소는 새로 쓰이지만, 출발 IP 192.0.2.10과 도착 IP 203.0.113.5는 끝까지 그대로임을 표로 보여 줍니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="390" fill="#ffffff"/>
+  <rect width="880" height="400" fill="#ffffff"/>
 
-  <!-- 상단 장치 노드 구조 -->
-  <!-- [내 PC] -->
-  <rect x="40" y="30" width="120" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="100" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[내 PC]</text>
-  <text x="100" y="90" font-size="12" fill="#52606d" text-anchor="middle">MAC:AA</text>
-  <text x="100" y="108" font-size="12" fill="#2563eb" text-anchor="middle">IP:192.0.2.10</text>
+  <!-- 경로: 장비 노드 -->
+  <rect x="36" y="40" width="100" height="46" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="86" y="69" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">내 PC</text>
 
-  <!-- 연결선 1 -->
-  <path d="M160,50 L250,50" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="216" y="40" width="100" height="46" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="266" y="69" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">공유기</text>
 
-  <!-- [공유기] -->
-  <rect x="250" y="30" width="120" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="310" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[공유기]</text>
-  <text x="310" y="90" font-size="12" fill="#52606d" text-anchor="middle">MAC:BB</text>
+  <rect x="396" y="40" width="116" height="46" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="454" y="69" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">ISP 라우터</text>
 
-  <!-- 연결선 2 -->
-  <path d="M370,50 L460,50" stroke="#9aa5b1" stroke-width="1.5" fill="none"/>
+  <rect x="592" y="40" width="64" height="46" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="624" y="68" font-size="20" font-weight="bold" fill="#374151" text-anchor="middle">…</text>
 
-  <!-- [ISP 라우터] -->
-  <rect x="460" y="30" width="130" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="525" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[ISP 라우터]</text>
-  <text x="525" y="90" font-size="12" fill="#52606d" text-anchor="middle">MAC:CC</text>
+  <rect x="736" y="40" width="108" height="46" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="790" y="69" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">서버</text>
 
-  <!-- 생략선 -->
-  <path d="M590,50 L640,50" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
-  <text x="665" y="54" font-size="14" fill="#52606d" text-anchor="middle">...</text>
-  <path d="M690,50 L720,50" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+  <!-- 경로: 구간 링크 -->
+  <line x1="140" y1="63" x2="211" y2="63" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="176" y="52" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">구간 1</text>
 
-  <!-- [서버] -->
-  <rect x="720" y="30" width="120" height="40" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="780" y="54" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[서버]</text>
-  <text x="780" y="90" font-size="12" fill="#52606d" text-anchor="middle">MAC:ZZ</text>
-  <text x="780" y="108" font-size="12" fill="#2563eb" text-anchor="middle">IP:203.0.113.5</text>
+  <line x1="320" y1="63" x2="391" y2="63" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="356" y="52" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">구간 2</text>
 
-  <!-- 구분선 -->
-  <path d="M40,135 L840,135" stroke="#cbd2d9" stroke-width="1" fill="none"/>
+  <line x1="516" y1="63" x2="587" y2="63" stroke="#4b5563" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arr)"/>
 
-  <!-- 구간 패킷 정보 표기 -->
-  <!-- 구간 1 -->
-  <g transform="translate(40, 160)">
-    <rect x="0" y="0" width="790" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="15" y="22" font-size="13" font-weight="bold" fill="#d97706">구간 1:</text>
-    <text x="75" y="22" font-size="13" fill="#1f2933">출발MAC=AA, 도착MAC=BB</text>
-    <line x1="320" y1="6" x2="320" y2="30" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="335" y="22" font-size="13" fill="#2563eb">출발IP=192.0.2.10, 도착IP=203.0.113.5</text>
+  <line x1="660" y1="63" x2="731" y2="63" stroke="#4b5563" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="696" y="52" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">구간 N</text>
+
+  <!-- 경로: 장비별 주소 -->
+  <text x="86" y="110" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">MAC:AA</text>
+  <text x="86" y="132" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">IP:192.0.2.10</text>
+  <text x="266" y="110" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">MAC:BB</text>
+  <text x="454" y="110" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">MAC:CC</text>
+  <text x="624" y="110" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">MAC:YY</text>
+  <text x="790" y="110" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">MAC:ZZ</text>
+  <text x="790" y="132" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">IP:203.0.113.5</text>
+
+  <!-- 표: 배경 면 -->
+  <rect x="36" y="160" width="96" height="90" fill="#f3f4f6"/>
+  <rect x="132" y="160" width="300" height="54" fill="#fff7ed"/>
+  <rect x="432" y="160" width="412" height="54" fill="#eff6ff"/>
+  <rect x="132" y="214" width="300" height="36" fill="#ffedd5"/>
+  <rect x="432" y="214" width="412" height="36" fill="#dbeafe"/>
+  <rect x="132" y="250" width="300" height="114" fill="#fffaf5"/>
+  <rect x="432" y="250" width="412" height="114" fill="#f8fbff"/>
+
+  <!-- 표: 격자 -->
+  <g stroke="#9ca3af" stroke-width="1" fill="none">
+    <line x1="132" y1="214" x2="844" y2="214"/>
+    <line x1="36" y1="250" x2="844" y2="250"/>
+    <line x1="36" y1="288" x2="844" y2="288"/>
+    <line x1="36" y1="326" x2="844" y2="326"/>
+    <line x1="132" y1="160" x2="132" y2="364"/>
+    <line x1="282" y1="214" x2="282" y2="364"/>
+    <line x1="432" y1="160" x2="432" y2="364"/>
+    <line x1="638" y1="214" x2="638" y2="364"/>
   </g>
+  <rect x="36" y="160" width="808" height="204" fill="none" stroke="#4b5563" stroke-width="1.5"/>
 
-  <!-- 구간 2 -->
-  <g transform="translate(40, 210)">
-    <rect x="0" y="0" width="790" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="15" y="22" font-size="13" font-weight="bold" fill="#d97706">구간 2:</text>
-    <text x="75" y="22" font-size="13" fill="#1f2933">출발MAC=BB, 도착MAC=CC</text>
-    <line x1="320" y1="6" x2="320" y2="30" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="335" y="22" font-size="13" fill="#2563eb">출발IP=192.0.2.10, 도착IP=203.0.113.5</text>
-  </g>
+  <!-- 표: 머리행 -->
+  <text x="84" y="211" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">구간</text>
+  <text x="282" y="184" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">MAC 주소 (L2)</text>
+  <text x="282" y="205" font-size="15" fill="#9a3412" text-anchor="middle">홉마다 새로 씀 · hop-by-hop</text>
+  <text x="638" y="184" font-size="17" font-weight="bold" fill="#1e40af" text-anchor="middle">IP 주소 (L3)</text>
+  <text x="638" y="205" font-size="15" fill="#1e40af" text-anchor="middle">끝까지 그대로 · end-to-end</text>
 
-  <!-- 구간 N -->
-  <g transform="translate(40, 260)">
-    <rect x="0" y="0" width="790" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="15" y="22" font-size="13" font-weight="bold" fill="#d97706">구간 N:</text>
-    <text x="75" y="22" font-size="13" fill="#1f2933">출발MAC=YY, 도착MAC=ZZ</text>
-    <line x1="320" y1="6" x2="320" y2="30" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="335" y="22" font-size="13" fill="#2563eb">출발IP=192.0.2.10, 도착IP=203.0.113.5</text>
-  </g>
+  <text x="207" y="238" font-size="15" font-weight="bold" fill="#7c2d12" text-anchor="middle">출발 MAC</text>
+  <text x="357" y="238" font-size="15" font-weight="bold" fill="#7c2d12" text-anchor="middle">도착 MAC</text>
+  <text x="535" y="238" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">출발 IP</text>
+  <text x="741" y="238" font-size="15" font-weight="bold" fill="#1e3a8a" text-anchor="middle">도착 IP</text>
 
-  <!-- 하단 괄호 및 설명 라벨 -->
-  <!-- 홉마다 새로 씀 (MAC 범위: x=115 ~ x=330) -->
-  <path d="M115,306 L115,316 L222.5,316 L222.5,324 L222.5,316 L330,316 L330,306" stroke="#d97706" stroke-width="1.5" fill="none"/>
-  <rect x="150" y="330" width="145" height="26" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="222.5" y="347" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">홉마다 새로 씀</text>
+  <!-- 표: 구간 1 -->
+  <text x="84" y="275" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">구간 1</text>
+  <text x="207" y="275" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">AA</text>
+  <text x="357" y="275" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">BB</text>
+  <text x="535" y="275" font-size="16" fill="#1e3a8a" text-anchor="middle">192.0.2.10</text>
+  <text x="741" y="275" font-size="16" fill="#1e3a8a" text-anchor="middle">203.0.113.5</text>
 
-  <!-- 끝까지 그대로 (IP 범위: x=375 ~ x=770) -->
-  <path d="M375,306 L375,316 L572.5,316 L572.5,324 L572.5,316 L770,316 L770,306" stroke="#2563eb" stroke-width="1.5" fill="none"/>
-  <rect x="500" y="330" width="145" height="26" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-  <text x="572.5" y="347" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">끝까지 그대로</text>
+  <!-- 표: 구간 2 -->
+  <text x="84" y="313" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">구간 2</text>
+  <text x="207" y="313" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">BB</text>
+  <text x="357" y="313" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">CC</text>
+  <text x="535" y="313" font-size="16" fill="#1e3a8a" text-anchor="middle">192.0.2.10</text>
+  <text x="741" y="313" font-size="16" fill="#1e3a8a" text-anchor="middle">203.0.113.5</text>
+
+  <!-- 표: 구간 N -->
+  <text x="84" y="351" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">구간 N</text>
+  <text x="207" y="351" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">YY</text>
+  <text x="357" y="351" font-size="17" font-weight="bold" fill="#9a3412" text-anchor="middle">ZZ</text>
+  <text x="535" y="351" font-size="16" fill="#1e3a8a" text-anchor="middle">192.0.2.10</text>
+  <text x="741" y="351" font-size="16" fill="#1e3a8a" text-anchor="middle">203.0.113.5</text>
 </svg>

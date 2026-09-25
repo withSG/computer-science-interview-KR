@@ -1,43 +1,70 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 395" width="880" height="395" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">소프트웨어 호환성</title>
-  <desc id="d">x86에서 ARM으로 이식 시 고려 사항과 Apple Rosetta 2를 통한 해결 방안 다이어그램</desc>
-  <rect width="880" height="395" fill="#ffffff"/>
+  <desc id="d">x86에서 ARM으로 이식할 때는 엔디언(ARM은 bi-endian, 기본 little-endian), 정렬(위반 시 오류 가능), 컴파일러 재빌드를 고려해야 한다. 해결책인 Apple Rosetta 2는 x86 바이너리를 ARM에서 사전 번역하고, JIT 코드는 실행 중 번역한다.</desc>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+  </defs>
+  <rect width="880" height="520" fill="#ffffff"/>
 
-  <!-- Main Container -->
-  <rect x="24" y="24" width="832" height="347" rx="8" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
+  <!-- 고려 사항 -->
+  <rect x="24" y="24" width="832" height="212" rx="12" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="48" y="60" font-size="19" font-weight="bold" fill="#92400e">x86 → ARM 이식 시 고려 사항</text>
 
-  <!-- Title / Header Zone -->
-  <text x="48" y="60" font-size="16" font-weight="bold" fill="#1f2933">소프트웨어 호환성</text>
+  <!-- 1 엔디언 -->
+  <rect x="48" y="80" width="248" height="132" rx="10" fill="#ffffff" stroke="#fbbf24" stroke-width="1.5"/>
+  <circle cx="76" cy="112" r="14" fill="#b45309"/>
+  <text x="76" y="117.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="100" y="118" font-size="16" font-weight="bold" fill="#1f2937">엔디언(Byte Order)</text>
+  <line x1="64" y1="138" x2="280" y2="138" stroke="#fde68a" stroke-width="1.5"/>
+  <text x="68" y="166" font-size="15" fill="#374151">
+    <tspan x="68" y="166">ARM은 bi-endian</tspan>
+    <tspan x="68" dy="22">(기본 little-endian)</tspan>
+  </text>
 
-  <!-- Section 1: x86 -> ARM Transposition Box -->
-  <rect x="48" y="80" width="784" height="155" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
+  <!-- 2 정렬 -->
+  <rect x="316" y="80" width="248" height="132" rx="10" fill="#ffffff" stroke="#fbbf24" stroke-width="1.5"/>
+  <circle cx="344" cy="112" r="14" fill="#b45309"/>
+  <text x="344" y="117.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="368" y="118" font-size="16" font-weight="bold" fill="#1f2937">정렬(Alignment)</text>
+  <line x1="332" y1="138" x2="548" y2="138" stroke="#fde68a" stroke-width="1.5"/>
+  <text x="336" y="166" font-size="15" fill="#374151">
+    <tspan x="336" y="166">ARM은 정렬 위반 시</tspan>
+    <tspan x="336" dy="22">오류 가능</tspan>
+  </text>
 
-  <!-- Sub-header Label -->
-  <text x="72" y="112" font-size="14" font-weight="bold" fill="#2563eb">x86 → ARM 이식 시 고려 사항:</text>
+  <!-- 3 컴파일러 -->
+  <rect x="584" y="80" width="248" height="132" rx="10" fill="#ffffff" stroke="#fbbf24" stroke-width="1.5"/>
+  <circle cx="612" cy="112" r="14" fill="#b45309"/>
+  <text x="612" y="117.5" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="636" y="118" font-size="16" font-weight="bold" fill="#1f2937">컴파일러</text>
+  <line x1="600" y1="138" x2="816" y2="138" stroke="#fde68a" stroke-width="1.5"/>
+  <text x="604" y="166" font-size="15" fill="#374151">재빌드 필요</text>
 
-  <!-- Bullet Items -->
-  <!-- Bullet 1 -->
-  <circle cx="80" cy="141" r="3" fill="#52606d"/>
-  <text x="94" y="145" font-size="13" font-weight="bold" fill="#1f2933">엔디언(Byte Order):</text>
-  <text x="238" y="145" font-size="13" fill="#52606d">ARM은 bi-endian (기본 little-endian)</text>
+  <!-- 전환 -->
+  <line x1="440" y1="242" x2="440" y2="268" stroke="#4b5563" stroke-width="2.5" marker-end="url(#ar)"/>
 
-  <!-- Bullet 2 -->
-  <circle cx="80" cy="171" r="3" fill="#52606d"/>
-  <text x="94" y="175" font-size="13" font-weight="bold" fill="#1f2933">정렬(Alignment):</text>
-  <text x="216" y="175" font-size="13" fill="#52606d">ARM은 정렬 위반 시 오류 가능</text>
+  <!-- 해결 -->
+  <rect x="24" y="276" width="832" height="220" rx="12" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="48" y="311" font-size="19" font-weight="bold" fill="#065f46">해결</text>
 
-  <!-- Bullet 3 -->
-  <circle cx="80" cy="201" r="3" fill="#52606d"/>
-  <text x="94" y="205" font-size="13" fill="#1f2933">컴파일러 재빌드 필요</text>
+  <rect x="48" y="372" width="236" height="40" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="166" y="397.5" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">x86 바이너리</text>
+  <rect x="48" y="424" width="236" height="40" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="166" y="449.5" font-size="16" font-weight="bold" fill="#1f2937" text-anchor="middle">JIT 코드</text>
 
-  <!-- Section 2: Solution Box -->
-  <rect x="48" y="255" width="784" height="92" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
+  <line x1="292" y1="392" x2="384" y2="392" stroke="#047857" stroke-width="2" marker-end="url(#ag)"/>
+  <line x1="292" y1="444" x2="384" y2="444" stroke="#047857" stroke-width="2" marker-end="url(#ag)"/>
 
-  <!-- Solution Header -->
-  <text x="72" y="287" font-size="14" font-weight="bold" fill="#059669">해결:</text>
-
-  <!-- Solution Bullet -->
-  <circle cx="80" cy="316" r="3" fill="#059669"/>
-  <text x="94" y="320" font-size="13" font-weight="bold" fill="#1f2933">Apple Rosetta 2:</text>
-  <text x="212" y="320" font-size="13" fill="#1f2933">x86 바이너리를 ARM에서 사전 번역(JIT 코드는 실행 중 번역)</text>
+  <rect x="392" y="326" width="440" height="154" rx="10" fill="#ffffff" stroke="#047857" stroke-width="2"/>
+  <text x="412" y="357" font-size="18" font-weight="bold" fill="#065f46">Apple Rosetta 2</text>
+  <text x="812" y="357" font-size="15" fill="#4b5563" text-anchor="end">ARM에서 번역</text>
+  <rect x="412" y="372" width="400" height="40" rx="8" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="612" y="397.5" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">사전 번역</text>
+  <rect x="412" y="424" width="400" height="40" rx="8" fill="#f0fdf4" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="612" y="449.5" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">실행 중 번역</text>
 </svg>

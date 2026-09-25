@@ -81,7 +81,7 @@
 인접한 두 원소를 비교해 순서가 어긋나면 교환합니다. 한 번 훑을 때마다 가장 큰 값이 맨 뒤로 "떠오릅니다".
 
 <!-- diagram:cs-sorting-6 -->
-![버블 정렬 (Bubble Sort)](../../assets/diagrams/cs-sorting-6.svg)
+![버블 정렬: 회전마다 최댓값이 맨 뒤로 확정되는 과정](../../assets/diagrams/cs-sorting-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -122,7 +122,7 @@
 > **비유의 한계**: 사람은 카드 전체를 한눈에 훑어 자리를 바로 짚습니다. 삽입 정렬은 오른쪽 끝부터 한 칸씩 비교하며 원소를 밀어냅니다. 카드 정리가 빨라 보이는 건 사람의 시야가 병렬로 동작해서지, 알고리즘이 O(n)이라서가 아닙니다.
 
 <!-- diagram:cs-sorting-7 -->
-![삽입 정렬 (Insertion Sort)](../../assets/diagrams/cs-sorting-7.svg)
+![삽입 정렬: key를 정렬된 구간의 제자리에 끼워 넣는 과정](../../assets/diagrams/cs-sorting-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -267,7 +267,7 @@ static void swap(int[] a, int x, int y) { int t = a[x]; a[x] = a[y]; a[y] = t; }
 분할이 균등해야 재귀 깊이가 log n이 됩니다. 피벗이 매번 최솟값이나 최댓값으로 뽑히면 한쪽이 0개, 다른 쪽이 n-1개로 갈려 깊이가 n이 됩니다.
 
 <!-- diagram:cs-sorting-8 -->
-![최악 케이스](../../assets/diagrams/cs-sorting-8.svg)
+![퀵 정렬 균등 분할 O(n log n)과 편향 분할 O(n²) 비교](../../assets/diagrams/cs-sorting-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

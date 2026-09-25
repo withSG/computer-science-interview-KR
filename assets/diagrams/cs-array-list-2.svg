@@ -1,88 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 280" width="880" height="280" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">중간 삽입/삭제</title>
-  <desc id="d">arr[1] 자리에 15를 삽입할 때, 기존 요소들이 뒤로 한 칸씩 이동하는 과정을 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="280" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">배열 중간 삽입과 이동</title>
+  <desc id="d">arr[1] 자리에 15를 삽입하려면 before의 20, 30, 40, 50이 뒤로 한 칸씩 이동(4번)해야 하고, after는 10, 15, 20, 30, 40, 50이 된다.</desc>
+  <rect width="880" height="300" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (주황색) -->
-    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,1.5 L8,5 L0,8.5 z" fill="#d97706"/>
+    <marker id="ah-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- 상단 제목/설명 텍스트 -->
-  <text x="40" y="38" font-size="14" font-weight="bold" fill="#1f2933">arr[1] 자리에 15를 삽입</text>
+  <!-- 캡션 -->
+  <text x="24" y="38" font-size="18" font-weight="bold" fill="#111827">arr[1] 자리에 <tspan fill="#047857">15</tspan>를 삽입</text>
 
-  <!-- Section 1: before -->
-  <g transform="translate(40, 60)">
-    <!-- 라벨: before: -->
-    <text x="0" y="32" font-size="13" font-weight="bold" fill="#52606d">before:</text>
-
-    <!-- 배열 박스그룹 (x 시작: 70) -->
-    <!-- [10] -->
-    <rect x="70" y="10" width="56" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="98" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">10</text>
-
-    <!-- [20] -->
-    <rect x="130" y="10" width="56" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="158" y="33" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">20</text>
-
-    <!-- [30] -->
-    <rect x="190" y="10" width="56" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="218" y="33" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">30</text>
-
-    <!-- [40] -->
-    <rect x="250" y="10" width="56" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="278" y="33" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">40</text>
-
-    <!-- [50] -->
-    <rect x="310" y="10" width="56" height="36" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="338" y="33" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">50</text>
-
-    <!-- [  ] 빈 칸 -->
-    <rect x="370" y="10" width="56" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 3"/>
-
-    <!-- 이동 경로선 및 화살표 -->
-    <!-- └───┴───┴───┴───→ -->
-    <path d="M 158,52 L 158,68 L 398,68" fill="none" stroke="#d97706" stroke-width="1.5" marker-end="url(#arrow-amber)"/>
-
-    <!-- 수직 분기선들 (20, 30, 40, 50 하단에서 연결) -->
-    <line x1="218" y1="52" x2="218" y2="68" stroke="#d97706" stroke-width="1.5"/>
-    <line x1="278" y1="52" x2="278" y2="68" stroke="#d97706" stroke-width="1.5"/>
-    <line x1="338" y1="52" x2="338" y2="68" stroke="#d97706" stroke-width="1.5"/>
-
-    <!-- 이동 설명 라벨 배경 + 텍스트 -->
-    <rect x="408" y="58" width="168" height="22" fill="#ffffff"/>
-    <text x="412" y="74" font-size="13" fill="#d97706" font-weight="bold">뒤로 한 칸씩 이동 (4번)</text>
+  <!-- 인덱스 -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="14" fill="#4b5563" text-anchor="middle">
+    <text x="180" y="76">[0]</text>
+    <text x="260" y="76" fill="#047857" font-weight="bold">[1]</text>
+    <text x="340" y="76">[2]</text>
+    <text x="420" y="76">[3]</text>
+    <text x="500" y="76">[4]</text>
+    <text x="580" y="76">[5]</text>
   </g>
 
-  <!-- Section 2: after -->
-  <g transform="translate(40, 180)">
-    <!-- 라벨: after: -->
-    <text x="0" y="32" font-size="13" font-weight="bold" fill="#52606d">after:</text>
+  <!-- before -->
+  <text x="24" y="118" font-size="16" font-weight="bold" fill="#374151">before</text>
+  <rect x="140" y="86" width="80" height="52" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <g fill="#fffbeb" stroke="#b45309" stroke-width="1.5">
+    <rect x="220" y="86" width="80" height="52"/>
+    <rect x="300" y="86" width="80" height="52"/>
+    <rect x="380" y="86" width="80" height="52"/>
+    <rect x="460" y="86" width="80" height="52"/>
+  </g>
+  <rect x="540" y="86" width="80" height="52" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <g font-size="20" font-weight="bold" text-anchor="middle">
+    <text x="180" y="119" fill="#111827">10</text>
+    <text x="260" y="119" fill="#92400e">20</text>
+    <text x="340" y="119" fill="#92400e">30</text>
+    <text x="420" y="119" fill="#92400e">40</text>
+    <text x="500" y="119" fill="#92400e">50</text>
+  </g>
 
-    <!-- [10] -->
-    <rect x="70" y="10" width="56" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="98" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">10</text>
+  <!-- 이동 화살표 -->
+  <g stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#ah-o)">
+    <line x1="260" y1="144" x2="338" y2="207"/>
+    <line x1="340" y1="144" x2="418" y2="207"/>
+    <line x1="420" y1="144" x2="498" y2="207"/>
+    <line x1="500" y1="144" x2="578" y2="207"/>
+  </g>
+  <text x="606" y="180" font-size="16" font-weight="bold" fill="#b45309">뒤로 한 칸씩 이동 (4번)</text>
 
-    <!-- [15] (삽입된 요소 - 초록색 강조) -->
-    <rect x="130" y="10" width="56" height="36" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-    <text x="158" y="33" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">15</text>
-
-    <!-- [20] -->
-    <rect x="190" y="10" width="56" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="218" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">20</text>
-
-    <!-- [30] -->
-    <rect x="250" y="10" width="56" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="278" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">30</text>
-
-    <!-- [40] -->
-    <rect x="310" y="10" width="56" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="338" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">40</text>
-
-    <!-- [50] -->
-    <rect x="370" y="10" width="56" height="36" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="398" y="33" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">50</text>
+  <!-- after -->
+  <text x="24" y="246" font-size="16" font-weight="bold" fill="#374151">after</text>
+  <rect x="140" y="214" width="80" height="52" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="220" y="214" width="80" height="52" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <g fill="#fffbeb" stroke="#b45309" stroke-width="1.5">
+    <rect x="300" y="214" width="80" height="52"/>
+    <rect x="380" y="214" width="80" height="52"/>
+    <rect x="460" y="214" width="80" height="52"/>
+    <rect x="540" y="214" width="80" height="52"/>
+  </g>
+  <g font-size="20" font-weight="bold" text-anchor="middle">
+    <text x="180" y="247" fill="#111827">10</text>
+    <text x="260" y="247" fill="#047857">15</text>
+    <text x="340" y="247" fill="#92400e">20</text>
+    <text x="420" y="247" fill="#92400e">30</text>
+    <text x="500" y="247" fill="#92400e">40</text>
+    <text x="580" y="247" fill="#92400e">50</text>
   </g>
 </svg>

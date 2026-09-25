@@ -1,87 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">TLS 1.3 핸드셰이크 시퀀스 다이어그램</title>
-  <desc id="d">Client와 Server 간 1 RTT TLS 1.3 핸드셰이크 과정 및 암호화 통신 시작 단계를 나타낸 시퀀스 다이어그램</desc>
+  <title id="t">TLS 1.3 핸드셰이크 흐름</title>
+  <desc id="d">TLS 1.3에서는 ClientHello에 key_share(ECDHE 공개값)를 미리 넣어 한 번 왕복(1 RTT)으로 핸드셰이크가 끝난다. ServerHello 다음 메시지부터 이미 암호화되며, 클라이언트는 Finished와 함께 바로 데이터를 보낼 수 있다.</desc>
+  <rect width="880" height="720" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="11" markerHeight="11" markerUnits="userSpaceOnUse" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="880" height="720" fill="#ffffff"/>
+  <!-- 암호화 구간 배경 -->
+  <rect x="40" y="290" width="576" height="356" fill="#ecfdf5"/>
+  <line x1="40" y1="290" x2="616" y2="290" stroke="#059669" stroke-width="1.5" stroke-dasharray="6 4"/>
 
-  <!-- Encrypted Zone Highlight Box -->
-  <rect x="180" y="275" width="530" height="230" fill="#f5f3ff" rx="8" ry="8" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="6 4"/>
-  <rect x="525" y="283" width="100" height="22" fill="#7c3aed" rx="4" ry="4"/>
-  <text x="575" y="298" font-size="11.5" fill="#ffffff" font-weight="bold" text-anchor="middle">← 여기부터 이미 암호화</text>
+  <!-- 참여자 -->
+  <rect x="50" y="24" width="140" height="44" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="120" y="52" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Client</text>
+  <rect x="530" y="24" width="140" height="44" rx="8" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="600" y="52" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">Server</text>
+  <line x1="120" y1="68" x2="120" y2="660" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="600" y1="68" x2="600" y2="660" stroke="#9ca3af" stroke-width="2"/>
 
-  <!-- 1 RTT Bracket Group -->
-  <path d="M725,120 L740,120 L740,290 L750,290 L740,290 L740,460 L725,460" stroke="#d97706" stroke-width="2" fill="none"/>
-  <rect x="755" y="278" width="60" height="24" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4" ry="4"/>
-  <text x="785" y="294" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">1 RTT</text>
+  <!-- ClientHello -->
+  <line x1="122" y1="110" x2="598" y2="110" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="136" y="102" font-size="16" font-weight="bold" fill="#111827">ClientHello</text>
+  <rect x="136" y="122" width="372" height="106" rx="6" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="152" y="145" font-size="15" fill="#374151">· Cipher Suite 목록</text>
+  <text x="152" y="168" font-size="15" fill="#374151">· <tspan font-weight="bold" fill="#1d4ed8">key_share</tspan> ← 서버가 고를 것 같은 곡선의</text>
+  <text x="166" y="191" font-size="15" fill="#374151">ECDHE 공개값을 미리 넣어 보낸다</text>
+  <text x="152" y="214" font-size="15" fill="#374151">· SNI</text>
 
-  <!-- Actor Life Lines -->
-  <line x1="220" y1="90" x2="220" y2="670" stroke="#9aa5b1" stroke-width="2"/>
-  <line x1="660" y1="90" x2="660" y2="670" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- ServerHello -->
+  <line x1="598" y1="266" x2="122" y2="266" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="584" y="258" font-size="16" font-weight="bold" fill="#111827" text-anchor="end">ServerHello (key_share)</text>
 
-  <!-- Actor Boxes -->
-  <rect x="160" y="30" width="120" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="6" ry="6"/>
-  <text x="220" y="60" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Client</text>
+  <!-- 암호화 시작 표시 -->
+  <rect x="136" y="276" width="184" height="28" rx="14" fill="#047857"/>
+  <text x="228" y="295" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">여기부터 이미 암호화</text>
 
-  <rect x="600" y="30" width="120" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="6" ry="6"/>
-  <text x="660" y="60" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Server</text>
+  <!-- 서버의 암호화된 메시지 -->
+  <line x1="598" y1="336" x2="122" y2="336" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="584" y="328" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">{EncryptedExtensions}</text>
 
-  <!-- 1. ClientHello -->
-  <path d="M220,130 L660,130" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="230" y="118" width="88" height="22" fill="#ffffff"/>
-  <text x="234" y="133" font-size="13" font-weight="bold" fill="#1f2933">ClientHello</text>
+  <line x1="598" y1="382" x2="122" y2="382" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="584" y="374" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">{Certificate}</text>
 
-  <!-- ClientHello Details Box -->
-  <rect x="240" y="145" width="370" height="90" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="4" ry="4"/>
-  <text x="252" y="166" font-size="12" fill="#52606d">· Cipher Suite 목록</text>
-  <text x="252" y="188" font-size="12" fill="#52606d">· key_share ← 서버가 고를 것 같은 곡선의</text>
-  <text x="264" y="206" font-size="12" fill="#52606d">ECDHE 공개값을 미리 넣어 보낸다</text>
-  <text x="252" y="226" font-size="12" fill="#52606d">· SNI</text>
+  <line x1="598" y1="428" x2="122" y2="428" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="584" y="420" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">{CertificateVerify}</text>
 
-  <!-- 2. ServerHello (key_share) -->
-  <path d="M660,260 L220,260" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="230" y="248" width="180" height="22" fill="#ffffff"/>
-  <text x="234" y="263" font-size="13" font-weight="bold" fill="#1f2933">ServerHello (key_share)</text>
+  <line x1="598" y1="474" x2="122" y2="474" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="584" y="466" font-size="16" font-weight="bold" fill="#047857" text-anchor="end">{Finished}</text>
 
-  <!-- 3. {EncryptedExtensions} -->
-  <path d="M660,310 L220,310" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="298" width="175" height="22" fill="#ffffff"/>
-  <text x="234" y="313" font-size="13" font-weight="bold" fill="#7c3aed">{EncryptedExtensions}</text>
+  <!-- 1 RTT -->
+  <path d="M 624 110 H 640 V 474 H 624" fill="none" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="654" y="288" font-size="20" font-weight="bold" fill="#1d4ed8">1 RTT</text>
+  <text x="654" y="312" font-size="15" fill="#4b5563">(TLS 1.2는 2 RTT)</text>
 
-  <!-- 4. {Certificate} -->
-  <path d="M660,350 L220,350" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="338" width="112" height="22" fill="#ffffff"/>
-  <text x="234" y="353" font-size="13" font-weight="bold" fill="#7c3aed">{Certificate}</text>
+  <!-- 클라이언트 Finished + 데이터 -->
+  <line x1="122" y1="526" x2="598" y2="526" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="136" y="518" font-size="16" font-weight="bold" fill="#047857">{Finished}</text>
 
-  <!-- 5. {CertificateVerify} -->
-  <path d="M660,390 L220,390" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="378" width="148" height="22" fill="#ffffff"/>
-  <text x="234" y="393" font-size="13" font-weight="bold" fill="#7c3aed">{CertificateVerify}</text>
+  <line x1="122" y1="580" x2="596" y2="580" stroke="#047857" stroke-width="4" marker-end="url(#ah-green)"/>
+  <text x="136" y="570" font-size="16" font-weight="bold" fill="#047857">암호화 통신</text>
+  <text x="136" y="606" font-size="15" fill="#374151">클라이언트는 Finished와 함께</text>
+  <text x="136" y="628" font-size="15" fill="#374151">바로 데이터를 실어 보낼 수 있다</text>
 
-  <!-- 6. {Finished} (Server) -->
-  <path d="M660,430 L220,430" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="418" width="90" height="22" fill="#ffffff"/>
-  <text x="234" y="433" font-size="13" font-weight="bold" fill="#7c3aed">{Finished}</text>
-
-  <!-- 7. {Finished} (Client) -->
-  <path d="M220,530 L660,530" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="230" y="518" width="90" height="22" fill="#ffffff"/>
-  <text x="234" y="533" font-size="13" font-weight="bold" fill="#7c3aed">{Finished}</text>
-
-  <!-- 8. Encrypted Application Data -->
-  <path d="M220,600 L660,600" stroke="#059669" stroke-width="3" fill="none" marker-end="url(#a-green)"/>
-  <rect x="230" y="573" width="375" height="42" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4" ry="4"/>
-  <text x="238" y="591" font-size="13" font-weight="bold" fill="#059669">암호화 통신 (클라이언트는 Finished와 함께</text>
-  <text x="238" y="608" font-size="13" font-weight="bold" fill="#059669">바로 데이터를 실어 보낼 수 있다)</text>
+  <!-- 범례 -->
+  <line x1="40" y1="690" x2="84" y2="690" stroke="#374151" stroke-width="2" marker-end="url(#ah-ink)"/>
+  <text x="94" y="695" font-size="15" fill="#374151">평문 메시지</text>
+  <line x1="200" y1="690" x2="244" y2="690" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="254" y="695" font-size="15" fill="#374151">암호화된 메시지 · {…}로 표기</text>
 </svg>

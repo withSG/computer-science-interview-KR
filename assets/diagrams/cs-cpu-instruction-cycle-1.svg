@@ -1,74 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">동작 원리</title>
-  <desc id="d">명령어 사이클 5단계: Fetch, Decode, Execute, Mem, WB 단계별 흐름 및 설명</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 270" width="880" height="270" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">명령어 사이클 5단계</title>
+  <desc id="d">Fetch(인출), Decode(해석), Execute(실행), Mem(메모리), WB(결과기록) 다섯 단계가 차례로 이어지고 WB가 끝나면 다시 Fetch로 돌아가 다음 명령어를 처리한다. 각 단계 아래에 레지스터 수준에서 하는 일을 적었다.</desc>
+  <rect width="880" height="270" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="320" fill="#ffffff"/>
 
-  <!-- Step 1: Fetch -->
-  <rect x="30" y="80" width="136" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="98" y="108" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">① Fetch</text>
-  <text x="98" y="138" font-size="14" fill="#1f2933" text-anchor="middle">인출</text>
+  <!-- 되돌아가는 루프 -->
+  <text x="440" y="42" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">WB가 끝나면 다음 명령어로 반복</text>
+  <path d="M788,80 V56 H92 V76" fill="none" stroke="#6d28d9" stroke-width="2" marker-end="url(#ahp)"/>
 
-  <!-- Step 1 Details -->
-  <text x="98" y="188" font-size="13" fill="#52606d" text-anchor="middle">PC→MAR</text>
-  <text x="98" y="208" font-size="13" fill="#52606d" text-anchor="middle">메모리→IR</text>
-  <text x="98" y="228" font-size="13" fill="#52606d" text-anchor="middle">PC 증가</text>
+  <!-- ① Fetch -->
+  <path d="M24,144 V88 Q24,80 32,80 H152 Q160,80 160,88 V144 Z" fill="#dbeafe"/>
+  <rect x="24" y="80" width="136" height="160" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="24" y1="144" x2="160" y2="144" stroke="#93c5fd" stroke-width="1"/>
+  <text x="92" y="108" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">① Fetch</text>
+  <text x="92" y="131" font-size="15" fill="#1e3a8a" text-anchor="middle">인출</text>
+  <text x="92" y="172" font-size="15" fill="#1f2937" text-anchor="middle">PC→MAR</text>
+  <text x="92" y="196" font-size="15" fill="#1f2937" text-anchor="middle">메모리→IR</text>
+  <text x="92" y="220" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">PC 증가</text>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M166,120 L202,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="165" y1="112" x2="193" y2="112" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 2: Decode -->
-  <rect x="202" y="80" width="136" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="270" y="108" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">② Decode</text>
-  <text x="270" y="138" font-size="14" fill="#1f2933" text-anchor="middle">해석</text>
+  <!-- ② Decode -->
+  <path d="M198,144 V88 Q198,80 206,80 H326 Q334,80 334,88 V144 Z" fill="#dbeafe"/>
+  <rect x="198" y="80" width="136" height="160" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="198" y1="144" x2="334" y2="144" stroke="#93c5fd" stroke-width="1"/>
+  <text x="266" y="108" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">② Decode</text>
+  <text x="266" y="131" font-size="15" fill="#1e3a8a" text-anchor="middle">해석</text>
+  <text x="266" y="172" font-size="15" fill="#1f2937" text-anchor="middle">IR 해독</text>
+  <text x="266" y="196" font-size="15" fill="#1f2937" text-anchor="middle">제어신호 생성</text>
 
-  <!-- Step 2 Details -->
-  <text x="270" y="188" font-size="13" fill="#52606d" text-anchor="middle">IR 해독</text>
-  <text x="270" y="208" font-size="13" fill="#52606d" text-anchor="middle">제어신호 생성</text>
+  <line x1="339" y1="112" x2="367" y2="112" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M338,120 L374,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- ③ Execute -->
+  <path d="M372,144 V88 Q372,80 380,80 H500 Q508,80 508,88 V144 Z" fill="#dbeafe"/>
+  <rect x="372" y="80" width="136" height="160" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="372" y1="144" x2="508" y2="144" stroke="#93c5fd" stroke-width="1"/>
+  <text x="440" y="108" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">③ Execute</text>
+  <text x="440" y="131" font-size="15" fill="#1e3a8a" text-anchor="middle">실행</text>
+  <text x="440" y="172" font-size="15" fill="#1f2937" text-anchor="middle">ALU 연산</text>
+  <text x="440" y="196" font-size="15" fill="#1f2937" text-anchor="middle">주소 계산</text>
 
-  <!-- Step 3: Execute -->
-  <rect x="374" y="80" width="136" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="442" y="108" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">③Execute</text>
-  <text x="442" y="138" font-size="14" fill="#1f2933" text-anchor="middle">실행</text>
+  <line x1="513" y1="112" x2="541" y2="112" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 3 Details -->
-  <text x="442" y="188" font-size="13" fill="#52606d" text-anchor="middle">ALU 연산</text>
-  <text x="442" y="208" font-size="13" fill="#52606d" text-anchor="middle">주소 계산</text>
+  <!-- ④ Mem : LOAD/STORE 만 사용 (점선) -->
+  <path d="M546,144 V88 Q546,80 554,80 H674 Q682,80 682,88 V144 Z" fill="#dbeafe"/>
+  <rect x="546" y="80" width="136" height="160" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="546" y1="144" x2="682" y2="144" stroke="#93c5fd" stroke-width="1"/>
+  <text x="614" y="108" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">④ Mem</text>
+  <text x="614" y="131" font-size="15" fill="#1e3a8a" text-anchor="middle">메모리</text>
+  <text x="614" y="172" font-size="15" fill="#1f2937" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">LOAD/STORE</text>
+  <text x="614" y="196" font-size="15" fill="#1f2937" text-anchor="middle">명령어만 사용</text>
 
-  <!-- Arrow 3 -> 4 -->
-  <path d="M510,120 L546,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <line x1="687" y1="112" x2="715" y2="112" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Step 4: Mem -->
-  <rect x="546" y="80" width="136" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="614" y="108" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">④ Mem</text>
-  <text x="614" y="138" font-size="14" fill="#1f2933" text-anchor="middle">메모리</text>
-
-  <!-- Step 4 Details -->
-  <text x="614" y="188" font-size="13" fill="#52606d" text-anchor="middle">LOAD/STORE</text>
-  <text x="614" y="208" font-size="13" fill="#52606d" text-anchor="middle">만 사용</text>
-
-  <!-- Arrow 4 -> 5 -->
-  <path d="M682,120 L718,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- Step 5: WB -->
-  <rect x="718" y="80" width="136" height="80" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="786" y="108" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">⑤ WB</text>
-  <text x="786" y="138" font-size="14" fill="#1f2933" text-anchor="middle">결과기록</text>
-
-  <!-- Step 5 Details -->
-  <text x="786" y="188" font-size="13" fill="#52606d" text-anchor="middle">레지스터에</text>
-  <text x="786" y="208" font-size="13" fill="#52606d" text-anchor="middle">결과 저장</text>
-
-  <!-- Feedback Loop Arrow from Step 5 back to Step 1 -->
-  <path d="M786,80 L786,40 L98,40 L98,71" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <!-- ⑤ WB -->
+  <path d="M720,144 V88 Q720,80 728,80 H848 Q856,80 856,88 V144 Z" fill="#dbeafe"/>
+  <rect x="720" y="80" width="136" height="160" rx="8" fill="none" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="720" y1="144" x2="856" y2="144" stroke="#93c5fd" stroke-width="1"/>
+  <text x="788" y="108" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">⑤ WB</text>
+  <text x="788" y="131" font-size="15" fill="#1e3a8a" text-anchor="middle">결과기록</text>
+  <text x="788" y="172" font-size="15" fill="#1f2937" text-anchor="middle">레지스터에</text>
+  <text x="788" y="196" font-size="15" fill="#1f2937" text-anchor="middle">결과 저장</text>
 </svg>

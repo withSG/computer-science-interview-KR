@@ -200,7 +200,7 @@ CNAME에는 두 가지 제약이 있고, 둘 다 실무에서 자주 부딪힙�
 **그래서 어떻게 하나** — 안정적으로 운영 중인 레코드는 길게 두고, IP를 바꿀 계획이 있으면 **바꾸기 전에 미리 TTL을 낮춥니다.** 순서가 핵심입니다.
 
 <!-- diagram:cs-dns-resolution-6 -->
-![6. TTL — 캐시를 얼마나 믿을 것인가](../../assets/diagrams/cs-dns-resolution-6.svg)
+![D-2일 TTL 인하, D-Day IP 변경, D+1일 TTL 복구 타임라인](../../assets/diagrams/cs-dns-resolution-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

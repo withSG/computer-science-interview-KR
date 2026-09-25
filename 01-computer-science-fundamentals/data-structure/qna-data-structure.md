@@ -91,7 +91,7 @@ HashMap은 키를 해시 함수에 넣어 나온 값으로 버킷(배열) 인덱
 
 ### Java 8 이후 개선
 <!-- diagram:cs-qna-data-structure-5 -->
-![Java 8 이후 개선](../../assets/diagrams/cs-qna-data-structure-5.svg)
+![버킷에 8개 이상이면 LinkedList→Red-Black Tree](../../assets/diagrams/cs-qna-data-structure-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -133,7 +133,7 @@ HashMap은 키를 해시 함수에 넣어 나온 값으로 버킷(배열) 인덱
 
 ### BST 특징
 <!-- diagram:cs-qna-data-structure-6 -->
-![BST 특징](../../assets/diagrams/cs-qna-data-structure-6.svg)
+![8이 루트인 BST와 중위 순회 결과 1·3·6·8·10·14](../../assets/diagrams/cs-qna-data-structure-6.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -318,7 +318,7 @@ HashTable은 **해시 함수**로 키를 변환한 뒤 그 값을 버킷(배열)
 
 **1. Separate Chaining (분리 연결법)**
 <!-- diagram:cs-qna-data-structure-7 -->
-![충돌 해결 방법](../../assets/diagrams/cs-qna-data-structure-7.svg)
+![버킷[0]에 K1·K2가 LinkedList로 이어진 분리 연결법](../../assets/diagrams/cs-qna-data-structure-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -391,7 +391,7 @@ AVL 트리는 **자가 균형 이진 탐색 트리**입니다. 모든 노드에�
 ### AVL 트리의 균형 유지
 
 <!-- diagram:cs-qna-data-structure-8 -->
-![AVL 트리의 균형 유지](../../assets/diagrams/cs-qna-data-structure-8.svg)
+![BF 공식과 허용 범위, BF를 표시한 AVL 트리 예시](../../assets/diagrams/cs-qna-data-structure-8.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -544,7 +544,7 @@ Trie는 **문자열 검색에 특화된 트리 자료구조**입니다. 문자�
 ### 구조
 
 <!-- diagram:cs-qna-data-structure-9 -->
-![구조](../../assets/diagrams/cs-qna-data-structure-9.svg)
+![apple·app·apply·bat을 저장한 Trie 구조](../../assets/diagrams/cs-qna-data-structure-9.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

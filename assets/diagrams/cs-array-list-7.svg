@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 680" width="880" height="680" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">동적 배열 확장 과정</title>
+  <desc id="d">capacity 4가 꽉 찬 동적 배열에 add(50)을 호출하면 capacity 8인 새 배열을 할당하고, 기존 원소 10·20·30·40을 전부 복사(O(n))한 뒤 50을 추가하며, 옛 배열은 GC 대상이 된다.</desc>
+  <defs>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="ae" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+  </defs>
+  <rect width="880" height="680" fill="#ffffff"/>
+
+  <!-- 시작 상태 -->
+  <text x="32" y="40" font-size="17" font-weight="bold" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">capacity=4, size=4</tspan> 인 상태에서 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#047857">add(50)</tspan> 호출</text>
+
+  <!-- ① 더 큰 배열 할당 -->
+  <rect x="24" y="60" width="832" height="176" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <circle cx="54" cy="88" r="14" fill="#1d4ed8"/>
+  <text x="54" y="93" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">1</text>
+  <text x="80" y="94" font-size="17" font-weight="bold" fill="#111827">더 큰 배열 할당</text>
+
+  <g font-size="16" fill="#374151" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="150" y="137">old</text>
+    <text x="150" y="205">new</text>
+  </g>
+  <g fill="#dbeafe" stroke="#2563eb" stroke-width="1.5">
+    <rect x="164" y="110" width="56" height="42"/>
+    <rect x="220" y="110" width="56" height="42"/>
+    <rect x="276" y="110" width="56" height="42"/>
+    <rect x="332" y="110" width="56" height="42"/>
+  </g>
+  <g font-size="17" fill="#111827" text-anchor="middle">
+    <text x="192" y="137">10</text>
+    <text x="248" y="137">20</text>
+    <text x="304" y="137">30</text>
+    <text x="360" y="137">40</text>
+  </g>
+  <text x="402" y="136" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(capacity 4)</text>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.5">
+    <rect x="164" y="178" width="56" height="42"/>
+    <rect x="220" y="178" width="56" height="42"/>
+    <rect x="276" y="178" width="56" height="42"/>
+    <rect x="332" y="178" width="56" height="42"/>
+    <rect x="388" y="178" width="56" height="42"/>
+    <rect x="444" y="178" width="56" height="42"/>
+    <rect x="500" y="178" width="56" height="42"/>
+    <rect x="556" y="178" width="56" height="42"/>
+  </g>
+  <text x="626" y="204" font-size="15" fill="#4b5563" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(capacity 8)</text>
+
+  <!-- ② 전체 복사 -->
+  <rect x="24" y="252" width="832" height="176" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
+  <circle cx="54" cy="280" r="14" fill="#b45309"/>
+  <text x="54" y="285" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">2</text>
+  <text x="80" y="286" font-size="17" font-weight="bold" fill="#111827">전체 복사 — 여기가 <tspan fill="#b45309">O(n)</tspan></text>
+
+  <g font-size="16" fill="#374151" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="150" y="329">old</text>
+    <text x="150" y="397">new</text>
+  </g>
+  <g fill="#dbeafe" stroke="#2563eb" stroke-width="1.5">
+    <rect x="164" y="302" width="56" height="42"/>
+    <rect x="220" y="302" width="56" height="42"/>
+    <rect x="276" y="302" width="56" height="42"/>
+    <rect x="332" y="302" width="56" height="42"/>
+    <rect x="164" y="370" width="56" height="42"/>
+    <rect x="220" y="370" width="56" height="42"/>
+    <rect x="276" y="370" width="56" height="42"/>
+    <rect x="332" y="370" width="56" height="42"/>
+  </g>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.5">
+    <rect x="388" y="370" width="56" height="42"/>
+    <rect x="444" y="370" width="56" height="42"/>
+    <rect x="500" y="370" width="56" height="42"/>
+    <rect x="556" y="370" width="56" height="42"/>
+  </g>
+  <g font-size="17" fill="#111827" text-anchor="middle">
+    <text x="192" y="329">10</text>
+    <text x="248" y="329">20</text>
+    <text x="304" y="329">30</text>
+    <text x="360" y="329">40</text>
+    <text x="192" y="397">10</text>
+    <text x="248" y="397">20</text>
+    <text x="304" y="397">30</text>
+    <text x="360" y="397">40</text>
+  </g>
+  <g stroke="#b45309" stroke-width="2" marker-end="url(#ab)">
+    <line x1="192" y1="348" x2="192" y2="367"/>
+    <line x1="248" y1="348" x2="248" y2="367"/>
+    <line x1="304" y1="348" x2="304" y2="367"/>
+    <line x1="360" y1="348" x2="360" y2="367"/>
+  </g>
+
+  <!-- ③ 새 값 추가, 옛 배열은 GC 대상 -->
+  <rect x="24" y="444" width="832" height="216" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <circle cx="54" cy="472" r="14" fill="#1d4ed8"/>
+  <text x="54" y="477" text-anchor="middle" font-size="15" font-weight="bold" fill="#ffffff">3</text>
+  <text x="80" y="478" font-size="17" font-weight="bold" fill="#111827">새 값 추가, 옛 배열은 GC 대상</text>
+
+  <g font-size="16" fill="#374151" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="150" y="521">old</text>
+    <text x="150" y="589">new</text>
+  </g>
+  <g fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5 4">
+    <rect x="164" y="494" width="56" height="42"/>
+    <rect x="220" y="494" width="56" height="42"/>
+    <rect x="276" y="494" width="56" height="42"/>
+    <rect x="332" y="494" width="56" height="42"/>
+  </g>
+  <g font-size="17" fill="#4b5563" text-anchor="middle">
+    <text x="192" y="521">10</text>
+    <text x="248" y="521">20</text>
+    <text x="304" y="521">30</text>
+    <text x="360" y="521">40</text>
+  </g>
+  <rect x="402" y="500" width="94" height="30" rx="15" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="449" y="520" text-anchor="middle" font-size="15" font-weight="bold" fill="#374151">GC 대상</text>
+
+  <g fill="#dbeafe" stroke="#2563eb" stroke-width="1.5">
+    <rect x="164" y="562" width="56" height="42"/>
+    <rect x="220" y="562" width="56" height="42"/>
+    <rect x="276" y="562" width="56" height="42"/>
+    <rect x="332" y="562" width="56" height="42"/>
+  </g>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.5">
+    <rect x="444" y="562" width="56" height="42"/>
+    <rect x="500" y="562" width="56" height="42"/>
+    <rect x="556" y="562" width="56" height="42"/>
+  </g>
+  <rect x="388" y="562" width="56" height="42" fill="#d1fae5" stroke="#047857" stroke-width="2.5"/>
+  <g font-size="17" fill="#111827" text-anchor="middle">
+    <text x="192" y="589">10</text>
+    <text x="248" y="589">20</text>
+    <text x="304" y="589">30</text>
+    <text x="360" y="589">40</text>
+  </g>
+  <text x="416" y="589" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">50</text>
+  <line x1="416" y1="626" x2="416" y2="610" stroke="#047857" stroke-width="2" marker-end="url(#ae)"/>
+  <text x="416" y="645" text-anchor="middle" font-size="15" font-weight="bold" fill="#047857" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">add(50)</text>
+</svg>

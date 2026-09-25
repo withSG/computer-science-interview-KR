@@ -1,64 +1,65 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">4. Asynchronous I/O (비동기 논블로킹)</title>
-  <desc id="d">Asynchronous I/O 흐름과 특징, 그리고 적용 예시를 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Asynchronous I/O (비동기 논블로킹)</title>
+  <desc id="d">호출자가 aio_read()를 호출하면 즉시 반환되어 다른 작업을 계속하고, OS가 I/O를 완료한 뒤 콜백을 호출하는 흐름을 호출자와 OS 두 줄로 나누어 보이고, 특징과 예를 정리한 그림.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <rect width="880" height="540" fill="#ffffff"/>
+  <rect width="880" height="520" fill="#ffffff"/>
 
-  <!-- 헤딩 / 제목 -->
-  <text x="40" y="45" font-size="16" font-weight="bold" fill="#1f2933">4. Asynchronous I/O (비동기 논블로킹)</text>
+  <!-- 레인: 호출자 -->
+  <rect x="24" y="36" width="832" height="84" rx="8" fill="#f8fafc"/>
+  <rect x="24" y="36" width="88" height="84" rx="8" fill="#e5e7eb"/>
+  <text x="68" y="84" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">호출자</text>
 
-  <!-- Flow Area Container -->
-  <rect x="40" y="70" width="800" height="190" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="6"/>
+  <rect x="136" y="52" width="164" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="218" y="84" font-size="16" fill="#1e3a8a" text-anchor="middle"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">aio_read()</tspan> 호출</text>
+  <line x1="302" y1="78" x2="332" y2="78" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Node 1: 호출자 -->
-  <rect x="70" y="100" width="90" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="115" y="124" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">호출자</text>
+  <rect x="336" y="52" width="120" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="396" y="84" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">즉시 반환</text>
+  <line x1="458" y1="78" x2="488" y2="78" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Arrow 1: 호출자 -> aio_read() 호출 -->
-  <path d="M160,120 L200,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="492" y="52" width="364" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="640" y="84" font-size="16" fill="#1e3a8a" text-anchor="middle">다른 작업 계속</text>
 
-  <!-- Node 2: aio_read() 호출 -->
-  <rect x="201" y="100" width="140" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="271" y="124" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">aio_read() 호출</text>
+  <!-- 레인: OS -->
+  <rect x="24" y="176" width="832" height="84" rx="8" fill="#f8fafc"/>
+  <rect x="24" y="176" width="88" height="84" rx="8" fill="#e5e7eb"/>
+  <text x="68" y="224" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">OS</text>
 
-  <!-- Arrow 2: aio_read() 호출 -> 즉시 반환 -->
-  <path d="M341,120 L381,120" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- aio_read() → OS 로 I/O 넘김 -->
+  <line x1="218" y1="106" x2="218" y2="188" stroke="#4b5563" stroke-width="2" marker-end="url(#ah)"/>
 
-  <!-- Node 3: 즉시 반환 -->
-  <rect x="382" y="100" width="110" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="437" y="124" font-size="13" fill="#1f2933" text-anchor="middle">즉시 반환</text>
+  <rect x="136" y="192" width="566" height="52" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5" stroke-dasharray="7 4"/>
+  <text x="440" y="224" font-size="16" fill="#5b21b6" text-anchor="middle">I/O 진행</text>
+  <line x1="704" y1="218" x2="732" y2="218" stroke="#6d28d9" stroke-width="2" marker-end="url(#ahp)"/>
 
-  <!-- Arrow 3: 즉시 반환 -> 다른 작업 계속 -->
-  <path d="M437,140 L437,170 L200,170" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="736" y="192" width="120" height="52" rx="8" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="796" y="224" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle">I/O 완료</text>
 
-  <!-- Node 4: 다른 작업 계속 -->
-  <rect x="70" y="150" width="130" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="135" y="174" font-size="13" fill="#1f2933" text-anchor="middle">다른 작업 계속</text>
+  <!-- 콜백 호출 -->
+  <line x1="796" y1="190" x2="796" y2="108" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#ahp)"/>
+  <text x="782" y="154" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="end">콜백 호출</text>
 
-  <!-- Arrow 4: 다른 작업 계속 -> OS가 I/O 완료 후 콜백 호출 -->
-  <path d="M135,190 L135,220 L220,220" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-purple)"/>
+  <!-- 시간 축 -->
+  <line x1="136" y1="284" x2="852" y2="284" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="112" y="289" font-size="14" fill="#4b5563" text-anchor="end">시간</text>
 
-  <!-- Node 5: OS가 I/O 완료 후 콜백 호출 -->
-  <rect x="221" y="200" width="220" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="331" y="224" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">OS가 I/O 완료 후 콜백 호출</text>
+  <!-- 특징 -->
+  <rect x="24" y="312" width="832" height="112" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="344" font-size="17" font-weight="bold" fill="#1d4ed8">특징</text>
+  <circle cx="50" cy="373" r="3" fill="#1d4ed8"/>
+  <text x="62" y="378" font-size="15" fill="#1f2937">완전한 비동기: 호출자가 I/O를 신경 쓰지 않음</text>
+  <circle cx="50" cy="403" r="3" fill="#1d4ed8"/>
+  <text x="62" y="408" font-size="15" fill="#1f2937">가장 효율적이지만 구현 복잡</text>
 
-
-  <!-- 특징 Section -->
-  <rect x="40" y="280" width="800" height="130" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-  <text x="60" y="310" font-size="14" font-weight="bold" fill="#1f2933">특징:</text>
-  
-  <text x="75" y="340" font-size="13" fill="#1f2933">- 완전한 비동기: 호출자가 I/O를 신경 쓰지 않음</text>
-  <text x="75" y="375" font-size="13" fill="#1f2933">- 가장 효율적이지만 구현 복잡</text>
-
-  <!-- 예 Section -->
-  <rect x="40" y="430" width="800" height="70" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="6"/>
-  <text x="60" y="471" font-size="13" font-weight="bold" fill="#d97706">예:</text>
-  <text x="90" y="471" font-size="13" fill="#1f2933">Node.js (libuv), Java NIO.2 (AIO)</text>
+  <!-- 예 -->
+  <rect x="24" y="440" width="832" height="56" rx="10" fill="#f3f4f6" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="44" y="474" font-size="16" font-weight="bold" fill="#111827">예</text>
+  <text x="76" y="474" font-size="15" fill="#1f2937">Node.js (libuv), Java NIO.2 (AIO)</text>
 </svg>

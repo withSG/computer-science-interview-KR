@@ -1,93 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 660" width="880" height="660" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 604" width="880" height="604" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">put의 흐름</title>
-  <desc id="d">Java HashMap의 put 메서드 실행 과정과 비트 연산, 충돌 처리, 트리화 및 리사이징 조건 다이어그램</desc>
+  <desc id="d">Java HashMap의 put(key, value)가 거치는 6단계. 해시 비트 섞기, (n - 1) &amp; hash로 인덱스 계산, 빈 버킷이면 노드 생성 후 끝, 아니면 버킷을 순회해 같은 키는 값만 교체하고 없으면 끝에 추가, 노드가 8개를 넘으면 테이블 크기 64 기준으로 트리 변환 또는 테이블 확장, size가 버킷수 × 0.75를 넘으면 버킷 2배 확장 후 재배치.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
+  <rect width="880" height="604" fill="#ffffff"/>
 
-  <!-- Background -->
-  <rect width="880" height="660" fill="#ffffff"/>
+  <!-- 시작 -->
+  <rect x="24" y="18" width="176" height="38" rx="19" fill="#111827"/>
+  <text x="112" y="43" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">put(key, value)</text>
 
-  <!-- Root node: put(key, value) -->
-  <rect x="50" y="24" width="160" height="38" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="130" y="48" font-size="15" font-weight="bold" fill="#2563eb" text-anchor="middle">put(key, value)</text>
+  <!-- 세로 흐름선 -->
+  <line x1="56" y1="56" x2="56" y2="556" stroke="#9ca3af" stroke-width="2"/>
 
-  <!-- Main Vertical Trunk Line -->
-  <path d="M130,62 L130,560" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 1 -->
+  <rect x="92" y="72" width="764" height="48" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <circle cx="56" cy="96" r="15" fill="#1f2937"/>
+  <text x="56" y="101" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="112" y="101" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash = key.hashCode() ^ (hashCode() &gt;&gt;&gt; 16)</text>
+  <text x="592" y="101" font-size="15" fill="#4b5563">비트 섞기</text>
 
-  <!-- 1. hash = key.hashCode() ^ (hashCode() >>> 16)   비트 섞기 -->
-  <path d="M130,100 L170,100" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="170" y="78" width="660" height="44" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="186" y="105" font-size="13" font-weight="bold" fill="#2563eb">1.</text>
-  <text x="210" y="105" font-size="13" font-weight="bold" fill="#1f2933">hash = key.hashCode() ^ (hashCode() &gt;&gt;&gt; 16)</text>
-  <rect x="730" y="88" width="85" height="24" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="772" y="104" font-size="11.5" font-weight="bold" fill="#2563eb" text-anchor="middle">비트 섞기</text>
+  <!-- 2 -->
+  <rect x="92" y="132" width="764" height="48" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <circle cx="56" cy="156" r="15" fill="#1f2937"/>
+  <text x="56" y="161" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="112" y="161" font-size="15" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">index = (n - 1) &amp; hash</text>
+  <text x="592" y="161" font-size="15" fill="#4b5563">2의 거듭제곱이라 AND로 계산</text>
 
-  <!-- 2. index = (n - 1) & hash   2의 거듭제곱이라 AND로 계산 -->
-  <path d="M130,165 L170,165" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="170" y="143" width="660" height="44" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="186" y="170" font-size="13" font-weight="bold" fill="#2563eb">2.</text>
-  <text x="210" y="170" font-size="13" font-weight="bold" fill="#1f2933">index = (n - 1) &amp; hash</text>
-  <rect x="635" y="153" width="180" height="24" rx="4" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="725" y="169" font-size="11.5" fill="#2563eb" text-anchor="middle">2의 거듭제곱이라 AND로 계산</text>
+  <!-- 3 -->
+  <rect x="92" y="192" width="764" height="48" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <circle cx="56" cy="216" r="15" fill="#1f2937"/>
+  <text x="56" y="221" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="112" y="222" font-size="16" fill="#111827">버킷이 비었으면</text>
+  <line x1="246" y1="216" x2="584" y2="216" stroke="#047857" stroke-width="1.8" marker-end="url(#ah-green)"/>
+  <rect x="592" y="202" width="248" height="28" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="716" y="221" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">노드 하나 생성하고 끝</text>
 
-  <!-- 3. 버킷이 비었으면 → 노드 하나 생성하고 끝 -->
-  <path d="M130,230 L170,230" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="170" y="208" width="660" height="44" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="186" y="235" font-size="13" font-weight="bold" fill="#059669">3.</text>
-  <text x="210" y="235" font-size="13" fill="#1f2933">버킷이 비었으면</text>
-  <path d="M315,230 L335,230" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
-  <text x="345" y="235" font-size="13" font-weight="bold" fill="#059669">노드 하나 생성하고 끝</text>
+  <!-- 4 -->
+  <rect x="92" y="252" width="764" height="128" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <circle cx="56" cy="276" r="15" fill="#1f2937"/>
+  <text x="56" y="281" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="112" y="282" font-size="16" font-weight="bold" fill="#111827">비어 있지 않으면 버킷 안을 순회</text>
+  <path d="M118,292 L118,352 M118,316 L128,316 M118,352 L128,352" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="136" y="321" font-size="15" fill="#111827">hash가 같고 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">(key == k || key.equals(k))</tspan> 인 노드</text>
+  <line x1="522" y1="316" x2="584" y2="316" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <rect x="592" y="302" width="248" height="28" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="716" y="321" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">값만 교체</text>
+  <text x="136" y="357" font-size="15" fill="#111827">없으면</text>
+  <line x1="196" y1="352" x2="584" y2="352" stroke="#047857" stroke-width="1.8" marker-end="url(#ah-green)"/>
+  <rect x="592" y="338" width="248" height="28" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="716" y="357" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">끝에 새 노드 추가</text>
 
-  <!-- 4. 비어 있지 않으면 버킷 안을 순회 ... -->
-  <path d="M130,325 L170,325" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="170" y="273" width="660" height="104" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-  <text x="186" y="298" font-size="13" font-weight="bold" fill="#d97706">4. 비어 있지 않으면 버킷 안을 순회</text>
+  <!-- 5 -->
+  <rect x="92" y="392" width="764" height="128" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <circle cx="56" cy="416" r="15" fill="#1f2937"/>
+  <text x="56" y="421" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="112" y="422" font-size="16" font-weight="bold" fill="#111827">그 버킷의 노드 수가 8을 넘으면(9번째 노드)</text>
+  <path d="M118,432 L118,492 M118,456 L128,456 M118,492 L128,492" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="136" y="461" font-size="15" fill="#111827">테이블 크기 ≥ <tspan font-weight="bold">64</tspan></text>
+  <line x1="266" y1="456" x2="584" y2="456" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#ah-purple)"/>
+  <rect x="592" y="442" width="248" height="28" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="716" y="461" font-size="15" font-weight="bold" fill="#6d28d9" text-anchor="middle">Red-Black Tree로 변환</text>
+  <text x="136" y="497" font-size="15" fill="#111827">테이블 크기 &lt; <tspan font-weight="bold">64</tspan></text>
+  <line x1="266" y1="492" x2="584" y2="492" stroke="#b45309" stroke-width="1.8" marker-end="url(#ah-amber)"/>
+  <rect x="592" y="478" width="248" height="28" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="716" y="497" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">트리화 대신 테이블 확장</text>
 
-  <!-- Sub-item 4.1 -->
-  <text x="216" y="328" font-size="12" fill="#52606d">hash가 같고 (key == k || key.equals(k)) 인 노드</text>
-  <path d="M530,324 L550,324" stroke="#d97706" stroke-width="1.5" marker-end="url(#a-orange)"/>
-  <text x="560" y="328" font-size="12" font-weight="bold" fill="#d97706">값만 교체</text>
-
-  <!-- Sub-item 4.2 -->
-  <text x="216" y="356" font-size="12" fill="#52606d">없으면</text>
-  <path d="M260,352 L280,352" stroke="#059669" stroke-width="1.5" marker-end="url(#a-green)"/>
-  <text x="290" y="356" font-size="12" font-weight="bold" fill="#059669">끝에 새 노드 추가</text>
-
-  <!-- 5. 그 버킷의 노드 수가 8 이상이면 ... -->
-  <path d="M130,455 L170,455" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="170" y="403" width="660" height="104" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1"/>
-  <text x="186" y="428" font-size="13" font-weight="bold" fill="#7c3aed">5. 그 버킷의 노드 수가 8을 넘으면(9번째 노드)</text>
-
-  <!-- Sub-item 5.1 -->
-  <text x="216" y="458" font-size="12" fill="#1f2933">테이블 크기 ≥ 64</text>
-  <path d="M320,454 L340,454" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <text x="350" y="458" font-size="12" font-weight="bold" fill="#7c3aed">Red-Black Tree로 변환</text>
-
-  <!-- Sub-item 5.2 -->
-  <text x="216" y="486" font-size="12" fill="#1f2933">테이블 크기 &lt; 64</text>
-  <path d="M320,482 L340,482" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#a-purple)"/>
-  <text x="350" y="486" font-size="12" font-weight="bold" fill="#7c3aed">트리화 대신 테이블 확장</text>
-
-  <!-- 6. size > 버킷수 × 0.75  → 버킷 2배로 확장 후 재배치 -->
-  <path d="M130,560 L170,560" stroke="#9aa5b1" stroke-width="2"/>
-  <rect x="170" y="538" width="660" height="44" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="186" y="565" font-size="13" font-weight="bold" fill="#dc2626">6.</text>
-  <text x="210" y="565" font-size="13" font-weight="bold" fill="#1f2933">size &gt; 버킷수 × 0.75</text>
-  <path d="M350,560 L370,560" stroke="#dc2626" stroke-width="1.5" marker-end="url(#a-red)"/>
-  <text x="380" y="565" font-size="13" font-weight="bold" fill="#dc2626">버킷 2배로 확장 후 재배치</text>
+  <!-- 6 -->
+  <rect x="92" y="532" width="764" height="48" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.2"/>
+  <circle cx="56" cy="556" r="15" fill="#1f2937"/>
+  <text x="56" y="561" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="112" y="562" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">size</tspan> &gt; 버킷수 × 0.75</text>
+  <line x1="290" y1="556" x2="584" y2="556" stroke="#b45309" stroke-width="1.8" marker-end="url(#ah-amber)"/>
+  <rect x="592" y="542" width="248" height="28" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="716" y="561" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">버킷 2배로 확장 후 재배치</text>
 </svg>

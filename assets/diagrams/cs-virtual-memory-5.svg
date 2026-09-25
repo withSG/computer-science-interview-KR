@@ -1,70 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">LRU를 O(1)로 구현하기</title>
-  <desc id="d">HashMap과 이중 연결 리스트를 조합하여 LRU 캐시를 O(1) 시간에 동작하도록 표현한 다이어그램입니다.</desc>
-  <rect width="880" height="320" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">LRU 캐시 구조</title>
+  <desc id="d">LRU 캐시는 HashMap과 이중 연결 리스트로 만든다. 리스트는 head(최근)부터 tail(오래됨)까지 K:A, K:C, K:B, K:D 순으로 앞뒤가 연결되어 있고, HashMap은 key마다 해당 노드 참조를 가리켜 노드를 O(1)에 찾는다.</desc>
+  <rect width="880" height="360" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
     </marker>
   </defs>
 
-  <!-- Title / Section Heading -->
-  <text x="30" y="35" font-size="16" font-weight="bold" fill="#1f2933">LRU를 O(1)로 구현하기</text>
+  <!-- head / tail 표시 -->
+  <text x="146" y="46" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">head (최근)</text>
+  <text x="146" y="68" font-size="14" fill="#4b5563" text-anchor="middle">조회·삽입한 노드를 head로</text>
+  <path d="M146,78 V102" stroke="#047857" stroke-width="2" fill="none" marker-end="url(#green)"/>
 
-  <!-- Head / Tail Labels & Arrows -->
-  <text x="130" y="68" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">head (최근)</text>
-  <path d="M130,76 L130,98" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="734" y="46" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">tail (오래됨)</text>
+  <text x="734" y="68" font-size="14" fill="#4b5563" text-anchor="middle">용량 초과 시 여기서 제거</text>
+  <path d="M734,78 V102" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#amber)"/>
 
-  <text x="750" y="68" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">tail (오래됨)</text>
-  <path d="M750,76 L750,98" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <text x="440" y="46" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">이중 연결 리스트</text>
+  <text x="440" y="68" font-size="14" fill="#4b5563" text-anchor="middle">앞뒤 노드를 알아 분리·삽입 O(1)</text>
 
-  <!-- Nodes -->
-  <!-- Box 1: K:A -->
-  <rect x="80" y="106" width="100" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="130" y="135" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">K:A</text>
+  <!-- 노드 -->
+  <g fill="#eff6ff" stroke="#1d4ed8" stroke-width="2">
+    <rect x="80" y="108" width="132" height="56" rx="8"/>
+    <rect x="276" y="108" width="132" height="56" rx="8"/>
+    <rect x="472" y="108" width="132" height="56" rx="8"/>
+    <rect x="668" y="108" width="132" height="56" rx="8"/>
+  </g>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="146" y="143">K:A</text>
+    <text x="342" y="143">K:C</text>
+    <text x="538" y="143">K:B</text>
+    <text x="734" y="143">K:D</text>
+  </g>
 
-  <!-- Arrow K:A <-> K:C -->
-  <path d="M189,130 L281,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
+  <!-- 앞뒤 링크 -->
+  <g stroke="#1d4ed8" stroke-width="2" fill="none">
+    <path d="M216,127 H270" marker-end="url(#blue)"/>
+    <path d="M272,145 H218" marker-end="url(#blue)"/>
+    <path d="M412,127 H466" marker-end="url(#blue)"/>
+    <path d="M468,145 H414" marker-end="url(#blue)"/>
+    <path d="M608,127 H662" marker-end="url(#blue)"/>
+    <path d="M664,145 H610" marker-end="url(#blue)"/>
+  </g>
 
-  <!-- Box 2: K:C -->
-  <rect x="290" y="106" width="100" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="135" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">K:C</text>
-
-  <!-- Arrow K:C <-> K:B -->
-  <path d="M399,130 L491,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
-
-  <!-- Box 3: K:B -->
-  <rect x="500" y="106" width="100" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="550" y="135" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">K:B</text>
-
-  <!-- Arrow K:B <-> K:D -->
-  <path d="M609,130 L701,130" stroke="#2563eb" stroke-width="1.5" fill="none" marker-start="url(#a-blue)" marker-end="url(#a-blue)"/>
-
-  <!-- Box 4: K:D -->
-  <rect x="700" y="106" width="100" height="48" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="750" y="135" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">K:D</text>
-
-  <!-- HashMap pointers to nodes -->
-  <!-- Horizontal bus at y=200 -->
-  <path d="M130,200 L750,200" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-
-  <!-- Vertical lines going UP from bus (y=200) to node bottoms (y=154) -->
-  <path d="M130,200 L130,162" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M340,200 L340,162" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M550,200 L550,162" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M750,200 L750,162" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-
-  <!-- Vertical line from HashMap top (y=244) to bus (y=200) -->
-  <path d="M440,244 L440,200" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-
-  <!-- HashMap Container -->
-  <rect x="290" y="244" width="300" height="44" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="271" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">HashMap: key → 노드 참조</text>
+  <!-- HashMap -->
+  <rect x="56" y="228" width="768" height="108" rx="10" fill="#faf5ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <g fill="#ffffff" stroke="#6d28d9" stroke-width="1.5">
+    <rect x="114" y="244" width="64" height="40" rx="6"/>
+    <rect x="310" y="244" width="64" height="40" rx="6"/>
+    <rect x="506" y="244" width="64" height="40" rx="6"/>
+    <rect x="702" y="244" width="64" height="40" rx="6"/>
+  </g>
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">
+    <text x="146" y="270">A</text>
+    <text x="342" y="270">C</text>
+    <text x="538" y="270">B</text>
+    <text x="734" y="270">D</text>
+  </g>
+  <g stroke="#6d28d9" stroke-width="2" fill="none">
+    <path d="M146,242 V170" marker-end="url(#purple)"/>
+    <path d="M342,242 V170" marker-end="url(#purple)"/>
+    <path d="M538,242 V170" marker-end="url(#purple)"/>
+    <path d="M734,242 V170" marker-end="url(#purple)"/>
+  </g>
+  <text x="440" y="318" font-size="16" text-anchor="middle" fill="#4b5563"><tspan font-weight="bold" fill="#6d28d9">HashMap: key → 노드 참조</tspan>  ·  노드를 O(1)에 찾음</text>
 </svg>

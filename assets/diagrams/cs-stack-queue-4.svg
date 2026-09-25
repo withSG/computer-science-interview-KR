@@ -1,51 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 360" width="880" height="360" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">4. 원형 큐 (Circular Queue)</title>
-  <desc id="d">capacity 5인 배열에서 enqueue 5번, dequeue 3번 후 rear가 끝에 닿아 더 이상 데이터를 넣지 못하는 상태를 나타낸 다이어그램</desc>
-  <rect width="880" height="360" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 380" width="880" height="380" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">배열 큐의 공간 낭비</title>
+  <desc id="d">capacity 5인 배열에 enqueue 5번, dequeue 3번을 한 뒤의 상태. 0~2번 칸은 비어 있고 3번 D(front), 4번 E(rear)만 남았는데, rear가 배열 끝에 닿아 앞쪽 3칸이 놀고 있어도 더 넣을 수 없다.</desc>
+  <rect width="880" height="380" fill="#ffffff"/>
   <defs>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="10" refY="5" markerUnits="userSpaceOnUse" markerWidth="12" markerHeight="12" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <pattern id="idle" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="10" stroke="#d1d5db" stroke-width="2.5"/>
+    </pattern>
   </defs>
 
-  <!-- 상단 설명 -->
-  <rect x="190" y="30" width="500" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="440" y="54.9" font-size="14" font-weight="600" fill="#1f2933" text-anchor="middle">capacity 5인 배열. enqueue 5번, dequeue 3번 후</text>
+  <text x="24" y="44" font-size="17" font-weight="bold" fill="#111827">capacity 5인 배열. <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">enqueue</tspan> 5번, <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">dequeue</tspan> 3번 후</text>
 
-  <!-- 배열 셀 0..4 -->
-  <rect x="215" y="95" width="90" height="70" fill="#f8fafc" stroke="#cbd2d9" stroke-width="2"/>
-  <text x="260" y="136.3" font-size="18" font-weight="bold" fill="#9aa5b1" text-anchor="middle">/</text>
+  <!-- 놀고 있는 3칸 표시 -->
+  <text x="310" y="90" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">놀고 있는 3칸</text>
+  <path d="M164,108 V100 H456 V108" fill="none" stroke="#b45309" stroke-width="2"/>
 
-  <rect x="305" y="95" width="90" height="70" fill="#f8fafc" stroke="#cbd2d9" stroke-width="2"/>
-  <text x="350" y="136.3" font-size="18" font-weight="bold" fill="#9aa5b1" text-anchor="middle">/</text>
+  <!-- 배열 칸 0~4 -->
+  <rect x="160" y="112" width="300" height="70" fill="#f9fafb"/>
+  <rect x="160" y="112" width="100" height="70" fill="url(#idle)" stroke="#9ca3af" stroke-width="2"/>
+  <rect x="260" y="112" width="100" height="70" fill="url(#idle)" stroke="#9ca3af" stroke-width="2"/>
+  <rect x="360" y="112" width="100" height="70" fill="url(#idle)" stroke="#9ca3af" stroke-width="2"/>
+  <rect x="460" y="112" width="100" height="70" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="510" y="155" font-size="24" font-weight="bold" fill="#1e3a8a" text-anchor="middle">D</text>
+  <rect x="560" y="112" width="100" height="70" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="610" y="155" font-size="24" font-weight="bold" fill="#1e3a8a" text-anchor="middle">E</text>
 
-  <rect x="395" y="95" width="90" height="70" fill="#f8fafc" stroke="#cbd2d9" stroke-width="2"/>
-  <text x="440" y="136.3" font-size="18" font-weight="bold" fill="#9aa5b1" text-anchor="middle">/</text>
+  <!-- 배열 끝: 더 못 넣음 -->
+  <line x1="664" y1="104" x2="664" y2="190" stroke="#b91c1c" stroke-width="4"/>
+  <text x="762" y="136" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">enqueue</text>
+  <line x1="838" y1="147" x2="684" y2="147" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#ah-red)"/>
+  <text x="762" y="172" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">더 못 넣음</text>
 
-  <rect x="485" y="95" width="90" height="70" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="530" y="136.3" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">D</text>
+  <!-- 인덱스 -->
+  <text x="210" y="208" font-size="16" fill="#4b5563" text-anchor="middle">0</text>
+  <text x="310" y="208" font-size="16" fill="#4b5563" text-anchor="middle">1</text>
+  <text x="410" y="208" font-size="16" fill="#4b5563" text-anchor="middle">2</text>
+  <text x="510" y="208" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">3</text>
+  <text x="610" y="208" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">4</text>
 
-  <rect x="575" y="95" width="90" height="70" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="620" y="136.3" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">E</text>
+  <!-- front / rear -->
+  <line x1="510" y1="254" x2="510" y2="220" stroke="#047857" stroke-width="2.5" marker-end="url(#ah-green)"/>
+  <text x="510" y="274" font-size="16" font-weight="bold" fill="#047857" text-anchor="middle">front</text>
+  <line x1="610" y1="254" x2="610" y2="220" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ah-blue)"/>
+  <text x="610" y="274" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">rear</text>
 
-  <!-- 인덱스 번호 -->
-  <text x="260" y="179.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">0</text>
-  <text x="350" y="179.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">1</text>
-  <text x="440" y="179.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">2</text>
-  <text x="530" y="179.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">3</text>
-  <text x="620" y="179.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">4</text>
-
-  <!-- 포인터 화살표 & 라벨 -->
-  <path d="M530,235 L530,192" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  <text x="530" y="253.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">front</text>
-
-  <path d="M620,235 L620,192" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-  <text x="620" y="253.55" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">rear</text>
-
-  <!-- 하단 문제 상황 설명 -->
-  <rect x="160" y="280" width="560" height="46" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="307.9" font-size="14" font-weight="bold" fill="#92400e" text-anchor="middle">앞쪽 3칸이 놀고 있는데 rear가 끝에 닿아 더 못 넣는다.</text>
+  <!-- 요점 -->
+  <rect x="140" y="304" width="600" height="44" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="440" y="331.5" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">앞쪽 3칸이 놀고 있는데 rear가 끝에 닿아 더 못 넣는다.</text>
 </svg>

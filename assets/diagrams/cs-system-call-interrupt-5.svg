@@ -1,81 +1,90 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">두 방식 (폴링 vs 인터럽트)</title>
-  <desc id="d">폴링과 인터럽트 방식의 CPU 및 장치 동작 차이를 나타낸 비교 다이어그램</desc>
-  <defs>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-  </defs>
-  
+  <title id="t">폴링과 인터럽트 비교</title>
+  <desc id="d">폴링에서는 CPU가 "준비됐니?"를 반복해 묻다가 응답을 받을 때까지 다른 일을 못 하고, 인터럽트에서는 CPU가 다른 작업을 하다가 장치가 인터럽트로 알리면 하던 일을 저장하고 처리한 뒤 재개한다.</desc>
   <rect width="880" height="500" fill="#ffffff"/>
-
-  <!-- 제목 -->
-  <text x="30" y="41" font-size="16" font-weight="bold" fill="#1f2933">두 방식</text>
-
-  <!-- 폴링 섹션 -->
-  <rect x="30" y="60" width="820" height="195" rx="8" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
-  <text x="50" y="93" font-size="14" font-weight="bold" fill="#d97706">폴링</text>
-
-  <!-- 폴링 1~3번째 줄 -->
-  <text x="70" y="126" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="110" y="126" font-size="13" fill="#1f2933">준비됐니?</text>
-  <path d="M175,122 L195,122" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <text x="205" y="126" font-size="13" fill="#1f2933">아니</text>
-
-  <text x="70" y="156" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="110" y="156" font-size="13" fill="#1f2933">준비됐니?</text>
-  <path d="M175,152 L195,152" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <text x="205" y="156" font-size="13" fill="#1f2933">아니</text>
-
-  <text x="70" y="186" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="110" y="186" font-size="13" fill="#1f2933">준비됐니?</text>
-  <path d="M175,182 L195,182" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <text x="205" y="186" font-size="13" fill="#1f2933">아니</text>
-
-  <!-- 주석 (left arrow + text) -->
-  <path d="M280,182 L260,182" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)" />
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="ans" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="ok" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="irq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <text x="290" y="186" font-size="11.5" font-weight="bold" fill="#dc2626">묻는 동안 다른 일을 못 한다</text>
 
-  <!-- 폴링 4번째 줄 -->
-  <text x="70" y="226" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="110" y="226" font-size="13" fill="#1f2933">준비됐니?</text>
-  <path d="M175,222 L195,222" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <text x="205" y="226" font-size="13" fill="#059669" font-weight="bold">응! 데이터 받기</text>
+  <!-- ===== 폴링 ===== -->
+  <text x="24" y="44" font-size="20" font-weight="bold" fill="#b45309">폴링</text>
+  <text x="120" y="44" font-size="15" fill="#4b5563">CPU가 주기적으로 장치에 “준비됐니?”를 묻는 방식</text>
+  <text x="856" y="44" font-size="14" fill="#4b5563" text-anchor="end">시간 →</text>
 
+  <text x="372" y="80" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">묻는 동안 다른 일을 못 한다</text>
+  <path d="M97,98 V90 H647 V98" fill="none" stroke="#b91c1c" stroke-width="1.5"/>
 
-  <!-- 인터럽트 섹션 -->
-  <rect x="30" y="270" width="820" height="195" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
-  <text x="50" y="303" font-size="14" font-weight="bold" fill="#7c3aed">인터럽트</text>
+  <!-- 레인 -->
+  <rect x="24" y="102" width="832" height="56" fill="#f9fafb"/>
+  <text x="36" y="136" font-size="16" font-weight="bold" fill="#111827">CPU</text>
+  <rect x="24" y="196" width="832" height="52" fill="#f9fafb"/>
+  <text x="36" y="228" font-size="16" font-weight="bold" fill="#111827">장치</text>
 
-  <!-- 인터럽트 1~2번째 줄 -->
-  <text x="70" y="336" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="110" y="336" font-size="13" fill="#52606d">(다른 작업 수행 중)</text>
+  <!-- CPU: 준비됐니? ×4 -->
+  <rect x="96" y="108" width="176" height="44" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="184" y="136" font-size="16" fill="#92400e" text-anchor="middle">준비됐니?</text>
+  <rect x="284" y="108" width="176" height="44" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="372" y="136" font-size="16" fill="#92400e" text-anchor="middle">준비됐니?</text>
+  <rect x="472" y="108" width="176" height="44" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="560" y="136" font-size="16" fill="#92400e" text-anchor="middle">준비됐니?</text>
+  <rect x="660" y="108" width="176" height="44" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="748" y="136" font-size="16" fill="#92400e" text-anchor="middle">준비됐니?</text>
 
-  <text x="70" y="366" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="110" y="366" font-size="13" fill="#52606d">(다른 작업 수행 중)</text>
+  <!-- 묻기(↓)와 응답(↑) -->
+  <line x1="166" y1="156" x2="166" y2="198" stroke="#b45309" stroke-width="1.8" marker-end="url(#ask)"/>
+  <line x1="202" y1="200" x2="202" y2="158" stroke="#6b7280" stroke-width="1.8" marker-end="url(#ans)"/>
+  <line x1="354" y1="156" x2="354" y2="198" stroke="#b45309" stroke-width="1.8" marker-end="url(#ask)"/>
+  <line x1="390" y1="200" x2="390" y2="158" stroke="#6b7280" stroke-width="1.8" marker-end="url(#ans)"/>
+  <line x1="542" y1="156" x2="542" y2="198" stroke="#b45309" stroke-width="1.8" marker-end="url(#ask)"/>
+  <line x1="578" y1="200" x2="578" y2="158" stroke="#6b7280" stroke-width="1.8" marker-end="url(#ans)"/>
+  <line x1="730" y1="156" x2="730" y2="198" stroke="#b45309" stroke-width="1.8" marker-end="url(#ask)"/>
+  <line x1="766" y1="200" x2="766" y2="158" stroke="#047857" stroke-width="1.8" marker-end="url(#ok)"/>
 
-  <!-- 인터럽트 3번째 줄 (장치 -> CPU) -->
-  <text x="70" y="396" font-size="13" font-weight="bold" fill="#1f2933">장치:</text>
-  <text x="110" y="396" font-size="13" fill="#1f2933">준비됐어!</text>
+  <!-- 장치 응답 -->
+  <rect x="144" y="202" width="80" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="184" y="228" font-size="16" fill="#374151" text-anchor="middle">아니</text>
+  <rect x="332" y="202" width="80" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="372" y="228" font-size="16" fill="#374151" text-anchor="middle">아니</text>
+  <rect x="520" y="202" width="80" height="40" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="560" y="228" font-size="16" fill="#374151" text-anchor="middle">아니</text>
+  <rect x="668" y="202" width="160" height="40" rx="6" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+  <text x="748" y="228" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">응! 데이터 받기</text>
 
-  <!-- 인터럽트 신호 선 + 라벨 -->
-  <path d="M185,392 L315,392" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
-  <rect x="210" y="380" width="80" height="22" fill="#ffffff" rx="4" stroke="#c4b5fd" stroke-width="1"/>
-  <text x="250" y="395" font-size="11.5" fill="#7c3aed" font-weight="bold" text-anchor="middle">인터럽트</text>
-  <path d="M315,392 L335,392" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <line x1="24" y1="272" x2="856" y2="272" stroke="#d1d5db" stroke-width="1"/>
 
-  <text x="345" y="396" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="385" y="396" font-size="13" fill="#1f2933">하던 일 저장하고 처리</text>
+  <!-- ===== 인터럽트 ===== -->
+  <text x="24" y="312" font-size="20" font-weight="bold" fill="#6d28d9">인터럽트</text>
+  <text x="120" y="312" font-size="15" fill="#4b5563">장치가 준비되면 알려주는 방식</text>
+  <text x="856" y="312" font-size="14" fill="#4b5563" text-anchor="end">시간 →</text>
 
-  <!-- 인터럽트 4번째 줄 -->
-  <text x="70" y="436" font-size="13" font-weight="bold" fill="#1f2933">CPU:</text>
-  <text x="110" y="436" font-size="13" fill="#52606d">(하던 작업 재개)</text>
+  <rect x="24" y="330" width="832" height="56" fill="#f9fafb"/>
+  <text x="36" y="364" font-size="16" font-weight="bold" fill="#111827">CPU</text>
+  <rect x="24" y="424" width="832" height="52" fill="#f9fafb"/>
+  <text x="36" y="456" font-size="16" font-weight="bold" fill="#111827">장치</text>
+
+  <rect x="96" y="336" width="176" height="44" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="184" y="364" font-size="16" fill="#334155" text-anchor="middle">(다른 작업 수행 중)</text>
+  <rect x="284" y="336" width="176" height="44" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="372" y="364" font-size="16" fill="#334155" text-anchor="middle">(다른 작업 수행 중)</text>
+  <rect x="472" y="336" width="176" height="44" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="560" y="364" font-size="15" font-weight="bold" fill="#5b21b6" text-anchor="middle">하던 일 저장하고 처리</text>
+  <rect x="660" y="336" width="176" height="44" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="748" y="364" font-size="16" fill="#334155" text-anchor="middle">(하던 작업 재개)</text>
+
+  <!-- 장치: 준비됐어! → 인터럽트 -->
+  <rect x="505" y="430" width="110" height="40" rx="6" fill="#ede9fe" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="560" y="456" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle">준비됐어!</text>
+  <line x1="560" y1="428" x2="560" y2="386" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#irq)"/>
+  <text x="572" y="412" font-size="15" font-weight="bold" fill="#6d28d9">인터럽트</text>
 </svg>

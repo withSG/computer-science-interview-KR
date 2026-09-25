@@ -1,113 +1,106 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 940" width="880" height="940" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">컨텍스트 스위칭 과정</title>
-  <desc id="d">Process A 실행 중 타이머 인터럽트 발생부터 커널 및 하드웨어 작업을 거쳐 Process B가 실행되고 캐시/TLB 미스가 발생하는 과정을 나타낸 시퀀스 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 890" width="880" height="890" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">프로세스 간 컨텍스트 스위칭 전체 흐름</title>
+  <desc id="d">타이머 인터럽트로 Process A가 멈춘 뒤 하드웨어·커널·스케줄러가 레지스터 저장, 대상 선택, 주소 공간 전환(CR3), TLB 무효화, 레지스터 복원, 사용자 모드 복귀를 차례로 수행하고 Process B가 실행되며, 그 직후 한동안 캐시 미스와 TLB 미스가 쏟아짐을 보여 준다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
+  <rect width="880" height="890" fill="#ffffff"/>
 
-  <!-- Background -->
-  <rect width="880" height="940" fill="#ffffff"/>
+  <!-- Process A -->
+  <rect x="64" y="24" width="172" height="62" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="150" y="51" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Process A 실행</text>
+  <text x="150" y="73" font-size="14" fill="#1e40af" text-anchor="middle">사용자 모드</text>
 
-  <!-- Legend -->
-  <g transform="translate(40, 24)">
-    <rect x="0" y="0" width="800" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    
-    <rect x="20" y="12" width="16" height="16" rx="3" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="42" y="24.5" font-size="12" fill="#1f2933">프로세스 (사용자 모드)</text>
+  <line x1="150" y1="88" x2="150" y2="170" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="166" y="114" font-size="16" font-weight="bold" fill="#111827">타이머 인터럽트 발생</text>
 
-    <rect x="220" y="12" width="16" height="16" rx="3" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="242" y="24.5" font-size="12" fill="#1f2933">하드웨어</text>
+  <!-- 커널 모드 영역 -->
+  <rect x="40" y="130" width="800" height="622" rx="12" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="824" y="156" font-size="16" font-weight="bold" fill="#334155" text-anchor="end">커널 모드</text>
 
-    <rect x="360" y="12" width="16" height="16" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="382" y="24.5" font-size="12" fill="#1f2933">커널</text>
+  <!-- 1 하드웨어 -->
+  <rect x="64" y="172" width="752" height="52" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="86" cy="198" r="13" fill="#6d28d9"/>
+  <text x="86" y="203" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="108" y="203" font-size="15" font-weight="bold" fill="#6d28d9">하드웨어</text>
+  <line x1="196" y1="182" x2="196" y2="214" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="212" y="204" font-size="16" fill="#111827">PC와 상태 레지스터를 커널 스택에 자동 저장, 커널 모드 진입</text>
 
-    <rect x="470" y="12" width="16" height="16" rx="3" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="492" y="24.5" font-size="12" fill="#1f2933">스케줄러</text>
-  </g>
+  <line x1="150" y1="226" x2="150" y2="250" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Flow Content -->
+  <!-- 2 커널 -->
+  <rect x="64" y="252" width="752" height="52" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="86" cy="278" r="13" fill="#b45309"/>
+  <text x="86" y="283" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="108" y="283" font-size="15" font-weight="bold" fill="#b45309">커널</text>
+  <line x1="196" y1="262" x2="196" y2="294" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="212" y="284" font-size="16" fill="#111827">나머지 범용 레지스터를 A의 PCB에 저장</text>
 
-  <!-- Process A 실행 -->
-  <rect x="340" y="88" width="200" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-  <text x="440" y="115" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Process A 실행</text>
+  <line x1="150" y1="306" x2="150" y2="330" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Flow 1 -->
-  <path d="M440,132 L440,172" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="375" y="143" width="130" height="18" fill="#ffffff"/>
-  <text x="440" y="156" font-size="12.5" fill="#52606d" text-anchor="middle">타이머 인터럽트 발생</text>
+  <!-- 3 스케줄러 -->
+  <rect x="64" y="332" width="752" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <circle cx="86" cy="358" r="13" fill="#047857"/>
+  <text x="86" y="363" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="108" y="363" font-size="15" font-weight="bold" fill="#047857">스케줄러</text>
+  <line x1="196" y1="342" x2="196" y2="374" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="212" y="364" font-size="16" fill="#111827">다음에 실행할 대상 선택 → <tspan font-weight="bold">B</tspan></text>
 
-  <!-- Box 1: [하드웨어] PC와 상태 레지스터... -->
-  <rect x="120" y="180" width="640" height="52" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="211.5" font-size="13" fill="#1f2933" text-anchor="middle"><tspan font-weight="bold" fill="#7c3aed">[하드웨어]</tspan> PC와 상태 레지스터를 커널 스택에 자동 저장, 커널 모드 진입</text>
+  <line x1="150" y1="386" x2="150" y2="410" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Flow 2 -->
-  <path d="M440,232 L440,262" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 4 커널 -->
+  <rect x="64" y="412" width="752" height="74" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="86" cy="449" r="13" fill="#b45309"/>
+  <text x="86" y="454" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="108" y="454" font-size="15" font-weight="bold" fill="#b45309">커널</text>
+  <line x1="196" y1="422" x2="196" y2="476" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="212" y="442" font-size="16" fill="#111827">주소 공간 전환: 페이지 테이블 베이스 레지스터를 B의 것으로 교체</text>
+  <text x="212" y="468" font-size="15" fill="#4b5563">(x86-64에서는 CR3 레지스터)</text>
 
-  <!-- Box 2: [커널] 나머지 범용 레지스터... -->
-  <rect x="180" y="270" width="520" height="52" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="301.5" font-size="13" fill="#1f2933" text-anchor="middle"><tspan font-weight="bold" fill="#d97706">[커널]</tspan> 나머지 범용 레지스터를 A의 PCB에 저장</text>
+  <line x1="150" y1="488" x2="150" y2="512" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Flow 3 -->
-  <path d="M440,322 L440,352" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 5 하드웨어 -->
+  <rect x="64" y="514" width="752" height="52" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="86" cy="540" r="13" fill="#6d28d9"/>
+  <text x="86" y="545" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
+  <text x="108" y="545" font-size="15" font-weight="bold" fill="#6d28d9">하드웨어</text>
+  <line x1="196" y1="524" x2="196" y2="556" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="212" y="546" font-size="16" fill="#111827">TLB 무효화 <tspan font-size="15" fill="#4b5563">(PCID를 쓰면 생략 가능)</tspan></text>
 
-  <!-- Box 3: [스케줄러] 다음에 실행할 대상 선택... -->
-  <rect x="210" y="360" width="460" height="52" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="440" y="391.5" font-size="13" fill="#1f2933" text-anchor="middle"><tspan font-weight="bold" fill="#dc2626">[스케줄러]</tspan> 다음에 실행할 대상 선택 → B</text>
+  <line x1="150" y1="568" x2="150" y2="592" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Flow 4 -->
-  <path d="M440,412 L440,442" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 6 커널 -->
+  <rect x="64" y="594" width="752" height="52" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="86" cy="620" r="13" fill="#b45309"/>
+  <text x="86" y="625" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">6</text>
+  <text x="108" y="625" font-size="15" font-weight="bold" fill="#b45309">커널</text>
+  <line x1="196" y1="604" x2="196" y2="636" stroke="#fcd34d" stroke-width="1.5"/>
+  <text x="212" y="626" font-size="16" fill="#111827">B의 PCB에서 레지스터 복원</text>
 
-  <!-- Box 4: [커널] 주소 공간 전환... -->
-  <rect x="110" y="450" width="660" height="68" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="477" font-size="13" fill="#1f2933" text-anchor="middle"><tspan font-weight="bold" fill="#d97706">[커널]</tspan> 주소 공간 전환: 페이지 테이블 베이스 레지스터를 B의 것으로 교체</text>
-  <text x="440" y="499" font-size="12" fill="#52606d" text-anchor="middle">(x86-64에서는 CR3 레지스터)</text>
+  <line x1="150" y1="648" x2="150" y2="672" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Flow 5 -->
-  <path d="M440,518 L440,548" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 7 하드웨어 -->
+  <rect x="64" y="674" width="752" height="52" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <circle cx="86" cy="700" r="13" fill="#6d28d9"/>
+  <text x="86" y="705" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <text x="108" y="705" font-size="15" font-weight="bold" fill="#6d28d9">하드웨어</text>
+  <line x1="196" y1="684" x2="196" y2="716" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="212" y="706" font-size="16" fill="#111827">사용자 모드로 복귀, B의 PC로 점프</text>
 
-  <!-- Box 5: [하드웨어] TLB 무효화... -->
-  <rect x="180" y="556" width="520" height="52" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="587.5" font-size="13" fill="#1f2933" text-anchor="middle"><tspan font-weight="bold" fill="#7c3aed">[하드웨어]</tspan> TLB 무효화 (PCID를 쓰면 생략 가능)</text>
+  <line x1="150" y1="728" x2="150" y2="786" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Flow 6 -->
-  <path d="M440,608 L440,638" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- Process B + 핵심 주석 -->
+  <rect x="64" y="790" width="172" height="62" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="150" y="817" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Process B 실행</text>
+  <text x="150" y="839" font-size="14" fill="#1e40af" text-anchor="middle">사용자 모드</text>
 
-  <!-- Box 6: [커널] B의 PCB에서 레지스터 복원 -->
-  <rect x="230" y="646" width="420" height="52" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="677.5" font-size="13" fill="#1f2933" text-anchor="middle"><tspan font-weight="bold" fill="#d97706">[커널]</tspan> B의 PCB에서 레지스터 복원</text>
-
-  <!-- Flow 7 -->
-  <path d="M440,698 L440,728" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Box 7: [하드웨어] 사용자 모드로 복귀... -->
-  <rect x="200" y="736" width="480" height="52" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="440" y="767.5" font-size="13" fill="#1f2933" text-anchor="middle"><tspan font-weight="bold" fill="#7c3aed">[하드웨어]</tspan> 사용자 모드로 복귀, B의 PC로 점프</text>
-
-  <!-- Flow 8 -->
-  <path d="M440,788 L440,828" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- Process B 실행 Block + Side Note -->
-  <g transform="translate(0, 836)">
-    <!-- Process B Box -->
-    <rect x="340" y="0" width="200" height="44" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="440" y="27" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Process B 실행</text>
-
-    <!-- Pointer Arrow -->
-    <path d="M570,22 L548,22" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-    <!-- Note Text Block -->
-    <rect x="575" y="3" width="270" height="38" rx="4" fill="#fef2f2" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="585" y="26" font-size="11.5" fill="#dc2626" font-weight="bold">여기서부터 한동안 캐시 미스와 TLB 미스가 쏟아진다</text>
-  </g>
+  <line x1="282" y1="821" x2="242" y2="821" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <rect x="286" y="790" width="530" height="62" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="2"/>
+  <text x="304" y="816" font-size="16" font-weight="bold" fill="#b91c1c">여기서부터 한동안 캐시 미스와 TLB 미스가 쏟아진다</text>
+  <text x="304" y="840" font-size="15" fill="#7f1d1d">B가 원래 속도를 회복할 때까지가 진짜 비용</text>
 </svg>

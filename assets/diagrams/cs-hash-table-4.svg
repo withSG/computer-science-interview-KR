@@ -1,80 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">개방 주소법의 삭제 문제</title>
-  <desc id="d">K2를 지워서 버킷 4가 비어있을 때, K3를 탐사하는 과정에서 버킷 4가 빈 칸이라 탐사가 중단되어 버킷 5의 K3를 찾지 못하는 문제 설명 다이어그램</desc>
-  
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">개방 주소법 삭제 후 탐색 실패</title>
+  <desc id="d">K2를 그냥 지우면 버킷 4가 빈 칸이 된다. K3를 찾을 때 hash(K3) = 4이므로 버킷 4부터 탐사하는데, 버킷 4가 비어 있어 탐사가 멈추고 "없다"고 답한다. K3는 실제로 버킷 5에 있는데도 찾지 못한다.</desc>
+  <rect width="880" height="440" fill="#ffffff"/>
   <defs>
-    <!-- 화살표 마커 (주황/강조) -->
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <!-- 화살표 마커 (빨강/실패) -->
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="dl-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
 
-  <!-- ================= 왼쪽 영역: 해시 테이블 배열 및 빈 칸 화살표 ================= -->
+  <text x="24" y="40" font-size="16" font-weight="bold" fill="#374151">K2를 그냥 지운 뒤</text>
 
-  <!-- 배열 버킷 (7개: Index 0~6) -->
-  <!-- 버킷 0 -->
-  <rect x="30" y="80" width="55" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="57.5" y="155" font-size="11.5" fill="#52606d" text-anchor="middle">0</text>
+  <!-- ① 탐사 시작 -->
+  <text x="506" y="50" font-size="16" fill="#1d4ed8" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash(K3) = 4</text>
+  <circle cx="524" cy="44" r="12" fill="#1d4ed8"/>
+  <text x="524" y="49" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <line x1="524" y1="58" x2="524" y2="90" stroke="#1d4ed8" stroke-width="2" marker-end="url(#dl-blue)"/>
 
-  <!-- 버킷 1 -->
-  <rect x="85" y="80" width="55" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="112.5" y="155" font-size="11.5" fill="#52606d" text-anchor="middle">1</text>
+  <!-- ② 빈 칸에서 멈춤: 5번으로 넘어가지 못함 -->
+  <path d="M544,94 Q566,50 588,94" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/>
+  <line x1="560" y1="66" x2="572" y2="78" stroke="#b91c1c" stroke-width="2.5"/>
+  <line x1="572" y1="66" x2="560" y2="78" stroke="#b91c1c" stroke-width="2.5"/>
+  <circle cx="566" cy="44" r="12" fill="#b91c1c"/>
+  <text x="566" y="49" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="584" y="49" font-size="15" font-weight="bold" fill="#b91c1c">탐사 중단 (빈 칸)</text>
 
-  <!-- 버킷 2 -->
-  <rect x="140" y="80" width="55" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="167.5" y="155" font-size="11.5" fill="#52606d" text-anchor="middle">2</text>
+  <!-- ③ K3는 5번에 있음 -->
+  <circle cx="632" cy="76" r="12" fill="#b91c1c"/>
+  <text x="632" y="81" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
 
-  <!-- 버킷 3: K1 -->
-  <rect x="195" y="80" width="55" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="222.5" y="112" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">K1</text>
-  <text x="222.5" y="155" font-size="11.5" fill="#52606d" text-anchor="middle">3</text>
+  <!-- 배열 (버킷 0~6) -->
+  <rect x="146" y="96" width="84" height="56" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="230" y="96" width="84" height="56" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="314" y="96" width="84" height="56" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="398" y="96" width="84" height="56" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="482" y="96" width="84" height="56" fill="#fffbeb" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4"/>
+  <rect x="566" y="96" width="84" height="56" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <rect x="650" y="96" width="84" height="56" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="130" font-size="18" font-weight="bold" fill="#111827" text-anchor="middle">K1</text>
+  <text x="608" y="130" font-size="18" font-weight="bold" fill="#b91c1c" text-anchor="middle">K3</text>
+  <text x="188" y="176" font-size="15" fill="#4b5563" text-anchor="middle">0</text>
+  <text x="272" y="176" font-size="15" fill="#4b5563" text-anchor="middle">1</text>
+  <text x="356" y="176" font-size="15" fill="#4b5563" text-anchor="middle">2</text>
+  <text x="440" y="176" font-size="15" fill="#4b5563" text-anchor="middle">3</text>
+  <text x="524" y="176" font-size="15" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <text x="608" y="176" font-size="15" fill="#4b5563" text-anchor="middle">5</text>
+  <text x="692" y="176" font-size="15" fill="#4b5563" text-anchor="middle">6</text>
+  <text x="524" y="204" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">▲ 빈 칸이 생김</text>
+  <text x="524" y="226" font-size="15" fill="#4b5563" text-anchor="middle">(K2를 지운 자리)</text>
 
-  <!-- 버킷 4: 빈 칸 (삭제됨) -->
-  <rect x="250" y="80" width="55" height="50" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="277.5" y="155" font-size="11.5" fill="#52606d" text-anchor="middle">4</text>
-
-  <!-- 버킷 5: K3 -->
-  <rect x="305" y="80" width="55" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="332.5" y="112" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">K3</text>
-  <text x="332.5" y="155" font-size="11.5" fill="#52606d" text-anchor="middle">5</text>
-
-  <!-- 버킷 6 -->
-  <rect x="360" y="80" width="55" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="387.5" y="155" font-size="11.5" fill="#52606d" text-anchor="middle">6</text>
-
-  <!-- 빈 칸 포인팅 화살표 (버킷 4 하단) -->
-  <path d="M277.5,210 L277.5,137" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-amber)"/>
-  <text x="277.5" y="230" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">▲ 빈 칸이 생김</text>
-
-  <!-- ================= 오른쪽 영역: 텍스트 설명 ================= -->
-
-  <!-- 제목/목적: K3를 찾으려면 -->
-  <text x="460" y="85" font-size="14" font-weight="bold" fill="#1f2933">K3를 찾으려면</text>
-
-  <!-- 탐사 단계 1: 홈 버킷 4부터 탐사 -->
-  <circle cx="470" cy="120" r="3" fill="#52606d"/>
-  <text x="482" y="124" font-size="13" fill="#1f2933">hash(K3) = 4 → 버킷 4부터 탐사</text>
-
-  <!-- 탐사 단계 2: 버킷 4 확인 (실패 지점) -->
-  <circle cx="470" cy="155" r="3" fill="#dc2626"/>
-  <text x="482" y="159" font-size="13" fill="#1f2933">버킷 4 확인 → 비어 있음 → </text>
-  <rect x="652" y="142" width="52" height="24" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="678" y="159" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">"없다"</text>
-
-  <!-- 결과 설명: 실제로는 버킷 5에 있는데도 못 찾는다 -->
-  <path d="M470,190 L470,210 L478,210" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="486" y="214" font-size="13" font-weight="bold" fill="#dc2626">실제로는 버킷 5에 있는데도 못 찾는다</text>
-
-  <!-- 탐사 경로 시각화 (홈 버킷 4에서 바로 중단) -->
-  <path d="M277.5,48 L277.5,73" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#a-red)"/>
-  <rect x="228.5" y="26" width="98" height="20" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="277.5" y="40" font-size="11" fill="#dc2626" text-anchor="middle">탐사 중단 (빈 칸)</text>
-
+  <!-- K3를 찾으려면 -->
+  <rect x="24" y="250" width="832" height="168" rx="8" fill="#f9fafb" stroke="#d1d5db" stroke-width="1"/>
+  <text x="44" y="282" font-size="16" font-weight="bold" fill="#111827">K3를 찾으려면</text>
+  <circle cx="56" cy="316" r="12" fill="#1d4ed8"/>
+  <text x="56" y="321" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="80" y="322" font-size="16" fill="#111827"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash(K3) = 4</tspan> → 버킷 4부터 탐사</text>
+  <circle cx="56" cy="352" r="12" fill="#b91c1c"/>
+  <text x="56" y="357" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="80" y="358" font-size="16" fill="#111827">버킷 4 확인 → 비어 있음 → <tspan font-weight="bold" fill="#b91c1c">"없다"</tspan></text>
+  <circle cx="56" cy="388" r="12" fill="#b91c1c"/>
+  <text x="56" y="393" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="80" y="394" font-size="16" font-weight="bold" fill="#b91c1c">실제로는 버킷 5에 있는데도 못 찾는다</text>
 </svg>

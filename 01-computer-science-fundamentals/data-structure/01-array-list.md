@@ -249,7 +249,7 @@ L1과 DRAM 사이에는 두 자릿수 배율의 차이가 있습니다. 그래�
 ### 동작 원리
 
 <!-- diagram:cs-array-list-7 -->
-![동작 원리](../../assets/diagrams/cs-array-list-7.svg)
+![동적 배열 확장 3단계: 새 배열 할당, 전체 복사, 값 추가](../../assets/diagrams/cs-array-list-7.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

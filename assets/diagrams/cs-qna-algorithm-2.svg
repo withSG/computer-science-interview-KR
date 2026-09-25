@@ -1,124 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">탐색 순서 예시</title>
-  <desc id="d">이진 트리의 DFS(깊이 우선 탐색) 및 BFS(너비 우선 탐색) 탐색 순서 예시 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DFS와 BFS 탐색 순서</title>
+  <desc id="d">같은 이진 트리(1의 자식 2·3, 2의 자식 4·5)에서 DFS는 1 → 2 → 4 → 5 → 3, BFS는 1 → 2 → 3 → 4 → 5 순서로 방문합니다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
+  <rect width="880" height="480" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="390" fill="#ffffff"/>
+  <!-- ===== DFS 패널 ===== -->
+  <rect x="24" y="24" width="404" height="400" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="48" y="60" font-size="17" fill="#111827"><tspan font-size="20" font-weight="bold" fill="#1d4ed8">DFS</tspan> (깊이 우선 탐색)</text>
+  <text x="48" y="86" font-size="15" fill="#4b5563">스택/재귀 · 한 갈래를 끝까지 먼저</text>
 
-  <!-- 제목 섹션 (문서 헤딩) -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">탐색 순서 예시</text>
+  <!-- 먼저 끝까지 도는 갈래(2의 서브트리) -->
+  <rect x="50" y="172" width="196" height="150" rx="14" fill="#eff6ff"/>
 
-  <!-- 트리 영역 -->
-  <g id="tree">
-    <!-- 에지 (연결선) -->
-    <line x1="200" y1="80" x2="140" y2="140" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="200" y1="80" x2="260" y2="140" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="140" y1="140" x2="90" y2="200" stroke="#9aa5b1" stroke-width="2"/>
-    <line x1="140" y1="140" x2="190" y2="200" stroke="#9aa5b1" stroke-width="2"/>
+  <!-- 간선 -->
+  <line x1="226" y1="140" x2="146" y2="216" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="226" y1="140" x2="306" y2="216" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="146" y1="216" x2="96" y2="292" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="146" y1="216" x2="196" y2="292" stroke="#9ca3af" stroke-width="2"/>
 
-    <!-- 노드 1 -->
-    <circle cx="200" cy="80" r="22" fill="#f8fafc" stroke="#52606d" stroke-width="2"/>
-    <text x="200" y="85" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
+  <!-- 노드 -->
+  <circle cx="226" cy="140" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="226" y="146" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">1</text>
+  <circle cx="146" cy="216" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="146" y="222" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">2</text>
+  <circle cx="306" cy="216" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="306" y="222" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">3</text>
+  <circle cx="96" cy="292" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="96" y="298" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">4</text>
+  <circle cx="196" cy="292" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="196" y="298" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">5</text>
 
-    <!-- 노드 2 -->
-    <circle cx="140" cy="140" r="22" fill="#f8fafc" stroke="#52606d" stroke-width="2"/>
-    <text x="140" y="145" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
+  <!-- 방문 순서 배지 -->
+  <circle cx="254" cy="118" r="13" fill="#1d4ed8"/>
+  <text x="254" y="123" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <circle cx="118" cy="194" r="13" fill="#1d4ed8"/>
+  <text x="118" y="199" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <circle cx="68" cy="270" r="13" fill="#1d4ed8"/>
+  <text x="68" y="275" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <circle cx="224" cy="270" r="13" fill="#1d4ed8"/>
+  <text x="224" y="275" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <circle cx="334" cy="194" r="13" fill="#1d4ed8"/>
+  <text x="334" y="199" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
 
-    <!-- 노드 3 -->
-    <circle cx="260" cy="140" r="22" fill="#f8fafc" stroke="#52606d" stroke-width="2"/>
-    <text x="260" y="145" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
+  <!-- 탐색 순서 -->
+  <text x="48" y="356" font-size="15" font-weight="bold" fill="#374151">탐색 순서</text>
+  <circle cx="98" cy="388" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="98" y="394" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">1</text>
+  <line x1="119" y1="388" x2="141" y2="388" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#ab)"/>
+  <circle cx="162" cy="388" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="162" y="394" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">2</text>
+  <line x1="183" y1="388" x2="205" y2="388" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#ab)"/>
+  <circle cx="226" cy="388" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="226" y="394" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">4</text>
+  <line x1="247" y1="388" x2="269" y2="388" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#ab)"/>
+  <circle cx="290" cy="388" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="290" y="394" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">5</text>
+  <line x1="311" y1="388" x2="333" y2="388" stroke="#1d4ed8" stroke-width="1.5" marker-end="url(#ab)"/>
+  <circle cx="354" cy="388" r="18" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="354" y="394" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">3</text>
 
-    <!-- 노드 4 -->
-    <circle cx="90" cy="200" r="22" fill="#f8fafc" stroke="#52606d" stroke-width="2"/>
-    <text x="90" y="205" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
+  <!-- ===== BFS 패널 ===== -->
+  <rect x="452" y="24" width="404" height="400" rx="12" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="476" y="60" font-size="17" fill="#111827"><tspan font-size="20" font-weight="bold" fill="#047857">BFS</tspan> (너비 우선 탐색)</text>
+  <text x="476" y="86" font-size="15" fill="#4b5563">큐 · 같은 레벨부터 차례로</text>
 
-    <!-- 노드 5 -->
-    <circle cx="190" cy="200" r="22" fill="#f8fafc" stroke="#52606d" stroke-width="2"/>
-    <text x="190" y="205" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
-  </g>
+  <!-- 레벨 띠 -->
+  <rect x="466" y="110" width="376" height="60" rx="10" fill="#ecfdf5"/>
+  <rect x="466" y="186" width="376" height="60" rx="10" fill="#ecfdf5"/>
+  <rect x="466" y="262" width="376" height="60" rx="10" fill="#ecfdf5"/>
 
-  <!-- DFS 탐색 순서 박스 -->
-  <g id="dfs-section">
-    <rect x="360" y="70" width="480" height="90" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="385" y="123" font-size="14" font-weight="bold" fill="#2563eb">DFS:</text>
-    
-    <!-- DFS 순서 시퀀스 -->
-    <g transform="translate(440, 100)">
-      <!-- 노드 1 -->
-      <circle cx="20" cy="20" r="16" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-      <path d="M 42 20 L 68 20" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 간선 -->
+  <line x1="654" y1="140" x2="574" y2="216" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="654" y1="140" x2="734" y2="216" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="574" y1="216" x2="524" y2="292" stroke="#9ca3af" stroke-width="2"/>
+  <line x1="574" y1="216" x2="624" y2="292" stroke="#9ca3af" stroke-width="2"/>
 
-      <!-- 노드 2 -->
-      <circle cx="90" cy="20" r="16" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="90" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
-      <path d="M 112 20 L 138 20" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 노드 -->
+  <circle cx="654" cy="140" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="654" y="146" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">1</text>
+  <circle cx="574" cy="216" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="574" y="222" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">2</text>
+  <circle cx="734" cy="216" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="734" y="222" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">3</text>
+  <circle cx="524" cy="292" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="524" y="298" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">4</text>
+  <circle cx="624" cy="292" r="22" fill="#ffffff" stroke="#374151" stroke-width="2"/>
+  <text x="624" y="298" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">5</text>
 
-      <!-- 노드 4 -->
-      <circle cx="160" cy="20" r="16" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="160" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
-      <path d="M 182 20 L 208 20" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 방문 순서 배지 -->
+  <circle cx="682" cy="118" r="13" fill="#047857"/>
+  <text x="682" y="123" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <circle cx="546" cy="194" r="13" fill="#047857"/>
+  <text x="546" y="199" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <circle cx="762" cy="194" r="13" fill="#047857"/>
+  <text x="762" y="199" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <circle cx="496" cy="270" r="13" fill="#047857"/>
+  <text x="496" y="275" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <circle cx="652" cy="270" r="13" fill="#047857"/>
+  <text x="652" y="275" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">5</text>
 
-      <!-- 노드 5 -->
-      <circle cx="230" cy="20" r="16" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="230" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
-      <path d="M 252 20 L 278 20" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 탐색 순서 -->
+  <text x="476" y="356" font-size="15" font-weight="bold" fill="#374151">탐색 순서</text>
+  <circle cx="526" cy="388" r="18" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="526" y="394" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">1</text>
+  <line x1="547" y1="388" x2="569" y2="388" stroke="#047857" stroke-width="1.5" marker-end="url(#ag)"/>
+  <circle cx="590" cy="388" r="18" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="590" y="394" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">2</text>
+  <line x1="611" y1="388" x2="633" y2="388" stroke="#047857" stroke-width="1.5" marker-end="url(#ag)"/>
+  <circle cx="654" cy="388" r="18" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="654" y="394" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">3</text>
+  <line x1="675" y1="388" x2="697" y2="388" stroke="#047857" stroke-width="1.5" marker-end="url(#ag)"/>
+  <circle cx="718" cy="388" r="18" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="718" y="394" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">4</text>
+  <line x1="739" y1="388" x2="761" y2="388" stroke="#047857" stroke-width="1.5" marker-end="url(#ag)"/>
+  <circle cx="782" cy="388" r="18" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="782" y="394" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">5</text>
 
-      <!-- 노드 3 -->
-      <circle cx="300" cy="20" r="16" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-      <text x="300" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
-    </g>
-  </g>
-
-  <!-- BFS 탐색 순서 박스 -->
-  <g id="bfs-section">
-    <rect x="360" y="180" width="480" height="90" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="385" y="233" font-size="14" font-weight="bold" fill="#059669">BFS:</text>
-    
-    <!-- BFS 순서 시퀀스 -->
-    <g transform="translate(440, 210)">
-      <!-- 노드 1 -->
-      <circle cx="20" cy="20" r="16" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-      <text x="20" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-      <path d="M 42 20 L 68 20" stroke="#059669" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-green)"/>
-
-      <!-- 노드 2 -->
-      <circle cx="90" cy="20" r="16" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-      <text x="90" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
-      <path d="M 112 20 L 138 20" stroke="#059669" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-green)"/>
-
-      <!-- 노드 3 -->
-      <circle cx="160" cy="20" r="16" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-      <text x="160" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
-      <path d="M 182 20 L 208 20" stroke="#059669" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-green)"/>
-
-      <!-- 노드 4 -->
-      <circle cx="230" cy="20" r="16" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-      <text x="230" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
-      <path d="M 252 20 L 278 20" stroke="#059669" stroke-width="1.5" stroke-dasharray="none" fill="none" marker-end="url(#a-green)"/>
-
-      <!-- 노드 5 -->
-      <circle cx="300" cy="20" r="16" fill="#ffffff" stroke="#059669" stroke-width="1.5"/>
-      <text x="300" y="25" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
-    </g>
-  </g>
-
-  <!-- 색상 범례 (의미 구분을 위한 범례) -->
-  <g id="legend" transform="translate(360, 310)">
-    <rect x="0" y="0" width="480" height="40" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    
-    <rect x="20" y="14" width="12" height="12" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <text x="38" y="24" font-size="11.5" fill="#52606d">DFS (깊이 우선 탐색)</text>
-    
-    <rect x="230" y="14" width="12" height="12" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="248" y="24" font-size="11.5" fill="#52606d">BFS (너비 우선 탐색)</text>
-  </g>
+  <!-- 범례 -->
+  <circle cx="344" cy="451" r="12" fill="#4b5563"/>
+  <text x="344" y="456" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">n</text>
+  <text x="366" y="456" font-size="15" fill="#374151">노드 옆 작은 원 = 방문 순서</text>
 </svg>

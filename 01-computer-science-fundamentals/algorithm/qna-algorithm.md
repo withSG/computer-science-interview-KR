@@ -880,7 +880,7 @@ if visited == all_visited:
 ### 동작 원리 (LSD - Least Significant Digit)
 
 <!-- diagram:cs-qna-algorithm-4 -->
-![동작 원리 (LSD - Least Significant Digit)](../../assets/diagrams/cs-qna-algorithm-4.svg)
+![1·10·100의 자리 순으로 안정 정렬하는 기수 정렬](../../assets/diagrams/cs-qna-algorithm-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

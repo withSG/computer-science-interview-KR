@@ -1,56 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">데드락 예시</title>
-  <desc id="d">Thread 1이 Lock B를 대기하고, Lock B는 Thread 2가 보유하며, Thread 2는 Lock A를 대기하고, Lock A는 Thread 1이 보유하는 순환 대기 상황을 나타내는 데드락 다이어그램입니다.</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">데드락 순환 대기</title>
+  <desc id="d">Thread 1은 Lock A를 획득한 뒤 Lock B를, Thread 2는 Lock B를 획득한 뒤 Lock A를 기다린다. 대기와 보유 관계를 따라가면 Thread 1, Lock B, Thread 2, Lock A를 거쳐 제자리로 돌아오는 순환 대기가 된다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
 
-  <!-- 상단 원본 설명 텍스트 -->
-  <text x="440" y="45" font-size="14" fill="#52606d" text-anchor="middle">Thread 1: Lock A 획득 → Lock B 대기</text>
-  <text x="440" y="70" font-size="14" fill="#52606d" text-anchor="middle">Thread 2: Lock B 획득 → Lock A 대기</text>
+  <!-- 각 스레드의 진행 -->
+  <text x="150" y="68" font-size="17" font-weight="bold" fill="#1d4ed8">Thread 1</text>
+  <rect x="280" y="42" width="170" height="40" rx="6" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="365" y="68" font-size="16" fill="#1f2937" text-anchor="middle">Lock A 획득</text>
+  <line x1="456" y1="62" x2="552" y2="62" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="560" y="42" width="170" height="40" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="645" y="68" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">Lock B 대기</text>
 
-  <!-- 
-    박스 좌표 세팅 (Center-based logic for clean symmetric layout)
-    Center-X: Left = 260, Right = 620
-    Center-Y: Top = 180, Bottom = 380
-    Box Width: 200, Box Height: 80
-  -->
+  <text x="150" y="124" font-size="17" font-weight="bold" fill="#6d28d9">Thread 2</text>
+  <rect x="280" y="98" width="170" height="40" rx="6" fill="#f9fafb" stroke="#374151" stroke-width="1.5"/>
+  <text x="365" y="124" font-size="16" fill="#1f2937" text-anchor="middle">Lock B 획득</text>
+  <line x1="456" y1="118" x2="552" y2="118" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <rect x="560" y="98" width="170" height="40" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="645" y="124" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">Lock A 대기</text>
 
-  <!-- Top Left: Thread 1 -->
-  <rect x="160" y="140" width="200" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="260" y="172" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Thread 1</text>
-  <text x="260" y="197" font-size="13" fill="#52606d" text-anchor="middle">(A 보유)</text>
+  <!-- 순환 대기 그래프 -->
+  <rect x="150" y="190" width="190" height="80" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="245" y="225" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Thread 1</text>
+  <text x="245" y="250" font-size="15" fill="#1f2937" text-anchor="middle">(A 보유)</text>
 
-  <!-- Top Right: Lock B -->
-  <rect x="520" y="140" width="200" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="620" y="172" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Lock B</text>
-  <text x="620" y="197" font-size="13" fill="#52606d" text-anchor="middle">(T2 보유)</text>
+  <rect x="540" y="190" width="190" height="80" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="635" y="225" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">Lock B</text>
+  <text x="635" y="250" font-size="15" fill="#1f2937" text-anchor="middle">(T2 보유)</text>
 
-  <!-- Bottom Left: Lock A -->
-  <rect x="160" y="340" width="200" height="80" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-  <text x="260" y="372" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Lock A</text>
-  <text x="260" y="397" font-size="13" fill="#52606d" text-anchor="middle">(T1 보유)</text>
+  <rect x="540" y="370" width="190" height="80" rx="8" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="635" y="405" font-size="18" font-weight="bold" fill="#6d28d9" text-anchor="middle">Thread 2</text>
+  <text x="635" y="430" font-size="15" fill="#1f2937" text-anchor="middle">(B 보유)</text>
 
-  <!-- Bottom Right: Thread 2 -->
-  <rect x="520" y="340" width="200" height="80" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
-  <text x="620" y="372" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">Thread 2</text>
-  <text x="620" y="397" font-size="13" fill="#52606d" text-anchor="middle">(B 보유)</text>
+  <rect x="150" y="370" width="190" height="80" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="2"/>
+  <text x="245" y="405" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">Lock A</text>
+  <text x="245" y="430" font-size="15" fill="#1f2937" text-anchor="middle">(T1 보유)</text>
 
-  <!-- 순환 대기 화살표 (Circular Wait Arrows) -->
+  <!-- Thread 1 → Lock B : 대기 -->
+  <line x1="346" y1="230" x2="534" y2="230" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-red)"/>
+  <text x="440" y="218" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">대기</text>
+  <!-- Lock B → Thread 2 : 보유 -->
+  <line x1="635" y1="276" x2="635" y2="364" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="647" y="326" font-size="15" font-weight="bold" fill="#374151">보유</text>
+  <!-- Thread 2 → Lock A : 대기 -->
+  <line x1="534" y1="410" x2="346" y2="410" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-red)"/>
+  <text x="440" y="436" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">대기</text>
+  <!-- Lock A → Thread 1 : 보유 -->
+  <line x1="245" y1="364" x2="245" y2="276" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="233" y="326" font-size="15" font-weight="bold" fill="#374151" text-anchor="end">보유</text>
 
-  <!-- 1. Thread 1 -> Lock B (Top horizontal arrow: (360, 180) -> (520, 180)) -->
-  <path d="M360,180 L520,180" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <text x="440" y="318" font-size="20" font-weight="bold" fill="#b91c1c" text-anchor="middle">순환 대기</text>
+  <text x="440" y="344" font-size="15" fill="#b91c1c" text-anchor="middle">(Circular Wait)</text>
 
-  <!-- 2. Lock B -> Thread 2 (Right vertical arrow: (620, 220) -> (620, 340)) -->
-  <path d="M620,220 L620,340" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- 3. Thread 2 -> Lock A (Bottom horizontal arrow: (520, 380) -> (360, 380)) -->
-  <path d="M520,380 L360,380" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- 4. Lock A -> Thread 1 (Left vertical arrow: (260, 340) -> (260, 220)) -->
-  <path d="M260,340 L260,220" stroke="#dc2626" stroke-width="2" fill="none" marker-end="url(#a-red)"/>
+  <!-- 범례 -->
+  <line x1="200" y1="488" x2="240" y2="488" stroke="#b91c1c" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#ah-red)"/>
+  <text x="250" y="493" font-size="15" fill="#1f2937"><tspan font-weight="bold" fill="#b91c1c">대기</tspan>: 스레드 → 기다리는 락</text>
+  <line x1="470" y1="488" x2="510" y2="488" stroke="#374151" stroke-width="2" marker-end="url(#ah)"/>
+  <text x="520" y="493" font-size="15" fill="#1f2937"><tspan font-weight="bold" fill="#374151">보유</tspan>: 락 → 쥐고 있는 스레드</text>
 </svg>

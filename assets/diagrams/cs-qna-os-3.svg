@@ -1,41 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Round Robin (RR) — 선점</title>
-  <desc id="d">각 프로세스에 동일한 시간 할당량을 부여하고 초과 시 선점하는 Round Robin 스케줄링의 특성과 적정 시간 할당량 기준을 설명하는 다이어그램</desc>
+  <title id="t">Round Robin 스케줄링</title>
+  <desc id="d">위: 모든 프로세스가 같은 Time Quantum만큼 돌아가며 실행되고, 할당량을 넘기면 선점되어 다음 프로세스로 교체된다. 아래: Time Quantum이 너무 작으면 컨텍스트 스위칭 오버헤드 증가, 너무 크면 FCFS와 유사, 적정 크기는 CPU 버스트의 80%가 그 안에 끝나는 크기다.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="dim" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="axis" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  
-  <rect width="880" height="390" fill="#ffffff"/>
 
-  <!-- 메인 원칙 박스 -->
-  <rect x="40" y="30" width="800" height="100" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="68" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">각 프로세스에 동일한 시간 할당량(Time Quantum) 부여</text>
-  <text x="440" y="102" font-size="14" fill="#52606d" text-anchor="middle">할당량 초과 시 다음 프로세스로 교체 (선점)</text>
+  <!-- 1. 동작: 같은 할당량으로 돌아가며 실행 -->
+  <text x="40" y="44" font-size="18" font-weight="bold" fill="#111827">각 프로세스에 동일한 시간 할당량(Time Quantum) 부여</text>
 
-  <!-- 부작용/문제점 박스 1: 너무 클 때 -->
-  <rect x="40" y="170" width="380" height="90" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="230" y="202" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Time Quantum이 너무 크면</text>
-  <path d="M230,215 L230,230" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="230" y="247" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">FCFS와 유사</text>
+  <!-- 할당량 치수선 -->
+  <text x="96" y="70" font-size="14" font-weight="bold" fill="#374151" text-anchor="middle">Time Quantum</text>
+  <line x1="44" y1="80" x2="148" y2="80" stroke="#374151" stroke-width="1.5" marker-start="url(#dim)" marker-end="url(#dim)"/>
 
-  <!-- 부작용/문제점 박스 2: 너무 작을 때 -->
-  <rect x="460" y="170" width="380" height="90" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="650" y="202" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">Time Quantum이 너무 작으면</text>
-  <path d="M650,215 L650,230" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <text x="650" y="247" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">컨텍스트 스위칭 오버헤드 증가</text>
+  <!-- 간트 막대 -->
+  <rect x="40" y="90" width="112" height="48" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="152" y="90" width="112" height="48" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <rect x="264" y="90" width="112" height="48" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <rect x="376" y="90" width="112" height="48" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="488" y="90" width="112" height="48" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <rect x="600" y="90" width="112" height="48" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="96" y="120" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <text x="208" y="120" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">P2</text>
+  <text x="320" y="120" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">P3</text>
+  <text x="432" y="120" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <text x="544" y="120" font-size="17" font-weight="bold" fill="#4c1d95" text-anchor="middle">P2</text>
+  <text x="656" y="120" font-size="17" font-weight="bold" fill="#064e3b" text-anchor="middle">P3</text>
+  <text x="760" y="120" font-size="20" font-weight="bold" fill="#4b5563" text-anchor="middle">…</text>
 
-  <!-- 적정 기준 박스 -->
-  <rect x="40" y="290" width="800" height="70" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="330" font-size="15" font-weight="bold" fill="#059669" text-anchor="middle">적정 Time Quantum: CPU 버스트의 80%가 그 안에 끝나는 크기</text>
+  <!-- 선점 지점 -->
+  <line x1="152" y1="86" x2="152" y2="146" stroke="#dc2626" stroke-width="3"/>
+  <line x1="264" y1="86" x2="264" y2="146" stroke="#dc2626" stroke-width="3"/>
+  <line x1="376" y1="86" x2="376" y2="146" stroke="#dc2626" stroke-width="3"/>
+  <line x1="488" y1="86" x2="488" y2="146" stroke="#dc2626" stroke-width="3"/>
+  <line x1="600" y1="86" x2="600" y2="146" stroke="#dc2626" stroke-width="3"/>
+  <line x1="712" y1="86" x2="712" y2="146" stroke="#dc2626" stroke-width="3"/>
+
+  <!-- 범례 + 시간축 -->
+  <line x1="44" y1="160" x2="44" y2="180" stroke="#dc2626" stroke-width="3"/>
+  <text x="56" y="176" font-size="16" fill="#1f2937">할당량 초과 시 다음 프로세스로 교체 <tspan font-weight="bold" fill="#b91c1c">(선점)</tspan></text>
+  <text x="776" y="176" font-size="15" fill="#4b5563" text-anchor="end">시간</text>
+  <line x1="784" y1="171" x2="836" y2="171" stroke="#4b5563" stroke-width="1.5" marker-end="url(#axis)"/>
+
+  <!-- 2. Time Quantum 크기 축 -->
+  <text x="40" y="228" font-size="16" fill="#4b5563">작게</text>
+  <text x="440" y="228" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">Time Quantum 크기</text>
+  <text x="840" y="228" font-size="16" fill="#4b5563" text-anchor="end">크게</text>
+  <line x1="40" y1="242" x2="834" y2="242" stroke="#4b5563" stroke-width="2" marker-end="url(#axis)"/>
+  <line x1="166" y1="242" x2="166" y2="258" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="440" y1="242" x2="440" y2="258" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="714" y1="242" x2="714" y2="258" stroke="#4b5563" stroke-width="1.5"/>
+
+  <!-- 너무 작으면 -->
+  <rect x="40" y="258" width="253" height="104" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="166" y="290" font-size="17" font-weight="bold" fill="#b91c1c" text-anchor="middle">너무 작으면</text>
+  <text x="166" y="320" font-size="16" fill="#1f2937" text-anchor="middle">컨텍스트 스위칭</text>
+  <text x="166" y="343" font-size="16" fill="#1f2937" text-anchor="middle">오버헤드 증가</text>
+
+  <!-- 적정 -->
+  <rect x="313" y="258" width="254" height="104" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2.5"/>
+  <text x="440" y="290" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">적정 Time Quantum</text>
+  <text x="440" y="320" font-size="16" fill="#1f2937" text-anchor="middle">CPU 버스트의 80%가</text>
+  <text x="440" y="343" font-size="16" fill="#1f2937" text-anchor="middle">그 안에 끝나는 크기</text>
+
+  <!-- 너무 크면 -->
+  <rect x="587" y="258" width="253" height="104" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="714" y="290" font-size="17" font-weight="bold" fill="#92400e" text-anchor="middle">너무 크면</text>
+  <text x="714" y="320" font-size="16" fill="#1f2937" text-anchor="middle">FCFS와 유사</text>
 </svg>

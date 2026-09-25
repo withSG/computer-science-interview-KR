@@ -149,7 +149,7 @@ Client              Server
 
 ### DNS 조회 과정
 <!-- diagram:cs-qna-network-10 -->
-![DNS 조회 과정](../../assets/diagrams/cs-qna-network-10.svg)
+![브라우저 캐시부터 권한 있는 DNS까지 DNS 조회 7단계](../../assets/diagrams/cs-qna-network-10.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -362,7 +362,7 @@ DELETE /users/1 → 첫 번째만 삭제, 이후 404 (결과 동일 → 멱등)
 
 **1. Head-of-Line Blocking**
 <!-- diagram:cs-qna-network-11 -->
-![HTTP/1.1의 문제점](../../assets/diagrams/cs-qna-network-11.svg)
+![HTTP/1.1 HOL Blocking: 응답1 전까지 요청2 대기](../../assets/diagrams/cs-qna-network-11.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -382,7 +382,7 @@ DELETE /users/1 → 첫 번째만 삭제, 이후 404 (결과 동일 → 멱등)
 
 **1. 멀티플렉싱 (Multiplexing)**
 <!-- diagram:cs-qna-network-12 -->
-![HTTP/2 해결책](../../assets/diagrams/cs-qna-network-12.svg)
+![HTTP/2 멀티플렉싱: 단일 연결로 동시에 여러 요청/응답](../../assets/diagrams/cs-qna-network-12.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

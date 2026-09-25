@@ -1,75 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">그럼 다음 홉의 MAC은 어떻게 아는가 — ARP</title>
-  <desc id="d">내 PC와 공유기 간의 ARP 브로드캐스트 요청, 유니캐스트 응답 및 ARP 캐시 저장 과정을 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ARP로 다음 홉의 MAC 알아내기</title>
+  <desc id="d">내 PC가 192.0.2.1의 MAC을 묻는 ARP 요청을 같은 네트워크 전체에 브로드캐스트하고, 공유기가 자기 MAC BB:BB:BB:BB:BB:BB를 내 PC에게만 유니캐스트로 답하면, 내 PC가 그 결과를 ARP 캐시에 저장해 다음부터는 묻지 않는 과정을 보여 줍니다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  <rect width="880" height="440" fill="#ffffff"/>
+  <rect width="880" height="490" fill="#ffffff"/>
 
-  <!-- 제목 -->
-  <text x="40" y="36" fill="#1f2933" font-size="16" font-weight="bold">그럼 다음 홉의 MAC은 어떻게 아는가 — ARP</text>
+  <!-- 참여자 -->
+  <rect x="150" y="24" width="140" height="46" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="220" y="53" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">내 PC</text>
+  <rect x="700" y="24" width="140" height="46" rx="6" fill="#f3f4f6" stroke="#374151" stroke-width="1.5"/>
+  <text x="770" y="53" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">공유기</text>
 
-  <!-- 개체 박스 -->
-  <!-- 내 PC -->
-  <rect x="40" y="60" width="160" height="350" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <rect x="40" y="60" width="160" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="120" y="85" fill="#2563eb" font-size="14" font-weight="bold" text-anchor="middle">내 PC</text>
+  <!-- 생명선 -->
+  <line x1="220" y1="70" x2="220" y2="316" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="770" y1="70" x2="770" y2="300" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
 
-  <!-- 공유기 -->
-  <rect x="680" y="60" width="160" height="350" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <rect x="680" y="60" width="160" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="760" y="85" fill="#059669" font-size="14" font-weight="bold" text-anchor="middle">공유기</text>
+  <!-- ① ARP 요청: 브로드캐스트 -->
+  <circle cx="42" cy="132" r="15" fill="#1d4ed8"/>
+  <text x="42" y="138" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="64" y="138" font-size="16" font-weight="bold" fill="#1d4ed8">ARP 요청</text>
 
-  <!-- 타임라인/생명선 -->
-  <path d="M120,100 L120,390" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
-  <path d="M760,100 L760,390" stroke="#cbd2d9" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="495" y="114" font-size="16" fill="#111827" text-anchor="middle">“192.0.2.1 쓰는 사람 누구? MAC 알려줘”</text>
+  <line x1="226" y1="132" x2="763" y2="132" stroke="#1d4ed8" stroke-width="2.5" stroke-dasharray="9 6" marker-end="url(#arr-blue)"/>
+  <text x="495" y="160" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">같은 네트워크 전체에 브로드캐스트</text>
+  <text x="495" y="184" font-size="15" fill="#374151" text-anchor="middle">목적지 MAC = <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#111827">FF:FF:FF:FF:FF:FF</tspan></text>
 
-  <!-- 과정 ①: 브로드캐스트 요청 -->
-  <g>
-    <!-- 화살표 -->
-    <path d="M120,150 L760,150" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#a-blue)"/>
-    
-    <!-- 번호 및 메시지 -->
-    <rect x="135" y="118" width="540" height="24" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-    <text x="145" y="134" fill="#2563eb" font-size="13" font-weight="bold">① 내 PC:</text>
-    <text x="210" y="134" fill="#1f2933" font-size="13">"192.0.2.1 쓰는 사람 누구? MAC 알려줘"</text>
+  <!-- ② ARP 응답: 유니캐스트 -->
+  <circle cx="42" cy="254" r="15" fill="#047857"/>
+  <text x="42" y="260" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="64" y="260" font-size="16" font-weight="bold" fill="#047857">ARP 응답</text>
 
-    <!-- 부가 정보 -->
-    <rect x="235" y="160" width="410" height="20" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="440" y="174" fill="#52606d" font-size="11.5" text-anchor="middle">→ 같은 네트워크 전체에 브로드캐스트 (목적지 MAC = FF:FF:FF:FF:FF:FF)</text>
+  <text x="495" y="236" font-size="16" fill="#111827" text-anchor="middle">“그거 나야. 내 MAC은 <tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold">BB:BB:BB:BB:BB:BB</tspan>”</text>
+  <line x1="764" y1="254" x2="227" y2="254" stroke="#047857" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="495" y="282" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">나에게만 유니캐스트로 응답</text>
+
+  <!-- ③ ARP 캐시 저장 -->
+  <circle cx="42" cy="344" r="15" fill="#b45309"/>
+  <text x="42" y="350" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="64" y="350" font-size="16" font-weight="bold" fill="#b45309">캐시 저장</text>
+
+  <rect x="150" y="316" width="690" height="146" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="172" y="350" font-size="16" font-weight="bold" fill="#7c2d12">내 PC의 ARP 캐시에 저장 — 다음부터는 안 물어본다</text>
+
+  <rect x="172" y="368" width="646" height="34" fill="#fef3c7"/>
+  <rect x="172" y="402" width="646" height="40" fill="#ffffff"/>
+  <g stroke="#b45309" stroke-width="1" fill="none">
+    <line x1="172" y1="402" x2="818" y2="402"/>
+    <line x1="352" y1="368" x2="352" y2="442"/>
+    <line x1="612" y1="368" x2="612" y2="442"/>
   </g>
+  <rect x="172" y="368" width="646" height="74" fill="none" stroke="#b45309" stroke-width="1.2"/>
 
-  <!-- 과정 ②: 유니캐스트 응답 -->
-  <g>
-    <!-- 화살표 -->
-    <path d="M760,240 L120,240" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-    
-    <!-- 번호 및 메시지 -->
-    <rect x="205" y="208" width="540" height="24" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-    <text x="215" y="224" fill="#059669" font-size="13" font-weight="bold">② 공유기:</text>
-    <text x="280" y="224" fill="#1f2933" font-size="13">"그거 나야. 내 MAC은 BB:BB:BB:BB:BB:BB"</text>
+  <text x="262" y="391" font-size="15" font-weight="bold" fill="#78350f" text-anchor="middle">IP 주소</text>
+  <text x="482" y="391" font-size="15" font-weight="bold" fill="#78350f" text-anchor="middle">MAC 주소</text>
+  <text x="715" y="391" font-size="15" font-weight="bold" fill="#78350f" text-anchor="middle">상태</text>
 
-    <!-- 부가 정보 -->
-    <rect x="360" y="250" width="160" height="20" rx="3" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="440" y="264" fill="#52606d" font-size="11.5" text-anchor="middle">→ 나에게만 유니캐스트로 응답</text>
-  </g>
-
-  <!-- 과정 ③: ARP 캐시 저장 -->
-  <g>
-    <!-- 로컬 작업 표시 박스 -->
-    <rect x="55" y="300" width="600" height="70" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <text x="70" y="325" fill="#d97706" font-size="13" font-weight="bold">③ 내 PC:</text>
-    <text x="135" y="325" fill="#1f2933" font-size="13">ARP 캐시에 (192.0.2.1 → BB:BB:...) 저장. 다음부터는 안 물어본다</text>
-    
-    <!-- 세부 저장 형태 시각화 -->
-    <rect x="70" y="338" width="570" height="22" rx="3" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-    <text x="80" y="353" fill="#52606d" font-size="11.5">[ARP Cache Table]</text>
-    <text x="200" y="353" fill="#1f2933" font-size="11.5" font-weight="bold">IP: 192.0.2.1  →  MAC: BB:BB:BB:BB:BB:BB</text>
-    <text x="480" y="353" fill="#059669" font-size="11.5">(State: Dynamic / Resolved)</text>
-  </g>
+  <text x="262" y="428" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">192.0.2.1</text>
+  <text x="482" y="428" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">BB:BB:BB:BB:BB:BB</text>
+  <text x="715" y="428" font-size="15" fill="#374151" text-anchor="middle">Dynamic / Resolved</text>
 </svg>

@@ -1,57 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">3-way Handshake (연결 수립)</title>
-  <desc id="d">Client와 Server 간의 TCP 3-way Handshake 연결 수립 과정을 나타낸 시퀀스 다이어그램</desc>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">TCP 3-way Handshake 연결 수립</title>
+  <desc id="d">Client가 SYN으로 연결을 요청하고, Server가 SYN + ACK로 요청 수락과 확인을 보내고, Client가 ACK를 보내 연결이 확립되는 세 단계.</desc>
+  <rect width="880" height="370" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="440" fill="#ffffff"/>
+  <!-- 주체 -->
+  <rect x="95" y="24" width="150" height="44" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="170" y="52" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Client</text>
+  <rect x="455" y="24" width="150" height="44" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="530" y="52" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">Server</text>
 
-  <!-- 제목 헤딩 -->
-  <text x="40" y="44" font-size="16" font-weight="bold" fill="#1f2933">3-way Handshake (연결 수립)</text>
+  <!-- 생명선 -->
+  <line x1="170" y1="68" x2="170" y2="340" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <line x1="530" y1="68" x2="530" y2="340" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5"/>
 
-  <!-- 주체 엔티티 박스 및 수직 생명선 (Client, Server) -->
-  <!-- Client -->
-  <rect x="180" y="70" width="120" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="240" y="94" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">Client</text>
-  <path d="M240,110 L240,390" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+  <!-- 1. SYN -->
+  <line x1="170" y1="130" x2="528" y2="130" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ab)"/>
+  <text x="350" y="116" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">SYN</text>
 
-  <!-- Server -->
-  <rect x="480" y="70" width="120" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="540" y="94" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">Server</text>
-  <path d="M540,110 L540,390" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+  <!-- 2. SYN + ACK -->
+  <line x1="530" y1="210" x2="172" y2="210" stroke="#047857" stroke-width="2.5" marker-end="url(#ag)"/>
+  <text x="350" y="196" font-size="18" font-weight="bold" fill="#047857" text-anchor="middle">SYN + ACK</text>
 
-  <!-- Step 1: SYN -->
-  <path d="M240,160 L540,160" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#a-blue)"/>
-  <!-- 메시지 라벨 (선 위 백그라운드) -->
-  <rect x="360" y="146" width="60" height="22" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="390" y="161" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">SYN</text>
-  <!-- 설명 주석 -->
-  <text x="575" y="164" font-size="13" fill="#52606d">1. 연결 요청</text>
+  <!-- 3. ACK -->
+  <line x1="170" y1="290" x2="528" y2="290" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#ab)"/>
+  <text x="350" y="276" font-size="18" font-weight="bold" fill="#1d4ed8" text-anchor="middle">ACK</text>
 
-  <!-- Step 2: SYN + ACK -->
-  <path d="M540,240 L240,240" stroke="#7c3aed" stroke-width="2" fill="none" marker-end="url(#a-purple)"/>
-  <!-- 메시지 라벨 (선 위 백그라운드) -->
-  <rect x="335" y="226" width="110" height="22" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="390" y="241" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">SYN + ACK</text>
-  <!-- 설명 주석 -->
-  <text x="575" y="244" font-size="13" fill="#52606d">2. 요청 수락 + 확인</text>
+  <!-- 단계 설명 -->
+  <line x1="542" y1="130" x2="638" y2="130" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <line x1="542" y1="210" x2="638" y2="210" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <line x1="542" y1="290" x2="638" y2="290" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="2 4"/>
 
-  <!-- Step 3: ACK -->
-  <path d="M240,320 L540,320" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#a-green)"/>
-  <!-- 메시지 라벨 (선 위 백그라운드) -->
-  <rect x="360" y="306" width="60" height="22" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="390" y="321" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">ACK</text>
-  <!-- 설명 주석 -->
-  <text x="575" y="324" font-size="13" fill="#52606d">3. 연결 확립</text>
+  <circle cx="660" cy="130" r="14" fill="#374151"/>
+  <text x="660" y="135" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="686" y="136" font-size="17" fill="#1f2937">연결 요청</text>
+
+  <circle cx="660" cy="210" r="14" fill="#374151"/>
+  <text x="660" y="215" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="686" y="216" font-size="17" fill="#1f2937">요청 수락 + 확인</text>
+
+  <circle cx="660" cy="290" r="14" fill="#374151"/>
+  <text x="660" y="295" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="686" y="296" font-size="17" font-weight="bold" fill="#1f2937">연결 확립</text>
 </svg>

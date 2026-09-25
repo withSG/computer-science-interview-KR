@@ -1,78 +1,112 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">접근 순서를 메모리 배치와 맞춘다</title>
-  <desc id="d">코드 A의 연속 접근과 코드 B의 건너뜀 접근 방식을 캐시 메모리 라인 관점에서 비교하는 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">행 우선 순회와 열 우선 순회</title>
+  <desc id="d">행 우선으로 놓인 같은 메모리를 코드 A는 a00, a01, a02처럼 연속으로 읽어 한 라인 로드로 이후 15개가 히트하고, 코드 B는 a00, a10, a20처럼 40,000바이트씩 건너뛰어 매번 새 캐시 라인을 읽고 배열이 크면 Capacity Miss까지 겹친다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
   <defs>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="ah-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ah-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ah-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="430" fill="#ffffff"/>
 
-  <!-- Section 1: Code A -->
-  <g id="code-a-group">
-    <!-- Code A Title Label: font-size 14, text width ~156px -> box width 200px -->
-    <rect x="40" y="30" width="200" height="32" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <text x="140" y="51" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">코드 A의 접근 순서 (연속)</text>
+  <!-- ══ 코드 A -->
+  <text x="32" y="46" font-size="18" font-weight="bold" fill="#047857">코드 A의 접근 순서 (연속)<tspan font-size="15" font-weight="normal" fill="#4b5563">  행 우선 순회</tspan></text>
 
-    <!-- Code A Memory Array Boxes -->
-    <!-- Block 1 -->
-    <rect x="40" y="80" width="310" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="55" y="105" font-size="13" font-weight="bold" fill="#1f2933">a00</text>
-    <text x="110" y="105" font-size="13" font-weight="bold" fill="#1f2933">a01</text>
-    <text x="165" y="105" font-size="13" font-weight="bold" fill="#1f2933">a02</text>
-    <text x="220" y="105" font-size="13" font-weight="bold" fill="#1f2933">a03</text>
-    <text x="280" y="105" font-size="13" fill="#52606d">...</text>
+  <!-- 연속 접근 화살표 -->
+  <path d="M62,94 Q92,70 120,92" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-g)"/>
+  <path d="M122,94 Q152,70 180,92" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-g)"/>
+  <path d="M182,94 Q212,70 240,92" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-g)"/>
+  <path d="M242,94 Q272,70 300,92" fill="none" stroke="#047857" stroke-width="2" marker-end="url(#ah-g)"/>
 
-    <!-- Block 2 -->
-    <rect x="360" y="80" width="230" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="380" y="105" font-size="13" font-weight="bold" fill="#1f2933">a10</text>
-    <text x="435" y="105" font-size="13" font-weight="bold" fill="#1f2933">a11</text>
-    <text x="495" y="105" font-size="13" fill="#52606d">...</text>
+  <!-- 메모리 띠 -->
+  <rect x="32" y="98" width="60" height="40" fill="#d1fae5"/>
+  <rect x="92" y="98" width="60" height="40" fill="#d1fae5"/>
+  <rect x="152" y="98" width="60" height="40" fill="#d1fae5"/>
+  <rect x="212" y="98" width="60" height="40" fill="#d1fae5"/>
+  <rect x="32" y="98" width="300" height="40" rx="3" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="92" y1="98" x2="92" y2="138" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="152" y1="98" x2="152" y2="138" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="212" y1="98" x2="212" y2="138" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="272" y1="98" x2="272" y2="138" stroke="#9ca3af" stroke-width="1"/>
+  <text x="62" y="124" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a00</text>
+  <text x="122" y="124" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a01</text>
+  <text x="182" y="124" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a02</text>
+  <text x="242" y="124" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a03</text>
+  <text x="302" y="124" font-size="16" fill="#4b5563" text-anchor="middle">…</text>
 
-    <!-- Code A Arrows (→ → → →) -->
-    <path d="M 75,135 L 95,135" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <path d="M 130,135 L 150,135" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <path d="M 185,135 L 205,135" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-    <path d="M 240,135 L 260,135" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <rect x="356" y="98" width="180" height="40" rx="3" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="416" y1="98" x2="416" y2="138" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="476" y1="98" x2="476" y2="138" stroke="#9ca3af" stroke-width="1"/>
+  <text x="386" y="124" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a10</text>
+  <text x="446" y="124" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a11</text>
+  <text x="506" y="124" font-size="16" fill="#4b5563" text-anchor="middle">…</text>
 
-    <!-- Code A Annotation Text -->
-    <text x="280" y="139" font-size="13" font-weight="bold" fill="#059669">한 라인 로드로 이후 15개 히트</text>
-  </g>
+  <rect x="560" y="98" width="120" height="40" rx="3" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="620" y1="98" x2="620" y2="138" stroke="#9ca3af" stroke-width="1"/>
+  <text x="590" y="124" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a20</text>
+  <text x="650" y="124" font-size="16" fill="#4b5563" text-anchor="middle">…</text>
 
-  <!-- Divider Line -->
-  <line x1="40" y1="180" x2="840" y2="180" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="5 4"/>
+  <text x="182" y="160" font-size="14" fill="#4b5563" text-anchor="middle">0행</text>
+  <text x="446" y="160" font-size="14" fill="#4b5563" text-anchor="middle">1행</text>
+  <text x="620" y="160" font-size="14" fill="#4b5563" text-anchor="middle">2행</text>
+  <text x="700" y="124" font-size="14" fill="#4b5563">메모리 주소 →</text>
 
-  <!-- Section 2: Code B -->
-  <g id="code-b-group">
-    <!-- Code B Title Label: font-size 14, text width ~176px -> box width 220px -->
-    <rect x="40" y="210" width="220" height="32" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-    <text x="150" y="231" font-size="14" font-weight="bold" fill="#dc2626" text-anchor="middle">코드 B의 접근 순서 (건너뜀)</text>
+  <text x="32" y="194" font-size="16" font-weight="bold" fill="#047857">한 라인 로드로 이후 15개 히트</text>
 
-    <!-- Code B Memory Array Boxes -->
-    <!-- Block 1 -->
-    <rect x="40" y="260" width="160" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="65" y="285" font-size="13" font-weight="bold" fill="#1f2933">a00</text>
-    <text x="135" y="285" font-size="13" fill="#52606d">...</text>
+  <line x1="32" y1="226" x2="848" y2="226" stroke="#e5e7eb" stroke-width="1.5"/>
 
-    <!-- Block 2 -->
-    <rect x="220" y="260" width="160" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="245" y="285" font-size="13" font-weight="bold" fill="#1f2933">a10</text>
-    <text x="315" y="285" font-size="13" fill="#52606d">...</text>
+  <!-- ══ 코드 B -->
+  <text x="32" y="266" font-size="18" font-weight="bold" fill="#b91c1c">코드 B의 접근 순서 (건너뜀)<tspan font-size="15" font-weight="normal" fill="#4b5563">  열 우선 순회</tspan></text>
 
-    <!-- Block 3 -->
-    <rect x="400" y="260" width="160" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="425" y="285" font-size="13" font-weight="bold" fill="#1f2933">a20</text>
-    <text x="495" y="285" font-size="13" fill="#52606d">...</text>
+  <!-- 건너뛰는 접근 화살표 -->
+  <path d="M62,346 Q224,286 382,344" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-r)"/>
+  <path d="M386,346 Q488,294 586,344" fill="none" stroke="#b91c1c" stroke-width="2" marker-end="url(#ah-r)"/>
+  <text x="224" y="302" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">40,000바이트</text>
+  <text x="488" y="306" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">40,000바이트</text>
 
-    <!-- Code B Arrows (↓ ↓ ↓) -->
-    <path d="M 77,310 L 77,340" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <path d="M 257,310 L 257,340" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <path d="M 437,310 L 437,340" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
+  <!-- 메모리 띠 -->
+  <rect x="32" y="350" width="60" height="40" fill="#fee2e2"/>
+  <rect x="356" y="350" width="60" height="40" fill="#fee2e2"/>
+  <rect x="560" y="350" width="60" height="40" fill="#fee2e2"/>
+  <rect x="32" y="350" width="300" height="40" rx="3" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="92" y1="350" x2="92" y2="390" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="152" y1="350" x2="152" y2="390" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="212" y1="350" x2="212" y2="390" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="272" y1="350" x2="272" y2="390" stroke="#9ca3af" stroke-width="1"/>
+  <text x="62" y="376" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a00</text>
+  <text x="122" y="376" font-size="16" fill="#4b5563" text-anchor="middle">a01</text>
+  <text x="182" y="376" font-size="16" fill="#4b5563" text-anchor="middle">a02</text>
+  <text x="242" y="376" font-size="16" fill="#4b5563" text-anchor="middle">a03</text>
+  <text x="302" y="376" font-size="16" fill="#4b5563" text-anchor="middle">…</text>
 
-    <!-- Code B Annotation Text: text width ~465px -> text group starting at x=40 -->
-    <text x="40" y="375" font-size="13" font-weight="bold" fill="#dc2626">40,000바이트씩 점프 → 매번 새 캐시 라인 → 배열이 크면 Capacity Miss까지 겹침</text>
-  </g>
+  <rect x="356" y="350" width="180" height="40" rx="3" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="416" y1="350" x2="416" y2="390" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="476" y1="350" x2="476" y2="390" stroke="#9ca3af" stroke-width="1"/>
+  <text x="386" y="376" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a10</text>
+  <text x="446" y="376" font-size="16" fill="#4b5563" text-anchor="middle">a11</text>
+  <text x="506" y="376" font-size="16" fill="#4b5563" text-anchor="middle">…</text>
+
+  <rect x="560" y="350" width="120" height="40" rx="3" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="620" y1="350" x2="620" y2="390" stroke="#9ca3af" stroke-width="1"/>
+  <text x="590" y="376" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">a20</text>
+  <text x="650" y="376" font-size="16" fill="#4b5563" text-anchor="middle">…</text>
+
+  <text x="182" y="412" font-size="14" fill="#4b5563" text-anchor="middle">0행</text>
+  <text x="446" y="412" font-size="14" fill="#4b5563" text-anchor="middle">1행</text>
+  <text x="620" y="412" font-size="14" fill="#4b5563" text-anchor="middle">2행</text>
+
+  <!-- 결과 사슬 -->
+  <rect x="32" y="440" width="180" height="48" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="122" y="469" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">40,000바이트씩 점프</text>
+  <line x1="216" y1="464" x2="250" y2="464" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-k)"/>
+  <rect x="254" y="440" width="170" height="48" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="339" y="469" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">매번 새 캐시 라인</text>
+  <line x1="428" y1="464" x2="462" y2="464" stroke="#4b5563" stroke-width="2" marker-end="url(#ah-k)"/>
+  <rect x="466" y="440" width="300" height="48" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="616" y="469" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">배열이 크면 Capacity Miss까지 겹침</text>
 </svg>

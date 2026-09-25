@@ -1,121 +1,112 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">발상 - 해밍 코드 위치 및 패리티 비트 감시 범위</title>
-  <desc id="d">위치 1부터 7까지의 이진수 및 패리티/데이터 비트 배치와 P1, P2, P4 각 패리티 비트의 감시 범위를 보여주는 다이어그램</desc>
-  <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 460" width="880" height="460" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">해밍 코드 패리티 감시 범위</title>
+  <desc id="d">위치 1~7을 이진수 001~111로 쓰고 P1, P2, d1, P4, d2, d3, d4를 배치한다. P1(001)은 1의 자리 비트가 1인 위치 1,3,5,7을, P2(010)는 2의 자리 비트가 1인 위치 2,3,6,7을, P4(100)는 4의 자리 비트가 1인 위치 4,5,6,7을 감시한다.</desc>
+  <rect width="880" height="460" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="440" fill="#ffffff"/>
+  <!-- 제목 -->
+  <text x="32" y="42" font-size="18" font-weight="bold" fill="#111827">패리티 Pn은 위치 번호의 n의 자리 비트가 1인 자리를 모두 감시한다</text>
 
-  <!-- 메인 박스 영역 -->
-  <rect x="24" y="24" width="832" height="392" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
+  <!-- 위치 5 열 강조 (세로로 읽기) -->
+  <rect x="454" y="62" width="68" height="294" rx="6" fill="#fef9c3"/>
 
-  <!-- 섹션 1: 비트 위치 표 -->
-  <!-- 행 라벨 -->
-  <text x="50" y="65" font-size="13" font-weight="bold" fill="#52606d">위치:</text>
-  <text x="50" y="105" font-size="13" font-weight="bold" fill="#52606d">이진수:</text>
+  <!-- 머리 행: 위치 / 이진수 / 역할 -->
+  <g font-size="15" font-weight="bold" fill="#4b5563">
+    <text x="40" y="90">위치</text>
+    <text x="40" y="124">이진수</text>
+    <text x="40" y="158">배치</text>
+  </g>
+  <g font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="232" y="90">1</text>
+    <text x="296" y="90">2</text>
+    <text x="360" y="90">3</text>
+    <text x="424" y="90">4</text>
+    <text x="488" y="90">5</text>
+    <text x="552" y="90">6</text>
+    <text x="616" y="90">7</text>
+  </g>
+  <g font-size="16" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="232" y="124">001</text>
+    <text x="296" y="124">010</text>
+    <text x="360" y="124">011</text>
+    <text x="424" y="124">100</text>
+    <text x="488" y="124">101</text>
+    <text x="552" y="124">110</text>
+    <text x="616" y="124">111</text>
+  </g>
+  <g font-size="16" font-weight="bold" text-anchor="middle">
+    <text x="232" y="158" fill="#1d4ed8">P1</text>
+    <text x="296" y="158" fill="#065f46">P2</text>
+    <text x="360" y="158" fill="#4b5563">d1</text>
+    <text x="424" y="158" fill="#6d28d9">P4</text>
+    <text x="488" y="158" fill="#4b5563">d2</text>
+    <text x="552" y="158" fill="#4b5563">d3</text>
+    <text x="616" y="158" fill="#4b5563">d4</text>
+  </g>
+  <text x="672" y="158" font-size="14" font-weight="bold" fill="#4b5563">→ 감시하는 위치</text>
+  <line x1="32" y1="176" x2="848" y2="176" stroke="#d1d5db" stroke-width="1.5"/>
 
-  <!-- 위치 1 ~ 7 열 -->
-  <!-- Col 1 (P1) -->
-  <rect x="230" y="44" width="70" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="265" y="63" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
-  <rect x="230" y="84" width="70" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="265" y="103" font-size="13" fill="#1f2933" text-anchor="middle">001</text>
-  <rect x="230" y="124" width="70" height="30" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="265" y="143" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
+  <!-- ── P1 행 -->
+  <text x="40" y="210" font-size="17" font-weight="bold" fill="#1d4ed8">P1(001)</text>
+  <text x="40" y="231" font-size="14" fill="#4b5563">1의 자리 비트가 1</text>
+  <g stroke-width="1.5">
+    <rect x="204" y="190" width="56" height="44" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="268" y="190" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="332" y="190" width="56" height="44" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="396" y="190" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="460" y="190" width="56" height="44" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+    <rect x="524" y="190" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="588" y="190" width="56" height="44" rx="4" fill="#dbeafe" stroke="#1d4ed8"/>
+  </g>
+  <g font-size="16" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="232" y="218">00<tspan fill="#1d4ed8" font-weight="bold">1</tspan></text>
+    <text x="360" y="218">01<tspan fill="#1d4ed8" font-weight="bold">1</tspan></text>
+    <text x="488" y="218">10<tspan fill="#1d4ed8" font-weight="bold">1</tspan></text>
+    <text x="616" y="218">11<tspan fill="#1d4ed8" font-weight="bold">1</tspan></text>
+  </g>
+  <text x="672" y="218" font-size="16" font-weight="bold" fill="#1d4ed8">위치 1, 3, 5, 7</text>
 
-  <!-- Col 2 (P2) -->
-  <rect x="310" y="44" width="70" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="345" y="63" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">2</text>
-  <rect x="310" y="84" width="70" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="345" y="103" font-size="13" fill="#1f2933" text-anchor="middle">010</text>
-  <rect x="310" y="124" width="70" height="30" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="345" y="143" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">P2</text>
+  <!-- ── P2 행 -->
+  <text x="40" y="266" font-size="17" font-weight="bold" fill="#065f46">P2(010)</text>
+  <text x="40" y="287" font-size="14" fill="#4b5563">2의 자리 비트가 1</text>
+  <g stroke-width="1.5">
+    <rect x="204" y="246" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="268" y="246" width="56" height="44" rx="4" fill="#d1fae5" stroke="#047857"/>
+    <rect x="332" y="246" width="56" height="44" rx="4" fill="#d1fae5" stroke="#047857"/>
+    <rect x="396" y="246" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="460" y="246" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="524" y="246" width="56" height="44" rx="4" fill="#d1fae5" stroke="#047857"/>
+    <rect x="588" y="246" width="56" height="44" rx="4" fill="#d1fae5" stroke="#047857"/>
+  </g>
+  <g font-size="16" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="296" y="274">0<tspan fill="#065f46" font-weight="bold">1</tspan>0</text>
+    <text x="360" y="274">0<tspan fill="#065f46" font-weight="bold">1</tspan>1</text>
+    <text x="552" y="274">1<tspan fill="#065f46" font-weight="bold">1</tspan>0</text>
+    <text x="616" y="274">1<tspan fill="#065f46" font-weight="bold">1</tspan>1</text>
+  </g>
+  <text x="672" y="274" font-size="16" font-weight="bold" fill="#065f46">위치 2, 3, 6, 7</text>
 
-  <!-- Col 3 (d1) -->
-  <rect x="390" y="44" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="425" y="63" font-size="14" fill="#1f2933" text-anchor="middle">3</text>
-  <rect x="390" y="84" width="70" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="425" y="103" font-size="13" fill="#1f2933" text-anchor="middle">011</text>
-  <rect x="390" y="124" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="425" y="143" font-size="14" fill="#1f2933" text-anchor="middle">d1</text>
+  <!-- ── P4 행 -->
+  <text x="40" y="322" font-size="17" font-weight="bold" fill="#6d28d9">P4(100)</text>
+  <text x="40" y="343" font-size="14" fill="#4b5563">4의 자리 비트가 1</text>
+  <g stroke-width="1.5">
+    <rect x="204" y="302" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="268" y="302" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="332" y="302" width="56" height="44" rx="4" fill="#ffffff" stroke="#e5e7eb"/>
+    <rect x="396" y="302" width="56" height="44" rx="4" fill="#ede9fe" stroke="#6d28d9"/>
+    <rect x="460" y="302" width="56" height="44" rx="4" fill="#ede9fe" stroke="#6d28d9"/>
+    <rect x="524" y="302" width="56" height="44" rx="4" fill="#ede9fe" stroke="#6d28d9"/>
+    <rect x="588" y="302" width="56" height="44" rx="4" fill="#ede9fe" stroke="#6d28d9"/>
+  </g>
+  <g font-size="16" fill="#374151" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="424" y="330"><tspan fill="#6d28d9" font-weight="bold">1</tspan>00</text>
+    <text x="488" y="330"><tspan fill="#6d28d9" font-weight="bold">1</tspan>01</text>
+    <text x="552" y="330"><tspan fill="#6d28d9" font-weight="bold">1</tspan>10</text>
+    <text x="616" y="330"><tspan fill="#6d28d9" font-weight="bold">1</tspan>11</text>
+  </g>
+  <text x="672" y="330" font-size="16" font-weight="bold" fill="#6d28d9">위치 4, 5, 6, 7</text>
 
-  <!-- Col 4 (P4) -->
-  <rect x="470" y="44" width="70" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="505" y="63" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">4</text>
-  <rect x="470" y="84" width="70" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="505" y="103" font-size="13" fill="#1f2933" text-anchor="middle">100</text>
-  <rect x="470" y="124" width="70" height="30" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="505" y="143" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">P4</text>
-
-  <!-- Col 5 (d2) -->
-  <rect x="550" y="44" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="585" y="63" font-size="14" fill="#1f2933" text-anchor="middle">5</text>
-  <rect x="550" y="84" width="70" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="585" y="103" font-size="13" fill="#1f2933" text-anchor="middle">101</text>
-  <rect x="550" y="124" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="585" y="143" font-size="14" fill="#1f2933" text-anchor="middle">d2</text>
-
-  <!-- Col 6 (d3) -->
-  <rect x="630" y="44" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="665" y="63" font-size="14" fill="#1f2933" text-anchor="middle">6</text>
-  <rect x="630" y="84" width="70" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="665" y="103" font-size="13" fill="#1f2933" text-anchor="middle">110</text>
-  <rect x="630" y="124" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="665" y="143" font-size="14" fill="#1f2933" text-anchor="middle">d3</text>
-
-  <!-- Col 7 (d4) -->
-  <rect x="710" y="44" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="745" y="63" font-size="14" fill="#1f2933" text-anchor="middle">7</text>
-  <rect x="710" y="84" width="70" height="30" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="745" y="103" font-size="13" fill="#1f2933" text-anchor="middle">111</text>
-  <rect x="710" y="124" width="70" height="30" rx="4" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="745" y="143" font-size="14" fill="#1f2933" text-anchor="middle">d4</text>
-
-  <!-- 구분선 -->
-  <line x1="50" y1="180" x2="830" y2="180" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- 섹션 2: 패리티 감시 범위 설명 -->
-
-  <!-- P1 그룹 -->
-  <rect x="50" y="200" width="780" height="55" rx="6" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
-  <text x="70" y="232" font-size="13" font-weight="bold" fill="#2563eb">P1(001)</text>
-  <text x="140" y="232" font-size="13" fill="#1f2933">은</text>
-  <text x="165" y="232" font-size="13" font-weight="bold" fill="#1f2933">001,011,101,111</text>
-  <!-- 화살표 -->
-  <path d="M305,228 L325,228" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <text x="340" y="232" font-size="13" font-weight="bold" fill="#2563eb">위치 1,3,5,7 감시</text>
-  <text x="510" y="232" font-size="13" fill="#52606d">(1의 자리 비트가 1)</text>
-
-  <!-- P2 그룹 -->
-  <rect x="50" y="270" width="780" height="55" rx="6" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1"/>
-  <text x="70" y="302" font-size="13" font-weight="bold" fill="#059669">P2(010)</text>
-  <text x="140" y="302" font-size="13" fill="#1f2933">은</text>
-  <text x="165" y="302" font-size="13" font-weight="bold" fill="#1f2933">010,011,110,111</text>
-  <!-- 화살표 -->
-  <path d="M305,298 L325,298" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <text x="340" y="302" font-size="13" font-weight="bold" fill="#059669">위치 2,3,6,7 감시</text>
-  <text x="510" y="302" font-size="13" fill="#52606d">(2의 자리 비트가 1)</text>
-
-  <!-- P4 그룹 -->
-  <rect x="50" y="340" width="780" height="55" rx="6" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1"/>
-  <text x="70" y="372" font-size="13" font-weight="bold" fill="#7c3aed">P4(100)</text>
-  <text x="140" y="372" font-size="13" fill="#1f2933">은</text>
-  <text x="165" y="372" font-size="13" font-weight="bold" fill="#1f2933">100,101,110,111</text>
-  <!-- 화살표 -->
-  <path d="M305,368 L325,368" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <text x="340" y="372" font-size="13" font-weight="bold" fill="#7c3aed">위치 4,5,6,7 감시</text>
-  <text x="510" y="372" font-size="13" fill="#52606d">(4의 자리 비트가 1)</text>
+  <!-- 세로로 읽기 메모 -->
+  <rect x="40" y="385" width="16" height="16" rx="3" fill="#fef9c3" stroke="#a16207" stroke-width="1.2"/>
+  <text x="66" y="399" font-size="15" fill="#374151"><tspan font-weight="bold" fill="#111827">세로로 읽기:</tspan> 위치 5(=101)는 P4와 P1이 감시하고 P2는 감시하지 않는다.</text>
+  <text x="66" y="425" font-size="15" fill="#374151">위치마다 감시자 조합이 전부 다르니, 조합만 보고 위치를 역산할 수 있다.</text>
 </svg>

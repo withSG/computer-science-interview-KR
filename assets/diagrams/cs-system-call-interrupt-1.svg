@@ -1,27 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 430" width="880" height="430" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">모드 비트</title>
-  <desc id="d">사용자 모드와 커널 모드 간의 권한 차이 및 시스템 콜, 인터럽트, 예외를 통한 모드 전환을 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 470" width="880" height="470" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">사용자 모드와 커널 모드</title>
+  <desc id="d">사용자 모드(ring 3)에서 할 수 있는 것과 할 수 없는 것, 커널 모드(ring 0)의 권한을 나란히 보이고, 시스템 콜·인터럽트·예외로 커널 모드에 들어갔다가 처리 완료 후 복귀하는 전환을 화살표로 보여 줍니다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
-  <rect width="880" height="430" fill="#ffffff"/>
-  <rect x="40" y="30" width="800" height="150" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="62" font-size="16" font-weight="bold" fill="#2563eb">사용자 모드 (User Mode, ring 3)</text>
-  <text x="80" y="94" font-size="13" fill="#1f2933">할 수 있는 것: 일반 연산, 자기 주소 공간 읽고 쓰기</text>
-  <text x="80" y="122" font-size="13" fill="#1f2933">할 수 없는 것: I/O 명령, 페이지 테이블 변경,</text>
-  <text x="180" y="150" font-size="13" fill="#1f2933">인터럽트 마스킹, 다른 프로세스 메모리 접근</text>
-  <rect x="40" y="270" width="800" height="110" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="60" y="302" font-size="16" font-weight="bold" fill="#059669">커널 모드 (Kernel Mode, ring 0)</text>
-  <text x="80" y="338" font-size="13" fill="#1f2933">모든 명령어 실행 가능, 전체 물리 메모리 접근 가능</text>
-  <path d="M370,180 L370,270" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="235" y="213" width="270" height="24" fill="#ffffff"/>
-  <text x="370" y="230" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">시스템 콜 / 인터럽트 / 예외</text>
-  <path d="M510,270 L510,180" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  <rect x="520" y="213" width="130" height="24" fill="#ffffff"/>
-  <text x="525" y="230" font-size="13" font-weight="bold" fill="#059669" text-anchor="start">처리 완료 후 복귀</text>
+  <rect width="880" height="470" fill="#ffffff"/>
+
+  <!-- 사용자 모드 -->
+  <rect x="40" y="24" width="800" height="186" rx="10" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="64" y="60" fill="#1d4ed8"><tspan font-size="20" font-weight="bold">사용자 모드</tspan><tspan font-size="16" dx="8">(User Mode, ring 3)</tspan></text>
+
+  <rect x="64" y="80" width="300" height="110" rx="6" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <text x="84" y="108" font-size="16" font-weight="bold" fill="#047857">할 수 있는 것</text>
+  <text x="84" y="140" font-size="15" fill="#111827">· 일반 연산</text>
+  <text x="84" y="168" font-size="15" fill="#111827">· 자기 주소 공간 읽고 쓰기</text>
+
+  <rect x="384" y="80" width="432" height="110" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="404" y="108" font-size="16" font-weight="bold" fill="#b91c1c">할 수 없는 것</text>
+  <text x="404" y="140" font-size="15" fill="#111827">· I/O 명령</text>
+  <text x="584" y="140" font-size="15" fill="#111827">· 페이지 테이블 변경</text>
+  <text x="404" y="168" font-size="15" fill="#111827">· 인터럽트 마스킹</text>
+  <text x="584" y="168" font-size="15" fill="#111827">· 다른 프로세스 메모리 접근</text>
+
+  <!-- 전환 -->
+  <path d="M300,216 L300,322" stroke="#374151" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="284" y="276" font-size="17" font-weight="bold" fill="#111827" text-anchor="end">시스템 콜 / 인터럽트 / 예외</text>
+
+  <path d="M580,322 L580,216" stroke="#374151" stroke-width="2.5" fill="none" marker-end="url(#arr)"/>
+  <text x="596" y="276" font-size="17" font-weight="bold" fill="#111827">처리 완료 후 복귀</text>
+
+  <!-- 커널 모드 -->
+  <rect x="40" y="330" width="800" height="116" rx="10" fill="#f5f3ff" stroke="#6d28d9" stroke-width="2"/>
+  <text x="64" y="366" fill="#6d28d9"><tspan font-size="20" font-weight="bold">커널 모드</tspan><tspan font-size="16" dx="8">(Kernel Mode, ring 0)</tspan></text>
+
+  <rect x="64" y="386" width="240" height="40" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="184" y="412" font-size="16" fill="#111827" text-anchor="middle">모든 명령어 실행 가능</text>
+  <rect x="324" y="386" width="280" height="40" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="464" y="412" font-size="16" fill="#111827" text-anchor="middle">전체 물리 메모리 접근 가능</text>
 </svg>

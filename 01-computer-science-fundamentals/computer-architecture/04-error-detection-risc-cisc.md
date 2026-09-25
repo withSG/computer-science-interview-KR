@@ -104,7 +104,7 @@ P4(100) 은 100,101,110,111 → 위치 4,5,6,7 감시  (4의 자리 비트가 1)
 먼저 보내는 쪽에서 패리티를 계산합니다. 각 패리티는 자기가 감시하는 자리들의 XOR입니다.
 
 <!-- diagram:cs-error-detection-risc-cisc-5 -->
-![코드로 보기 — 4비트 데이터 1001 보내기](../../assets/diagrams/cs-error-detection-risc-cisc-5.svg)
+![데이터 1001로 P1·P2·P4를 XOR로 계산해 코드워드 0011001을 만드는 과정](../../assets/diagrams/cs-error-detection-risc-cisc-5.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

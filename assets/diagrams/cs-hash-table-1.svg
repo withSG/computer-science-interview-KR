@@ -1,63 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">해시 테이블 기본 구조</title>
-  <desc id="d">키에서 해시 함수를 거쳐 버킷 배열 인덱스로 매핑되는 해시 테이블의 동작 다이어그램</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">키가 해시 함수를 거쳐 버킷에 놓이는 과정</title>
+  <desc id="d">"alice@ex.com"은 hash() % 8을 거쳐 인덱스 3, "bob@ex.com"은 인덱스 6이 되어 크기 8인 버킷 배열의 해당 칸에 곧장 놓인다. 인덱스 계산 한 번과 배열 접근 한 번이 평균 O(1)의 이유다.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ah-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
-  <!-- Headers -->
-  <text x="110" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">key</text>
-  <text x="330" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">해시 함수</text>
-  <text x="590" y="45" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">버킷 배열</text>
-  <!-- Key Boxes -->
-  <rect x="35" y="90" width="150" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="114" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"alice@ex.com"</text>
-  <rect x="35" y="210" width="150" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="110" y="234" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">"bob@ex.com"</text>
-  <!-- Arrows: Key -> Hash -->
-  <path d="M185,110 L250,110" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M185,230 L250,230" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <!-- Hash Function Boxes -->
-  <rect x="250" y="90" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="330" y="114" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">hash() % 8</text>
-  <rect x="250" y="210" width="160" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="330" y="234" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">hash() % 8</text>
-  <!-- Arrows: Hash -> Index -->
-  <path d="M410,110 L460,110" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M410,230 L460,230" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- Index Badges -->
-  <text x="475" y="114" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">3</text>
-  <text x="475" y="234" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">6</text>
-  <!-- Arrows: Index -> Bucket -->
-  <path d="M490,110 L540,110" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M490,230 L540,230" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <!-- Bucket Array Cells -->
-  <rect x="540" y="70" width="100" height="30" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="655" y="89" font-size="13" fill="#52606d">0</text>
-  <rect x="540" y="100" width="100" height="25" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="3 3"/>
-  <text x="590" y="116" font-size="13" fill="#52606d" text-anchor="middle">⋮</text>
-  <rect x="540" y="125" width="100" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="655" y="144" font-size="13" font-weight="bold" fill="#059669">3</text>
-  <rect x="540" y="155" width="100" height="60" fill="#ffffff" stroke="#cbd2d9" stroke-width="1" stroke-dasharray="3 3"/>
-  <text x="590" y="189" font-size="13" fill="#52606d" text-anchor="middle">⋮</text>
-  <rect x="540" y="215" width="100" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="2"/>
-  <text x="655" y="234" font-size="13" font-weight="bold" fill="#059669">6</text>
-  <rect x="540" y="245" width="100" height="30" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="655" y="264" font-size="13" fill="#52606d">7</text>
-  <!-- Right Labels and Arrows -->
-  <text x="760" y="144" font-size="13" font-weight="bold" fill="#1f2933">alice</text>
-  <path d="M750,140 L675,140" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <text x="760" y="234" font-size="13" font-weight="bold" fill="#1f2933">bob</text>
-  <path d="M750,230 L675,230" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+
+  <!-- 열 머리 -->
+  <text x="124" y="46" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">key</text>
+  <text x="360" y="46" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">해시 함수</text>
+  <text x="520" y="46" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">인덱스</text>
+  <text x="660" y="46" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">버킷 배열</text>
+
+  <!-- 버킷 배열 (8칸: 0~7) -->
+  <rect x="600" y="70" width="120" height="40" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="600" y="110" width="120" height="40" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="600" y="150" width="120" height="40" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="600" y="190" width="120" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <rect x="600" y="230" width="120" height="40" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="600" y="270" width="120" height="40" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="600" y="310" width="120" height="40" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <rect x="600" y="350" width="120" height="40" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="660" y="216" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">alice</text>
+  <text x="660" y="336" font-size="16" font-weight="bold" fill="#6d28d9" text-anchor="middle">bob</text>
+  <!-- 칸 번호 -->
+  <text x="736" y="96" font-size="15" fill="#4b5563">0</text>
+  <text x="736" y="136" font-size="15" fill="#4b5563">1</text>
+  <text x="736" y="176" font-size="15" fill="#4b5563">2</text>
+  <text x="736" y="216" font-size="15" font-weight="bold" fill="#1d4ed8">3</text>
+  <text x="736" y="256" font-size="15" fill="#4b5563">4</text>
+  <text x="736" y="296" font-size="15" fill="#4b5563">5</text>
+  <text x="736" y="336" font-size="15" font-weight="bold" fill="#6d28d9">6</text>
+  <text x="736" y="376" font-size="15" fill="#4b5563">7</text>
+
+  <!-- alice 경로 (인덱스 3) -->
+  <rect x="24" y="188" width="200" height="44" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="124" y="215" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"alice@ex.com"</text>
+  <line x1="226" y1="210" x2="268" y2="210" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <rect x="272" y="188" width="176" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="360" y="215" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash() % 8</text>
+  <line x1="450" y1="210" x2="494" y2="210" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+  <circle cx="520" cy="210" r="22" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="520" y="217" font-size="20" font-weight="bold" fill="#1d4ed8" text-anchor="middle">3</text>
+  <line x1="544" y1="210" x2="596" y2="210" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ah-blue)"/>
+
+  <!-- bob 경로 (인덱스 6) -->
+  <rect x="24" y="308" width="200" height="44" rx="6" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="124" y="335" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"bob@ex.com"</text>
+  <line x1="226" y1="330" x2="268" y2="330" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <rect x="272" y="308" width="176" height="44" rx="6" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="360" y="335" font-size="16" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">hash() % 8</text>
+  <line x1="450" y1="330" x2="494" y2="330" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+  <circle cx="520" cy="330" r="22" fill="#ede9fe" stroke="#6d28d9" stroke-width="2"/>
+  <text x="520" y="337" font-size="20" font-weight="bold" fill="#6d28d9" text-anchor="middle">6</text>
+  <line x1="544" y1="330" x2="596" y2="330" stroke="#6d28d9" stroke-width="2" marker-end="url(#ah-purple)"/>
+
+  <!-- 요점 -->
+  <rect x="24" y="414" width="832" height="44" rx="6" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1"/>
+  <text x="440" y="442" font-size="16" fill="#111827" text-anchor="middle">키가 아무리 길어도 <tspan font-weight="bold">인덱스 계산 1번 + 배열 접근 1번</tspan> → <tspan font-weight="bold" fill="#1d4ed8">평균 O(1)</tspan></text>
 </svg>

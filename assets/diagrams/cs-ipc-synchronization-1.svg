@@ -1,74 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">IPC 전체 그림</title>
-  <desc id="d">일반 IPC 방식과 공유 메모리 방식의 프로세스, 커널, 메모리 간 연결 구조 비교 다이어그램</desc>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 420" width="880" height="420" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">IPC 전체 그림: 커널 경유와 공유 메모리</title>
+  <desc id="d">왼쪽은 파이프·메시지 큐·소켓 버퍼처럼 사용자/커널 경계를 넘어 커널 버퍼를 거치는 대부분의 IPC로 데이터를 두 번 복사한다. 오른쪽은 예외인 공유 메모리로, 두 프로세스가 같은 물리 프레임을 커널을 거치지 않고 직접 읽고 써서 복사가 없다.</desc>
+  <rect width="880" height="420" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="arG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 왼쪽: 대부분의 IPC -->
+  <rect x="24" y="24" width="404" height="372" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="44" y="58" font-size="18" font-weight="700" fill="#111827">① 대부분의 IPC: 커널 경유</text>
+  <text x="44" y="86" font-size="16" font-weight="700" fill="#b91c1c">데이터 복사 2회</text>
 
-  <!-- Top Section: Kernel-based IPC -->
-  <!-- 사용자/커널 경계선 -->
-  <path d="M 40,110 L 840,110" stroke="#9aa5b1" stroke-width="2" stroke-dasharray="6 4"/>
-  <rect x="680" y="98" width="140" height="24" fill="#ffffff"/>
-  <text x="750" y="114" font-size="13" fill="#52606d" text-anchor="middle">사용자/커널 경계</text>
+  <rect x="48" y="104" width="160" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="128" y="131" font-size="16" font-weight="700" fill="#1e3a8a" text-anchor="middle">프로세스 A</text>
+  <text x="128" y="153" font-size="14" fill="#4b5563" text-anchor="middle">주소 공간</text>
 
-  <!-- 프로세스 A (상단) -->
-  <rect x="180" y="30" width="180" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="270" y="48" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">프로세스 A</text>
-  <text x="270" y="66" font-size="13" fill="#1f2933" text-anchor="middle">주소 공간</text>
+  <rect x="244" y="104" width="160" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="324" y="131" font-size="16" font-weight="700" fill="#1e3a8a" text-anchor="middle">프로세스 B</text>
+  <text x="324" y="153" font-size="14" fill="#4b5563" text-anchor="middle">주소 공간</text>
 
-  <!-- 프로세스 B (상단) -->
-  <rect x="520" y="30" width="180" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="610" y="48" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">프로세스 B</text>
-  <text x="610" y="66" font-size="13" fill="#1f2933" text-anchor="middle">주소 공간</text>
+  <!-- 사용자/커널 경계 -->
+  <line x1="36" y1="206" x2="166" y2="206" stroke="#6b7280" stroke-width="2" stroke-dasharray="8 5"/>
+  <line x1="286" y1="206" x2="416" y2="206" stroke="#6b7280" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="226" y="211" font-size="14" font-weight="700" fill="#4b5563" text-anchor="middle">사용자/커널 경계</text>
 
-  <!-- 커널 영역 -->
-  <rect x="140" y="135" width="600" height="110" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="440" y="158" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">커널</text>
+  <!-- 복사 경로 -->
+  <line x1="128" y1="166" x2="128" y2="238" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#arR)"/>
+  <text x="116" y="192" font-size="15" font-weight="700" fill="#b91c1c" text-anchor="end">복사 1</text>
+  <line x1="324" y1="240" x2="324" y2="168" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#arR)"/>
+  <text x="340" y="192" font-size="15" font-weight="700" fill="#b91c1c">복사 2</text>
 
-  <!-- 커널 내부 버퍼들 -->
-  <rect x="180" y="175" width="120" height="45" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="240" y="202" font-size="13" fill="#1f2933" text-anchor="middle">파이프</text>
+  <!-- 커널 -->
+  <rect x="48" y="242" width="356" height="130" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="226" y="272" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">커널</text>
+  <rect x="64" y="290" width="100" height="56" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="114" y="323" font-size="15" fill="#111827" text-anchor="middle">파이프</text>
+  <rect x="176" y="290" width="100" height="56" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="323" font-size="15" fill="#111827" text-anchor="middle">메시지 큐</text>
+  <rect x="288" y="290" width="100" height="56" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="338" y="323" font-size="15" fill="#111827" text-anchor="middle">소켓 버퍼</text>
 
-  <rect x="380" y="175" width="120" height="45" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="440" y="202" font-size="13" fill="#1f2933" text-anchor="middle">메시지 큐</text>
+  <!-- 오른쪽: 공유 메모리 -->
+  <rect x="452" y="24" width="404" height="372" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="472" y="58" font-size="18" font-weight="700" fill="#111827">② 단, 공유 메모리만은 예외</text>
+  <text x="472" y="86" font-size="16" font-weight="700" fill="#047857">데이터 복사 0회</text>
 
-  <rect x="580" y="175" width="120" height="45" rx="4" fill="#ffffff" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="640" y="202" font-size="13" fill="#1f2933" text-anchor="middle">소켓 버퍼</text>
+  <rect x="476" y="104" width="160" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="556" y="131" font-size="16" font-weight="700" fill="#1e3a8a" text-anchor="middle">프로세스 A</text>
+  <text x="556" y="153" font-size="14" fill="#4b5563" text-anchor="middle">주소 공간</text>
 
-  <!-- 상단 화살표 (프로세스 A, B -> 커널) -->
-  <path d="M 270,80 L 270,135" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M 610,80 L 610,135" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <rect x="672" y="104" width="160" height="60" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="752" y="131" font-size="16" font-weight="700" fill="#1e3a8a" text-anchor="middle">프로세스 B</text>
+  <text x="752" y="153" font-size="14" fill="#4b5563" text-anchor="middle">주소 공간</text>
 
-  <!-- 구분선 / 예외 문구 -->
-  <text x="440" y="282" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">단, 공유 메모리만은 예외</text>
+  <line x1="562" y1="170" x2="614" y2="236" stroke="#047857" stroke-width="2.5" marker-start="url(#arG)" marker-end="url(#arG)"/>
+  <line x1="746" y1="170" x2="694" y2="236" stroke="#047857" stroke-width="2.5" marker-start="url(#arG)" marker-end="url(#arG)"/>
 
-  <!-- Bottom Section: Shared Memory -->
-  <!-- 프로세스 A (하단) -->
-  <rect x="180" y="310" width="180" height="45" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="270" y="337" font-size="13" fill="#1f2933" text-anchor="middle">프로세스 A</text>
+  <rect x="544" y="242" width="220" height="56" rx="8" fill="#dcfce7" stroke="#047857" stroke-width="2"/>
+  <text x="654" y="276" font-size="16" font-weight="700" fill="#065f46" text-anchor="middle">같은 물리 프레임</text>
 
-  <!-- 프로세스 B (하단) -->
-  <rect x="520" y="310" width="180" height="45" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="610" y="337" font-size="13" fill="#1f2933" text-anchor="middle">프로세스 B</text>
-
-  <!-- 같은 물리 프레임 -->
-  <rect x="340" y="410" width="200" height="45" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="437" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">같은 물리 프레임</text>
-
-  <!-- 하단 연결선 및 화살표 -->
-  <path d="M 270,355 L 270,380 L 440,380 L 440,410" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <path d="M 610,355 L 610,380 L 440,380" stroke="#7c3aed" stroke-width="1.5" fill="none"/>
-
-  <!-- 설명 주석 -->
-  <path d="M 550,432.5 L 575,432.5" stroke="#52606d" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <text x="585" y="436.5" font-size="11.5" fill="#52606d">← 커널을 거치지 않고 직접 읽고 쓴다</text>
+  <text x="654" y="330" font-size="15" fill="#065f46" text-anchor="middle">커널을 거치지 않고 직접 읽고 쓴다</text>
+  <text x="654" y="362" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle">대신 조율해 주는 쪽이 없어 동기화 필수</text>
 </svg>

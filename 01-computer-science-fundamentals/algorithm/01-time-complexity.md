@@ -51,7 +51,7 @@
 | Θ(g(n)) | 세타 | O와 Ω를 동시에 만족 | 위아래로 같은 곡선에 끼임 (딱 맞음) |
 
 <!-- diagram:cs-time-complexity-4 -->
-![정의](../../assets/diagrams/cs-time-complexity-4.svg)
+![n₀ 이후 f(n)이 c₁·g(n)과 c₂·g(n) 사이에 갇히는 그래프](../../assets/diagrams/cs-time-complexity-4.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

@@ -1,181 +1,200 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 780" width="880" height="780" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">퀵 정렬 (Quick Sort) 분할 과정을 나타낸 다이어그램</title>
-  <desc id="d">피벗 4를 기준으로 배열 [7, 2, 1, 8, 6, 3, 5]를 비교하고 교환하며 정렬하는 단계별 ASCII 다이어그램 전사본입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 760" width="880" height="760" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">퀵 정렬 Lomuto 파티션 과정</title>
+  <desc id="d">마지막 원소 4를 피벗으로 [7 2 1 8 6 3 5 | 4]를 분할하는 과정. j가 왼쪽부터 훑으며 4보다 작은 값을 작은 값 구역 끝(i)으로 swap하고, 마지막에 피벗을 경계로 [2 1 3 (4) 6 7 5 8]이 되어 4가 최종 위치에 확정된다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
+    <marker id="sw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
+    <marker id="up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b45309"/></marker>
   </defs>
-
-  <!-- 배경 -->
-  <rect width="880" height="780" fill="#ffffff"/>
-
-  <!-- 헤딩 / 제목 -->
-  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">5. 퀵 정렬 (Quick Sort)</text>
-
-  <!-- pivot 안내 라벨 -->
-  <rect x="30" y="60" width="160" height="32" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="110" y="80" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">pivot = 마지막 원소 4</text>
-
-  <!-- 원본 초기 배열 상태 [ 7 2 1 8 6 3 5 | 4 ] -->
-  <g transform="translate(30, 110)">
-    <rect x="0" y="0" width="310" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="20" y="25" font-size="14" font-weight="bold" fill="#1f2933">[</text>
-    <text x="40" y="25" font-size="13" fill="#1f2933" text-anchor="middle">7</text>
-    <text x="75" y="25" font-size="13" fill="#1f2933" text-anchor="middle">2</text>
-    <text x="110" y="25" font-size="13" fill="#1f2933" text-anchor="middle">1</text>
-    <text x="145" y="25" font-size="13" fill="#1f2933" text-anchor="middle">8</text>
-    <text x="180" y="25" font-size="13" fill="#1f2933" text-anchor="middle">6</text>
-    <text x="215" y="25" font-size="13" fill="#1f2933" text-anchor="middle">3</text>
-    <text x="250" y="25" font-size="13" fill="#1f2933" text-anchor="middle">5</text>
-    <line x1="272" y1="5" x2="272" y2="35" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="288" y="25" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">4</text>
-    <text x="302" y="25" font-size="14" font-weight="bold" fill="#1f2933">]</text>
-  </g>
-
-  <!-- 원본 설명 문구 -->
-  <text x="30" y="180" font-size="13" fill="#52606d">j를 왼쪽부터 훑으면서, 4보다 작은 값을 만나면 "작은 값 구역" 끝(i)으로 보낸다</text>
-
-  <!-- 단계별 추적 구역 -->
-  <!-- j=0 -->
-  <g transform="translate(30, 205)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#2563eb">j=0:</text>
-    <text x="45" y="25" font-size="13" fill="#1f2933">7 ≥ 4 → 통과</text>
-  </g>
-
-  <!-- j=1 -->
-  <g transform="translate(30, 255)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#2563eb">j=1:</text>
-    <text x="45" y="25" font-size="13" fill="#1f2933">2 &lt; 4 → i=0, swap</text>
-    <!-- 배열 [ 2 7 1 8 6 3 5 | 4 ] -->
-    <g transform="translate(210, 0)">
-      <rect x="0" y="0" width="310" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-      <text x="20" y="25" font-size="14" font-weight="bold" fill="#1f2933">[</text>
-      <!-- 교환 강조 2, 7 -->
-      <rect x="30" y="6" width="20" height="28" rx="2" fill="#ecfdf5"/>
-      <text x="40" y="25" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">2</text>
-      <rect x="65" y="6" width="20" height="28" rx="2" fill="#fffbeb"/>
-      <text x="75" y="25" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">7</text>
-      <text x="110" y="25" font-size="13" fill="#1f2933" text-anchor="middle">1</text>
-      <text x="145" y="25" font-size="13" fill="#1f2933" text-anchor="middle">8</text>
-      <text x="180" y="25" font-size="13" fill="#1f2933" text-anchor="middle">6</text>
-      <text x="215" y="25" font-size="13" fill="#1f2933" text-anchor="middle">3</text>
-      <text x="250" y="25" font-size="13" fill="#1f2933" text-anchor="middle">5</text>
-      <line x1="272" y1="5" x2="272" y2="35" stroke="#9aa5b1" stroke-width="1.5"/>
-      <text x="288" y="25" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">4</text>
-      <text x="302" y="25" font-size="14" font-weight="bold" fill="#1f2933">]</text>
-    </g>
-  </g>
-
-  <!-- j=2 -->
-  <g transform="translate(30, 305)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#2563eb">j=2:</text>
-    <text x="45" y="25" font-size="13" fill="#1f2933">1 &lt; 4 → i=1, swap</text>
-    <!-- 배열 [ 2 1 7 8 6 3 5 | 4 ] -->
-    <g transform="translate(210, 0)">
-      <rect x="0" y="0" width="310" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-      <text x="20" y="25" font-size="14" font-weight="bold" fill="#1f2933">[</text>
-      <text x="40" y="25" font-size="13" fill="#1f2933" text-anchor="middle">2</text>
-      <rect x="65" y="6" width="20" height="28" rx="2" fill="#ecfdf5"/>
-      <text x="75" y="25" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">1</text>
-      <rect x="100" y="6" width="20" height="28" rx="2" fill="#fffbeb"/>
-      <text x="110" y="25" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">7</text>
-      <text x="145" y="25" font-size="13" fill="#1f2933" text-anchor="middle">8</text>
-      <text x="180" y="25" font-size="13" fill="#1f2933" text-anchor="middle">6</text>
-      <text x="215" y="25" font-size="13" fill="#1f2933" text-anchor="middle">3</text>
-      <text x="250" y="25" font-size="13" fill="#1f2933" text-anchor="middle">5</text>
-      <line x1="272" y1="5" x2="272" y2="35" stroke="#9aa5b1" stroke-width="1.5"/>
-      <text x="288" y="25" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">4</text>
-      <text x="302" y="25" font-size="14" font-weight="bold" fill="#1f2933">]</text>
-    </g>
-  </g>
-
-  <!-- j=3 -->
-  <g transform="translate(30, 355)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#2563eb">j=3:</text>
-    <text x="45" y="25" font-size="13" fill="#1f2933">8 ≥ 4 → 통과</text>
-  </g>
-
-  <!-- j=4 -->
-  <g transform="translate(30, 405)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#2563eb">j=4:</text>
-    <text x="45" y="25" font-size="13" fill="#1f2933">6 ≥ 4 → 통과</text>
-  </g>
-
-  <!-- j=5 -->
-  <g transform="translate(30, 455)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#2563eb">j=5:</text>
-    <text x="45" y="25" font-size="13" fill="#1f2933">3 &lt; 4 → i=2, swap</text>
-    <!-- 배열 [ 2 1 3 8 6 7 5 | 4 ] -->
-    <g transform="translate(210, 0)">
-      <rect x="0" y="0" width="310" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-      <text x="20" y="25" font-size="14" font-weight="bold" fill="#1f2933">[</text>
-      <text x="40" y="25" font-size="13" fill="#1f2933" text-anchor="middle">2</text>
-      <text x="75" y="25" font-size="13" fill="#1f2933" text-anchor="middle">1</text>
-      <rect x="100" y="6" width="20" height="28" rx="2" fill="#ecfdf5"/>
-      <text x="110" y="25" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">3</text>
-      <text x="145" y="25" font-size="13" fill="#1f2933" text-anchor="middle">8</text>
-      <text x="180" y="25" font-size="13" fill="#1f2933" text-anchor="middle">6</text>
-      <rect x="205" y="6" width="20" height="28" rx="2" fill="#fffbeb"/>
-      <text x="215" y="25" font-size="13" font-weight="bold" fill="#d97706" text-anchor="middle">7</text>
-      <text x="250" y="25" font-size="13" fill="#1f2933" text-anchor="middle">5</text>
-      <line x1="272" y1="5" x2="272" y2="35" stroke="#9aa5b1" stroke-width="1.5"/>
-      <text x="288" y="25" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">4</text>
-      <text x="302" y="25" font-size="14" font-weight="bold" fill="#1f2933">]</text>
-    </g>
-  </g>
-
-  <!-- j=6 -->
-  <g transform="translate(30, 505)">
-    <text x="0" y="25" font-size="13" font-weight="bold" fill="#2563eb">j=6:</text>
-    <text x="45" y="25" font-size="13" fill="#1f2933">5 ≥ 4 → 통과</text>
-  </g>
-
-  <!-- 마지막 피벗 배치 및 결과 -->
-  <g transform="translate(30, 560)">
-    <text x="0" y="25" font-size="13" fill="#1f2933">마지막에 피벗을 경계로</text>
-    
-    <!-- 최종 확정 배열 [ 2 1 3 (4) 6 7 5 8 ] -->
-    <g transform="translate(180, 0)">
-      <rect x="0" y="0" width="310" height="40" rx="4" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-      <text x="20" y="25" font-size="14" font-weight="bold" fill="#1f2933">[</text>
-      
-      <!-- '작다' 영역 배경 -->
-      <rect x="30" y="6" width="95" height="28" rx="2" fill="#ecfdf5"/>
-      <text x="40" y="25" font-size="13" fill="#059669" text-anchor="middle">2</text>
-      <text x="75" y="25" font-size="13" fill="#059669" text-anchor="middle">1</text>
-      <text x="110" y="25" font-size="13" fill="#059669" text-anchor="middle">3</text>
-      
-      <!-- 확정된 피벗 (4) -->
-      <rect x="135" y="6" width="30" height="28" rx="2" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-      <text x="150" y="25" font-size="13" font-weight="bold" fill="#7c3aed" text-anchor="middle">(4)</text>
-      
-      <!-- '크다' 영역 배경 -->
-      <rect x="170" y="6" width="125" height="28" rx="2" fill="#eff6ff"/>
-      <text x="180" y="25" font-size="13" fill="#2563eb" text-anchor="middle">6</text>
-      <text x="215" y="25" font-size="13" fill="#2563eb" text-anchor="middle">7</text>
-      <text x="250" y="25" font-size="13" fill="#2563eb" text-anchor="middle">5</text>
-      <text x="285" y="25" font-size="13" fill="#2563eb" text-anchor="middle">8</text>
-      
-      <text x="302" y="25" font-size="14" font-weight="bold" fill="#1f2933">]</text>
-
-      <!-- 주석 및 화살표 -->
-      <!-- '작다' 라벨 및 화살표 -->
-      <text x="77" y="62" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">작다</text>
-      <path d="M 125,52 L 135,42" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-      <path d="M 175,52 L 165,42" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-      <!-- '크다' 라벨 -->
-      <text x="232" y="62" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">크다</text>
-    </g>
-  </g>
-
-  <!-- 최종 확정 설명 각주 -->
-  <g transform="translate(210, 675)">
-    <rect x="0" y="0" width="340" height="36" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="170" y="22" font-size="13" fill="#52606d" text-anchor="middle">4는 여기서 최종 확정. 다시 볼 일 없다</text>
-  </g>
-
+  <rect width="880" height="760" fill="#ffffff"/>
+  <text x="24" y="42" font-size="19" font-weight="bold" fill="#111827">pivot = 마지막 원소 <tspan fill="#b45309">4</tspan></text>
+  <text x="24" y="74" font-size="16" fill="#374151">j를 왼쪽부터 훑으면서, 4보다 작은 값을 만나면 "작은 값 구역" 끝(i)으로 보낸다</text>
+  <text x="314" y="116" font-size="14" fill="#4b5563" text-anchor="end">인덱스</text>
+  <text x="355" y="116" font-size="14" fill="#4b5563" text-anchor="middle">0</text>
+  <text x="409" y="116" font-size="14" fill="#4b5563" text-anchor="middle">1</text>
+  <text x="463" y="116" font-size="14" fill="#4b5563" text-anchor="middle">2</text>
+  <text x="517" y="116" font-size="14" fill="#4b5563" text-anchor="middle">3</text>
+  <text x="571" y="116" font-size="14" fill="#4b5563" text-anchor="middle">4</text>
+  <text x="625" y="116" font-size="14" fill="#4b5563" text-anchor="middle">5</text>
+  <text x="679" y="116" font-size="14" fill="#4b5563" text-anchor="middle">6</text>
+  <text x="749" y="116" font-size="14" fill="#4b5563" text-anchor="middle">7</text>
+  <line x1="712" y1="118" x2="712" y2="550" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="24" y="152" font-size="16" font-weight="bold" fill="#111827">시작</text>
+  <rect x="330" y="128" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="355" y="152" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="384" y="128" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="409" y="152" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="438" y="128" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="463" y="152" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="492" y="128" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="517" y="152" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="128" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="152" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="128" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="152" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="654" y="128" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="152" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="128" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="152" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <text x="24" y="206" font-size="16" font-weight="bold" fill="#111827">j=0</text>
+  <text x="84" y="206" font-size="16" fill="#4b5563">7 ≥ 4 → 통과</text>
+  <rect x="330" y="182" width="50" height="36" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="355" y="206" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="384" y="182" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="409" y="206" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="438" y="182" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="463" y="206" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="492" y="182" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="517" y="206" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="182" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="206" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="182" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="206" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="654" y="182" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="206" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="182" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="206" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <text x="24" y="260" font-size="16" font-weight="bold" fill="#111827">j=1</text>
+  <text x="84" y="260" font-size="16" font-weight="bold" fill="#1d4ed8">2 &lt; 4 → i=0, swap</text>
+  <rect x="330" y="236" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="355" y="260" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="384" y="236" width="50" height="36" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="409" y="260" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="438" y="236" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="463" y="260" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="492" y="236" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="517" y="260" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="236" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="260" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="236" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="260" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="654" y="236" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="260" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="236" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="260" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <path d="M355,233 Q382,213.4 409,233" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-start="url(#sw)" marker-end="url(#sw)"/>
+  <text x="24" y="314" font-size="16" font-weight="bold" fill="#111827">j=2</text>
+  <text x="84" y="314" font-size="16" font-weight="bold" fill="#1d4ed8">1 &lt; 4 → i=1, swap</text>
+  <rect x="330" y="290" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="355" y="314" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="384" y="290" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="409" y="314" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="438" y="290" width="50" height="36" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="463" y="314" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="492" y="290" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="517" y="314" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="290" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="314" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="290" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="314" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="654" y="290" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="314" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="290" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="314" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <path d="M409,287 Q436,267.4 463,287" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-start="url(#sw)" marker-end="url(#sw)"/>
+  <text x="24" y="368" font-size="16" font-weight="bold" fill="#111827">j=3</text>
+  <text x="84" y="368" font-size="16" fill="#4b5563">8 ≥ 4 → 통과</text>
+  <rect x="330" y="344" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="355" y="368" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="384" y="344" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="409" y="368" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="438" y="344" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="463" y="368" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="492" y="344" width="50" height="36" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="517" y="368" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="344" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="368" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="344" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="368" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="654" y="344" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="368" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="344" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="368" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <text x="24" y="422" font-size="16" font-weight="bold" fill="#111827">j=4</text>
+  <text x="84" y="422" font-size="16" fill="#4b5563">6 ≥ 4 → 통과</text>
+  <rect x="330" y="398" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="355" y="422" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="384" y="398" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="409" y="422" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="438" y="398" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="463" y="422" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="492" y="398" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="517" y="422" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="398" width="50" height="36" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="571" y="422" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="398" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="422" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="654" y="398" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="422" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="398" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="422" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <text x="24" y="476" font-size="16" font-weight="bold" fill="#111827">j=5</text>
+  <text x="84" y="476" font-size="16" font-weight="bold" fill="#1d4ed8">3 &lt; 4 → i=2, swap</text>
+  <rect x="330" y="452" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="355" y="476" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="384" y="452" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="409" y="476" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="438" y="452" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="463" y="476" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="492" y="452" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="517" y="476" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="452" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="476" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="452" width="50" height="36" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="625" y="476" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="654" y="452" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="476" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="452" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="476" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <path d="M463,449 Q544,422.2 625,449" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-start="url(#sw)" marker-end="url(#sw)"/>
+  <text x="24" y="530" font-size="16" font-weight="bold" fill="#111827">j=6</text>
+  <text x="84" y="530" font-size="16" fill="#4b5563">5 ≥ 4 → 통과</text>
+  <rect x="330" y="506" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="355" y="530" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="384" y="506" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="409" y="530" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="438" y="506" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="463" y="530" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="492" y="506" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="517" y="530" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <rect x="546" y="506" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="530" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="506" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="530" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="654" y="506" width="50" height="36" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="679" y="530" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="506" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="749" y="530" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <text x="24" y="606" font-size="16" font-weight="bold" fill="#111827">마지막에 피벗을 경계로</text>
+  <text x="24" y="627" font-size="14" fill="#4b5563">피벗과 i+1 자리(8) swap</text>
+  <rect x="330" y="590" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="355" y="614" font-size="18" fill="#111827" text-anchor="middle">2</text>
+  <rect x="384" y="590" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="409" y="614" font-size="18" fill="#111827" text-anchor="middle">1</text>
+  <rect x="438" y="590" width="50" height="36" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="463" y="614" font-size="18" fill="#111827" text-anchor="middle">3</text>
+  <rect x="492" y="590" width="50" height="36" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="517" y="614" font-size="18" font-weight="bold" fill="#b45309" text-anchor="middle">4</text>
+  <rect x="546" y="590" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="571" y="614" font-size="18" fill="#111827" text-anchor="middle">6</text>
+  <rect x="600" y="590" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="625" y="614" font-size="18" fill="#111827" text-anchor="middle">7</text>
+  <rect x="654" y="590" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="679" y="614" font-size="18" fill="#111827" text-anchor="middle">5</text>
+  <rect x="724" y="590" width="50" height="36" rx="3" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="749" y="614" font-size="18" fill="#111827" text-anchor="middle">8</text>
+  <path d="M517,587 Q633,557 749,587" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-start="url(#sw)" marker-end="url(#sw)"/>
+  <path d="M332,636 v8 H486 v-8" fill="none" stroke="#1d4ed8" stroke-width="1.8"/>
+  <path d="M548,636 v8 H772 v-8" fill="none" stroke="#4b5563" stroke-width="1.8"/>
+  <text x="409" y="666" font-size="16" font-weight="bold" fill="#1d4ed8" text-anchor="middle">작다</text>
+  <text x="660" y="666" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">크다</text>
+  <line x1="517" y1="676" x2="517" y2="632" stroke="#b45309" stroke-width="2" marker-end="url(#up)"/>
+  <text x="517" y="698" font-size="16" font-weight="bold" fill="#b45309" text-anchor="middle">4는 여기서 최종 확정. 다시 볼 일 없다</text>
+  <rect x="24" y="720" width="24" height="20" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="56" y="735" font-size="15" fill="#374151">작은 값 구역 (i까지)</text>
+  <rect x="224" y="720" width="24" height="20" rx="3" fill="#ffffff" stroke="#111827" stroke-width="3"/>
+  <text x="256" y="735" font-size="15" fill="#374151">j가 보는 칸</text>
+  <rect x="374" y="720" width="24" height="20" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.8"/>
+  <text x="406" y="735" font-size="15" fill="#374151">피벗</text>
+  <path d="M477,738 Q498,716 519,738" fill="none" stroke="#1d4ed8" stroke-width="1.8" marker-start="url(#sw)" marker-end="url(#sw)"/>
+  <text x="530" y="735" font-size="15" fill="#374151">swap</text>
 </svg>

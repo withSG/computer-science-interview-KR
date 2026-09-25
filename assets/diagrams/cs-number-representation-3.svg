@@ -1,96 +1,174 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 720" width="880" height="720"
-     font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif"
-     role="img" aria-labelledby="t d">
-  <title id="t">2의 보수의 발상</title>
-  <desc id="d">8비트 2의 보수 가산 연산 예제 및 캐리 처리와 보수 확인 과정 다이어그램</desc>
-  <rect width="880" height="720" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 810" width="880" height="810" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">2의 보수 덧셈과 캐리</title>
+  <desc id="d">8비트 2의 보수로 (+5)+(-5)를 더하면 9번째 비트(캐리)가 버려져 0이 되고, 캐리가 없는 (+3)+(-5)는 1111 1110이 되며 이를 다시 뒤집어 -2임을 확인합니다.</desc>
+  <rect width="880" height="810" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
+    </marker>
+    <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
   </defs>
-
-  <!-- Section 1: (+5) + (-5) -->
-  <rect x="30" y="30" width="820" height="250" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-
-  <g font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold">
-    <!-- Number Row 1 -->
-    <text x="110" y="72" fill="#1f2933">0000 0101</text>
-    <text x="210" y="72" fill="#059669" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(+5)</text>
-
-    <!-- Number Row 2 -->
-    <text x="75" y="97" fill="#52606d">+</text>
-    <text x="110" y="97" fill="#1f2933">1111 1011</text>
-    <text x="210" y="97" fill="#dc2626" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(-5)</text>
-
-    <!-- Divider line -->
-    <line x1="70" y1="110" x2="250" y2="110" stroke="#1f2933" stroke-width="1.5"/>
-
-    <!-- Carry row -->
-    <text x="92" y="142" fill="#dc2626">1</text>
-    <text x="110" y="142" fill="#1f2933">0000 0000</text>
-
-    <!-- Result row -->
-    <text x="110" y="202" fill="#1f2933">0000 0000</text>
-  </g>
-
-  <!-- Carry arrow & description -->
-  <path d="M 270,138 L 305,138" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="315" y="123" width="515" height="30" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="4"/>
-  <text x="325" y="142" font-size="13" fill="#dc2626">9번째 비트(캐리)는 8비트 공간 밖이라 그냥 버려진다</text>
-
-  <!-- Zero result arrow & description -->
-  <path d="M 270,198 L 305,198" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="315" y="183" width="515" height="30" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
-  <text x="325" y="202" font-size="13" fill="#059669">0. 부호-절댓값에서 실패했던 계산이 그대로 맞는다</text>
-
-  <!-- Middle Transition Text -->
-  <text x="40" y="312" font-size="13" font-weight="bold" fill="#52606d">캐리가 안 생기는 경우도 똑같다.</text>
-
-  <!-- Section 2: (+3) + (-5) -->
-  <rect x="30" y="335" width="820" height="355" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-
-  <g font-size="13" font-family="'Courier New', Courier, monospace" font-weight="bold">
-    <!-- Number Row 1 -->
-    <text x="110" y="377" fill="#1f2933">0000 0011</text>
-    <text x="210" y="377" fill="#059669" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(+3)</text>
-
-    <!-- Number Row 2 -->
-    <text x="75" y="402" fill="#52606d">+</text>
-    <text x="110" y="402" fill="#1f2933">1111 1011</text>
-    <text x="210" y="402" fill="#dc2626" font-family="'Malgun Gothic','Apple SD Gothic Neo',sans-serif" font-weight="normal">(-5)</text>
-
-    <!-- Divider line -->
-    <line x1="70" y1="415" x2="250" y2="415" stroke="#1f2933" stroke-width="1.5"/>
-
-    <!-- Result row -->
-    <text x="110" y="447" fill="#1f2933">1111 1110</text>
-  </g>
-
-  <!-- Result arrow & description -->
-  <path d="M 270,443 L 305,443" stroke="#1f2933" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="315" y="428" width="515" height="30" fill="#fffbeb" stroke="#d97706" stroke-width="1" rx="4"/>
-  <text x="325" y="447" font-size="13" fill="#d97706">캐리 없음. 이게 -2인가?</text>
-
-  <!-- Inner Verification Box -->
-  <rect x="70" y="485" width="760" height="180" fill="#eff6ff" stroke="#2563eb" stroke-width="1" rx="6"/>
-
-  <text x="90" y="514" font-size="13" font-weight="bold" fill="#1f2933">확인:  1111 1110 을 다시 2의 보수로 뒤집으면</text>
-
-  <g font-size="13">
-    <text x="135" y="547" fill="#52606d">비트 반전</text>
-    <path d="M 195,543 L 225,543" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <text x="235" y="547" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">0000 0001</text>
-
-    <text x="135" y="577" fill="#52606d">+1</text>
-    <path d="M 195,573 L 225,573" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-    <text x="235" y="577" font-family="'Courier New', Courier, monospace" font-weight="bold" fill="#1f2933">0000 0010</text>
-    <text x="325" y="577" font-family="'Courier New', Courier, monospace" fill="#1f2933">= 2</text>
-
-    <text x="135" y="627" font-weight="bold" fill="#059669">따라서 1111 1110 = -2. 맞다.</text>
-  </g>
+  <rect x="24" y="24" width="832" height="316" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="44" y="56" font-size="19" font-weight="700" fill="#111827">(+5) + (-5)</text>
+  <rect x="122" y="70" width="296" height="256" rx="6" fill="#e0f2fe"/>
+  <text x="270" y="90" font-size="15" font-weight="700" fill="#075985" text-anchor="middle">8비트 공간</text>
+  <rect x="130" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="145" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="164" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="179" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="198" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="213" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="232" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="247" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="278" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="293" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="312" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="327" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="346" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="361" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="380" y="100" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="395" y="126" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <text x="424" y="126" font-size="17" fill="#374151">(+5)</text>
+  <text x="64" y="173" font-size="24" font-weight="700" fill="#374151" text-anchor="middle">+</text>
+  <rect x="130" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="145" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="164" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="179" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="198" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="213" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="232" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="247" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="278" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="293" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="312" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="327" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="346" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="361" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="380" y="146" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="395" y="172" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <text x="424" y="172" font-size="17" fill="#374151">(-5)</text>
+  <line x1="48" y1="198" x2="414" y2="198" stroke="#111827" stroke-width="2"/>
+  <rect x="84" y="212" width="30" height="38" rx="4" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="99" y="238" font-size="20" font-weight="700" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="130" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="145" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="164" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="179" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="198" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="213" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="232" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="247" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="278" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="293" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="312" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="327" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="346" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="361" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="380" y="212" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="395" y="238" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="130" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="145" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="164" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="179" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="198" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="213" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="232" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="247" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="278" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="293" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="312" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="327" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="346" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="361" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="380" y="276" width="30" height="38" rx="4" fill="#ecfdf5" stroke="#047857" stroke-width="1.2"/>
+  <text x="395" y="302" font-size="20" font-weight="700" fill="#047857" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <line x1="424" y1="231" x2="490" y2="231" stroke="#b91c1c" stroke-width="1.8" marker-end="url(#ar)"/>
+  <rect x="500" y="204" width="336" height="54" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="516" y="230" font-size="16" font-weight="700" fill="#b91c1c">9번째 비트(캐리)는 8비트 공간 밖</text>
+  <text x="516" y="252" font-size="16" fill="#b91c1c">→ 그냥 버려진다</text>
+  <line x1="424" y1="295" x2="490" y2="295" stroke="#047857" stroke-width="1.8" marker-end="url(#ag)"/>
+  <rect x="500" y="268" width="336" height="54" rx="6" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="516" y="294" font-size="16" font-weight="700" fill="#047857">0. 부호-절댓값에서 실패했던</text>
+  <text x="516" y="316" font-size="16" fill="#047857">계산이 그대로 맞는다</text>
+  <rect x="24" y="360" width="832" height="426" rx="10" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="44" y="392" font-size="19" font-weight="700" fill="#111827">(+3) + (-5)<tspan font-size="17" font-weight="400" fill="#374151">  — 캐리가 안 생기는 경우도 똑같다</tspan></text>
+  <rect x="122" y="406" width="296" height="190" rx="6" fill="#e0f2fe"/>
+  <text x="270" y="426" font-size="15" font-weight="700" fill="#075985" text-anchor="middle">8비트 공간</text>
+  <rect x="130" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="145" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="164" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="179" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="198" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="213" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="232" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="247" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="278" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="293" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="312" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="327" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="346" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="361" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="380" y="436" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="395" y="462" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <text x="424" y="462" font-size="17" fill="#374151">(+3)</text>
+  <text x="64" y="509" font-size="24" font-weight="700" fill="#374151" text-anchor="middle">+</text>
+  <rect x="130" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="145" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="164" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="179" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="198" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="213" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="232" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="247" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="278" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="293" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="312" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="327" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <rect x="346" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="361" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="380" y="482" width="30" height="38" rx="4" fill="#ffffff" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="395" y="508" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <text x="424" y="508" font-size="17" fill="#374151">(-5)</text>
+  <line x1="48" y1="534" x2="414" y2="534" stroke="#111827" stroke-width="2"/>
+  <rect x="130" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="145" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="164" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="179" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="198" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="213" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="232" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="247" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="278" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="293" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="312" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="327" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="346" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="361" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1</text>
+  <rect x="380" y="548" width="30" height="38" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
+  <text x="395" y="574" font-size="20" font-weight="700" fill="#b45309" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0</text>
+  <line x1="424" y1="567" x2="490" y2="567" stroke="#b45309" stroke-width="1.8" marker-end="url(#ao)"/>
+  <rect x="500" y="540" width="336" height="54" rx="6" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="516" y="566" font-size="16" font-weight="700" fill="#b45309">캐리 없음</text>
+  <text x="516" y="588" font-size="16" fill="#b45309">이게 -2인가?</text>
+  <rect x="44" y="616" width="792" height="150" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="64" y="648" font-size="17" font-weight="700" fill="#1d4ed8">확인:<tspan fill="#1f2937" font-weight="400"> 1111 1110 을 다시 2의 보수로 뒤집으면</tspan></text>
+  <rect x="64" y="668" width="144" height="48" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="136" y="699" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">1111 1110</text>
+  <line x1="218" y1="692" x2="346" y2="692" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="282" y="682" font-size="16" font-weight="700" fill="#1d4ed8" text-anchor="middle">비트 반전</text>
+  <rect x="356" y="668" width="144" height="48" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="428" y="699" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0000 0001</text>
+  <line x1="510" y1="692" x2="630" y2="692" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="570" y="682" font-size="16" font-weight="700" fill="#1d4ed8" text-anchor="middle">+1</text>
+  <rect x="640" y="668" width="176" height="48" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="728" y="699" font-size="20" font-weight="700" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">0000 0010 = 2</text>
+  <text x="64" y="758" font-size="19" font-weight="700" fill="#047857">따라서 1111 1110 = -2. 맞다.</text>
 </svg>

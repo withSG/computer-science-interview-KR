@@ -222,7 +222,7 @@ Stack은 함수 호출과 지역 변수를 저장하는 영역입니다. 컴파�
 ### 꼬리 질문 대비
 - "페이지 폴트가 발생하면 어떤 일이 일어나나요?"
 <!-- diagram:cs-qna-os-10 -->
-![꼬리 질문 대비](../../assets/diagrams/cs-qna-os-10.svg)
+![페이지 폴트 발생 후 4단계 처리 흐름](../../assets/diagrams/cs-qna-os-10.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -431,7 +431,7 @@ notepad.exe (프로그램) → 실행 → notepad 프로세스
 
 ### 모드 전환
 <!-- diagram:cs-qna-os-11 -->
-![모드 전환](../../assets/diagrams/cs-qna-os-11.svg)
+![시스템 콜·인터럽트로 커널 모드 진입, 처리 완료 후 복귀](../../assets/diagrams/cs-qna-os-11.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

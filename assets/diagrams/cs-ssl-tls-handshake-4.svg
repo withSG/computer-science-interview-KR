@@ -1,55 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 610" width="880" height="610" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">인증서 체인과 CA</title>
-  <desc id="d">루트 CA, 중간 CA, 서버 인증서 간의 서명 관계 및 신뢰 체인을 나타낸 다이어그램입니다.</desc>
-  
-  <rect width="880" height="500" fill="#ffffff"/>
-
+  <desc id="d">루트 CA가 중간 CA 인증서에, 중간 CA가 서버 인증서(leaf)에 개인키로 서명하고, 검증은 서버 인증서에서 루트 쪽으로 위 인증서의 공개키를 써서 올라간다. 루트 CA 인증서는 OS·브라우저 신뢰 저장소에 미리 내장되어 있고, 중간 CA와 서버 인증서는 서버가 보낸다.</desc>
+  <rect width="880" height="610" fill="#ffffff"/>
   <defs>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
+    <marker id="m-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="m-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="m-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Root CA Box -->
-  <rect x="40" y="30" width="460" height="110" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="60" y="62" font-size="14" font-weight="bold" fill="#1f2933">루트 CA 인증서 (self-signed)</text>
-  <text x="75" y="87" font-size="13" fill="#52606d">주체: Example Root CA</text>
-  <text x="75" y="112" font-size="13" fill="#52606d">서명: 자기 자신</text>
+  <!-- ── 루트 CA 인증서 -->
+  <rect x="24" y="24" width="440" height="120" rx="8" fill="#ffffff"/>
+  <path d="M32,24 H456 Q464,24 464,32 V64 H24 V32 Q24,24 32,24 Z" fill="#f5f3ff"/>
+  <line x1="24" y1="64" x2="464" y2="64" stroke="#c4b5fd" stroke-width="1"/>
+  <rect x="24" y="24" width="440" height="120" rx="8" fill="none" stroke="#6d28d9" stroke-width="2"/>
+  <text x="44" y="51" fill="#5b21b6"><tspan font-size="18" font-weight="bold">루트 CA 인증서</tspan><tspan font-size="15" fill="#4b5563" dx="8">(self-signed)</tspan></text>
+  <text x="44" y="96" font-size="15" fill="#4b5563">주체</text>
+  <text x="144" y="96" font-size="16" fill="#111827">Example Root CA</text>
+  <text x="44" y="124" font-size="15" fill="#4b5563">서명</text>
+  <text x="144" y="124" font-size="16" fill="#111827">자기 자신</text>
 
-  <!-- Root CA Note -->
-  <text x="520" y="80" font-size="13" fill="#52606d">← OS/브라우저에 미리 내장되어 있다</text>
-  <text x="536" y="105" font-size="13" fill="#52606d">(신뢰 저장소, Trust Store)</text>
+  <!-- ── 루트 → 중간: 서명(아래로) / 검증(위로) -->
+  <line x1="226" y1="150" x2="226" y2="209" stroke="#6d28d9" stroke-width="2" marker-end="url(#m-purple)"/>
+  <text x="214" y="185" font-size="15" fill="#6d28d9" text-anchor="end">루트 CA 개인키로 <tspan font-weight="bold">서명</tspan></text>
+  <line x1="262" y1="210" x2="262" y2="151" stroke="#047857" stroke-width="2" marker-end="url(#m-green)"/>
+  <text x="274" y="185" font-size="15" fill="#047857">루트 CA 공개키로 <tspan font-weight="bold">검증</tspan></text>
 
-  <!-- Connection 1: Root to Intermediate -->
-  <path d="M270,140 L270,180" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-  <rect x="251" y="150" width="38" height="20" fill="#ffffff"/>
-  <text x="270" y="164" font-size="13" fill="#7c3aed" text-anchor="middle">서명</text>
+  <!-- ── 중간 CA 인증서 -->
+  <rect x="24" y="216" width="440" height="120" rx="8" fill="#ffffff"/>
+  <path d="M32,216 H456 Q464,216 464,224 V256 H24 V224 Q24,216 32,216 Z" fill="#eff6ff"/>
+  <line x1="24" y1="256" x2="464" y2="256" stroke="#93c5fd" stroke-width="1"/>
+  <rect x="24" y="216" width="440" height="120" rx="8" fill="none" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="44" y="243" font-size="18" font-weight="bold" fill="#1e40af">중간 CA 인증서</text>
+  <text x="44" y="288" font-size="15" fill="#4b5563">주체</text>
+  <text x="144" y="288" font-size="16" fill="#111827">Example Intermediate CA</text>
+  <text x="44" y="316" font-size="15" fill="#4b5563">서명</text>
+  <text x="144" y="316" font-size="16" fill="#111827">루트 CA의 개인키</text>
 
-  <!-- Intermediate CA Box -->
-  <rect x="40" y="180" width="460" height="110" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="60" y="212" font-size="14" font-weight="bold" fill="#1f2933">중간 CA 인증서</text>
-  <text x="75" y="237" font-size="13" fill="#52606d">주체: Example Intermediate CA</text>
-  <text x="75" y="262" font-size="13" fill="#52606d">서명: 루트 CA의 개인키</text>
+  <!-- ── 중간 → 서버: 서명(아래로) / 검증(위로) -->
+  <line x1="226" y1="342" x2="226" y2="401" stroke="#1d4ed8" stroke-width="2" marker-end="url(#m-blue)"/>
+  <text x="214" y="377" font-size="15" fill="#1d4ed8" text-anchor="end">중간 CA 개인키로 <tspan font-weight="bold">서명</tspan></text>
+  <line x1="262" y1="402" x2="262" y2="343" stroke="#047857" stroke-width="2" marker-end="url(#m-green)"/>
+  <text x="274" y="377" font-size="15" fill="#047857">중간 CA 공개키로 <tspan font-weight="bold">검증</tspan></text>
 
-  <!-- Intermediate CA Note -->
-  <text x="520" y="242" font-size="13" fill="#52606d">← 서버가 함께 보내줘야 한다</text>
+  <!-- ── 서버 인증서 (leaf) -->
+  <rect x="24" y="408" width="440" height="176" rx="8" fill="#ffffff"/>
+  <path d="M32,408 H456 Q464,408 464,416 V448 H24 V416 Q24,408 32,408 Z" fill="#f1f5f9"/>
+  <line x1="24" y1="448" x2="464" y2="448" stroke="#cbd5e1" stroke-width="1"/>
+  <rect x="24" y="408" width="440" height="176" rx="8" fill="none" stroke="#475569" stroke-width="2"/>
+  <text x="44" y="435" fill="#1f2937"><tspan font-size="18" font-weight="bold">서버 인증서</tspan><tspan font-size="15" fill="#4b5563" dx="8">(leaf)</tspan></text>
+  <text x="44" y="480" font-size="15" fill="#4b5563">주체(SAN)</text>
+  <text x="144" y="480" font-size="16" fill="#111827">www.example.com</text>
+  <text x="44" y="508" font-size="15" fill="#4b5563">공개키</text>
+  <text x="144" y="508" font-size="16" fill="#111827">(서버의 공개키)</text>
+  <text x="44" y="536" font-size="15" fill="#4b5563">유효기간</text>
+  <text x="144" y="536" font-size="16" fill="#111827">2026-01-01 ~ 2026-04-01</text>
+  <text x="44" y="564" font-size="15" fill="#4b5563">서명</text>
+  <text x="144" y="564" font-size="16" fill="#111827">중간 CA의 개인키</text>
 
-  <!-- Connection 2: Intermediate to Leaf -->
-  <path d="M270,290 L270,330" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="251" y="300" width="38" height="20" fill="#ffffff"/>
-  <text x="270" y="314" font-size="13" fill="#2563eb" text-anchor="middle">서명</text>
+  <!-- ── 오른쪽: 각 인증서를 어디서 얻나 -->
+  <line x1="468" y1="84" x2="496" y2="84" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="500" y="50" width="356" height="68" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="516" y="78" font-size="16" font-weight="bold" fill="#111827">OS/브라우저에 미리 내장되어 있다</text>
+  <text x="516" y="103" font-size="15" fill="#4b5563">(신뢰 저장소, Trust Store)</text>
 
-  <!-- Leaf Server Certificate Box -->
-  <rect x="40" y="330" width="460" height="140" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="60" y="362" font-size="14" font-weight="bold" fill="#1f2933">서버 인증서 (leaf)</text>
-  <text x="75" y="387" font-size="13" fill="#52606d">주체(SAN): www.example.com</text>
-  <text x="75" y="412" font-size="13" fill="#52606d">공개키: (서버의 공개키)</text>
-  <text x="75" y="437" font-size="13" fill="#52606d">유효기간: 2026-01-01 ~ 2026-04-01</text>
-  <text x="75" y="462" font-size="13" fill="#52606d">서명: 중간 CA의 개인키</text>
+  <line x1="468" y1="276" x2="496" y2="276" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="500" y="242" width="356" height="68" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="516" y="270" font-size="16" font-weight="bold" fill="#111827">서버가 함께 보내줘야 한다</text>
+  <text x="516" y="295" font-size="15" fill="#b45309">누락하면 체인을 이어 붙이지 못해 검증 실패</text>
 
-  <!-- Leaf Note -->
-  <text x="520" y="402" font-size="13" fill="#52606d">← 서버가 보낸다</text>
+  <line x1="468" y1="496" x2="496" y2="496" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="500" y="474" width="356" height="44" rx="8" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="516" y="502" font-size="16" font-weight="bold" fill="#111827">서버가 보낸다</text>
 </svg>

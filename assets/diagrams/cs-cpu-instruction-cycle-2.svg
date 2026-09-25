@@ -1,123 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">ADD R1, R2, R3 명령어 실행 과정 (코드로 보기)</title>
-  <desc id="d">ADD R1, R2, R3 명령어의 인출, 해석, 실행, 메모리 접근, 쓰기 되돌림 단계별 레지스터 변화를 보여주는 다이어그램입니다.</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 590" width="880" height="590" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">ADD 명령어 레지스터 추적</title>
+  <desc id="d">100번지의 ADD R1, R2, R3 명령어가 5단계를 지나며 레지스터가 어떻게 바뀌는지 보여준다. Fetch에서 MAR, MBR, IR, PC(104)가 채워지고, Decode에서 opcode·목적지·소스를 읽어 CU가 신호를 만들며, Execute에서 ALU가 R2 + R3를 계산하고, Memory는 통과, Writeback에서 R1에 결과를 기록한다.</desc>
+  <rect width="880" height="590" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
-    </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6d28d9"/>
     </marker>
   </defs>
 
   <!-- 초기 상태 -->
-  <g transform="translate(24, 24)">
-    <rect x="0" y="0" width="832" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <text x="20" y="24" fill="#1f2933" font-size="14" font-weight="bold">[초기 상태]</text>
-    <text x="120" y="24" fill="#52606d" font-size="14">PC = 100</text>
-  </g>
+  <rect x="24" y="24" width="832" height="52" rx="8" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M32,24 H168 V76 H32 Q24,76 24,68 V32 Q24,24 32,24 Z" fill="#e5e7eb"/>
+  <text x="96" y="56" font-size="17" font-weight="bold" fill="#1f2937" text-anchor="middle">초기 상태</text>
+  <text x="272" y="57" font-size="17" font-weight="bold" fill="#111827" text-anchor="end" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">PC</text>
+  <text x="290" y="57" font-size="17" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">=</text>
+  <text x="310" y="57" font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">100</text>
+  <text x="400" y="56" font-size="15" fill="#4b5563">100번지에 ADD R1, R2, R3 · 명령어 길이 4바이트</text>
 
   <!-- ① Fetch -->
-  <g transform="translate(24, 80)">
-    <rect x="0" y="0" width="832" height="124" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-    <rect x="16" y="12" width="100" height="28" rx="4" fill="#2563eb"/>
-    <text x="66" y="30.2" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">① Fetch</text>
-
-    <!-- Content -->
-    <g font-size="13" font-family="monospace, sans-serif">
-      <!-- Row 1 -->
-      <text x="140" y="30.2" fill="#1f2933" font-weight="bold">MAR</text>
-      <path d="M215,26 L185,26" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-      <text x="230" y="30.2" fill="#1f2933">100</text>
-
-      <!-- Row 2 -->
-      <text x="140" y="54.2" fill="#1f2933" font-weight="bold">MBR</text>
-      <path d="M215,50 L185,50" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-      <text x="230" y="54.2" fill="#1f2933">MEM[100]</text>
-      <text x="310" y="54.2" fill="#52606d" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif">(= ADD R1, R2, R3 의 기계어)</text>
-
-      <!-- Row 3 -->
-      <text x="140" y="78.2" fill="#1f2933" font-weight="bold">IR</text>
-      <path d="M215,74 L185,74" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-      <text x="230" y="78.2" fill="#1f2933">MBR</text>
-
-      <!-- Row 4 -->
-      <text x="140" y="102.2" fill="#1f2933" font-weight="bold">PC</text>
-      <path d="M215,98 L185,98" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-      <text x="230" y="102.2" fill="#1f2933">104</text>
-    </g>
+  <rect x="24" y="88" width="832" height="140" rx="8" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M32,88 H168 V228 H32 Q24,228 24,220 V96 Q24,88 32,88 Z" fill="#1d4ed8"/>
+  <text x="96" y="164" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">① Fetch</text>
+  <g font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="272" y="123" text-anchor="end" font-weight="bold">MAR</text>
+    <text x="290" y="123" text-anchor="middle" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-weight="bold">←</text>
+    <text x="310" y="123">100</text>
+    <text x="272" y="153" text-anchor="end" font-weight="bold">MBR</text>
+    <text x="290" y="153" text-anchor="middle" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-weight="bold">←</text>
+    <text x="310" y="153">MEM[100]</text>
+    <text x="272" y="183" text-anchor="end" font-weight="bold">IR</text>
+    <text x="290" y="183" text-anchor="middle" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-weight="bold">←</text>
+    <text x="310" y="183">MBR</text>
+    <text x="272" y="213" text-anchor="end" font-weight="bold">PC</text>
+    <text x="290" y="213" text-anchor="middle" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-weight="bold">←</text>
+    <text x="310" y="213">104</text>
   </g>
+  <text x="412" y="152" font-size="15" fill="#4b5563">(= ADD R1, R2, R3 의 기계어)</text>
+  <text x="412" y="212" font-size="15" fill="#4b5563">다음 명령어 주소 (100 + 4)</text>
 
   <!-- ② Decode -->
-  <g transform="translate(24, 220)">
-    <rect x="0" y="0" width="832" height="100" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <rect x="16" y="12" width="100" height="28" rx="4" fill="#7c3aed"/>
-    <text x="66" y="30.2" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">② Decode</text>
-
-    <!-- Content -->
-    <g font-size="13">
-      <text x="140" y="30.2" fill="#1f2933" font-family="monospace, sans-serif">opcode</text>
-      <text x="200" y="30.2" fill="#1f2933">=</text>
-      <text x="220" y="30.2" fill="#1f2933" font-weight="bold">ADD</text>
-
-      <text x="140" y="54.2" fill="#1f2933">목적지</text>
-      <text x="200" y="54.2" fill="#1f2933">=</text>
-      <text x="220" y="54.2" fill="#1f2933" font-weight="bold" font-family="monospace, sans-serif">R1</text>
-
-      <text x="140" y="78.2" fill="#1f2933">소스</text>
-      <text x="200" y="78.2" fill="#1f2933">=</text>
-      <text x="220" y="78.2" fill="#1f2933" font-weight="bold" font-family="monospace, sans-serif">R2, R3</text>
-
-      <path d="M300,50 L320,50" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
-      <text x="330" y="54.2" fill="#1f2933">CU가 "ALU를 덧셈 모드로, 입력은 R2/R3" 신호 생성</text>
-    </g>
+  <rect x="24" y="240" width="832" height="130" rx="8" fill="#ffffff" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M32,240 H168 V370 H32 Q24,370 24,362 V248 Q24,240 32,240 Z" fill="#6d28d9"/>
+  <text x="96" y="311" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">② Decode</text>
+  <!-- IR 필드 표 -->
+  <rect x="192" y="256" width="130" height="30" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="322" y="256" width="130" height="30" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="452" y="256" width="150" height="30" fill="#ede9fe" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="192" y="286" width="130" height="36" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="322" y="286" width="130" height="36" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+  <rect x="452" y="286" width="150" height="36" fill="#ffffff" stroke="#6d28d9" stroke-width="1"/>
+  <text x="257" y="276" font-size="15" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">opcode</text>
+  <text x="387" y="276" font-size="15" fill="#4c1d95" text-anchor="middle">목적지</text>
+  <text x="527" y="276" font-size="15" fill="#4c1d95" text-anchor="middle">소스</text>
+  <g font-size="17" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="257" y="310">ADD</text>
+    <text x="387" y="310">R1</text>
+    <text x="527" y="310">R2, R3</text>
   </g>
+  <line x1="194" y1="347" x2="222" y2="347" stroke="#6d28d9" stroke-width="2" marker-end="url(#ahp)"/>
+  <text x="232" y="352" font-size="16" fill="#111827">CU가 <tspan font-weight="bold" fill="#6d28d9">"ALU를 덧셈 모드로, 입력은 R2/R3"</tspan> 신호 생성</text>
 
   <!-- ③ Execute -->
-  <g transform="translate(24, 336)">
-    <rect x="0" y="0" width="832" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-    <rect x="16" y="6" width="100" height="28" rx="4" fill="#059669"/>
-    <text x="66" y="24.2" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">③ Execute</text>
-
-    <!-- Content -->
-    <g font-size="13">
-      <text x="140" y="24.2" fill="#1f2933" font-weight="bold">ALU 출력</text>
-      <path d="M245,20 L215,20" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-      <text x="260" y="24.2" fill="#1f2933" font-family="monospace, sans-serif">R2 + R3</text>
-    </g>
+  <rect x="24" y="382" width="832" height="52" rx="8" fill="#ffffff" stroke="#047857" stroke-width="1.5"/>
+  <path d="M32,382 H168 V434 H32 Q24,434 24,426 V390 Q24,382 32,382 Z" fill="#047857"/>
+  <text x="96" y="414" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">③ Execute</text>
+  <g font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="272" y="415" text-anchor="end" font-weight="bold">ALU 출력</text>
+    <text x="290" y="415" text-anchor="middle" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-weight="bold">←</text>
+    <text x="310" y="415">R2 + R3</text>
   </g>
 
   <!-- ④ Memory -->
-  <g transform="translate(24, 392)">
-    <rect x="0" y="0" width="832" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-    <rect x="16" y="6" width="100" height="28" rx="4" fill="#52606d"/>
-    <text x="66" y="24.2" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">④ Memory</text>
-
-    <!-- Content -->
-    <g font-size="13">
-      <text x="140" y="24.2" fill="#52606d">(할 일 없음, 통과)</text>
-    </g>
-  </g>
+  <rect x="24" y="446" width="832" height="52" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <path d="M32,446 H168 V498 H32 Q24,498 24,490 V454 Q24,446 32,446 Z" fill="#4b5563"/>
+  <text x="96" y="478" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">④ Memory</text>
+  <text x="192" y="478" font-size="16" fill="#4b5563">(할 일 없음, 통과)</text>
 
   <!-- ⑤ Writeback -->
-  <g transform="translate(24, 448)">
-    <rect x="0" y="0" width="832" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-    <rect x="16" y="6" width="100" height="28" rx="4" fill="#d97706"/>
-    <text x="66" y="24.2" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">⑤ Writeback</text>
-
-    <!-- Content -->
-    <g font-size="13">
-      <text x="140" y="24.2" fill="#1f2933" font-weight="bold" font-family="monospace, sans-serif">R1</text>
-      <path d="M195,20 L165,20" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-      <text x="210" y="24.2" fill="#1f2933" font-weight="bold">ALU 출력</text>
-    </g>
+  <rect x="24" y="510" width="832" height="52" rx="8" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M32,510 H168 V562 H32 Q24,562 24,554 V518 Q24,510 32,510 Z" fill="#b45309"/>
+  <text x="96" y="542" font-size="18" font-weight="bold" fill="#ffffff" text-anchor="middle">⑤ Writeback</text>
+  <g font-size="17" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="272" y="543" text-anchor="end" font-weight="bold">R1</text>
+    <text x="290" y="543" text-anchor="middle" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif" font-weight="bold">←</text>
+    <text x="310" y="543">ALU 출력</text>
   </g>
 </svg>

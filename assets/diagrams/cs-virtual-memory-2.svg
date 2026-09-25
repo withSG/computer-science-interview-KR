@@ -1,63 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">주소가 쪼개지는 방식</title>
-  <desc id="d">페이지 크기가 4KB인 경우 가상 주소가 페이지 번호와 오프셋으로 나뉘어 물리 주소로 변환되는 과정을 나타낸 다이어그램입니다.</desc>
-  <rect width="880" height="490" fill="#ffffff"/>
-  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 510" width="880" height="510" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">가상 주소 분할과 변환</title>
+  <desc id="d">페이지 크기가 4KB(2^12)일 때 32비트 가상 주소는 20비트 페이지 번호와 12비트 오프셋으로 나뉩니다. 페이지 번호만 페이지 테이블 조회로 프레임 번호가 되고, 오프셋은 그대로 통과해 물리 주소를 이룹니다.</desc>
+  <rect width="880" height="510" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="arr-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="arr-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Top Note -->
-  <text x="200" y="40" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">페이지 크기가 4KB(2^12)인 경우</text>
+  <!-- 전제 조건 -->
+  <rect x="100" y="20" width="270" height="34" rx="17" fill="#f3f4f6"/>
+  <text x="235" y="43" font-size="16" fill="#1f2937" text-anchor="middle">페이지 크기가 4KB(2<tspan font-size="14" dy="-6">12</tspan><tspan dy="6">)인 경우</tspan></text>
 
-  <!-- 가상 주소 Label -->
-  <text x="200" y="70" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">가상 주소 (예: 32비트)</text>
+  <!-- 가상 주소 -->
+  <text x="100" y="88" font-size="17" font-weight="bold" fill="#111827">가상 주소 (예: 32비트)</text>
+  <rect x="100" y="98" width="425" height="56" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="312.5" y="132" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">페이지 번호 (20비트)</text>
+  <rect x="525" y="98" width="255" height="56" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="652.5" y="132" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">오프셋 (12비트)</text>
 
-  <!-- Virtual Address Outer Box -->
-  <!-- Left Box: 페이지 번호 (20비트) -->
-  <rect x="200" y="85" width="280" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="109" font-size="13" fill="#1f2933" text-anchor="middle">페이지 번호 (20비트)</text>
+  <!-- 페이지 번호 경로: 페이지 테이블 조회 -->
+  <line x1="312.5" y1="156" x2="312.5" y2="190" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#arr-b)"/>
+  <rect x="220" y="192" width="185" height="38" rx="19" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <text x="312.5" y="217" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">페이지 테이블 조회</text>
+  <line x1="312.5" y1="230" x2="312.5" y2="264" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#arr-b)"/>
+  <rect x="100" y="266" width="425" height="50" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="312.5" y="297" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">프레임 번호</text>
+  <line x1="312.5" y1="316" x2="312.5" y2="376" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#arr-b)"/>
 
-  <!-- Right Box: 오프셋(12비트) -->
-  <rect x="480" y="85" width="200" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="580" y="109" font-size="13" fill="#1f2933" text-anchor="middle">오프셋(12비트)</text>
+  <!-- 오프셋 경로: 그대로 통과 -->
+  <line x1="652.5" y1="156" x2="652.5" y2="190" stroke="#047857" stroke-width="2.5"/>
+  <rect x="590" y="192" width="125" height="38" rx="19" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="652.5" y="217" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">그대로 통과</text>
+  <line x1="652.5" y1="230" x2="652.5" y2="376" stroke="#047857" stroke-width="2.5" marker-end="url(#arr-g)"/>
 
-  <!-- Arrows from Virtual Address -->
-  <!-- Blue Path from Page Number to Page Table Lookup -->
-  <path d="M340,125 L340,215" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  
-  <!-- White rect for Page Table Lookup Label -->
-  <rect x="272" y="159" width="136" height="22" fill="#ffffff"/>
-  <text x="340" y="174" font-size="12" fill="#2563eb" text-anchor="middle" font-weight="bold">페이지 테이블 조회</text>
+  <!-- 물리 주소 -->
+  <text x="100" y="368" font-size="17" font-weight="bold" fill="#111827">물리 주소</text>
+  <rect x="100" y="380" width="425" height="56" fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="312.5" y="414" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">프레임 번호</text>
+  <rect x="525" y="380" width="255" height="56" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <text x="652.5" y="414" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">오프셋 (12비트)</text>
 
-  <!-- Green Path from Offset directly to Physical Address Offset -->
-  <path d="M580,125 L580,385" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-  
-  <!-- White rect for 그대로 통과 Label -->
-  <rect x="536" y="249" width="88" height="22" fill="#ffffff"/>
-  <text x="580" y="264" font-size="12" fill="#059669" text-anchor="middle" font-weight="bold">그대로 통과</text>
-
-  <!-- Frame Number Intermediate Box -->
-  <rect x="200" y="220" width="280" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="244" font-size="13" fill="#1f2933" text-anchor="middle">프레임 번호</text>
-
-  <!-- Arrow from Frame Number Box to Physical Address Frame Number Box -->
-  <path d="M340,260 L340,385" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-  <!-- 물리 주소 Label -->
-  <text x="200" y="365" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="start">물리 주소</text>
-
-  <!-- Physical Address Outer Box -->
-  <!-- Left Box: 프레임 번호 -->
-  <rect x="200" y="390" width="280" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="340" y="414" font-size="13" fill="#1f2933" text-anchor="middle">프레임 번호</text>
-
-  <!-- Right Box: 오프셋(12비트) -->
-  <rect x="480" y="390" width="200" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="580" y="414" font-size="13" fill="#1f2933" text-anchor="middle">오프셋(12비트)</text>
+  <!-- 요점 -->
+  <text x="440" y="480" font-size="16" fill="#374151" text-anchor="middle">번역되는 것은 페이지 번호뿐 · 오프셋은 그대로</text>
 </svg>

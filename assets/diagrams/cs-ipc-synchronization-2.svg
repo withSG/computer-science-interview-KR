@@ -1,71 +1,50 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">임계 구역 문제의 코드 구조 정의</title>
-  <desc id="d">진입 구역, 임계 구역, 퇴출 구역, 나머지 구역이 반복 루프 내에서 수행되는 순서를 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">임계 구역 문제의 코드 구조</title>
+  <desc id="d">진입 구역에서 들어가도 되는지 확인하고 표시한 뒤 임계 구역에서 공유 자원에 접근하고, 퇴출 구역에서 나왔다고 표시한 다음 나머지 구역을 거쳐 다시 진입 구역으로 돌아가는 반복 구조.</desc>
+  <rect width="880" height="390" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
-    <marker id="a-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
+    <marker id="arB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="arR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
   </defs>
+  <g transform="translate(14,0)">
 
-  <!-- 배경 -->
-  <rect width="880" height="500" fill="#ffffff"/>
+  <!-- 반복 루프 -->
+  <path d="M168,330 H132 V62 H164" fill="none" stroke="#4b5563" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="122" y="202" font-size="17" font-weight="700" fill="#374151" text-anchor="end">반복</text>
 
-  <!-- 루프 메인 영역 (반복) -->
-  <rect x="40" y="30" width="800" height="440" rx="12" fill="#f8fafc" stroke="#9aa5b1" stroke-width="2"/>
-  <text x="60" y="62" fill="#1f2933" font-size="16" font-weight="bold">반복 {</text>
-  <text x="60" y="450" fill="#1f2933" font-size="16" font-weight="bold">}</text>
+  <!-- 1 진입 -->
+  <rect x="170" y="34" width="340" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="340" y="68" font-size="17" fill="#1e3a8a" text-anchor="middle"><tspan font-weight="700">진입 구역</tspan> (entry)</text>
+  <line x1="546" y1="62" x2="520" y2="62" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arB)"/>
+  <text x="554" y="67" font-size="15" fill="#1d4ed8">들어가도 되는지 확인하고 표시</text>
 
-  <!-- 1. 진입 구역 (entry) -->
-  <g>
-    <rect x="100" y="80" width="310" height="70" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="255" y="112" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">진입 구역 (entry)</text>
-    
-    <!-- 화살표 & 설명 -->
-    <path d="M410,115 L480,115" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="490" y="85" width="280" height="60" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="505" y="120" fill="#52606d" font-size="13">← 들어가도 되는지 확인하고 표시</text>
+  <line x1="340" y1="92" x2="340" y2="120" stroke="#4b5563" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- 2 임계 -->
+  <rect x="170" y="124" width="340" height="56" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+  <text x="340" y="158" font-size="17" fill="#991b1b" text-anchor="middle"><tspan font-weight="700">임계 구역</tspan> (critical section)</text>
+  <line x1="546" y1="152" x2="520" y2="152" stroke="#b91c1c" stroke-width="2" marker-end="url(#arR)"/>
+  <text x="554" y="157" font-size="15" font-weight="700" fill="#b91c1c">공유 자원 접근</text>
+
+  <line x1="340" y1="182" x2="340" y2="210" stroke="#4b5563" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- 3 퇴출 -->
+  <rect x="170" y="214" width="340" height="56" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="340" y="248" font-size="17" fill="#1e3a8a" text-anchor="middle"><tspan font-weight="700">퇴출 구역</tspan> (exit)</text>
+  <line x1="546" y1="242" x2="520" y2="242" stroke="#1d4ed8" stroke-width="2" marker-end="url(#arB)"/>
+  <text x="554" y="247" font-size="15" fill="#1d4ed8">나왔다고 표시</text>
+
+  <line x1="340" y1="272" x2="340" y2="300" stroke="#4b5563" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- 4 나머지 -->
+  <rect x="170" y="304" width="340" height="56" rx="8" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="338" font-size="17" fill="#374151" text-anchor="middle"><tspan font-weight="700">나머지 구역</tspan> (remainder)</text>
   </g>
-
-  <!-- 세로 흐름 화살표 1 -->
-  <path d="M255,150 L255,170" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 2. 임계 구역 (critical section) -->
-  <g>
-    <rect x="130" y="170" width="310" height="70" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="2"/>
-    <text x="285" y="202" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">임계 구역 (critical section)</text>
-    
-    <!-- 화살표 & 설명 -->
-    <path d="M440,205 L510,205" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-orange)"/>
-    <rect x="520" y="175" width="210" height="60" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1"/>
-    <text x="535" y="210" fill="#d97706" font-size="13" font-weight="bold">← 공유 자원 접근</text>
-  </g>
-
-  <!-- 세로 흐름 화살표 2 -->
-  <path d="M255,240 L255,260" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 3. 퇴출 구역 (exit) -->
-  <g>
-    <rect x="100" y="260" width="310" height="70" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="255" y="292" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">퇴출 구역 (exit)</text>
-    
-    <!-- 화살표 & 설명 -->
-    <path d="M410,295 L480,295" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="490" y="265" width="220" height="60" rx="6" fill="#ffffff" stroke="#cbd2d9" stroke-width="1"/>
-    <text x="505" y="300" fill="#52606d" font-size="13">← 나왔다고 표시</text>
-  </g>
-
-  <!-- 세로 흐름 화살표 3 -->
-  <path d="M255,330 L255,350" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-
-  <!-- 4. 나머지 구역 (remainder) -->
-  <g>
-    <rect x="130" y="350" width="310" height="70" rx="8" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-    <text x="285" y="382" fill="#1f2933" font-size="14" font-weight="bold" text-anchor="middle">나머지 구역 (remainder)</text>
-  </g>
-
-  <!-- 루프 순환 화살표 (되돌아가는 피드백 루프) -->
-  <path d="M285,420 L285,435 L70,435 L70,115 L90,115" stroke="#9aa5b1" stroke-width="1.5" stroke-dasharray="5 4" fill="none" marker-end="url(#a-ink)"/>
 </svg>

@@ -1,39 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 490" width="880" height="490" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">컨텍스트 스위칭 과정</title>
-  <desc id="d">Process A 실행 중부터 PCB 저장, Process B의 PCB 복원을 거쳐 Process B 실행으로 전환되는 컨텍스트 스위칭 순서도</desc>
+  <desc id="d">Process A 실행 중에 A의 상태(PC, CPU 레지스터, 메모리 관리 정보, I/O 상태 정보)를 A의 PCB에 저장하고, B의 PCB에서 B의 상태를 복원한 뒤 Process B가 실행되는 두 단계 흐름.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ar-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ar-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
-  <rect width="880" height="540" fill="#ffffff"/>
+  <rect width="880" height="490" fill="#ffffff"/>
+
+  <!-- 브래킷: 저장·복원 = 컨텍스트 스위칭 -->
+  <path d="M112,120 L104,120 L104,376 L112,376" stroke="#6b7280" stroke-width="2" fill="none"/>
+  <text x="60" y="243" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">컨텍스트</text>
+  <text x="60" y="265" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">스위칭</text>
 
   <!-- Process A 실행 중 -->
-  <rect x="230" y="30" width="420" height="50" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="440" y="60" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">Process A 실행 중</text>
+  <rect x="120" y="32" width="480" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="360" y="64" font-size="18" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Process A 실행 중</text>
 
-  <!-- Arrow 1 -->
-  <path d="M440,80 L440,120" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <line x1="360" y1="86" x2="360" y2="116" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- 1. Process A의 상태(컨텍스트)를 PCB에 저장 -->
-  <rect x="230" y="120" width="420" height="190" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="254" y="150" font-size="14" fill="#1f2933" font-weight="bold">1. Process A의 상태(컨텍스트)를 PCB에 저장</text>
-  <text x="274" y="185" font-size="13" fill="#52606d">- PC (Program Counter)</text>
-  <text x="274" y="215" font-size="13" fill="#52606d">- CPU 레지스터</text>
-  <text x="274" y="245" font-size="13" fill="#52606d">- 메모리 관리 정보</text>
-  <text x="274" y="275" font-size="13" fill="#52606d">- I/O 상태 정보</text>
+  <!-- 1. 저장 -->
+  <rect x="120" y="120" width="480" height="172" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="140" y="151" font-size="16" font-weight="bold" fill="#111827">1. Process A의 상태(컨텍스트)를 PCB에 저장</text>
+  <text x="160" y="186" font-size="15" fill="#374151">· PC (Program Counter)</text>
+  <text x="160" y="214" font-size="15" fill="#374151">· CPU 레지스터</text>
+  <text x="160" y="242" font-size="15" fill="#374151">· 메모리 관리 정보</text>
+  <text x="160" y="270" font-size="15" fill="#374151">· I/O 상태 정보</text>
 
-  <!-- Arrow 2 -->
-  <path d="M440,310 L440,350" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 저장 화살표 → A의 PCB -->
+  <line x1="602" y1="206" x2="676" y2="206" stroke="#1d4ed8" stroke-width="2" marker-end="url(#ar-blue)"/>
+  <text x="639" y="194" font-size="15" font-weight="bold" fill="#1d4ed8" text-anchor="middle">저장</text>
+  <rect x="680" y="178" width="176" height="56" rx="6" fill="#f3f4f6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="768" y="211" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">Process A의 PCB</text>
 
-  <!-- 2. Process B의 상태를 PCB에서 복원 -->
-  <rect x="230" y="350" width="420" height="50" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="254" y="380" font-size="14" fill="#1f2933" font-weight="bold">2. Process B의 상태를 PCB에서 복원</text>
+  <line x1="360" y1="294" x2="360" y2="316" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
-  <!-- Arrow 3 -->
-  <path d="M440,400 L440,440" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
+  <!-- 2. 복원 -->
+  <rect x="120" y="320" width="480" height="56" rx="8" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="140" y="353" font-size="16" font-weight="bold" fill="#111827">2. Process B의 상태를 PCB에서 복원</text>
+
+  <!-- A의 PCB ← 복원 화살표 -->
+  <rect x="680" y="320" width="176" height="56" rx="6" fill="#f3f4f6" stroke="#047857" stroke-width="1.5"/>
+  <text x="768" y="353" font-size="16" font-weight="bold" fill="#064e3b" text-anchor="middle">Process B의 PCB</text>
+  <line x1="678" y1="348" x2="604" y2="348" stroke="#047857" stroke-width="2" marker-end="url(#ar-green)"/>
+  <text x="639" y="336" font-size="15" font-weight="bold" fill="#047857" text-anchor="middle">복원</text>
+
+  <line x1="360" y1="378" x2="360" y2="404" stroke="#374151" stroke-width="2" marker-end="url(#ar)"/>
 
   <!-- Process B 실행 중 -->
-  <rect x="230" y="440" width="420" height="50" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="440" y="470" font-size="14" fill="#1f2933" font-weight="bold" text-anchor="middle">Process B 실행 중</text>
+  <rect x="120" y="408" width="480" height="52" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="2"/>
+  <text x="360" y="440" font-size="18" font-weight="bold" fill="#064e3b" text-anchor="middle">Process B 실행 중</text>
 </svg>

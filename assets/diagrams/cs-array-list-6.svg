@@ -1,78 +1,94 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">연결 리스트를 순회할 때</title>
-  <desc id="d">연결 리스트 순회 시 메모리의 힙 공간에 흩어진 노드들을 읽으며 발생하는 캐시 미스와 포인터 추적 과정을 나타낸 다이어그램</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 400" width="880" height="400" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">연결 리스트 순회와 캐시 미스</title>
+  <desc id="d">연결 리스트의 노드 n3, n1, n5, n2가 힙 곳곳의 서로 다른 캐시 라인에 흩어져 있어 매번 캐시 미스가 나고, 현재 노드를 읽어 next 주소를 알아내기 전에는 다음 노드를 프리페치할 수도 없다.</desc>
   <defs>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ak" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2937"/>
     </marker>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
+  <rect width="880" height="400" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="340" fill="#ffffff"/>
+  <!-- 요점 + 범례 -->
+  <text x="32" y="38" font-size="18" font-weight="bold" fill="#111827">노드들이 힙 여기저기 흩어져 있다</text>
+  <rect x="642" y="24" width="36" height="20" fill="#f3f4f6"/>
+  <line x1="642" y1="24" x2="642" y2="44" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="678" y1="24" x2="678" y2="44" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="848" y="39" text-anchor="end" font-size="14" fill="#4b5563">점선 칸 = 캐시 라인 하나</text>
 
-  <!-- 상단 라벨 -->
-  <text x="440" y="32" font-size="14" fill="#52606d" text-anchor="middle" font-weight="bold">노드들이 힙 여기저기 흩어져 있다</text>
+  <!-- next 포인터 (포인터 추적 순서) -->
+  <path d="M378,119 C378,76 718,76 718,117" fill="none" stroke="#1f2937" stroke-width="1.5" marker-end="url(#ak)"/>
+  <path d="M742,119 C742,44 220,44 220,117" fill="none" stroke="#1f2937" stroke-width="1.5" marker-end="url(#ak)"/>
+  <rect x="514" y="76" width="68" height="22" fill="#ffffff"/>
+  <text x="548" y="92" text-anchor="middle" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1f2937">n1.next</text>
+  <rect x="447" y="52" width="68" height="22" fill="#ffffff"/>
+  <text x="481" y="68" text-anchor="middle" font-size="15" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" fill="#1f2937">n2.next</text>
 
-  <!-- 메모리 공간 영역 -->
-  <rect x="40" y="55" width="800" height="60" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="55" y="91" font-size="13" fill="#52606d" font-weight="bold">메모리:</text>
+  <!-- 메모리 -->
+  <text x="98" y="142" text-anchor="end" font-size="16" font-weight="bold" fill="#111827">메모리</text>
+  <rect x="110" y="114" width="730" height="44" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+  <g stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3">
+    <line x1="183" y1="114" x2="183" y2="158"/>
+    <line x1="256" y1="114" x2="256" y2="158"/>
+    <line x1="329" y1="114" x2="329" y2="158"/>
+    <line x1="402" y1="114" x2="402" y2="158"/>
+    <line x1="475" y1="114" x2="475" y2="158"/>
+    <line x1="548" y1="114" x2="548" y2="158"/>
+    <line x1="621" y1="114" x2="621" y2="158"/>
+    <line x1="694" y1="114" x2="694" y2="158"/>
+    <line x1="767" y1="114" x2="767" y2="158"/>
+  </g>
+  <g fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5">
+    <rect x="193.5" y="120" width="52" height="32" rx="4"/>
+    <rect x="339.5" y="120" width="52" height="32" rx="4"/>
+    <rect x="558.5" y="120" width="52" height="32" rx="4"/>
+    <rect x="704.5" y="120" width="52" height="32" rx="4"/>
+  </g>
+  <g font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">
+    <text x="219.5" y="142">n3</text>
+    <text x="365.5" y="142">n1</text>
+    <text x="584.5" y="142">n5</text>
+    <text x="730.5" y="142">n2</text>
+  </g>
 
-  <!-- 생략 및 노드 박스들 -->
-  <text x="140" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">...</text>
+  <!-- 매번 다른 캐시 라인 -->
+  <g stroke="#b91c1c" stroke-width="1.5" marker-end="url(#ar)">
+    <line x1="219.5" y1="194" x2="219.5" y2="156"/>
+    <line x1="365.5" y1="194" x2="365.5" y2="156"/>
+    <line x1="584.5" y1="194" x2="584.5" y2="156"/>
+    <line x1="730.5" y1="194" x2="730.5" y2="156"/>
+  </g>
+  <rect x="180" y="196" width="590" height="38" rx="6" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="475" y="221" text-anchor="middle" font-size="16" font-weight="bold" fill="#b91c1c">매번 다른 캐시 라인 → 매번 캐시 미스</text>
 
-  <!-- n3 -->
-  <rect x="165" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="190" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n3</text>
+  <line x1="32" y1="254" x2="848" y2="254" stroke="#e5e7eb" stroke-width="1.5"/>
 
-  <text x="250" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">......</text>
-
-  <!-- n1 -->
-  <rect x="285" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="310" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n1</text>
-
-  <text x="420" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">...........</text>
-
-  <!-- n5 -->
-  <rect x="535" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="560" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n5</text>
-
-  <text x="625" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">....</text>
-
-  <!-- n2 -->
-  <rect x="665" y="67" width="50" height="36" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
-  <text x="690" y="89" font-size="13" fill="#dc2626" font-weight="bold" text-anchor="middle">n2</text>
-
-  <text x="755" y="91" font-size="13" fill="#9aa5b1" text-anchor="middle">...</text>
-
-  <!-- 메모리 가리키는 화살표들 -->
-  <path d="M190,145 L190,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M310,145 L310,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M560,145 L560,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M690,145 L690,111" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-
-  <!-- 중간 중앙 요약 설명 -->
-  <rect x="230" y="145" width="420" height="32" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="165" font-size="13" fill="#d97706" font-weight="bold" text-anchor="middle">매번 다른 캐시 라인 → 매번 캐시 미스</text>
-
-  <!-- 하단 순회 단계별 포인터 추적 설명 -->
-  <!-- n1 읽기 -->
-  <rect x="180" y="210" width="520" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="195" y="230" font-size="13" fill="#1f2933">
-    <tspan fill="#dc2626" font-weight="bold">n1 읽기 → 미스.</tspan> n1.next 주소를 알아냄
-  </text>
-
-  <!-- n2 읽기 -->
-  <rect x="180" y="250" width="520" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="195" y="270" font-size="13" fill="#1f2933">
-    <tspan fill="#dc2626" font-weight="bold">n2 읽기 → 미스.</tspan> 주소를 알기 전엔 프리페치도 불가능
-  </text>
-
-  <!-- n3 읽기 -->
-  <rect x="180" y="290" width="520" height="32" rx="4" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="195" y="310" font-size="13" fill="#1f2933">
-    <tspan fill="#dc2626" font-weight="bold">n3 읽기 → 미스</tspan>
-  </text>
+  <!-- 읽기 순서 -->
+  <g font-size="16" fill="#111827" text-anchor="end">
+    <text x="210" y="285"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">n1</tspan> 읽기</text>
+    <text x="210" y="323"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">n2</tspan> 읽기</text>
+    <text x="210" y="361"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">n3</tspan> 읽기</text>
+  </g>
+  <g stroke="#6b7280" stroke-width="1.5" marker-end="url(#ag)">
+    <line x1="222" y1="280" x2="260" y2="280"/>
+    <line x1="222" y1="318" x2="260" y2="318"/>
+    <line x1="222" y1="356" x2="260" y2="356"/>
+  </g>
+  <g fill="#fee2e2" stroke="#b91c1c" stroke-width="1.5">
+    <rect x="270" y="266" width="120" height="28" rx="14"/>
+    <rect x="270" y="304" width="120" height="28" rx="14"/>
+    <rect x="270" y="342" width="120" height="28" rx="14"/>
+  </g>
+  <g font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">
+    <text x="330" y="285">캐시 미스</text>
+    <text x="330" y="323">캐시 미스</text>
+    <text x="330" y="361">캐시 미스</text>
+  </g>
+  <text x="406" y="285" font-size="15" fill="#374151"><tspan font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-weight="bold" fill="#111827">n1.next</tspan> 주소를 알아냄</text>
+  <text x="406" y="323" font-size="15" fill="#374151">주소를 알기 전엔 프리페치도 불가능</text>
 </svg>

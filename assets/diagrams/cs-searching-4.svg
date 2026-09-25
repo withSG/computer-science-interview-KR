@@ -1,134 +1,174 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">그래프 탐색 — DFS와 BFS</title>
-  <desc id="d">바이너리 트리 그래프 구조와 이를 탐색하는 DFS(스택/재귀) 및 BFS(큐)의 방문 순서와 특성 설명</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 700" width="880" height="700" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DFS와 BFS의 방문 순서 비교</title>
+  <desc id="d">같은 트리(1의 자식 2·3, 2의 자식 4·5, 3의 자식 6)를 탐색할 때 DFS(스택/재귀)는 한 갈래를 끝까지 판 다음 되돌아와 1→2→4→(되돌아감)→5→(되돌아감)→3→6 순으로, BFS(큐)는 시작점에서 가까운 순서로 물결처럼 퍼져 1→2→3→4→5→6 순으로 방문한다.</desc>
+  <rect width="880" height="700" fill="#ffffff"/>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="mb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
     </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="mo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+    <marker id="mg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- Title / Section Header -->
-  <text x="24" y="41" font-size="16" font-weight="bold" fill="#1f2933">7. 그래프 탐색 — DFS와 BFS</text>
+  <!-- ===== DFS ===== -->
+  <rect x="24" y="24" width="832" height="316" rx="12" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
 
-  <!-- Left Side: Graph Structure Diagram -->
-  <!-- Edges -->
-  <line x1="180" y1="85" x2="110" y2="135" stroke="#9aa5b1" stroke-width="2"/>
-  <line x1="180" y1="85" x2="250" y2="135" stroke="#9aa5b1" stroke-width="2"/>
-  <line x1="110" y1="135" x2="70" y2="205" stroke="#9aa5b1" stroke-width="2"/>
-  <line x1="110" y1="135" x2="150" y2="205" stroke="#9aa5b1" stroke-width="2"/>
-  <line x1="250" y1="135" x2="290" y2="205" stroke="#9aa5b1" stroke-width="2"/>
-
-  <!-- Nodes -->
-  <!-- Node 1 -->
-  <circle cx="180" cy="85" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
-  <text x="180" y="91.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">1</text>
-
-  <!-- Node 2 -->
-  <circle cx="110" cy="135" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
-  <text x="110" y="141.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">2</text>
-
-  <!-- Node 3 -->
-  <circle cx="250" cy="135" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
-  <text x="250" y="141.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">3</text>
-
-  <!-- Node 4 -->
-  <circle cx="70" cy="205" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
-  <text x="70" y="211.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">4</text>
-
-  <!-- Node 5 -->
-  <circle cx="150" cy="205" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
-  <text x="150" y="211.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">5</text>
-
-  <!-- Node 6 -->
-  <circle cx="290" cy="205" r="20" fill="#f8fafc" stroke="#1f2933" stroke-width="2"/>
-  <text x="290" y="211.55" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">6</text>
-
-
-  <!-- Right Side: DFS and BFS Traversal Order & Explanations -->
-
-  <!-- DFS Block -->
-  <rect x="340" y="70" width="516" height="170" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1"/>
-
-  <text x="360" y="104.55" font-size="14" font-weight="bold" fill="#2563eb">DFS(스택/재귀)</text>
-  <text x="475" y="104.55" font-size="14" font-weight="bold" fill="#1f2933">:</text>
-
-  <!-- DFS Sequence -->
-  <g font-size="14" font-weight="bold" text-anchor="middle">
-    <!-- 1 -->
-    <text x="495" y="104.55" fill="#1f2933">1</text>
-    <path d="M 505 100 L 520 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- 2 -->
-    <text x="530" y="104.55" fill="#1f2933">2</text>
-    <path d="M 540 100 L 555 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- 4 -->
-    <text x="565" y="104.55" fill="#1f2933">4</text>
-    <path d="M 575 100 L 590 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- (되돌아감) -->
-    <text x="635" y="104.55" font-size="13" font-weight="normal" fill="#52606d">(되돌아감)</text>
-    <path d="M 675 100 L 690 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- 5 -->
-    <text x="700" y="104.55" fill="#1f2933">5</text>
-    <path d="M 710 100 L 725 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <!-- (되돌아감) -->
-    <text x="770" y="104.55" font-size="13" font-weight="normal" fill="#52606d">(되돌아감)</text>
-    <path d="M 810 100 L 825 100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 트리 간선 -->
+  <g stroke="#9ca3af" stroke-width="2">
+    <line x1="272.82" y1="83.74" x2="207.18" y2="136.26"/>
+    <line x1="307.18" y1="83.74" x2="372.82" y2="136.26"/>
+    <line x1="176.8" y1="167.6" x2="143.2" y2="212.4"/>
+    <line x1="203.2" y1="167.6" x2="236.8" y2="212.4"/>
+    <line x1="403.2" y1="167.6" x2="436.8" y2="212.4"/>
   </g>
 
-  <!-- DFS Sequence Line 2 -->
-  <g font-size="14" font-weight="bold" text-anchor="middle">
-    <text x="495" y="144.55" fill="#1f2933">3</text>
-    <path d="M 505 140 L 520 140" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-
-    <text x="530" y="144.55" fill="#1f2933">6</text>
+  <!-- DFS 이동 경로: 실선 = 새 노드 방문, 점선 = 되돌아감 -->
+  <g fill="none" stroke-width="2.5" stroke-linecap="round">
+    <line x1="261.26" y1="78.9" x2="205" y2="123.92" stroke="#1d4ed8" marker-end="url(#mb)"/>
+    <line x1="164.4" y1="165.8" x2="138" y2="201" stroke="#1d4ed8" marker-end="url(#mb)"/>
+    <line x1="155.6" y1="214.2" x2="182" y2="179" stroke="#b45309" stroke-dasharray="5 4" marker-end="url(#mo)"/>
+    <line x1="198" y1="179" x2="224.4" y2="214.2" stroke="#1d4ed8" marker-end="url(#mb)"/>
+    <line x1="242" y1="201" x2="215.6" y2="165.8" stroke="#b45309" stroke-dasharray="5 4" marker-end="url(#mo)"/>
+    <line x1="218.74" y1="141.1" x2="275" y2="96.08" stroke="#b45309" stroke-dasharray="5 4" marker-end="url(#mo)"/>
+    <line x1="305" y1="96.08" x2="361.26" y2="141.1" stroke="#1d4ed8" marker-end="url(#mb)"/>
+    <line x1="398" y1="179" x2="424.4" y2="214.2" stroke="#1d4ed8" marker-end="url(#mb)"/>
   </g>
 
-  <!-- DFS Explanation -->
-  <text x="495" y="204.05" font-size="13" fill="#52606d">한 갈래를 끝까지 판 다음 되돌아온다</text>
-
-
-  <!-- BFS Block -->
-  <rect x="340" y="270" width="516" height="170" rx="8" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-
-  <text x="360" y="314.55" font-size="14" font-weight="bold" fill="#059669">BFS(큐)</text>
-  <text x="475" y="314.55" font-size="14" font-weight="bold" fill="#1f2933">:</text>
-
-  <!-- BFS Sequence -->
-  <g font-size="14" font-weight="bold" text-anchor="middle">
-    <!-- 1 -->
-    <text x="495" y="314.55" fill="#1f2933">1</text>
-    <path d="M 505 310 L 520 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- 2 -->
-    <text x="530" y="314.55" fill="#1f2933">2</text>
-    <path d="M 540 310 L 555 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- 3 -->
-    <text x="565" y="314.55" fill="#1f2933">3</text>
-    <path d="M 575 310 L 590 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- 4 -->
-    <text x="600" y="314.55" fill="#1f2933">4</text>
-    <path d="M 610 310 L 625 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- 5 -->
-    <text x="635" y="314.55" fill="#1f2933">5</text>
-    <path d="M 645 310 L 660 310" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
-
-    <!-- 6 -->
-    <text x="670" y="314.55" fill="#1f2933">6</text>
+  <!-- 노드 -->
+  <g fill="#ffffff" stroke="#1f2937" stroke-width="2">
+    <circle cx="290" cy="70" r="22"/>
+    <circle cx="190" cy="150" r="22"/>
+    <circle cx="390" cy="150" r="22"/>
+    <circle cx="130" cy="230" r="22"/>
+    <circle cx="250" cy="230" r="22"/>
+    <circle cx="450" cy="230" r="22"/>
+  </g>
+  <g font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="290" y="76">1</text>
+    <text x="190" y="156">2</text>
+    <text x="390" y="156">3</text>
+    <text x="130" y="236">4</text>
+    <text x="250" y="236">5</text>
+    <text x="450" y="236">6</text>
   </g>
 
-  <!-- BFS Explanation -->
-  <text x="495" y="394.05" font-size="13" fill="#52606d">시작점에서 가까운 순서로 물결처럼 퍼진다</text>
+  <!-- 설명 -->
+  <text x="512" y="82" font-size="26" font-weight="bold" fill="#1d4ed8">DFS</text>
+  <text x="574" y="82" font-size="17" fill="#374151">(스택/재귀)</text>
+  <text x="512" y="124" font-size="17" fill="#111827">한 갈래를 끝까지 판 다음<tspan x="512" dy="26">되돌아온다</tspan></text>
 
+  <line x1="512" y1="196" x2="556" y2="196" stroke="#1d4ed8" stroke-width="2.5" marker-end="url(#mb)"/>
+  <text x="570" y="201" font-size="15" fill="#374151">새 노드 방문</text>
+  <line x1="512" y1="228" x2="556" y2="228" stroke="#b45309" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#mo)"/>
+  <text x="570" y="233" font-size="15" fill="#374151">되돌아감</text>
+
+  <!-- 방문 순서 -->
+  <line x1="44" y1="266" x2="836" y2="266" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="48" y="309" font-size="15" font-weight="bold" fill="#374151">방문 순서</text>
+  <g fill="#ffffff" stroke="#1d4ed8" stroke-width="1.5">
+    <rect x="150" y="286" width="34" height="34" rx="8"/>
+    <rect x="214" y="286" width="34" height="34" rx="8"/>
+    <rect x="278" y="286" width="34" height="34" rx="8"/>
+    <rect x="456" y="286" width="34" height="34" rx="8"/>
+    <rect x="634" y="286" width="34" height="34" rx="8"/>
+    <rect x="698" y="286" width="34" height="34" rx="8"/>
+  </g>
+  <g fill="#fffbeb" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3">
+    <rect x="342" y="288" width="84" height="30" rx="15"/>
+    <rect x="520" y="288" width="84" height="30" rx="15"/>
+  </g>
+  <g font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="167" y="309">1</text>
+    <text x="231" y="309">2</text>
+    <text x="295" y="309">4</text>
+    <text x="473" y="309">5</text>
+    <text x="651" y="309">3</text>
+    <text x="715" y="309">6</text>
+  </g>
+  <g font-size="15" fill="#92400e" text-anchor="middle">
+    <text x="384" y="308">되돌아감</text>
+    <text x="562" y="308">되돌아감</text>
+  </g>
+  <g stroke="#1d4ed8" stroke-width="2" marker-end="url(#mb)">
+    <line x1="189" y1="303" x2="209" y2="303"/>
+    <line x1="253" y1="303" x2="273" y2="303"/>
+    <line x1="317" y1="303" x2="337" y2="303"/>
+    <line x1="431" y1="303" x2="451" y2="303"/>
+    <line x1="495" y1="303" x2="515" y2="303"/>
+    <line x1="609" y1="303" x2="629" y2="303"/>
+    <line x1="673" y1="303" x2="693" y2="303"/>
+  </g>
+
+  <!-- ===== BFS ===== -->
+  <rect x="24" y="360" width="832" height="316" rx="12" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5"/>
+
+  <!-- 거리별 띠 -->
+  <g fill="#d1fae5">
+    <rect x="36" y="378" width="452" height="56" rx="12"/>
+    <rect x="36" y="458" width="452" height="56" rx="12"/>
+    <rect x="36" y="538" width="452" height="56" rx="12"/>
+  </g>
+  <g font-size="15" font-weight="bold" fill="#065f46">
+    <text x="48" y="411">거리 0</text>
+    <text x="48" y="491">거리 1</text>
+    <text x="48" y="571">거리 2</text>
+  </g>
+
+  <g stroke="#9ca3af" stroke-width="2">
+    <line x1="272.82" y1="419.74" x2="207.18" y2="472.26"/>
+    <line x1="307.18" y1="419.74" x2="372.82" y2="472.26"/>
+    <line x1="176.8" y1="503.6" x2="143.2" y2="548.4"/>
+    <line x1="203.2" y1="503.6" x2="236.8" y2="548.4"/>
+    <line x1="403.2" y1="503.6" x2="436.8" y2="548.4"/>
+  </g>
+  <g fill="#ffffff" stroke="#1f2937" stroke-width="2">
+    <circle cx="290" cy="406" r="22"/>
+    <circle cx="190" cy="486" r="22"/>
+    <circle cx="390" cy="486" r="22"/>
+    <circle cx="130" cy="566" r="22"/>
+    <circle cx="250" cy="566" r="22"/>
+    <circle cx="450" cy="566" r="22"/>
+  </g>
+  <g font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="290" y="412">1</text>
+    <text x="190" y="492">2</text>
+    <text x="390" y="492">3</text>
+    <text x="130" y="572">4</text>
+    <text x="250" y="572">5</text>
+    <text x="450" y="572">6</text>
+  </g>
+
+  <text x="512" y="418" font-size="26" font-weight="bold" fill="#047857">BFS</text>
+  <text x="574" y="418" font-size="17" fill="#374151">(큐)</text>
+  <text x="512" y="460" font-size="17" fill="#111827">시작점에서 가까운 순서로<tspan x="512" dy="26">물결처럼 퍼진다</tspan></text>
+
+  <line x1="44" y1="602" x2="836" y2="602" stroke="#a7f3d0" stroke-width="1.5"/>
+  <text x="48" y="645" font-size="15" font-weight="bold" fill="#374151">방문 순서</text>
+  <g fill="#ffffff" stroke="#047857" stroke-width="1.5">
+    <rect x="150" y="622" width="34" height="34" rx="8"/>
+    <rect x="214" y="622" width="34" height="34" rx="8"/>
+    <rect x="278" y="622" width="34" height="34" rx="8"/>
+    <rect x="342" y="622" width="34" height="34" rx="8"/>
+    <rect x="406" y="622" width="34" height="34" rx="8"/>
+    <rect x="470" y="622" width="34" height="34" rx="8"/>
+  </g>
+  <g font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="167" y="645">1</text>
+    <text x="231" y="645">2</text>
+    <text x="295" y="645">3</text>
+    <text x="359" y="645">4</text>
+    <text x="423" y="645">5</text>
+    <text x="487" y="645">6</text>
+  </g>
+  <g stroke="#047857" stroke-width="2" marker-end="url(#mg)">
+    <line x1="189" y1="639" x2="209" y2="639"/>
+    <line x1="253" y1="639" x2="273" y2="639"/>
+    <line x1="317" y1="639" x2="337" y2="639"/>
+    <line x1="381" y1="639" x2="401" y2="639"/>
+    <line x1="445" y1="639" x2="465" y2="639"/>
+  </g>
 </svg>

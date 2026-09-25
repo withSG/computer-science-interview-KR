@@ -1,37 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 320" width="880" height="320" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 270" width="880" height="270" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Cipher Suite 읽는 법</title>
-  <desc id="d">TLS Cipher Suite 구조 분석 다이어그램</desc>
-  <rect width="880" height="320" fill="#ffffff"/>
-  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">Cipher Suite 읽는 법</text>
-  <rect x="40" y="65" width="615" height="46" rx="8" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1.5"/>
-  <text x="55" y="93" font-size="14" font-weight="bold" fill="#52606d">TLS_</text>
-  <rect x="102" y="71" width="86" height="34" rx="5" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="145" y="93" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">ECDHE</text>
-  <text x="193" y="93" font-size="14" font-weight="bold" fill="#52606d">_</text>
-  <rect x="208" y="71" width="64" height="34" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="240" y="93" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">RSA</text>
-  <text x="277" y="93" font-size="14" font-weight="bold" fill="#52606d">_WITH_</text>
-  <rect x="342" y="71" width="130" height="34" rx="5" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="407" y="93" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">AES_128_GCM</text>
-  <text x="477" y="93" font-size="14" font-weight="bold" fill="#52606d">_</text>
-  <rect x="492" y="71" width="88" height="34" rx="5" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="536" y="93" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">SHA256</text>
+  <desc id="d">TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256을 네 조각으로 나눠 읽는다. ECDHE는 키 교환(전방 비밀성 O), RSA는 인증(RSA 서명으로 서버 신원 증명), AES_128_GCM은 대칭 암호(AES 128비트 GCM 모드), SHA256은 해시(SHA-256, 키 파생·무결성)다.</desc>
+  <rect width="880" height="270" fill="#ffffff"/>
   <defs>
-    <marker id="a-hash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
-    <marker id="a-cipher" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#059669"/></marker>
-    <marker id="a-auth" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
-    <marker id="a-kex" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+    <marker id="ah-kx" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+    <marker id="ah-au" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+    <marker id="ah-sy" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#059669"/></marker>
+    <marker id="ah-ha" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
   </defs>
-  <path d="M 536 111 V 145 H 565" stroke="#d97706" stroke-width="1.5" fill="none" marker-end="url(#a-hash)"/>
-  <path d="M 407 111 V 185 H 565" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-cipher)"/>
-  <path d="M 240 111 V 225 H 565" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-auth)"/>
-  <path d="M 145 111 V 265 H 565" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-kex)"/>
-  <rect x="570" y="130" width="270" height="30" rx="5" fill="#fffbeb" stroke="#d97706" stroke-width="1.2"/>
-  <text x="582" y="149.5" font-size="13" font-weight="bold" fill="#d97706">해시: SHA-256 (키 파생·무결성)</text>
-  <rect x="570" y="170" width="270" height="30" rx="5" fill="#ecfdf5" stroke="#059669" stroke-width="1.2"/>
-  <text x="582" y="189.5" font-size="13" font-weight="bold" fill="#059669">대칭 암호: AES 128비트 GCM 모드</text>
-  <rect x="570" y="210" width="270" height="30" rx="5" fill="#eff6ff" stroke="#2563eb" stroke-width="1.2"/>
-  <text x="582" y="229.5" font-size="13" font-weight="bold" fill="#2563eb">인증: RSA 서명으로 서버 신원 증명</text>
-  <rect x="570" y="250" width="270" height="30" rx="5" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.2"/>
-  <text x="582" y="269.5" font-size="13" font-weight="bold" fill="#7c3aed">키 교환: ECDHE (전방 비밀성 O)</text>
+
+  <!-- Cipher Suite 문자열: TLS_ [ECDHE] _ [RSA] _WITH_ [AES_128_GCM] _ [SHA256] -->
+  <g font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace" font-size="24" font-weight="bold" text-anchor="middle">
+    <text x="147" y="64" fill="#4b5563">TLS_</text>
+    <rect x="179" y="32" width="100" height="48" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
+    <text x="229" y="64" fill="#6d28d9">ECDHE</text>
+    <text x="289" y="64" fill="#4b5563">_</text>
+    <rect x="299" y="32" width="72" height="48" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="335" y="64" fill="#1d4ed8">RSA</text>
+    <text x="415" y="64" fill="#4b5563">_WITH_</text>
+    <rect x="459" y="32" width="172" height="48" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+    <text x="545" y="64" fill="#047857">AES_128_GCM</text>
+    <text x="641" y="64" fill="#4b5563">_</text>
+    <rect x="651" y="32" width="112" height="48" rx="6" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="707" y="64" fill="#b45309">SHA256</text>
+  </g>
+
+  <!-- 연결선 -->
+  <path d="M 229 80 V 104 H 125 V 130" fill="none" stroke="#7c3aed" stroke-width="2" marker-end="url(#ah-kx)"/>
+  <path d="M 335 80 V 130" fill="none" stroke="#2563eb" stroke-width="2" marker-end="url(#ah-au)"/>
+  <path d="M 545 80 V 130" fill="none" stroke="#059669" stroke-width="2" marker-end="url(#ah-sy)"/>
+  <path d="M 707 80 V 104 H 755 V 130" fill="none" stroke="#d97706" stroke-width="2" marker-end="url(#ah-ha)"/>
+
+  <!-- 조각별 의미 -->
+  <path d="M 30 168 V 140 Q 30 132 38 132 H 212 Q 220 132 220 140 V 168 Z" fill="#f5f3ff"/>
+  <rect x="30" y="132" width="190" height="112" rx="8" fill="none" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="125" y="156" font-size="17" font-weight="bold" fill="#6d28d9" text-anchor="middle">키 교환</text>
+  <text x="125" y="198" font-size="16" fill="#111827" text-anchor="middle">ECDHE</text>
+  <text x="125" y="224" font-size="16" fill="#111827" text-anchor="middle">(전방 비밀성 O)</text>
+
+  <path d="M 240 168 V 140 Q 240 132 248 132 H 422 Q 430 132 430 140 V 168 Z" fill="#eff6ff"/>
+  <rect x="240" y="132" width="190" height="112" rx="8" fill="none" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="335" y="156" font-size="17" font-weight="bold" fill="#1d4ed8" text-anchor="middle">인증</text>
+  <text x="335" y="198" font-size="16" fill="#111827" text-anchor="middle">RSA 서명으로</text>
+  <text x="335" y="224" font-size="16" fill="#111827" text-anchor="middle">서버 신원 증명</text>
+
+  <path d="M 450 168 V 140 Q 450 132 458 132 H 632 Q 640 132 640 140 V 168 Z" fill="#ecfdf5"/>
+  <rect x="450" y="132" width="190" height="112" rx="8" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <text x="545" y="156" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">대칭 암호</text>
+  <text x="545" y="198" font-size="16" fill="#111827" text-anchor="middle">AES 128비트</text>
+  <text x="545" y="224" font-size="16" fill="#111827" text-anchor="middle">GCM 모드</text>
+
+  <path d="M 660 168 V 140 Q 660 132 668 132 H 842 Q 850 132 850 140 V 168 Z" fill="#fffbeb"/>
+  <rect x="660" y="132" width="190" height="112" rx="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="755" y="156" font-size="17" font-weight="bold" fill="#b45309" text-anchor="middle">해시</text>
+  <text x="755" y="198" font-size="16" fill="#111827" text-anchor="middle">SHA-256</text>
+  <text x="755" y="224" font-size="16" fill="#111827" text-anchor="middle">(키 파생·무결성)</text>
 </svg>

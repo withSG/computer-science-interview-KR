@@ -122,7 +122,7 @@ JUMP 300         → PC = 300      (분기)
 ### 캐시 동작 방식
 
 <!-- diagram:cs-qna-computer-architecture-9 -->
-![캐시 동작 방식](../../assets/diagrams/cs-qna-computer-architecture-9.svg)
+![CPU 데이터 요청의 Cache Hit·Miss별 처리 흐름](../../assets/diagrams/cs-qna-computer-architecture-9.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.
@@ -189,7 +189,7 @@ JUMP 300         → PC = 300      (분기)
 ### 부동 소수점 (Floating Point, IEEE 754)
 
 <!-- diagram:cs-qna-computer-architecture-10 -->
-![부동 소수점 (Floating Point, IEEE 754)](../../assets/diagrams/cs-qna-computer-architecture-10.svg)
+![IEEE 754 단정도·배정도 비트 구성과 값 계산식](../../assets/diagrams/cs-qna-computer-architecture-10.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

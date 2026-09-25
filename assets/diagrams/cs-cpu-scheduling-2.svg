@@ -1,56 +1,120 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">SJF (Shortest Job First) — 비선점</title>
-  <desc id="d">SJF 비선점 알고리즘의 프로세스 실행 Gantt 차트와 대기 시간 및 평균 대기 시간 계산 과정</desc>
-  <rect width="880" height="340" fill="#ffffff"/>
-
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">SJF (Shortest Job First) — 비선점</text>
-
-  <!-- Gantt Chart Timeline -->
-  <!-- Time ticks -->
-  <text x="60" y="72" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">0</text>
-  <text x="392.5" y="72" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">7</text>
-  <text x="440" y="72" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">8</text>
-  <text x="630" y="72" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">12</text>
-  <text x="820" y="72" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">16</text>
-
-  <!-- Gantt Chart Bars -->
-  <!-- P1: 0 to 7 (width 332.5) -->
-  <rect x="60" y="80" width="332.5" height="40" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="4"/>
-  <text x="226.25" y="104" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">P1</text>
-
-  <!-- P3: 7 to 8 (width 47.5) -->
-  <rect x="392.5" y="80" width="47.5" height="40" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="4"/>
-  <text x="416.25" y="104" font-size="14" font-weight="bold" fill="#7c3aed" text-anchor="middle">P3</text>
-
-  <!-- P2: 8 to 12 (width 190) -->
-  <rect x="440" y="80" width="190" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-  <text x="535" y="104" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">P2</text>
-
-  <!-- P4: 12 to 16 (width 190) -->
-  <rect x="630" y="80" width="190" height="40" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" rx="4"/>
-  <text x="725" y="104" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">P4</text>
-
-  <!-- Timeline base line markers -->
-  <line x1="60" y1="80" x2="60" y2="120" stroke="#1f2933" stroke-width="2"/>
-  <line x1="392.5" y1="80" x2="392.5" y2="120" stroke="#1f2933" stroke-width="1.5"/>
-  <line x1="440" y1="80" x2="440" y2="120" stroke="#1f2933" stroke-width="1.5"/>
-  <line x1="630" y1="80" x2="630" y2="120" stroke="#1f2933" stroke-width="1.5"/>
-  <line x1="820" y1="80" x2="820" y2="120" stroke="#1f2933" stroke-width="2"/>
-
-  <!-- Description below timeline -->
-  <text x="60" y="152" font-size="13" fill="#52606d">(0시점엔 P1만 있어 P1부터. 이후 남은 것 중 짧은 순)</text>
-
-  <!-- Separator -->
-  <line x1="30" y1="180" x2="850" y2="180" stroke="#cbd2d9" stroke-width="1"/>
-
-  <!-- Statistics Section -->
-  <rect x="30" y="200" width="820" height="110" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1" rx="6"/>
-
-  <text x="60" y="238" font-size="13" font-weight="bold" fill="#1f2933">
-    대기 시간: <tspan fill="#2563eb">P1=0</tspan>, <tspan fill="#7c3aed">P3=7-4=3</tspan>, <tspan fill="#059669">P2=8-2=6</tspan>, <tspan fill="#d97706">P4=12-5=7</tspan>
-  </text>
-
-  <text x="60" y="278" font-size="14" font-weight="bold" fill="#1f2933">
-    평균 대기 시간 = (0+3+6+7)/4 = 4.0
-  </text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">SJF 실행 순서와 대기 시간</title>
+  <desc id="d">SJF(비선점)의 간트 차트와 작업별 대기 구간입니다. 0시점엔 P1만 있어 P1(0~7)부터 실행하고, 이후 남은 것 중 짧은 순으로 P3(7~8), P2(8~12), P4(12~16)를 실행합니다. 대기 시간은 P1=0, P3=7-4=3, P2=8-2=6, P4=12-5=7로 평균 4.0입니다.</desc>
+  <rect width="880" height="520" fill="#ffffff"/>
+  <!-- 범례 -->
+  <path d="M506,25 L520,25 L513,37 Z" fill="#374151"/>
+  <text x="526" y="37" font-size="15" fill="#111827">도착</text>
+  <rect x="578" y="23" width="32" height="16" rx="2" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="618" y="37" font-size="15" fill="#111827">대기 (Ready 큐)</text>
+  <rect x="752" y="23" width="8" height="16" fill="#dbeafe"/>
+  <rect x="760" y="23" width="8" height="16" fill="#d1fae5"/>
+  <rect x="768" y="23" width="8" height="16" fill="#fef3c7"/>
+  <rect x="776" y="23" width="8" height="16" fill="#ede9fe"/>
+  <rect x="752" y="23" width="32" height="16" fill="none" stroke="#374151" stroke-width="1.5"/>
+  <text x="792" y="37" font-size="15" fill="#111827">실행</text>
+  <!-- CPU 간트 차트 -->
+  <text x="24" y="100" font-size="17" font-weight="bold" fill="#111827">CPU</text>
+  <text x="24" y="119" font-size="14" fill="#4b5563">실행 순서</text>
+  <line x1="160" y1="75" x2="160" y2="82" stroke="#374151" stroke-width="1.5"/>
+  <text x="160" y="69" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">0</text>
+  <line x1="391" y1="75" x2="391" y2="82" stroke="#374151" stroke-width="1.5"/>
+  <text x="391" y="69" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">7</text>
+  <line x1="424" y1="75" x2="424" y2="82" stroke="#374151" stroke-width="1.5"/>
+  <text x="424" y="69" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">8</text>
+  <line x1="556" y1="75" x2="556" y2="82" stroke="#374151" stroke-width="1.5"/>
+  <text x="556" y="69" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">12</text>
+  <line x1="688" y1="75" x2="688" y2="82" stroke="#374151" stroke-width="1.5"/>
+  <text x="688" y="69" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">16</text>
+  <rect x="161" y="82" width="229" height="44" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="275.5" y="110" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">P1</text>
+  <rect x="392" y="82" width="31" height="44" rx="3" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <text x="407.5" y="110" font-size="16" font-weight="bold" fill="#92400e" text-anchor="middle">P3</text>
+  <rect x="425" y="82" width="130" height="44" rx="3" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="490" y="110" font-size="16" font-weight="bold" fill="#065f46" text-anchor="middle">P2</text>
+  <rect x="557" y="82" width="130" height="44" rx="3" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="622" y="110" font-size="16" font-weight="bold" fill="#5b21b6" text-anchor="middle">P4</text>
+  <!-- 간트 주석 -->
+  <path d="M163,129 V136 H388 V129" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="275.5" y="154" font-size="14" fill="#374151" text-anchor="middle">0시점엔 P1만 있어 P1부터</text>
+  <path d="M394,129 V136 H685 V129" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="539.5" y="154" font-size="14" fill="#374151" text-anchor="middle">이후 남은 것 중 짧은 순</text>
+  <!-- 작업별 대기·실행 구간 -->
+  <line x1="160" y1="170" x2="160" y2="398" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="391" y1="170" x2="391" y2="398" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="424" y1="170" x2="424" y2="398" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="556" y1="170" x2="556" y2="398" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="688" y1="170" x2="688" y2="398" stroke="#d1d5db" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="856" y="150" font-size="15" font-weight="bold" fill="#111827" text-anchor="end">대기 시간</text>
+  <text x="856" y="170" font-size="14" fill="#4b5563" text-anchor="end">시작 − 도착</text>
+  <!-- P1 -->
+  <text x="24" y="196" font-size="17" font-weight="bold" fill="#1e3a8a">P1</text>
+  <text x="24" y="215" font-size="14" fill="#4b5563">도착 0 · 버스트 7</text>
+  <rect x="161" y="184" width="229" height="30" rx="2" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <path d="M153,171 L167,171 L160,182 Z" fill="#374151"/>
+  <text x="856" y="205" font-size="17" fill="#111827" text-anchor="end"><tspan font-weight="bold">0</tspan></text>
+  <!-- P2 -->
+  <text x="24" y="250" font-size="17" font-weight="bold" fill="#065f46">P2</text>
+  <text x="24" y="269" font-size="14" fill="#4b5563">도착 2 · 버스트 4</text>
+  <rect x="227" y="238" width="196" height="30" rx="2" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="325" y="258" font-size="15" fill="#374151" text-anchor="middle">대기 6</text>
+  <rect x="425" y="238" width="130" height="30" rx="2" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <path d="M219,225 L233,225 L226,236 Z" fill="#374151"/>
+  <text x="856" y="259" font-size="17" fill="#111827" text-anchor="end"><tspan>8 − 2 = </tspan><tspan font-weight="bold">6</tspan></text>
+  <!-- P3 -->
+  <text x="24" y="304" font-size="17" font-weight="bold" fill="#92400e">P3</text>
+  <text x="24" y="323" font-size="14" fill="#4b5563">도착 4 · 버스트 1</text>
+  <rect x="293" y="292" width="97" height="30" rx="2" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="341.5" y="312" font-size="15" fill="#374151" text-anchor="middle">대기 3</text>
+  <rect x="392" y="292" width="31" height="30" rx="2" fill="#fef3c7" stroke="#b45309" stroke-width="1.5"/>
+  <path d="M285,279 L299,279 L292,290 Z" fill="#374151"/>
+  <text x="856" y="313" font-size="17" fill="#111827" text-anchor="end"><tspan>7 − 4 = </tspan><tspan font-weight="bold">3</tspan></text>
+  <!-- P4 -->
+  <text x="24" y="358" font-size="17" font-weight="bold" fill="#5b21b6">P4</text>
+  <text x="24" y="377" font-size="14" fill="#4b5563">도착 5 · 버스트 4</text>
+  <rect x="326" y="346" width="229" height="30" rx="2" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="440.5" y="366" font-size="15" fill="#374151" text-anchor="middle">대기 7</text>
+  <rect x="557" y="346" width="130" height="30" rx="2" fill="#ede9fe" stroke="#6d28d9" stroke-width="1.5"/>
+  <path d="M318,333 L332,333 L325,344 Z" fill="#374151"/>
+  <text x="856" y="367" font-size="17" fill="#111827" text-anchor="end"><tspan>12 − 5 = </tspan><tspan font-weight="bold">7</tspan></text>
+  <!-- 시간 눈금 -->
+  <line x1="160" y1="398" x2="688" y2="398" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="160" y1="398" x2="160" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="160" y="420" font-size="14" fill="#4b5563" text-anchor="middle">0</text>
+  <line x1="193" y1="398" x2="193" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="193" y="420" font-size="14" fill="#4b5563" text-anchor="middle">1</text>
+  <line x1="226" y1="398" x2="226" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="226" y="420" font-size="14" fill="#4b5563" text-anchor="middle">2</text>
+  <line x1="259" y1="398" x2="259" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="259" y="420" font-size="14" fill="#4b5563" text-anchor="middle">3</text>
+  <line x1="292" y1="398" x2="292" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="292" y="420" font-size="14" fill="#4b5563" text-anchor="middle">4</text>
+  <line x1="325" y1="398" x2="325" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="325" y="420" font-size="14" fill="#4b5563" text-anchor="middle">5</text>
+  <line x1="358" y1="398" x2="358" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="358" y="420" font-size="14" fill="#4b5563" text-anchor="middle">6</text>
+  <line x1="391" y1="398" x2="391" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="391" y="420" font-size="14" fill="#4b5563" text-anchor="middle">7</text>
+  <line x1="424" y1="398" x2="424" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="424" y="420" font-size="14" fill="#4b5563" text-anchor="middle">8</text>
+  <line x1="457" y1="398" x2="457" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="457" y="420" font-size="14" fill="#4b5563" text-anchor="middle">9</text>
+  <line x1="490" y1="398" x2="490" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="490" y="420" font-size="14" fill="#4b5563" text-anchor="middle">10</text>
+  <line x1="523" y1="398" x2="523" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="523" y="420" font-size="14" fill="#4b5563" text-anchor="middle">11</text>
+  <line x1="556" y1="398" x2="556" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="556" y="420" font-size="14" fill="#4b5563" text-anchor="middle">12</text>
+  <line x1="589" y1="398" x2="589" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="589" y="420" font-size="14" fill="#4b5563" text-anchor="middle">13</text>
+  <line x1="622" y1="398" x2="622" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="622" y="420" font-size="14" fill="#4b5563" text-anchor="middle">14</text>
+  <line x1="655" y1="398" x2="655" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="655" y="420" font-size="14" fill="#4b5563" text-anchor="middle">15</text>
+  <line x1="688" y1="398" x2="688" y2="404" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="688" y="420" font-size="14" fill="#4b5563" text-anchor="middle">16</text>
+  <text x="24" y="420" font-size="14" fill="#4b5563">시간</text>
+  <!-- 평균 대기 시간 -->
+  <rect x="24" y="444" width="832" height="52" rx="6" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="44" y="477" font-size="18" fill="#111827"><tspan font-weight="bold">평균 대기 시간</tspan><tspan> = (0+3+6+7)/4 = </tspan><tspan font-size="20" font-weight="bold" fill="#1d4ed8">4.0</tspan></text>
 </svg>

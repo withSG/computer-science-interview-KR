@@ -1,86 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 370" width="880" height="370" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">단편화 비교</title>
-  <desc id="d">내부 단편화와 외부 단편화의 정의, 설명 및 예시를 비교한 다이어그램</desc>
-  <rect width="880" height="370" fill="#ffffff"/>
-  <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-amber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#d97706"/>
-    </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
-    </marker>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">내부 단편화와 외부 단편화</title>
+  <desc id="d">내부 단편화는 4KB 페이지에 3.5KB 데이터만 들어 0.5KB가 할당된 공간 안에서 낭비되는 경우이고, 외부 단편화는 할당 사이에 흩어진 구멍 때문에 큰 연속 공간을 얻지 못하는 경우임을 비교한다.</desc>
+  <rect width="880" height="540" fill="#ffffff"/>
 
-  <!-- Title -->
-  <text x="40" y="40" font-size="16" font-weight="bold" fill="#1f2933">단편화 비교</text>
+  <!-- 내부 단편화 -->
+  <rect x="24" y="24" width="832" height="228" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="60" font-size="20" font-weight="bold" fill="#111827">내부 단편화<tspan font-size="16" font-weight="normal" fill="#4b5563"> (Internal Fragmentation)</tspan></text>
+  <text x="48" y="90" font-size="16" fill="#111827">할당된 공간 <tspan font-weight="bold">내부</tspan>에 낭비 발생</text>
 
-  <!-- Internal Fragmentation Card -->
-  <rect x="40" y="60" width="800" height="130" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  
-  <text x="60" y="93" font-size="14" font-weight="bold" fill="#2563eb">내부 단편화 (Internal Fragmentation):</text>
-  <text x="80" y="122" font-size="13" fill="#1f2933">할당된 공간 내부에 낭비 발생</text>
-  <text x="80" y="152" font-size="13" fill="#52606d">예: 4KB 페이지에 3.5KB 데이터 → 0.5KB 낭비</text>
+  <text x="440" y="126" font-size="15" font-weight="bold" fill="#374151" text-anchor="middle">4KB 페이지 (할당된 공간)</text>
+  <path d="M48,146 V138 H832 V146" stroke="#374151" stroke-width="1.5" fill="none"/>
 
-  <!-- Internal Visual Representation -->
-  <!-- 4KB Dimension bar -->
-  <path d="M 520,80 L 800,80" stroke="#52606d" stroke-width="1"/>
-  <path d="M 520,75 L 520,85" stroke="#52606d" stroke-width="1"/>
-  <path d="M 800,75 L 800,85" stroke="#52606d" stroke-width="1"/>
-  <rect x="620" y="70" width="80" height="18" fill="#eff6ff"/>
-  <text x="660" y="83" font-size="11.5" fill="#52606d" text-anchor="middle">4KB 페이지</text>
+  <rect x="48" y="150" width="686" height="50" fill="#dbeafe"/>
+  <rect x="734" y="150" width="98" height="50" fill="#fee2e2"/>
+  <line x1="734" y1="150" x2="734" y2="200" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="48" y="150" width="784" height="50" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <text x="391" y="181" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">3.5KB 데이터</text>
+  <text x="783" y="180" font-size="15" font-weight="bold" fill="#991b1b" text-anchor="middle">0.5KB 낭비</text>
 
-  <!-- Page Container -->
-  <rect x="520" y="95" width="280" height="42" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  <!-- Used 3.5KB Data -->
-  <rect x="520" y="95" width="245" height="42" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5" rx="4 0 0 4"/>
-  <text x="642" y="121" font-size="13" font-weight="bold" fill="#1e40af" text-anchor="middle">3.5KB 데이터</text>
-  <!-- 0.5KB Wasted -->
-  <rect x="765" y="95" width="35" height="42" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3" rx="0 4 4 0"/>
-  
-  <!-- 0.5KB Wasted Label/Arrow -->
-  <path d="M 782,165 L 782,143" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="732" y="152" width="100" height="22" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
-  <text x="782" y="167" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">0.5KB 낭비</text>
+  <text x="48" y="232" font-size="15" fill="#374151">예: 4KB 페이지에 3.5KB 데이터 → 0.5KB 낭비</text>
 
+  <!-- 외부 단편화 -->
+  <rect x="24" y="272" width="832" height="244" rx="10" fill="#f9fafb" stroke="#d1d5db" stroke-width="1.5"/>
+  <text x="48" y="308" font-size="20" font-weight="bold" fill="#111827">외부 단편화<tspan font-size="16" font-weight="normal" fill="#4b5563"> (External Fragmentation)</tspan></text>
+  <text x="48" y="338" font-size="16" fill="#111827">여러 곳에 흩어진 빈 공간 때문에 큰 <tspan font-weight="bold">연속</tspan> 공간 없음</text>
 
-  <!-- External Fragmentation Card -->
-  <rect x="40" y="210" width="800" height="130" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <rect x="158" y="366" width="100" height="50" fill="#fee2e2"/>
+  <rect x="388" y="366" width="100" height="50" fill="#fee2e2"/>
+  <rect x="48" y="366" width="110" height="50" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="258" y="366" width="130" height="50" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="488" y="366" width="112" height="50" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="48" y="366" width="552" height="50" fill="none" stroke="#1f2937" stroke-width="2"/>
+  <text x="103" y="397" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">할당</text>
+  <text x="208" y="396" font-size="15" font-weight="bold" fill="#991b1b" text-anchor="middle">구멍</text>
+  <text x="323" y="397" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">할당</text>
+  <text x="438" y="396" font-size="15" font-weight="bold" fill="#991b1b" text-anchor="middle">구멍</text>
+  <text x="544" y="397" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">할당</text>
 
-  <text x="60" y="243" font-size="14" font-weight="bold" fill="#d97706">외부 단편화 (External Fragmentation):</text>
-  <text x="80" y="272" font-size="13" fill="#1f2933">여러 곳에 흩어진 빈 공간 때문에 큰 연속 공간 없음</text>
-  <text x="80" y="302" font-size="13" fill="#52606d">예: 세그먼트 할당/해제 반복 시 중간에 구멍 발생</text>
+  <path d="M208,422 V434 H438 V422" stroke="#b91c1c" stroke-width="1.5" fill="none"/>
+  <text x="323" y="456" font-size="15" font-weight="bold" fill="#991b1b" text-anchor="middle">흩어진 빈 공간 (구멍)</text>
 
-  <!-- External Visual Representation -->
-  <!-- Total Memory Bar -->
-  <rect x="520" y="245" width="280" height="42" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-  
-  <!-- Allocated Segments -->
-  <rect x="520" y="245" width="60" height="42" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="4 0 0 4"/>
-  <text x="550" y="271" font-size="11.5" fill="#92400e" text-anchor="middle">할당</text>
+  <rect x="648" y="366" width="184" height="50" rx="4" fill="#ffffff" stroke="#374151" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="740" y="397" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">큰 연속 공간 필요</text>
+  <text x="740" y="440" font-size="15" font-weight="bold" fill="#b91c1c" text-anchor="middle">들어갈 곳 없음</text>
 
-  <!-- Hole 1 -->
-  <rect x="580" y="245" width="35" height="42" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <text x="597" y="271" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">구멍</text>
-
-  <!-- Allocated Segment 2 -->
-  <rect x="615" y="245" width="80" height="42" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
-  <text x="655" y="271" font-size="11.5" fill="#92400e" text-anchor="middle">할당</text>
-
-  <!-- Hole 2 -->
-  <rect x="695" y="245" width="40" height="42" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3 3"/>
-  <text x="715" y="271" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">구멍</text>
-
-  <!-- Allocated Segment 3 -->
-  <rect x="735" y="245" width="65" height="42" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" rx="0 4 4 0"/>
-  <text x="767" y="271" font-size="11.5" fill="#92400e" text-anchor="middle">할당</text>
-
-  <!-- Pointer for Holes -->
-  <path d="M 597,315 L 597,293" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <path d="M 715,315 L 715,293" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-  <rect x="580" y="302" width="152" height="22" fill="#ffffff" stroke="#dc2626" stroke-width="1" rx="4"/>
-  <text x="656" y="317" font-size="11.5" font-weight="bold" fill="#dc2626" text-anchor="middle">흩어진 빈 공간 (구멍)</text>
-
+  <text x="48" y="494" font-size="15" fill="#374151">예: 세그먼트 할당/해제 반복 시 중간에 구멍 발생</text>
 </svg>

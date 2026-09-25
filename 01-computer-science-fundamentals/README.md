@@ -13,7 +13,7 @@
 ## 하위 폴더 구조
 
 <!-- diagram:cs-README-1 -->
-![하위 폴더 구조](../assets/diagrams/cs-README-1.svg)
+![컴퓨터 공학 기초 하위 폴더 5개와 각 주제](../assets/diagrams/cs-README-1.svg)
 
 <!-- 위 그림이 대체한 원본 ASCII.
      내용을 고칠 때는 그림도 함께 갱신할 것.

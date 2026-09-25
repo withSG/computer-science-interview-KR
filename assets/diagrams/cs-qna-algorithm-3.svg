@@ -1,53 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 340" width="880" height="340" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">가장 큰 숫자 만들기 예시</title>
-  <desc id="d">입력 배열 [3, 30, 34, 5, 9]가 비교 "330" vs "303"을 거쳐 정렬된 배열 [9, 5, 34, 3, 30]이 되고 최종 출력 "9534330"이 되는 과정을 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 440" width="880" height="440" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">가장 큰 숫자 만들기</title>
+  <desc id="d">입력 [3, 30, 34, 5, 9]를 두 수 a, b를 이어 붙인 "ab"와 "ba" 중 큰 쪽이 앞에 오도록 정렬하면 [9, 5, 34, 3, 30]이 되고, 이어 붙인 출력은 "9534330"입니다. 예를 들어 "330"과 "303"을 비교해 3이 30보다 앞에 옵니다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
-    <marker id="a-purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/>
-    </marker>
-    <marker id="a-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#059669"/>
+    <marker id="down" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
     </marker>
   </defs>
-  <rect width="880" height="340" fill="#ffffff"/>
+  <rect width="880" height="440" fill="#ffffff"/>
 
-  <!-- Row 1: 입력 -->
-  <rect x="180" y="30" width="80" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="54.6" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">입력:</text>
-  
-  <rect x="270" y="30" width="430" height="40" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="485" y="54.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[3, 30, 34, 5, 9]</text>
+  <!-- 단계 사이 화살표 -->
+  <line x1="344" y1="78" x2="344" y2="102" stroke="#4b5563" stroke-width="1.5" marker-end="url(#down)"/>
+  <line x1="344" y1="256" x2="344" y2="282" stroke="#4b5563" stroke-width="1.5" marker-end="url(#down)"/>
+  <line x1="344" y1="336" x2="344" y2="362" stroke="#4b5563" stroke-width="1.5" marker-end="url(#down)"/>
 
-  <!-- Arrow 1 -> 2 -->
-  <path d="M485,70 L485,100" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <!-- 1. 입력 -->
+  <circle cx="46" cy="50" r="14" fill="#1f2937"/>
+  <text x="46" y="55" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="70" y="56" font-size="17" font-weight="bold" fill="#111827">입력</text>
+  <rect x="180" y="28" width="56" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="208" y="57" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">3</text>
+  <rect x="248" y="28" width="56" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="276" y="57" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">30</text>
+  <rect x="316" y="28" width="56" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="344" y="57" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">34</text>
+  <rect x="384" y="28" width="56" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="412" y="57" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">5</text>
+  <rect x="452" y="28" width="56" height="44" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="480" y="57" font-size="20" font-weight="bold" fill="#1e3a8a" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">9</text>
 
-  <!-- Row 2: 비교 -->
-  <rect x="180" y="100" width="80" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="124.6" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">비교:</text>
+  <!-- 2. 비교 -->
+  <circle cx="46" cy="179" r="14" fill="#1f2937"/>
+  <text x="46" y="184" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="70" y="185" font-size="17" font-weight="bold" fill="#111827">비교</text>
+  <rect x="180" y="106" width="676" height="146" rx="10" fill="#fffbeb" stroke="#b45309" stroke-width="1.5"/>
+  <text x="204" y="134" font-size="15" fill="#78350f">두 수 a, b를 이어 붙인 "ab"와 "ba"를 비교 (a=3, b=30)</text>
 
-  <rect x="270" y="100" width="430" height="40" rx="6" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="485" y="124.6" font-size="14" fill="#1f2933" text-anchor="middle">"330" vs "303" → 3이 30보다 앞</text>
+  <text x="204" y="177" font-size="17" font-weight="bold" fill="#78350f" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"ab"</text>
+  <rect x="252" y="150" width="40" height="40" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="272" y="177" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">3</text>
+  <rect x="292" y="150" width="52" height="40" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="318" y="177" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">30</text>
+  <text x="358" y="177" font-size="20" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">= "330"</text>
 
-  <!-- Arrow 2 -> 3 -->
-  <path d="M485,140 L485,170" stroke="#7c3aed" stroke-width="1.5" fill="none" marker-end="url(#a-purple)"/>
+  <text x="478" y="176" font-size="16" font-weight="bold" fill="#4b5563" text-anchor="middle">vs</text>
 
-  <!-- Row 3: 정렬 -->
-  <rect x="180" y="170" width="80" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="194.6" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">정렬:</text>
+  <text x="516" y="177" font-size="17" font-weight="bold" fill="#78350f" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"ba"</text>
+  <rect x="564" y="150" width="52" height="40" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="590" y="177" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">30</text>
+  <rect x="616" y="150" width="40" height="40" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="636" y="177" font-size="20" font-weight="bold" fill="#111827" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">3</text>
+  <text x="670" y="177" font-size="20" font-weight="bold" fill="#111827" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">= "303"</text>
 
-  <rect x="270" y="170" width="430" height="40" rx="6" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="485" y="194.6" font-size="14" font-weight="bold" fill="#1f2933" text-anchor="middle">[9, 5, 34, 3, 30]</text>
+  <text x="204" y="228" font-size="17" font-weight="bold" fill="#111827">"330" &gt; "303"  →  <tspan fill="#b45309">3이 30보다 앞</tspan></text>
 
-  <!-- Arrow 3 -> 4 -->
-  <path d="M485,210 L485,240" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-green)"/>
+  <!-- 3. 정렬 -->
+  <circle cx="46" cy="308" r="14" fill="#1f2937"/>
+  <text x="46" y="313" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="70" y="314" font-size="17" font-weight="bold" fill="#111827">정렬</text>
+  <rect x="180" y="286" width="56" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="208" y="315" font-size="20" font-weight="bold" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">9</text>
+  <rect x="248" y="286" width="56" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="276" y="315" font-size="20" font-weight="bold" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">5</text>
+  <rect x="316" y="286" width="56" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="344" y="315" font-size="20" font-weight="bold" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">34</text>
+  <rect x="384" y="286" width="56" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="412" y="315" font-size="20" font-weight="bold" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">3</text>
+  <rect x="452" y="286" width="56" height="44" rx="6" fill="#f5f3ff" stroke="#6d28d9" stroke-width="1.5"/>
+  <text x="480" y="315" font-size="20" font-weight="bold" fill="#4c1d95" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">30</text>
+  <text x="532" y="314" font-size="15" fill="#4b5563">더 큰 조합이 앞에 오도록 정렬</text>
 
-  <!-- Row 4: 출력 -->
-  <rect x="180" y="240" width="80" height="40" rx="6" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="220" y="264.6" font-size="14" font-weight="bold" fill="#52606d" text-anchor="middle">출력:</text>
-
-  <rect x="270" y="240" width="430" height="40" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="485" y="264.6" font-size="14" font-weight="bold" fill="#059669" text-anchor="middle">"9534330"</text>
+  <!-- 4. 출력 -->
+  <circle cx="46" cy="388" r="14" fill="#1f2937"/>
+  <text x="46" y="393" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="70" y="394" font-size="17" font-weight="bold" fill="#111827">출력</text>
+  <rect x="180" y="366" width="35" height="44" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="197.5" y="395" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">9</text>
+  <rect x="215" y="366" width="35" height="44" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="232.5" y="395" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">5</text>
+  <rect x="250" y="366" width="46" height="44" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="273" y="395" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">34</text>
+  <rect x="296" y="366" width="35" height="44" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="313.5" y="395" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">3</text>
+  <rect x="331" y="366" width="46" height="44" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="354" y="395" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">30</text>
+  <text x="400" y="395" font-size="20" font-weight="bold" fill="#374151" text-anchor="middle">=</text>
+  <rect x="424" y="366" width="150" height="44" rx="6" fill="#047857" stroke="#047857" stroke-width="1.5"/>
+  <text x="499" y="396" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle" font-family="Consolas,'D2Coding',Menlo,'Malgun Gothic',monospace">"9534330"</text>
+  <text x="596" y="394" font-size="15" fill="#4b5563">정렬 순서대로 이어 붙임</text>
 </svg>

@@ -1,60 +1,113 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 570" width="880" height="570" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">페이징 (Paging)</title>
-  <desc id="d">가상 메모리와 물리 메모리의 페이징 매핑 구조 및 장단점을 나타낸 다이어그램</desc>
-  <rect width="880" height="570" fill="#ffffff"/>
-
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 840" width="880" height="840" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">페이징의 분할과 주소 변환</title>
+  <desc id="d">가상 메모리를 고정 크기 페이지로, 물리 메모리를 같은 크기 프레임으로 나누고 페이지 테이블이 페이지 번호를 프레임 번호로 바꿔 주소를 변환하는 과정과, 페이징의 장점과 단점을 보여 준다.</desc>
   <defs>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/>
+    </marker>
+    <marker id="ah-gray" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="10" markerHeight="10" markerUnits="userSpaceOnUse" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
     </marker>
   </defs>
+  <rect width="880" height="840" fill="#ffffff"/>
 
-  <!-- Title Zone -->
-  <text x="30" y="40" font-size="16" font-weight="bold" fill="#1f2933">페이징 (Paging)</text>
+  <!-- ① 분할 -->
+  <text x="40" y="46" font-size="17" font-weight="bold" fill="#111827">① 고정 크기로 분할</text>
 
-  <!-- Section 1: Concept Definition -->
-  <rect x="30" y="60" width="820" height="70" rx="6" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1"/>
-  <text x="50" y="88" font-size="13" fill="#1f2933">가상 메모리를 고정 크기 "페이지(Page)"로 분할</text>
-  <text x="50" y="112" font-size="13" fill="#1f2933">물리 메모리를 동일 크기 "프레임(Frame)"으로 분할</text>
+  <text x="165" y="84" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">가상 메모리</text>
+  <text x="165" y="106" font-size="15" fill="#4b5563" text-anchor="middle">고정 크기 페이지(Page)로 분할</text>
+  <text x="440" y="84" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">페이지 테이블</text>
+  <text x="440" y="106" font-size="15" fill="#4b5563" text-anchor="middle">페이지 번호 → 프레임 번호 매핑</text>
+  <text x="715" y="84" font-size="17" font-weight="bold" fill="#111827" text-anchor="middle">물리 메모리</text>
+  <text x="715" y="106" font-size="15" fill="#4b5563" text-anchor="middle">동일 크기 프레임(Frame)으로 분할</text>
 
-  <!-- Section 2: Address Mapping Visual -->
-  <!-- Virtual Address -->
-  <rect x="30" y="150" width="310" height="50" rx="4" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="40" y="180" font-size="13" font-weight="bold" fill="#2563eb">가상 주소 =</text>
-  <rect x="135" y="158" width="105" height="34" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="187.5" y="180" font-size="13" text-anchor="middle" fill="#1f2933">페이지 번호</text>
-  <line x1="240" y1="158" x2="240" y2="192" stroke="#9aa5b1" stroke-width="1"/>
-  <rect x="240" y="158" width="90" height="34" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="285" y="180" font-size="13" text-anchor="middle" fill="#1f2933">오프셋</text>
+  <!-- 가상 메모리: 페이지 0~3 -->
+  <rect x="50" y="124" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="50" y="164" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="50" y="204" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="50" y="244" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="165" y="150" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">페이지 0</text>
+  <text x="165" y="190" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">페이지 1</text>
+  <text x="165" y="230" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">페이지 2</text>
+  <text x="165" y="270" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">페이지 3</text>
 
-  <!-- Mapping Node: Page Table -->
-  <rect x="375" y="150" width="290" height="50" rx="4" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5"/>
-  <text x="520" y="180" font-size="13" font-weight="bold" text-anchor="middle" fill="#7c3aed">페이지 테이블: 페이지 번호 → 프레임 번호 매핑</text>
+  <!-- 페이지 테이블 -->
+  <rect x="330" y="124" width="220" height="40" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="330" y="164" width="220" height="160" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="440" y1="124" x2="440" y2="324" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="330" y1="204" x2="550" y2="204" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="330" y1="244" x2="550" y2="244" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="330" y1="284" x2="550" y2="284" stroke="#d1d5db" stroke-width="1"/>
+  <text x="385" y="149" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">페이지 번호</text>
+  <text x="495" y="149" font-size="15" font-weight="bold" fill="#111827" text-anchor="middle">프레임 번호</text>
+  <text x="385" y="190" font-size="16" fill="#111827" text-anchor="middle">0</text>
+  <text x="495" y="190" font-size="16" fill="#111827" text-anchor="middle">2</text>
+  <text x="385" y="230" font-size="16" fill="#111827" text-anchor="middle">1</text>
+  <text x="495" y="230" font-size="16" fill="#111827" text-anchor="middle">5</text>
+  <text x="385" y="270" font-size="16" fill="#111827" text-anchor="middle">2</text>
+  <text x="495" y="270" font-size="16" fill="#111827" text-anchor="middle">0</text>
+  <text x="385" y="310" font-size="16" fill="#111827" text-anchor="middle">3</text>
+  <text x="495" y="310" font-size="16" fill="#111827" text-anchor="middle">3</text>
 
-  <!-- Physical Address -->
-  <rect x="30" y="220" width="310" height="50" rx="4" fill="#ecfdf5" stroke="#059669" stroke-width="1.5"/>
-  <text x="40" y="250" font-size="13" font-weight="bold" fill="#059669">물리 주소 =</text>
-  <rect x="135" y="228" width="105" height="34" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="187.5" y="250" font-size="13" text-anchor="middle" fill="#1f2933">프레임 번호</text>
-  <line x1="240" y1="228" x2="240" y2="262" stroke="#9aa5b1" stroke-width="1"/>
-  <rect x="240" y="228" width="90" height="34" fill="#ffffff" stroke="#9aa5b1" stroke-width="1"/>
-  <text x="285" y="250" font-size="13" text-anchor="middle" fill="#1f2933">오프셋</text>
+  <!-- 물리 메모리: 프레임 0~5 -->
+  <rect x="600" y="124" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="600" y="164" width="230" height="40" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="600" y="204" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="600" y="244" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="600" y="284" width="230" height="40" fill="#f9fafb" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="600" y="324" width="230" height="40" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="616" y="149" font-size="15" fill="#374151">프레임 0</text>
+  <text x="814" y="150" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="end">페이지 2</text>
+  <text x="616" y="189" font-size="15" fill="#4b5563">프레임 1</text>
+  <text x="616" y="229" font-size="15" fill="#374151">프레임 2</text>
+  <text x="814" y="230" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="end">페이지 0</text>
+  <text x="616" y="269" font-size="15" fill="#374151">프레임 3</text>
+  <text x="814" y="270" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="end">페이지 3</text>
+  <text x="616" y="309" font-size="15" fill="#4b5563">프레임 4</text>
+  <text x="616" y="349" font-size="15" fill="#374151">프레임 5</text>
+  <text x="814" y="350" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="end">페이지 1</text>
 
-  <!-- Connectors -->
-  <path d="M 340 175 L 375 175" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <path d="M 520 200 L 520 245 L 340 245" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
+  <path d="M288,204 H326" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-ink)"/>
+  <path d="M556,204 H596" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#ah-ink)"/>
 
-  <!-- Section 3: Advantages & Disadvantages -->
-  <!-- Advantages Box -->
-  <rect x="30" y="295" width="820" height="110" rx="6" fill="#ecfdf5" stroke="#059669" stroke-width="1"/>
-  <text x="50" y="325" font-size="14" font-weight="bold" fill="#059669">장점:</text>
-  <text x="70" y="355" font-size="13" fill="#1f2933">- 외부 단편화(External Fragmentation) 없음</text>
-  <text x="70" y="380" font-size="13" fill="#1f2933">- 연속되지 않은 메모리에 프로세스 배치 가능</text>
+  <!-- ② 주소 변환 -->
+  <text x="40" y="410" font-size="17" font-weight="bold" fill="#111827">② 주소 변환</text>
 
-  <!-- Disadvantages Box -->
-  <rect x="30" y="420" width="820" height="125" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/>
-  <text x="50" y="450" font-size="14" font-weight="bold" fill="#dc2626">단점:</text>
-  <text x="70" y="480" font-size="13" fill="#1f2933">- 내부 단편화(Internal Fragmentation) 발생</text>
-  <text x="85" y="505" font-size="11.5" fill="#52606d">(마지막 페이지가 꽉 차지 않으면 낭비)</text>
-  <text x="70" y="530" font-size="13" fill="#1f2933">- 페이지 테이블 오버헤드</text>
+  <path d="M235,486 V440 H785 V484" stroke="#6b7280" stroke-width="2" fill="none" marker-end="url(#ah-gray)"/>
+  <rect x="444" y="428" width="132" height="24" fill="#ffffff"/>
+  <text x="510" y="445" font-size="15" fill="#374151" text-anchor="middle">오프셋은 그대로</text>
+
+  <text x="40" y="474" font-size="16" font-weight="bold" fill="#111827">가상 주소</text>
+  <rect x="40" y="486" width="140" height="48" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="180" y="486" width="110" height="48" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="110" y="516" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">페이지 번호</text>
+  <text x="235" y="516" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">오프셋</text>
+
+  <text x="590" y="474" font-size="16" font-weight="bold" fill="#111827">물리 주소</text>
+  <rect x="590" y="486" width="140" height="48" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <rect x="730" y="486" width="110" height="48" fill="#f3f4f6" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="660" y="516" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">프레임 번호</text>
+  <text x="785" y="516" font-size="16" font-weight="bold" fill="#374151" text-anchor="middle">오프셋</text>
+
+  <rect x="350" y="562" width="180" height="52" rx="6" fill="#ffffff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="440" y="594" font-size="16" font-weight="bold" fill="#1e3a8a" text-anchor="middle">페이지 테이블</text>
+  <path d="M110,534 V588 H350" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+  <path d="M530,588 H660 V534" stroke="#1d4ed8" stroke-width="2" fill="none" marker-end="url(#ah-blue)"/>
+
+  <!-- ③ 장단점 -->
+  <text x="40" y="664" font-size="17" font-weight="bold" fill="#111827">③ 장점과 단점</text>
+
+  <rect x="40" y="680" width="392" height="132" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.5"/>
+  <text x="60" y="710" font-size="18" font-weight="bold" fill="#047857">장점</text>
+  <text x="60" y="742" font-size="15" fill="#111827">• 외부 단편화(External Fragmentation) 없음</text>
+  <text x="60" y="770" font-size="15" fill="#111827">• 연속되지 않은 메모리에 프로세스 배치 가능</text>
+
+  <rect x="448" y="680" width="392" height="132" rx="8" fill="#fef2f2" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="468" y="710" font-size="18" font-weight="bold" fill="#b91c1c">단점</text>
+  <text x="468" y="742" font-size="15" fill="#111827">• 내부 단편화(Internal Fragmentation) 발생</text>
+  <text x="482" y="766" font-size="15" fill="#4b5563">(마지막 페이지가 꽉 차지 않으면 낭비)</text>
+  <text x="468" y="794" font-size="15" fill="#111827">• 페이지 테이블 오버헤드</text>
 </svg>

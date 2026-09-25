@@ -1,81 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">1. 왜 무상태(Stateless)로 만들었나</title>
-  <desc id="d">Stateful 서버와 Stateless 서버의 구조 차이 및 특징을 비교하는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 670" width="880" height="670" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Stateful 서버와 Stateless 서버 비교</title>
+  <desc id="d">Stateful 서버에서는 사용자 A의 상태가 서버1에만 있어 A가 서버1로만 가야 하고 서버1이 죽으면 진행 상황이 사라진다. Stateless 서버에서는 A의 요청이 어느 서버로 가도 똑같이 처리되어 서버를 자유롭게 늘릴 수 있고 한 대가 죽어도 다른 서버가 받는다.</desc>
+  <rect width="880" height="670" fill="#ffffff"/>
 
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
+    <marker id="ar-gray" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <marker id="ar-green" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="11" markerHeight="11" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#047857"/>
     </marker>
   </defs>
 
-  <!-- 제목 -->
-  <text x="440" y="32" font-size="16" font-weight="bold" fill="#1f2933" text-anchor="middle">1. 왜 무상태(Stateless)로 만들었나</text>
+  <!-- ===== Stateful ===== -->
+  <rect x="24" y="24" width="832" height="300" rx="10" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="48" y="61" font-size="20" font-weight="bold" fill="#b91c1c">Stateful 서버</text>
+  <text x="212" y="60" font-size="16" fill="#374151">사용자 A의 상태 → 서버1에만 있음</text>
 
-  <!-- 구분 바탕 영역 ( Stateful vs Stateless 영역 구분 ) -->
-  <rect x="30" y="55" width="395" height="420" fill="#fef2f2" rx="8" stroke="#dc2626" stroke-width="1" stroke-dasharray="4 4"/>
-  <rect x="455" y="55" width="395" height="420" fill="#ecfdf5" rx="8" stroke="#059669" stroke-width="1" stroke-dasharray="4 4"/>
+  <!-- 사용자 A -->
+  <rect x="64" y="144" width="120" height="48" rx="24" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="124" y="174" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">사용자 A</text>
 
-  <!-- [Stateful 서버] 영역 -->
-  <text x="227" y="85" font-size="16" font-weight="bold" fill="#dc2626" text-anchor="middle">[Stateful 서버]</text>
-  
-  <text x="60" y="125" font-size="13" fill="#1f2933">사용자 A의 상태 → 서버1에만 있음</text>
+  <!-- 서버들 -->
+  <rect x="330" y="86" width="170" height="44" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="348" y="114" font-size="16" font-weight="bold" fill="#1f2937">서버1</text>
+  <rect x="411" y="95" width="77" height="26" rx="13" fill="#fee2e2" stroke="#b91c1c" stroke-width="1.2"/>
+  <text x="449.5" y="113" font-size="15" font-weight="bold" fill="#991b1b" text-anchor="middle">A의 상태</text>
 
-  <!-- Stateful 서버 박스 그룹 -->
-  <g stroke="#9aa5b1" stroke-width="1.5" fill="#ffffff">
-    <rect x="80" y="150" width="120" height="150" rx="4"/>
-    <line x1="80" y1="200" x2="200" y2="200"/>
-    <line x1="80" y1="250" x2="200" y2="250"/>
-  </g>
-  <text x="140" y="179" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">서버1</text>
-  <text x="140" y="229" font-size="13" fill="#1f2933" text-anchor="middle">서버2</text>
-  <text x="140" y="279" font-size="13" fill="#1f2933" text-anchor="middle">서버3</text>
+  <rect x="330" y="146" width="170" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="348" y="174" font-size="16" font-weight="bold" fill="#4b5563">서버2</text>
 
-  <!-- Stateful 화살표 및 설명 라벨 -->
-  <path d="M260,175 L209,175" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="215" y="160" width="160" height="20" fill="#ffffff" rx="2"/>
-  <text x="217" y="174" font-size="12" fill="#1f2933">A는 무조건 여기로만</text>
+  <rect x="330" y="206" width="170" height="44" rx="6" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="348" y="234" font-size="16" font-weight="bold" fill="#4b5563">서버3</text>
 
-  <path d="M260,225 L209,225" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="215" y="210" width="165" height="20" fill="#ffffff" rx="2"/>
-  <text x="217" y="224" font-size="12" fill="#1f2933">A가 오면 "누구세요?"</text>
+  <!-- 화살표 -->
+  <line x1="186" y1="160" x2="324" y2="110" stroke="#b91c1c" stroke-width="2.5" marker-end="url(#ar-red)"/>
+  <line x1="186" y1="168" x2="324" y2="168" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#ar-gray)"/>
 
-  <!-- Stateful 하단 문구 -->
-  <rect x="50" y="380" width="355" height="36" fill="#fffbeb" rx="4" stroke="#d97706" stroke-width="1"/>
-  <text x="227" y="403" font-size="13" font-weight="bold" fill="#dc2626" text-anchor="middle">서버1이 죽으면 A의 진행 상황도 소멸</text>
+  <!-- 설명 -->
+  <text x="524" y="114" font-size="16" font-weight="bold" fill="#991b1b">A는 무조건 여기로만</text>
+  <text x="524" y="174" font-size="16" fill="#374151">A가 오면 "누구세요?"</text>
 
+  <!-- 결과 -->
+  <rect x="48" y="266" width="784" height="40" rx="6" fill="#fee2e2"/>
+  <text x="440" y="292" font-size="17" font-weight="bold" fill="#991b1b" text-anchor="middle">서버1이 죽으면 A의 진행 상황도 소멸</text>
 
-  <!-- [Stateless 서버] 영역 -->
-  <text x="652" y="85" font-size="16" font-weight="bold" fill="#059669" text-anchor="middle">[Stateless 서버]</text>
+  <!-- ===== Stateless ===== -->
+  <rect x="24" y="344" width="832" height="300" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="48" y="381" font-size="20" font-weight="bold" fill="#047857">Stateless 서버</text>
+  <text x="222" y="380" font-size="16" fill="#374151">상태 없음</text>
 
-  <text x="505" y="125" font-size="13" fill="#1f2933">상태 없음</text>
+  <!-- 사용자 A -->
+  <rect x="64" y="464" width="120" height="48" rx="24" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="124" y="494" font-size="17" font-weight="bold" fill="#1e3a8a" text-anchor="middle">사용자 A</text>
 
-  <!-- Stateless 서버 박스 그룹 -->
-  <g stroke="#059669" stroke-width="1.5" fill="#eff6ff">
-    <rect x="525" y="150" width="120" height="150" rx="4"/>
-    <line x1="525" y1="200" x2="645" y2="200"/>
-    <line x1="525" y1="250" x2="645" y2="250"/>
-  </g>
-  <text x="585" y="179" font-size="13" font-weight="bold" fill="#1f2933" text-anchor="middle">서버1</text>
-  <text x="585" y="229" font-size="13" stroke-width="0" fill="#1f2933" text-anchor="middle">서버2</text>
-  <text x="585" y="279" font-size="13" stroke-width="0" fill="#1f2933" text-anchor="middle">서버3</text>
+  <!-- 서버들 -->
+  <rect x="330" y="406" width="170" height="44" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="348" y="434" font-size="16" font-weight="bold" fill="#1f2937">서버1</text>
+  <rect x="330" y="466" width="170" height="44" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="348" y="494" font-size="16" font-weight="bold" fill="#1f2937">서버2</text>
+  <rect x="330" y="526" width="170" height="44" rx="6" fill="#ffffff" stroke="#374151" stroke-width="1.5"/>
+  <text x="348" y="554" font-size="16" font-weight="bold" fill="#1f2937">서버3</text>
 
-  <!-- Stateless 화살표 및 설명 라벨 -->
-  <path d="M700,175 L654,175" stroke="#2563eb" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-  <rect x="660" y="160" width="115" height="35" fill="#ffffff" rx="2"/>
-  <text x="662" y="174" font-size="12" fill="#2563eb">A의 요청이</text>
-  <text x="662" y="190" font-size="12" fill="#2563eb">아무 서버로 가도</text>
-  <text x="662" y="206" font-size="12" fill="#2563eb">동일하게 처리됨</text>
+  <!-- 화살표 -->
+  <line x1="186" y1="480" x2="324" y2="430" stroke="#047857" stroke-width="2.5" marker-end="url(#ar-green)"/>
+  <line x1="186" y1="488" x2="324" y2="488" stroke="#047857" stroke-width="2.5" marker-end="url(#ar-green)"/>
+  <line x1="186" y1="496" x2="324" y2="546" stroke="#047857" stroke-width="2.5" marker-end="url(#ar-green)"/>
 
-  <path d="M700,275 L654,275" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-  <rect x="660" y="265" width="165" height="20" fill="#ffffff" rx="2"/>
-  <text x="662" y="279" font-size="12" fill="#059669">서버 추가가 자유롭다</text>
+  <!-- 설명 -->
+  <text x="524" font-size="16" font-weight="bold" fill="#065f46"><tspan x="524" y="453">A의 요청이 아무 서버로 가도</tspan><tspan x="524" dy="23">동일하게 처리됨</tspan></text>
+  <text x="524" y="554" font-size="16" fill="#374151">서버 추가가 자유롭다</text>
 
-  <!-- Stateless 하단 문구 -->
-  <rect x="475" y="380" width="355" height="36" fill="#eff6ff" rx="4" stroke="#2563eb" stroke-width="1"/>
-  <text x="652" y="403" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">서버가 죽어도 다른 서버가 받으면 그만</text>
-
+  <!-- 결과 -->
+  <rect x="48" y="586" width="784" height="40" rx="6" fill="#d1fae5"/>
+  <text x="440" y="612" font-size="17" font-weight="bold" fill="#065f46" text-anchor="middle">서버가 죽어도 다른 서버가 받으면 그만</text>
 </svg>

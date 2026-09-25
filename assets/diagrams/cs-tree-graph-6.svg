@@ -1,140 +1,103 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">두 가지 저장 방식</title>
-  <desc id="d">그래프와 이를 표현하는 인접 행렬 및 인접 리스트 저장 방식을 비교 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">인접 행렬과 인접 리스트</title>
+  <desc id="d">정점 0~3과 간선 0-1, 0-2, 1-2, 2-3으로 된 그래프를 두 방식으로 저장한다. 인접 행렬은 V×V 2차원 배열로 공간 O(V²), 인접 리스트는 정점마다 이웃 목록(0→[1,2], 1→[0,2], 2→[0,1,3], 3→[2])으로 공간 O(V + E)다.</desc>
+  <rect width="880" height="600" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
-    <marker id="a-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/>
-    </marker>
+    <marker id="mk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/></marker>
+    <marker id="mg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#047857"/></marker>
   </defs>
-  <rect width="880" height="520" fill="#ffffff"/>
-
-  <!-- Section 1: Graph Representation -->
-  <g id="graph-section">
-    <rect x="30" y="20" width="820" height="150" fill="#f8fafc" stroke="#cbd2d9" stroke-width="1" rx="8"/>
-    <text x="50" y="48.55" font-size="16" font-weight="bold" fill="#1f2933">그래프:</text>
-
-    <!-- Edge Lines -->
-    <!-- 0 - 1 -->
-    <line x1="200" y1="65" x2="300" y2="65" stroke="#52606d" stroke-width="2"/>
-    <!-- 0 - 2 -->
-    <line x1="200" y1="65" x2="200" y2="135" stroke="#52606d" stroke-width="2"/>
-    <!-- 1 - 2 (Diagonal) -->
-    <line x1="300" y1="65" x2="200" y2="135" stroke="#52606d" stroke-width="2"/>
-    <!-- 2 - 3 -->
-    <line x1="200" y1="135" x2="300" y2="135" stroke="#52606d" stroke-width="2"/>
-
-    <!-- Nodes -->
-    <!-- Node 0 -->
-    <circle cx="200" cy="65" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="200" y="69.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">0</text>
-
-    <!-- Node 1 -->
-    <circle cx="300" cy="65" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="300" y="69.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">1</text>
-
-    <!-- Node 2 -->
-    <circle cx="200" cy="135" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="200" y="139.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">2</text>
-
-    <!-- Node 3 -->
-    <circle cx="300" cy="135" r="18" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
-    <text x="300" y="139.55" font-size="14" font-weight="bold" fill="#2563eb" text-anchor="middle">3</text>
-  </g>
-
-  <!-- Section 2: Adjacency Matrix -->
-  <g id="matrix-section">
-    <rect x="30" y="190" width="395" height="300" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1" rx="8"/>
-    <text x="50" y="223.55" font-size="16" font-weight="bold" fill="#1f2933">인접 행렬 (Adjacency Matrix)</text>
-
-    <!-- Matrix Table Header Labels -->
-    <text x="175" y="259.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">0</text>
-    <text x="215" y="259.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">1</text>
-    <text x="255" y="259.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">2</text>
-    <text x="295" y="259.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">3</text>
-
-    <!-- Row 0 -->
-    <text x="135" y="289.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">0</text>
-    <rect x="160" y="272" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="175" y="289.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-    <rect x="200" y="272" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="215" y="289.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-    <rect x="240" y="272" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="255" y="289.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-    <rect x="280" y="272" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="295" y="289.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-
-    <!-- Row 1 -->
-    <text x="135" y="324.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">1</text>
-    <rect x="160" y="307" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="175" y="324.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-    <rect x="200" y="307" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="215" y="324.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-    <rect x="240" y="307" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="255" y="324.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-    <rect x="280" y="307" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="295" y="324.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-
-    <!-- Row 2 -->
-    <text x="135" y="359.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">2</text>
-    <rect x="160" y="342" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="175" y="359.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-    <rect x="200" y="342" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="215" y="359.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-    <rect x="240" y="342" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="255" y="359.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-    <rect x="280" y="342" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="295" y="359.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-
-    <!-- Row 3 -->
-    <text x="135" y="394.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">3</text>
-    <rect x="160" y="377" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="175" y="394.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-    <rect x="200" y="377" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="215" y="394.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-    <rect x="240" y="377" width="30" height="26" fill="#ffffff" stroke="#2563eb" stroke-width="1.5" rx="3"/>
-    <text x="255" y="394.55" font-size="13" font-weight="bold" fill="#2563eb" text-anchor="middle">[1]</text>
-    <rect x="280" y="377" width="30" height="26" fill="#ffffff" stroke="#9aa5b1" stroke-width="1" rx="3"/>
-    <text x="295" y="394.55" font-size="13" fill="#1f2933" text-anchor="middle">[0]</text>
-
-    <!-- Matrix Footnotes -->
-    <text x="50" y="440.02" font-size="14" fill="#1f2933">V×V 2차원 배열</text>
-    <text x="50" y="465.02" font-size="14" font-weight="bold" fill="#2563eb">공간 O(V²)</text>
-  </g>
-
-  <!-- Section 3: Adjacency List -->
-  <g id="list-section">
-    <rect x="455" y="190" width="395" height="300" fill="#ecfdf5" stroke="#9aa5b1" stroke-width="1" rx="8"/>
-    <text x="475" y="223.55" font-size="16" font-weight="bold" fill="#1f2933">인접 리스트 (Adjacency List)</text>
-
-    <!-- List Row 0 -->
-    <text x="580" y="271.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">0</text>
-    <path d="M 595 267 L 620 267" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="630" y="254" width="70" height="26" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="665" y="271.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[1, 2]</text>
-
-    <!-- List Row 1 -->
-    <text x="580" y="306.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">1</text>
-    <path d="M 595 302 L 620 302" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="630" y="289" width="70" height="26" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="665" y="306.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[0, 2]</text>
-
-    <!-- List Row 2 -->
-    <text x="580" y="341.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">2</text>
-    <path d="M 595 337 L 620 337" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="630" y="324" width="90" height="26" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="675" y="341.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[0, 1, 3]</text>
-
-    <!-- List Row 3 -->
-    <text x="580" y="376.55" font-size="13" font-weight="bold" fill="#52606d" text-anchor="middle">3</text>
-    <path d="M 595 372 L 620 372" stroke="#059669" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <rect x="630" y="359" width="45" height="26" fill="#ffffff" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="652.5" y="376.55" font-size="13" font-weight="bold" fill="#059669" text-anchor="middle">[2]</text>
-
-    <!-- List Footnotes -->
-    <text x="475" y="440.02" font-size="14" fill="#1f2933">정점마다 이웃 목록</text>
-    <text x="475" y="465.02" font-size="14" font-weight="bold" fill="#059669">공간 O(V + E)</text>
-  </g>
+  <text x="348" y="114" font-size="17" font-weight="bold" text-anchor="end" fill="#1f2933">그래프</text>
+  <line x1="412.0" y1="58.0" x2="468.0" y2="58.0" stroke="#4b5563" stroke-width="2.5"/>
+  <line x1="390.0" y1="80.0" x2="390.0" y2="136.0" stroke="#4b5563" stroke-width="2.5"/>
+  <line x1="474.4" y1="73.6" x2="405.6" y2="142.4" stroke="#4b5563" stroke-width="2.5"/>
+  <line x1="412.0" y1="158.0" x2="468.0" y2="158.0" stroke="#4b5563" stroke-width="2.5"/>
+  <circle cx="390" cy="58" r="22" fill="#f3f4f6" stroke="#1f2933" stroke-width="2"/>
+  <text x="390" y="64.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">0</text>
+  <circle cx="490" cy="58" r="22" fill="#f3f4f6" stroke="#1f2933" stroke-width="2"/>
+  <text x="490" y="64.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
+  <circle cx="390" cy="158" r="22" fill="#f3f4f6" stroke="#1f2933" stroke-width="2"/>
+  <text x="390" y="164.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">2</text>
+  <circle cx="490" cy="158" r="22" fill="#f3f4f6" stroke="#1f2933" stroke-width="2"/>
+  <text x="490" y="164.5" font-size="19" font-weight="bold" text-anchor="middle" fill="#1f2933">3</text>
+  <path d="M 360 176 Q 250 196 226 228" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#mk)"/>
+  <path d="M 520 176 Q 630 196 654 228" fill="none" stroke="#4b5563" stroke-width="2" marker-end="url(#mk)"/>
+  <rect x="24" y="240" width="404" height="336" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <rect x="452" y="240" width="404" height="336" rx="10" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="226" y="274" font-size="18" font-weight="bold" text-anchor="middle" fill="#1d4ed8">인접 행렬 (Adjacency Matrix)</text>
+  <text x="654" y="274" font-size="18" font-weight="bold" text-anchor="middle" fill="#047857">인접 리스트 (Adjacency List)</text>
+  <text x="178" y="310" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">0</text>
+  <text x="222" y="310" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">1</text>
+  <text x="266" y="310" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">2</text>
+  <text x="310" y="310" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">3</text>
+  <text x="136" y="351.5" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">0</text>
+  <rect x="156" y="324" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="178" y="352" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <rect x="200" y="324" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="222" y="352" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <rect x="244" y="324" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="266" y="352" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <rect x="288" y="324" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="310" y="352" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <text x="136" y="395.5" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">1</text>
+  <rect x="156" y="368" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="178" y="396" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <rect x="200" y="368" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="222" y="396" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <rect x="244" y="368" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="266" y="396" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <rect x="288" y="368" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="310" y="396" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <text x="136" y="439.5" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">2</text>
+  <rect x="156" y="412" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="178" y="440" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <rect x="200" y="412" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="222" y="440" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <rect x="244" y="412" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="266" y="440" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <rect x="288" y="412" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="310" y="440" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <text x="136" y="483.5" font-size="16" font-weight="bold" text-anchor="middle" fill="#374151">3</text>
+  <rect x="156" y="456" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="178" y="484" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <rect x="200" y="456" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="222" y="484" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <rect x="244" y="456" width="44" height="44" fill="#dbeafe" stroke="#9ca3af" stroke-width="1"/>
+  <text x="266" y="484" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">1</text>
+  <rect x="288" y="456" width="44" height="44" fill="#ffffff" stroke="#9ca3af" stroke-width="1"/>
+  <text x="310" y="484" font-size="17" text-anchor="middle" fill="#6b7280">0</text>
+  <rect x="156" y="324" width="176" height="176" fill="none" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="568" y="310" font-size="14" text-anchor="middle" fill="#4b5563">정점</text>
+  <text x="640" y="310" font-size="14" fill="#4b5563">이웃 목록</text>
+  <rect x="546" y="328" width="44" height="36" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="568" y="352" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857">0</text>
+  <line x1="598" y1="346" x2="632" y2="346" stroke="#047857" stroke-width="2" marker-end="url(#mg)"/>
+  <rect x="640" y="328" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="660" y="352" font-size="17" text-anchor="middle" fill="#1f2933">1</text>
+  <rect x="680" y="328" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="352" font-size="17" text-anchor="middle" fill="#1f2933">2</text>
+  <rect x="546" y="372" width="44" height="36" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="568" y="396" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857">1</text>
+  <line x1="598" y1="390" x2="632" y2="390" stroke="#047857" stroke-width="2" marker-end="url(#mg)"/>
+  <rect x="640" y="372" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="660" y="396" font-size="17" text-anchor="middle" fill="#1f2933">0</text>
+  <rect x="680" y="372" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="396" font-size="17" text-anchor="middle" fill="#1f2933">2</text>
+  <rect x="546" y="416" width="44" height="36" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="568" y="440" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857">2</text>
+  <line x1="598" y1="434" x2="632" y2="434" stroke="#047857" stroke-width="2" marker-end="url(#mg)"/>
+  <rect x="640" y="416" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="660" y="440" font-size="17" text-anchor="middle" fill="#1f2933">0</text>
+  <rect x="680" y="416" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="440" font-size="17" text-anchor="middle" fill="#1f2933">1</text>
+  <rect x="720" y="416" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="740" y="440" font-size="17" text-anchor="middle" fill="#1f2933">3</text>
+  <rect x="546" y="460" width="44" height="36" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="568" y="484" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857">3</text>
+  <line x1="598" y1="478" x2="632" y2="478" stroke="#047857" stroke-width="2" marker-end="url(#mg)"/>
+  <rect x="640" y="460" width="40" height="36" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="660" y="484" font-size="17" text-anchor="middle" fill="#1f2933">2</text>
+  <text x="226" y="536" font-size="16" text-anchor="middle" fill="#1f2933">V×V 2차원 배열</text>
+  <text x="226" y="564" font-size="17" font-weight="bold" text-anchor="middle" fill="#1d4ed8">공간 O(V²)</text>
+  <text x="654" y="536" font-size="16" text-anchor="middle" fill="#1f2933">정점마다 이웃 목록</text>
+  <text x="654" y="564" font-size="17" font-weight="bold" text-anchor="middle" fill="#047857">공간 O(V + E)</text>
 </svg>

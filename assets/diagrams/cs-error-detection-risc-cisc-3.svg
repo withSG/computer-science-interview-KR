@@ -1,100 +1,151 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">코드로 보기 — 4비트 데이터 1001 보내기</title>
-  <desc id="d">해밍 코드 수신 측에서 비트 오류를 감지하고 신드롬 계산을 통해 오류 위치 5번 비트를 복구하는 과정을 나타낸 다이어그램입니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">해밍 코드 수신 측 — 신드롬으로 오류 위치 찾기</title>
+  <desc id="d">받은 값 0011101에서 5번 비트가 뒤집혔을 때 수신 측이 C1, C2, C4 패리티 그룹을 다시 XOR하면 C1과 C4만 깨집니다. 신드롬 C4 C2 C1 = 101(2진) = 5(10진)이므로 5번 비트를 뒤집어 원본을 복구합니다.</desc>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    <marker id="ar-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
     </marker>
-    <marker id="a-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/>
+    <marker id="ar-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
     </marker>
   </defs>
+  <rect width="880" height="580" fill="#ffffff"/>
 
-  <!-- 배경 -->
-  <rect width="880" height="520" fill="#ffffff"/>
-
-  <!-- 헤딩 -->
-  <text x="30" y="38" font-size="16" font-weight="bold" fill="#1f2933">코드로 보기 — 4비트 데이터 1001 보내기</text>
-
-  <!-- 섹션 1: 받은 값 / 비트 스트립 -->
-  <g transform="translate(30, 60)">
-    <text x="0" y="32" font-size="13" font-weight="bold" fill="#1f2933">받은 값:</text>
-    
-    <!-- 위치 헤더 & 비트 박스 -->
-    <!-- Bit 1 -->
-    <text x="100" y="16" font-size="11.5" text-anchor="middle" fill="#52606d">1</text>
-    <rect x="80" y="24" width="40" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="100" y="47" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">0</text>
-
-    <!-- Bit 2 -->
-    <text x="150" y="16" font-size="11.5" text-anchor="middle" fill="#52606d">2</text>
-    <rect x="130" y="24" width="40" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="150" y="47" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">0</text>
-
-    <!-- Bit 3 -->
-    <text x="200" y="16" font-size="11.5" text-anchor="middle" fill="#52606d">3</text>
-    <rect x="180" y="24" width="40" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="200" y="47" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
-
-    <!-- Bit 4 -->
-    <text x="250" y="16" font-size="11.5" text-anchor="middle" fill="#52606d">4</text>
-    <rect x="230" y="24" width="40" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="250" y="47" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
-
-    <!-- Bit 5 (에러 발생 위치) -->
-    <text x="300" y="16" font-size="11.5" font-weight="bold" text-anchor="middle" fill="#dc2626">5</text>
-    <rect x="280" y="24" width="40" height="36" fill="#fef2f2" stroke="#dc2626" stroke-width="2" rx="4"/>
-    <text x="300" y="47" font-size="14" font-weight="bold" text-anchor="middle" fill="#dc2626">1</text>
-
-    <!-- Bit 6 -->
-    <text x="350" y="16" font-size="11.5" text-anchor="middle" fill="#52606d">6</text>
-    <rect x="330" y="24" width="40" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="350" y="47" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">0</text>
-
-    <!-- Bit 7 -->
-    <text x="400" y="16" font-size="11.5" text-anchor="middle" fill="#52606d">7</text>
-    <rect x="380" y="24" width="40" height="36" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="400" y="47" font-size="14" font-weight="bold" text-anchor="middle" fill="#1f2933">1</text>
-
-    <!-- 화살표 및 설명 -->
-    <path d="M300,85 L300,66" stroke="#dc2626" stroke-width="1.5" fill="none" marker-end="url(#a-red)"/>
-    <text x="312" y="82" font-size="13" fill="#dc2626" font-weight="bold">원래 0이었는데 1로 바뀜</text>
+  <!-- ① 받은 값 -->
+  <text x="24" y="46" font-size="14" fill="#4b5563">위치</text>
+  <g font-size="15" fill="#4b5563" text-anchor="middle">
+    <text x="218" y="46">1</text>
+    <text x="270" y="46">2</text>
+    <text x="322" y="46">3</text>
+    <text x="374" y="46">4</text>
+    <text x="426" y="46" font-weight="bold" fill="#b91c1c">5</text>
+    <text x="478" y="46">6</text>
+    <text x="530" y="46">7</text>
   </g>
-
-  <!-- 섹션 2: 패리티 재계산 안내문 -->
-  <text x="30" y="180" font-size="13" fill="#1f2933">수신 측이 각 패리티 그룹을 다시 XOR해 본다 (0이 나와야 정상):</text>
-
-  <!-- 섹션 3: 패리티 수식 박스 -->
-  <!-- C1 패리티 그룹 -->
-  <g transform="translate(30, 200)">
-    <rect x="0" y="0" width="820" height="40" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="4"/>
-    <text x="16" y="24" font-size="13" font-weight="bold" fill="#1f2933">C1 = 위치 1,3,5,7 XOR = 0 ⊕ 1 ⊕ 1 ⊕ 1 = 1</text>
-    <text x="400" y="24" font-size="13" font-weight="bold" fill="#dc2626">→ 깨짐</text>
+  <text x="24" y="85" font-size="18" font-weight="bold" fill="#111827">받은 값</text>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.5">
+    <rect x="196" y="56" width="44" height="44" rx="4"/>
+    <rect x="248" y="56" width="44" height="44" rx="4"/>
+    <rect x="300" y="56" width="44" height="44" rx="4"/>
+    <rect x="352" y="56" width="44" height="44" rx="4"/>
+    <rect x="456" y="56" width="44" height="44" rx="4"/>
+    <rect x="508" y="56" width="44" height="44" rx="4"/>
   </g>
-
-  <!-- C2 패리티 그룹 -->
-  <g transform="translate(30, 248)">
-    <rect x="0" y="0" width="820" height="40" fill="#ecfdf5" stroke="#059669" stroke-width="1" rx="4"/>
-    <text x="16" y="24" font-size="13" font-weight="bold" fill="#1f2933">C2 = 위치 2,3,6,7 XOR = 0 ⊕ 1 ⊕ 0 ⊕ 1 = 0</text>
-    <text x="400" y="24" font-size="13" font-weight="bold" fill="#059669">→ 정상</text>
+  <rect x="404" y="56" width="44" height="44" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+  <g font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="218" y="85">0</text>
+    <text x="270" y="85">0</text>
+    <text x="322" y="85">1</text>
+    <text x="374" y="85">1</text>
+    <text x="426" y="85" fill="#b91c1c">1</text>
+    <text x="478" y="85">0</text>
+    <text x="530" y="85">1</text>
   </g>
+  <line x1="426" y1="134" x2="426" y2="106" stroke="#b91c1c" stroke-width="2" marker-end="url(#ar-red)"/>
+  <text x="440" y="132" font-size="15" font-weight="bold" fill="#b91c1c">원래 0이었는데 1로 바뀜</text>
 
-  <!-- C4 패리티 그룹 -->
-  <g transform="translate(30, 296)">
-    <rect x="0" y="0" width="820" height="40" fill="#fef2f2" stroke="#dc2626" stroke-width="1" rx="4"/>
-    <text x="16" y="24" font-size="13" font-weight="bold" fill="#1f2933">C4 = 위치 4,5,6,7 XOR = 1 ⊕ 1 ⊕ 0 ⊕ 1 = 1</text>
-    <text x="400" y="24" font-size="13" font-weight="bold" fill="#dc2626">→ 깨짐</text>
-  </g>
+  <!-- ② 패리티 그룹 다시 XOR -->
+  <text x="24" y="174" font-size="16" font-weight="bold" fill="#111827">수신 측이 각 패리티 그룹을 다시 XOR해 본다<tspan font-weight="normal" fill="#4b5563"> (0이 나와야 정상)</tspan></text>
 
-  <!-- 섹션 4: 신드롬 계산 결과 -->
-  <g transform="translate(30, 360)">
-    <rect x="0" y="0" width="820" height="48" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" rx="6"/>
-    <text x="20" y="29" font-size="14" font-weight="bold" fill="#1f2933">신드롬(syndrome) = C4 C2 C1 = 1 0 1 (2진) = 5 (10진)</text>
+  <!-- C1 -->
+  <rect x="24" y="190" width="832" height="66" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="40" y="218" font-size="20" font-weight="bold" fill="#111827">C1</text>
+  <text x="40" y="242" font-size="14" fill="#374151">위치 1,3,5,7 XOR</text>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.5">
+    <rect x="196" y="201" width="44" height="44" rx="4"/>
+    <rect x="300" y="201" width="44" height="44" rx="4"/>
+    <rect x="508" y="201" width="44" height="44" rx="4"/>
   </g>
+  <rect x="404" y="201" width="44" height="44" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+  <g fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4 3">
+    <rect x="248" y="201" width="44" height="44" rx="4"/>
+    <rect x="352" y="201" width="44" height="44" rx="4"/>
+    <rect x="456" y="201" width="44" height="44" rx="4"/>
+  </g>
+  <g font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="218" y="230">0</text>
+    <text x="322" y="230">1</text>
+    <text x="426" y="230" fill="#b91c1c">1</text>
+    <text x="530" y="230">1</text>
+  </g>
+  <text x="572" y="230" font-size="18" fill="#111827">0 ⊕ 1 ⊕ 1 ⊕ 1 = <tspan font-weight="bold" fill="#b91c1c">1</tspan></text>
+  <text x="749" y="230" font-size="18" fill="#374151">→</text>
+  <rect x="774" y="207" width="66" height="32" rx="16" fill="#b91c1c"/>
+  <text x="807" y="229" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">깨짐</text>
 
-  <!-- 섹션 5: 결론 및 요약 -->
-  <g transform="translate(30, 430)">
-    <text x="0" y="20" font-size="13" font-weight="bold" fill="#dc2626">→ 5번 비트를 뒤집으면 원본 복구 완료.</text>
-    <text x="0" y="44" font-size="13" fill="#52606d">   신드롬이 000이면 오류 없음.</text>
+  <!-- C2 -->
+  <rect x="24" y="268" width="832" height="66" rx="6" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="40" y="296" font-size="20" font-weight="bold" fill="#111827">C2</text>
+  <text x="40" y="320" font-size="14" fill="#374151">위치 2,3,6,7 XOR</text>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.5">
+    <rect x="248" y="279" width="44" height="44" rx="4"/>
+    <rect x="300" y="279" width="44" height="44" rx="4"/>
+    <rect x="456" y="279" width="44" height="44" rx="4"/>
+    <rect x="508" y="279" width="44" height="44" rx="4"/>
   </g>
+  <g fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4 3">
+    <rect x="196" y="279" width="44" height="44" rx="4"/>
+    <rect x="352" y="279" width="44" height="44" rx="4"/>
+    <rect x="404" y="279" width="44" height="44" rx="4"/>
+  </g>
+  <g font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="270" y="308">0</text>
+    <text x="322" y="308">1</text>
+    <text x="478" y="308">0</text>
+    <text x="530" y="308">1</text>
+  </g>
+  <text x="572" y="308" font-size="18" fill="#111827">0 ⊕ 1 ⊕ 0 ⊕ 1 = <tspan font-weight="bold" fill="#047857">0</tspan></text>
+  <text x="749" y="308" font-size="18" fill="#374151">→</text>
+  <rect x="774" y="285" width="66" height="32" rx="16" fill="#047857"/>
+  <text x="807" y="307" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">정상</text>
+
+  <!-- C4 -->
+  <rect x="24" y="346" width="832" height="66" rx="6" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="40" y="374" font-size="20" font-weight="bold" fill="#111827">C4</text>
+  <text x="40" y="398" font-size="14" fill="#374151">위치 4,5,6,7 XOR</text>
+  <g fill="#ffffff" stroke="#6b7280" stroke-width="1.5">
+    <rect x="352" y="357" width="44" height="44" rx="4"/>
+    <rect x="456" y="357" width="44" height="44" rx="4"/>
+    <rect x="508" y="357" width="44" height="44" rx="4"/>
+  </g>
+  <rect x="404" y="357" width="44" height="44" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="2.5"/>
+  <g fill="none" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="4 3">
+    <rect x="196" y="357" width="44" height="44" rx="4"/>
+    <rect x="248" y="357" width="44" height="44" rx="4"/>
+    <rect x="300" y="357" width="44" height="44" rx="4"/>
+  </g>
+  <g font-size="20" font-weight="bold" fill="#111827" text-anchor="middle">
+    <text x="374" y="386">1</text>
+    <text x="426" y="386" fill="#b91c1c">1</text>
+    <text x="478" y="386">0</text>
+    <text x="530" y="386">1</text>
+  </g>
+  <text x="572" y="386" font-size="18" fill="#111827">1 ⊕ 1 ⊕ 0 ⊕ 1 = <tspan font-weight="bold" fill="#b91c1c">1</tspan></text>
+  <text x="749" y="386" font-size="18" fill="#374151">→</text>
+  <rect x="774" y="363" width="66" height="32" rx="16" fill="#b91c1c"/>
+  <text x="807" y="385" font-size="16" font-weight="bold" fill="#ffffff" text-anchor="middle">깨짐</text>
+
+  <!-- ③ 신드롬 → 복구 -->
+  <rect x="24" y="432" width="832" height="96" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="40" y="488" font-size="18" font-weight="bold" fill="#111827">신드롬(syndrome) =</text>
+  <g font-size="14" font-weight="bold" fill="#374151" text-anchor="middle">
+    <text x="248" y="458">C4</text>
+    <text x="296" y="458">C2</text>
+    <text x="344" y="458">C1</text>
+  </g>
+  <rect x="228" y="464" width="40" height="40" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <rect x="276" y="464" width="40" height="40" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="2"/>
+  <rect x="324" y="464" width="40" height="40" rx="4" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+  <g font-size="20" font-weight="bold" text-anchor="middle">
+    <text x="248" y="491" fill="#b91c1c">1</text>
+    <text x="296" y="491" fill="#047857">0</text>
+    <text x="344" y="491" fill="#b91c1c">1</text>
+  </g>
+  <text x="378" y="490" font-size="17" fill="#111827">(2진) = <tspan font-size="22" font-weight="bold" fill="#b91c1c">5</tspan> (10진)</text>
+  <line x1="530" y1="482" x2="566" y2="482" stroke="#374151" stroke-width="2" marker-end="url(#ar-ink)"/>
+  <rect x="576" y="446" width="264" height="68" rx="6" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+  <text x="708" y="475" font-size="16" font-weight="bold" fill="#b91c1c" text-anchor="middle">5번 비트를 뒤집으면</text>
+  <text x="708" y="499" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">원본 복구 완료</text>
+
+  <text x="24" y="558" font-size="15" fill="#4b5563">신드롬이 000이면 오류 없음.</text>
 </svg>

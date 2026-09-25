@@ -1,38 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">DNS 캐시 계층 구조 (캐시는 몇 겹인가)</title>
-  <desc id="d">브라우저, OS, 라우터, 재귀 리졸버로 이어지는 DNS 캐시 4단계 계층과 로컬 캐시 범위 및 실제 권한 서버 조회 구분을 보여주는 다이어그램</desc>
-  <rect width="880" height="500" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 480" width="880" height="480" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">DNS 캐시 계층</title>
+  <desc id="d">브라우저 자체 DNS 캐시, OS 캐시와 hosts 파일, 라우터(공유기) 캐시, 재귀 리졸버(ISP/공개DNS) 순서로 확인하며, 이 네 겹 중 하나에서 맞으면 네트워크로 나가지 않는다. 모두 지나친 뒤에야 루트, TLD, 권한 서버에 실제 조회를 한다.</desc>
+  <rect width="880" height="480" fill="#ffffff"/>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+    <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b45309"/>
+    </marker>
+  </defs>
 
-  <!-- Background Area for Local Cache Zone -->
-  <rect x="80" y="70" width="720" height="270" rx="8" fill="#eff6ff" stroke="#9aa5b1" stroke-width="1" stroke-dasharray="6 4"/>
-  
-  <!-- Right Brackets and Annotation Text -->
-  <path d="M 520 100 L 540 100 L 540 235 L 550 235 L 540 235 L 540 370 L 520 370" fill="none" stroke="#2563eb" stroke-width="2"/>
-  
-  <rect x="565" y="218" width="220" height="34" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
-  <text x="675" y="239" font-size="12" font-weight="bold" fill="#2563eb" text-anchor="middle">여기서 맞으면 네트워크로 나가지 않는다</text>
+  <!-- ①~④ 캐시 겹 -->
+  <rect x="40" y="30" width="480" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.75"/>
+  <text x="60" y="62" font-size="17" font-weight="bold" fill="#111827">① 브라우저 자체 DNS 캐시</text>
+  <path d="M280,84 L280,103" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- Items 1 to 4 (Cache Layers) -->
-  <!-- 1. 브라우저 자체 DNS 캐시 -->
-  <rect x="110" y="85" width="390" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="130" y="115" font-size="14" font-weight="bold" fill="#1f2933">① 브라우저 자체 DNS 캐시</text>
+  <rect x="40" y="106" width="480" height="72" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.75"/>
+  <text x="60" y="136" font-size="17" font-weight="bold" fill="#111827">② OS 캐시 + hosts 파일</text>
+  <text x="60" y="162" font-size="15" fill="#4b5563">hosts 파일은 캐시가 아니라 강제 매핑</text>
+  <path d="M280,180 L280,199" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- 2. OS 캐시 + hosts 파일 -->
-  <rect x="110" y="155" width="390" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="130" y="185" font-size="14" font-weight="bold" fill="#1f2933">② OS 캐시 + hosts 파일</text>
+  <rect x="40" y="202" width="480" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.75"/>
+  <text x="60" y="234" font-size="17" font-weight="bold" fill="#111827">③ 라우터(공유기) 캐시</text>
+  <path d="M280,256 L280,275" stroke="#4b5563" stroke-width="2" fill="none" marker-end="url(#arr)"/>
 
-  <!-- 3. 라우터(공유기) 캐시 -->
-  <rect x="110" y="225" width="390" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="130" y="255" font-size="14" font-weight="bold" fill="#1f2933">③ 라우터(공유기) 캐시</text>
+  <rect x="40" y="278" width="480" height="52" rx="8" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.75"/>
+  <text x="60" y="310" font-size="17" font-weight="bold" fill="#111827">④ 재귀 리졸버(ISP/공개DNS)</text>
 
-  <!-- 4. 재귀 리졸버(ISP/공개DNS) -->
-  <rect x="110" y="295" width="390" height="50" rx="6" fill="#ffffff" stroke="#9aa5b1" stroke-width="1.5"/>
-  <text x="130" y="325" font-size="14" font-weight="bold" fill="#1f2933">④ 재귀 리졸버(ISP/공개DNS)</text>
+  <!-- 괄호: ①~④ 에서 맞으면 -->
+  <path d="M532,30 L550,30 L550,330 L532,330 M550,180 L564,180" stroke="#047857" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <rect x="572" y="146" width="272" height="68" rx="8" fill="#ecfdf5" stroke="#047857" stroke-width="1.75"/>
+  <text x="708" y="174" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">여기서 맞으면</text>
+  <text x="708" y="200" font-size="17" font-weight="bold" fill="#047857" text-anchor="middle">네트워크로 나가지 않는다</text>
 
-  <!-- Divider Line for Item 5 -->
-  <line x1="80" y1="410" x2="800" y2="410" stroke="#d97706" stroke-width="2" stroke-dasharray="4 4"/>
-  
-  <!-- Item 5 Text Label -->
-  <rect x="210" y="393" width="460" height="34" rx="4" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
-  <text x="440" y="414" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">⑤ ── 여기서부터 루트 → TLD → 권한 서버 실제 조회 ──</text>
+  <!-- 경계 -->
+  <path d="M24,358 L856,358" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="6 5" fill="none"/>
+  <path d="M280,332 L280,383" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arrA)"/>
+
+  <!-- ⑤ 실제 조회 -->
+  <rect x="40" y="386" width="804" height="70" rx="8" fill="#fff7ed" stroke="#b45309" stroke-width="1.75"/>
+  <text x="60" y="427" font-size="17" font-weight="bold" fill="#92400e">⑤ 여기서부터 실제 조회</text>
+  <rect x="330" y="403" width="80" height="36" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="370" y="427" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">루트</text>
+  <path d="M414,421 L450,421" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arrA)"/>
+  <rect x="456" y="403" width="80" height="36" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="496" y="427" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">TLD</text>
+  <path d="M540,421 L576,421" stroke="#b45309" stroke-width="2" fill="none" marker-end="url(#arrA)"/>
+  <rect x="582" y="403" width="120" height="36" rx="6" fill="#ffffff" stroke="#b45309" stroke-width="1.5"/>
+  <text x="642" y="427" font-size="16" font-weight="bold" fill="#111827" text-anchor="middle">권한 서버</text>
 </svg>

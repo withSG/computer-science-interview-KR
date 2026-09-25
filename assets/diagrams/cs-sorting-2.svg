@@ -1,110 +1,59 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">선택 정렬 (Selection Sort)</title>
-  <desc id="d">선택 정렬의 회전별 과정을 보여주는 다이어그램입니다. 각 단계에서 최솟값을 찾아 정렬된 구간으로 이동하는 과정을 나타냅니다.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" font-family="'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">선택 정렬의 회전별 진행</title>
+  <desc id="d">[5 1 4 2]를 선택 정렬하는 과정. 회전마다 남은 구간에서 최솟값을 찾아 그 구간의 맨 앞과 교환하며(1과 5, 2와 5), 최솟값 4는 이미 제자리라 교환하지 않고 완료된다.</desc>
+  <rect width="880" height="500" fill="#ffffff"/>
   <defs>
-    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
-    </marker>
+    <marker id="sb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1d4ed8"/></marker>
   </defs>
-  <rect width="880" height="520" fill="#ffffff"/>
-
-  <!-- Step 1 -->
-  <g transform="translate(40, 40)">
-    <!-- Array -->
-    <rect x="0" y="0" width="50" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="4"/>
-    <text x="25" y="30.75" font-size="16" fill="#1f2933" font-weight="bold" text-anchor="middle">5</text>
-
-    <rect x="58" y="0" width="50" height="50" fill="#fef2f2" stroke="#dc2626" stroke-width="2" rx="4"/>
-    <text x="83" y="30.75" font-size="16" fill="#dc2626" font-weight="bold" text-anchor="middle">1</text>
-
-    <rect x="116" y="0" width="50" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="141" y="30.75" font-size="16" fill="#1f2933" text-anchor="middle">4</text>
-
-    <rect x="174" y="0" width="50" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="199" y="30.75" font-size="16" fill="#1f2933" text-anchor="middle">2</text>
-
-    <!-- Swap Arrow -->
-    <path d="M 83,56 C 83,85 25,85 25,56" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a-ink)"/>
-
-    <!-- Description Text -->
-    <text x="250" y="30.75" font-size="14" fill="#1f2933">최솟값 1 찾음</text>
-    <path d="M 345,25 L 365,25" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="375" y="30.75" font-size="14" fill="#1f2933">맨 앞 5와 교환</text>
-  </g>
-
-  <!-- Step 2 -->
-  <g transform="translate(40, 150)">
-    <!-- Sorted part -->
-    <rect x="0" y="0" width="50" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="25" y="30.75" font-size="16" fill="#059669" font-weight="bold" text-anchor="middle">1</text>
-
-    <!-- Divider line -->
-    <line x1="54" y1="-5" x2="54" y2="55" stroke="#52606d" stroke-width="2.5" stroke-dasharray="4 2"/>
-
-    <!-- Unsorted part -->
-    <rect x="58" y="0" width="50" height="50" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="4"/>
-    <text x="83" y="30.75" font-size="16" fill="#1f2933" font-weight="bold" text-anchor="middle">5</text>
-
-    <rect x="116" y="0" width="50" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="141" y="30.75" font-size="16" fill="#1f2933" text-anchor="middle">4</text>
-
-    <rect x="174" y="0" width="50" height="50" fill="#fef2f2" stroke="#dc2626" stroke-width="2" rx="4"/>
-    <text x="199" y="30.75" font-size="16" fill="#dc2626" font-weight="bold" text-anchor="middle">2</text>
-
-    <!-- Swap Arrow -->
-    <path d="M 199,56 C 199,85 83,85 83,56" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#a-ink)"/>
-
-    <!-- Description Text -->
-    <text x="250" y="30.75" font-size="14" fill="#1f2933">최솟값 2 찾음</text>
-    <path d="M 345,25 L 365,25" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="375" y="30.75" font-size="14" fill="#1f2933">5와 교환</text>
-  </g>
-
-  <!-- Step 3 -->
-  <g transform="translate(40, 260)">
-    <!-- Sorted part -->
-    <rect x="0" y="0" width="50" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="25" y="30.75" font-size="16" fill="#059669" font-weight="bold" text-anchor="middle">1</text>
-
-    <rect x="58" y="0" width="50" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="83" y="30.75" font-size="16" fill="#059669" font-weight="bold" text-anchor="middle">2</text>
-
-    <!-- Divider line -->
-    <line x1="112" y1="-5" x2="112" y2="55" stroke="#52606d" stroke-width="2.5" stroke-dasharray="4 2"/>
-
-    <!-- Unsorted part -->
-    <rect x="116" y="0" width="50" height="50" fill="#fef2f2" stroke="#dc2626" stroke-width="2" rx="4"/>
-    <text x="141" y="30.75" font-size="16" fill="#dc2626" font-weight="bold" text-anchor="middle">4</text>
-
-    <rect x="174" y="0" width="50" height="50" fill="#f8fafc" stroke="#9aa5b1" stroke-width="1.5" rx="4"/>
-    <text x="199" y="30.75" font-size="16" fill="#1f2933" text-anchor="middle">5</text>
-
-    <!-- Description Text -->
-    <text x="250" y="30.75" font-size="14" fill="#1f2933">최솟값 4</text>
-    <path d="M 310,25 L 330,25" stroke="#1f2933" stroke-width="1.5" fill="none" marker-end="url(#a-ink)"/>
-    <text x="340" y="30.75" font-size="14" fill="#1f2933">이미 제자리</text>
-  </g>
-
-  <!-- Step 4 -->
-  <g transform="translate(40, 370)">
-    <!-- Sorted part -->
-    <rect x="0" y="0" width="50" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="25" y="30.75" font-size="16" fill="#059669" font-weight="bold" text-anchor="middle">1</text>
-
-    <rect x="58" y="0" width="50" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="83" y="30.75" font-size="16" fill="#059669" font-weight="bold" text-anchor="middle">2</text>
-
-    <rect x="116" y="0" width="50" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="141" y="30.75" font-size="16" fill="#059669" font-weight="bold" text-anchor="middle">4</text>
-
-    <!-- Divider line -->
-    <line x1="170" y1="-5" x2="170" y2="55" stroke="#52606d" stroke-width="2.5" stroke-dasharray="4 2"/>
-
-    <!-- Last element -->
-    <rect x="174" y="0" width="50" height="50" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" rx="4"/>
-    <text x="199" y="30.75" font-size="16" fill="#059669" font-weight="bold" text-anchor="middle">5</text>
-
-    <!-- Description Text -->
-    <text x="250" y="30.75" font-size="14" fill="#059669" font-weight="bold">완료</text>
-  </g>
+  <rect x="24" y="28" width="20" height="20" rx="4" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="52" y="44" font-size="16" fill="#111827">정렬된 구간 (| 왼쪽)</text>
+  <rect x="250" y="28" width="20" height="20" rx="4" fill="#ffedd5" stroke="#b45309" stroke-width="2.5"/>
+  <text x="278" y="44" font-size="16" fill="#111827">남은 구간의 최솟값</text>
+  <path d="M470,34 C470,50 520,50 520,34" fill="none" stroke="#1d4ed8" stroke-width="2" marker-start="url(#sb)" marker-end="url(#sb)"/>
+  <text x="532" y="44" font-size="16" fill="#111827">교환</text>
+  <text x="24" y="116" font-size="17" font-weight="bold" fill="#111827">1회전</text>
+  <rect x="112" y="84" width="56" height="52" rx="5" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="140" y="117.2" font-size="20" fill="#111827" text-anchor="middle">5</text>
+  <rect x="178" y="84" width="56" height="52" rx="5" fill="#ffedd5" stroke="#b45309" stroke-width="3"/>
+  <text x="206" y="117.2" font-size="20" font-weight="bold" fill="#7c2d12" text-anchor="middle">1</text>
+  <rect x="244" y="84" width="56" height="52" rx="5" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="272" y="117.2" font-size="20" fill="#111827" text-anchor="middle">4</text>
+  <rect x="310" y="84" width="56" height="52" rx="5" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="338" y="117.2" font-size="20" fill="#111827" text-anchor="middle">2</text>
+  <path d="M206,142 C206,176 140,176 140,142" fill="none" stroke="#1d4ed8" stroke-width="2.2" marker-start="url(#sb)" marker-end="url(#sb)"/>
+  <text x="420" y="116" font-size="18" fill="#111827"><tspan>최솟값 </tspan><tspan fill="#b45309" font-weight="bold">1</tspan><tspan> 찾음 </tspan><tspan fill="#6b7280">→</tspan><tspan> 맨 앞 5와 </tspan><tspan fill="#1d4ed8" font-weight="bold">교환</tspan></text>
+  <text x="24" y="228" font-size="17" font-weight="bold" fill="#111827">2회전</text>
+  <rect x="112" y="196" width="56" height="52" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="140" y="229.2" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">1</text>
+  <rect x="178" y="196" width="56" height="52" rx="5" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="206" y="229.2" font-size="20" fill="#111827" text-anchor="middle">5</text>
+  <rect x="244" y="196" width="56" height="52" rx="5" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="272" y="229.2" font-size="20" fill="#111827" text-anchor="middle">4</text>
+  <rect x="310" y="196" width="56" height="52" rx="5" fill="#ffedd5" stroke="#b45309" stroke-width="3"/>
+  <text x="338" y="229.2" font-size="20" font-weight="bold" fill="#7c2d12" text-anchor="middle">2</text>
+  <line x1="173" y1="189" x2="173" y2="255" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+  <path d="M338,254 C338,288 206,288 206,254" fill="none" stroke="#1d4ed8" stroke-width="2.2" marker-start="url(#sb)" marker-end="url(#sb)"/>
+  <text x="420" y="228" font-size="18" fill="#111827"><tspan>최솟값 </tspan><tspan fill="#b45309" font-weight="bold">2</tspan><tspan> 찾음 </tspan><tspan fill="#6b7280">→</tspan><tspan> 5와 </tspan><tspan fill="#1d4ed8" font-weight="bold">교환</tspan></text>
+  <text x="24" y="340" font-size="17" font-weight="bold" fill="#111827">3회전</text>
+  <rect x="112" y="308" width="56" height="52" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="140" y="341.2" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">1</text>
+  <rect x="178" y="308" width="56" height="52" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="206" y="341.2" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">2</text>
+  <rect x="244" y="308" width="56" height="52" rx="5" fill="#ffedd5" stroke="#b45309" stroke-width="3"/>
+  <text x="272" y="341.2" font-size="20" font-weight="bold" fill="#7c2d12" text-anchor="middle">4</text>
+  <rect x="310" y="308" width="56" height="52" rx="5" fill="#f9fafb" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="338" y="341.2" font-size="20" fill="#111827" text-anchor="middle">5</text>
+  <line x1="239" y1="301" x2="239" y2="367" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+  <text x="420" y="340" font-size="18" fill="#111827"><tspan>최솟값 </tspan><tspan fill="#b45309" font-weight="bold">4</tspan><tspan> </tspan><tspan fill="#6b7280">→</tspan><tspan> 이미 제자리</tspan></text>
+  <text x="24" y="440" font-size="17" font-weight="bold" fill="#111827">최종</text>
+  <rect x="112" y="408" width="56" height="52" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="140" y="441.2" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">1</text>
+  <rect x="178" y="408" width="56" height="52" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="206" y="441.2" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">2</text>
+  <rect x="244" y="408" width="56" height="52" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="272" y="441.2" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">4</text>
+  <rect x="310" y="408" width="56" height="52" rx="5" fill="#d1fae5" stroke="#047857" stroke-width="1.5"/>
+  <text x="338" y="441.2" font-size="20" font-weight="bold" fill="#065f46" text-anchor="middle">5</text>
+  <line x1="305" y1="401" x2="305" y2="467" stroke="#111827" stroke-width="3" stroke-linecap="round"/>
+  <text x="420" y="440" font-size="18" fill="#111827"><tspan fill="#047857" font-weight="bold">완료</tspan></text>
 </svg>
